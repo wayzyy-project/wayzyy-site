@@ -44,7 +44,7 @@ const complaints = [
 
 export function TestimonialsSection() {
   return (
-    <section id="why-omero" className="relative scroll-smooth-anchor overflow-hidden py-28 sm:py-40">
+    <section id="why-wayzyy" className="relative scroll-smooth-anchor overflow-hidden py-28 sm:py-40">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(var(--ember)/0.12),transparent_65%)]"
@@ -53,7 +53,7 @@ export function TestimonialsSection() {
         <Reveal>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-            Why Omero
+            Why Wayzyy
           </div>
         </Reveal>
 
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
               This is what we're building against.
             </p>
             <p className="mt-4 max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
-              Omero is built around one idea: a platform that takes strict measures against bad actors on all sides — so hosts can run legitimate businesses, travelers can book with real confidence, and a community worth belonging to actually exists.
+              Wayzyy is built around one idea: a platform that takes strict measures against bad actors on all sides — so hosts can run legitimate businesses, travelers can book with real confidence, and a community worth belonging to actually exists.
             </p>
           </div>
         </Reveal>

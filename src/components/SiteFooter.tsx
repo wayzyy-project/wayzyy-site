@@ -7,7 +7,7 @@ export function SiteFooter() {
             <span className="grid h-8 w-8 place-items-center rounded-full bg-ember text-background">
               <span className="font-display text-xl leading-none">o</span>
             </span>
-            <span className="font-display text-2xl">Omero</span>
+            <span className="font-display text-2xl">Wayzyy</span>
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             Stays without the small print. Coming soon.
@@ -24,7 +24,7 @@ export function SiteFooter() {
             Waitlist
           </a>
           <span className="hidden sm:inline text-border">·</span>
-          <span>© {new Date().getFullYear()} Omero. Built honest.</span>
+          <span>© {new Date().getFullYear()} Wayzyy. Built honest.</span>
         </div>
       </div>
     </footer>

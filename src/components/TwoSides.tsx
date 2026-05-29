@@ -101,7 +101,7 @@ export function TwoSides() {
               <h2 className="font-display text-4xl leading-[1.04] text-foreground sm:text-6xl text-balance">
                 Pick your side.{" "}
                 <span className="text-muted-foreground">
-                  Same Omero, different view.
+                  Same Wayzyy, different view.
                 </span>
               </h2>
             </div>

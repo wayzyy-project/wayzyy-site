@@ -28,7 +28,7 @@ const NotFound = () => {
           404
         </h1>
         <p className="mt-3 text-muted-foreground">
-          That path doesn't exist on Omero (yet).
+          That path doesn't exist on Wayzyy (yet).
         </p>
         <a
           href="/"

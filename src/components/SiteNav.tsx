@@ -27,7 +27,7 @@ export function SiteNav() {
             <span className="font-display text-lg leading-none">o</span>
           </span>
           <span className="font-display text-xl tracking-tight">
-            Omero
+            Wayzyy
           </span>
         </a>
         <nav className="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
