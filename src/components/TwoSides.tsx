@@ -106,13 +106,13 @@ export function TwoSides() {
               </h2>
             </div>
             {/* segmented toggle */}
-            <div className="flex shrink-0 rounded-full border border-border bg-background p-1 text-sm">
+            <div className="flex w-full rounded-full border border-border bg-background p-1 text-sm sm:w-auto sm:shrink-0">
               {(["host", "traveler"] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => setSide(s)}
                   className={
-                    "relative rounded-full px-5 py-2 transition-colors " +
+                    "relative flex-1 rounded-full px-5 py-2 text-center transition-colors sm:flex-none " +
                     (side === s
                       ? "text-background"
                       : "text-muted-foreground hover:text-foreground")
