@@ -22,13 +22,8 @@ export function SiteNav() {
       className="fixed inset-x-0 top-0 z-50 border-border"
     >
       <div className="container flex h-16 items-center justify-between">
-        <a href="#top" className="group flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-ember text-background">
-            <span className="font-display text-lg leading-none">o</span>
-          </span>
-          <span className="font-display text-xl tracking-tight">
-            Wayzyy
-          </span>
+        <a href="#top" className="group flex items-center">
+          <img src="/logo.svg" alt="Wayzyy" className="h-9 w-auto" />
         </a>
         <nav className="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
           <a className="hover:text-foreground" href="#why">

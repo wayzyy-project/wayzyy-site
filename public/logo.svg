@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 230" role="img" aria-label="Wayzyy">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&amp;display=swap');
+    </style>
+  </defs>
+  <!-- "way" upper-left -->
+  <text
+    x="14"
+    y="148"
+    font-family="'Nunito', 'Varela Round', 'Arial Rounded MT Bold', sans-serif"
+    font-weight="900"
+    font-size="148"
+    fill="#f0622a"
+    letter-spacing="-3"
+  >way</text>
+  <!-- "zyy" lower-right, offset down to create the diagonal wave -->
+  <text
+    x="242"
+    y="210"
+    font-family="'Nunito', 'Varela Round', 'Arial Rounded MT Bold', sans-serif"
+    font-weight="900"
+    font-size="155"
+    fill="#f0622a"
+    letter-spacing="-3"
+  >zyy</text>
+</svg>

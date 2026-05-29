@@ -3,11 +3,8 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-background">
       <div className="container flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-ember text-background">
-              <span className="font-display text-xl leading-none">o</span>
-            </span>
-            <span className="font-display text-2xl">Wayzyy</span>
+          <div className="flex items-center">
+            <img src="/logo.svg" alt="Wayzyy" className="h-10 w-auto" />
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             Stays without the small print. Coming soon.
