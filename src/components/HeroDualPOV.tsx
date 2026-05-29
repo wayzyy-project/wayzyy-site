@@ -57,7 +57,7 @@ export function HeroDualPOV() {
         {/* HOST PANEL (left side, visible first, slides left as we scroll) */}
         <motion.div
           style={{ x: reduce ? "0%" : travelerX, opacity: travelerOpacity }}
-          className="absolute inset-y-0 left-0 flex w-1/2 items-center"
+          className="absolute inset-y-0 left-0 flex w-3/4 items-center sm:w-1/2"
         >
           <div className="ml-[clamp(1.25rem,6vw,6rem)] max-w-md">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs uppercase tracking-[0.2em] text-muted-foreground backdrop-blur">
@@ -79,7 +79,7 @@ export function HeroDualPOV() {
         {/* TRAVELER PANEL (right side, slides in as we scroll) */}
         <motion.div
           style={{ x: reduce ? "0%" : hostX, opacity: hostOpacity }}
-          className="absolute inset-y-0 right-0 flex w-1/2 items-center justify-end"
+          className="absolute inset-y-0 right-0 flex w-3/4 items-center justify-end sm:w-1/2"
         >
           <div className="mr-[clamp(1.25rem,6vw,6rem)] max-w-md text-right">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs uppercase tracking-[0.2em] text-muted-foreground backdrop-blur">
@@ -101,15 +101,15 @@ export function HeroDualPOV() {
         {/* GROUND seam */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-muted/60 to-transparent" />
 
-        {/* BACKPACKER walks across */}
+        {/* BACKPACKER walks across — pinned to ground on mobile, floats up on desktop */}
         <motion.div
           aria-hidden
           style={{ left: walkerX, scale: walkerScale }}
-          className="pointer-events-none absolute bottom-[14%] -ml-12 z-10"
+          className="pointer-events-none absolute bottom-[2%] -ml-6 z-0 sm:bottom-[14%] sm:-ml-12 sm:z-10"
         >
-          <Backpacker className="h-44 w-32 text-foreground" />
+          <Backpacker className="h-20 w-14 text-foreground sm:h-44 sm:w-32" />
           {/* shadow */}
-          <div className="mx-auto -mt-2 h-2 w-16 rounded-full bg-foreground/20 blur-[3px]" />
+          <div className="mx-auto -mt-1 h-1 w-8 rounded-full bg-foreground/20 blur-[2px] sm:-mt-2 sm:h-2 sm:w-16 sm:blur-[3px]" />
         </motion.div>
 
         {/* scroll cue */}
