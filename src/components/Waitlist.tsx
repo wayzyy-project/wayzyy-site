@@ -11,20 +11,33 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
   const [audience, setAudience] = useState<Audience>(defaultAudience);
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email || !email.includes("@")) {
       toast.error("That doesn't look like a real email.");
       return;
     }
-    // placeholder — wire to your backend / Resend / Loops later
-    setSent(true);
-    toast.success(
-      audience === "host"
-        ? "You're on the host list. We'll be in touch before the doors open."
-        : "You're in. We'll send a postcard when stays go live."
-    );
+    setLoading(true);
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, audience }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setSent(true);
+      toast.success(
+        audience === "host"
+          ? "You're on the host list. We'll be in touch before the doors open."
+          : "You're in. We'll send a postcard when stays go live."
+      );
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -81,10 +94,11 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
             />
             <Button
               type="submit"
-              className="group h-12 gap-2 bg-foreground px-6 text-background hover:bg-foreground/90"
+              disabled={loading}
+              className="group h-12 gap-2 bg-foreground px-6 text-background hover:bg-foreground/90 disabled:opacity-60"
             >
-              {audience === "host" ? "Join host list" : "Get early access"}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              {loading ? "Sending…" : audience === "host" ? "Join host list" : "Get early access"}
+              {!loading && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
             </Button>
           </motion.form>
         ) : (
