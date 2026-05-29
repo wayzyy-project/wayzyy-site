@@ -43,7 +43,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
   return (
     <div className="w-full max-w-xl">
       <div className="mb-3 flex gap-1 rounded-full border border-border bg-card p-1 text-sm">
-        {(["traveler", "host"] as const).map((a) => (
+        {(["host", "traveler"] as const).map((a) => (
           <button
             key={a}
             type="button"
