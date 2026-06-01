@@ -1,3 +1,4 @@
+import React from "react";
 import { useScroll, useSpring, motion } from "framer-motion";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroDualPOV } from "@/components/HeroDualPOV";
@@ -9,6 +10,7 @@ import { Principles } from "@/components/Principles";
 import { HousePartiesSection } from "@/components/HousePartiesSection";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useTrackSection } from "@/hooks/use-track-section";
 
 const Index = () => {
   // top page-progress bar
@@ -18,6 +20,13 @@ const Index = () => {
     damping: 30,
     mass: 0.4,
   });
+
+  // section tracking refs
+  const whyRef = useTrackSection("Why Section");
+  const testimonialsRef = useTrackSection("Testimonials");
+  const twoSidesRef = useTrackSection("Two Sides");
+  const housePartiesRef = useTrackSection("House Parties");
+  const waitlistRef = useTrackSection("Waitlist");
 
   return (
     <div className="relative bg-background text-foreground">
@@ -42,12 +51,12 @@ const Index = () => {
           ]}
         />
 
-        <WhySection />
-        <TestimonialsSection />
-        <TwoSides />
+        <div ref={whyRef as React.RefObject<HTMLDivElement>}><WhySection /></div>
+        <div ref={testimonialsRef as React.RefObject<HTMLDivElement>}><TestimonialsSection /></div>
+        <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
         <Principles />
-        <HousePartiesSection />
-        <WaitlistSection />
+        <div ref={housePartiesRef as React.RefObject<HTMLDivElement>}><HousePartiesSection /></div>
+        <div ref={waitlistRef as React.RefObject<HTMLDivElement>}><WaitlistSection /></div>
       </main>
 
       <SiteFooter />

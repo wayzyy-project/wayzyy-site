@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import { mp } from "@/lib/mixpanel";
 
 type Audience = "traveler" | "host";
 
@@ -27,6 +28,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
         body: JSON.stringify({ email, audience }),
       });
       if (!res.ok) throw new Error("Failed");
+      mp.waitlistSignup(audience, email);
       setSent(true);
       toast.success(
         audience === "host"

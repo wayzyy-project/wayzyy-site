@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { mp } from "@/lib/mixpanel";
 import {
   Camera,
   ShieldCheck,
@@ -110,7 +111,7 @@ export function TwoSides() {
               {(["host", "traveler"] as const).map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSide(s)}
+                  onClick={() => { setSide(s); mp.sideToggled(s); }}
                   className={
                     "relative flex-1 rounded-full px-5 py-2 text-center transition-colors sm:flex-none " +
                     (side === s
