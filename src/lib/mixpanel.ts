@@ -5,7 +5,7 @@ const TOKEN = "e17e1efcd41481c832fd76b2568f6548";
 mixpanel.init(TOKEN, {
   track_pageview: false, // we fire manually so we can add properties
   persistence: "localStorage",
-  ignore_dnt: false,
+  ignore_dnt: true,
 });
 
 export const mp = {
