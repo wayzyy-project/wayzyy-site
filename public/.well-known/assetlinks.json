@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.wayzyy.app",
+      "sha256_cert_fingerprints": [
+        "12:26:3B:6A:92:7A:EF:80:4B:07:DF:20:F2:03:2C:D5:2D:2C:58:31:06:28:4A:C0:21:FE:03:65:0E:68:65:1C"
+      ]
+    }
+  }
+]
