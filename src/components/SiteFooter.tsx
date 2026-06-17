@@ -1,27 +1,54 @@
+import { Link } from "react-router-dom";
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="container flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div className="flex items-center">
-            <img src="/favicon.png" alt="Wayzyy" className="h-10 w-auto" />
+      <div className="container py-12">
+        {/* Top row */}
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="flex items-center">
+              <img src="/favicon.png" alt="Wayzyy" className="h-10 w-auto" />
+            </div>
+            <p className="mt-3 max-w-xs text-sm text-muted-foreground">
+              Stays without the small print. Coming soon.
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              3 E 32, Nehru Nagar, Ghaziabad
+            </p>
+            <a
+              href="mailto:hello@wayzyy.com"
+              className="mt-1 block text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              hello@wayzyy.com
+            </a>
           </div>
-          <p className="mt-3 max-w-sm text-sm text-muted-foreground">
-            Stays without the small print. Coming soon.
-          </p>
+
+          {/* Links */}
+          <div className="flex flex-col gap-6 sm:flex-row sm:gap-12 text-sm">
+            {/* Nav */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Navigate</p>
+              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#why">Why Wayzyy</a>
+              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#two-sides">For Hosts & Guests</a>
+              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#waitlist">Join Waitlist</a>
+            </div>
+
+            {/* Legal */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Legal</p>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/privacy">Privacy Policy</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/payment-refund">Payment & Refund Policy</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host-terms">Host Terms of Service</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/guest-terms">Guest Terms of Service</Link>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:items-center sm:gap-8">
-          <a className="hover:text-foreground" href="#why">
-            Why
-          </a>
-          <a className="hover:text-foreground" href="#two-sides">
-            Two sides
-          </a>
-          <a className="hover:text-foreground" href="#waitlist">
-            Waitlist
-          </a>
-          <span className="hidden sm:inline text-border">·</span>
-          <span>© {new Date().getFullYear()} Wayzyy. Built honest.</span>
+
+        {/* Bottom bar */}
+        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground">
+          <span>© {new Date().getFullYear()} Wayzyy Technologies Private Limited. Built honest.</span>
+          <span>Ghaziabad, India</span>
         </div>
       </div>
     </footer>
