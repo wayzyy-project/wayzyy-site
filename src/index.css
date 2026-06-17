@@ -157,3 +157,30 @@ html.lenis body {
   0%   { transform: translate(0,0) scale(1); opacity: 0.6; }
   100% { transform: translate(-18px,-6px) scale(0.4); opacity: 0; }
 }
+
+/* ── Policy pages ───────────────────────────────── */
+.policy-content p {
+  @apply text-muted-foreground leading-relaxed mb-4 text-[15px];
+}
+.policy-content h2 {
+  @apply font-display text-2xl text-foreground mt-12 mb-4 pb-3 border-b border-border;
+}
+.policy-content h3 {
+  @apply font-semibold text-base text-foreground mt-6 mb-2;
+}
+.policy-content ul {
+  @apply space-y-2 mb-6 ml-1;
+}
+.policy-content ul li {
+  @apply text-[15px] text-muted-foreground flex gap-2 leading-relaxed;
+}
+.policy-content ul li::before {
+  content: "–";
+  @apply text-ember shrink-0 mt-0.5;
+}
+.policy-content a {
+  @apply text-ember hover:underline;
+}
+.policy-content strong {
+  @apply text-foreground font-semibold;
+}
