@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { mp } from "@/lib/mixpanel";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import PropertyShare from "./pages/PropertyShare";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <SmoothScroll>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
