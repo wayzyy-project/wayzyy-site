@@ -13,9 +13,6 @@ export function SiteFooter() {
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Stays without the small print. Coming soon.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              3 E 32, Nehru Nagar, Ghaziabad
-            </p>
             <a
               href="mailto:hello@wayzyy.com"
               className="mt-1 block text-xs text-muted-foreground hover:text-foreground transition-colors"
@@ -48,7 +45,6 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} Wayzyy Technologies Private Limited. Built honest.</span>
-          <span>Ghaziabad, India</span>
         </div>
       </div>
     </footer>

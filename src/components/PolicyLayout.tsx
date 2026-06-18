@@ -59,7 +59,7 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
             </a>
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Wayzyy Technologies Private Limited · 3 E 32, Nehru Nagar, Ghaziabad
+            Wayzyy Technologies Private Limited
           </p>
         </div>
       </div>

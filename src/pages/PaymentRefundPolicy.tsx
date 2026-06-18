@@ -123,7 +123,6 @@ export default function PaymentRefundPolicy() {
       <ul>
         <li><strong>Payment & refund queries:</strong> <a href="mailto:hello@wayzyy.com">hello@wayzyy.com</a></li>
         <li><strong>Website:</strong> wayzyy.com</li>
-        <li><strong>Address:</strong> 3 E 32, Nehru Nagar, Ghaziabad</li>
       </ul>
     </PolicyLayout>
   );

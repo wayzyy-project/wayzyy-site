@@ -23,7 +23,6 @@ export default function PrivacyPolicy() {
       </p>
       <ul>
         <li><strong>Registered Name:</strong> Wayzyy Technologies Private Limited</li>
-        <li><strong>Registered Address:</strong> 3 E 32, Nehru Nagar, Ghaziabad</li>
         <li><strong>Privacy Contact:</strong> <a href="mailto:hello@wayzyy.com">hello@wayzyy.com</a></li>
         <li><strong>Grievance Officer:</strong> <a href="mailto:hello@wayzyy.com">hello@wayzyy.com</a></li>
       </ul>
@@ -145,7 +144,6 @@ export default function PrivacyPolicy() {
       <ul>
         <li><strong>All privacy queries:</strong> <a href="mailto:hello@wayzyy.com">hello@wayzyy.com</a></li>
         <li><strong>Website:</strong> wayzyy.com/privacy</li>
-        <li><strong>Address:</strong> 3 E 32, Nehru Nagar, Ghaziabad</li>
       </ul>
     </PolicyLayout>
   );
