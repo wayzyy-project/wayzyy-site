@@ -1,14 +1,14 @@
-# Omeroo (also known as Wayzyy)
+# Wayzyy
 
-Omeroo is a mobile-first, India-native peer-to-peer (P2P) short-term rental and homestay marketplace built specifically for the Indian market. It addresses major structural failures in traditional lodging marketplaces like Airbnb, Vrbo, and Booking.com by offering host-first economics, Aadhaar-based trust verification, and India-first payment and support designs.
+Wayzyy is a mobile-first, India-native peer-to-peer (P2P) short-term rental and homestay marketplace built specifically for the Indian market. It addresses major structural failures in traditional lodging marketplaces like Airbnb, Vrbo, and Booking.com by offering host-first economics, Aadhaar-based trust verification, and India-first payment and support designs.
 
 ## The Market Gap
 
-Indian short-term rentals are growing rapidly but are dominated by foreign platforms not designed for local hosts or guests. Omeroo fills this gap across all of India (including major tourist destinations like Goa, Rajasthan, Himachal Pradesh, and Kerala):
+Indian short-term rentals are growing rapidly but are dominated by foreign platforms not designed for local hosts or guests. Wayzyy fills this gap across all of India (including major tourist destinations like Goa, Rajasthan, Himachal Pradesh, and Kerala):
 
 | Platform | Type | India P2P Homestay Focus |
 |---|---|---|
-| **Omeroo** | P2P Marketplace | **Yes — 100% India-optimized** |
+| **Wayzyy** | P2P Marketplace | **Yes — 100% India-optimized** |
 | Airbnb | Global marketplace | Partial — not India-optimized |
 | Booking.com | Hotel aggregator | No — hotels only |
 | MakeMyTrip | Travel aggregator | No — focus on packages & hotels |
@@ -21,12 +21,12 @@ Indian short-term rentals are growing rapidly but are dominated by foreign platf
 
 ### 1. Host-First Economics vs. High Platform Fees
 - **The Problem:** Legacy platforms like Airbnb extract up to 17% combined take rate on every booking (~3% from hosts and ~14% from guests). This severely cuts into the profits of Indian hosts, especially small operators managing 1-3 properties.
-- **The Solution:** Omeroo operates on a prepaid credit subscription model instead of commission percentages. Hosts pay a flat fee to unlock booking limits (e.g., pay ₹400 to unlock ₹20,000 in bookings, or ₹1,000 to unlock ₹50,000). This averages to an effective **~2% fee** compared to Airbnb's high fees, letting hosts keep more of every rupee earned.
-- **No Algorithmic Price Suppression:** Unlike legacy Smart Pricing systems that drive rates down to increase booking volume for the platform at the host's expense, Omeroo supports hosts as independent business operators.
+- **The Solution:** Wayzyy operates on a prepaid credit subscription model instead of commission percentages. Hosts pay a flat fee to unlock booking limits (e.g., pay ₹400 to unlock ₹20,000 in bookings, or ₹1,000 to unlock ₹50,000). This averages to an effective **~2% fee** compared to Airbnb's high fees, letting hosts keep more of every rupee earned.
+- **No Algorithmic Price Suppression:** Unlike legacy Smart Pricing systems that drive rates down to increase booking volume for the platform at the host's expense, Wayzyy supports hosts as independent business operators.
 
 ### 2. Aadhaar & DigiLocker Trust Layer vs. Weak Verification
 - **The Problem:** Foreign platforms struggle with identity validation in India, allowing burner accounts, third-party booking scams, and rule-breaking guests.
-- **The Solution:** Omeroo integrates Aadhaar-based and DigiLocker-based verification for both hosts and guests. This establishes a secure trust layer that US-headquartered foreign platforms cannot replicate.
+- **The Solution:** Wayzyy integrates Aadhaar-based and DigiLocker-based verification for both hosts and guests. This establishes a secure trust layer that US-headquartered foreign platforms cannot replicate.
 
 ### 3. India-First Design
 - **Payments:** UPI-native payments and local settlements.

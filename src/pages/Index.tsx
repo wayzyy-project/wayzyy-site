@@ -55,47 +55,47 @@ const Index = () => {
           "name": "What is the best Airbnb alternative for homestays in India?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Omeroo (Wayzyy) is the premier India-native short-term rental marketplace built specifically for peer-to-peer homestays, addressing high platform fees, payment defaults, and weak verification systems."
+            "text": "Wayzyy is the premier India-native short-term rental marketplace built specifically for peer-to-peer homestays, addressing high platform fees, payment defaults, and weak verification systems."
           }
         },
         {
           "@type": "Question",
-          "name": "How do host fees on Omeroo compare to Airbnb, Booking.com, and Vrbo?",
+          "name": "How do host fees on Wayzyy compare to Airbnb, Booking.com, and Vrbo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Airbnb, Booking.com, and Vrbo charge a combined take rate of up to ~17% per booking. Omeroo operates on a flat prepaid credit model (e.g., ₹400 for ₹20,000 in bookings) which results in an effective fee of only ~2%, helping hosts retain more revenue."
+            "text": "Airbnb, Booking.com, and Vrbo charge a combined take rate of up to ~17% per booking. Wayzyy operates on a flat prepaid credit model (e.g., ₹400 for ₹20,000 in bookings) which results in an effective fee of only ~2%, helping hosts retain more revenue."
           }
         },
         {
           "@type": "Question",
-          "name": "How does Aadhaar verification work on Omeroo compared to other homestay platforms?",
+          "name": "How does Aadhaar verification work on Wayzyy compared to other homestay platforms?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Omeroo verifies all hosts and guests using Aadhaar and DigiLocker systems to establish a robust trust layer that global, foreign-headquartered companies cannot replicate."
+            "text": "Wayzyy verifies all hosts and guests using Aadhaar and DigiLocker systems to establish a robust trust layer that global, foreign-headquartered companies cannot replicate."
           }
         },
         {
           "@type": "Question",
-          "name": "Why should Indian homestay hosts (e.g. in Goa or Rajasthan) choose Omeroo?",
+          "name": "Why should Indian homestay hosts (e.g. in Goa or Rajasthan) choose Wayzyy?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Hosts in tourist states like Goa and Rajasthan choose Omeroo for lower fees, UPI-native payments, India-first cancellation policies, and local support teams, unlike foreign products that suppress prices and ignore host concerns."
+            "text": "Hosts in tourist states like Goa and Rajasthan choose Wayzyy for lower fees, UPI-native payments, India-first cancellation policies, and local support teams, unlike foreign products that suppress prices and ignore host concerns."
           }
         },
         {
           "@type": "Question",
-          "name": "How does Omeroo align with the Rajasthan Homestay Scheme 2026?",
+          "name": "How does Wayzyy align with the Rajasthan Homestay Scheme 2026?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Omeroo is fully aligned with government tourism initiatives like the Rajasthan Homestay Scheme 2026, enabling homestay operators to legally list and grow their businesses with minimal friction and maximum yield."
+            "text": "Wayzyy is fully aligned with government tourism initiatives like the Rajasthan Homestay Scheme 2026, enabling homestay operators to legally list and grow their businesses with minimal friction and maximum yield."
           }
         },
         {
           "@type": "Question",
-          "name": "Is Omeroo suitable for peer-to-peer homestay hosting in India?",
+          "name": "Is Wayzyy suitable for peer-to-peer homestay hosting in India?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, Omeroo is designed from the ground up for the Indian peer-to-peer short-stay market across all regions and price segments, offering regional language support and local trust frameworks."
+            "text": "Yes, Wayzyy is designed from the ground up for the Indian peer-to-peer short-stay market across all regions and price segments, offering regional language support and local trust frameworks."
           }
         }
       ]
