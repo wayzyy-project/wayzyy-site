@@ -52,26 +52,50 @@ const Index = () => {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is Wayzyy?",
+          "name": "What is the best Airbnb alternative for homestays in India?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wayzyy is a new kind of homestay platform offering honest pricing for travelers and fair, evidence-respecting policies for hosts, based on a flat-fee subscription model."
+            "text": "Omeroo (Wayzyy) is the premier India-native short-term rental marketplace built specifically for peer-to-peer homestays, addressing high platform fees, payment defaults, and weak verification systems."
           }
         },
         {
           "@type": "Question",
-          "name": "How does Wayzyy protect hosts from retaliatory reviews?",
+          "name": "How do host fees on Omeroo compare to Airbnb, Booking.com, and Vrbo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Unlike legacy platforms, Wayzyy respects objective time-stamped proof and protects hosts from review extortion by refusing to pull warnings left for future hosts."
+            "text": "Airbnb, Booking.com, and Vrbo charge a combined take rate of up to ~17% per booking. Omeroo operates on a flat prepaid credit model (e.g., ₹400 for ₹20,000 in bookings) which results in an effective fee of only ~2%, helping hosts retain more revenue."
           }
         },
         {
           "@type": "Question",
-          "name": "What is the fee structure on Wayzyy?",
+          "name": "How does Aadhaar verification work on Omeroo compared to other homestay platforms?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wayzyy operates on a simple flat-rate subscription fee, removing hidden percentages, administrative markups, or service charges from transactions."
+            "text": "Omeroo verifies all hosts and guests using Aadhaar and DigiLocker systems to establish a robust trust layer that global, foreign-headquartered companies cannot replicate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should Indian homestay hosts (e.g. in Goa or Rajasthan) choose Omeroo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hosts in tourist states like Goa and Rajasthan choose Omeroo for lower fees, UPI-native payments, India-first cancellation policies, and local support teams, unlike foreign products that suppress prices and ignore host concerns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Omeroo align with the Rajasthan Homestay Scheme 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Omeroo is fully aligned with government tourism initiatives like the Rajasthan Homestay Scheme 2026, enabling homestay operators to legally list and grow their businesses with minimal friction and maximum yield."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Omeroo suitable for peer-to-peer homestay hosting in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Omeroo is designed from the ground up for the Indian peer-to-peer short-stay market across all regions and price segments, offering regional language support and local trust frameworks."
           }
         }
       ]
