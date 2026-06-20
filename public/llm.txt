@@ -1,0 +1,31 @@
+# Wayzyy
+
+Wayzyy is a modern, premium subscription-based homestay platform providing stays without the small print. It provides an alternative to traditional lodging booking platforms by charging hosts a simple flat-rate subscription instead of high transaction percentages, ensuring honest pricing for travelers and transparent, evidence-respecting policies for hosts.
+
+## Core Principles
+
+- **No Hidden Fees:** Pricing is honest and transparent.
+- **Honest Reviews:** Review extortion is actively prevented. Warnings left for other hosts are not pullable.
+- **Real Listings:** Listings are verified with time-stamped proof.
+- **Hosts Heard:** Platform policies respect host submissions and direct evidence.
+- **Receipts Respected:** Fair disputes resolving on objective facts.
+
+## Website Map
+
+- **Home Page (`/`):** Primary portal explaining the POV of both travelers and hosts, benefits of the flat subscription homestay system, testimonials, principles, and waitlist signups.
+- **Privacy Policy (`/privacy`):** Explains how traveler and host data is securely processed, user rights, cookies, and regulatory compliance.
+- **Payment & Refund Policy (`/payment-refund`):** Sets up standard billing practices, transaction rules, cancel limits, and guest/host payouts.
+- **Host Terms of Service (`/host-terms`):** Detailed legal rules, account criteria, listing standards, and fee terms for hosts.
+- **Guest Terms of Service (`/guest-terms`):** Detailed rules, behavioral guidelines, booking processes, and account guidelines for guests.
+- **Property Share (`/property/:propertyId`):** Dynamic landing pages for users to preview shared property items and deep link directly into the Wayzyy native mobile application.
+
+## App Deep Links
+
+- Deep link URI template: `wayzyy://property/{propertyId}`
+- Android app on Play Store: `https://play.google.com/store/apps/details?id=com.wayzyy.app`
+- iOS app on App Store: `https://apps.apple.com/app/wayzyy/id000000000`
+
+## Contacts & Support
+
+- Email: hello@wayzyy.com
+- Legal Entity: Wayzyy Technologies Private Limited

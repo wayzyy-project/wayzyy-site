@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SEO } from "@/components/SEO";
 
 export default function PropertyShare() {
   const { propertyId } = useParams<{ propertyId: string }>();
@@ -46,7 +47,47 @@ export default function PropertyShare() {
     setTimeout(() => setAppMissing(true), 2000);
   };
 
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": `Wayzyy Homestay Listing #${propertyId}`,
+      "description": "Premium vacation lodging shared on the Wayzyy platform.",
+      "url": `https://wayzyy.com/property/${propertyId}`,
+      "image": "https://wayzyy.com/og-image.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://wayzyy.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Property Share",
+          "item": `https://wayzyy.com/property/${propertyId}`
+        }
+      ]
+    }
+  ];
+
   return (
+    <SEO
+      title={`Property Share #${propertyId} — Wayzyy`}
+      description="Check out this homestay share on Wayzyy. India's favorite getaway platform offering flat-free subscriptions."
+      jsonLd={schemas}
+      path={`/property/${propertyId}`}
+    >
+
     <div className="min-h-screen bg-paper flex flex-col items-center justify-center px-6 py-12">
       {/* Logo */}
       <motion.div
@@ -139,5 +180,6 @@ export default function PropertyShare() {
         © {new Date().getFullYear()} Wayzyy · All rights reserved
       </p>
     </div>
+    </SEO>
   );
 }
