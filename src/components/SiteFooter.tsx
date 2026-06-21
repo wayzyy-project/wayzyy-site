@@ -11,7 +11,7 @@ export function SiteFooter() {
               <img src="/favicon.png" alt="Wayzyy" className="h-10 w-auto" />
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Stays without the small print. Coming soon.
+              Cozy stays.. without small print. Coming soon.
             </p>
             <a
               href="mailto:hello@wayzyy.com"
