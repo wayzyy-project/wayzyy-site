@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft, ChevronRight, MessageSquare } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { SEO } from "./SEO";
 
 interface PolicyLayoutProps {
@@ -13,27 +12,6 @@ interface PolicyLayoutProps {
 export function PolicyLayout({ title, subtitle, effectiveDate, children }: PolicyLayoutProps) {
   const location = useLocation();
   const path = location.pathname;
-  const [showComments, setShowComments] = useState(false);
-
-  useEffect(() => {
-    if (!showComments) return;
-
-    // Set up Disqus configuration
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).disqus_config = function (this: any) {
-      this.page.url = `https://wayzyy.com${path}`;
-      this.page.identifier = path;
-      this.page.title = title;
-    };
-
-    // Dynamically insert Disqus embed script
-    const d = document;
-    const s = d.createElement("script");
-    s.src = "https://wayzyy.disqus.com/embed.js";
-    s.setAttribute("data-timestamp", String(+new Date()));
-    s.async = true;
-    (d.head || d.body).appendChild(s);
-  }, [showComments, path, title]);
 
   const schemas = [
     {
@@ -141,21 +119,6 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
             <p className="mt-1 text-sm text-muted-foreground">
               Wayzyy Technologies Private Limited
             </p>
-          </div>
-
-          {/* Collapsible Disqus comments widget */}
-          <div className="mt-12 pt-12 border-t border-border/80">
-            <h3 className="font-display text-2xl text-foreground mb-4">Discussion & Community Feedback</h3>
-            {!showComments ? (
-              <button
-                onClick={() => setShowComments(true)}
-                className="inline-flex items-center gap-2 px-5 py-3 border border-border rounded-xl text-sm font-semibold text-foreground bg-card hover:bg-muted/50 transition-colors shadow-sm cursor-pointer"
-              >
-                <MessageSquare className="h-4 w-4 text-ember" /> Load Community Comments
-              </button>
-            ) : (
-              <div id="disqus_thread" className="min-h-[250px] bg-card/10 rounded-2xl p-6 border border-border/40" />
-            )}
           </div>
         </div>
       </div>
