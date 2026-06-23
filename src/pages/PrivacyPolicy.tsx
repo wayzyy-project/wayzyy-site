@@ -27,6 +27,7 @@ export default function PrivacyPolicy() {
       <ul>
         <li><strong>Registered Name:</strong> Wayzyy Technologies Private Limited</li>
         <li><strong>Registered Address:</strong> 32 E, Nehru Nagar, Ghaziabad, Uttar Pradesh, India</li>
+        <li><strong>Corporate Identity Number (CIN):</strong> [To be updated post-incorporation]</li>
         <li><strong>Data Protection &amp; Grievance Contact:</strong> <a href="mailto:grievance@wayzyy.com">grievance@wayzyy.com</a> / <a href="mailto:privacy@wayzyy.com">privacy@wayzyy.com</a></li>
       </ul>
 
