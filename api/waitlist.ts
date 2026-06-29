@@ -12,6 +12,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Persist the signup so the app can auto-grant a wallet credit the moment
+    // this email registers an account. Best-effort — never blocks the waitlist
+    // confirmation the visitor sees, even if this insert fails.
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (supabaseUrl && supabaseServiceKey) {
+      fetch(`${supabaseUrl}/rest/v1/waitlist_signups`, {
+        method: "POST",
+        headers: {
+          apikey: supabaseServiceKey,
+          Authorization: `Bearer ${supabaseServiceKey}`,
+          "Content-Type": "application/json",
+          Prefer: "resolution=ignore-duplicates",
+        },
+        body: JSON.stringify({ email, audience }),
+      }).catch((e) => console.error("waitlist_signups insert failed (non-fatal):", e));
+    }
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
