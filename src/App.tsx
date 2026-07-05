@@ -14,6 +14,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
 import HostTerms from "./pages/HostTerms";
 import GuestTerms from "./pages/GuestTerms";
+import BlogIndex from "./pages/blog/BlogIndex";
+import BestAirbnbAlternativesGoa from "./pages/blog/BestAirbnbAlternativesGoa";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,8 @@ const App = () => (
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
               <Route path="/host-terms" element={<HostTerms />} />
               <Route path="/guest-terms" element={<GuestTerms />} />
+              <Route path="/blog" element={<BlogIndex />} />
+              <Route path="/blog/best-airbnb-alternatives-india-goa-villas" element={<BestAirbnbAlternativesGoa />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>

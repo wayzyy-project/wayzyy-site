@@ -1,7 +1,13 @@
 import { PolicyLayout } from "@/components/PolicyLayout";
+import { SEO } from "@/components/SEO";
 
 export default function PaymentRefundPolicy() {
   return (
+    <SEO
+      title="Payment & Refund Policy — Wayzyy"
+      description="Wayzyy's Payment & Refund Policy: flat subscription activation, UPI payments, and refund rules for Indian hosts and guests."
+      path="/payment-refund"
+    >
     <PolicyLayout
       title="Payment & Refund Policy"
       subtitle="Compliant with Payment and Settlement Systems Act 2007 · RBI Guidelines · Consumer Protection Act 2019"
@@ -125,5 +131,6 @@ export default function PaymentRefundPolicy() {
         <li><strong>Website:</strong> wayzyy.com</li>
       </ul>
     </PolicyLayout>
+    </SEO>
   );
 }

@@ -1,7 +1,13 @@
 import { PolicyLayout } from "@/components/PolicyLayout";
+import { SEO } from "@/components/SEO";
 
 export default function GuestTerms() {
   return (
+    <SEO
+      title="Guest Terms of Service — Wayzyy"
+      description="Read Wayzyy's Guest Terms of Service: Aadhaar verification guidelines, booking rules, and guest obligations for homestay bookings in India."
+      path="/guest-terms"
+    >
     <PolicyLayout
       title="Guest Terms of Service"
       subtitle="Governed by Indian law · IT Act 2000 · Consumer Protection Act 2019 · DPDP Act 2023"
@@ -105,5 +111,6 @@ export default function GuestTerms() {
         <li><strong>Website:</strong> wayzyy.com</li>
       </ul>
     </PolicyLayout>
+    </SEO>
   );
 }

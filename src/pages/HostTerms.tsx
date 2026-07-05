@@ -1,7 +1,13 @@
 import { PolicyLayout } from "@/components/PolicyLayout";
+import { SEO } from "@/components/SEO";
 
 export default function HostTerms() {
   return (
+    <SEO
+      title="Host Terms of Service — Wayzyy"
+      description="Read Wayzyy's Host Terms of Service: listing rules, prepaid credit limits, and host obligations under Indian law for homestay hosts."
+      path="/host-terms"
+    >
     <PolicyLayout
       title="Host Terms of Service"
       subtitle="Governed by Indian law · IT Act 2000 · Companies Act 2013 · DPDP Act 2023"
@@ -134,5 +140,6 @@ export default function HostTerms() {
         <li><strong>Website:</strong> wayzyy.com</li>
       </ul>
     </PolicyLayout>
+    </SEO>
   );
 }

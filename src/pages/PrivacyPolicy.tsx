@@ -1,7 +1,13 @@
 import { PolicyLayout } from "@/components/PolicyLayout";
+import { SEO } from "@/components/SEO";
 
 export default function PrivacyPolicy() {
   return (
+    <SEO
+      title="Privacy Policy — Wayzyy"
+      description="Wayzyy's Privacy Policy: how we collect, use, store, and protect your personal data, including Aadhaar/DigiLocker verification, under India's DPDP Act 2023."
+      path="/privacy"
+    >
     <PolicyLayout
       title="Privacy Policy"
       subtitle="Compliant with DPDP Act 2023 · DPDP Rules 2025 · IT Act 2000 · IT (SPDI) Rules 2011 · UIDAI Guidelines · Income Tax Act (Sec 194-O)"
@@ -171,5 +177,6 @@ export default function PrivacyPolicy() {
         <li><strong>Corporate Core Portal:</strong> wayzyy.com/privacy</li>
       </ul>
     </PolicyLayout>
+    </SEO>
   );
 }
