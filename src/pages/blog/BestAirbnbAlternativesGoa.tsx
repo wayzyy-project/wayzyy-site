@@ -249,7 +249,11 @@ export default function BestAirbnbAlternativesGoa() {
       <p>The second host can list at ₹10,000/night and take home ₹10,000.</p>
       <p>
         Same property, same quality, different platform economics. That's a difference of roughly 18% on what you
-        pay as a guest.
+        pay as a guest. We have mapped out these calculations and fee percentages in our detailed guide on{" "}
+        <a href="/blog/why-villas-goa-different-prices-platforms">
+          why villas in Goa cost different prices on different booking platforms
+        </a>
+        .
       </p>
 
       <img
@@ -296,7 +300,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         If you get the location wrong, no platform will fix it. Read the{" "}
-        <a href="/blog">North Goa vs South Goa guide</a> before you start browsing listings.
+        <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa guide</a> before you start browsing listings.
       </p>
 
       <h3>Read recent reviews, not just the star rating.</h3>
@@ -341,14 +345,18 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         On a 5-night villa booking, that difference between platforms can be anywhere from ₹3,000 to ₹12,000. For
-        the same stay. It's worth the extra five minutes before you confirm.
+        the same stay. For a detailed breakdown of how platform commissions create these price differences, read our guide on{" "}
+        <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms</a>.
       </p>
 
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms — The Fee Breakdown</a>
+          </li>
+          <li>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
           </li>
           <li>
             <a href="/blog">Workation in Goa — What You Actually Need Before You Book</a>
