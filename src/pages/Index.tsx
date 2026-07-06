@@ -7,6 +7,7 @@ import { WhySection } from "@/components/WhySection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { TwoSides } from "@/components/TwoSides";
 import { Principles } from "@/components/Principles";
+import { BlogSection } from "@/components/BlogSection";
 import { HousePartiesSection } from "@/components/HousePartiesSection";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -135,6 +136,7 @@ const Index = () => {
           <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
           <Principles />
           <div ref={housePartiesRef as React.RefObject<HTMLDivElement>}><HousePartiesSection /></div>
+          <BlogSection />
           <div ref={waitlistRef as React.RefObject<HTMLDivElement>}><WaitlistSection /></div>
         </main>
 

@@ -8,6 +8,7 @@ export interface BlogPostMeta {
   metaDescription: string;
   heroImage: string;
   publishedDate: string;
+  readTime: string;
 }
 
 export const blogPosts: BlogPostMeta[] = [
@@ -21,5 +22,6 @@ export const blogPosts: BlogPostMeta[] = [
       "Airbnb changed its fee model in 2025. Here's how that affects what you pay for a villa in Goa — and which platforms actually cost less.",
     heroImage: "/blog/goa-villa-private-pool-vacation-rental.jpg",
     publishedDate: "2026-07-06",
+    readTime: "8 Min Read",
   },
 ];
