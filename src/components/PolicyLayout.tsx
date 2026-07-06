@@ -53,7 +53,7 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
   return (
     <SEO
       title={`${title} — Wayzyy`}
-      description={subtitle ?? `Read the official ${title} of Wayzyy. Cozy stays.. without small print.`}
+      description={subtitle ?? `Read the official ${title} of Wayzyy. cozy stays, crazy nights and fair hosting . That's wayzyy.`}
       jsonLd={schemas}
       path={path}
     >
