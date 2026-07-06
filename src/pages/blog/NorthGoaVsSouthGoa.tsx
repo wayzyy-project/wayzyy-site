@@ -229,8 +229,8 @@ export default function NorthGoaVsSouthGoa() {
       </p>
 
       <img
-        src="/blog/goa-south-beach.png"
-        alt="Rustic beach huts under swaying palm trees on Agonda Beach, South Goa"
+        src="/blog/goa-south-beach-remote-work.jpg"
+        alt="Remote worker sitting on a rock at sunset working on a laptop on Agonda Beach, South Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
       />
