@@ -183,7 +183,7 @@ export default function BestAirbnbAlternativesGoa() {
         understanding of the local market runs deeper than a global platform's algorithm. Things like which Siolim
         lanes actually have good road access for guests arriving with luggage, or which parts of South Goa are
         genuinely quiet vs. quietly becoming crowded. That kind of context tends to show up in how properties are
-        listed and described. Check out the <a href="/blog">workation in Goa guide</a> if that's a relevant use
+        listed and described. Check out the <a href="/blog/workation-goa-guide">workation in Goa guide</a> if that's a relevant use
         case for you.
       </p>
       <p>
@@ -359,7 +359,7 @@ export default function BestAirbnbAlternativesGoa() {
             <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog">Workation in Goa — What You Actually Need Before You Book</a>
+            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
           </li>
           <li>
             <a href="/blog">Goa Monsoon Guide — Is It Worth Going During the Off-Season?</a>

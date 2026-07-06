@@ -48,4 +48,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-06",
     readTime: "9 Min Read",
   },
+  {
+    slug: "workation-goa-guide",
+    title: "Workation in Goa — What You Actually Need Before You Book",
+    description:
+      "Planning to work remotely from Goa? Here is the honest breakdown of coworking spaces, monthly costs, seasonality, and finding verified workation stays.",
+    metaTitle: "Workation in Goa — Coworking, Stays & Monthly Budget (2026)",
+    metaDescription:
+      "Planning to work remotely from Goa? Read the honest guide to coworking, cafes, monthly costs, and Workation Verified villa rentals.",
+    heroImage: "/blog/goa-workation-hero.png",
+    publishedDate: "2026-07-06",
+    readTime: "11 Min Read",
+  },
 ];

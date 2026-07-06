@@ -562,6 +562,9 @@ export default function NorthGoaVsSouthGoa() {
           <li>
             <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms — The Fee Breakdown</a>
           </li>
+          <li>
+            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

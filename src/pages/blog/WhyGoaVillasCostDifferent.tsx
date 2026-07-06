@@ -538,7 +538,7 @@ export default function WhyGoaVillasCostDifferent() {
             <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog">Workation in Goa — What You Actually Need Before You Book</a>
+            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
           </li>
         </ul>
       </div>
