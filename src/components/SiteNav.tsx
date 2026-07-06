@@ -35,6 +35,9 @@ export function SiteNav() {
           <a className="hover:text-foreground" href="#waitlist">
             Waitlist
           </a>
+          <a className="hover:text-foreground" href="/blog">
+            Blog
+          </a>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />

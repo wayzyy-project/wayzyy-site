@@ -2,17 +2,24 @@ export interface BlogPostMeta {
   slug: string;
   title: string;
   description: string;
+  /** <title> / og:title / twitter:title — must stay under 60 chars, written manually */
+  metaTitle: string;
+  /** meta description / og:description / twitter:description — must stay under 155 chars, written manually */
+  metaDescription: string;
   heroImage: string;
   publishedDate: string;
 }
 
 export const blogPosts: BlogPostMeta[] = [
   {
-    slug: "best-airbnb-alternatives-india-goa-villas",
-    title: "The 5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)",
+    slug: "best-airbnb-alternatives-goa",
+    title: "5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)",
     description:
-      "Comparing Airbnb, Booking.com, MakeMyTrip, StayVista, SaffronStays, and Wayzyy for booking villas and vacation rentals in Goa — pricing, transparency, and what to look for before you book.",
-    heroImage: "https://picsum.photos/seed/goa-villa-pool/1600/900",
-    publishedDate: "2026-07-05",
+      "Comparing Airbnb, Booking.com, MakeMyTrip, StayVista, SaffronStays, and Wayzyy — real fee data, what each platform actually costs you, and what's worth checking before you confirm.",
+    metaTitle: "5 Best Airbnb Alternatives in India for Goa Villas (2026)",
+    metaDescription:
+      "Airbnb changed its fee model in 2025. Here's how that affects what you pay for a villa in Goa — and which platforms actually cost less.",
+    heroImage: "/blog/goa-villa-private-pool-vacation-rental.jpg",
+    publishedDate: "2026-07-06",
   },
 ];

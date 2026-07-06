@@ -5,21 +5,29 @@ import { SEO } from "./SEO";
 interface BlogLayoutProps {
   title: string;
   description: string;
+  /** Search-result <title> / og:title — keep under 60 chars, distinct from the on-page H1 */
+  metaTitle: string;
+  /** Search-result meta description / og:description — keep under 155 chars, distinct from the on-page subtitle */
+  metaDescription: string;
   heroImage: string;
   heroImageAlt: string;
   publishedDate: string;
   slug: string;
   children: React.ReactNode;
+  extraJsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export function BlogLayout({
   title,
   description,
+  metaTitle,
+  metaDescription,
   heroImage,
   heroImageAlt,
   publishedDate,
   slug,
   children,
+  extraJsonLd,
 }: BlogLayoutProps) {
   const location = useLocation();
   const path = location.pathname;
@@ -38,7 +46,7 @@ export function BlogLayout({
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": title,
-      "description": description,
+      "description": metaDescription,
       "image": heroImage.startsWith("http") ? heroImage : `https://wayzyy.com${heroImage}`,
       "datePublished": publishedDate,
       "author": {
@@ -58,10 +66,11 @@ export function BlogLayout({
         "@id": `https://wayzyy.com${path}`,
       },
     },
+    ...(extraJsonLd ? (Array.isArray(extraJsonLd) ? extraJsonLd : [extraJsonLd]) : []),
   ];
 
   return (
-    <SEO title={`${title} — Wayzyy Blog`} description={description} jsonLd={schemas} path={path} ogType="article" ogImage={heroImage}>
+    <SEO title={metaTitle} description={metaDescription} jsonLd={schemas} path={path} ogType="article" ogImage={heroImage}>
       <div className="min-h-screen bg-background text-foreground">
         <div className="border-b border-border bg-background/80 backdrop-blur sticky top-0 z-40">
           <div className="container flex items-center gap-4 py-4">

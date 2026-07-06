@@ -44,7 +44,7 @@ const App = () => (
               <Route path="/host-terms" element={<HostTerms />} />
               <Route path="/guest-terms" element={<GuestTerms />} />
               <Route path="/blog" element={<BlogIndex />} />
-              <Route path="/blog/best-airbnb-alternatives-india-goa-villas" element={<BestAirbnbAlternativesGoa />} />
+              <Route path="/blog/best-airbnb-alternatives-goa" element={<BestAirbnbAlternativesGoa />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
