@@ -255,7 +255,7 @@ export default function BestAirbnbAlternativesGoa() {
       <img
         src="/blog/goa-villa-platform-fee-price-difference-comparison.jpg"
         alt="Price difference between commission and no-commission villa booking platforms in Goa"
-        className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
+        className="w-full aspect-[2/1] object-contain rounded-2xl border border-border bg-card my-8"
         loading="lazy"
       />
 
