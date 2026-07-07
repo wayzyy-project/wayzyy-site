@@ -120,15 +120,17 @@ export default function GoaScooterRentalGuide() {
         be <strong>no</strong>.
       </p>
       <p>
-        But if you're staying for more than two or three days—whether that's a family vacation, a workation, or a villa
-        stay with friends—a scooter is one of the best decisions you can make.
+        But if you're staying for more than two or three days—whether that's a family vacation, a{" "}
+        <a href="/blog/workation-goa-guide">workation in Goa</a>, or a villa stay with friends—a scooter is one of the best
+        decisions you can make.
       </p>
       <p>
         The biggest reason is simple: Goa isn't a city where everything is within walking distance, nor is it a place with
         extensive public transport connecting every beach, café, and village. Most of the places you'll want to visit are
         spread out, and that's part of Goa's charm. You might have breakfast in Assagao, spend the afternoon at Morjim
-        Beach, stop at a café in Siolim, and finish the evening watching the sunset at Chapora Fort. Trying to do that
-        entirely with taxis quickly becomes both inconvenient and expensive.
+        Beach, stop at a café in Siolim, and finish the evening watching the sunset at Chapora Fort (read our guide comparing
+        the vibes and travel differences of <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa</a>). Trying
+        to do that entirely with taxis quickly becomes both inconvenient and expensive.
       </p>
       <p>Let's take a simple example.</p>
       <p>Imagine you're staying in Assagao for five days.</p>
@@ -258,7 +260,8 @@ export default function GoaScooterRentalGuide() {
       </p>
       <p>
         If someone quotes a price that's significantly outside these ranges, it's worth asking why. Sometimes you're
-        paying for a brand-new scooter with delivery included. Other times, you're simply paying tourist pricing.
+        paying for a brand-new scooter with delivery included. Other times, you're simply paying tourist pricing (similar
+        to how <a href="/blog/why-villas-goa-different-prices-platforms">villas in Goa cost different prices on different platforms</a> based on platform fees).
       </p>
 
       <h3>Why Does the Same Scooter Have Different Prices?</h3>
@@ -321,8 +324,8 @@ export default function GoaScooterRentalGuide() {
       <h3>Renting a Scooter After You Arrive</h3>
       <p>For most travellers, this is still the easiest option.</p>
       <p>
-        Once you reach popular areas like **Calangute, Candolim, Baga, Anjuna, Vagator, Assagao, Siolim, Morjim, Panjim,
-        Palolem or Colva**, you'll notice rental shops almost every few hundred metres.
+        Once you reach popular areas like <strong>Calangute, Candolim, Baga, Anjuna, Vagator, Assagao, Siolim, Morjim, Panjim,
+        Palolem or Colva</strong>, you'll notice rental shops almost every few hundred metres.
       </p>
       <p>
         One advantage of renting locally is that you can inspect the scooter before paying for it. You can check the tyres,
@@ -337,7 +340,7 @@ export default function GoaScooterRentalGuide() {
       <h3>Is It Better to Rent at the Airport?</h3>
       <p>If convenience is your priority, airport rentals are worth considering.</p>
       <p>
-        Many rental providers deliver scooters directly near **Dabolim Airport** or **Manohar International Airport (Mopa)**,
+        Many rental providers deliver scooters directly near <strong>Dabolim Airport</strong> or <strong>Manohar International Airport (Mopa)</strong>,
         allowing you to start your trip immediately without booking a taxi first.
       </p>
       <p>
@@ -366,7 +369,7 @@ export default function GoaScooterRentalGuide() {
 
       <h3>Ask Your Villa Host Before Searching Yourself</h3>
       <p>Here's a tip that surprisingly few travel blogs mention.</p>
-      <p>Before you start searching online, ask your villa host or hotel if they already have a trusted rental partner.</p>
+      <p>Before you start searching online, ask your villa host or hotel (and check our guide on the <a href="/blog/best-airbnb-alternatives-goa">best Airbnb alternatives for booking villas in Goa</a>) if they already have a trusted rental partner.</p>
       <p>
         Many hosts work with the same local rental businesses throughout the year. These providers already know the property
         locations, often deliver scooters directly to the accommodation, and are usually more responsive if you need help
@@ -386,19 +389,19 @@ export default function GoaScooterRentalGuide() {
         listing dozens of providers, here are a few names that consistently receive positive feedback from travellers.
       </p>
       <p>
-        If you're staying around **Panjim**, **YR Rental Bikes &amp; Cars** is frequently recommended for transparent
+        If you're staying around <strong>Panjim</strong>, <strong>YR Rental Bikes &amp; Cars</strong> is frequently recommended for transparent
         pricing, clean scooters and hassle-free service.
       </p>
       <p>
-        Travellers arriving near **Dabolim Airport** often choose **GetGo Rentals**, especially for the convenience of
+        Travellers arriving near <strong>Dabolim Airport</strong> often choose <strong>GetGo Rentals</strong>, especially for the convenience of
         airport pickup and doorstep delivery.
       </p>
       <p>
-        If you're exploring **North Goa**, **RideAway** is a popular online booking platform that connects travellers with
+        If you're exploring <strong>North Goa</strong>, <strong>RideAway</strong> is a popular online booking platform that connects travellers with
         verified local rental partners across areas like Anjuna, Vagator, Candolim and Baga.
       </p>
       <p>
-        For visitors staying around **Margao, Colva or South Goa**, **Sohail Rental Bikes &amp; Cars** has built a good
+        For visitors staying around <strong>Margao, Colva or South Goa</strong>, <strong>Sohail Rental Bikes &amp; Cars</strong> has built a good
         reputation for well-maintained vehicles and helpful customer service.
       </p>
       <p>
