@@ -24,6 +24,9 @@ export default function HostTerms() {
       <p>
         Wayzyy is an online marketplace that connects property hosts with guests seeking short-term accommodation across India. Wayzyy acts as a facilitator of the transaction between you and your guests. We are not your employer, agent, or business partner. The agreement for any stay is directly between you and your guest.
       </p>
+      <p>
+        Wayzyy is operated by Wayzyy Technologies Private Limited, incorporated under the Companies Act, 2013 (CIN: U63112UW2026PTC255280).
+      </p>
 
       <h2>2. Host Eligibility</h2>
       <p>To register and list as a Host on Wayzyy, you must:</p>

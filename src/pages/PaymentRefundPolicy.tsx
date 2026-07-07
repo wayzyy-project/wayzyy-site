@@ -14,7 +14,7 @@ export default function PaymentRefundPolicy() {
       effectiveDate="Version 1.0"
     >
       <p>
-        This Payment & Refund Policy ("Policy") governs all financial transactions on the Wayzyy platform, operated by Wayzyy Technologies Private Limited ("Wayzyy", "we", "us", or "our"). By making or receiving a payment through the Platform, you agree to the terms of this Policy.
+        This Payment &amp; Refund Policy ("Policy") governs all financial transactions on the Wayzyy platform, operated by Wayzyy Technologies Private Limited (CIN: U63112UW2026PTC255280) ("Wayzyy", "we", "us", or "our"). By making or receiving a payment through the Platform, you agree to the terms of this Policy.
       </p>
 
       <h2>1. How Payments Work on Wayzyy</h2>

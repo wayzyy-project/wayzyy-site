@@ -24,7 +24,7 @@ export default function GuestTerms() {
       <p>
         Wayzyy is an online marketplace that connects guests seeking short-term accommodation with registered property hosts across India. Wayzyy does not own, operate, manage, or control any property listed on the Platform. We are the facilitator of the booking transaction, not a party to the agreement between you and the host.
       </p>
-      <p>Wayzyy is incorporated as Wayzyy Technologies Private Limited under the Companies Act, 2013.</p>
+      <p>Wayzyy is incorporated as Wayzyy Technologies Private Limited under the Companies Act, 2013 (CIN: U63112UW2026PTC255280).</p>
 
       <h2>2. Eligibility</h2>
       <p>To use the Platform as a Guest, you must:</p>
