@@ -72,4 +72,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-07",
     readTime: "8 Min Read",
   },
+  {
+    slug: "best-time-to-visit-goa",
+    title: "Best Time to Visit Goa — The Complete Guide for Every Vibe",
+    description:
+      "When is the best time to visit Goa? Read our breakdown of seasonal weather, travel styles, crowd patterns, and booking strategies.",
+    metaTitle: "Best Time to Visit Goa — Seasonality, Weather & Tips (2026)",
+    metaDescription:
+      "When is the best time to visit Goa? Learn about peak winter tourist periods, monsoon travel, shoulder seasons, and the best months to book a villa.",
+    heroImage: "/blog/goa-best-time-hero.png",
+    publishedDate: "2026-07-08",
+    readTime: "7 Min Read",
+  },
 ];

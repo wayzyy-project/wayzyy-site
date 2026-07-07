@@ -410,7 +410,8 @@ export default function NorthGoaVsSouthGoa() {
       <p>
         For years, Goa was treated almost like a seasonal destination where everything stopped once the rains arrived. That
         picture has changed quite a bit. Monsoon has quietly become one of the most underrated times to visit, especially if
-        your trip isn't centred around beach hopping.
+        your trip isn't centred around beach hopping (see our guide on the{" "}
+        <a href="/blog/best-time-to-visit-goa">best time to visit Goa</a> for a full seasonal breakdown).
       </p>
 
       <img
@@ -567,6 +568,9 @@ export default function NorthGoaVsSouthGoa() {
           </li>
           <li>
             <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter in Goa</a>
+          </li>
+          <li>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
           </li>
         </ul>
       </div>

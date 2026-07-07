@@ -496,6 +496,12 @@ export default function WorkationGoaGuide() {
           <li>
             <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
           </li>
+          <li>
+            <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter in Goa</a>
+          </li>
+          <li>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

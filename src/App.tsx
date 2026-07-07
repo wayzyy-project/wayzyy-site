@@ -20,6 +20,7 @@ import WhyGoaVillasCostDifferent from "./pages/blog/WhyGoaVillasCostDifferent";
 import NorthGoaVsSouthGoa from "./pages/blog/NorthGoaVsSouthGoa";
 import WorkationGoaGuide from "./pages/blog/WorkationGoaGuide";
 import GoaScooterRentalGuide from "./pages/blog/GoaScooterRentalGuide";
+import BestTimeToVisitGoa from "./pages/blog/BestTimeToVisitGoa";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/blog/north-goa-vs-south-goa-guide" element={<NorthGoaVsSouthGoa />} />
               <Route path="/blog/workation-goa-guide" element={<WorkationGoaGuide />} />
               <Route path="/blog/goa-scooter-rental-guide" element={<GoaScooterRentalGuide />} />
+              <Route path="/blog/best-time-to-visit-goa" element={<BestTimeToVisitGoa />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
