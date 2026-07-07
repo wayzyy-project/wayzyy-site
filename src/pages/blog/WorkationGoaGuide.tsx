@@ -248,8 +248,9 @@ export default function WorkationGoaGuide() {
       <h3>Solo Remote Worker</h3>
       <p>
         If you're travelling alone and don't mind staying in a studio apartment, a private room or sharing a villa with
-        other remote workers, a comfortable monthly budget generally falls between ₹40,000 and ₹70,000. That typically
-        includes accommodation, food, scooter rental (see our complete{" "}
+        other remote workers, a comfortable monthly budget (read our complete{" "}
+        <a href="/blog/goa-trip-budget-guide">Goa trip budget guide</a> for typical prices and costs) generally falls
+        between ₹40,000 and ₹70,000. That typically includes accommodation, food, scooter rental (see our complete{" "}
         <a href="/blog/goa-scooter-rental-guide">Goa scooter rental guide</a> for pricing and tips), fuel, groceries, internet, and the occasional café or coworking
         visit.
       </p>

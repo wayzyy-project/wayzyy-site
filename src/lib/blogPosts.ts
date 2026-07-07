@@ -84,4 +84,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-08",
     readTime: "7 Min Read",
   },
+  {
+    slug: "goa-trip-budget-guide",
+    title: "Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?",
+    description:
+      "How much money should you budget for Goa? Read our realistic breakdown of accommodation, food, cafes, scooter rentals, and booking strategies.",
+    metaTitle: "Goa Trip Budget Guide (2026): Real Costs & Booking Tips",
+    metaDescription:
+      "Planning a trip to Goa? Find realistic budget estimates for solo travellers, couples, families, and groups. Learn where to save on stays and transport.",
+    heroImage: "/blog/goa-budget-hero.png",
+    publishedDate: "2026-07-09",
+    readTime: "9 Min Read",
+  },
 ];
