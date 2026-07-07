@@ -60,4 +60,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-06",
     readTime: "11 Min Read",
   },
+  {
+    slug: "goa-scooter-rental-guide",
+    title: "Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter in Goa",
+    description:
+      "Renting a scooter in Goa? Read this breakdown of daily costs, document requirements, traffic laws, and how to avoid common rental pitfalls.",
+    metaTitle: "Goa Scooter Rental Guide — Costs, Rules & Tips (2026)",
+    metaDescription:
+      "Planning to rent a scooter in Goa? Learn typical rental prices, license and ID requirements, speed camera updates, and check-list tips.",
+    heroImage: "/blog/goa-scooter-hero.png",
+    publishedDate: "2026-07-07",
+    readTime: "8 Min Read",
+  },
 ];

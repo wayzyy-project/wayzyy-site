@@ -362,7 +362,7 @@ export default function BestAirbnbAlternativesGoa() {
             <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
           </li>
           <li>
-            <a href="/blog">Goa Monsoon Guide — Is It Worth Going During the Off-Season?</a>
+            <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter in Goa</a>
           </li>
         </ul>
       </div>
