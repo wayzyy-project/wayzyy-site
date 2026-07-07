@@ -37,7 +37,7 @@ export default function BlogIndex() {
         </div>
 
         <div className="border-b border-border bg-card/40 py-12 sm:py-16">
-          <div className="container max-w-3xl">
+          <div className="container max-w-7xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-ember" />
               Blog
@@ -51,12 +51,12 @@ export default function BlogIndex() {
           </div>
         </div>
 
-        <div className="container max-w-3xl py-12 sm:py-16 grid gap-8">
+        <div className="container max-w-7xl py-12 sm:py-16 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post) => (
             <Link
               key={post.slug}
               to={`/blog/${post.slug}`}
-              className="group block rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-ember/60 transition-colors"
+              className="group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-ember/60 transition-colors"
             >
               <img
                 src={post.heroImage}
@@ -64,18 +64,23 @@ export default function BlogIndex() {
                 className="w-full aspect-video object-cover"
                 loading="lazy"
               />
-              <div className="p-6">
-                <h2 className="font-display text-2xl text-foreground group-hover:text-ember transition-colors">
+              <div className="p-6 flex flex-col flex-grow">
+                <h2 className="font-display text-xl text-foreground group-hover:text-ember transition-colors line-clamp-2">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{post.description}</p>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {new Date(post.publishedDate).toLocaleDateString("en-IN", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-grow line-clamp-3">
+                  {post.description}
                 </p>
+                <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground border-t border-border/40 pt-3">
+                  <span>{post.readTime}</span>
+                  <span>
+                    {new Date(post.publishedDate).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
