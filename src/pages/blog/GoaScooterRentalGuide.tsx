@@ -78,22 +78,17 @@ export default function GoaScooterRentalGuide() {
         beach that wasn't even on your list. That kind of flexibility is difficult—and often expensive—if you're depending
         on taxis for every short ride.
       </p>
-      <p>But here's the thing almost every travel blog skips.</p>
       <p>
-        Renting a scooter in Goa isn't just about paying ₹300–₹500 a day and riding away. There are a lot of small things
-        that can completely change your experience. Should you rent online before landing or simply walk into a local
-        rental shop? Is it okay if a rental shop asks to keep your driving licence? How much security deposit is actually
-        normal? What documents should you carry? Is petrol included? And why are people suddenly talking about speed
-        cameras all over Goa?
+        Renting a scooter in Goa isn't simply about paying ₹300–₹500 a day and riding away. There are several details
+        that can completely change your experience, from whether a rental shop should keep your original driving licence
+        and what security deposits are normal, to fuel policies and why speed enforcement has become much stricter across Goa.
       </p>
       <p>
         If you've been browsing Reddit or travel communities lately, you'll notice these are exactly the questions people
-        keep asking. Some travellers mention paying far more than expected because they extended their rental by a day.
-        Others talk about choosing the first rental shop they found instead of comparing a few nearby options. Recently,
-        there has also been a lot of discussion around Goa becoming much stricter with traffic enforcement, with visitors
-        sharing their experiences of newly installed AI-powered speed cameras across several tourist routes. None of this
-        is meant to scare you—it simply means that spending ten minutes understanding how rentals work can save you both
-        money and unnecessary headaches during your trip.
+        keep asking. Travellers frequently mention paying more than expected when extending their rentals, or choosing
+        the first shop they found instead of comparing nearby options. Recently, there has also been a lot of discussion
+        around Goa's newly installed AI-powered speed cameras on popular tourist routes. Spending ten minutes to understand
+        how rentals work can save you both money and unnecessary headaches.
       </p>
       <p>
         The good news is that renting a scooter in Goa is still one of the cheapest and most convenient ways to explore
@@ -110,15 +105,13 @@ export default function GoaScooterRentalGuide() {
         online or renting locally makes more sense.
       </p>
       <p>
-        If you're planning to stay in a villa, we'll also show you how to make the entire process easier. At{" "}
-        <strong>Wayzyy</strong>, we're building a platform focused on verified villa stays with transparent pricing, and
-        over time, we're also bringing together trusted local recommendations—from workation-friendly homes and fast
-        Wi-Fi to reliable scooter rentals and other services travellers usually end up searching for after they arrive. The
-        idea is simple: spend less time figuring out logistics and more time actually enjoying Goa.
+        At <strong>Wayzyy</strong>, we focus on verified villa stays with transparent pricing and trusted local
+        recommendations—from workation-friendly homes with fast Wi-Fi to reliable scooter rentals. The goal is to spend
+        less time coordinating logistics and more time enjoying your trip.
       </p>
       <p>
-        So before you grab the keys and start your first ride along Goa's coastline, let's answer the most important
-        question first—is renting a scooter actually worth it, or are taxis sometimes the better option?
+        Before you grab the keys and start your first ride, let's look at whether renting a scooter is right for you, or
+        if taxis might be the better choice.
       </p>
 
       <h2>Is Renting a Scooter in Goa Actually Worth It?</h2>
@@ -127,8 +120,8 @@ export default function GoaScooterRentalGuide() {
         be <strong>no</strong>.
       </p>
       <p>
-        But if you're staying for more than two or three days—whether that's a family vacation, a workation, a villa stay
-        with friends, or even a month-long remote work trip—a scooter is easily one of the best decisions you can make.
+        But if you're staying for more than two or three days—whether that's a family vacation, a workation, or a villa
+        stay with friends—a scooter is one of the best decisions you can make.
       </p>
       <p>
         The biggest reason is simple: Goa isn't a city where everything is within walking distance, nor is it a place with
@@ -156,14 +149,12 @@ export default function GoaScooterRentalGuide() {
         While the exact numbers depend on the season and where you're staying, scooters usually become the more economical
         option surprisingly quickly—especially if you're planning to explore beyond one neighbourhood.
       </p>
-      <p>That said, scooters aren't the right choice for everyone.</p>
       <p>
-        If you're travelling with elderly parents, young children, carrying multiple suitcases, or simply aren't
-        comfortable riding a two-wheeler, taxis are often the better option. Goa has app-based taxi services as well as
-        local operators, and for shorter holidays where you're only making one or two trips a day, the convenience may
-        outweigh the additional cost.
+        Of course, two-wheelers are not for everyone. If you're travelling with family, carrying heavy luggage, or are not
+        comfortable riding, taxis remain the safer and more convenient choice. Goa has both app-based services and local
+        taxi stands, and for short trips, the peace of mind can outweigh the cost. The key is choosing transport based on
+        your specific trip rather than following what everyone else does.
       </p>
-      <p>The key is choosing transport based on the kind of trip you're planning, not just because everyone else rents a scooter.</p>
       <p>Another thing people often underestimate is the freedom a scooter gives you.</p>
       <p>
         Some of Goa's best experiences aren't attractions you'll find on Google Maps. They're the small cafés hidden
@@ -221,11 +212,9 @@ export default function GoaScooterRentalGuide() {
         getting busier, prices gradually increase. The highest rates are generally seen between Christmas and the New Year,
         when demand is at its peak and even finding an available scooter can become difficult.
       </p>
-      <p>The duration of your rental also plays a big role.</p>
       <p>
-        Most rental shops offer much better pricing if you're booking for several days or an entire week instead of just
-        one day. If you're staying for a month—perhaps for a workation or a longer vacation—many providers offer monthly
-        packages that work out significantly cheaper than paying daily rates.
+        The duration of your rental also plays a big role. Most shops offer better daily rates for weekly bookings compared
+        to a single day, and monthly packages for long-term stays or workations work out significantly cheaper.
       </p>
       <p>
         That's why it's always worth telling the rental provider exactly how long you'll need the scooter. Even if you're
@@ -273,13 +262,10 @@ export default function GoaScooterRentalGuide() {
       </p>
 
       <h3>Why Does the Same Scooter Have Different Prices?</h3>
-      <p>This is something that confuses almost every first-time visitor.</p>
-      <p>Two rental shops located just a few hundred metres apart can quote completely different prices for the same scooter.</p>
-      <p>There are several reasons for this.</p>
       <p>
-        Shops located close to airports, railway stations or busy tourist hotspots often charge slightly higher rates
-        because they know convenience matters. Rental providers in quieter villages or residential areas may offer better
-        pricing simply because they don't have the same footfall.
+        It is common to see two shops located only a few hundred metres apart quote different rates for the same scooter.
+        Shops near airports, railway stations, or busy tourist hubs charge a premium for convenience. Conversely, rental
+        providers in quieter, residential areas or small villages often offer more competitive rates.
       </p>
       <p>
         The condition of the scooter also matters. A newer Activa that's been serviced recently will naturally cost more
@@ -318,28 +304,19 @@ export default function GoaScooterRentalGuide() {
         <li>Are there additional charges if you return the scooter later than agreed?</li>
         <li>What happens if you decide to extend your rental by one or two days?</li>
       </ul>
-      <p>That last point is especially important.</p>
       <p>
-        Many travellers assume they'll simply pay the same daily rate if they extend their rental. In reality, some
-        providers may charge a different rate for extensions, particularly during weekends or peak tourist periods. If you
-        think there's even a small chance you'll keep the scooter longer, it's worth discussing extension pricing before
-        you ride away.
+        If you think you might need the vehicle longer, discuss extension rates before renting. Some shops charge higher
+        rates for extensions during weekends or peak periods, and a quick conversation upfront prevents unexpected costs
+        later.
       </p>
-      <p>A two-minute conversation upfront can save you an awkward negotiation later.</p>
 
       <h2>Where Should You Rent a Scooter in Goa?</h2>
       <p>Once you've decided that renting a scooter makes sense, the next question is where you should actually get one from.</p>
       <p>
-        Should you book online before your trip? Rent one directly at the airport? Ask your hotel or villa host? Or simply
-        walk into the nearest rental shop after you arrive?
+        Your options range from booking online in advance to picking up a scooter at the airport or walking into a local
+        shop near your stay. While finding an available vehicle in Goa is rarely difficult outside the peak New Year's week,
+        it pays to choose a provider that maintains their fleet well and has transparent terms.
       </p>
-      <p>
-        The good news is that Goa has no shortage of rental providers. Almost every popular tourist area has multiple
-        shops, and unless you're visiting during Christmas or New Year's week, finding a scooter usually isn't difficult.
-        The challenge isn't availability—it's finding a rental provider that's transparent, maintains their vehicles well,
-        and won't surprise you with hidden charges later.
-      </p>
-      <p>The option you choose should depend on how you're travelling and where you're staying.</p>
 
       <h3>Renting a Scooter After You Arrive</h3>
       <p>For most travellers, this is still the easiest option.</p>
@@ -520,13 +497,11 @@ export default function GoaScooterRentalGuide() {
       </p>
 
       <h3>Before You Ride Away, Spend Five Minutes Checking the Scooter</h3>
-      <p>This is probably the most valuable advice in this entire guide.</p>
-      <p>Before you leave the rental shop, don't immediately start your trip.</p>
-      <p>Walk around the scooter once.</p>
-      <p>Take a few clear photos from every angle.</p>
-      <p>Record a short 30-second video showing its current condition.</p>
-      <p>Check whether there are existing scratches, dents or broken panels and point them out to the rental provider before you leave.</p>
-      <p>Then spend another minute checking a few basics:</p>
+      <p>
+        The most valuable advice is to take five minutes before you leave the rental shop to inspect the vehicle. Walk around
+        the scooter, click clear photos from every angle, and record a 30-second video of its condition. Point out any
+        existing scratches, dents, or cracked panels to the provider, then check these basics:
+      </p>
       <ul>
         <li>Are both brakes working properly?</li>
         <li>Do the headlights and indicators turn on?</li>
@@ -627,13 +602,12 @@ export default function GoaScooterRentalGuide() {
       </p>
 
       <h3>A Few Small Habits That Can Save You a Lot of Trouble</h3>
-      <p>After talking to travellers and reading countless discussions online, the people who have the smoothest experience usually follow a few simple habits.</p>
-      <p>They keep enough fuel instead of waiting until the last minute.</p>
-      <p>They avoid riding aggressively just because the roads look empty.</p>
-      <p>They park only where it's allowed.</p>
-      <p>They lock the scooter whenever they leave it.</p>
-      <p>And perhaps most importantly, they don't rush.</p>
-      <p>Goa isn't a place where you need to be in a hurry. The slower you travel, the more you'll enjoy the journey.</p>
+      <p>
+        After talking to travellers and reading countless discussions online, the people who have the smoothest experience
+        usually follow a few simple habits—like keeping enough fuel instead of waiting until the last minute, avoiding
+        aggressive riding when the roads look empty, parking only where permitted, locking the scooter whenever it is left
+        unattended, and most importantly, not rushing. Goa is best experienced slowly.
+      </p>
 
       <h3>Enjoy the Ride, Not the Stress</h3>
       <p>Renting a scooter gives you the freedom to experience Goa in a way that taxis rarely can.</p>
@@ -704,38 +678,30 @@ export default function GoaScooterRentalGuide() {
       </p>
 
       <h2>Final Thoughts</h2>
-      <p>One of the best things about Goa is that the journey often becomes just as memorable as the destination.</p>
+      <p>One of the best things about Goa is that the journey often becomes as memorable as the destination.</p>
       <p>
-        Some of your favourite memories won't come from famous landmarks. They'll come from taking a wrong turn into a quiet
-        Portuguese village, stopping for chai at a roadside café, discovering a hidden beach that wasn't on your itinerary, or
-        watching the sunset simply because you decided to ride a little further.
-      </p>
-      <p>A scooter gives you that freedom. It lets you experience Goa on your own schedule instead of someone else's.</p>
-      <p>
-        As long as you rent from a reliable provider, carry the right documents, ride responsibly and take a few minutes to
-        inspect the vehicle before leaving, you'll likely find that it's one of the best decisions you make during your trip.
+        Many of the best memories come from taking a wrong turn into a quiet Portuguese village, stopping for chai at a
+        roadside stall, discovering a hidden beach, or watching the sunset simply because you decided to ride a little
+        further. A scooter gives you that freedom to explore on your own schedule.
       </p>
       <p>
-        If you're planning a longer stay, booking a villa, or even considering a month-long workation, finding the right
-        accommodation matters just as much as finding the right scooter.
-      </p>
-      <p>That's exactly what we're building with <strong>Wayzyy</strong>.</p>
-      <p>
-        Wayzyy isn't just another booking platform. We're creating a host-first marketplace that helps travellers discover
-        verified villas and vacation homes with transparent pricing, while making it easier to access the things people
-        usually spend hours searching for after they arrive—trusted scooter rental partners, workation-ready stays with
-        reliable Wi-Fi, dedicated workspaces, airport transfers, local recommendations, and other verified services that make
-        your trip smoother from day one.
+        As long as you choose a reliable provider, carry the right documents, and ride responsibly, it remains one of the best
+        decisions you can make for your trip.
       </p>
       <p>
-        Instead of spending your first afternoon comparing random rental shops or trying to figure out which services you can
-        trust, our goal is to help you arrive with everything already planned.
+        If you're planning a longer stay or booking a villa, finding the right home base matters as much as finding the right
+        transport. That is what we are building at <strong>Wayzyy</strong>.
       </p>
       <p>
-        Whether you're visiting Goa for a weekend, bringing your family for a holiday, planning a startup offsite, or spending
-        a month working remotely by the coast, we hope this guide has helped you feel a little more prepared.
+        Wayzyy isn't another booking platform. We're creating a host-first marketplace that helps travellers discover
+        verified villas and vacation homes with transparent pricing, while making it easier to coordinate the services you need
+        upon arrival—such as trusted local scooter rentals, airport transfers, and workation-ready setups.
       </p>
-      <p>Have a safe ride, explore beyond the popular tourist spots, support local businesses where you can, and most importantly—take your time. Goa is one of those places that's best experienced slowly.</p>
+      <p>
+        Instead of spending your first afternoon comparing rental operators or worrying about Wi-Fi reliability, our goal is
+        to help you arrive with the essentials ready. Explore slowly, drive safely, and take your time—Goa is best experienced
+        without a rush.
+      </p>
 
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
