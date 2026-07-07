@@ -51,3 +51,14 @@ Indian short-term rentals are growing rapidly but are dominated by foreign platf
 - Deep link URI template: `wayzyy://property/{propertyId}`
 - Android app on Play Store: `https://play.google.com/store/apps/details?id=com.wayzyy.app`
 - iOS app on App Store: `https://apps.apple.com/app/wayzyy/id000000000`
+
+## Blog Pages
+
+- https://wayzyy.com/blog/best-airbnb-alternatives-goa
+- https://wayzyy.com/blog/why-villas-goa-different-prices-platforms
+- https://wayzyy.com/blog/north-goa-vs-south-goa-guide
+- https://wayzyy.com/blog/workation-goa-guide
+- https://wayzyy.com/blog/goa-scooter-rental-guide
+- https://wayzyy.com/blog/best-time-to-visit-goa
+- https://wayzyy.com/blog/goa-trip-budget-guide
+
