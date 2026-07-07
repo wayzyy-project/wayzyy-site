@@ -287,7 +287,8 @@ export default function WhyGoaVillasCostDifferent() {
       <p>For guests, that's worth knowing.</p>
       <p>
         If you're comparing the same villa across multiple websites, it makes sense to compare the{" "}
-        <strong>final amount you'll actually pay</strong>, not just the first number that appears in search results. Sometimes
+        <strong>final amount you'll actually pay</strong>, not just the first number that appears in search results (which
+        you can estimate using our <a href="/blog/goa-trip-budget-guide">Goa trip budget guide</a>). Sometimes
         they'll be almost identical. Sometimes they'll differ by only a few hundred rupees. And occasionally, especially on
         higher-value bookings, the difference can be much more noticeable because each platform follows a different commercial
         model.

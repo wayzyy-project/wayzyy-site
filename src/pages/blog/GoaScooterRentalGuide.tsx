@@ -100,9 +100,10 @@ export default function GoaScooterRentalGuide() {
       <p>
         In this guide, we're not going to give you the same generic checklist that's already on dozens of websites.
         Instead, we'll answer the questions people actually search for before renting. We'll cover how much scooter
-        rentals realistically cost, where to rent from, which documents you'll need, how to avoid common rental mistakes,
-        what to check before accepting a scooter, recent traffic updates you should know about, and whether booking
-        online or renting locally makes more sense.
+        rentals realistically cost (which you can compare alongside general trip expenses in our{" "}
+        <a href="/blog/goa-trip-budget-guide">Goa trip budget guide</a>), where to rent from, which documents you'll need,
+        how to avoid common rental mistakes, what to check before accepting a scooter, recent traffic updates you should
+        know about, and whether booking online or renting locally makes more sense.
       </p>
       <p>
         At <strong>Wayzyy</strong>, we focus on verified villa stays with transparent pricing and trusted local
@@ -720,6 +721,12 @@ export default function GoaScooterRentalGuide() {
           </li>
           <li>
             <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
+          </li>
+          <li>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+          </li>
+          <li>
+            <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>
           </li>
         </ul>
       </div>
