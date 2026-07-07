@@ -96,4 +96,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-09",
     readTime: "9 Min Read",
   },
+  {
+    slug: "assagao-goa-villas-guide",
+    title: "Assagao Villas Guide (2026): Why Everyone Wants to Stay in Goa's Most Popular Village",
+    description:
+      "Why is everyone suddenly talking about Assagao? Read our honest guide to Assagao's villas, cafes, restaurants, and travel style.",
+    metaTitle: "Assagao Villas & Stays Guide (2026) — Stays, Cafes & Tips",
+    metaDescription:
+      "Why is everyone staying in Assagao? Learn about Portuguese villas, cafe scenes, typical costs, and tips for foreigners and remote workers in Goa.",
+    heroImage: "/blog/goa-assagao-village.png",
+    publishedDate: "2026-07-10",
+    readTime: "9 Min Read",
+  },
 ];

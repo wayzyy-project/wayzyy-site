@@ -140,7 +140,7 @@ export default function NorthGoaVsSouthGoa() {
         part of North Goa.
       </p>
       <p>That's also why choosing the right village matters far more than simply choosing North Goa itself.</p>
-      <p>Take Assagao, for example.</p>
+      <p>Take Assagao, for example (which we explore in-depth in our dedicated <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide</a>).</p>
       <p>
         Over the last few years, it's quietly become one of the most talked-about villages in Goa. Mornings here usually
         begin with cafés filling up long before the beaches do. The roads are lined with restored Portuguese homes,
@@ -571,6 +571,9 @@ export default function NorthGoaVsSouthGoa() {
           </li>
           <li>
             <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+          </li>
+          <li>
+            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

@@ -166,10 +166,11 @@ export default function WorkationGoaGuide() {
       <h3>Coworking Cafés</h3>
       <p>Not every productive day needs to happen inside a coworking office.</p>
       <p>
-        One of the reasons people enjoy working from Goa is the café culture that's developed around places like Assagao,
-        Vagator and Anjuna. Many cafés are happy to welcome remote workers during quieter hours, especially on weekdays.
-        Some have reliable WiFi, comfortable seating and plenty of charging points, making them ideal for catching up on
-        emails or getting through a few hours of focused work.
+        One of the reasons people enjoy working from Goa is the café culture that's developed around places like Assagao (check
+        our dedicated <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide</a>), Vagator and Anjuna. Many cafés are
+        happy to welcome remote workers during quieter hours, especially on weekdays. Some have reliable WiFi, comfortable
+        seating and plenty of charging points, making them ideal for catching up on emails or getting through a few hours of
+        focused work.
       </p>
       <p>
         That said, cafés shouldn't replace your primary workspace. Internet speeds can vary, tables fill up quickly during
@@ -502,6 +503,9 @@ export default function WorkationGoaGuide() {
           </li>
           <li>
             <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+          </li>
+          <li>
+            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>
