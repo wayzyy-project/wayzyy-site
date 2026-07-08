@@ -1,4 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteNav() {
@@ -35,9 +36,9 @@ export function SiteNav() {
           <a className="hover:text-foreground" href="#waitlist">
             Waitlist
           </a>
-          <a className="hover:text-foreground" href="/blog">
+          <Link className="hover:text-foreground" to="/blog">
             Blog
-          </a>
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />

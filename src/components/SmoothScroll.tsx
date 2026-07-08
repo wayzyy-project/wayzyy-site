@@ -1,5 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import Lenis from "lenis";
+import { lenisRef } from "@/lib/lenis";
 
 type Props = { children: ReactNode };
 
@@ -20,6 +21,7 @@ export function SmoothScroll({ children }: Props) {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+    lenisRef.current = lenis;
 
     let rafId = 0;
     const raf = (time: number) => {
@@ -31,6 +33,7 @@ export function SmoothScroll({ children }: Props) {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
