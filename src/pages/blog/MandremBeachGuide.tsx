@@ -348,6 +348,12 @@ export default function MandremBeachGuide() {
         planning an offsite. If you're travelling during the peak season, it's worth shortlisting a few options early because the
         better-rated villas tend to get booked well in advance.
       </p>
+      <img
+        src="/blog/goa-mandrem-beach.png"
+        alt="Scenic morning view of Mandrem Beach, Goa, with pristine sand, calm waves, and coconut palm trees lining the horizon"
+        className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
+        loading="lazy"
+      />
 
       <h2>How Much Does It Cost to Stay in Mandrem?</h2>
       <p>
