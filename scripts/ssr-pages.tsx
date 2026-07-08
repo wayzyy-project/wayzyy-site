@@ -5,6 +5,12 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 
+import Index from "@/pages/Index";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import PaymentRefundPolicy from "@/pages/PaymentRefundPolicy";
+import HostTerms from "@/pages/HostTerms";
+import GuestTerms from "@/pages/GuestTerms";
+
 import BlogIndex from "@/pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "@/pages/blog/BestAirbnbAlternativesGoa";
 import WhyGoaVillasCostDifferent from "@/pages/blog/WhyGoaVillasCostDifferent";
@@ -25,6 +31,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // route -> component, mirrors src/App.tsx
 const routes: Record<string, React.ComponentType> = {
+  "/": Index,
+  "/privacy": PrivacyPolicy,
+  "/payment-refund": PaymentRefundPolicy,
+  "/host-terms": HostTerms,
+  "/guest-terms": GuestTerms,
+
   "/blog": BlogIndex,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,
   "/blog/why-villas-goa-different-prices-platforms": WhyGoaVillasCostDifferent,
