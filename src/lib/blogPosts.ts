@@ -168,4 +168,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-15",
     readTime: "10 Min Read",
   },
+  {
+    slug: "anjuna-goa-beach-guide",
+    title: "Anjuna Beach Guide (2026): The Complete Guide to Staying, Exploring & Booking Stays",
+    description:
+      "Planning to stay in Anjuna? Read our honest guide to Anjuna's beach shacks, stays, cafes, safety, and typical costs.",
+    metaTitle: "Anjuna Beach Guide (2026) — Stays, Cafes & Tips",
+    metaDescription:
+      "Should you stay in Anjuna? Read our honest guide on flea markets, shacks, safety, typical costs, local tips, and workation advice for Anjuna, Goa.",
+    heroImage: "/blog/goa-anjuna-beach-palms.jpg",
+    publishedDate: "2026-07-16",
+    readTime: "10 Min Read",
+  },
 ];

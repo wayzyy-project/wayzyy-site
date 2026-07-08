@@ -302,6 +302,12 @@ export default function AshwemBeachGuide() {
           <li>
             <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

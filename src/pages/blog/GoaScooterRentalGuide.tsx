@@ -746,6 +746,9 @@ export default function GoaScooterRentalGuide() {
           <li>
             <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

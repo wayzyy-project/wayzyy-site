@@ -446,7 +446,7 @@ export default function AssagaoVillasGuide() {
         <li>
           Still exploring North Goa? You may also enjoy our detailed guides to <a href="/blog/morjim-goa-beach-guide">Morjim</a>,{" "}
           <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/siolim-goa-villas-guide">Siolim</a>,{" "}
-          <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, and <a href="/blog/vagator-goa-beach-guide">Vagator</a>, where we compare each destination, explain who it's best suited for and help
+          <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, <a href="/blog/vagator-goa-beach-guide">Vagator</a>, and <a href="/blog/anjuna-goa-beach-guide">Anjuna</a>, where we compare each destination, explain who it's best suited for and help
           you decide which area matches the kind of holiday you're planning.
         </li>
       </ul>
@@ -495,6 +495,9 @@ export default function AssagaoVillasGuide() {
           </li>
           <li>
             <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

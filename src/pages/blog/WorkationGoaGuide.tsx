@@ -137,7 +137,7 @@ export default function WorkationGoaGuide() {
         <strong>Best for:</strong> Corporate professionals, consultants, remote employees and founders.
       </p>
 
-      <h3>Clay Coworks – Anjuna</h3>
+      <h3>Clay Coworks – <a href="/blog/anjuna-goa-beach-guide">Anjuna</a></h3>
       <p>
         If your idea of a productive day includes meeting other founders, creators and freelancers, Clay Coworks has become
         one of the more popular choices in North Goa. The atmosphere is considerably more relaxed than a traditional office,
@@ -167,7 +167,7 @@ export default function WorkationGoaGuide() {
       <p>Not every productive day needs to happen inside a coworking office.</p>
       <p>
         One of the reasons people enjoy working from Goa is the café culture that's developed around places like Assagao (check
-        our dedicated <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide</a>), Vagator and Anjuna. Many cafés are
+        our dedicated <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide</a>), <a href="/blog/vagator-goa-beach-guide">Vagator</a> and <a href="/blog/anjuna-goa-beach-guide">Anjuna</a>. Many cafés are
         happy to welcome remote workers during quieter hours, especially on weekdays. Some have reliable WiFi, comfortable
         seating and plenty of charging points, making them ideal for catching up on emails or getting through a few hours of
         focused work.
@@ -520,6 +520,9 @@ export default function WorkationGoaGuide() {
           </li>
           <li>
             <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

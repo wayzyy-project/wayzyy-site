@@ -28,6 +28,7 @@ import MandremBeachGuide from "./pages/blog/MandremBeachGuide";
 import MorjimBeachGuide from "./pages/blog/MorjimBeachGuide";
 import AshwemBeachGuide from "./pages/blog/AshwemBeachGuide";
 import VagatorBeachGuide from "./pages/blog/VagatorBeachGuide";
+import AnjunaBeachGuide from "./pages/blog/AnjunaBeachGuide";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/blog/morjim-goa-beach-guide" element={<MorjimBeachGuide />} />
               <Route path="/blog/ashwem-goa-beach-guide" element={<AshwemBeachGuide />} />
               <Route path="/blog/vagator-goa-beach-guide" element={<VagatorBeachGuide />} />
+              <Route path="/blog/anjuna-goa-beach-guide" element={<AnjunaBeachGuide />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
