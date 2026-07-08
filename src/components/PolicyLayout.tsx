@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { SEO } from "./SEO";
+import { ThemeToggle } from "./theme-toggle";
 
 interface PolicyLayoutProps {
   title: string;
@@ -60,16 +61,19 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
       <div className="min-h-screen bg-background text-foreground">
         {/* Top bar */}
         <div className="border-b border-border bg-background/80 backdrop-blur sticky top-0 z-40">
-          <div className="container flex items-center gap-4 py-4">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Wayzyy
-            </Link>
-            <span className="text-border">·</span>
-            <img src="/favicon.png" alt="Wayzyy" className="h-7 w-auto" />
+          <div className="container flex items-center justify-between gap-4 py-4">
+            <div className="flex items-center gap-4">
+              <Link
+                to="/"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Wayzyy
+              </Link>
+              <span className="text-border">·</span>
+              <img src="/favicon.png" alt="Wayzyy" className="h-7 w-auto" />
+            </div>
+            <ThemeToggle />
           </div>
         </div>
 
