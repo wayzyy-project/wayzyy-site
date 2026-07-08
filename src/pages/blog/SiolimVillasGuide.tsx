@@ -329,6 +329,9 @@ export default function SiolimVillasGuide() {
           <li>
             <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

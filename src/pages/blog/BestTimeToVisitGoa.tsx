@@ -73,7 +73,7 @@ export default function BestTimeToVisitGoa() {
       <h2>North Goa During Peak Season</h2>
       <p>
         If this is your first trip, you will likely spend a significant part of your stay in the north. Popular areas like
-        Anjuna, Vagator, <a href="/blog/assagao-goa-villas-guide">Assagao</a>, <a href="/blog/siolim-goa-villas-guide">Siolim</a>, <a href="/blog/morjim-goa-beach-guide">Morjim</a>, <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, Candolim, Calangute, and Baga are at their busiest between November and
+        Anjuna, <a href="/blog/vagator-goa-beach-guide">Vagator</a>, <a href="/blog/assagao-goa-villas-guide">Assagao</a>, <a href="/blog/siolim-goa-villas-guide">Siolim</a>, <a href="/blog/morjim-goa-beach-guide">Morjim</a>, <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, Candolim, Calangute, and Baga are at their busiest between November and
         February. This is when the region comes alive with beach clubs, live music, buzzing cafés, busy coworking spaces, flea
         markets, and the active nightlife Goa is known for.
       </p>
@@ -273,6 +273,9 @@ export default function BestTimeToVisitGoa() {
           </li>
           <li>
             <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

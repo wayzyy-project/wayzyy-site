@@ -163,7 +163,7 @@ export default function NorthGoaVsSouthGoa() {
         Goa's busiest beaches without feeling busy itself. You can reach Morjim, Ashwem (covered in our <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide</a>) or Vagator fairly easily, but by
         evening you're back in a neighbourhood that still feels residential rather than touristy.
       </p>
-      <p>Move a little closer towards Vagator and Anjuna, and the atmosphere changes again.</p>
+      <p>Move a little closer towards Vagator (which we cover in our <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide</a>) and Anjuna, and the atmosphere changes again.</p>
       <p>
         This is where North Goa becomes the version most people recognise. Beach clubs, music venues, sunset spots and
         cafés all sit within a relatively small area, making it one of the easiest places to stay if you like having
@@ -586,6 +586,9 @@ export default function NorthGoaVsSouthGoa() {
           </li>
           <li>
             <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

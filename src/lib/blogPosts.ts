@@ -156,4 +156,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-14",
     readTime: "9 Min Read",
   },
+  {
+    slug: "vagator-goa-beach-guide",
+    title: "Vagator Beach Guide (2026): The Complete Guide to Staying, Exploring & Booking Stays",
+    description:
+      "Planning to stay in Vagator? Read our honest guide to Vagator's cliffside restaurants, beaches, safety, typical costs, and workation tips.",
+    metaTitle: "Vagator Beach Guide (2026) — Stays, Cafes & Tips",
+    metaDescription:
+      "Should you stay in Vagator? Read our honest guide on cliffsides, sunsets, safety, typical costs, local tips, and workation advice for Vagator, Goa.",
+    heroImage: "/blog/goa-vagator-beach.jpg",
+    publishedDate: "2026-07-15",
+    readTime: "10 Min Read",
+  },
 ];
