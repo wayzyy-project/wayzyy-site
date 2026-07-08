@@ -421,6 +421,42 @@ export default function AssagaoVillasGuide() {
         If Assagao feels like the kind of place you are looking for, it is a fantastic place to begin exploring North Goa.
       </p>
 
+      <h2>Plan Your Goa Trip</h2>
+      <p>
+        If you're still deciding where to stay or how to plan your trip, these guides will help you make the most of your time in Goa:
+      </p>
+      <ul className="space-y-2 mt-4">
+        <li>
+          If you're choosing between different parts of Goa, start with our{" "}
+          <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa Guide</a> to understand which side best matches your travel style.
+        </li>
+        <li>
+          Planning to rent a scooter? Our <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a> covers everything from
+          rental prices and required documents to safety tips, common mistakes and recent speed enforcement zones that first-time visitors
+          should know about.
+        </li>
+        <li>
+          Travelling during a particular season? Read our <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa Guide</a> for
+          a month-by-month breakdown of weather, crowds and villa prices before you book.
+        </li>
+        <li>
+          If you're planning to work remotely, our <a href="/blog/workation-goa-guide">Workation in Goa Guide</a> explains the best areas
+          for longer stays, internet connectivity, cafés and how to choose accommodation that's actually suitable for remote work.
+        </li>
+        <li>
+          Still exploring North Goa? You may also enjoy our detailed guides to <a href="/blog/morjim-goa-beach-guide">Morjim</a>,{" "}
+          <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/siolim-goa-villas-guide">Siolim</a>, and{" "}
+          <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, where we compare each destination, explain who it's best suited for and help
+          you decide which area matches the kind of holiday you're planning.
+        </li>
+      </ul>
+      <p className="mt-6">
+        And when you're ready to book, <strong>Wayzyy</strong> helps you discover verified villas across Goa with filters for the
+        things that actually matter—private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
+        Instead of charging hosts a commission on every booking, our host-first credit model keeps pricing more transparent while
+        making it easier for travellers to find stays that genuinely fit their trip.
+      </p>
+
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
@@ -453,6 +489,9 @@ export default function AssagaoVillasGuide() {
           </li>
           <li>
             <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

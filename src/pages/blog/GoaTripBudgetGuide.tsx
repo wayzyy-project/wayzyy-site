@@ -539,6 +539,9 @@ export default function GoaTripBudgetGuide() {
           <li>
             <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

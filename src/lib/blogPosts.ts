@@ -144,4 +144,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-13",
     readTime: "9 Min Read",
   },
+  {
+    slug: "ashwem-goa-beach-guide",
+    title: "Ashwem Beach Guide (2026): Why Experienced Goa Travellers Quietly Keep Recommending It",
+    description:
+      "Why do experienced travellers quietly keep returning to Ashwem? Read our honest guide to Ashwem's beach shacks, stays, cafes, safety, and typical costs.",
+    metaTitle: "Ashwem Beach & Stays Guide (2026) — Cafes, Costs & Stays",
+    metaDescription:
+      "Planning to stay in Ashwem? Read our guide on beachwear, safety for solo women, typical costs, local tips, and workation advice for Ashwem, Goa.",
+    heroImage: "/blog/goa-ashwem-beach.jpg",
+    publishedDate: "2026-07-14",
+    readTime: "9 Min Read",
+  },
 ];

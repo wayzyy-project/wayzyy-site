@@ -26,6 +26,7 @@ import AssagaoVillasGuide from "./pages/blog/AssagaoVillasGuide";
 import SiolimVillasGuide from "./pages/blog/SiolimVillasGuide";
 import MandremBeachGuide from "./pages/blog/MandremBeachGuide";
 import MorjimBeachGuide from "./pages/blog/MorjimBeachGuide";
+import AshwemBeachGuide from "./pages/blog/AshwemBeachGuide";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/blog/siolim-goa-villas-guide" element={<SiolimVillasGuide />} />
               <Route path="/blog/mandrem-goa-beach-guide" element={<MandremBeachGuide />} />
               <Route path="/blog/morjim-goa-beach-guide" element={<MorjimBeachGuide />} />
+              <Route path="/blog/ashwem-goa-beach-guide" element={<AshwemBeachGuide />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
