@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex items-center">
-              <img src="/favicon.png" alt="Wayzyy" className="h-10 w-auto" />
+              <img src="/favicon.png" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               cozy stays, crazy nights and fair hosting . That's wayzyy

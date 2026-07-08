@@ -71,7 +71,7 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
                 Back to Wayzyy
               </Link>
               <span className="text-border">·</span>
-              <img src="/favicon.png" alt="Wayzyy" className="h-7 w-auto" />
+              <img src="/favicon.png" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </div>
             <ThemeToggle />
           </div>
