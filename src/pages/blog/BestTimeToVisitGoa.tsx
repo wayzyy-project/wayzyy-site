@@ -242,43 +242,13 @@ export default function BestTimeToVisitGoa() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/best-airbnb-alternatives-goa">5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)</a>
-          </li>
-          <li>
-            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms — The Fee Breakdown</a>
-          </li>
-          <li>
             <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
-          </li>
-          <li>
-            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
-          </li>
-          <li>
-            <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter</a>
           </li>
           <li>
             <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>
           </li>
           <li>
-            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
-          </li>
-          <li>
-            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
           </li>
         </ul>
       </div>

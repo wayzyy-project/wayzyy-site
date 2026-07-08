@@ -539,13 +539,7 @@ export default function WhyGoaVillasCostDifferent() {
             <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
-          </li>
-          <li>
-            <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide — Everything You Need to Know Before Renting a Scooter in Goa</a>
-          </li>
-          <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>
           </li>
         </ul>
       </div>

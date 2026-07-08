@@ -173,11 +173,11 @@ html.lenis body {
   @apply space-y-2 mb-6 ml-1;
 }
 .policy-content ul li {
-  @apply text-[15px] text-muted-foreground flex gap-2 leading-relaxed;
+  @apply text-[15px] text-muted-foreground leading-relaxed relative pl-5;
 }
 .policy-content ul li::before {
   content: "–";
-  @apply text-ember shrink-0 mt-0.5;
+  @apply text-ember absolute left-0 top-0;
 }
 .policy-content a {
   @apply text-ember hover:underline;
