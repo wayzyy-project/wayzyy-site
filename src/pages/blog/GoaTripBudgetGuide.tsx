@@ -198,9 +198,9 @@ export default function GoaTripBudgetGuide() {
         offer better pricing because it reduces frequent check-ins and keeps their calendar occupied for a longer period.
       </p>
       <p>
-        Location also plays an important role. Premium areas like Assagao, Vagator and parts of Anjuna generally command
+        Location also plays an important role. Premium areas like <a href="/blog/assagao-goa-villas-guide">Assagao</a>, Vagator and parts of Anjuna generally command
         higher prices because of their cafés, restaurants and proximity to popular attractions. On the other hand, places
-        like Siolim, Mandrem, Arambol or several parts of South Goa (which we explore in our{" "}
+        like <a href="/blog/siolim-goa-villas-guide">Siolim</a>, <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/morjim-goa-beach-guide">Morjim</a>, <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, Arambol or several parts of South Goa (which we explore in our{" "}
         <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa Guide</a>) often offer excellent value without
         feeling too far away from everything.
       </p>

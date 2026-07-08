@@ -237,8 +237,7 @@ export default function WorkationGoaGuide() {
       </p>
       <p>
         A week-long holiday during Christmas looks very different from a month-long workation in September. Similarly,
-        staying in a luxury villa in Assagao with a private pool will cost significantly more than renting an apartment in
-        Siolim or sharing a villa with friends.
+        staying in a luxury villa in <a href="/blog/assagao-goa-villas-guide">Assagao</a> with a private pool will cost significantly more than renting an apartment in <a href="/blog/siolim-goa-villas-guide">Siolim</a> or sharing a villa with friends.
       </p>
       <p>
         The good news is that longer stays usually unlock much better value. Many hosts are willing to offer discounts for
@@ -346,7 +345,7 @@ export default function WorkationGoaGuide() {
         areas can significantly reduce your overall cost without compromising your experience.
       </p>
       <p>
-        Places like Siolim, Aldona or parts of South Goa often offer much better value than staying right in the middle of
+        Places like <a href="/blog/siolim-goa-villas-guide">Siolim</a>, <a href="/blog/morjim-goa-beach-guide">Morjim</a>, <a href="/blog/mandrem-goa-beach-guide">Mandrem</a>, <a href="/blog/ashwem-goa-beach-guide">Ashwem</a>, Aldona or parts of South Goa often offer much better value than staying right in the middle of
         Calangute or Baga, while still keeping you within easy reach of beaches, cafés and coworking spaces. If you're
         trying to figure out which part of the state fits your working style and vibe, check out our guide on{" "}
         <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa</a>.
