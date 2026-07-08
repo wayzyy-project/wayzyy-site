@@ -77,11 +77,11 @@ export function BlogLayout({
           <div className="container flex items-center justify-between gap-4 py-4">
             <div className="flex items-center gap-4">
               <Link
-                to="/"
+                to="/blog"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Back to Wayzyy
+                Back to Blog
               </Link>
               <span className="text-border">·</span>
               <img src="/favicon.png" alt="Wayzyy" className="h-7 w-auto" />

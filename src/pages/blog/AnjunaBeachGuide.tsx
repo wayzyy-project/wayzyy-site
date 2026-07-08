@@ -1,3 +1,4 @@
+import { Check, X } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 
@@ -155,21 +156,21 @@ export default function AnjunaBeachGuide() {
           <div>
             <h4 className="text-foreground font-semibold mb-3 mt-0">Who is this guide for?</h4>
             <ul className="space-y-1.5 list-none pl-0">
-              <li className="text-muted-foreground">✅ First-time visitors</li>
-              <li className="text-muted-foreground">✅ Couples</li>
-              <li className="text-muted-foreground">✅ Families</li>
-              <li className="text-muted-foreground">✅ Solo travellers</li>
-              <li className="text-muted-foreground">✅ Digital nomads</li>
-              <li className="text-muted-foreground">✅ Groups of friends</li>
-              <li className="text-muted-foreground">✅ Long-term stays</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> First-time visitors</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Couples</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Families</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Solo travellers</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Digital nomads</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Groups of friends</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Check className="h-4 w-4 shrink-0 text-ember" /> Long-term stays</li>
             </ul>
           </div>
           <div>
             <h4 className="text-foreground font-semibold mb-3 mt-0">Not ideal if:</h4>
             <ul className="space-y-1.5 list-none pl-0">
-              <li className="text-muted-foreground">✗ You're looking for complete isolation.</li>
-              <li className="text-muted-foreground">✗ You don't plan on exploring beyond your hotel.</li>
-              <li className="text-muted-foreground">✗ You prefer very small village settings.</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><X className="h-4 w-4 shrink-0 text-muted-foreground/70" /> You're looking for complete isolation.</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><X className="h-4 w-4 shrink-0 text-muted-foreground/70" /> You don't plan on exploring beyond your hotel.</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><X className="h-4 w-4 shrink-0 text-muted-foreground/70" /> You prefer very small village settings.</li>
             </ul>
           </div>
         </div>
