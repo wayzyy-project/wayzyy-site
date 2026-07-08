@@ -156,7 +156,7 @@ export default function NorthGoaVsSouthGoa() {
         loading="lazy"
       />
 
-      <p>Siolim offers another version of North Goa altogether.</p>
+      <p>Siolim offers another version of North Goa altogether (which we cover in our <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide</a>).</p>
       <p>
         It's become a favourite among people staying for longer than a weekend. Remote workers, families and travellers
         returning for their second or third Goa trip often end up here because it sits comfortably between some of North
@@ -574,6 +574,9 @@ export default function NorthGoaVsSouthGoa() {
           </li>
           <li>
             <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

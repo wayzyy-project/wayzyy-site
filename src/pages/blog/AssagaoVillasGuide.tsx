@@ -445,6 +445,9 @@ export default function AssagaoVillasGuide() {
           <li>
             <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>
           </li>
+          <li>
+            <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

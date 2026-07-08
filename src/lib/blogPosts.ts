@@ -108,4 +108,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-10",
     readTime: "9 Min Read",
   },
+  {
+    slug: "siolim-goa-villas-guide",
+    title: "Siolim Villas Guide (2026): Why This Quiet North Goa Village is the Best Base for Slow Travel",
+    description:
+      "Why is everyone suddenly talking about Siolim? Read our honest guide to Siolim's villas, cafes, restaurants, and travel style.",
+    metaTitle: "Siolim Villas & Stays Guide (2026) — Stays, Cafes & Tips",
+    metaDescription:
+      "Why is everyone staying in Siolim? Learn about Portuguese villas, riverfront stays, typical costs, and tips for remote workers in Goa.",
+    heroImage: "/blog/goa-siolim-river.png",
+    publishedDate: "2026-07-11",
+    readTime: "9 Min Read",
+  },
 ];
