@@ -320,6 +320,12 @@ export default function SiolimVillasGuide() {
           <li>
             <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

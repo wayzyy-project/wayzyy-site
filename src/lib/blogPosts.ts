@@ -132,4 +132,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-12",
     readTime: "9 Min Read",
   },
+  {
+    slug: "morjim-goa-beach-guide",
+    title: "Morjim Beach Guide (2026): Why Repeat Travellers Choose This Quiet Haven",
+    description:
+      "Why do experienced travellers quietly keep returning to Morjim? Read our honest guide to Morjim's beach shacks, stays, cafes, safety, and typical costs.",
+    metaTitle: "Morjim Beach & Stays Guide (2026) — Cafes, Costs & Nesting",
+    metaDescription:
+      "Planning to stay in Morjim? Read our guide on turtle nesting, safety for solo women, typical costs, local tips, and workation advice for Morjim, Goa.",
+    heroImage: "/blog/goa-morjim-beach-beds.jpg",
+    publishedDate: "2026-07-13",
+    readTime: "9 Min Read",
+  },
 ];
