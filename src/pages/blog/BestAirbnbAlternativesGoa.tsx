@@ -103,7 +103,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
 
       <img
-        src="/blog/airbnb-host-fee-comparison-india-2026.jpg"
+        src="/blog/airbnb-host-fee-comparison-india-2026.webp"
         alt="How booking platform fees affect villa rental prices in Goa — commission comparison 2026"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -194,7 +194,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
 
       <img
-        src="/blog/goa-villa-interior-living-room-vacation-rental.jpg"
+        src="/blog/goa-villa-interior-living-room-vacation-rental.webp"
         alt="Villa living room interior in Goa — what to expect from a private vacation rental stay"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -257,7 +257,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
 
       <img
-        src="/blog/goa-villa-platform-fee-price-difference-comparison.jpg"
+        src="/blog/goa-villa-platform-fee-price-difference-comparison.webp"
         alt="Price difference between commission and no-commission villa booking platforms in Goa"
         className="w-full aspect-[2/1] object-contain rounded-2xl border border-border bg-card my-8"
         loading="lazy"
@@ -285,7 +285,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
 
       <img
-        src="/blog/north-goa-beach-coastline-vagator-anjuna.jpg"
+        src="/blog/north-goa-beach-coastline-vagator-anjuna.webp"
         alt="Goa coastline near popular villa rental areas in North Goa — Vagator and Anjuna"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

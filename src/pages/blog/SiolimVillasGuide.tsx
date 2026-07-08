@@ -150,7 +150,7 @@ export default function SiolimVillasGuide() {
       </p>
 
       <img
-        src="/blog/goa-siolim-church.png"
+        src="/blog/goa-siolim-church.webp"
         alt="St. Anthony's Church in Siolim, North Goa, showing majestic whitewashed architecture and palm trees under a bright blue sky"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -164,7 +164,7 @@ export default function SiolimVillasGuide() {
       </p>
 
       <img
-        src="/blog/goa-siolim-river.png"
+        src="/blog/goa-siolim-river.webp"
         alt="Sunset view of the Chapora River in Siolim, North Goa, with wooden boats docked near palm trees"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

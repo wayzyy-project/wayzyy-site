@@ -134,7 +134,7 @@ export default function WhyGoaVillasCostDifferent() {
       <p>That one sentence probably explains the entire article better than any pricing table could.</p>
 
       <img
-        src="/blog/goa-portuguese-villa.png"
+        src="/blog/goa-portuguese-villa.webp"
         alt="Beautiful Portuguese-style villa interior in Goa, showcasing vacation rental quality and character"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -238,7 +238,7 @@ export default function WhyGoaVillasCostDifferent() {
       <p>That's probably the simplest way to understand what changed.</p>
 
       <img
-        src="/blog/airbnb-host-fee-comparison-india-2026.jpg"
+        src="/blog/airbnb-host-fee-comparison-india-2026.webp"
         alt="Comparison of Airbnb host fees and platform commission models in India"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -370,7 +370,7 @@ export default function WhyGoaVillasCostDifferent() {
       </p>
 
       <img
-        src="/blog/goa-beach-sunset.png"
+        src="/blog/goa-beach-sunset.webp"
         alt="Beautiful sunset over the ocean on a palm-lined beach in South Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

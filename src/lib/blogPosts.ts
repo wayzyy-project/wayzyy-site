@@ -20,7 +20,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "5 Best Airbnb Alternatives in India for Goa Villas (2026)",
     metaDescription:
       "Airbnb changed its fee model in 2025. Here's how that affects what you pay for a villa in Goa — and which platforms actually cost less.",
-    heroImage: "/blog/goa-villa-private-pool-vacation-rental.jpg",
+    heroImage: "/blog/goa-villa-private-pool-vacation-rental.webp",
     publishedDate: "2026-07-06",
     readTime: "8 Min Read",
   },
@@ -32,7 +32,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Why Goa Villa Prices Vary Across Booking Platforms",
     metaDescription:
       "The same villa in Goa can cost different amounts on Airbnb, Booking.com, and Wayzyy. Here is the honest breakdown of platform fees and commissions.",
-    heroImage: "/blog/goa-villa-pricing-comparison.png",
+    heroImage: "/blog/goa-villa-pricing-comparison.webp",
     publishedDate: "2026-07-06",
     readTime: "7 Min Read",
   },
@@ -44,7 +44,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "North Goa vs South Goa — Which Is Best for Your Trip?",
     metaDescription:
       "First time visiting Goa or coming back for a workation? Here is the honest breakdown of the vibe, villages, and seasonal differences between North and South.",
-    heroImage: "/blog/goa-north-vs-south-hero.png",
+    heroImage: "/blog/goa-north-vs-south-hero.webp",
     publishedDate: "2026-07-06",
     readTime: "9 Min Read",
   },
@@ -56,7 +56,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Workation in Goa — Coworking, Stays & Monthly Budget (2026)",
     metaDescription:
       "Planning to work remotely from Goa? Read the honest guide to coworking, cafes, monthly costs, and Workation Verified villa rentals.",
-    heroImage: "/blog/goa-workation-hero.png",
+    heroImage: "/blog/goa-workation-hero.webp",
     publishedDate: "2026-07-06",
     readTime: "11 Min Read",
   },
@@ -68,7 +68,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Goa Scooter Rental Guide — Costs, Rules & Tips (2026)",
     metaDescription:
       "Planning to rent a scooter in Goa? Learn typical rental prices, license and ID requirements, speed camera updates, and check-list tips.",
-    heroImage: "/blog/goa-scooter-hero.png",
+    heroImage: "/blog/goa-scooter-hero.webp",
     publishedDate: "2026-07-07",
     readTime: "8 Min Read",
   },
@@ -80,7 +80,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Best Time to Visit Goa — Seasonality, Weather & Tips (2026)",
     metaDescription:
       "When is the best time to visit Goa? Learn about peak winter tourist periods, monsoon travel, shoulder seasons, and the best months to book a villa.",
-    heroImage: "/blog/goa-best-time-hero.png",
+    heroImage: "/blog/goa-best-time-hero.webp",
     publishedDate: "2026-07-08",
     readTime: "7 Min Read",
   },
@@ -92,7 +92,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Goa Trip Budget Guide (2026): Real Costs & Booking Tips",
     metaDescription:
       "Planning a trip to Goa? Find realistic budget estimates for solo travellers, couples, families, and groups. Learn where to save on stays and transport.",
-    heroImage: "/blog/goa-budget-hero.png",
+    heroImage: "/blog/goa-budget-hero.webp",
     publishedDate: "2026-07-09",
     readTime: "9 Min Read",
   },
@@ -104,7 +104,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Assagao Villas & Stays Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Why is everyone staying in Assagao? Learn about Portuguese villas, cafe scenes, typical costs, and tips for foreigners and remote workers in Goa.",
-    heroImage: "/blog/goa-assagao-village.png",
+    heroImage: "/blog/goa-assagao-village.webp",
     publishedDate: "2026-07-10",
     readTime: "9 Min Read",
   },
@@ -116,7 +116,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Siolim Villas & Stays Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Why is everyone staying in Siolim? Learn about Portuguese villas, riverfront stays, typical costs, and tips for remote workers in Goa.",
-    heroImage: "/blog/goa-siolim-river.png",
+    heroImage: "/blog/goa-siolim-river.webp",
     publishedDate: "2026-07-11",
     readTime: "9 Min Read",
   },
@@ -128,7 +128,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Mandrem Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Why do repeat travellers stay in Mandrem? Read our guide on beachwear, safety, typical costs, local tips, and workation advice for Mandrem, Goa.",
-    heroImage: "/blog/goa-mandrem-sunset-net.jpg",
+    heroImage: "/blog/goa-mandrem-sunset-net.webp",
     publishedDate: "2026-07-12",
     readTime: "9 Min Read",
   },
@@ -140,7 +140,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Morjim Beach & Stays Guide (2026) — Cafes, Costs & Nesting",
     metaDescription:
       "Planning to stay in Morjim? Read our guide on turtle nesting, safety for solo women, typical costs, local tips, and workation advice for Morjim, Goa.",
-    heroImage: "/blog/goa-morjim-beach-beds.jpg",
+    heroImage: "/blog/goa-morjim-beach-beds.webp",
     publishedDate: "2026-07-13",
     readTime: "9 Min Read",
   },
@@ -152,7 +152,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Ashwem Beach & Stays Guide (2026) — Cafes, Costs & Stays",
     metaDescription:
       "Planning to stay in Ashwem? Read our guide on beachwear, safety for solo women, typical costs, local tips, and workation advice for Ashwem, Goa.",
-    heroImage: "/blog/goa-ashwem-beach.jpg",
+    heroImage: "/blog/goa-ashwem-beach.webp",
     publishedDate: "2026-07-14",
     readTime: "9 Min Read",
   },
@@ -164,7 +164,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Vagator Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Should you stay in Vagator? Read our honest guide on cliffsides, sunsets, safety, typical costs, local tips, and workation advice for Vagator, Goa.",
-    heroImage: "/blog/goa-vagator-beach.jpg",
+    heroImage: "/blog/goa-vagator-beach.webp",
     publishedDate: "2026-07-15",
     readTime: "10 Min Read",
   },
@@ -176,7 +176,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Anjuna Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Should you stay in Anjuna? Read our honest guide on flea markets, shacks, safety, typical costs, local tips, and workation advice for Anjuna, Goa.",
-    heroImage: "/blog/goa-anjuna-beach-palms.jpg",
+    heroImage: "/blog/goa-anjuna-beach-palms.webp",
     publishedDate: "2026-07-16",
     readTime: "10 Min Read",
   },

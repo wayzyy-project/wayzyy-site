@@ -196,7 +196,7 @@ export default function AnjunaBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-anjuna-beach-shack.jpg"
+        src="/blog/goa-anjuna-beach-shack.webp"
         alt="Rustic beach shack in Anjuna, Goa, featuring floor mattresses, cushions, and relaxed tourists reading and looking out at the ocean waves"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

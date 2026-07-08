@@ -329,7 +329,7 @@ export default function VagatorBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-vagator-restaurant.jpg"
+        src="/blog/goa-vagator-restaurant.webp"
         alt="Spacious open-air cliffside restaurant in Vagator, Goa with cane chairs and tables looking out over the sea under bamboo thatched structures"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

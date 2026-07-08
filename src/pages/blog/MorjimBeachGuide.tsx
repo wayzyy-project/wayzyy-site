@@ -176,7 +176,7 @@ export default function MorjimBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-morjim-cafe.png"
+        src="/blog/goa-morjim-cafe.webp"
         alt="Lively and atmospheric beachside cafe in Morjim, Goa, with tourists sitting at wooden tables under a thatched roof with hanging lights"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -304,7 +304,7 @@ export default function MorjimBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-morjim-beach-beds.jpg"
+        src="/blog/goa-morjim-beach-beds.webp"
         alt="Sun loungers with thatched grass umbrellas on the sandy Morjim beach overlooking the blue sea"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -329,7 +329,7 @@ export default function MorjimBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-morjim-beach-cross.jpg"
+        src="/blog/goa-morjim-beach-cross.webp"
         alt="A white stone monument cross standing on a rocky outcropping on Morjim beach in front of the breaking waves and blue sea"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

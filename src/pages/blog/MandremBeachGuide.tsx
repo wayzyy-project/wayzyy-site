@@ -241,7 +241,7 @@ export default function MandremBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-mandrem-creek-bridge.jpg"
+        src="/blog/goa-mandrem-creek-bridge.webp"
         alt="Classic wooden footbridge over the Mandrem creek with a traveler walking towards the sandy beach and shacks in North Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -349,7 +349,7 @@ export default function MandremBeachGuide() {
         better-rated villas tend to get booked well in advance.
       </p>
       <img
-        src="/blog/goa-mandrem-beach.png"
+        src="/blog/goa-mandrem-beach.webp"
         alt="Scenic morning view of Mandrem Beach, Goa, with pristine sand, calm waves, and coconut palm trees lining the horizon"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

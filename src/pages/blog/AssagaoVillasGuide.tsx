@@ -204,7 +204,7 @@ export default function AssagaoVillasGuide() {
       </p>
 
       <img
-        src="/blog/goa-assagao-village.png"
+        src="/blog/goa-assagao-village.webp"
         alt="Winding narrow street in Assagao, Goa, showcasing vibrant yellow Portuguese architecture, bougainvillea, and tropical greenery"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

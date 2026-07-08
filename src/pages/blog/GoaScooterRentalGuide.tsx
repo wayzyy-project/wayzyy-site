@@ -411,7 +411,7 @@ export default function GoaScooterRentalGuide() {
       </p>
 
       <img
-        src="/blog/goa-scooter-ride.png"
+        src="/blog/goa-scooter-ride.webp"
         alt="Tourist riding a bike on a beautiful winding tropical highway in Goa lined with palm trees"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

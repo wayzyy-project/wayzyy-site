@@ -150,7 +150,7 @@ export default function NorthGoaVsSouthGoa() {
       </p>
 
       <img
-        src="/blog/goa-north-cafe.png"
+        src="/blog/goa-north-cafe.webp"
         alt="Charming outdoor patio seating of a heritage Portuguese restaurant in Assagao, North Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -229,7 +229,7 @@ export default function NorthGoaVsSouthGoa() {
       </p>
 
       <img
-        src="/blog/goa-south-beach-remote-work.jpg"
+        src="/blog/goa-south-beach-remote-work.webp"
         alt="Remote worker sitting on a rock at sunset working on a laptop on Agonda Beach, South Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -415,7 +415,7 @@ export default function NorthGoaVsSouthGoa() {
       </p>
 
       <img
-        src="/blog/goa-monsoon.png"
+        src="/blog/goa-monsoon.webp"
         alt="Palm-lined wet road reflecting palm trees during a fresh monsoon rainfall in Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"

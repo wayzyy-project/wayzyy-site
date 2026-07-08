@@ -116,7 +116,7 @@ export default function WorkationGoaGuide() {
       </p>
 
       <img
-        src="/blog/goa-coworking-space.png"
+        src="/blog/goa-coworking-space.webp"
         alt="Open-air tropical coworking environment at Clay Coworks in Anjuna, Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
@@ -220,7 +220,7 @@ export default function WorkationGoaGuide() {
       </p>
 
       <img
-        src="/blog/goa-workation-cafe.png"
+        src="/blog/goa-workation-cafe.webp"
         alt="Laptop open at an outdoor tropical cafe in Vagator, Goa with a Free Wifi sign"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
