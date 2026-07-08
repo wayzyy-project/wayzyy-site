@@ -533,6 +533,9 @@ export default function GoaTripBudgetGuide() {
           <li>
             <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
+          <li>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
         </ul>
       </div>
     </BlogLayout>

@@ -176,7 +176,7 @@ export default function NorthGoaVsSouthGoa() {
         of hotels, villas, restaurants and shops nearby, making it one of the easiest places to base yourself if you're
         travelling with family or simply don't want to spend your holiday figuring out logistics.
       </p>
-      <p>Head further north towards Morjim or Mandrem, and the pace changes once again.</p>
+      <p>Head further north towards Morjim or Mandrem (which we cover in our <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide</a>), and the pace changes once again.</p>
       <p>
         The beaches become quieter, mornings stretch a little longer and the crowds start thinning out. It's still North
         Goa, but it feels much calmer than the beach belts most people associate with the region. You'll find plenty of
@@ -577,6 +577,9 @@ export default function NorthGoaVsSouthGoa() {
           </li>
           <li>
             <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+          </li>
+          <li>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

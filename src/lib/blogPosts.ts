@@ -120,4 +120,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-11",
     readTime: "9 Min Read",
   },
+  {
+    slug: "mandrem-goa-beach-guide",
+    title: "Mandrem Beach Guide (2026): Why Experienced Goa Travellers Keep Recommending It",
+    description:
+      "Why do repeat visitors choose Mandrem? Read our honest guide to Mandrem's beaches, stays, safety tips, cafes, and typical costs.",
+    metaTitle: "Mandrem Beach Guide (2026) — Stays, Cafes & Tips",
+    metaDescription:
+      "Why do repeat travellers stay in Mandrem? Read our guide on beachwear, safety, typical costs, local tips, and workation advice for Mandrem, Goa.",
+    heroImage: "/blog/goa-mandrem-beach.png",
+    publishedDate: "2026-07-12",
+    readTime: "9 Min Read",
+  },
 ];
