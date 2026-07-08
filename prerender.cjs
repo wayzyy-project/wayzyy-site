@@ -1,6 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
+// 0. Load server-rendered article HTML (produced by scripts/ssr-blog.tsx), if present.
+// This is what makes the prerendered pages actually crawlable by bots that don't run JS
+// (GPTBot, ClaudeBot, PerplexityBot, CCBot) — without it they'd only ever see meta tags.
+const ssrOutputPath = path.join(__dirname, 'scripts', '.ssr-output.json');
+let ssrOutput = {};
+if (fs.existsSync(ssrOutputPath)) {
+  ssrOutput = JSON.parse(fs.readFileSync(ssrOutputPath, 'utf8'));
+  console.log(`Loaded SSR content for ${Object.keys(ssrOutput).length} route(s).`);
+} else {
+  console.warn('No scripts/.ssr-output.json found — run `npm run ssr:blog` first. Falling back to meta-only prerendering.');
+}
+
 // 1. Load blog posts metadata
 let blogPostsCode = fs.readFileSync('./src/lib/blogPosts.ts', 'utf8');
 // remove interface definition
@@ -171,6 +183,14 @@ routes.forEach((route) => {
   `;
 
   html = html.replace('</head>', `${headInsertions}\n</head>`);
+
+  // Inject real server-rendered article markup into #root so non-JS crawlers can read it.
+  // React's client-side render() replaces this on hydration for real visitors, so there's
+  // no mismatch risk — it's just a one-time paint-over, same idea as SSG.
+  const ssrHtml = ssrOutput[route.path];
+  if (ssrHtml) {
+    html = html.replace('<div id="root"></div>', `<div id="root">${ssrHtml}</div>`);
+  }
 
   const filePath = path.join(dirPath, 'index.html');
   fs.writeFileSync(filePath, html, 'utf8');

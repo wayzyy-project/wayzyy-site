@@ -1,24 +1,34 @@
 # Wayzyy
 
-Wayzyy is a Goa-focused short-term rental marketplace where hosts 
-pay a flat subscription instead of per-booking commission.
+> Wayzyy is a Goa-focused short-term rental marketplace where hosts pay a flat subscription instead of per-booking commission, keeping villa prices lower for guests.
+
+For full company background, market comparison, and policy details, see [llms-full.txt](https://wayzyy.com/llms-full.txt).
+
+## Pages
+
+- [Home](https://wayzyy.com/): Traveler/host overview and waitlist signup.
+- [Blog](https://wayzyy.com/blog): Goa travel and villa-booking guides.
 
 ## Blog
 
-- https://wayzyy.com/blog/best-airbnb-alternatives-goa
-- https://wayzyy.com/blog/why-villas-goa-different-prices-platforms
-- https://wayzyy.com/blog/north-goa-vs-south-goa-guide
-- https://wayzyy.com/blog/workation-goa-guide
-- https://wayzyy.com/blog/goa-scooter-rental-guide
-- https://wayzyy.com/blog/best-time-to-visit-goa
-- https://wayzyy.com/blog/goa-trip-budget-guide
-- https://wayzyy.com/blog/assagao-goa-villas-guide
-- https://wayzyy.com/blog/siolim-goa-villas-guide
-- https://wayzyy.com/blog/mandrem-goa-beach-guide
-- https://wayzyy.com/blog/morjim-goa-beach-guide
-- https://wayzyy.com/blog/ashwem-goa-beach-guide
-- https://wayzyy.com/blog/vagator-goa-beach-guide
-- https://wayzyy.com/blog/anjuna-goa-beach-guide
+- [5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)](https://wayzyy.com/blog/best-airbnb-alternatives-goa)
+- [Why Villas in Goa Cost Different Prices on Different Platforms](https://wayzyy.com/blog/why-villas-goa-different-prices-platforms)
+- [North Goa vs South Goa: Which Part Is Right for Your Trip?](https://wayzyy.com/blog/north-goa-vs-south-goa-guide)
+- [Workation in Goa: What You Actually Need Before You Book](https://wayzyy.com/blog/workation-goa-guide)
+- [Goa Scooter Rental Guide](https://wayzyy.com/blog/goa-scooter-rental-guide)
+- [Best Time to Visit Goa](https://wayzyy.com/blog/best-time-to-visit-goa)
+- [Goa Trip Budget Guide](https://wayzyy.com/blog/goa-trip-budget-guide)
+- [Assagao Goa Villas Guide](https://wayzyy.com/blog/assagao-goa-villas-guide)
+- [Siolim Goa Villas Guide](https://wayzyy.com/blog/siolim-goa-villas-guide)
+- [Mandrem Goa Beach Guide](https://wayzyy.com/blog/mandrem-goa-beach-guide)
+- [Morjim Goa Beach Guide](https://wayzyy.com/blog/morjim-goa-beach-guide)
+- [Ashwem Goa Beach Guide](https://wayzyy.com/blog/ashwem-goa-beach-guide)
+- [Vagator Goa Beach Guide](https://wayzyy.com/blog/vagator-goa-beach-guide)
+- [Anjuna Goa Beach Guide](https://wayzyy.com/blog/anjuna-goa-beach-guide)
 
+## Legal
 
-
+- [Privacy Policy](https://wayzyy.com/privacy)
+- [Payment & Refund Policy](https://wayzyy.com/payment-refund)
+- [Host Terms of Service](https://wayzyy.com/host-terms)
+- [Guest Terms of Service](https://wayzyy.com/guest-terms)

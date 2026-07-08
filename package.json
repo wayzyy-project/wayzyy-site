@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node prerender.cjs",
+    "build": "vite build && npm run ssr:blog && node prerender.cjs",
     "build:dev": "vite build --mode development",
+    "ssr:blog": "tsx --tsconfig tsconfig.app.json scripts/ssr-blog.tsx",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -81,6 +82,7 @@
     "postcss": "^8.4.47",
     "sharp": "^0.35.3",
     "tailwindcss": "^3.4.11",
+    "tsx": "^4.23.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
