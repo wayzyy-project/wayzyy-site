@@ -63,7 +63,7 @@ export default function MandremBeachGuide() {
       metaTitle={post.metaTitle}
       metaDescription={post.metaDescription}
       heroImage={post.heroImage}
-      heroImageAlt="Quiet sandy beach of Mandrem, Goa featuring a classic wooden footbridge over a calm creek, surrounded by tropical coconut trees"
+      heroImageAlt="Beautiful orange sunset over the sea at Mandrem Beach, Goa, with local fishermen pulling nets on the wet sandy shore reflecting golden light"
       publishedDate={post.publishedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
@@ -241,8 +241,8 @@ export default function MandremBeachGuide() {
       </p>
 
       <img
-        src="/blog/goa-mandrem-beach.png"
-        alt="Beautiful scenic view of Mandrem Beach in North Goa, showcasing the classic wooden footbridge leading to the quiet sand shoreline"
+        src="/blog/goa-mandrem-creek-bridge.jpg"
+        alt="Classic wooden footbridge over the Mandrem creek with a traveler walking towards the sandy beach and shacks in North Goa"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
       />

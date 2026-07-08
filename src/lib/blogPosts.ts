@@ -128,7 +128,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Mandrem Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
       "Why do repeat travellers stay in Mandrem? Read our guide on beachwear, safety, typical costs, local tips, and workation advice for Mandrem, Goa.",
-    heroImage: "/blog/goa-mandrem-beach.png",
+    heroImage: "/blog/goa-mandrem-sunset-net.jpg",
     publishedDate: "2026-07-12",
     readTime: "9 Min Read",
   },
