@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- solid orange square background -->
-  <rect width="512" height="512" fill="#FF5100"/>
+  <!-- solid orange circle background -->
+  <circle cx="256" cy="256" r="256" fill="#FF5100"/>
   <!-- white house roof and W letter -->
   <path d="M 64,220 L 256,76 L 448,220 L 416,245 L 256,124 L 96,245 Z" fill="#ffffff" />
   <rect x="360" y="108" width="36" height="55" fill="#ffffff" />
