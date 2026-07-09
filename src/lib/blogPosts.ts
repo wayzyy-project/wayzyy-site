@@ -180,4 +180,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-16",
     readTime: "10 Min Read",
   },
+  {
+    slug: "north-goa-travel-guide",
+    title: "North Goa Travel Guide (2026): Stays, Cafes & Slow Travel Advice",
+    description:
+      "Planning a trip to North Goa? Read our complete, honest guide to choosing the right village, renting scooters, booking villas, and getting around.",
+    metaTitle: "North Goa Travel Guide (2026) — Stays, Cafes & Planning",
+    metaDescription:
+      "Planning a trip to North Goa? Learn about renting scooters, choosing between villages (Vagator, Morjim, Anjuna), budgets, weather, and slow travel tips.",
+    heroImage: "/blog/goa-best-time-hero.webp",
+    publishedDate: "2026-07-17",
+    readTime: "14 Min Read",
+  },
 ];
