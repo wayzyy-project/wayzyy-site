@@ -24,7 +24,7 @@ export function SiteNav() {
     >
       <div className="w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
         <a href="#top" className="group flex items-center">
-          <img src="/favicon.png" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
+          <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
         <nav className="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
           <a className="hover:text-foreground" href="#why">
