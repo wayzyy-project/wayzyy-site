@@ -52,6 +52,15 @@ const faqJsonLd = {
           "Pricing peaks during the Christmas and New Year window, when crowds are dense. Months like October, February, and the monsoon season (June to September) offer significantly lower rates, fewer crowds, and a more relaxed experience.",
       },
     },
+    {
+      "@type": "Question",
+      name: "Is it better to book a villa in North Goa or South Goa?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "It depends on your group's travel style. North Goa (villas in Assagao, Vagator, and Siolim) is perfect if you want luxury pool villas, heritage homes, and quick access to top restaurants and cafes. South Goa is better if you prefer quiet, secluded private villas where you want to spend your days relaxing away from commercial crowds.",
+      },
+    },
   ],
 };
 
@@ -325,6 +334,14 @@ export default function NorthGoaVsSouthGoa() {
         Anjuna or nearby villages means you won't have to travel far between cafés, beaches, nightlife and your villa.
       </p>
       <p>That's one reason larger villas in North Goa tend to get booked quickly during long weekends and the December season.</p>
+
+      <img
+        src="/blog/goa-north-vs-south-second.webp"
+        alt="Boutique private pool villa with a pink flamingo float in North Goa"
+        className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
+        loading="lazy"
+      />
+
       <p>You have more options throughout the day without spending half your holiday driving between places.</p>
 
       <h3>If You're Coming to Goa for a Workation</h3>
@@ -552,6 +569,13 @@ export default function NorthGoaVsSouthGoa() {
       <p>
         Pricing peaks during the Christmas and New Year window, when crowds are dense. Months like October, February, and the
         monsoon season (June to September) offer significantly lower rates, fewer crowds, and a more relaxed experience.
+      </p>
+
+      <h3>Is it better to book a villa in North Goa or South Goa?</h3>
+      <p>
+        It depends on your group's travel style. North Goa (villas in Assagao, Vagator, and Siolim) is perfect if you want
+        luxury pool villas, heritage homes, and quick access to top restaurants and cafes. South Goa is better if you prefer
+        quiet, secluded private villas where you want to spend your days relaxing away from commercial crowds.
       </p>
 
       <div className="mt-12 pt-8 border-t border-border">

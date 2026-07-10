@@ -44,7 +44,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "North Goa vs South Goa — Which Is Best for Your Trip?",
     metaDescription:
       "First time visiting Goa or coming back for a workation? Here is the honest breakdown of the vibe, villages, and seasonal differences between North and South.",
-    heroImage: "/blog/goa-north-vs-south-hero.webp",
+    heroImage: "/blog/goa-villa-north-vs-south-cover.webp",
     publishedDate: "2026-07-06",
     readTime: "9 Min Read",
   },
@@ -200,7 +200,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "North Goa Villas vs South Goa Villas — Which Is Best? (2026)",
     metaDescription:
       "Deciding between booking a villa in North or South Goa? Read our breakdown of vibes, budgets, and key questions to ask before you book.",
-    heroImage: "/blog/goa-luxury-pool-villa-exterior.webp",
+    heroImage: "/blog/goa-north-vs-south-second.webp",
     publishedDate: "2026-07-18",
     readTime: "11 Min Read",
   },

@@ -238,18 +238,6 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         A couple, a family of five, a birthday group and someone planning a month-long workation are all looking for very different things—and that's exactly what we'll help you choose next.
       </p>
 
-      <div className="my-8">
-        <img
-          src="/blog/goa-luxury-pool-villa-exterior.webp"
-          alt="A beautiful traditional-style white villa in Goa with a private swimming pool"
-          className="w-full rounded-2xl border border-border object-cover aspect-video"
-          loading="lazy"
-        />
-        <span className="text-xs text-muted-foreground block text-center mt-2 italic">
-          A private pool villa in Goa offers absolute privacy and space for friends and families.
-        </span>
-      </div>
-
       <h2>Questions You Should Always Ask Before Booking a Villa in Goa</h2>
       <p>
         It's surprisingly easy to book a villa based on beautiful photographs.
@@ -374,18 +362,6 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
             </ul>
           </div>
         </div>
-      </div>
-
-      <div className="my-8">
-        <img
-          src="/blog/goa-luxury-villa-bedroom.webp"
-          alt="A modern, beautifully designed bedroom in a luxury Goa villa"
-          className="w-full rounded-2xl border border-border object-cover aspect-video"
-          loading="lazy"
-        />
-        <span className="text-xs text-muted-foreground block text-center mt-2 italic">
-          Fast internet, power backup, and cozy workspace setups are critical for longer stays and remote work.
-        </span>
       </div>
 
       <h2>Common Mistakes People Make While Booking Villas in Goa</h2>
