@@ -240,4 +240,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-21",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-beaches-guide",
+    title: "Goa Beaches Guide (2026): Which Beach Fits Your Travel Style?",
+    description:
+      "Planning a trip to Goa but confused about the beaches? Read our honest guide to choosing the best swimming, working, and sunset beaches in Goa.",
+    metaTitle: "Goa Beaches Guide (2026) — Which Beach Is Right for You?",
+    metaDescription:
+      "Confused about Goa's beaches? Choose the right shoreline for swimming, families, couples, remote work, or surfing. Read the complete 2026 guide.",
+    heroImage: "/blog/goa-beach-cottages-sunset.webp",
+    publishedDate: "2026-07-22",
+    readTime: "10 Min Read",
+  },
 ];
