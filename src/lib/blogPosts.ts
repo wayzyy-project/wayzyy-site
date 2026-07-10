@@ -192,4 +192,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-17",
     readTime: "14 Min Read",
   },
+  {
+    slug: "north-goa-villas-vs-south-goa-villas",
+    title: "North Goa Villas vs South Goa Villas: Which One Is Right for You?",
+    description:
+      "Deciding between booking a villa in North or South Goa? Here is the honest breakdown of vibes, travel styles, and questions you should always ask.",
+    metaTitle: "North Goa Villas vs South Goa Villas — Which Is Best? (2026)",
+    metaDescription:
+      "Deciding between booking a villa in North or South Goa? Read our breakdown of vibes, budgets, and key questions to ask before you book.",
+    heroImage: "/blog/goa-luxury-pool-villa-exterior.webp",
+    publishedDate: "2026-07-18",
+    readTime: "11 Min Read",
+  },
 ];
