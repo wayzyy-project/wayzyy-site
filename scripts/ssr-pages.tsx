@@ -29,6 +29,9 @@ import AnjunaBeachGuide from "@/pages/blog/AnjunaBeachGuide";
 import NorthGoaVillasVsSouthGoaVillas from "@/pages/blog/NorthGoaVillasVsSouthGoaVillas";
 import NorthGoaTravelGuide from "@/pages/blog/NorthGoaTravelGuide";
 import WhereToStayInGoa from "@/pages/blog/WhereToStayInGoa";
+import GoaWorkCafesGuide from "@/pages/blog/GoaWorkCafesGuide";
+import GoaNightlifeGuide from "@/pages/blog/GoaNightlifeGuide";
+import GoaBeachesGuide from "@/pages/blog/GoaBeachesGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -58,6 +61,9 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/north-goa-villas-vs-south-goa-villas": NorthGoaVillasVsSouthGoaVillas,
   "/blog/north-goa-travel-guide": NorthGoaTravelGuide,
   "/blog/where-to-stay-in-goa": WhereToStayInGoa,
+  "/blog/goa-work-cafes-guide": GoaWorkCafesGuide,
+  "/blog/goa-nightlife-guide": GoaNightlifeGuide,
+  "/blog/goa-beaches-guide": GoaBeachesGuide,
 };
 
 const output: Record<string, string> = {};

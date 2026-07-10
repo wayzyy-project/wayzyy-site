@@ -72,38 +72,23 @@ export function SEO({
     }
     canonicalLink.setAttribute("href", canonicalUrl);
 
-    // 6. JSON-LD Schemas injection
-    const scriptIds: string[] = [];
-    if (jsonLd) {
-      const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-      schemas.forEach((schema, index) => {
-        const id = `jsonld-seo-${index}`;
-        scriptIds.push(id);
-        
-        let script = document.getElementById(id) as HTMLScriptElement | null;
-        if (!script) {
-          script = document.createElement("script");
-          script.id = id;
-          script.type = "application/ld+json";
-          document.head.appendChild(script);
-        }
-        script.text = JSON.stringify(schema);
-      });
-    }
-
     // Cleanup
     return () => {
       document.title = previousTitle;
-      
-      // Remove dynamically added JSON-LD scripts
-      scriptIds.forEach((id) => {
-        const script = document.getElementById(id);
-        if (script) {
-          script.remove();
-        }
-      });
     };
-  }, [title, description, ogType, ogImage, path, jsonLd]);
+  }, [title, description, ogType, ogImage, path]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {jsonLd &&
+        (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, index) => (
+          <script
+            key={`jsonld-seo-${index}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+      {children}
+    </>
+  );
 }
