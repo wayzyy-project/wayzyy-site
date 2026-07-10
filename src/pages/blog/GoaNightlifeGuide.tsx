@@ -168,6 +168,15 @@ export default function GoaNightlifeGuide() {
         <p>
           One final point that's easy to overlook is timing. Popular sunset venues begin filling up well before the sun actually sets, particularly during peak season. Arriving thirty to forty-five minutes early not only gives you a better table but also lets you enjoy the gradual transition from afternoon to evening—the part of the experience many people remember most.
         </p>
+
+        <div className="my-8">
+          <img
+            src="/blog/goa-sign-i-love.webp"
+            alt="Neon sign displaying I love Goa glowing red at night"
+            className="w-full rounded-2xl border border-border object-cover aspect-video"
+            loading="lazy"
+          />
+        </div>
       </div>
 
       {/* 3. The Best Nights Rarely Follow a Plan */}
