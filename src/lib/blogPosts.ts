@@ -216,4 +216,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-19",
     readTime: "12 Min Read",
   },
+  {
+    slug: "goa-work-cafes-guide",
+    title: "Goa Work Cafes Guide (2026): Best Cafes to Work in Goa",
+    description:
+      "Looking for a great cafe to work from in Goa? Read our complete, honest guide to the best work cafes in Assagao, Anjuna, and Siolim with fast WiFi.",
+    metaTitle: "Goa Work Cafes Guide (2026) — Best Cafes to Work in Goa",
+    metaDescription:
+      "Looking for a great cafe to work from in Goa? Learn about WiFi, power outlets, specialty coffee, and remote work spots in Assagao, Anjuna & Siolim.",
+    heroImage: "/blog/goa-cafe-candolim.webp",
+    publishedDate: "2026-07-20",
+    readTime: "9 Min Read",
+  },
 ];
