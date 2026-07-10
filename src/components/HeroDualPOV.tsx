@@ -64,10 +64,10 @@ export function HeroDualPOV() {
               <MapPin className="h-3.5 w-3.5 text-ember" />
               For hosts
             </div>
-            <h2 className="font-display text-4xl leading-[1.02] text-foreground sm:text-6xl">
+            <h1 className="font-display text-4xl leading-[1.02] text-foreground sm:text-6xl">
               A platform that<br />
               <em className="italic text-ember">actually backs you.</em>
-            </h2>
+            </h1>
             <p className="mt-5 text-pretty text-base text-muted-foreground sm:text-lg">
               A simple flat-fee subscription — not a percentage of every
               booking. 24/7 support from real agents, not bots. Getting

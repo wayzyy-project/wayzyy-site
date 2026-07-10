@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/privacy',
     title: 'Privacy Policy — Wayzyy',
-    description: 'Read our terms and how we protect your personal data, Aadhaar, and DigiLocker integrations.',
+    description: "Wayzyy's Privacy Policy: how we collect, use, and protect your personal data, including Aadhaar and DigiLocker verification, under India's DPDP Act 2023.",
     ogType: 'website',
     ogImage: '/og-image.png',
     jsonLd: {
@@ -57,7 +57,7 @@ const routes = [
   {
     path: '/payment-refund',
     title: 'Payment & Refund Policy — Wayzyy',
-    description: 'Read about flat subscription activation, transaction rules, and refund policies.',
+    description: "Wayzyy's Payment & Refund Policy: how flat subscription activation, transactions, and refunds work, per RBI and Consumer Protection Act guidelines.",
     ogType: 'website',
     ogImage: '/og-image.png',
     jsonLd: {
@@ -71,7 +71,7 @@ const routes = [
   {
     path: '/host-terms',
     title: 'Host Terms of Service — Wayzyy',
-    description: 'Read host listing guidelines, flat subscription credit limits, and booking terms.',
+    description: "Wayzyy's Host Terms of Service: listing guidelines, prepaid subscription credit limits, and booking rules for hosts, governed by Indian law.",
     ogType: 'website',
     ogImage: '/og-image.png',
     jsonLd: {
@@ -85,7 +85,7 @@ const routes = [
   {
     path: '/guest-terms',
     title: 'Guest Terms of Service — Wayzyy',
-    description: 'Read about guest rules, trust verification, security deposits, and booking procedures.',
+    description: "Wayzyy's Guest Terms of Service: Aadhaar verification, booking rules, cancellations, and consumer protections for guests booking stays on Wayzyy.",
     ogType: 'website',
     ogImage: '/og-image.png',
     jsonLd: {
