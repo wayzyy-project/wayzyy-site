@@ -31,6 +31,7 @@ import VagatorBeachGuide from "./pages/blog/VagatorBeachGuide";
 import AnjunaBeachGuide from "./pages/blog/AnjunaBeachGuide";
 import NorthGoaTravelGuide from "./pages/blog/NorthGoaTravelGuide";
 import NorthGoaVillasVsSouthGoaVillas from "./pages/blog/NorthGoaVillasVsSouthGoaVillas";
+import WhereToStayInGoa from "./pages/blog/WhereToStayInGoa";
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,7 @@ const App = () => (
               <Route path="/blog/anjuna-goa-beach-guide" element={<AnjunaBeachGuide />} />
               <Route path="/blog/north-goa-travel-guide" element={<NorthGoaTravelGuide />} />
               <Route path="/blog/north-goa-villas-vs-south-goa-villas" element={<NorthGoaVillasVsSouthGoaVillas />} />
+              <Route path="/blog/where-to-stay-in-goa" element={<WhereToStayInGoa />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>

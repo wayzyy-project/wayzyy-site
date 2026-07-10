@@ -12,130 +12,122 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "Which is the best area to stay in Goa for first-time visitors?",
+      "name": "Do I need a scooter to get around North Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For most first-time visitors, Anjuna and Vagator are excellent starting points because they offer easy access to beaches, cafés, restaurants and nightlife while making it simple to explore the rest of North Goa."
+        "text": "For most travelers, yes. Renting a scooter gives you unmatched flexibility to travel spontaneously between villages like Assagao, Vagator, Anjuna, and Morjim without calculating taxi fares each time."
       }
     },
     {
       "@type": "Question",
-      "name": "Where should couples stay in Goa?",
+      "name": "What is the best app-based taxi service in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Couples usually enjoy quieter destinations such as Ashwem, Morjim or parts of South Goa, where the atmosphere is more peaceful and private."
+        "text": "GoaMiles is the state's official app-based taxi service. It is highly reliable for airport transfers and navigating between popular tourist villages, though waiting times can peak during holidays."
       }
     },
     {
       "@type": "Question",
-      "name": "Which area in Goa is best for families?",
+      "name": "Is North Goa safe for solo female travelers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Families often prefer Morjim, Ashwem and Mandrem because of their quieter beaches, spacious villas and relaxed atmosphere."
+        "text": "Yes, North Goa is generally considered safe for solo female travelers. Popular villages like Assagao, Siolim, and Vagator have friendly local populations and active expat/nomad communities. Stick to well-lit main roads at night."
       }
     },
     {
       "@type": "Question",
-      "name": "Where do digital nomads stay in Goa?",
+      "name": "When does the monsoon season start in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Many remote workers choose Siolim, Assagao, Anjuna and Vagator because they combine reliable internet, cafés, coworking spaces and an active community."
+        "text": "The monsoon season typically begins in early June and lasts through September. While beach activities shut down, it is highly recommended for slow travel, lush green scenery, and quiet cafe workspaces."
       }
     },
     {
       "@type": "Question",
-      "name": "Which part of Goa has the best café culture?",
+      "name": "How much does renting a scooter cost in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Assagao, Anjuna and Siolim are widely regarded as Goa's strongest café destinations, offering speciality coffee, brunch spots and work-friendly cafés."
+        "text": "Scooter rentals usually range from ₹300 to ₹500 per day depending on the model and season. Prices can double during peak Christmas and New Year periods."
       }
     },
     {
       "@type": "Question",
-      "name": "Where can I meet new people in Goa?",
+      "name": "Is Assagao close to the beach?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If you're travelling solo or looking to make new friends, Anjuna remains one of the easiest places thanks to its cafés, coworking spaces, community events, flea markets and social atmosphere."
+        "text": "Assagao is an inland village. While it does not have a beach, it is a short 10-15 minute scooter ride away from Vagator Beach and Anjuna Beach."
       }
     },
     {
       "@type": "Question",
-      "name": "Is Goa good if I don't like partying?",
+      "name": "Are Goa beach shacks open during the monsoon?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely. Many parts of Goa have little to do with nightlife. Areas like Morjim, Ashwem, Mandrem, Assagao and much of South Goa are better suited to travellers looking for peaceful beaches, cafés, yoga and slower living."
+        "text": "No, temporary beach shacks are dismantled by late May and only start rebuilding in October once the rainy season ends and the sea calms down."
       }
     },
     {
       "@type": "Question",
-      "name": "Which area has the best nightlife?",
+      "name": "Can I work remotely from North Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For nightlife, Vagator and Anjuna remain the most popular choices, offering beach clubs, live music venues, bars and sunset spots."
+        "text": "Yes, North Goa is one of India's top remote work hubs. Siolim, Assagao, and Anjuna offer fast fiber internet, backup power setups in high-quality villas, and co-working cafes."
       }
     },
     {
       "@type": "Question",
-      "name": "Which part of Goa is best for a workation?",
+      "name": "What is the best Airbnb alternative in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Siolim is often considered one of the best choices because of its residential atmosphere, connectivity and proximity to cafés and coworking spaces."
+        "text": "Wayzyy is the premier India-native alternative, utilizing flat prepaid credit rates for hosts (which caps booking fees at around 2% instead of Airbnb's 17%) and full Aadhaar/DigiLocker verification."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I stay in North Goa or South Goa?",
+      "name": "Do I need an international driving permit to rent a vehicle in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "North Goa suits travellers looking for variety, cafés, nightlife and social experiences, while South Goa is better for quiet beaches, relaxation and slower holidays."
+        "text": "If you are a foreign national, you need a valid International Driving Permit (IDP) along with your domestic license. Indian nationals only require their valid smartcard driving license."
       }
     },
     {
       "@type": "Question",
-      "name": "Are villas better than hotels in Goa?",
+      "name": "Which North Goa village is the quietest?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For families, groups, couples and long stays, villas generally offer better value, more privacy and significantly more space than hotels."
+        "text": "Mandrem is widely considered the quietest beach village in North Goa, quietly recommended by experienced travelers who want to avoid commercial crowds."
       }
     },
     {
       "@type": "Question",
-      "name": "Is it worth renting a scooter in Goa?",
+      "name": "Are taxis expensive in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Renting a scooter gives you the flexibility to explore different beaches, cafés and villages at your own pace, especially if you're staying in North Goa."
+        "text": "Yes, compared to rest of India, taxi fares are higher since there are no standard ride-hailing services like Uber or Ola. Short rides between villages cost ₹500-₹800, making scooters much more economical."
       }
     },
     {
       "@type": "Question",
-      "name": "How many days are enough for Goa?",
+      "name": "What is the average cost of staying in a villa in North Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A minimum of 4–5 days allows you to explore comfortably. If you're planning to experience cafés, beaches and different neighbourhoods at a slower pace, 7–10 days is ideal."
+        "text": "Boutique villas start from ₹8,000 to ₹15,000 per night during the regular season, while premium luxury villas with private pools can easily cross ₹30,000 during peak winter weeks."
       }
     },
     {
       "@type": "Question",
-      "name": "Which area is best for long-term stays?",
+      "name": "Is parking available near major cafes and beaches?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Long-term visitors often choose Siolim, Assagao and quieter parts of Morjim, where daily life feels more residential and practical."
+        "text": "Yes, most beach parking lots and boutique cafes have designated parking spaces, though they fill up fast around sunset. We recommend arriving 20-30 minutes early."
       }
     },
     {
       "@type": "Question",
-      "name": "Where can I find the best villas in Goa?",
+      "name": "How does Wayzyy protect hosts from payment defaults?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The best villa depends on your travel style rather than a single location. Families often prefer Morjim or Ashwem, groups usually enjoy Anjuna or Vagator, while remote workers gravitate towards Siolim and Assagao."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is Wayzyy only for luxury villas?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Wayzyy curates a wide range of verified stays across North and South Goa, including villas for couples, families, groups, workations and longer stays. By working directly with hosts through a host-first model, travellers can often find better value and more transparent pricing than on traditional booking platforms."
+        "text": "Wayzyy integrates local UPI payouts and full Aadhaar/DigiLocker verification, establishing a localized trust network that global vacation rental platforms lack."
       }
     }
   ]
@@ -482,244 +474,78 @@ export default function NorthGoaTravelGuide() {
         </p>
       </div>
 
-      {/* 6. Vibe Transitions: Long Stays, Families, Groups, Quiet Escapes */}
+      {/* 6. Conclusion */}
       <div className="space-y-6 border-t border-border pt-10 mt-12">
-        <h2 className="font-display text-2xl text-foreground">Where to Stay Based on Your Travel Style</h2>
+        <h2 className="font-display text-2xl text-foreground">Final Thoughts: Is North Goa Worth Visiting?</h2>
         <p>
-          Now we transition into long stays, workations, families and couples, but we don't repeat what we already covered in the Workation Guide. Instead, we answer where you should stay if those are your priorities.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">I'm Staying for More Than a Week</h3>
-        <p>
-          Goa feels very different once your trip extends beyond a long weekend.
+          After spending time across North Goa, one thing becomes clear very quickly.
         </p>
         <p>
-          During the first few days, almost every area feels exciting because everything is new. By the second week, though, your priorities begin to change. You're no longer thinking about how close you are to the nearest beach. Instead, you start noticing whether there's a good grocery store nearby, if your favourite café is within walking distance, how reliable the internet is and whether the neighbourhood still feels enjoyable when you're not constantly sightseeing.
+          People don't return here because of one famous beach, one café or one attraction. They come back because every village offers a different experience, and no matter how many times you visit, it always feels like there's another road to explore, another restaurant to try or another quiet corner waiting to be discovered.
         </p>
         <p>
-          This is where many first-time visitors make an expensive mistake.
-        </p>
-
-        <div className="my-8">
-          <img
-            src="/blog/goa-beach-cottages-sunset.webp"
-            alt="Scenic view of quiet beach cottages at sunset in Goa"
-            className="w-full rounded-2xl border border-border object-cover aspect-video"
-            loading="lazy"
-          />
-          <span className="text-xs text-muted-foreground block text-center mt-2 italic">
-            Choosing a slower residential area gives you a sustainable daily routine for longer visits.
-          </span>
-        </div>
-
-        <p>
-          They book accommodation in the busiest tourist areas because those locations look exciting online, only to realise that living somewhere for two or three weeks is completely different from spending a weekend there. Constant traffic, crowded cafés and late-night noise can become exhausting when they're part of your everyday routine rather than something you experience for a couple of days.
+          That's why there's no single &quot;best&quot; place to stay.
         </p>
         <p>
-          That's one of the reasons places like <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline">Siolim</Link> have become increasingly popular among people staying for longer periods. It feels connected enough to reach Anjuna, Vagator, Morjim and Assagao within a short scooter ride, while still offering a noticeably calmer residential atmosphere. <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline">Assagao</Link> appeals to travellers who enjoy spending time in cafés and restaurants without living in the middle of Goa's busiest nightlife, while <Link to="/blog/morjim-goa-beach-guide" className="text-ember hover:underline">Morjim</Link> and <Link to="/blog/ashwem-goa-beach-guide" className="text-ember hover:underline">Ashwem</Link> attract people looking for a slower lifestyle centred around beaches, wellness and quieter mornings. Recent discussions among long-term visitors consistently highlight these areas as places where Goa begins to feel less like a holiday destination and more like somewhere you could comfortably live for a while.
+          Anjuna might be perfect for someone who wants lively cafés, markets and nightlife within walking distance. A couple looking for a quieter holiday may find Morjim or Ashwem a much better fit, while someone planning a month-long workation could feel more at home in Siolim. Assagao has become a destination in its own right for food lovers, Vagator balances energetic evenings with scenic sunsets and Mandrem continues to attract travellers who simply want to slow down for a few days.
         </p>
         <p>
-          If you're planning a month-long stay, we've covered everything in detail in our <Link to="/blog/workation-goa-guide" className="text-ember hover:underline">Workation in Goa Guide</Link>, including internet reliability, coworking spaces, monthly budgets and practical tips for remote workers.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">I'm Travelling With My Family</h3>
-        <p>
-          Families often have a very different idea of the perfect holiday than social travellers.
+          The best itinerary isn't the one that covers every beach. It's the one that matches the way you like to travel.
         </p>
         <p>
-          The goal usually isn't to visit five beach clubs in one weekend or chase the busiest parts of North Goa. Parents tend to value quieter neighbourhoods, spacious accommodation and places where everyone—from young children to grandparents—can relax without constantly moving around.
+          Instead of trying to tick every destination off a list, choose one village as your base, give yourself enough time to settle in and let the rest of North Goa unfold naturally. Some days will be spent exploring cafés, others will disappear into long conversations over breakfast, scenic scooter rides or an evening that wasn't part of the original plan. Those are usually the moments people remember long after the holiday is over.
         </p>
         <p>
-          That's why Morjim, Ashwem and <Link to="/blog/mandrem-goa-beach-guide" className="text-ember hover:underline">Mandrem</Link> continue to be recommended by families. The beaches are generally less crowded, mornings are more peaceful and the overall pace of life feels noticeably slower than areas like Anjuna or Vagator. Restaurants are easier to enjoy without waiting in long queues, roads tend to feel less hectic and the atmosphere encourages longer walks, slower breakfasts and evenings that finish with a quiet dinner instead of loud music.
+          Finding the right place to stay plays a much bigger role in that experience than most people realise. A well-located villa means shorter drives, quieter mornings, easier access to nearby villages and the flexibility to explore without constantly worrying about logistics. Whether you're travelling with family, planning a workation, organising a group getaway or simply looking for a peaceful escape, having a comfortable base changes the rhythm of the entire trip.
         </p>
         <p>
-          Choosing a villa also makes a significant difference for families. Multiple bedrooms, shared living spaces, a kitchen and private outdoor areas give everyone room to enjoy the holiday together without feeling confined to separate hotel rooms. It also makes everyday routines much easier, particularly if you're travelling with young children or older family members.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">We're a Group of Friends</h3>
-        <p>
-          Travelling with friends usually comes with one big challenge: keeping everyone happy.
+          That's the idea behind Wayzyy.
         </p>
         <p>
-          Someone wants cafés. Someone wants beaches. Someone wants nightlife. Someone else just wants to spend the afternoon by the pool.
+          We're building a host-first platform that makes discovering Goa simpler for travellers while making hosting easier for property owners. Instead of scrolling through hundreds of similar listings, you can explore thoughtfully curated and verified villas across North and South Goa, from boutique homes in Assagao and private pool villas in Vagator to peaceful stays in Morjim, Ashwem, Mandrem, Siolim and beyond. Every destination offers something different, and our goal is to help you find the one that fits your travel style rather than pushing the same type of accommodation to everyone.
         </p>
         <p>
-          That's exactly why groups often enjoy <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline">Anjuna</Link> and Vagator the most. They're surrounded by cafés, restaurants, beach clubs, sunset spots and markets, giving everyone enough options without spending half the day travelling between destinations. Even if your group has completely different interests, it's usually easy to build an itinerary that keeps everyone satisfied.
+          Goa has never really been about checking landmarks off a list. It's about finding a place that feels right, slowing down enough to enjoy it and leaving with the feeling that you'll probably come back again.
         </p>
-
-        <div className="my-8">
-          <img
-            src="/blog/goa-party-nightlife.webp"
-            alt="Vibrant outdoor nightlife club and music festival in North Goa"
-            className="w-full rounded-2xl border border-border object-cover aspect-video"
-            loading="lazy"
-          />
-          <span className="text-xs text-muted-foreground block text-center mt-2 italic">
-            For lively evenings and group celebrations, Anjuna and Vagator host Goa's best outdoor events.
-          </span>
-        </div>
-
-        <p>
-          For larger groups, a villa almost always provides a better experience than booking multiple hotel rooms. You have a shared living space, your own pool, the flexibility to cook or order food whenever you like and somewhere everyone naturally comes back to at the end of the day. In many cases, once the cost is divided between the group, it also works out to be surprisingly good value compared with booking several hotel rooms.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">We're Looking for a Quiet Escape</h3>
-        <p>
-          Not every trip to Goa is about ticking off attractions. Sometimes the goal is simply to slow down.
-        </p>
-        <p>
-          That could mean morning walks on an uncrowded beach, reading for hours at a café, practising yoga, watching the sunset every evening or spending most of the day around your villa without feeling like you're missing out.
-        </p>
-        <p>
-          If that sounds like your idea of a holiday, Ashwem, Morjim, Mandrem and many parts of South Goa are likely to suit you far better than the busiest parts of North Goa. These destinations still offer excellent cafés and restaurants, but they don't constantly demand your attention. The days feel less scheduled, the beaches are quieter and it's much easier to settle into a slower rhythm that many repeat visitors eventually come to prefer.
-        </p>
-        <p>
-          By now, you've probably started recognising that there's no universal &quot;best place&quot; to stay in Goa. There's only the place that matches the kind of experience you're hoping to have.
-        </p>
-        <p>
-          That's also why experienced travellers often spend less time asking &quot;Where is everyone else staying?&quot; and more time asking &quot;Where will I enjoy waking up every morning?&quot;
-        </p>
-        <p>
-          Before you make that decision, though, there's one important mistake that's worth avoiding—one that catches thousands of first-time visitors every single season.
+        <p className="font-semibold text-foreground text-lg">
+          North Goa has a way of doing exactly that.
         </p>
       </div>
 
-      {/* 7. Common Mistakes & Don't Book a Villa. Book a Routine. */}
-      <div className="space-y-6 border-t border-border pt-10 mt-12">
-        <h2 className="font-display text-2xl text-foreground">The Biggest Mistake First-Time Visitors Make</h2>
-        <p>
-          After reading hundreds of discussions from travellers, one pattern appeared again and again.
-        </p>
-        <p>
-          People rarely said, &quot;I wish I had booked a different villa.&quot; Much more often, they said things like:
-        </p>
-        <blockquote className="border-l-4 border-ember pl-4 italic my-4 text-muted-foreground">
-          <p>&quot;I should have stayed in a different area.&quot;</p>
-          <p>&quot;Everything I wanted to do was thirty minutes away.&quot;</p>
-          <p>&quot;The villa was beautiful, but it wasn't the kind of holiday we wanted.&quot;</p>
-        </blockquote>
-        <p>
-          That's an important distinction because your accommodation doesn't exist in isolation. It becomes part of your everyday routine, and if that routine doesn't match your expectations, even an excellent property can feel disappointing.
-        </p>
-        <p>
-          Imagine booking a peaceful villa in Ashwem because the photographs looked incredible, only to realise you were hoping to spend every evening exploring cafés, markets and live music. Or choosing Anjuna because everyone online recommended it, only to discover you actually wanted quiet mornings, long beach walks and a slower pace of life.
-        </p>
-        <p className="font-medium text-foreground">
-          Neither destination is wrong. The mismatch is.
-        </p>
-        <p>
-          That's why we always recommend choosing your lifestyle first and your accommodation second.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">Don't Book a Villa. Book Your Routine.</h3>
-        <p>
-          Here's a simple exercise that usually makes the decision much easier.
-        </p>
-        <p>
-          Instead of asking yourself where you want to stay, picture what an average day in Goa looks like.
-        </p>
-        <ul>
-          <li>Do you wake up early, grab a coffee, spend a few hours working and then head to the beach before watching the sunset?</li>
-          <li>Do you imagine sleeping in, finding a great brunch spot, browsing local boutiques and ending the evening with live music and cocktails?</li>
-          <li>Or does your perfect day involve walking to a quiet beach, reading a book for a few hours, taking an afternoon nap and enjoying dinner somewhere peaceful?</li>
-        </ul>
-        <p>
-          The answers to those questions usually tell you far more than any list of &quot;top places to stay.&quot;
-        </p>
-        <p>
-          That's also why repeat visitors often choose completely different areas from first-time tourists. They're no longer chasing famous landmarks. They're building a routine that feels enjoyable every single day.
-        </p>
-        <p>
-          Research from long-term visitors reflects exactly this shift. Many travellers now recommend spending the first few days exploring different neighbourhoods before committing to a longer stay because every part of Goa has its own rhythm, community and pace of life.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">A Simple Way to Decide</h3>
-        <p>
-          If you're still unsure, don't overcomplicate it. Ask yourself these five questions:
-        </p>
-        <ol className="list-decimal pl-6 space-y-2">
-          <li>Do I want to meet new people or mostly spend time with the people I'm travelling with?</li>
-          <li>Will I spend more time in cafés or on beaches?</li>
-          <li>Do enjoy lively evenings or quiet sunsets?</li>
-          <li>Am I travelling for a holiday, a workation or a longer stay?</li>
-          <li>Would I rather be close to everything or somewhere peaceful that requires a short scooter ride?</li>
-        </ol>
-        <p>
-          Your answers will usually narrow the choice down to two or three areas almost immediately. From there, choosing the right villa becomes much easier.
-        </p>
-      </div>
-
-      {/* 8. How Wayzyy Helps You Choose Better & Where Should You Stay? */}
-      <div className="space-y-6 border-t border-border pt-10 mt-12">
-        <h2 className="font-display text-2xl text-foreground">How Wayzyy Helps You Choose Better</h2>
-        <p>
-          Most booking platforms expect you to know exactly what you're looking for. You open the website, type in your dates, apply a few filters and scroll through hundreds of properties that all start to look the same after a while.
-        </p>
-        <p>
-          The problem is that most people don't actually know which area suits them best.
-        </p>
-        <p>
-          That's exactly what we're trying to solve at Wayzyy.
-        </p>
-        <p>
-          Instead of treating every traveller the same, we're building a platform around how people actually travel. Whether you're planning a workation in Siolim, a café-filled getaway in Assagao, a social trip centred around Anjuna, a family holiday in Morjim or a peaceful escape in Ashwem, the goal is to help you discover stays that match your lifestyle—not just your dates.
-        </p>
-        <p>
-          Because Wayzyy works directly with property owners through a host-first model, travellers can often find prices that are up to around 20% lower than comparable listings on larger booking platforms, depending on the property and travel season. More importantly, you're exploring verified homes that have been curated around different travel styles rather than simply ranked by advertising budgets or marketplace algorithms.
-        </p>
-        <p>
-          Choosing where to stay shouldn't feel like searching through hundreds of listings. It should feel like finding a place where you'll genuinely enjoy spending your time.
-        </p>
-
-        <h3 className="font-display text-lg text-foreground mt-8">So, Where Should You Stay in Goa?</h3>
-        <p>
-          If you've made it this far, you've probably realised there isn't a single correct answer. The best place to stay in Goa depends entirely on the experience you're hoping to have.
-        </p>
-        <ul>
-          <li>If you're looking for community, cafés and meeting new people, you'll naturally gravitate towards <strong>Anjuna and Vagator</strong>.</li>
-          <li>If slower mornings, boutique cafés and beautiful restaurants sound more appealing, <strong>Assagao or Siolim</strong> might feel like home.</li>
-          <li>Families often appreciate the quieter pace of <strong>Morjim, Ashwem and Mandrem</strong>, while couples looking to disconnect usually enjoy those same areas or the peaceful beaches of <strong>South Goa</strong>.</li>
-        </ul>
-        <p>
-          The destination is important. The lifestyle matters even more. That's the decision that turns a good Goa trip into one you'll want to repeat.
-        </p>
-      </div>
-
-      {/* 9. Continue Planning Hub */}
+      {/* 7. Pillar Interlinks Hub */}
       <div className="mt-16 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
         <h3 className="font-display text-xl font-semibold text-foreground mb-4">
           Continue Planning Your Goa Trip
         </h3>
         <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-          Choosing the right area is only the first step. Once you've decided where you want to stay, a little planning can make the rest of your trip much smoother. Whether you're trying to understand your budget, decide between North and South Goa or simply want to know what each neighbourhood is really like before booking, these guides will help you make informed decisions.
+          If you're still deciding where to stay, we've created detailed destination guides that take a much deeper look at each village and help you compare them before booking.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Village Guides</span>
-            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Guide – Best for cafes, flea markets &amp; social life</Link>
-            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Guide – Sunset views, dining &amp; cliffs</Link>
-            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Guide – Boutique cafes &amp; design villas</Link>
-            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Guide – Riversides &amp; slow residential stays</Link>
-            <Link to="/blog/morjim-goa-beach-guide" className="text-ember hover:underline block">Morjim Guide – Quieter beaches &amp; wellness</Link>
-            <Link to="/blog/ashwem-goa-beach-guide" className="text-ember hover:underline block">Ashwem Guide – Peaceful getaways &amp; couples</Link>
-            <Link to="/blog/mandrem-goa-beach-guide" className="text-ember hover:underline block">Mandrem Guide – Disconnecting &amp; quiet shoreline</Link>
+            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Beach Guide — Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Beach Guide — Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/morjim-goa-beach-guide" className="text-ember hover:underline block">Morjim Beach Guide — Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/ashwem-goa-beach-guide" className="text-ember hover:underline block">Ashwem Beach Guide — Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/mandrem-goa-beach-guide" className="text-ember hover:underline block">Mandrem Beach Guide — Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Villas Guide — Riverfront, Stays &amp; Tips</Link>
+            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Villas Guide — Cafes, Design &amp; Tips</Link>
           </div>
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Planning Guides</span>
-            <Link to="/blog/north-goa-travel-guide" className="text-ember hover:underline block font-semibold">North Goa Guide – Beaches, cafes, nightlife &amp; transport</Link>
-            <Link to="/blog/north-goa-vs-south-goa-guide" className="text-ember hover:underline block">North Goa vs South Goa – Practical vibe comparison</Link>
-            <Link to="/blog/goa-trip-budget-guide" className="text-ember hover:underline block">Goa Budget Guide – Real accommodation &amp; food costs</Link>
-            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Workation in Goa Guide – WiFi, coworking &amp; budgets</Link>
-            <Link to="/blog/why-villas-goa-different-prices-platforms" className="text-ember hover:underline block">Villas in Goa Guide – Booking pricing guide</Link>
-            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Scooter Rental Guide – Licensing &amp; rental checks</Link>
+            <Link to="/blog/goa-trip-budget-guide" className="text-ember hover:underline block">Goa Trip Budget Guide (2026) — Stays &amp; Food Costs</Link>
+            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Goa Scooter Rental Guide — Licensing &amp; Driving Rules</Link>
+            <Link to="/blog/north-goa-vs-south-goa-guide" className="text-ember hover:underline block">North vs South Goa Guide — Choose the Right Vibe</Link>
+            <Link to="/blog/best-time-to-visit-goa" className="text-ember hover:underline block">Best Time to Visit Goa — Seasonal Weather Advice</Link>
+            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Goa Workation Guide — WiFi, Coworking &amp; Setup Tips</Link>
           </div>
         </div>
         <p className="text-sm text-muted-foreground mt-6 pt-6 border-t border-border/40">
-          When you're ready to book, Wayzyy brings together carefully curated villas across North and South Goa, helping you discover stays based on your travel style instead of endless filters. Whether you're planning a weekend with friends, a month-long workation, a family holiday or a quiet escape as a couple, you'll find verified homes from local hosts, transparent pricing and a booking experience designed around travellers rather than marketplace commissions.
+          Ready to book? Explore Wayzyy to find verified private pool villas and boutique homes designed around how travelers actually move.
         </p>
       </div>
 
-      {/* 10. FAQ Accordion section (Visible Q&As) */}
+      {/* 8. FAQ Accordion section (Visible Q&As) */}
       <div id="faq-section" className="mt-16 border-t border-border pt-12">
         <h3 className="font-display text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
           <HelpCircle className="h-6 w-6 text-ember" />
@@ -747,4 +573,3 @@ export default function NorthGoaTravelGuide() {
     </BlogLayout>
   );
 }
-

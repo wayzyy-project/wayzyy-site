@@ -204,4 +204,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-18",
     readTime: "11 Min Read",
   },
+  {
+    slug: "where-to-stay-in-goa",
+    title: "Where Should You Stay in Goa? The Only Decision Guide You'll Need (2026)",
+    description:
+      "Planning a trip to Goa but confused about where to stay? Read the ultimate decision guide based on your travel style, personality, and routine.",
+    metaTitle: "Where to Stay in Goa — The Only Decision Guide (2026)",
+    metaDescription:
+      "Confused about where to stay in Goa? Choose the right village based on your travel personality, budget, and routine. Read the ultimate 2026 guide.",
+    heroImage: "/blog/goa-beach-reflection.webp",
+    publishedDate: "2026-07-19",
+    readTime: "12 Min Read",
+  },
 ];
