@@ -228,4 +228,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-20",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-nightlife-guide",
+    title: "Goa Nightlife Guide (2026): Beyond the Nightclubs",
+    description:
+      "Planning your evenings in Goa? Read our complete, honest guide to sunset bars, live music, hidden cocktail lounges, and slow beach nights.",
+    metaTitle: "Goa Nightlife Guide (2026) — Sunset Bars, Music & Clubs",
+    metaDescription:
+      "Planning your evenings in Goa? Choose between North and South Goa nightlife, sunset bars, live music, and hidden cocktail lounges. Read the 2026 guide.",
+    heroImage: "/blog/goa-party-leopard-valley.webp",
+    publishedDate: "2026-07-21",
+    readTime: "9 Min Read",
+  },
 ];
