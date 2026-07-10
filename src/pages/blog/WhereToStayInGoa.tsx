@@ -200,7 +200,7 @@ export default function WhereToStayInGoa() {
           Those are the questions that actually determine whether you'll enjoy your trip.
         </p>
         <p>
-          During our research, we went through recent discussions from travellers, long-term residents, digital nomads and local communities across Reddit, travel forums and specialised guides. One pattern appeared over and over again. People rarely regretted visiting a particular part of Goa—they regretted choosing an area that didn't match the kind of experience they wanted. Someone expecting peaceful mornings accidentally booked the busiest neighbourhood in North Goa. Others chose an isolated beach because it looked beautiful online, only to realise every café, restaurant and supermarket required a long scooter ride. The destination wasn't the problem. The mismatch was.
+          During our research, we went through recent discussions from travellers, long-term residents, digital nomads and local communities across Reddit, travel forums and specialised guides. One pattern appeared over and over again. People rarely regretted visiting a particular part of Goa—they regretted choosing an area that didn't match the kind of experience they wanted. Someone expecting peaceful mornings accidentally booked the busiest neighbourhood in North Goa. Others chose an isolated beach because it looked beautiful online, only to realise every café, restaurant and supermarket required a long <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">scooter ride</Link>. The destination wasn't the problem. The mismatch was.
         </p>
         <p>
           That's why this guide is different.
@@ -277,7 +277,7 @@ export default function WhereToStayInGoa() {
           They book accommodation in the busiest tourist areas because those locations look exciting online, only to realise that living somewhere for two or three weeks is completely different from spending a weekend there. Constant traffic, crowded cafés and late-night noise can become exhausting when they're part of your everyday routine rather than something you experience for a couple of days.
         </p>
         <p>
-          That's one of the reasons places like Siolim have become increasingly popular among people staying for longer periods. It feels connected enough to reach Anjuna, Vagator, Morjim and Assagao within a short scooter ride, while still offering a noticeably calmer residential atmosphere. Assagao appeals to travellers who enjoy spending time in cafés and restaurants without living in the middle of Goa's busiest nightlife, while Morjim and Ashwem attract people looking for a slower lifestyle centred around beaches, wellness and quieter mornings. Recent discussions among long-term visitors consistently highlight these areas as places where Goa begins to feel less like a holiday destination and more like somewhere you could comfortably live for a while.
+          That's one of the reasons places like Siolim have become increasingly popular among people staying for longer periods. It feels connected enough to reach Anjuna, Vagator, Morjim and Assagao within a short <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">scooter ride</Link>, while still offering a noticeably calmer residential atmosphere. Assagao appeals to travellers who enjoy spending time in cafés and restaurants without living in the middle of Goa's busiest nightlife, while Morjim and Ashwem attract people looking for a slower lifestyle centred around beaches, wellness and quieter mornings. Recent discussions among long-term visitors consistently highlight these areas as places where Goa begins to feel less like a holiday destination and more like somewhere you could comfortably live for a while.
         </p>
         <p>
           If you're planning a month-long stay, we've covered everything in detail in our <Link to="/blog/workation-goa-guide" className="text-ember hover:underline">Workation in Goa Guide</Link>, including internet reliability, coworking spaces, monthly budgets and practical tips for remote workers.
@@ -419,7 +419,7 @@ export default function WhereToStayInGoa() {
           <li>Will I spend more time in cafés or on beaches?</li>
           <li>Do I enjoy lively evenings or quiet sunsets?</li>
           <li>Am I travelling for a holiday, a workation or a longer stay?</li>
-          <li>Would I rather be close to everything or somewhere peaceful that requires a short scooter ride?</li>
+          <li>Would I rather be close to everything or somewhere peaceful that requires a short <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">scooter ride</Link>?</li>
         </ol>
         <p>
           Your answers will usually narrow the choice down to two or three areas almost immediately. From there, choosing the right villa becomes much easier.
@@ -462,7 +462,7 @@ export default function WhereToStayInGoa() {
           Continue Planning Your Goa Trip
         </h3>
         <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-          Choosing the right area is only the first step. Once you've decided where you want to stay, a little planning can make the rest of your trip much smoother. Whether you're trying to understand your budget, decide between North and South Goa or simply want to know what each neighbourhood is really like before booking, these guides will help you make informed decisions.
+          Choosing the right area is only the first step. Once you've decided where you want to stay, a little planning can make the rest of your trip much smoother. Whether you're trying to understand your <Link to="/blog/goa-trip-budget-guide" className="hover:text-ember text-ember underline decoration-dotted">budget</Link>, decide between <Link to="/blog/north-goa-vs-south-goa-guide" className="hover:text-ember text-ember underline decoration-dotted">North and South Goa</Link> or simply want to know what each neighbourhood is really like before booking, these guides will help you make informed decisions.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div className="space-y-2">
