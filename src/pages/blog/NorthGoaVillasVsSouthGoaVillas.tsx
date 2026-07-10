@@ -223,7 +223,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         That's exactly how we've organised properties at Wayzyy.
       </p>
       <p>
-        Instead of asking you to filter through thousands of listings, we help you explore villas by destination, travel style and group size. Whether you're searching for a private pool villa in Vagator, a peaceful family stay in Morjim, a boutique home in Assagao, a workation-friendly villa in Siolim or a beachside escape in South Goa, you can compare thoughtfully curated properties in one place. And because Wayzyy works directly with hosts through a host-first model, travellers can often find prices that are up to around 20% lower than comparable listings on larger booking platforms, depending on the property and season.
+        Instead of asking you to filter through thousands of listings, we help you explore villas by destination, travel style and group size. Whether you're searching for a private pool villa in Vagator, a peaceful family stay in Morjim, a boutique home in Assagao, a workation-friendly villa in Siolim or a beachside escape in South Goa, you can compare thoughtfully curated properties in one place. And because Wayzyy works directly with hosts through a host-first model, travellers can often find prices that are up to around 20% lower than comparable listings on <Link to="/blog/best-airbnb-alternatives-goa" className="hover:text-ember text-ember underline decoration-dotted">larger booking platforms</Link>, depending on the property and season.
       </p>
       <p>
         Finding the right region is only the first step.
@@ -237,6 +237,18 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
       <p>
         A couple, a family of five, a birthday group and someone planning a month-long workation are all looking for very different things—and that's exactly what we'll help you choose next.
       </p>
+
+      <div className="my-8">
+        <img
+          src="/blog/goa-villa-floresta.webp"
+          alt="Villa Floresta — a beautiful traditional-style white villa in Goa with a private swimming pool"
+          className="w-full rounded-2xl border border-border object-cover aspect-video"
+          loading="lazy"
+        />
+        <span className="text-xs text-muted-foreground block text-center mt-2 italic">
+          Boutique private pool villas like Villa Floresta in North Goa offer absolute privacy and space for friends and families.
+        </span>
+      </div>
 
       <h2>Questions You Should Always Ask Before Booking a Villa in Goa</h2>
       <p>
@@ -262,7 +274,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         Power cuts aren't something most travellers think about until they experience one.
       </p>
       <p>
-        During the monsoon or periods of bad weather, having an inverter or generator can make a significant difference, especially if you're staying for several weeks or working remotely. It's a simple question that often gets overlooked but can have a huge impact on your experience.
+        During the <Link to="/blog/best-time-to-visit-goa" className="hover:text-ember text-ember underline decoration-dotted">monsoon</Link> or periods of bad weather, having an inverter or generator can make a significant difference, especially if you're staying for several weeks or working remotely. It's a simple question that often gets overlooked but can have a huge impact on your experience.
       </p>
 
       <h3>Is the Pool Private?</h3>
@@ -302,7 +314,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
 
       <h3>Is Parking Available?</h3>
       <p>
-        If you're planning to rent scooters or travel by car, secure parking becomes more important than many people expect.
+        If you're planning to <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">rent scooters</Link> or travel by car, secure parking becomes more important than many people expect.
       </p>
       <p>
         Most villas provide parking, but it's still worth confirming how many vehicles the property can comfortably accommodate, particularly if you're travelling as a larger group.
@@ -362,6 +374,18 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
             </ul>
           </div>
         </div>
+      </div>
+
+      <div className="my-8">
+        <img
+          src="/blog/goa-north-vs-south-second.webp"
+          alt="Boutique private pool villa with a pink flamingo float in North Goa"
+          className="w-full rounded-2xl border border-border object-cover aspect-video"
+          loading="lazy"
+        />
+        <span className="text-xs text-muted-foreground block text-center mt-2 italic">
+          Fast internet, power backup, and cozy workspace setups are critical for longer stays and remote work in private villas.
+        </span>
       </div>
 
       <h2>Common Mistakes People Make While Booking Villas in Goa</h2>
