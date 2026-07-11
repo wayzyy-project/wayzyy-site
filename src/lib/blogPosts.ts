@@ -300,4 +300,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-26",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-transport-guide",
+    title: "Getting Around Goa: The Complete Transport Guide (2026)",
+    description:
+      "Planning transport in Goa? Read our complete, honest guide to renting scooters, booking GoaMiles cabs, self-drive rentals, and airport transfers.",
+    metaTitle: "Getting Around Goa (2026) — Scooter Rental, Taxis & Cars",
+    metaDescription:
+      "Getting around Goa doesn't work like other cities. Read our 2026 transport guide on renting scooters, hiring self-drive cars, GoaMiles cabs, and transfers.",
+    heroImage: "/blog/goa-transport-scooter-ride.webp",
+    publishedDate: "2026-07-27",
+    readTime: "9 Min Read",
+  },
 ];
