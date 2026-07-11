@@ -360,4 +360,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-31",
     readTime: "9 Min Read",
   },
+  {
+    slug: "how-much-can-you-earn-vacation-rental-goa",
+    title: "How Much Can You Actually Earn From a Vacation Rental in Goa? (The Real Profit Breakdown)",
+    description:
+      "Understand the real unit economics of running a vacation rental in Goa. Learn about setup costs, government loan schemes (PMEGP, Mudra), seasonality shifts, and how to protect your profit margin.",
+    metaTitle: "How Much Can You Earn From a Vacation Rental in Goa? (Profit Breakdown)",
+    metaDescription:
+      "A complete guide to Goa vacation rental earnings. Compare revenue vs. profit, setup and operating costs, government Mudra loans, and Goa seasonality.",
+    heroImage: "/blog/how-much-can-you-earn-vacation-rental-goa.webp",
+    publishedDate: "2026-08-01",
+    readTime: "10 Min Read",
+  },
 ];

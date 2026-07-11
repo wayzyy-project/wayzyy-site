@@ -44,6 +44,7 @@ import GoaHotelVsVillaVsHomestay from "@/pages/blog/GoaHotelVsVillaVsHomestay";
 import GoaFamilyTripGuide from "@/pages/blog/GoaFamilyTripGuide";
 import WhyWeDecidedToBuildWayzyyDifferently from "@/pages/blog/WhyWeDecidedToBuildWayzyyDifferently";
 import AirbnbVsBookingVsWayzyy from "@/pages/blog/AirbnbVsBookingVsWayzyy";
+import HowMuchCanYouEarnVacationRentalGoa from "@/pages/blog/HowMuchCanYouEarnVacationRentalGoa";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -95,6 +96,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/goa-family-trip-guide": GoaFamilyTripGuide,
   "/blog/why-we-decided-to-build-wayzyy-differently": WhyWeDecidedToBuildWayzyyDifferently,
   "/blog/airbnb-vs-booking-vs-wayzyy": AirbnbVsBookingVsWayzyy,
+  "/blog/how-much-can-you-earn-vacation-rental-goa": HowMuchCanYouEarnVacationRentalGoa,
 };
 
 const output: Record<string, string> = {};
