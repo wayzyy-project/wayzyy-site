@@ -324,4 +324,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-28",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-family-trip-guide",
+    title: "How to Plan a Family Trip to Goa Without Feeling Rushed (2026)",
+    description:
+      "Planning a family trip to Goa? Read our complete, honest guide on choosing the best area, accommodation vs hotels, food options, transport, and slow itineraries.",
+    metaTitle: "Goa Family Trip Guide (2026) — Slow Travel & Stays Planning",
+    metaDescription:
+      "Plan the perfect family trip to Goa without feeling rushed. Read our 2026 guide on best areas, homestays vs hotels, transportation, and kid-friendly tips.",
+    heroImage: "/blog/goa-family-trip-beach.webp",
+    publishedDate: "2026-07-29",
+    readTime: "10 Min Read",
+  },
 ];
