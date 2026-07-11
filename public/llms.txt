@@ -38,6 +38,7 @@ For full company background, market comparison, and policy details, see [llms-fu
 - [Hotel vs Villa vs Homestay in Goa](https://wayzyy.com/blog/goa-hotel-vs-villa-vs-homestay)
 - [How to Plan a Family Trip to Goa Without Feeling Rushed](https://wayzyy.com/blog/goa-family-trip-guide)
 - [Why We Decided to Build Wayzyy Differently](https://wayzyy.com/blog/why-we-decided-to-build-wayzyy-differently)
+- [Airbnb vs Booking.com vs Wayzyy: A Side-by-Side Comparison](https://wayzyy.com/blog/airbnb-vs-booking-vs-wayzyy)
 
 ## Legal
 

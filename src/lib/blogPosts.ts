@@ -348,4 +348,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-30",
     readTime: "8 Min Read",
   },
+  {
+    slug: "airbnb-vs-booking-vs-wayzyy",
+    title: "Airbnb vs Booking.com vs Wayzyy: A Side-by-Side Comparison (2026)",
+    description:
+      "An honest, side-by-side comparison of Airbnb, Booking.com, and Wayzyy for vacation rental hosts. Compare fees, discovery, target audiences, and long-term profitability.",
+    metaTitle: "Airbnb vs Booking.com vs Wayzyy: Side-by-Side Comparison",
+    metaDescription:
+      "Looking for the best short-term rental platform? Read our 2026 side-by-side comparison of Airbnb, Booking.com, and Wayzyy on fees, target audiences, and economics.",
+    heroImage: "/blog/why-we-decided-to-build-wayzyy-differently.webp",
+    publishedDate: "2026-07-31",
+    readTime: "9 Min Read",
+  },
 ];
