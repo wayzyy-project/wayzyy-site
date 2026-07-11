@@ -31,6 +31,7 @@ For full company background, market comparison, and policy details, see [llms-fu
 - [Goa Nightlife Guide](https://wayzyy.com/blog/goa-nightlife-guide)
 - [Goa Beaches Guide](https://wayzyy.com/blog/goa-beaches-guide)
 - [Goa Food Guide](https://wayzyy.com/blog/goa-food-guide)
+- [Goa Markets Guide](https://wayzyy.com/blog/goa-markets-guide)
 
 ## Legal
 

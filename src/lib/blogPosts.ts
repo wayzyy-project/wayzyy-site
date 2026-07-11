@@ -264,4 +264,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-23",
     readTime: "10 Min Read",
   },
+  {
+    slug: "goa-markets-guide",
+    title: "Goa Markets Guide (2026): Where to Shop & What to Buy",
+    description:
+      "Planning to visit Goa's famous markets? Read our honest guide to the best flea markets, local spice and cashew shopping, and artisan azulejos.",
+    metaTitle: "Goa Markets Guide (2026) — Flea Markets & Souvenirs",
+    metaDescription:
+      "Read the honest 2026 guide to shopping in Goa. Discover which flea markets are worth visiting, where to buy cashews & spices, and avoid tourist traps.",
+    heroImage: "/blog/goa-market-anjuna-vendor.webp",
+    publishedDate: "2026-07-24",
+    readTime: "9 Min Read",
+  },
 ];
