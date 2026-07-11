@@ -11,50 +11,50 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "Why did Wayzyy choose a credit-based subscription instead of commissions?",
+      "name": "Is Airbnb still profitable for hosts in India?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We chose a prepaid credit model to eliminate the high commissions (typically 15-20%) charged by traditional short-term rental platforms. By purchasing booking credits upfront, hosts can keep nearly 100% of their reservation payouts, making their businesses more sustainable and allowing them to price stays more competitively for guests."
+        "text": "Yes, but profitability depends on much more than occupancy. Operating costs such as cleaning, maintenance, utilities, platform commissions and property management all affect the final profit. Hosts who understand their expenses and optimise their operations generally perform much better over the long term."
       }
     },
     {
       "@type": "Question",
-      "name": "How does Wayzyy's credit model average to a ~2% effective platform cost?",
+      "name": "How much commission does Airbnb charge hosts?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "On our standard host plans, you purchase booking credits in bulk (for example, paying ₹1,000 to unlock ₹50,000 in reservations). This flat fee equates to an effective cost of only ~2% on the bookings you secure, compared to the 16-24% combined take rates charged by legacy booking platforms."
+        "text": "Depending on the pricing model and booking structure, hosts can effectively pay around 16–24% through platform commissions and associated fee structures. The exact amount varies based on the listing setup, country and booking type."
       }
     },
     {
       "@type": "Question",
-      "name": "What are the benefits of a flat-fee subscription for vacation rental hosts?",
+      "name": "Is running an Airbnb passive income?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A flat-fee model makes your operating costs completely predictable. Instead of paying progressively larger commissions as you increase nightly rates or achieve higher occupancy, your platform costs stay fixed, allowing you to reinvest the savings back into property maintenance, interiors, caretakers, and better amenities."
+        "text": "Not really. Hosting is a hospitality business. Guest communication, check-ins, cleaning, maintenance, pricing updates and property management all require continuous attention. While many tasks can be automated, successful hosting still involves active management."
       }
     },
     {
       "@type": "Question",
-      "name": "Does Wayzyy charge guests any service fees or hidden costs?",
+      "name": "Should I list my property on only one booking platform?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Unlike legacy platforms that add up to 14% guest service fees at checkout, Wayzyy keeps booking prices transparent. Because hosts are not paying heavy commissions, they can offer their true pricing, ensuring guests avoid high markups and check out without surprise fees."
+        "text": "Most experienced hosts recommend diversifying across multiple booking channels rather than depending entirely on a single platform. This reduces business risk and helps maintain bookings if one platform changes its policies or visibility."
       }
     },
     {
       "@type": "Question",
-      "name": "How does Wayzyy support hosts in building independent businesses?",
+      "name": "What is the biggest mistake first-time Airbnb hosts make?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We believe hosts are the ones investing capital, managing properties, and delivering great hospitality. Wayzyy provides secure payments, verified guest checks (via Aadhaar/DigiLocker), and reliable customer support without manipulating your nightly rates or enforcing Smart Pricing algorithms that lower host margins."
+        "text": "Many new hosts focus only on potential revenue while underestimating operating costs. Cleaning, maintenance, platform commissions, guest support and recurring expenses have a significant impact on long-term profitability."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I use Wayzyy alongside other short-term rental platforms?",
+      "name": "Why was Wayzyy created?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Hosts can list their properties on Wayzyy while maintaining listings on other booking sites. The predictable subscription credits only apply to reservations processed through the Wayzyy marketplace, giving you the flexibility to manage bookings as you see fit."
+        "text": "Wayzyy was built after speaking with property owners who wanted a more transparent and host-friendly business model. Instead of relying on high recurring commissions, the platform focuses on helping hosts retain more of their earnings while giving guests access to quality short-term rentals with transparent pricing."
       }
     }
   ]
@@ -213,118 +213,100 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           That's the kind of marketplace we believe the short-term rental industry deserves, and it's the standard we're working towards with every home listed on Wayzyy every single day.
         </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">The Future of Short-Term Rentals Won't Be Built on Higher Commissions</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">Looking Ahead</h2>
         
         <p>
-          The short-term rental industry in India is still in its early stages.
+          The short-term rental industry in India is still evolving, and that's exactly what makes this an exciting time to become a host. More travellers are choosing villas, homestays and vacation rentals over conventional hotel rooms because they're looking for larger spaces, private amenities and experiences that feel more personal than a standard hotel stay.
         </p>
         <p>
-          Every year, more homeowners are converting second homes into vacation rentals, more travellers are choosing homestays over traditional hotels and more families are looking for experiences that feel personal rather than standardised. That's great news for hosts because the opportunity continues to grow.
+          Growing demand, however, is only one side of the equation.
         </p>
         <p>
-          Growth alone, however, doesn't guarantee a healthy business.
+          Running a successful property still depends on the decisions made behind the scenes. Choosing the right pricing strategy, maintaining the home, investing in hospitality and keeping operating costs under control will always matter more than simply increasing occupancy. Revenue might look impressive on paper, but profitability is what determines whether the business remains sustainable.
         </p>
         <p>
-          A property with high occupancy can still struggle if operating costs keep rising faster than revenue. Likewise, a villa that receives consistent bookings won't necessarily become more profitable if a sizeable percentage of every reservation continues to disappear in recurring platform fees. Sustainable businesses aren't built by focusing only on revenue—they're built by managing costs just as carefully.
+          Experienced hosts understand this better than anyone.
         </p>
         <p>
-          That's something we kept hearing from experienced hosts.
+          After the excitement of the first few bookings fades away, attention naturally shifts towards improving the property instead of chasing quick wins. Some decide to renovate a bedroom, while others upgrade their Wi-Fi, redesign outdoor spaces or hire additional staff to improve the guest experience. Every improvement creates a stronger property, and stronger properties usually attract better reviews, repeat visitors and healthier long-term returns.
         </p>
         <p>
-          Once the excitement of the first few bookings wears off, attention naturally shifts towards improving margins. Every decision starts getting evaluated differently. Should that extra money go towards paying another commission, or should it be invested in renovating a bedroom? Would faster Wi-Fi create happier guests? Could hiring an additional caretaker improve reviews? Is it better to upgrade the pool, replace ageing furniture or simply build a financial cushion for the off-season?
+          That's where we believe the industry should be heading.
         </p>
         <p>
-          Those are the decisions that help a property grow over time.
+          Imagine a marketplace where the success of a host doesn't automatically mean a larger deduction from every booking. Picture a model where owners have more freedom to reinvest in their homes, travellers benefit from fairer pricing and hospitality becomes the biggest competitive advantage rather than aggressive discounting.
         </p>
         <p>
-          Every rupee saved on unnecessary recurring costs becomes another opportunity to improve the guest experience. Better hospitality leads to stronger reviews, stronger reviews increase trust and higher trust often translates into better occupancy without relying entirely on discounts.
+          Those ideas aren't just ambitions for us—they're the principles behind everything we're building at Wayzyy.
         </p>
         <p>
-          That's the cycle we believe hosts should benefit from.
+          Our objective isn't to replace every booking platform that already exists. Millions of travellers rely on established marketplaces, and they'll continue to play an important role in the travel ecosystem. What we're trying to change is the experience for independent hosts by offering another path—one that focuses on healthier unit economics, transparent pricing and long-term sustainability instead of larger recurring commissions.
         </p>
         <p>
-          Instead of watching success increase someone else's commission, we'd rather see successful hosts reinvest that money back into their own business. Better homes create better stays, and better stays naturally attract more travellers. In the long run, everyone benefits when the people creating the experience have more resources to improve it.
+          Success, in our eyes, isn't measured by how much revenue a platform extracts from a booking.
         </p>
         <p>
-          Wayzyy was built around that belief.
+          It's reflected in the number of hosts who can confidently invest in their properties year after year because their business generates enough cash flow to support that growth. Better-maintained homes create happier guests, happier guests leave stronger reviews and stronger reviews help hosts build businesses that last.
         </p>
         <p>
-          Our goal isn't simply to help you receive bookings. We want to help you build a business that still feels rewarding years from now, not just during your first busy season. If hosts earn more, they can invest more. If they invest more, guests enjoy better stays. When guests leave happier, the entire ecosystem becomes stronger.
+          Ultimately, that's the kind of ecosystem we want to contribute to.
         </p>
         <p>
-          That's the kind of growth we're working towards—not growth driven by bigger commissions, but growth driven by better hospitality.
+          One where platforms succeed because hosts succeed, not because they continue taking a bigger share of every reservation. If the people opening their homes to travellers are able to earn more, improve more and deliver exceptional hospitality, everyone involved—from the property owner to the guest—wins together.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Final Thoughts</h2>
         
         <p>
-          When we first started talking to property owners, we expected the conversations to revolve around occupancy, pricing and attracting more guests.
+          When we first started building Wayzyy, we thought we were entering the short-term rental business.
         </p>
         <p>
-          Instead, something else kept coming up.
+          The more conversations we had with hosts, the more we realised we were actually entering the hospitality business.
         </p>
         <p>
-          People weren't looking for another platform.
-        </p>
-        <p className="font-semibold text-center italic my-2">
-          They were looking for a better way to build a business.
+          Properties can always be renovated. Furniture gets replaced over time. Amenities improve with every season, and technology keeps changing the way bookings are managed. What never changes is the effort that goes into making every guest feel welcome. That's something no platform can automate completely, and it's the reason great hosts continue to stand out regardless of where their listings appear.
         </p>
         <p>
-          Most hosts had already accepted that running a short-term rental would involve hard work. Cleaning between bookings, maintaining the property, responding to guest messages and constantly improving the experience all come with the territory. Those responsibilities are part of hospitality, and nobody we spoke to expected otherwise.
+          Running a successful vacation rental has never been about listing a property and waiting for bookings to arrive.
         </p>
         <p>
-          What surprised us was how many owners felt they had very little control over the costs that came after every booking. Platform commissions continued to grow as their business grew, yet the responsibility of delivering a great stay still rested entirely on the host. That imbalance was difficult to ignore.
+          Building trust, responding quickly, maintaining high standards and continuously improving the experience are what create businesses that last. Revenue matters, but the ability to retain more of that revenue matters just as much. Every unnecessary expense reduces the amount that could have been invested back into the property, and every improvement postponed today often becomes a missed opportunity tomorrow.
         </p>
         <p>
-          Building Wayzyy wasn't about proving that another marketplace could exist.
+          Looking ahead, we believe independent hosts deserve business models that reward the effort they put into creating exceptional stays. That's exactly why Wayzyy exists. Our goal isn't to convince every property owner to abandon the platforms they're already using. Instead, we want to provide another option—one that believes success should be shared with the people creating the experience rather than relying on increasingly expensive commission structures.
         </p>
         <p>
-          It was about asking whether the business model itself could become fairer.
+          Hospitality has always been a people-first business.
+        </p>
+        <p className="font-semibold text-center text-lg text-ember">
+          Technology should make that business easier, not more expensive.
         </p>
         <p>
-          Could hosts keep more of what they earned?
+          If hosts can retain more of what they earn, they can invest more confidently in their homes. Better homes create better guest experiences, stronger reviews encourage more bookings and healthier businesses continue raising the standard of short-term rentals across the country. That's the cycle we want to help build.
         </p>
         <p>
-          Could travellers book the same quality homes without paying inflated prices created by multiple layers of platform fees?
+          This article wasn't written to discourage anyone from becoming a host.
         </p>
         <p>
-          Would a simpler pricing structure encourage owners to invest more into hospitality instead of budgeting around recurring commissions?
+          Quite the opposite.
         </p>
         <p>
-          Those were the questions that shaped every decision we made.
+          Our intention was to help you start with realistic expectations instead of unrealistic promises. Understanding the economics, planning for operational costs and choosing the right partners from the beginning will have a far bigger impact on your journey than chasing the highest occupancy in your first month.
         </p>
         <p>
-          Our belief is straightforward.
-        </p>
-        <p className="font-semibold text-ember text-center text-lg italic my-2">
-          A platform succeeds when its hosts succeed.
+          The opportunity has never been bigger.
         </p>
         <p>
-          Every additional rupee a host saves can become a renovated bedroom, a faster internet connection, better housekeeping, a well-paid caretaker or a more memorable experience for the next guest. Improvements like these don't just benefit one booking—they raise the standard of the property for years to come.
+          Families are choosing villas over hotel rooms, remote professionals are booking longer stays, groups want private spaces and travellers increasingly value experiences that feel like home. Property owners who combine great hospitality with smart business decisions are in the best position to benefit from that shift.
         </p>
         <p>
-          Guests notice that difference.
+          If you're thinking about starting your first short-term rental, take the time to understand how the business really works before deciding where to list.
+        </p>
+        <p className="font-semibold text-foreground text-center text-lg italic my-2">
+          The platform you choose should help your business become stronger every year—not simply become more expensive with every booking.
         </p>
         <p>
-          Hosts feel that difference.
-        </p>
-        <p>
-          The industry grows because of that difference.
-        </p>
-        <p>
-          That's the future we believe short-term rentals deserve.
-        </p>
-        <p>
-          If you're planning to list your first property, don't choose a platform based only on how many users it has. Spend some time understanding how the business works, where your money goes and whether the platform helps you build a stronger business over the long run.
-        </p>
-        <p>
-          The first booking is exciting.
-        </p>
-        <p>
-          The hundredth booking is what determines whether you've built a sustainable business.
-        </p>
-        <p>
-          That's the journey we're committed to supporting at Wayzyy, and this article is just the beginning. In the next guide, we'll break down Airbnb vs Booking.com vs Wayzyy, compare the economics side by side and help you understand which model makes the most sense for different kinds of hosts.
+          That's the philosophy we've built Wayzyy around, and it's the standard we'll continue working towards as we grow.
         </p>
       </div>
 
