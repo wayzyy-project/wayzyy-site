@@ -34,6 +34,7 @@ import GoaNightlifeGuide from "@/pages/blog/GoaNightlifeGuide";
 import GoaBeachesGuide from "@/pages/blog/GoaBeachesGuide";
 import GoaFoodGuide from "@/pages/blog/GoaFoodGuide";
 import GoaMarketsGuide from "@/pages/blog/GoaMarketsGuide";
+import GoaItineraryGuide from "@/pages/blog/GoaItineraryGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -68,6 +69,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/goa-beaches-guide": GoaBeachesGuide,
   "/blog/goa-food-guide": GoaFoodGuide,
   "/blog/goa-markets-guide": GoaMarketsGuide,
+  "/blog/goa-itinerary-guide": GoaItineraryGuide,
 };
 
 const output: Record<string, string> = {};

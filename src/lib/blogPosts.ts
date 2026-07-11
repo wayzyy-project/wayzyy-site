@@ -276,4 +276,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-24",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-itinerary-guide",
+    title: "Goa Itinerary Guide (2026): The Perfect 3, 5, and 7-Day Plans",
+    description:
+      "Planning a trip to Goa? Read our complete, honest guide to the perfect 3-day, 5-day, and 7-day itineraries, including split stays, local shopping, and dining.",
+    metaTitle: "Goa Itinerary Guide (2026) — 3, 5, and 7-Day Itineraries",
+    metaDescription:
+      "Planning a trip to Goa? Choose the perfect 3, 5, or 7-day itinerary. Learn about split stays, best beaches, local dining, and slow travel. Read our 2026 guide.",
+    heroImage: "/blog/goa-itinerary-pool-villa.webp",
+    publishedDate: "2026-07-25",
+    readTime: "9 Min Read",
+  },
 ];
