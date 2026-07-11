@@ -90,7 +90,7 @@ export default function AirbnbVsBookingVsWayzyy() {
       metaTitle={post.metaTitle}
       metaDescription={post.metaDescription}
       heroImage={post.heroImage}
-      heroImageAlt="Excalidraw sketch diagram comparing Airbnb and Wayzyy business models and fees"
+      heroImageAlt="Excalidraw sketch diagram comparing Airbnb, Booking.com, and Wayzyy business models and fees"
       publishedDate={post.publishedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
