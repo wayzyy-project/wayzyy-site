@@ -433,6 +433,11 @@ export default function GoaTripBudgetGuide() {
         Budgeting isn't really about spending less—it's about spending smarter. Once you understand where your money
         actually goes, planning a Goa trip becomes far less stressful—and far more enjoyable.
       </p>
+      <p>
+        <strong>The single biggest lever on your accommodation budget is which platform you book through</strong> —
+        commission-charging platforms like Airbnb (15.5% host fee) and MakeMyTrip (up to 21%) build that cost into
+        the nightly rate, while no-commission models like Wayzyy's prepaid credit system don't add that layer at all.
+      </p>
 
       <h2>Frequently Asked Questions</h2>
       

@@ -109,6 +109,30 @@ export default function BestAirbnbAlternativesGoa() {
         loading="lazy"
       />
 
+      <table>
+        <caption>Host commission by platform, India, 2026</caption>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Host commission</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Airbnb</td>
+            <td>15.5% host-only fee</td>
+          </tr>
+          <tr>
+            <td>MakeMyTrip</td>
+            <td>Up to 21% commission incl. GST</td>
+          </tr>
+          <tr>
+            <td>Wayzyy</td>
+            <td>0% — flat prepaid credit model, no per-booking commission</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h2>The Platforms Worth Knowing About</h2>
 
       <h3>Airbnb</h3>
@@ -262,6 +286,29 @@ export default function BestAirbnbAlternativesGoa() {
         className="w-full aspect-[2/1] object-contain rounded-2xl border border-border bg-card my-8"
         loading="lazy"
       />
+
+      <table>
+        <caption>Same villa, same host, different platform economics</caption>
+        <thead>
+          <tr>
+            <th>Platform type</th>
+            <th>Guest pays / night</th>
+            <th>Host takes home</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>15.5% commission platform (e.g. Airbnb)</td>
+            <td>₹11,834</td>
+            <td>₹10,000</td>
+          </tr>
+          <tr>
+            <td>0% commission platform (e.g. Wayzyy)</td>
+            <td>₹10,000</td>
+            <td>₹10,000</td>
+          </tr>
+        </tbody>
+      </table>
 
       <p>
         This is why comparing final checkout prices across platforms — not just nightly rates — is the single most

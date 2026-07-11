@@ -185,3 +185,18 @@ html.lenis body {
 .policy-content strong {
   @apply text-foreground font-semibold;
 }
+.policy-content table {
+  @apply w-full my-6 border-collapse overflow-hidden rounded-2xl border border-border text-[14px];
+}
+.policy-content th {
+  @apply bg-card/60 text-left font-semibold text-foreground px-4 py-3 border-b border-border;
+}
+.policy-content td {
+  @apply px-4 py-3 border-b border-border/60 text-muted-foreground;
+}
+.policy-content tr:last-child td {
+  @apply border-b-0;
+}
+.policy-content caption {
+  @apply text-xs text-muted-foreground text-left mb-2;
+}

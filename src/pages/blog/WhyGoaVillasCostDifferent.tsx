@@ -244,6 +244,26 @@ export default function WhyGoaVillasCostDifferent() {
         loading="lazy"
       />
 
+      <table>
+        <caption>How villa booking platforms charge hosts, India</caption>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>How hosts are charged</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Airbnb</td>
+            <td>15.5% host-only commission per booking</td>
+          </tr>
+          <tr>
+            <td>Wayzyy</td>
+            <td>Prepaid credit model — no per-booking commission</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h2>Booking.com and MakeMyTrip Work Differently—But the Principle Is the Same.</h2>
       <p>Airbnb isn't the only company operating this way.</p>
       <p>
