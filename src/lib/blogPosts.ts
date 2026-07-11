@@ -312,4 +312,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-27",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-hotel-vs-villa-vs-homestay",
+    title: "Hotel vs Villa vs Homestay in Goa: Which One Should You Actually Book? (2026)",
+    description:
+      "Planning a trip to Goa? Read our honest comparison of booking hotels, private villas, and local homestays to find what matches your budget and travel style.",
+    metaTitle: "Hotel vs Villa vs Homestay in Goa (2026) — Honest Booking Guide",
+    metaDescription:
+      "Planning a trip to Goa? Read our 2026 booking comparison of Goa hotels, private pool villas, and local homestays. Learn which option fits your group size & budget.",
+    heroImage: "/blog/goa-accommodation-villa.webp",
+    publishedDate: "2026-07-28",
+    readTime: "9 Min Read",
+  },
 ];
