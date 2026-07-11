@@ -34,10 +34,8 @@ export function SiteFooter() {
             {/* Legal */}
             <div className="flex flex-col gap-2">
               <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Legal</p>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/policies">Policies</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/privacy">Privacy Policy</Link>
-              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/payment-refund">Payment & Refund Policy</Link>
-              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host-terms">Host Terms of Service</Link>
-              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/guest-terms">Guest Terms of Service</Link>
             </div>
           </div>
         </div>

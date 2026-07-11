@@ -97,6 +97,146 @@ const routes = [
     }
   },
   {
+    path: '/policies',
+    title: 'Policies — Wayzyy',
+    description: "Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Policies — Wayzyy",
+      "url": "https://wayzyy.com/policies",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/cancellation',
+    title: 'Cancellation Policy — Wayzyy',
+    description: "Wayzyy's Cancellation Policy: the 24-hour free cancellation window, host cancellation tiers, and refund timelines.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Cancellation Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/cancellation",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/community-guidelines',
+    title: 'Community Guidelines — Wayzyy',
+    description: "Wayzyy's Community Guidelines: standards of conduct for guests, hosts, and event organisers across the platform.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Community Guidelines — Wayzyy",
+      "url": "https://wayzyy.com/policies/community-guidelines",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/damage-security',
+    title: 'Damage & Security Policy — Wayzyy',
+    description: "Wayzyy's Damage & Security Policy: guest liability for damage, the evidence-led claim process, and host safety standards.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Damage & Security Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/damage-security",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/discrimination-inclusion',
+    title: 'Discrimination & Inclusion Policy — Wayzyy',
+    description: "Wayzyy's Discrimination & Inclusion Policy: protected characteristics under Indian law and our zero-tolerance enforcement framework.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Discrimination & Inclusion Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/discrimination-inclusion",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/grievance-redressal',
+    title: 'Grievance Redressal Policy — Wayzyy',
+    description: "Wayzyy's Grievance Redressal Policy: our statutory consumer protection framework, designated Grievance Officer, and resolution timelines.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Grievance Redressal Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/grievance-redressal",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/dispute-resolution',
+    title: 'Dispute Resolution Policy — Wayzyy',
+    description: "Wayzyy's Dispute Resolution Policy: the three-level escalation framework for booking disagreements between hosts and guests.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Dispute Resolution Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/dispute-resolution",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/prohibited-content',
+    title: 'Prohibited Content & Listings Policy — Wayzyy',
+    description: "Wayzyy's Prohibited Content & Listings Policy: what listings, messages, and profile content are not allowed on the platform.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Prohibited Content & Listings Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/prohibited-content",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/review-rating',
+    title: 'Review & Rating Policy — Wayzyy',
+    description: "Wayzyy's Review & Rating Policy: the double-blind review system, rating categories, and the Wayzyy Verified badge.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Review & Rating Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/review-rating",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/policies/trust-safety',
+    title: 'Trust & Safety Policy — Wayzyy',
+    description: "Wayzyy's Trust & Safety Policy: identity verification, communication safeguards, and fraud mitigation across the platform.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Trust & Safety Policy — Wayzyy",
+      "url": "https://wayzyy.com/policies/trust-safety",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/blog',
     title: 'Wayzyy Blog — Villas, Vacation Rentals & Honest Travel Guides',
     description: 'Guides on booking villas in Goa, comparing Airbnb alternatives, and finding transparent, locally hosted vacation rentals in India.',

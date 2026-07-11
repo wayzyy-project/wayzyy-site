@@ -4,12 +4,15 @@ import { fileURLToPath } from "url";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
+import { Routes, Route } from "react-router-dom";
 
 import Index from "@/pages/Index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import PaymentRefundPolicy from "@/pages/PaymentRefundPolicy";
 import HostTerms from "@/pages/HostTerms";
 import GuestTerms from "@/pages/GuestTerms";
+import Policies from "@/pages/Policies";
+import PolicyDocPage from "@/pages/PolicyDocPage";
 
 import BlogIndex from "@/pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "@/pages/blog/BestAirbnbAlternativesGoa";
@@ -49,6 +52,16 @@ const routes: Record<string, React.ComponentType> = {
   "/payment-refund": PaymentRefundPolicy,
   "/host-terms": HostTerms,
   "/guest-terms": GuestTerms,
+  "/policies": Policies,
+  "/policies/cancellation": PolicyDocPage,
+  "/policies/community-guidelines": PolicyDocPage,
+  "/policies/damage-security": PolicyDocPage,
+  "/policies/discrimination-inclusion": PolicyDocPage,
+  "/policies/grievance-redressal": PolicyDocPage,
+  "/policies/dispute-resolution": PolicyDocPage,
+  "/policies/prohibited-content": PolicyDocPage,
+  "/policies/review-rating": PolicyDocPage,
+  "/policies/trust-safety": PolicyDocPage,
 
   "/blog": BlogIndex,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,
@@ -85,8 +98,16 @@ let failures = 0;
 
 for (const [route, Component] of Object.entries(routes)) {
   try {
+    let element = React.createElement(Component);
+    if (route.startsWith("/policies/")) {
+      element = React.createElement(
+        Routes,
+        null,
+        React.createElement(Route, { path: "/policies/:docId", element: React.createElement(Component) })
+      );
+    }
     const html = renderToStaticMarkup(
-      React.createElement(StaticRouter, { location: route }, React.createElement(Component))
+      React.createElement(StaticRouter, { location: route }, element)
     );
     output[route] = html;
     console.log(`SSR ok: ${route} (${html.length} chars)`);
