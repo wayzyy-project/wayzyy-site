@@ -336,4 +336,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-29",
     readTime: "10 Min Read",
   },
+  {
+    slug: "why-we-decided-to-build-wayzyy-differently",
+    title: "Why We Decided to Build Wayzyy Differently (2026)",
+    description:
+      "Read our founder's perspective on why we decided to build a credit-based subscription model for short-term rentals instead of high commissions.",
+    metaTitle: "Why We Decided to Build Wayzyy Differently — Founder's Notes",
+    metaDescription:
+      "Why did we build Wayzyy differently? Read our founder's notes on why we chose a flat prepaid credit model over Airbnb's high commission fees.",
+    heroImage: "/blog/why-we-decided-to-build-wayzyy-differently.webp",
+    publishedDate: "2026-07-30",
+    readTime: "8 Min Read",
+  },
 ];
