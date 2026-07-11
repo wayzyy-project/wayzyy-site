@@ -12,42 +12,98 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "Does Uber work in Goa?",
+      "name": "Is renting a scooter in Goa worth it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No, standard Uber and Ola rides do not operate in Goa. Instead, you can book government-backed app taxis via GoaMiles or use local prepaid taxi counters at Dabolim or Mopa airports."
+        "text": "Yes, for most solo travellers and couples, renting a scooter is the most convenient way to explore Goa. It's affordable, easy to park and gives you the flexibility to visit beaches, cafés and smaller villages at your own pace."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does a taxi from Goa Airport cost?",
+      "name": "How much does it cost to rent a scooter in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Taxi fares vary depending on the airport. A taxi from the newer Mopa Airport (GOX) to North Goa tourist spots like Anjuna or Assagao typically costs around ₹1,500 to ₹2,000, while a taxi to South Goa can cost up to ₹3,500."
+        "text": "Scooter rental prices usually depend on the season, rental duration and vehicle model. Daily rates are generally lower for longer bookings, while peak tourist months often see higher prices than the monsoon season."
       }
     },
     {
       "@type": "Question",
-      "name": "Is renting a scooter in Goa safe?",
+      "name": "Can tourists rent a scooter in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, renting a scooter is safe if you drive defensively, wear a helmet (both rider and pillion are legally required to do so), and possess a valid driving license. Avoid riding long distances during heavy monsoon showers."
+        "text": "Yes. Indian and international tourists can rent scooters in Goa, provided they carry a valid driving licence. International visitors should also check whether they require an International Driving Permit based on their country of residence."
       }
     },
     {
       "@type": "Question",
-      "name": "Can foreigners rent cars or scooters in Goa?",
+      "name": "Is a self-drive car better than a scooter in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, foreigners can rent vehicles in Goa. They must present a valid International Driving Permit (IDP) along with their national driving license and passport."
+        "text": "A self-drive car is often a better choice for families, groups, monsoon travel and longer road trips across North and South Goa. Scooters remain the preferred option for shorter distances and flexible sightseeing."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I rent a scooter or a self-drive car in Goa?",
+      "name": "Does Uber or Ola work in Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Choose a scooter if you are traveling solo or as a couple, want maximum flexibility, and are staying local in North Goa. Choose a self-drive car if you are traveling with family/children, carrying luggage, or planning long trips between North and South Goa."
+        "text": "Uber and Ola do not operate in Goa in the same way they do in most Indian cities. Travellers generally rely on GoaMiles, prepaid airport taxis, private taxi operators or rented vehicles for transportation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is GoaMiles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GoaMiles is Goa's app-based taxi service that allows travellers to book taxis through a mobile application with transparent pricing and digital payments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which airport should I choose for North Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mopa International Airport (GOX) is generally the better option for travellers staying in North Goa, including areas like Morjim, Vagator, Anjuna, Candolim and Assagao."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which airport is better for South Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dabolim Airport (GOI) is usually the most convenient airport for travellers heading to Palolem, Agonda, Colva, Benaulim and other parts of South Goa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is public transport good in Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Goa's public buses are an economical way to travel between major towns such as Panjim, Mapusa, Margao and Vasco. They're best suited for budget travellers, while scooters, self-drive cars and taxis provide greater flexibility for sightseeing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to drive in Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Driving in Goa is generally safe if you follow traffic rules, wear a helmet while riding a scooter and drive carefully on narrow village roads. Extra caution is recommended during the monsoon when heavy rain can reduce visibility and make roads slippery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can foreigners drive in Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, foreign visitors can drive in Goa if they carry a valid driving licence and, where required, an International Driving Permit. Rental companies may also request passport and visa details during the booking process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest way to travel around Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most travellers, public buses are the cheapest mode of transport. However, if you're planning to explore multiple beaches and attractions in a day, renting a scooter often offers the best balance between cost, flexibility and convenience."
       }
     }
   ]
