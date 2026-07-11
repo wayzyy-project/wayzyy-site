@@ -252,4 +252,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-22",
     readTime: "10 Min Read",
   },
+  {
+    slug: "goa-food-guide",
+    title: "Goa Food Guide (2026): Honest Culinary Recommendations",
+    description:
+      "Think Goa is only about seafood? Read our complete guide to traditional Goan food, Saraswat vegetarian cuisine, cafes, and dining by region.",
+    metaTitle: "Goa Food Guide (2026) — Best Places & Traditional Dishes",
+    metaDescription:
+      "Discover the real taste of Goa. Choose the best local restaurants, learn about Saraswat vegetarian cuisine, and avoid tourist traps. Read our 2026 guide.",
+    heroImage: "/blog/goa-food-luxury-thali.webp",
+    publishedDate: "2026-07-23",
+    readTime: "10 Min Read",
+  },
 ];
