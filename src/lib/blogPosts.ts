@@ -288,4 +288,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-25",
     readTime: "9 Min Read",
   },
+  {
+    slug: "goa-monsoon-guide",
+    title: "Goa Monsoon Guide (2026): Visiting Dudhsagar & Staying Safe",
+    description:
+      "Planning a trip to Goa in the monsoon? Read our honest guide to visiting Dudhsagar Falls safely, finding villas with power backup, and avoiding mistakes.",
+    metaTitle: "Goa Monsoon Guide (2026) — Dudhsagar Falls & Rainy Season Stays",
+    metaDescription:
+      "Planning a trip to Goa in the rainy season? Learn about guided treks to Dudhsagar Falls, choosing stays with power backups, and avoiding common monsoon mistakes.",
+    heroImage: "/blog/goa-monsoon-umbrella-cliff.webp",
+    publishedDate: "2026-07-26",
+    readTime: "9 Min Read",
+  },
 ];
