@@ -47,6 +47,7 @@ import GoaFamilyTripGuide from "./pages/blog/GoaFamilyTripGuide";
 import WhyWeDecidedToBuildWayzyyDifferently from "./pages/blog/WhyWeDecidedToBuildWayzyyDifferently";
 import AirbnbVsBookingVsWayzyy from "./pages/blog/AirbnbVsBookingVsWayzyy";
 import HowMuchCanYouEarnVacationRentalGoa from "./pages/blog/HowMuchCanYouEarnVacationRentalGoa";
+import HiddenCostsOfRunningAnAirbnb from "./pages/blog/HiddenCostsOfRunningAnAirbnb";
 
 const queryClient = new QueryClient();
 
@@ -107,6 +108,7 @@ const App = () => (
               <Route path="/blog/why-we-decided-to-build-wayzyy-differently" element={<WhyWeDecidedToBuildWayzyyDifferently />} />
               <Route path="/blog/airbnb-vs-booking-vs-wayzyy" element={<AirbnbVsBookingVsWayzyy />} />
               <Route path="/blog/how-much-can-you-earn-vacation-rental-goa" element={<HowMuchCanYouEarnVacationRentalGoa />} />
+              <Route path="/blog/hidden-costs-of-running-an-airbnb" element={<HiddenCostsOfRunningAnAirbnb />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>

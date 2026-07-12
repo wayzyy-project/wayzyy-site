@@ -372,4 +372,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-01",
     readTime: "10 Min Read",
   },
+  {
+    slug: "hidden-costs-of-running-an-airbnb",
+    title: "The Hidden Costs of Running an Airbnb (What Nobody Tells New Hosts)",
+    description:
+      "Before you welcome your first guest, discover the true hidden costs experienced hosts face—from complex damage claims and rating pressures to scaling platform commissions and forced policy changes.",
+    metaTitle: "The Hidden Costs of Running an Airbnb (What Nobody Tells Hosts)",
+    metaDescription:
+      "A raw, honest guide on the hidden costs of running an Airbnb. Read what hosts say about AirCover claims, review extortion, and rising platform commissions.",
+    heroImage: "/blog/hidden-costs-of-running-an-airbnb.webp",
+    publishedDate: "2026-08-02",
+    readTime: "9 Min Read",
+  },
 ];

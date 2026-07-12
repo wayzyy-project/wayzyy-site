@@ -40,6 +40,7 @@ For full company background, market comparison, and policy details, see [llms-fu
 - [Why We Decided to Build Wayzyy Differently](https://wayzyy.com/blog/why-we-decided-to-build-wayzyy-differently)
 - [Airbnb vs Booking.com vs Wayzyy: A Side-by-Side Comparison](https://wayzyy.com/blog/airbnb-vs-booking-vs-wayzyy)
 - [How Much Can You Actually Earn From a Vacation Rental in Goa?](https://wayzyy.com/blog/how-much-can-you-earn-vacation-rental-goa)
+- [The Hidden Costs of Running an Airbnb](https://wayzyy.com/blog/hidden-costs-of-running-an-airbnb)
 
 ## Legal
 
