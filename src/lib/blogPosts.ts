@@ -396,4 +396,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-03",
     readTime: "12 Min Read",
   },
+  {
+    slug: "why-rental-businesses-never-scale-beyond-one-property",
+    title: "Why Most Short-Term Rental Businesses Never Scale Beyond One Property (And How You Can)",
+    description:
+      "A strategic breakdown of why hosts struggle to expand past their first holiday home. Learn about the economics of scale, building operational systems, and choosing predictable platform partners.",
+    metaTitle: "Why Short-Term Rental Businesses Never Scale Beyond One Property",
+    metaDescription:
+      "Struggling to scale your vacation rental business in India? Learn why most hosts stay stuck at one property and how to scale using systems, margins, and flat pricing.",
+    heroImage: "/blog/why-rental-businesses-never-scale-beyond-one-property.webp",
+    publishedDate: "2026-08-04",
+    readTime: "8 Min Read",
+  },
 ];
