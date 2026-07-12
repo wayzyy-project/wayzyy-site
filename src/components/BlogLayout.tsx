@@ -118,7 +118,13 @@ export function BlogLayout({
           <img
             src={heroImage}
             alt={heroImageAlt}
-            className="w-full aspect-video object-cover rounded-2xl border border-border"
+            className={`w-full aspect-video rounded-2xl border border-border ${
+              heroImage.includes("excalidraw") || 
+              heroImage.includes("differently") || 
+              heroImage.includes("booking-vs-wayzyy")
+                ? "object-contain bg-white p-4 sm:p-6"
+                : "object-cover"
+            }`}
             loading="eager"
           />
         </div>
