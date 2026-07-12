@@ -384,11 +384,54 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Let's look at a simple example.
         </p>
         <p>
-          Assume your property generates <strong className="text-foreground">₹5,00,000</strong> in bookings during a strong month.
+          Assume your property generates <strong className="text-foreground">₹1,00,000 (one lakh)</strong> in bookings during a standard month.
         </p>
         <p>
-          If the effective platform cost works out to around <strong className="text-foreground">16%</strong>, you've already paid approximately <strong className="text-foreground">₹80,000</strong> in platform fees before covering housekeeping, utilities, maintenance or staff salaries. Stretch that over a year and you're looking at <strong className="text-foreground">₹9.6 lakh</strong>—an amount that's larger than the annual salary of many full-time caretakers or enough to renovate significant portions of your property.
+          If the effective platform cost on traditional commission-driven sites works out to around <strong className="text-foreground">16% to 20%</strong>, you have already paid approximately <strong className="text-foreground">₹16,000 to ₹20,000</strong> in platform fees before covering housekeeping, utilities, maintenance or staff salaries.
         </p>
+        <p>
+          Instead of hurting your business with a substantial commission cut that penalises your success, Wayzyy manages platform services through a simple credit-based subscription. Hosts purchase a flat <strong className="text-ember">₹2,200 subscription package</strong>. This package covers everything—including your payments, profile listing, checkout, guest verification, and support—meaning your effective cost drops to a minimal rate as you make more money.
+        </p>
+
+        <div className="overflow-x-auto my-8 rounded-xl border border-border">
+          <table className="w-full border-collapse text-left text-sm text-muted-foreground">
+            <thead className="bg-muted/80 font-display text-foreground text-xs uppercase tracking-wider border-b border-border">
+              <tr>
+                <th className="px-6 py-4">Metric (Based on ₹1,00,000 Bookings)</th>
+                <th className="px-6 py-4">Traditional Platform (Airbnb)</th>
+                <th className="px-6 py-4 text-ember font-semibold">Wayzyy Platform</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border/60 bg-card/20">
+              <tr>
+                <td className="px-6 py-4 font-medium text-foreground">Pricing Model</td>
+                <td className="px-6 py-4">16% – 20% Commission per booking</td>
+                <td className="px-6 py-4 text-ember font-medium">Flat subscription credit model</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-4 font-medium text-foreground">Platform Cost</td>
+                <td className="px-6 py-4">₹16,000 – ₹20,000</td>
+                <td className="px-6 py-4 text-ember font-medium">₹2,200 (Flat subscription)</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-4 font-medium text-foreground">Services Covered</td>
+                <td className="px-6 py-4">Listing, host support, checkout</td>
+                <td className="px-6 py-4">Profile listing, checkout, payment routing, full support</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-4 font-medium text-foreground">Effective Platform Fee</td>
+                <td className="px-6 py-4 text-rose-500 font-medium">16% – 20%</td>
+                <td className="px-6 py-4 text-emerald-500 font-semibold">~2.2%</td>
+              </tr>
+              <tr className="bg-muted/30 font-semibold text-foreground">
+                <td className="px-6 py-4">Amount You Retain</td>
+                <td className="px-6 py-4 text-rose-500">₹80,000 – ₹84,000</td>
+                <td className="px-6 py-4 text-emerald-500 font-bold">₹97,800</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <p>
           Most new hosts never calculate this number.
         </p>
@@ -402,22 +445,10 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           It's the accumulation of small recurring expenses that slowly become some of the largest costs in the business.
         </p>
         <p>
-          That's one of the reasons we questioned the traditional commission model while building Wayzyy.
-        </p>
-        <p>
-          Our philosophy was fairly straightforward.
-        </p>
-        <p>
-          If hosts are already investing their own money into furnishing the property, employing caretakers, maintaining swimming pools, replacing damaged items, handling guest communication and constantly improving the guest experience, shouldn't they also keep a larger share of the revenue they've worked so hard to earn?
-        </p>
-        <p>
-          Instead of charging a large percentage every time a booking is confirmed, Wayzyy operates on a <strong className="text-ember">recharge-based credit model</strong>. Hosts purchase credits based on their expected booking activity, and as booking volumes increase, the effective platform cost typically works out to around <strong className="text-foreground">2–3%</strong> rather than the <strong className="text-foreground">15–20%</strong> many hosts associate with traditional commission-driven marketplaces.
-        </p>
-        <p>
           That difference isn't just another statistic.
         </p>
         <p>
-          Imagine retaining an additional <strong className="text-foreground">₹60,000–₹70,000</strong> every month instead of paying it away in recurring commissions.
+          Imagine retaining an additional <strong className="text-foreground">₹14,000–₹18,000</strong> on every single lakh you make, instead of paying it away in recurring commissions.
         </p>
         <p>
           Some hosts would hire another housekeeping professional before the festive season.
