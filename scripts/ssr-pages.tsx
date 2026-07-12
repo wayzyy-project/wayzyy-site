@@ -46,6 +46,7 @@ import WhyWeDecidedToBuildWayzyyDifferently from "@/pages/blog/WhyWeDecidedToBui
 import AirbnbVsBookingVsWayzyy from "@/pages/blog/AirbnbVsBookingVsWayzyy";
 import HowMuchCanYouEarnVacationRentalGoa from "@/pages/blog/HowMuchCanYouEarnVacationRentalGoa";
 import HiddenCostsOfRunningAnAirbnb from "@/pages/blog/HiddenCostsOfRunningAnAirbnb";
+import HowToStartAirbnbBusinessIndia from "@/pages/blog/HowToStartAirbnbBusinessIndia";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -99,6 +100,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/airbnb-vs-booking-vs-wayzyy": AirbnbVsBookingVsWayzyy,
   "/blog/how-much-can-you-earn-vacation-rental-goa": HowMuchCanYouEarnVacationRentalGoa,
   "/blog/hidden-costs-of-running-an-airbnb": HiddenCostsOfRunningAnAirbnb,
+  "/blog/how-to-start-airbnb-business-india": HowToStartAirbnbBusinessIndia,
 };
 
 const output: Record<string, string> = {};

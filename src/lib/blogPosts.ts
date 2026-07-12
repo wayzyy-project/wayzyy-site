@@ -384,4 +384,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-02",
     readTime: "9 Min Read",
   },
+  {
+    slug: "how-to-start-airbnb-business-india",
+    title: "How to Start an Airbnb Business in India (2026): Everything Nobody Tells You",
+    description:
+      "A complete business-first guide to starting a vacation rental in India. Learn about rental arbitrage vs buying, operational setup, licenses, and avoiding costly mistakes.",
+    metaTitle: "How to Start an Airbnb Business in India: Complete Guide (2026)",
+    metaDescription:
+      "Planning to start a vacation rental in India? Discover the differences between buying and leasing (rental arbitrage), legal setups, and platform strategies.",
+    heroImage: "/blog/how-to-start-airbnb-business-india.webp",
+    publishedDate: "2026-08-03",
+    readTime: "12 Min Read",
+  },
 ];

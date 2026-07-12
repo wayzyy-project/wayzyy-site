@@ -48,6 +48,7 @@ import WhyWeDecidedToBuildWayzyyDifferently from "./pages/blog/WhyWeDecidedToBui
 import AirbnbVsBookingVsWayzyy from "./pages/blog/AirbnbVsBookingVsWayzyy";
 import HowMuchCanYouEarnVacationRentalGoa from "./pages/blog/HowMuchCanYouEarnVacationRentalGoa";
 import HiddenCostsOfRunningAnAirbnb from "./pages/blog/HiddenCostsOfRunningAnAirbnb";
+import HowToStartAirbnbBusinessIndia from "./pages/blog/HowToStartAirbnbBusinessIndia";
 
 const queryClient = new QueryClient();
 
@@ -109,6 +110,7 @@ const App = () => (
               <Route path="/blog/airbnb-vs-booking-vs-wayzyy" element={<AirbnbVsBookingVsWayzyy />} />
               <Route path="/blog/how-much-can-you-earn-vacation-rental-goa" element={<HowMuchCanYouEarnVacationRentalGoa />} />
               <Route path="/blog/hidden-costs-of-running-an-airbnb" element={<HiddenCostsOfRunningAnAirbnb />} />
+              <Route path="/blog/how-to-start-airbnb-business-india" element={<HowToStartAirbnbBusinessIndia />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
