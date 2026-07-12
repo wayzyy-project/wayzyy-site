@@ -315,6 +315,18 @@ export default function BestAirbnbAlternativesGoa() {
         useful thing you can do before confirming any villa booking.
       </p>
 
+      <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
+        <p className="font-semibold text-foreground mb-1">If you're a host, run your own numbers</p>
+        <p className="text-sm text-muted-foreground">
+          Use our{" "}
+          <a href="/earnings-calculator" className="text-ember hover:underline">
+            host earnings calculator
+          </a>{" "}
+          to see exactly how much more you'd take home listing on Wayzyy instead of Airbnb, based on your real
+          booking value.
+        </p>
+      </div>
+
       <h2>What's Actually Worth Checking Before You Book</h2>
 
       <h3>Check the final price, not the nightly rate.</h3>

@@ -97,6 +97,20 @@ const routes = [
     }
   },
   {
+    path: '/earnings-calculator',
+    title: 'Airbnb vs Wayzyy Host Earnings Calculator — Wayzyy',
+    description: "See exactly how much more you'd take home hosting on Wayzyy instead of Airbnb. Enter your booking value, compare commission vs our flat credit model.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Airbnb vs Wayzyy Host Earnings Calculator",
+      "url": "https://wayzyy.com/earnings-calculator",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/policies',
     title: 'Policies — Wayzyy',
     description: "Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal.",

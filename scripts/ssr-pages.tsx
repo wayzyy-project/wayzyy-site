@@ -13,6 +13,7 @@ import HostTerms from "@/pages/HostTerms";
 import GuestTerms from "@/pages/GuestTerms";
 import Policies from "@/pages/Policies";
 import PolicyDocPage from "@/pages/PolicyDocPage";
+import EarningsCalculator from "@/pages/EarningsCalculator";
 
 import BlogIndex from "@/pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "@/pages/blog/BestAirbnbAlternativesGoa";
@@ -68,6 +69,7 @@ const routes: Record<string, React.ComponentType> = {
   "/policies/prohibited-content": PolicyDocPage,
   "/policies/review-rating": PolicyDocPage,
   "/policies/trust-safety": PolicyDocPage,
+  "/earnings-calculator": EarningsCalculator,
 
   "/blog": BlogIndex,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,

@@ -16,6 +16,7 @@ import HostTerms from "./pages/HostTerms";
 import GuestTerms from "./pages/GuestTerms";
 import Policies from "./pages/Policies";
 import PolicyDocPage from "./pages/PolicyDocPage";
+import EarningsCalculator from "./pages/EarningsCalculator";
 import BlogIndex from "./pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "./pages/blog/BestAirbnbAlternativesGoa";
 import WhyGoaVillasCostDifferent from "./pages/blog/WhyGoaVillasCostDifferent";
@@ -79,6 +80,7 @@ const App = () => (
               <Route path="/guest-terms" element={<GuestTerms />} />
               <Route path="/policies" element={<Policies />} />
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
+              <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/blog" element={<BlogIndex />} />
               <Route path="/blog/best-airbnb-alternatives-goa" element={<BestAirbnbAlternativesGoa />} />
               <Route path="/blog/why-villas-goa-different-prices-platforms" element={<WhyGoaVillasCostDifferent />} />

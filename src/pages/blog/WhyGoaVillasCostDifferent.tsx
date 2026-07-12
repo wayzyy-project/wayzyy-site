@@ -264,6 +264,18 @@ export default function WhyGoaVillasCostDifferent() {
         </tbody>
       </table>
 
+      <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
+        <p className="font-semibold text-foreground mb-1">Hosting a villa? See your own numbers</p>
+        <p className="text-sm text-muted-foreground">
+          Try our{" "}
+          <a href="/earnings-calculator" className="text-ember hover:underline">
+            host earnings calculator
+          </a>{" "}
+          to compare take-home earnings on Airbnb's commission vs Wayzyy's flat credit model for your actual
+          booking volume.
+        </p>
+      </div>
+
       <h2>Booking.com and MakeMyTrip Work Differently—But the Principle Is the Same.</h2>
       <p>Airbnb isn't the only company operating this way.</p>
       <p>

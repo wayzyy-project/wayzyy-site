@@ -206,6 +206,18 @@ export default function AirbnbVsBookingVsWayzyy() {
           It's about deciding which combination of platforms helps you build the healthiest business over the next five or ten years.
         </p>
 
+        <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
+          <p className="font-semibold text-foreground mb-1">See the actual numbers for your villa</p>
+          <p className="text-sm text-muted-foreground">
+            Rather than estimate, plug in your real booking value and compare take-home earnings on Airbnb vs
+            Wayzyy directly with our{" "}
+            <a href="/earnings-calculator" className="text-ember hover:underline">
+              host earnings calculator
+            </a>
+            .
+          </p>
+        </div>
+
         <h2 className="font-display text-2xl text-foreground mt-8">So...Which Platform Would We Choose If We Were Starting Today?</h2>
         
         <p>

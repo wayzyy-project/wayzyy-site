@@ -157,6 +157,17 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
           But by keeping enough of that revenue to grow year after year.
         </p>
 
+        <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
+          <p className="font-semibold text-foreground mb-1">Curious exactly how much that difference is for your property?</p>
+          <p className="text-sm text-muted-foreground">
+            Use our{" "}
+            <a href="/earnings-calculator" className="text-ember hover:underline">
+              host earnings calculator
+            </a>{" "}
+            to compare your actual take-home on Airbnb's commission vs Wayzyy's flat credit model, side by side.
+          </p>
+        </div>
+
         <h2 className="font-display text-2xl text-foreground mt-8">Goa Isn't a 12-Month Business—And That's Completely Normal</h2>
         
         <p>
