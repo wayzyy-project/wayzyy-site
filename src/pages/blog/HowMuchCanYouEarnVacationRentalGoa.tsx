@@ -130,6 +130,9 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
           Setting up a quality vacation rental involves far more than furnishing a home. Professional photography, comfortable furniture, high-quality mattresses, Wi-Fi, kitchen equipment, housekeeping supplies, smart locks, landscaping, pool maintenance and licensing all require upfront investment. Add recurring costs like electricity, laundry, caretaker salaries and repairs, and it becomes clear why understanding cash flow matters just as much as attracting guests.
         </p>
         <p>
+          In online communities like <a href="https://www.reddit.com/r/Airbnb_Hosts/" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">r/Airbnb_Hosts</a>, new operators frequently share how their setup budgets ran over. Many underestimated the cost of commercial-grade linens, backup power generators, high-speed Wi-Fi systems, dynamic locks, and professional property photography. These initial setup costs can quickly double, creating cash-flow stress long before any guest confirms a stay.
+        </p>
+        <p>
           Fortunately, financing that journey has become easier than many new hosts realise.
         </p>
         <p>
@@ -188,6 +191,9 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
         </p>
         <p>
           Instead of chasing unrealistic occupancy, they use these quieter months to improve the business. Rooms get repainted, furniture is replaced, pools receive scheduled maintenance and small upgrades finally move from the to-do list into reality. Photography is refreshed, pricing strategies are reviewed and operational processes become more efficient before demand begins increasing again.
+        </p>
+        <p>
+          This aligns with common host wisdom shared on <a href="https://www.reddit.com/r/Airbnb_Hosts/" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">r/Airbnb_Hosts</a>: during the off-season, dropping your nightly rate below a certain threshold to secure occupancy can lead to a negative return once you factor in wear-and-tear, utilities, and staff cleaning hours. Long-time hosts advise treating the slow season as a time for critical maintenance or shifting to long-term monthly rentals for remote workers rather than chasing low-value bookings.
         </p>
         <p>
           That mindset creates a significant advantage.
@@ -260,6 +266,9 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
         </p>
         <p>
           Many hosts only look at the money deposited into their bank account without asking how much was spent to generate that reservation. Platform commissions, promotional discounts, payment processing, advertising and seasonal offers all reduce your effective earnings. Viewed individually, each deduction may appear reasonable. Combined over hundreds of bookings, they can significantly change the economics of the business.
+        </p>
+        <p>
+          In profit-margin discussions on <a href="https://www.reddit.com/r/Airbnb_Hosts/" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">r/Airbnb_Hosts</a>, operators regularly share spreadsheets showing how dynamic pricing tools, PMS software, and booking commissions easily eat up to 50% of their net margins. Seeing a huge chunk of your revenue vanish into commissions makes it incredibly difficult to break even, especially during low-occupancy off-season months. This is exactly why alternative direct channels or subscription-based models are becoming essential for hosts who want to scale.
         </p>
         <p>
           That's one of the reasons we chose a different approach while building Wayzyy.
