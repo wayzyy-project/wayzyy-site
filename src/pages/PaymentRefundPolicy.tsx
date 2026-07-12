@@ -62,6 +62,8 @@ export default function PaymentRefundPolicy() {
         <li><strong>₹1,200 pack</strong> — unlocks bookings worth ₹50,000 (effective rate: 2.4%, save 20%)</li>
         <li><strong>₹2,200 pack</strong> — unlocks bookings worth ₹1,00,000 (effective rate: 2.2%, save 27%)</li>
         <li><strong>₹5,000 pack</strong> — unlocks bookings worth ₹2,50,000 (effective rate: 2.0%, save 33%)</li>
+        <li><strong>₹10,000 pack</strong> — unlocks bookings worth ₹5,00,000 (effective rate: 2.0%, save 33%)</li>
+        <li><strong>Custom plan</strong> — for bookings beyond ₹5,00,000 (recharges at a flat 2.0% effective rate for any customized amount)</li>
       </ul>
       <h3>4.3 Credit Pack Terms</h3>
       <ul>
