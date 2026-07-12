@@ -205,6 +205,19 @@ export default function HowToStartAirbnbBusinessIndia() {
         <p>
           Depending on where your property is located, you may need tourism registrations, local permissions, GST registration if applicable or approvals from the property owner if you're operating a leased home. Taking care of these requirements early prevents unnecessary problems once the business starts growing.
         </p>
+
+        <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
+          <p className="font-semibold text-foreground mb-1">Listing specifically in Goa?</p>
+          <p className="text-sm text-muted-foreground">
+            We put together a full{" "}
+            <a href="/goa-host-compliance-checklist" className="text-ember hover:underline">
+              Goa Host Compliance Checklist
+            </a>{" "}
+            covering exactly which documents, fees, and government registrations you need before going live —
+            and what actually gets listings rejected beyond the paperwork.
+          </p>
+        </div>
+
         <p>
           Finances deserve just as much attention.
         </p>

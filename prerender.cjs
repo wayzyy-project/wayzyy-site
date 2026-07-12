@@ -111,6 +111,20 @@ const routes = [
     }
   },
   {
+    path: '/goa-host-compliance-checklist',
+    title: "The Goa Host's Compliance Checklist — Wayzyy",
+    description: "Free checklist for registering a Goa homestay, villa, or B&B: documents, fees, timelines, and renewal rules under the Goa Tourist Trade Rules and 2026 Dept. of Tourism order.",
+    ogType: 'article',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The Goa Host's Compliance Checklist",
+      "url": "https://wayzyy.com/goa-host-compliance-checklist",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/policies',
     title: 'Policies — Wayzyy',
     description: "Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal.",

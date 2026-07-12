@@ -14,6 +14,7 @@ import GuestTerms from "@/pages/GuestTerms";
 import Policies from "@/pages/Policies";
 import PolicyDocPage from "@/pages/PolicyDocPage";
 import EarningsCalculator from "@/pages/EarningsCalculator";
+import GoaHostComplianceChecklist from "@/pages/GoaHostComplianceChecklist";
 
 import BlogIndex from "@/pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "@/pages/blog/BestAirbnbAlternativesGoa";
@@ -70,6 +71,7 @@ const routes: Record<string, React.ComponentType> = {
   "/policies/review-rating": PolicyDocPage,
   "/policies/trust-safety": PolicyDocPage,
   "/earnings-calculator": EarningsCalculator,
+  "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,
