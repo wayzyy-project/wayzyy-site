@@ -7,13 +7,14 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 
 // Real, documented Wayzyy prepaid credit tiers — see /host-terms section 5.2.
-// Beyond the top tier, hosts stack ₹5,000 packs (each unlocks ₹2,50,000), which
-// holds the effective rate at a 2.0% floor for any booking volume.
+// Beyond ₹5,00,000, hosts move to a Custom plan that holds the same 2.0%
+// effective rate for any booking volume.
 const WAYZYY_TIERS = [
   { cost: 600, limit: 20000, label: "₹600 credit pack" },
   { cost: 1200, limit: 50000, label: "₹1,200 credit pack" },
   { cost: 2200, limit: 100000, label: "₹2,200 credit pack" },
   { cost: 5000, limit: 250000, label: "₹5,000 credit pack" },
+  { cost: 10000, limit: 500000, label: "₹10,000 credit pack" },
 ];
 
 function wayzyyCost(bookingValue: number) {
@@ -22,8 +23,8 @@ function wayzyyCost(bookingValue: number) {
       return { cost: tier.cost, label: tier.label };
     }
   }
-  const packs = Math.ceil(bookingValue / 250000);
-  return { cost: packs * 5000, label: `${packs} × ₹5,000 credit packs` };
+  const cost = bookingValue * 0.02;
+  return { cost, label: "Custom plan (2.0% flat)" };
 }
 
 function formatINR(n: number) {
@@ -47,7 +48,7 @@ const faqJsonLd = {
       name: "How does Wayzyy's pricing work instead of commission?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Wayzyy uses a prepaid credit model instead of a per-booking commission. Hosts buy a credit pack that unlocks a set value of bookings — for example, a ₹2,200 pack unlocks ₹1,00,000 in bookings (2.2% effective rate), and a ₹5,000 pack unlocks ₹2,50,000 in bookings (2.0% effective rate). There is no deduction from individual payouts.",
+        text: "Wayzyy uses a prepaid credit model instead of a per-booking commission. Hosts buy a credit pack that unlocks a set value of bookings — for example, a ₹2,200 pack unlocks ₹1,00,000 in bookings (2.2% effective rate), and a ₹10,000 pack unlocks ₹5,00,000 in bookings (2.0% effective rate). Beyond ₹5,00,000, hosts move to a Custom plan at the same flat 2.0% rate. There is no deduction from individual payouts.",
       },
     },
     {
@@ -250,12 +251,22 @@ export default function EarningsCalculator() {
                   <td>₹2,50,000</td>
                   <td>2.0%</td>
                 </tr>
+                <tr>
+                  <td>₹10,000</td>
+                  <td>₹5,00,000</td>
+                  <td>2.0%</td>
+                </tr>
+                <tr>
+                  <td>Custom plan</td>
+                  <td>Any amount beyond ₹5,00,000</td>
+                  <td>2.0%</td>
+                </tr>
               </tbody>
             </table>
             <p>
-              For bookings beyond ₹2,50,000/year, hosts stack additional ₹5,000 packs — which holds the effective
-              rate at a 2.0% floor no matter how much you book. Full terms are in our{" "}
-              <a href="/host-terms">Host Terms of Service</a>.
+              From ₹2,50,000/year onward, the effective rate holds at a 2.0% floor — and for bookings beyond
+              ₹5,00,000/year, hosts move to a Custom plan at the same flat 2.0% rate, however much you book. Full
+              terms are in our <a href="/host-terms">Host Terms of Service</a>.
             </p>
 
             <h2>Frequently Asked Questions</h2>
