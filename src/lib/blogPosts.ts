@@ -408,4 +408,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-04",
     readTime: "8 Min Read",
   },
+  {
+    slug: "south-goa-travel-guide",
+    title: "South Goa Travel Guide (2026): Stays, Beaches & Slow Travel Advice",
+    description:
+      "Planning a trip to South Goa? Read our complete, honest guide to choosing the right beach, booking villas, avoiding common mistakes, and slow travel tips.",
+    metaTitle: "South Goa Travel Guide (2026) — Stays, Beaches & Planning",
+    metaDescription:
+      "Planning a trip to South Goa? Learn about quiet beaches (Palolem, Agonda, Cola), avoiding common mistakes, budgets, weather, and VZ Verified stays.",
+    heroImage: "/blog/goa-south-beach.webp",
+    publishedDate: "2026-08-05",
+    readTime: "14 Min Read",
+  },
 ];

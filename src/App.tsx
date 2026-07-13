@@ -52,6 +52,7 @@ import HowMuchCanYouEarnVacationRentalGoa from "./pages/blog/HowMuchCanYouEarnVa
 import HiddenCostsOfRunningAnAirbnb from "./pages/blog/HiddenCostsOfRunningAnAirbnb";
 import HowToStartAirbnbBusinessIndia from "./pages/blog/HowToStartAirbnbBusinessIndia";
 import WhyRentalBusinessesNeverScaleBeyondOneProperty from "./pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty";
+import SouthGoaTravelGuide from "./pages/blog/SouthGoaTravelGuide";
 
 const queryClient = new QueryClient();
 
@@ -117,6 +118,7 @@ const App = () => (
               <Route path="/blog/hidden-costs-of-running-an-airbnb" element={<HiddenCostsOfRunningAnAirbnb />} />
               <Route path="/blog/how-to-start-airbnb-business-india" element={<HowToStartAirbnbBusinessIndia />} />
               <Route path="/blog/why-rental-businesses-never-scale-beyond-one-property" element={<WhyRentalBusinessesNeverScaleBeyondOneProperty />} />
+              <Route path="/blog/south-goa-travel-guide" element={<SouthGoaTravelGuide />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>
