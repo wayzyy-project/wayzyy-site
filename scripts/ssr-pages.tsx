@@ -50,6 +50,8 @@ import HowMuchCanYouEarnVacationRentalGoa from "@/pages/blog/HowMuchCanYouEarnVa
 import HiddenCostsOfRunningAnAirbnb from "@/pages/blog/HiddenCostsOfRunningAnAirbnb";
 import HowToStartAirbnbBusinessIndia from "@/pages/blog/HowToStartAirbnbBusinessIndia";
 import WhyRentalBusinessesNeverScaleBeyondOneProperty from "@/pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty";
+import SouthGoaTravelGuide from "@/pages/blog/SouthGoaTravelGuide";
+import GalgibagaBeachGuide from "@/pages/blog/GalgibagaBeachGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -107,6 +109,8 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/hidden-costs-of-running-an-airbnb": HiddenCostsOfRunningAnAirbnb,
   "/blog/how-to-start-airbnb-business-india": HowToStartAirbnbBusinessIndia,
   "/blog/why-rental-businesses-never-scale-beyond-one-property": WhyRentalBusinessesNeverScaleBeyondOneProperty,
+  "/blog/south-goa-travel-guide": SouthGoaTravelGuide,
+  "/blog/galgibaga-beach-goa-guide": GalgibagaBeachGuide,
 };
 
 const output: Record<string, string> = {};

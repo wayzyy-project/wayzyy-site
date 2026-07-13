@@ -420,4 +420,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-05",
     readTime: "14 Min Read",
   },
+  {
+    slug: "galgibaga-beach-goa-guide",
+    title: "Galgibaga Beach Goa (2026): The Honest Guide to Turtle Nesting, Swimming & Stays",
+    description:
+      "Heading to Galgibaga Beach in South Goa? Read our complete, honest guide on Olive Ridley turtle nesting season, swimming safety, shacks, and whether to stay near Palolem.",
+    metaTitle: "Galgibaga Beach Goa — Turtle Nesting Guide & Travel Tips",
+    metaDescription:
+      "Planning a trip to Galgibaga Beach in South Goa? Learn about Olive Ridley turtle nesting season, swimming safety, shacks, and choosing Palolem as your base.",
+    heroImage: "/blog/galgibaga-beach-hero.webp",
+    publishedDate: "2026-08-06",
+    readTime: "9 Min Read",
+  },
 ];
