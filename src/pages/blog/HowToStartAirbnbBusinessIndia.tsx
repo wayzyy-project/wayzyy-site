@@ -12,58 +12,58 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "Is starting an Airbnb business profitable in India?",
+      "name": "How can I tell if a short-term rental listing is genuine?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, starting a vacation rental or Airbnb in India can be highly profitable, especially in tourism hubs like Goa, Himachal, or Rajasthan, and major cities. However, profitability depends on managing high setup costs, operating expenses, seasonal occupancies, and platform commissions (which typically average 15-20%)."
+        "text": "There's no single indicator, but a combination of factors usually paints a clear picture. Read recent guest reviews instead of relying only on the overall rating, compare the photographs with the amenities listed and don't hesitate to ask questions before booking. Responsive communication and transparent information are often strong indicators of a trustworthy host. Platforms that manually verify listings, such as Wayzyy's VZ Verified properties, provide an additional layer of confidence by reviewing submitted photographs and listing details before verification."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I start an Airbnb business in India on a leased property?",
+      "name": "What is VZ Verified?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, this is known as rental arbitrage. You lease a property long-term from the owner and list it as a short-term rental. This requires lower upfront capital than buying, but you must have a clear lease agreement allowing subletting/commercial hospitality use and secure local government registrations."
+        "text": "VZ Verified is Wayzyy's property verification programme designed to help guests book with greater confidence. Before a property receives the verification badge, our team manually reviews the listing, verifies the submitted photographs and checks that the amenities being advertised accurately represent the property. The goal is to reduce misleading listings while helping genuine hosts stand out through transparency rather than marketing."
       }
     },
     {
       "@type": "Question",
-      "name": "What licenses are required to start an Airbnb in India?",
+      "name": "Why should guests care about property verification?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You generally need a homestay license or guest house registration from the state Department of Tourism (such as registering under the Goa Tourist Trade Act), local municipal NOC/permissions, police verification clearance, and GST registration if your annual turnover exceeds the threshold."
+        "text": "A holiday begins long before check-in. Choosing the right property influences the entire travel experience, and inaccurate listings can quickly turn an exciting trip into a disappointing one. Property verification helps reduce uncertainty by giving travellers greater confidence that the home they're booking closely matches what has been advertised."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does it cost to set up an Airbnb in India?",
+      "name": "Does verification benefit hosts as well?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Upfront costs vary. For leased apartments, setup costs (furnishing, high-quality mattresses, smart locks, decor, professional photography) can range from ₹1.5 lakh to ₹5 lakh. For buying or building a luxury villa, the investment is substantially higher. Running costs like staff salaries, utilities, and laundry must also be planned."
+        "text": "Absolutely. One of the biggest frustrations for genuine hosts is competing with listings that use misleading photographs or exaggerate amenities. Verification rewards transparency by helping honest hosts differentiate themselves, build stronger guest confidence and improve conversion rates without relying on unrealistic marketing."
       }
     },
     {
       "@type": "Question",
-      "name": "How does Wayzyy compare to traditional platforms like Airbnb for new hosts in India?",
+      "name": "How important is a co-host or caretaker?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Traditional platforms charge 15-20%+ commissions on every booking, which eats into profit margins as bookings grow. Wayzyy uses a recharge-based model where hosts buy credits in advance. For ₹1 lakh in bookings, Wayzyy costs around ₹2,200 (about 2.2% effective fee), allowing hosts to keep and reinvest more revenue."
+        "text": "As your hospitality business grows, having reliable operational support becomes increasingly important. A trusted co-host or caretaker can manage guest check-ins, coordinate housekeeping, respond to maintenance requests and ensure every stay meets the same quality standard. Strong operations often have a much bigger impact on guest satisfaction than expensive interiors."
       }
     },
     {
       "@type": "Question",
-      "name": "Do I need to register for GST to run an Airbnb in India?",
+      "name": "Why does Wayzyy use a recharge-based model instead of charging a commission on every booking?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, if your aggregate turnover from the hospitality business exceeds the GST threshold limit (typically ₹20 lakh or ₹10 lakh in special category states). It is advisable to consult a tax professional to set up your billing systems correctly."
+        "text": "We believe successful hosts should retain more of what they earn. Instead of increasing platform costs every time a property performs well, Wayzyy's recharge-based credit model keeps pricing predictable. That allows hosts to invest more into housekeeping, staff, amenities and property improvements rather than giving away a growing percentage of every booking as their business expands."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I handle property damage on short-term rentals?",
+      "name": "What is the biggest mistake both guests and hosts make?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You should verify guest identities before check-in. Wayzyy uses DigiLocker-based identity verification for Indian travelers. For damage resolution, Wayzyy features a three-layer mitigation framework focusing on prevention, platform-assisted mediation, and structured evidence-based resolution."
+        "text": "Guests often focus only on price. Hosts often focus only on bookings. In reality, both should be focusing on trust. For guests, trust means choosing a property that accurately represents what is being offered. For hosts, trust means building a hospitality business that consistently delivers on those promises. When trust becomes the foundation of every booking, better reviews, repeat guests and long-term business growth naturally follow."
       }
     }
   ]
@@ -559,40 +559,84 @@ export default function HowToStartAirbnbBusinessIndia() {
         <p className="font-semibold text-ember text-center text-lg italic my-4">
           Your goal isn't to become an Airbnb host. Your goal is to build a hospitality business that people trust, recommend and return to.
         </p>
+        <h2 className="font-display text-2xl text-foreground mt-8">Trust Doesn't End With the Booking. It Continues Throughout the Stay.</h2>
         <p>
-          Everything else—including the platform you choose—should help you achieve exactly that.
+          Finding the right property is only the first step.
+        </p>
+        <p>
+          The real experience begins after the booking is confirmed, and that's where great hospitality separates itself from a simple accommodation booking. Guests rarely remember how quickly they clicked the Book Now button, but they'll always remember how they were treated during their stay.
+        </p>
+        <p>
+          A quick response before arrival, clear check-in instructions, a clean property, working amenities and someone who can genuinely help when a problem arises often matter far more than expensive interiors. The difference between an average stay and a memorable one usually comes down to how well the property is managed rather than how luxurious it appears in photographs.
+        </p>
+        <p>
+          That's why every host should think beyond the listing itself.
+        </p>
+        <p>
+          If you're unable to personally manage your property every day, having the right support system becomes essential. A reliable co-host, caretaker or property manager can ensure guests receive the same level of attention whether you're in the city or halfway across the world. Simple things like welcoming guests on time, resolving maintenance requests quickly and making sure the property is ready before every check-in build trust that no marketing campaign can ever replace.
+        </p>
+        <p>
+          At Wayzyy, we encourage hosts to think about hospitality as an ongoing relationship rather than a single transaction. A successful stay doesn't end when payment is completed—it ends when guests leave feeling confident enough to recommend your property to friends or return for their next holiday. That's the kind of trust every hospitality business should aim to build.
+        </p>
+        <p>
+          The same philosophy guides how we continue improving the platform. Verification helps guests book with greater confidence, but trust also comes from transparent communication, responsive support and ensuring hosts have the tools they need to deliver consistent experiences. Our goal has never been to become another marketplace filled with thousands of listings. We want to build a platform where quality, transparency and hospitality matter just as much as availability.
+        </p>
+        <p>
+          When hosts focus on creating exceptional stays instead of simply chasing the next booking, everyone benefits. Guests receive the experience they were promised, hosts earn stronger reviews and repeat customers, and the business becomes easier to grow over time.
+        </p>
+        <p>
+          In our view, that's what the future of short-term rentals should look like—not a race to collect more listings, but an industry built around trust, consistency and genuine hospitality.
         </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">What's Next?</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">The Future of Short-Term Rentals Isn't More Listings. It's More Trust.</h2>
         <p>
-          If you're serious about building a successful vacation rental business, these guides will help you go deeper:
+          The short-term rental industry has grown tremendously over the last few years, but one thing has remained constant.
         </p>
-        <ul className="space-y-3 pl-6 list-disc text-muted-foreground my-4">
-          <li>
-            <Link to="/blog/how-much-can-you-earn-vacation-rental-goa" className="text-ember hover:underline">
-              How Much Can You Actually Earn From an Airbnb in India?
-            </Link>{" "}
-            — Understand the real numbers behind revenue, expenses and profitability.
-          </li>
-          <li>
-            <Link to="/blog/airbnb-vs-booking-vs-wayzyy" className="text-ember hover:underline">
-              Airbnb vs Booking.com vs Wayzyy
-            </Link>{" "}
-            — Compare different platform models and understand how they affect your business over the long term.
-          </li>
-          <li>
-            <Link to="/blog/hidden-costs-of-running-an-airbnb" className="text-ember hover:underline">
-              Nobody Tells You This Before You Start an Airbnb
-            </Link>{" "}
-            — Learn the hidden challenges that catch most first-time hosts off guard.
-          </li>
-          <li>
-            <span className="text-muted-foreground">The Real Cost of Running a Vacation Rental (Coming Soon)</span>
-          </li>
-          <li>
-            <span className="text-muted-foreground">How to Price Your Vacation Rental Without Losing Bookings (Coming Soon)</span>
-          </li>
-        </ul>
+        <p>
+          Guests want confidence before they spend their money.
+        </p>
+        <p>
+          Hosts want a fair opportunity to build a successful hospitality business without competing against misleading listings or losing a significant part of their earnings to recurring platform fees. Both expectations are reasonable, and we believe the industry should do a better job of meeting them.
+        </p>
+        <p>
+          That's the philosophy behind everything we're building at Wayzyy.
+        </p>
+        <p>
+          We don't think the future of hospitality is about becoming the marketplace with the highest number of properties. We believe it's about creating an ecosystem where verified listings, transparent information and sustainable business economics help both guests and hosts succeed together.
+        </p>
+        <p>
+          For guests, that means being able to book with greater confidence through initiatives like VZ Verified, where manually reviewed properties provide an additional layer of trust before a reservation is made.
+        </p>
+        <p>
+          For hosts, it means having a platform that supports long-term business growth instead of becoming more expensive every time the business becomes more successful. Money saved on unnecessary recurring commissions can be invested where it creates the greatest impact—better housekeeping, improved amenities, reliable co-hosts, property upgrades and ultimately a better guest experience.
+        </p>
+        <p>
+          Hospitality has never been about simply handing over the keys.
+        </p>
+        <p>
+          It's about creating an experience that people remember long after they leave.
+        </p>
+        <p>
+          When guests trust what they're booking, hosts can focus on delivering exceptional stays instead of constantly managing disputes about inaccurate listings. When hosts retain more of what they earn, they're able to reinvest into their properties, improve service standards and build businesses that continue growing year after year.
+        </p>
+        <p>
+          That's the kind of future we want to help create.
+        </p>
+        <p>
+          Whether you're planning your first getaway or preparing to launch your first short-term rental business, remember that the best decisions are rarely based on price alone. They're based on trust, transparency and choosing partners that genuinely help you build something sustainable.
+        </p>
+        <p>
+          At Wayzyy, those aren't just features on a product roadmap.
+        </p>
+        <p>
+          They're the principles we've chosen to build the platform around.
+        </p>
+        <p>
+          Because in the end, great hospitality doesn't begin with a booking.
+        </p>
+        <p>
+          It begins with trust.
+        </p>
       </div>
 
       {/* FAQ Accordion Section */}
