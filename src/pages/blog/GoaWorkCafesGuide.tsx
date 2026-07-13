@@ -92,7 +92,16 @@ export default function GoaWorkCafesGuide() {
       <div className="space-y-8 mt-10">
         {/* Blue Tokai */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Blue Tokai — Assagao</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Blue+Tokai+Coffee+Roasters+Assagao+Goa" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-ember transition-colors inline-flex items-center gap-1"
+            >
+              Blue Tokai — Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+            </a>
+          </h3>
           <p>
             Blue Tokai has become one of the most dependable choices for remote workers in North Goa. The coffee is consistently good, the internet remains stable even during busy periods and there's enough indoor seating to comfortably spend a few hours working.
           </p>
@@ -104,7 +113,16 @@ export default function GoaWorkCafesGuide() {
 
         {/* Mojigao */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Mojigao — Assagao</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Mojigao+Assagao+Goa" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-ember transition-colors inline-flex items-center gap-1"
+            >
+              Mojigao — Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+            </a>
+          </h3>
           <p>
             Hidden away from the main roads, Mojigao feels less like a commercial café and more like someone's thoughtfully designed garden.
           </p>
@@ -116,7 +134,16 @@ export default function GoaWorkCafesGuide() {
 
         {/* Babka */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Babka — Anjuna</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Babka+Goa+Anjuna" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-ember transition-colors inline-flex items-center gap-1"
+            >
+              Babka — Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+            </a>
+          </h3>
           <p>
             If your perfect workday starts with exceptional pastries and speciality coffee, Babka deserves a place on your list.
           </p>
@@ -137,7 +164,16 @@ export default function GoaWorkCafesGuide() {
 
         {/* Artjuna */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Artjuna Garden Café — Anjuna</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Artjuna+Anjuna+Goa" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-ember transition-colors inline-flex items-center gap-1"
+            >
+              Artjuna Garden Café — Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+            </a>
+          </h3>
           <p>
             Very few cafés capture the spirit of Goa quite like Artjuna.
           </p>
@@ -154,12 +190,28 @@ export default function GoaWorkCafesGuide() {
         <p>
           If the cafés above are full, there are several other excellent options worth considering:
         </p>
-        <ul>
+        <ul className="space-y-2 list-disc pl-6 text-muted-foreground">
           <li>
-            <strong>Barefoot Goa (Parra):</strong> Frequently recommended because of the number of accessible power outlets, making it one of the easiest places to settle in for a productive afternoon.
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Barefoot+Goa+Parra" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-ember hover:underline font-semibold"
+            >
+              Barefoot Goa (Parra) ↗
+            </a>
+            : Frequently recommended because of the number of accessible power outlets, making it one of the easiest places to settle in for a productive afternoon.
           </li>
           <li>
-            <strong>Cafe LaDiDa (Porvorim):</strong> Popular among freelancers and students thanks to complimentary Wi-Fi and a quieter atmosphere away from the busiest tourist pockets.
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Cafe+LaDiDa+Porvorim+Goa" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-ember hover:underline font-semibold"
+            >
+              Cafe LaDiDa (Porvorim) ↗
+            </a>
+            : Popular among freelancers and students thanks to complimentary Wi-Fi and a quieter atmosphere away from the busiest tourist pockets.
           </li>
         </ul>
         <p>
