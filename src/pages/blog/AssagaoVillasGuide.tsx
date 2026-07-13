@@ -154,9 +154,7 @@ export default function AssagaoVillasGuide() {
       <p>
         That's exactly why so many people end up loving it. Assagao gives you the freedom to experience North Goa without
         living in the middle of its busiest tourist areas. Vagator Beach is only a short drive away, Anjuna's cafés and
-        markets are close by, Morjim and Ashwem can easily be reached for quieter beach days, and Siolim sits just a few
-        minutes down the road. You can spend the day exploring wherever you like and still return to a peaceful villa instead
-        of traffic and crowds.
+        markets are close by, and Siolim sits just a few minutes down the road. Morjim is roughly 12km from Assagao — about a 15-20 minute scooter ride on the NH66 — making it an easy half-day beach trip without needing to move accommodation. Ashwem sits just 3km further north, providing another quiet beach day option. You can spend the day exploring wherever you like and still return to a peaceful villa instead of traffic and crowds.
       </p>
 
       <div className="bg-card border border-border rounded-2xl p-6 my-8">

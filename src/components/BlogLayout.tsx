@@ -126,6 +126,7 @@ export function BlogLayout({
                 : "object-cover"
             }`}
             loading="eager"
+            fetchpriority="high"
           />
         </div>
 
