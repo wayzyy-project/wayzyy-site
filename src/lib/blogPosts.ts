@@ -19,7 +19,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Comparing Airbnb, Booking.com, MakeMyTrip, StayVista, SaffronStays, and Wayzyy — real fee data, what each platform actually costs you, and what's worth checking before you confirm.",
     metaTitle: "5 Best Airbnb Alternatives in India for Goa Villas (2026)",
     metaDescription:
-      "Airbnb changed its fee model in 2025. Here's how that affects what you pay for a villa in Goa — and which platforms actually cost less.",
+      "Airbnb charges hosts 15.5% per booking in Goa. Here are the platforms that don't — with real fee comparisons and final price breakdowns.",
     heroImage: "/blog/goa-villa-private-pool-vacation-rental.webp",
     publishedDate: "2026-07-06",
     readTime: "8 Min Read",
@@ -43,7 +43,7 @@ export const blogPosts: BlogPostMeta[] = [
       "First time visiting Goa or coming back for a workation? Here is the honest breakdown of the vibe, villages, and seasonal differences between North and South Goa.",
     metaTitle: "North Goa vs South Goa — Which Is Best for Your Trip?",
     metaDescription:
-      "First time visiting Goa or coming back for a workation? Here is the honest breakdown of the vibe, villages, and seasonal differences between North and South.",
+      "North Goa or South Goa — which one actually matches your travel style? Village-by-village breakdown with honest trade-offs for every type of trip.",
     heroImage: "/blog/goa-villa-north-vs-south-cover.webp",
     publishedDate: "2026-07-06",
     readTime: "9 Min Read",
@@ -55,7 +55,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Planning to work remotely from Goa? Here is the honest breakdown of coworking spaces, monthly costs, seasonality, and finding verified workation stays.",
     metaTitle: "Workation in Goa — Coworking, Stays & Monthly Budget (2026)",
     metaDescription:
-      "Planning to work remotely from Goa? Read the honest guide to coworking, cafes, monthly costs, and Workation Verified villa rentals.",
+      "Planning a budget workation in Goa? Real monthly costs, best coworking spaces, which months to avoid, and what to check before booking a villa.",
     heroImage: "/blog/goa-workation-hero.webp",
     publishedDate: "2026-07-06",
     readTime: "11 Min Read",
@@ -79,7 +79,7 @@ export const blogPosts: BlogPostMeta[] = [
       "When is the best time to visit Goa? Read our breakdown of seasonal weather, travel styles, crowd patterns, and booking strategies.",
     metaTitle: "Best Time to Visit Goa — Seasonality, Weather & Tips (2026)",
     metaDescription:
-      "When is the best time to visit Goa? Learn about peak winter tourist periods, monsoon travel, shoulder seasons, and the best months to book a villa.",
+      "Goa in October vs December vs monsoon — real month-by-month breakdown of weather, villa prices, and crowds before you book.",
     heroImage: "/blog/goa-best-time-hero.webp",
     publishedDate: "2026-07-08",
     readTime: "7 Min Read",
@@ -91,7 +91,7 @@ export const blogPosts: BlogPostMeta[] = [
       "How much money should you budget for Goa? Read our realistic breakdown of accommodation, food, cafes, scooter rentals, and booking strategies.",
     metaTitle: "Goa Trip Budget Guide (2026): Real Costs & Booking Tips",
     metaDescription:
-      "Planning a trip to Goa? Find realistic budget estimates for solo travellers, couples, families, and groups. Learn where to save on stays and transport.",
+      "Real Goa trip costs in 2026: villa prices, food, scooter rental, coworking — and what travellers consistently underestimate before booking.",
     heroImage: "/blog/goa-budget-hero.webp",
     publishedDate: "2026-07-09",
     readTime: "9 Min Read",
@@ -115,7 +115,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why is everyone suddenly talking about Siolim? Read our honest guide to Siolim's villas, cafes, restaurants, and travel style.",
     metaTitle: "Siolim Villas & Stays Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
-      "Why is everyone staying in Siolim? Learn about Portuguese villas, riverfront stays, typical costs, and tips for remote workers in Goa.",
+      "Siolim is North Goa's quietest riverside village. Honest guide to Portuguese villas, riverside cafés, and why digital nomads choose it over Anjuna.",
     heroImage: "/blog/goa-siolim-river.webp",
     publishedDate: "2026-07-11",
     readTime: "9 Min Read",
@@ -127,7 +127,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why do repeat visitors choose Mandrem? Read our honest guide to Mandrem's beaches, stays, safety tips, cafes, and typical costs.",
     metaTitle: "Mandrem Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
-      "Why do repeat travellers stay in Mandrem? Read our guide on beachwear, safety, typical costs, local tips, and workation advice for Mandrem, Goa.",
+      "Mandrem Beach — the quiet alternative to Morjim. Honest guide to turtle sanctuary, slow travel, and staying in North Goa's calmest coastal strip.",
     heroImage: "/blog/goa-mandrem-sunset-net.webp",
     publishedDate: "2026-07-12",
     readTime: "9 Min Read",
@@ -139,7 +139,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why do experienced travellers quietly keep returning to Morjim? Read our honest guide to Morjim's beach shacks, stays, cafes, safety, and typical costs.",
     metaTitle: "Morjim Beach & Stays Guide (2026) — Cafes, Costs & Nesting",
     metaDescription:
-      "Planning to stay in Morjim? Read our guide on turtle nesting, safety for solo women, typical costs, local tips, and workation advice for Morjim, Goa.",
+      "Morjim Beach — turtle nesting, surf schools, and North Goa's calmest village. Honest guide to where to stay, what to do, and how crowded it actually gets.",
     heroImage: "/blog/goa-morjim-beach-beds.webp",
     publishedDate: "2026-07-13",
     readTime: "9 Min Read",
