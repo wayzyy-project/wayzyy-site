@@ -36,6 +36,9 @@ export function SiteNav() {
           <a className="hover:text-foreground" href="#waitlist">
             Waitlist
           </a>
+          <Link className="hover:text-foreground" to="/earnings-calculator">
+            Calculator
+          </Link>
           <Link className="hover:text-foreground" to="/blog">
             Blog
           </Link>
