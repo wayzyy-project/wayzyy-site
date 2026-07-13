@@ -15,15 +15,15 @@ const faqJsonLd = {
       "name": "How can I tell if a short-term rental listing is genuine?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "There's no single indicator, but a combination of factors usually paints a clear picture. Read recent guest reviews instead of relying only on the overall rating, compare the photographs with the amenities listed and don't hesitate to ask questions before booking. Responsive communication and transparent information are often strong indicators of a trustworthy host. Platforms that manually verify listings, such as Wayzyy's VZ Verified properties, provide an additional layer of confidence by reviewing submitted photographs and listing details before verification."
+        "text": "There's no single indicator, but a combination of factors usually paints a clear picture. Read recent guest reviews instead of relying only on the overall rating, compare the photographs with the amenities listed and don't hesitate to ask questions before booking. Responsive communication and transparent information are often strong indicators of a trustworthy host. Platforms that manually verify listings, such as Wayzyy's Wayzyy Verified properties, provide an additional layer of confidence by reviewing submitted photographs and listing details before verification."
       }
     },
     {
       "@type": "Question",
-      "name": "What is VZ Verified?",
+      "name": "What is Wayzyy Verified?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "VZ Verified is Wayzyy's property verification programme designed to help guests book with greater confidence. Before a property receives the verification badge, our team manually reviews the listing, verifies the submitted photographs and checks that the amenities being advertised accurately represent the property. The goal is to reduce misleading listings while helping genuine hosts stand out through transparency rather than marketing."
+        "text": "Wayzyy Verified is Wayzyy's property verification programme designed to help guests book with greater confidence. Before a property receives the verification badge, our team manually reviews the listing, verifies the submitted photographs and checks that the amenities being advertised accurately represent the property. The goal is to reduce misleading listings while helping genuine hosts stand out through transparency rather than marketing."
       }
     },
     {
@@ -605,7 +605,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           We don't think the future of hospitality is about becoming the marketplace with the highest number of properties. We believe it's about creating an ecosystem where verified listings, transparent information and sustainable business economics help both guests and hosts succeed together.
         </p>
         <p>
-          For guests, that means being able to book with greater confidence through initiatives like VZ Verified, where manually reviewed properties provide an additional layer of trust before a reservation is made.
+          For guests, that means being able to book with greater confidence through initiatives like Wayzyy Verified, where manually reviewed properties provide an additional layer of trust before a reservation is made.
         </p>
         <p>
           For hosts, it means having a platform that supports long-term business growth instead of becoming more expensive every time the business becomes more successful. Money saved on unnecessary recurring commissions can be invested where it creates the greatest impact—better housekeeping, improved amenities, reliable co-hosts, property upgrades and ultimately a better guest experience.
