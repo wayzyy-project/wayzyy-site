@@ -421,6 +421,48 @@ export default function HowToStartAirbnbBusinessIndia() {
         <p>
           The first is <strong className="text-foreground">verified trust</strong>, helping create greater confidence between hosts and guests before a booking is confirmed.
         </p>
+
+        {/* Verification Mockups Module */}
+        <div className="my-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-muted/20 border border-border/80 rounded-2xl p-6 md:p-8">
+          <div className="md:col-span-5 flex flex-col items-center">
+            <span className="text-xs font-semibold uppercase tracking-wider text-ember mb-3">Mobile App Preview</span>
+            {/* Phone Mockup */}
+            <div className="relative w-full max-w-[260px] aspect-[9/19] rounded-[2.5rem] border-[8px] border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden ring-4 ring-neutral-800/10">
+              {/* Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-4 bg-neutral-800 rounded-b-xl z-20" />
+              {/* Image */}
+              <img
+                src="/wayzyy-verified-card.png"
+                alt="Wayzyy Verified Mobile App Screenshot"
+                className="w-full h-full object-cover z-10 relative"
+              />
+            </div>
+          </div>
+          
+          <div className="md:col-span-7 flex flex-col items-center">
+            <span className="text-xs font-semibold uppercase tracking-wider text-ember mb-3">Website Verification Steps</span>
+            {/* Browser Mockup */}
+            <div className="w-full rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
+              {/* Browser Header */}
+              <div className="bg-muted px-4 py-3 flex items-center gap-2 border-b border-border">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <div className="flex-1 max-w-md mx-auto bg-card rounded-md border border-border px-3 py-0.5 text-xs text-muted-foreground truncate text-center select-none">
+                  wayzyy.com/verify
+                </div>
+              </div>
+              {/* Image */}
+              <img
+                src="/wayzyy-verification-steps.png"
+                alt="Wayzyy Verification Website Screenshot"
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+        </div>
         <p>
           The second is a <strong className="text-foreground">smoother booking and payment experience</strong>, reducing unnecessary friction while keeping both parties informed throughout the process.
         </p>
