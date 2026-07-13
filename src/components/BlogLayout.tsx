@@ -126,7 +126,7 @@ export function BlogLayout({
                 : "object-cover"
             }`}
             loading="eager"
-            fetchpriority="high"
+            {...({ fetchpriority: "high" } as Record<string, string>)}
           />
         </div>
 
