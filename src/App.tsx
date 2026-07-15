@@ -54,6 +54,7 @@ import HowToStartAirbnbBusinessIndia from "./pages/blog/HowToStartAirbnbBusiness
 import WhyRentalBusinessesNeverScaleBeyondOneProperty from "./pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty";
 import SouthGoaTravelGuide from "./pages/blog/SouthGoaTravelGuide";
 import GalgibagaBeachGuide from "./pages/blog/GalgibagaBeachGuide";
+import PalolemBeachGuide from "./pages/blog/PalolemBeachGuide";
 
 const queryClient = new QueryClient();
 
@@ -121,6 +122,7 @@ const App = () => (
               <Route path="/blog/why-rental-businesses-never-scale-beyond-one-property" element={<WhyRentalBusinessesNeverScaleBeyondOneProperty />} />
               <Route path="/blog/south-goa-travel-guide" element={<SouthGoaTravelGuide />} />
               <Route path="/blog/galgibaga-beach-goa-guide" element={<GalgibagaBeachGuide />} />
+              <Route path="/blog/palolem-beach-south-goa-guide" element={<PalolemBeachGuide />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>

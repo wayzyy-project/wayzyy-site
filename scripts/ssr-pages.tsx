@@ -52,6 +52,7 @@ import HowToStartAirbnbBusinessIndia from "@/pages/blog/HowToStartAirbnbBusiness
 import WhyRentalBusinessesNeverScaleBeyondOneProperty from "@/pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty";
 import SouthGoaTravelGuide from "@/pages/blog/SouthGoaTravelGuide";
 import GalgibagaBeachGuide from "@/pages/blog/GalgibagaBeachGuide";
+import PalolemBeachGuide from "@/pages/blog/PalolemBeachGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -111,6 +112,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/why-rental-businesses-never-scale-beyond-one-property": WhyRentalBusinessesNeverScaleBeyondOneProperty,
   "/blog/south-goa-travel-guide": SouthGoaTravelGuide,
   "/blog/galgibaga-beach-goa-guide": GalgibagaBeachGuide,
+  "/blog/palolem-beach-south-goa-guide": PalolemBeachGuide,
 };
 
 const output: Record<string, string> = {};

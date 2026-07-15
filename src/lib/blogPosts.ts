@@ -432,4 +432,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-06",
     readTime: "9 Min Read",
   },
+  {
+    slug: "palolem-beach-south-goa-guide",
+    title: "Palolem Beach Goa (2026): The Honest Guide to Huts, Swimming & Stays",
+    description:
+      "The complete, honest guide to Palolem Beach in South Goa. Learn about beach huts, swimming safety, scams, digital nomad workspaces, and comparisons with Agonda and Patnem.",
+    metaTitle: "Palolem Beach Goa — Stays, Huts, Swimming & Scams (2026)",
+    metaDescription:
+      "Heading to Palolem Beach in South Goa? Read our honest guide on beach huts, tide charts for Monkey Island, digital nomad connectivity, and local scams.",
+    heroImage: "/blog/palolem-beach-hero.webp",
+    publishedDate: "2026-08-07",
+    readTime: "10 Min Read",
+  },
 ];
