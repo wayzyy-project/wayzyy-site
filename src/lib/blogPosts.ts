@@ -444,4 +444,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-07",
     readTime: "10 Min Read",
   },
+  {
+    slug: "where-to-stay-in-south-goa",
+    title: "Where to Stay in South Goa (2026): The Honest Accommodation Guide",
+    description:
+      "Planning a trip to South Goa? Read our complete, honest guide to choosing the right region (Palolem vs Colva vs Galgibaga), accommodation styles (hotels, resorts, villas), and avoiding booking mistakes.",
+    metaTitle: "Where to Stay in South Goa: Villages, Hotels & Villas (2026)",
+    metaDescription:
+      "Confused about where to base yourself in South Goa? Read our breakdown of Palolem, Agonda, Colva, and Galgibaga, plus choosing between hotels, resorts, and villas.",
+    heroImage: "/blog/where-to-stay-south-goa-hero.webp",
+    publishedDate: "2026-08-08",
+    readTime: "11 Min Read",
+  },
 ];

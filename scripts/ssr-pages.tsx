@@ -53,6 +53,7 @@ import WhyRentalBusinessesNeverScaleBeyondOneProperty from "@/pages/blog/WhyRent
 import SouthGoaTravelGuide from "@/pages/blog/SouthGoaTravelGuide";
 import GalgibagaBeachGuide from "@/pages/blog/GalgibagaBeachGuide";
 import PalolemBeachGuide from "@/pages/blog/PalolemBeachGuide";
+import WhereToStayInSouthGoa from "@/pages/blog/WhereToStayInSouthGoa";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -113,6 +114,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/south-goa-travel-guide": SouthGoaTravelGuide,
   "/blog/galgibaga-beach-goa-guide": GalgibagaBeachGuide,
   "/blog/palolem-beach-south-goa-guide": PalolemBeachGuide,
+  "/blog/where-to-stay-in-south-goa": WhereToStayInSouthGoa,
 };
 
 const output: Record<string, string> = {};
