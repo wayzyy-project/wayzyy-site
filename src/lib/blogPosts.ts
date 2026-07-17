@@ -456,4 +456,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-08",
     readTime: "11 Min Read",
   },
+  {
+    slug: "real-cost-of-airbnb-fee",
+    title: "The Real Cost of Airbnb's 15.5% Fee Isn't 15.5%",
+    description:
+      "An honest analysis of Airbnb's 15.5% simplified host fee, its ripple effects on pricing competitiveness in India, and how hosts can build resilient businesses.",
+    metaTitle: "The Real Cost of Airbnb's 15.5% Simplified Host Fee (2026)",
+    metaDescription:
+      "Forced onto Airbnb's 15.5% simplified pricing? Read our analysis on the true margin leak, pricing ripple effects, and how to build business resilience.",
+    heroImage: "/blog/real-cost-airbnb-fee-hero.webp",
+    publishedDate: "2026-08-09",
+    readTime: "8 Min Read",
+  },
 ];
