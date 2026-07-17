@@ -246,6 +246,25 @@ export default function RealCostOfAirbnbFee() {
           </table>
         </div>
 
+        <h2 className="font-display text-xl text-foreground mt-8">The Indian Context: High Fees Meet Lower ADRs</h2>
+        <p>
+          In the Indian market, this fee consolidation has a distinct psychological impact on guests. Under the old split-fee structure, guests understood that a portion of their payment went to the platform for booking services. With Simplified Pricing, the entire service fee is rolled into the base nightly rate. Because these platform fees are no longer separated, guests often perceive that the host is directly overcharging them, which statistically leads to lower review scores and drives more hosts to sell offline.
+        </p>
+        <p>
+          This perception gap is especially challenging because of local market economics. The average Indian Airbnb ADR (Average Daily Rate) ranges from ₹2,500 to ₹3,500. At this rate, a 15% platform commission is a significant chunk of money percentage-wise. Raising rates to recover it makes listings uncompetitive, while absorbing it directly threatens the viability of smaller homestays.
+        </p>
+
+        {/* Indian Context Host Screenshot */}
+        <div className="my-8">
+          <img
+            src="/blog/reddit-host-fee-hike-complaint.webp"
+            alt="Reddit post from r/AirBnBHosts discussing the impact of the 15.5% simplified fee structure in India"
+            className="w-full rounded-2xl border border-border object-cover"
+            loading="lazy"
+          />
+          <span className="text-xs text-muted-foreground mt-2 block text-center">Indian hosts discussing the psychological impact of fee integration on average ADRs</span>
+        </div>
+
         <p>
           That pricing decision has a ripple effect. A villa that was comfortably competing around the ₹10,000 mark may now need to be listed at ₹11,500 or more. The property hasn't changed. The amenities haven't changed. The experience hasn't changed. Yet it suddenly finds itself competing with an entirely different set of listings simply because it has moved into a new price bracket.
         </p>
@@ -261,6 +280,26 @@ export default function RealCostOfAirbnbFee() {
         <p>
           One policy update is enough to trigger changes in pricing strategies, revenue-sharing agreements, guest expectations, and even long-term business planning. That's a level of dependence every host should think about, regardless of which platform they use.
         </p>
+
+        <h2 className="font-display text-xl text-foreground mt-8">The Support Gap: High Commissions Without Host Protection</h2>
+        <p>
+          This structural dependence is made worse by a lack of platform accountability when real disputes occur. For hosts, paying a premium 15.5% commission should theoretically guarantee a high level of customer protection and mediation. In reality, host communities are filled with stories of arbitrary refund decisions and loophole exploitation where the platform offers little meaningful support.
+        </p>
+        <p>
+          In recent discussions on host forums, property owners describe cases where guests stay for multiple days and receive a complete refund on trivial pretexts (such as 'no toilet paper') after the host refuses unreasonable demands, such as free catering for large groups. Because there is a clear gap in accountability, hosts carry all the operational risk while paying high fees to a platform that offers them zero recourse.
+        </p>
+
+        {/* Support Gap Reddit Screenshot */}
+        <div className="my-8">
+          <img
+            src="/blog/reddit-host-dispute-complaints.webp"
+            alt="Reddit forum discussion showing host complaints about arbitrary refunds and loophole exploitation on Airbnb"
+            className="w-full rounded-2xl border border-border object-cover"
+            loading="lazy"
+          />
+          <span className="text-xs text-muted-foreground mt-2 block text-center">Hosts sharing experiences of platform disputes and arbitrary payout reversals</span>
+        </div>
+
         <p>
           This is exactly why many professional hosts don't rely on just one booking channel anymore. They diversify their bookings, build repeat guest relationships, and gradually reduce the risk of having a single platform dictate how their business operates.
         </p>
