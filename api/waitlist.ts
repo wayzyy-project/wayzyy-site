@@ -14,9 +14,6 @@ function escapeHtml(value: unknown): string {
     .replace(/'/g, "&#39;");
 }
 
-// Same dual-provider pattern already proven in wayzyy-app's shared mailer:
-// ZeptoMail first if configured, falling back to Resend if ZeptoMail fails
-// or isn't configured.
 async function sendViaZepto(payload: { from: string; to: string; subject: string; html: string }) {
   const match = payload.from.match(/^(.*?)\s*<(.*?)>$/);
   const fromAddress = match ? match[2].trim() : payload.from;
@@ -44,27 +41,6 @@ async function sendViaZepto(payload: { from: string; to: string; subject: string
 
   if (!res.ok) {
     throw new Error(`ZeptoMail API error: ${res.status} - ${await res.text()}`);
-  }
-}
-
-async function sendViaResend(payload: { from: string; to: string; subject: string; html: string; replyTo: string }) {
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: payload.from,
-      to: payload.to,
-      reply_to: payload.replyTo,
-      subject: payload.subject,
-      html: payload.html,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Resend API error: ${res.status} - ${await res.text()}`);
   }
 }
 
@@ -124,40 +100,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `;
 
     // "noreply@wayzyy.com" is the domain-verified sender used consistently
-    // across every wayzyy-app email function — matching that here rather
-    // than an unverified personal address, which ZeptoMail/Resend would
-    // otherwise reject.
+    // across every wayzyy-app email function.
     const from = "Wayzyy Waitlist <noreply@wayzyy.com>";
     const to = "akshaykumar.sharma@wayzyy.com";
     const subject = `New ${audience === "host" ? "Host" : "Traveler"} joined the waitlist`;
 
-    const zeptoKey = process.env.ZEPTOMAIL_API_KEY;
-    const resendKey = process.env.RESEND_API_KEY;
-
-    if (!zeptoKey && !resendKey) {
-      console.error("waitlist: no email provider configured (missing ZEPTOMAIL_API_KEY and RESEND_API_KEY)");
+    if (!process.env.ZEPTOMAIL_API_KEY) {
+      console.error("waitlist: ZEPTOMAIL_API_KEY is not configured");
       return res.status(500).json({ error: "Email not configured" });
     }
 
     try {
-      if (zeptoKey) {
-        await sendViaZepto({ from, to, subject, html: emailHtml });
-      } else {
-        await sendViaResend({ from, to, subject, html: emailHtml, replyTo: email });
-      }
-    } catch (zeptoErr) {
-      const zeptoMsg = zeptoErr instanceof Error ? zeptoErr.message : String(zeptoErr);
-      console.error("ZeptoMail failed:", zeptoMsg);
-      if (zeptoKey && resendKey) {
-        try {
-          await sendViaResend({ from, to, subject, html: emailHtml, replyTo: email });
-        } catch (resendErr) {
-          console.error("Resend fallback also failed:", resendErr);
-          return res.status(500).json({ error: "Failed to send email" });
-        }
-      } else {
-        return res.status(500).json({ error: "Failed to send email" });
-      }
+      await sendViaZepto({ from, to, subject, html: emailHtml });
+    } catch (err) {
+      console.error("ZeptoMail failed:", err instanceof Error ? err.message : err);
+      return res.status(500).json({ error: "Failed to send email" });
     }
 
     return res.status(200).json({ ok: true });
