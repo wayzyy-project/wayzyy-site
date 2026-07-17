@@ -1,7 +1,7 @@
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { InlineCalculator } from "@/components/InlineCalculator";
 
@@ -54,6 +54,114 @@ const faqJsonLd = {
   ]
 };
 
+function FeeHikeCalculator() {
+  const [payout, setPayout] = useState(10000);
+
+  const stats = useMemo(() => {
+    // Old Split-Fee (3% host fee)
+    const oldBaseRate = payout / 0.97;
+    const guestFee = oldBaseRate * 0.142; // ~14.2% average guest fee
+    const oldGuestPaid = oldBaseRate + guestFee;
+
+    // New Simplified (15.5% host fee)
+    const newBaseRate = payout / 0.845;
+    const newGuestPaid = newBaseRate; // 0% guest service fee visible at checkout
+
+    const inflation = ((newBaseRate - oldBaseRate) / oldBaseRate) * 100;
+    const absoluteHike = newBaseRate - oldBaseRate;
+
+    return { oldBaseRate, oldGuestPaid, newBaseRate, newGuestPaid, inflation, absoluteHike };
+  }, [payout]);
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  return (
+    <div className="my-8 rounded-2xl border border-ember/30 bg-ember/5 p-6 sm:p-8">
+      <div>
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-ember/10 border border-ember/25 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ember">
+          Interactive Fee Hike Calculator
+        </div>
+        <h3 className="font-display text-xl sm:text-2xl text-foreground mt-2 leading-tight">
+          How Airbnb's 15.5% Shift inflates your rates
+        </h3>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+          Adjust the slider to your desired Net Take-Home Payout per night. Watch how your base listing price must inflate to preserve your margins.
+        </p>
+      </div>
+
+      <div className="mt-6 space-y-6">
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              Desired Net Host Payout
+            </span>
+            <span className="font-display text-lg font-bold text-foreground">
+              {formatCurrency(payout)}
+            </span>
+          </div>
+          <input
+            type="range"
+            min="3000"
+            max="40000"
+            step="1000"
+            value={payout}
+            onChange={(e) => setPayout(Number(e.target.value))}
+            className="w-full h-1.5 bg-border rounded-lg appearance-none cursor-pointer accent-ember focus:outline-none"
+          />
+          <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+            <span>₹3,000</span>
+            <span>₹20,000</span>
+            <span>₹40,000</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 rounded-xl border border-border bg-background/50 flex flex-col justify-between">
+            <div>
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground block">
+                Old Split-Fee Model (3% Host)
+              </span>
+              <span className="text-sm text-muted-foreground mt-1 block">
+                Base Nightly Price: <strong className="text-foreground">{formatCurrency(stats.oldBaseRate)}</strong>
+              </span>
+            </div>
+            <div className="text-xs text-muted-foreground border-t border-border/60 pt-2 mt-3">
+              Guest pays: <strong className="text-foreground">{formatCurrency(stats.oldGuestPaid)}</strong> (incl. checkout service fee)
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-ember/25 bg-ember/5 flex flex-col justify-between relative overflow-hidden">
+            <div>
+              <span className="text-[10px] uppercase tracking-wider text-ember/80 block font-medium">
+                New Simplified Pricing (15.5% Host)
+              </span>
+              <span className="text-sm text-muted-foreground mt-1 block">
+                Base Nightly Price: <strong className="text-foreground">{formatCurrency(stats.newBaseRate)}</strong>
+              </span>
+            </div>
+            <div className="text-xs text-muted-foreground border-t border-ember/20 pt-2 mt-3 flex items-center justify-between">
+              <span>Guest pays: <strong className="text-foreground">{formatCurrency(stats.newGuestPaid)}</strong></span>
+              <span className="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-1.5 py-0.5 rounded text-[10px] font-bold">
+                +{stats.inflation.toFixed(1)}% Base Price Hike
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 text-center text-xs text-muted-foreground">
+          To take home a clean <strong className="text-foreground">{formatCurrency(payout)}</strong>, you are forced to raise your nightly base rate by <strong className="text-rose-500">{formatCurrency(stats.absoluteHike)} per night</strong>. In search feeds, your property now appears significantly more expensive to guests.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function RealCostOfAirbnbFee() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -92,16 +200,7 @@ export default function RealCostOfAirbnbFee() {
           For the guest, the property hasn't changed, but it now appears 15% more expensive upfront in search results. This pushes listings into higher pricing tiers where they must compete with more luxurious properties, often leading to a drop in occupancy.
         </p>
 
-        {/* Visual Fee Comparison Chart */}
-        <div className="my-8">
-          <img
-            src="/blog/airbnb-fee-comparison-chart.webp"
-            alt="Infographic showing Split Pricing vs Simplified Pricing model fee breakdowns"
-            className="w-full rounded-2xl border border-border object-cover"
-            loading="lazy"
-          />
-          <span className="text-xs text-muted-foreground mt-2 block text-center">Visualizing the shift from guest service fees to host-only invoice deductions</span>
-        </div>
+        <FeeHikeCalculator />
 
         <h2 className="font-display text-xl text-foreground mt-8">Comparison Matrix: The Split-Fee vs. Simplified Pricing Math</h2>
         <p>
