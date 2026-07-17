@@ -1,5 +1,73 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
+// Escapes user-supplied text before it's interpolated into the HTML email
+// body — the email is client input and otherwise dropped into a template
+// literal unescaped, which lets malformed/malicious input break the email
+// layout (or worse) for whoever reads it. Mirrors the same helper used in
+// the wayzyy-app Supabase functions.
+function escapeHtml(value: unknown): string {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Same dual-provider pattern already proven in wayzyy-app's shared mailer:
+// ZeptoMail first if configured, falling back to Resend if ZeptoMail fails
+// or isn't configured.
+async function sendViaZepto(payload: { from: string; to: string; subject: string; html: string }) {
+  const match = payload.from.match(/^(.*?)\s*<(.*?)>$/);
+  const fromAddress = match ? match[2].trim() : payload.from;
+  const fromName = match ? match[1].trim() : undefined;
+
+  // ZeptoMail region matters — accounts on Zoho's India org send via
+  // api.zeptomail.in (confirmed live in wayzyy-app); accounts on the
+  // global/US org use api.zeptomail.com.
+  const zeptomailUrl = process.env.ZEPTOMAIL_API_URL || "https://api.zeptomail.in/v1.1/email";
+
+  const res = await fetch(zeptomailUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Zoho-enczapikey ${process.env.ZEPTOMAIL_API_KEY}`,
+    },
+    body: JSON.stringify({
+      from: { address: fromAddress, name: fromName },
+      to: [{ email_address: { address: payload.to } }],
+      subject: payload.subject,
+      htmlbody: payload.html,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`ZeptoMail API error: ${res.status} - ${await res.text()}`);
+  }
+}
+
+async function sendViaResend(payload: { from: string; to: string; subject: string; html: string; replyTo: string }) {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: payload.from,
+      to: payload.to,
+      reply_to: payload.replyTo,
+      subject: payload.subject,
+      html: payload.html,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Resend API error: ${res.status} - ${await res.text()}`);
+  }
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -39,7 +107,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
             <td style="padding: 8px 0; color: #888; font-size: 14px; width: 120px;">Email</td>
-            <td style="padding: 8px 0; color: #1a1a1a; font-size: 14px; font-weight: bold;">${email}</td>
+            <td style="padding: 8px 0; color: #1a1a1a; font-size: 14px; font-weight: bold;">${escapeHtml(email)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #888; font-size: 14px;">Signed up as</td>
@@ -55,35 +123,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     `;
 
-    // ZeptoMail region matters — accounts created in Zoho's India org send via
-    // api.zeptomail.in; accounts on the global/US org use api.zeptomail.com.
-    // Defaulting to .in for an India-based company; override with
-    // ZEPTOMAIL_API_URL if the account is actually on the .com region.
-    const zeptomailUrl = process.env.ZEPTOMAIL_API_URL || "https://api.zeptomail.in/v1.1/email";
+    // "noreply@wayzyy.com" is the domain-verified sender used consistently
+    // across every wayzyy-app email function — matching that here rather
+    // than an unverified personal address, which ZeptoMail/Resend would
+    // otherwise reject.
+    const from = "Wayzyy Waitlist <noreply@wayzyy.com>";
+    const to = "akshaykumar.sharma@wayzyy.com";
+    const subject = `New ${audience === "host" ? "Host" : "Traveler"} joined the waitlist`;
 
-    const response = await fetch(zeptomailUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Zoho-enczapikey ${process.env.ZEPTOMAIL_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: { address: "akshaykumar.sharma@wayzyy.com", name: "Wayzyy Waitlist" },
-        to: [
-          {
-            email_address: { address: "akshaykumar.sharma@wayzyy.com", name: "Wayzyy" },
-          },
-        ],
-        reply_to: [{ address: email }],
-        subject: `New ${audience === "host" ? "Host" : "Traveler"} joined the waitlist`,
-        htmlbody: emailHtml,
-      }),
-    });
+    const zeptoKey = process.env.ZEPTOMAIL_API_KEY;
+    const resendKey = process.env.RESEND_API_KEY;
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.error("ZeptoMail error:", err);
-      return res.status(500).json({ error: "Failed to send email" });
+    if (!zeptoKey && !resendKey) {
+      console.error("waitlist: no email provider configured (missing ZEPTOMAIL_API_KEY and RESEND_API_KEY)");
+      return res.status(500).json({ error: "Email not configured" });
+    }
+
+    try {
+      if (zeptoKey) {
+        await sendViaZepto({ from, to, subject, html: emailHtml });
+      } else {
+        await sendViaResend({ from, to, subject, html: emailHtml, replyTo: email });
+      }
+    } catch (zeptoErr) {
+      const zeptoMsg = zeptoErr instanceof Error ? zeptoErr.message : String(zeptoErr);
+      console.error("ZeptoMail failed:", zeptoMsg);
+      if (zeptoKey && resendKey) {
+        try {
+          await sendViaResend({ from, to, subject, html: emailHtml, replyTo: email });
+        } catch (resendErr) {
+          console.error("Resend fallback also failed:", resendErr);
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+      } else {
+        return res.status(500).json({ error: "Failed to send email" });
+      }
     }
 
     return res.status(200).json({ ok: true });
