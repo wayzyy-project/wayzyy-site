@@ -86,6 +86,20 @@ export default function EarningsCalculator() {
       description:
         "Compare how much you'd take home listing a Goa villa on Airbnb versus Wayzyy's no-commission credit model.",
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Wayzyy Airbnb vs Wayzyy Host Earnings Calculator",
+      operatingSystem: "All",
+      applicationCategory: "BusinessApplication",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "INR",
+      },
+      description:
+        "Calculate and compare host platform commission fees on Airbnb vs Wayzyy flat prepaid credit packs to see your net home profits.",
+    },
     faqJsonLd,
   ];
 

@@ -2,6 +2,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
+import { InlineCalculator } from "@/components/InlineCalculator";
 
 const post = blogPosts.find((p) => p.slug === "hidden-costs-of-running-an-airbnb")!;
 
@@ -539,16 +540,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
         <p>
           Guest verification on Wayzyy begins with <strong className="text-foreground">DigiLocker-based identity verification</strong>, helping establish trust before arrival. Reviews rated <strong className="text-foreground">three stars or below</strong> go through a manual review process so the complete context can be understood before they're published. Whenever disputes arise, our <strong className="text-ember">three-layer mitigation framework</strong> focuses first on preventing problems, then on mediation and finally on structured evidence-based resolution if required. Instead of relying on a traditional commission model, we chose a <strong className="text-ember">recharge-based credit system</strong> that allows many hosts to operate at an effective platform cost of around <strong className="text-foreground">2–3%</strong> as booking volume grows.
         </p>
-        <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
-          <p className="font-semibold text-foreground mb-1">See what 2–3% actually means for your numbers</p>
-          <p className="text-sm text-muted-foreground">
-            Enter your own booking value in our{" "}
-            <a href="/earnings-calculator" className="text-ember hover:underline">
-              host earnings calculator
-            </a>{" "}
-            to compare exact take-home earnings on Airbnb's commission vs Wayzyy's credit model.
-          </p>
-        </div>
+        <InlineCalculator />
 
         <p>
           Notice that none of those decisions were made because we wanted to build another booking platform.

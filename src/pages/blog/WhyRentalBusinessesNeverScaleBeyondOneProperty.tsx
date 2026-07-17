@@ -3,6 +3,7 @@ import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { InlineCalculator } from "@/components/InlineCalculator";
 
 const post = blogPosts.find((p) => p.slug === "why-rental-businesses-never-scale-beyond-one-property")!;
 
@@ -191,6 +192,7 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
         <p>
           That's the future we believe in. And that's the kind of hospitality ecosystem we're building at Wayzyy—one where hosts aren't just creating listings, they're building businesses that guests trust, recommend and return to for years to come.
         </p>
+        <InlineCalculator />
 
         <div className="border-t border-border mt-16 pt-12">
           <h3 className="font-display text-2xl text-foreground mb-6 flex items-center gap-2">

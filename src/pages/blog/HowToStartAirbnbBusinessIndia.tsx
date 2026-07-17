@@ -3,6 +3,7 @@ import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { InlineCalculator } from "@/components/InlineCalculator";
 
 const post = blogPosts.find((p) => p.slug === "how-to-start-airbnb-business-india")!;
 
@@ -239,6 +240,9 @@ export default function HowToStartAirbnbBusinessIndia() {
         <p>
           This is one of the reasons Wayzyy follows a different approach. Instead of taking a large percentage from every successful reservation, the platform works on a recharge-based credit model. If your property generates around <strong className="text-foreground">₹1 lakh</strong> in bookings, you're looking at a recharge of roughly <strong className="text-foreground">₹2,200</strong> instead of losing <strong className="text-foreground">₹16,000 or more</strong> in recurring commissions. That difference doesn't just improve profitability—it gives you the flexibility to hire better staff, maintain the property properly and continue investing in the guest experience rather than watching a larger percentage disappear every time your business grows.
         </p>
+        
+        <InlineCalculator />
+
         <p>
           Another habit worth building from the very beginning is treating your finances professionally.
         </p>
