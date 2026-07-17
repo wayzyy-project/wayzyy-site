@@ -13,42 +13,42 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "What is Airbnb's 15.5% Simplified Pricing structure?",
+      "name": "Why will properties cost 15.5% more under Airbnb's new fee structure?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Airbnb's Simplified Pricing is a host-only fee structure where the host pays a flat 15% to 15.5% commission directly on every booking subtotal. Guests no longer see a separate Airbnb service fee at checkout because the entire service cost is absorbed on the host's side. This replaces the traditional split-fee model (where hosts paid ~3% and guests paid a separate service fee of 14% to 16.5%)."
+        "text": "Under the new Simplified Pricing model, Airbnb shifts the entire platform fee (15% to 15.5%) onto the host's invoice instead of splitting it with the guest. Because hosts cannot absorb a 15.5% margin reduction without running at a loss, they are statistically forced to raise their base nightly rates by roughly 15.5% to take home the same net payout. Consequently, the property rate appears 15% more expensive to guests upfront."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is Airbnb forcing hosts to use Simplified Pricing?",
+      "name": "What is the math behind Airbnb's split-fee vs simplified host-only fee?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Airbnb enforces Simplified Pricing for hosts who connect their accounts to third-party software (such as property management systems or channel managers). The platform's goal is to present a clean, transparent upfront price to guests without itemized service fee markups, though it effectively shifts the tax and platform cost burden directly onto the host's payout."
+        "text": "In the split-fee model, the host pays 3% and the guest pays a 14% to 16.5% service fee at checkout. In the simplified host-only model, the guest pays 0% service fee at checkout, but the host is charged a flat 15.5% fee on the booking subtotal. To take home the same payout of ₹9,700 on a ₹10,000 villa, a host must raise the base rate to ₹11,500 on the host-only model, meaning guests pay ₹11,500 instead of ₹11,400."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I raise my prices by 15.5% on Airbnb to recover the cost?",
+      "name": "How does the guest service fee shift affect host competitiveness?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simply raising your nightly rates by 15.5% is a risky strategy. It can push your property into a higher pricing bracket where you compete with more luxurious listings, potentially reducing your search ranking and occupancy. Instead of a single blanket raise, hosts should analyze local competition, seasonality, and operate a multi-channel direct booking strategy to diversify risk."
+        "text": "By shifting the service fee onto the host payout, properties look more expensive in search results. A villa priced at ₹10,000 suddenly looks like ₹11,500 in search feeds, pushing it into a higher pricing tier where it competes with more premium accommodations, which can negatively affect click-through rates and booking conversions."
       }
     },
     {
       "@type": "Question",
-      "name": "How does Wayzyy's fee model compare to Airbnb's 15.5% fee?",
+      "name": "How does Wayzyy prevent this 15.5% price inflation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Wayzyy uses a recharge-based prepaid credit system instead of a per-booking commission. For example, a ₹2,200 credit pack unlocks ₹1,00,000 in booking value, which equals an effective platform cost of 2.2%. Beyond ₹5,00,000, hosts move to a Custom plan at a flat 2.0% rate. Because Wayzyy does not deduct commissions from payouts, hosts keep 100% of their nightly rates."
+        "text": "Wayzyy replaces commission models with prepaid credit packs (equivalent to a 2% to 2.2% effective fee). Because hosts keep 100% of their nightly rates without deductions, they do not need to inflate their base rates by 15.5%. This allows them to offer lower direct rates to guests while keeping higher margins."
       }
     },
     {
       "@type": "Question",
-      "name": "Is it possible to list my property on both Airbnb and Wayzyy?",
+      "name": "How can hosts build a direct booking strategy to avoid fee hikes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Most professional hosts use a multi-channel strategy. You can list on Airbnb to capture top-of-funnel traffic and list on Wayzyy to offer direct-rate bookings without commissions, helping you reward repeat guests and build business independence."
+        "text": "Hosts can list on flat-fee platforms like Wayzyy, build their own direct booking channels, and incentivize repeat guests with direct-booking discounts. By diversifying channels, they prevent a single platform's policy update from dictating their pricing strategy."
       }
     }
   ]
@@ -80,6 +80,73 @@ export default function RealCostOfAirbnbFee() {
         <p>
           Hosts who decide to absorb the additional fee will see their margins shrink. Those who increase their prices to recover the cost risk becoming less competitive. Neither option is particularly attractive, especially in markets like India where guests often compare properties within very specific budget ranges.
         </p>
+        
+        <h2 className="font-display text-2xl text-foreground mt-8">The 15.5% Price Hike POV: Why Guest Rates Are Rising</h2>
+        <p>
+          Let's look at the actual math and psychology of this shift. Previously, Airbnb split its service fees: hosts paid a small 3% commission, and guests paid a 14% to 16.5% service fee visible at checkout. Under the new "Simplified Pricing" structure, the guest service fee at checkout is eliminated (showing ₹0), but the host is charged a flat 15% to 15.5% fee directly on the payout subtotal.
+        </p>
+        <p>
+          Statistically and economically, hosts cannot simply absorb this 15.5% deduction without running their rental businesses at a loss. To protect their net payouts, hosts are mathematically forced to raise their base nightly rates by roughly 15.5%. 
+        </p>
+        <p>
+          For the guest, the property hasn't changed, but it now appears 15% more expensive upfront in search results. This pushes listings into higher pricing tiers where they must compete with more luxurious properties, often leading to a drop in occupancy.
+        </p>
+
+        {/* Visual Fee Comparison Chart */}
+        <div className="my-8">
+          <img
+            src="/blog/airbnb-fee-comparison-chart.webp"
+            alt="Infographic showing Split Pricing vs Simplified Pricing model fee breakdowns"
+            className="w-full rounded-2xl border border-border object-cover"
+            loading="lazy"
+          />
+          <span className="text-xs text-muted-foreground mt-2 block text-center">Visualizing the shift from guest service fees to host-only invoice deductions</span>
+        </div>
+
+        <h2 className="font-display text-xl text-foreground mt-8">Comparison Matrix: The Split-Fee vs. Simplified Pricing Math</h2>
+        <p>
+          To make the impact clear, let's compare what happens when a host wants to earn a net payout of ₹9,700 on a booking:
+        </p>
+
+        <div className="overflow-x-auto my-6 border border-border rounded-xl">
+          <table className="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr className="bg-muted/50 border-b border-border font-display text-foreground">
+                <th className="p-4 font-semibold">Pricing Metric</th>
+                <th className="p-4 font-semibold">Split-Fee Model (Old 3% Host)</th>
+                <th className="p-4 font-semibold">Simplified Model (New 15.5% Host)</th>
+                <th className="p-4 font-semibold">The Real Impact on Pricing</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border/60">
+              <tr>
+                <td className="p-4 text-muted-foreground font-medium">Nightly Base Rate set by Host</td>
+                <td className="p-4 text-foreground">₹10,000</td>
+                <td className="p-4 text-foreground">₹10,000</td>
+                <td className="p-4 text-muted-foreground">Hosts keeping base rate same lose ₹1,250 on payout.</td>
+              </tr>
+              <tr>
+                <td className="p-4 text-muted-foreground font-medium">Guest Service Fee at Checkout</td>
+                <td className="p-4 text-foreground">~₹1,400 (Paid by guest)</td>
+                <td className="p-4 text-foreground">₹0 (Paid by guest)</td>
+                <td className="p-4 text-muted-foreground">Checkout looks "free" to guests, but base rate is inflated.</td>
+              </tr>
+              <tr>
+                <td className="p-4 text-muted-foreground font-medium">Platform Fee Deducted from Host</td>
+                <td className="p-4 text-foreground">₹300 (3% host fee)</td>
+                <td className="p-4 text-foreground">₹1,550 (15.5% host fee)</td>
+                <td className="p-4 font-semibold text-rose-500">Host payout drops from ₹9,700 to ₹8,450.</td>
+              </tr>
+              <tr className="bg-emerald-500/5">
+                <td className="p-4 text-muted-foreground font-medium">Adjusted Rate (To Keep Original Payout)</td>
+                <td className="p-4 text-foreground">₹10,000</td>
+                <td className="p-4 text-foreground font-semibold text-emerald-500">₹11,500 (+15.5% Hike)</td>
+                <td className="p-4 text-muted-foreground">Guest pays more upfront; property shifts to higher price tier.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <p>
           That pricing decision has a ripple effect. A villa that was comfortably competing around the ₹10,000 mark may now need to be listed at ₹11,500 or more. The property hasn't changed. The amenities haven't changed. The experience hasn't changed. Yet it suddenly finds itself competing with an entirely different set of listings simply because it has moved into a new price bracket.
         </p>
