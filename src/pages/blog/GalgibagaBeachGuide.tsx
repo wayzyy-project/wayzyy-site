@@ -107,137 +107,172 @@ export default function GalgibagaBeachGuide() {
       metaTitle={post.metaTitle}
       metaDescription={post.metaDescription}
       heroImage={post.heroImage}
-      heroImageAlt="Stunning aerial drone view of Galgibaga Beach coastline in South Goa with green forest and turquoise sea"
+      heroImageAlt="Untouched and tranquil coastline of Galgibaga Beach in South Goa under coconut palms"
       publishedDate={post.publishedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
     >
       <div className="space-y-6">
         <p>
-          Tucked away in the far south of Canacona, Galgibaga Beach remains one of the last coastlines in Goa that has resisted the pressure of commercial tourism. If you have spent time in North Goa's crowded tourist zones, walking onto Galgibaga feels like stepping into a different decade. There are no rows of sunbeds, no neon signs, and no electronic music drifting across the sand. Instead, the beach is defined by its dramatic line of Casuarina trees, clean golden sand, and the quiet rhythm of the Arabian Sea.
+          Most people discover <strong>Galgibaga Beach</strong> only after they've visited Goa two or three times.
         </p>
         <p>
-          This pristine state is not an accident of geography—it is protected by law. Galgibaga is one of the very few designated nesting sites for the endangered Olive Ridley sea turtles in India. As a result, commercial building, loud music, and bright lights are strictly prohibited on the shoreline, ensuring that this delicate ecological sanctuary remains completely undisturbed.
+          Their first trip usually revolves around Baga, Calangute, <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline">Anjuna</Link> or <Link to="/blog/palolem-beach-south-goa-guide" className="text-ember hover:underline">Palolem</Link>. Their second trip is often about finding quieter beaches. That's when Galgibaga starts appearing in conversations, Reddit threads and recommendations from locals who'd rather not see it become the next overcrowded destination.
+        </p>
+        <p>
+          Located in the <strong>Canacona</strong> region of <strong>South Goa</strong>, around <strong>7 km from Palolem Beach</strong>, Galgibaga is one of the few places in Goa that still feels remarkably untouched. It's also one of only <strong>three officially protected Olive Ridley turtle nesting beaches</strong> in the state, alongside Agonda and Morjim, which explains why development here has remained intentionally limited.
+        </p>
+        <p>
+          If you're expecting rows of beach shacks, loud music, water sports and a packed shoreline, you'll probably be disappointed. If you're looking for a long stretch of silver sand, peaceful walks, dramatic sunsets and a beach where conservation comes before commercialization, Galgibaga offers something that's becoming increasingly difficult to find in Goa.
+        </p>
+        <p>
+          That's also why many travel guides fail to set the right expectations.
+        </p>
+        <p>
+          Most describe Galgibaga as a "hidden gem" and stop there. What they don't tell you is that choosing to visit Galgibaga means accepting a different kind of beach experience. There are no endless cafés lining the shore, no beach clubs and very few commercial establishments. The lack of development isn't accidental—it's a direct result of the area's protected turtle nesting status, which has helped preserve the coastline in its natural form.
+        </p>
+        <p>
+          The beach itself stretches for around <strong>1.7 kilometres</strong> and is divided into two distinct sections. The southern side is open to visitors, while parts of the northern section remain protected during the turtle nesting season because that's where the <strong>Galgibaga River</strong> meets the Arabian Sea. This estuary is not only one of the most scenic parts of the beach but also attracts birdlife that many visitors don't expect to find here.
+        </p>
+        <p>
+          Another reason Galgibaga feels different is the crowd. Even during Goa's busiest months, this beach rarely feels packed. Instead of competing for space on the sand, you'll often find photographers waiting for sunset, couples enjoying a quiet evening walk, birdwatchers exploring the estuary and travellers who've deliberately driven past the busier beaches in search of something more peaceful.
+        </p>
+        <p>
+          If you're planning a <Link to="/blog/south-goa-travel-guide" className="text-ember hover:underline">South Goa itinerary</Link>, Galgibaga isn't the place where you'll spend an entire day hopping between activities. It's the place where you slow down, put your phone away and appreciate why some beaches are better left exactly as they are.
+        </p>
+        <p>
+          Before deciding whether Galgibaga deserves a place on your itinerary, it's worth understanding what the beach is actually like once you arrive—because the reality is quite different from what most travel blogs describe.
         </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">The Turtles of Galgibaga: A Protected Sanctuary</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">What Galgibaga Beach Is Actually Like</h2>
         <p>
-          The most important aspect of Galgibaga's identity is its role as a nesting sanctuary for the Olive Ridley turtles. Every winter, mature female turtles return to the very beach where they hatched decades ago to lay their eggs in the soft, dry sand above the high-tide line.
+          One of the biggest mistakes travellers make is arriving at Galgibaga expecting another Palolem or Agonda. It isn't. In fact, that's exactly what makes it special.
         </p>
-        <div className="my-8">
-          <img
-            src="/blog/galgibaga-turtles.webp"
-            alt="Olive Ridley baby turtles crawling on the sand toward the sea"
-            className="w-full rounded-2xl border border-border object-cover aspect-video"
-            loading="lazy"
-          />
-        </div>
         <p>
-          The nesting season generally begins in November and runs through March, with hatchlings emerging and making their way to the sea as late as April. During this period, the Goa Forest Department operates a round-the-clock monitoring station on the beach. Nests are carefully fenced off to protect them from birds, crabs, and stray dogs. While you can visit the beach during the day, visitors are asked to respect the nesting zones, avoid littering, and refrain from using flashlights or building fires at night, which can disorient nesting turtles and emerging hatchlings.
+          Unlike many beaches in Goa that have gradually become lined with cafés, beach shacks and commercial activities, Galgibaga has remained largely untouched. There are no rows of restaurants facing the sea, no water sports operators calling you over and no music playing from beach clubs throughout the day. Instead, you'll find a long stretch of open shoreline where the sound of the waves is often the loudest thing you'll hear.
+        </p>
+        <p>
+          The beach itself is divided into two distinct sections, something surprisingly few travel guides explain clearly. The <strong>southern section</strong> is where most visitors spend their time walking, relaxing and watching the sunset. Towards the <strong>northern end</strong>, where the Galgibaga River meets the Arabian Sea, you'll find the protected turtle nesting area. During the nesting season, this section is monitored by the Forest Department, and visitors are expected to respect the restricted zones that help protect the nesting sites.
+        </p>
+        <p>
+          One detail that often catches visitors by surprise is the colour of the beach. Unlike the golden sand many people associate with Goa, Galgibaga has a distinctive <strong>silver-hued shoreline</strong> stretching for around <strong>1.7 kilometres</strong>. At one end, the estuary creates a peaceful setting that's popular with birdwatchers, while the opposite end features volcanic rocks and a small natural lagoon that many travellers discover only after walking the length of the beach. These are some of the most photogenic parts of Galgibaga, yet they're rarely mentioned in mainstream travel guides.
+        </p>
+        <p>
+          Because the beach is protected, facilities are intentionally limited. There are no beach shacks, no public changing rooms, no lifeguards and no large restaurants directly on the sand. Near the entrance, you'll usually find a small local shop selling drinking water, snacks and a few basic essentials, but that's about it. If you're planning to spend several hours here, it's worth carrying enough water, sunscreen and anything else you might need before arriving.
+        </p>
+        <p>
+          Swimming is generally possible, but it's important to know where. The waters along most of the accessible beach are relatively calm, making them suitable for a relaxed swim when sea conditions are favourable. However, the <strong>river mouth near the northern estuary</strong> can have noticeably stronger currents, so it's best avoided, particularly if you're unfamiliar with the area. Since there are no lifeguards or designated swimming zones, you'll need to assess the conditions carefully before entering the water.
+        </p>
+        <p>
+          Perhaps the biggest trade-off is connectivity—not just in terms of mobile signal, but convenience overall. Mobile coverage can be patchy depending on your network, parking requires a short walk across soft sand, and you won't have dozens of cafés or shops within a few minutes' walk. For some travellers, these are inconveniences. For others, they're exactly why Galgibaga remains one of the few beaches in Goa that still feels genuinely peaceful.
         </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">Pine Trees and Volcanic Rocks: Reaching the Shoreline</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">The Turtle Nesting Season: What to Expect (And What Not to Do)</h2>
         <p>
-          Entering Galgibaga Beach is a visual experience in itself. Unlike beaches where you step directly from tarmac to sand, here you walk through a thick grove of towering pine and Casuarina trees. This green canopy keeps the approach cool and shaded, creating a sense of transition between the outside world and the quiet beach.
+          The biggest reason Galgibaga Beach has remained so untouched isn't luck. It's conservation.
         </p>
-        <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <img
-              src="/blog/galgibaga-beach-trees.webp"
-              alt="Casuarina pine tree canopy lining the golden sands of Galgibaga Beach"
-              className="w-full rounded-xl border border-border object-cover aspect-[4/3]"
-              loading="lazy"
-            />
-            <span className="text-xs text-muted-foreground mt-2 block text-center">The shaded pine grove approach</span>
-          </div>
-          <div>
-            <img
-              src="/blog/galgibaga-rocks.webp"
-              alt="Red volcanic rocks along the tide line at Galgibaga Beach during sunset"
-              className="w-full rounded-xl border border-border object-cover aspect-[4/3]"
-              loading="lazy"
-            />
-            <span className="text-xs text-muted-foreground mt-2 block text-center">Volcanic rock formations at sunset</span>
-          </div>
-        </div>
         <p>
-          At the southern tip of the beach, the sandy shoreline is framed by striking red volcanic rock formations that run down into the water. During low tide, these rocks form quiet tidal pools that are perfect for quiet exploration. The combination of the deep green pine trees, the warm golden sand, and the dark red volcanic rocks makes Galgibaga one of the most geographically diverse and visually stunning beaches in all of Goa.
+          Galgibaga is one of only <strong>three officially designated Olive Ridley turtle nesting beaches in Goa</strong>, alongside <Link to="/blog/agonda-beach-south-goa-guide" className="text-ember hover:underline">Agonda</Link> and Morjim. Every year, female Olive Ridley turtles return to this coastline to lay their eggs, making the beach one of Goa's most important protected coastal ecosystems.
+        </p>
+        <p>
+          The nesting season generally begins in <strong>November</strong>, with the highest activity taking place between <strong>December and February</strong>. The Goa Forest Department continues monitoring the beach until around <strong>April</strong>, protecting nests and ensuring hatchlings have the best possible chance of reaching the sea safely.
+        </p>
+        <p>
+          This conservation work is also the reason Galgibaga looks so different from many other beaches. The absence of beach shacks, commercial construction and heavy nightlife isn't because the area hasn't been developed—it's because development is intentionally restricted to protect one of Goa's most sensitive nesting habitats. In many ways, the peaceful atmosphere visitors enjoy today exists because these conservation efforts have been taken seriously for years.
+        </p>
+        <p>
+          If you're visiting during the nesting season, it's important to understand that parts of the beach operate differently. The <strong>northern section</strong>, where most nesting activity takes place, is protected and may have restricted public access. Visitors are expected to remain within accessible areas, follow Forest Department signage and avoid entering protected nesting zones. During some periods, <strong>late-night access may also be restricted</strong> to minimise disturbance to nesting turtles and hatchlings.
+        </p>
+        <p>
+          One question many travellers ask is: <strong>"Can I actually see the turtles?"</strong>
+        </p>
+        <p>
+          Possibly—but only under the right circumstances. The Goa Forest Department occasionally organises <strong>limited, supervised hatchling-viewing sessions</strong> for the public. These aren't daily tourist attractions or commercial experiences. They're conducted in a controlled manner to ensure the turtles aren't disturbed, and availability depends entirely on the nesting season and conservation requirements. If you're specifically hoping to witness this experience, it's worth checking with the Canacona Forest Department or asking your accommodation in Palolem or Agonda if any supervised viewings are taking place during your visit.
+        </p>
+        <p>
+          Whether or not you see a turtle, every visitor plays a role in protecting the beach. A few simple actions make a significant difference:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-muted-foreground text-sm">
+          <li>Avoid using flash photography near nesting areas.</li>
+          <li>Don't shine torches or phone lights towards the beach at night.</li>
+          <li>Never touch turtle nests, eggs or hatchlings.</li>
+          <li>Stay outside protected nesting zones.</li>
+          <li>Avoid creating loud noise, especially after sunset.</li>
+          <li>Leave the beach exactly as you found it by carrying your waste back with you.</li>
+        </ul>
+
+        <h2 className="font-display text-2xl text-foreground mt-8">How to Reach Galgibaga Beach (And the Parking Reality Nobody Warns You About)</h2>
+        <p>
+          Getting to <strong>Galgibaga Beach</strong> is fairly straightforward, but the last few minutes of the journey are something most travel guides completely overlook.
+        </p>
+        <p>
+          If you're already staying in Palolem, you'll reach Galgibaga in around <strong>15 to 20 minutes</strong> by scooter or car. From Patnem, the drive is even shorter at roughly <strong>10 to 15 minutes</strong>, while Agonda is about <strong>20 to 25 minutes</strong> away. This makes Galgibaga one of the easiest day trips if you're exploring the southern coastline of Goa.
+        </p>
+        <p>
+          If you're travelling directly from the airports, expect a longer drive. <strong>Dabolim Airport</strong> is approximately <strong>75 km</strong> away, taking around <strong>1.5 to 2 hours</strong>, while <strong>Manohar International Airport (Mopa)</strong> is roughly <strong>95 km</strong>, with a journey time of about <strong>2 to 2.5 hours</strong>, depending on traffic. Travellers arriving by train will usually find Canacona Railway Station the closest option, although Madgaon Junction offers better connectivity from major cities across India.
+        </p>
+        <p>
+          For most visitors, <strong>renting a scooter is by far the best way to reach Galgibaga</strong>. The roads leading towards the beach are generally comfortable to drive, but the final approach is where things become different. During the last stretch, the road narrows considerably, and the final <strong>200 metres</strong> leading to the beach effectively become a <strong>single-lane access road</strong>. It's not difficult to navigate, but larger vehicles may need to wait for oncoming traffic before proceeding.
+        </p>
+        <p>
+          This also explains why parking catches many first-time visitors by surprise. There isn't a large, organised parking lot waiting at the beach entrance. Instead, visitors usually park along an informal roadside area before the final approach and then walk the remaining distance across soft sand to reach the shoreline. There is <strong>no confirmed parking fee</strong>, but because the parking area isn't formally developed, it's worth arriving a little earlier during weekends or peak season.
+        </p>
+        <p>
+          The short walk isn't particularly difficult for most travellers, but it's something families with strollers or elderly visitors should keep in mind. There are no paved pathways or accessibility ramps, so comfortable footwear is always a better choice than carrying heavy luggage or multiple bags.
+        </p>
+        <p>
+          Another practical tip is to <strong>download your maps before leaving Palolem or Agonda</strong>. Mobile connectivity near Galgibaga can be inconsistent depending on your network provider. Offline maps downloaded before starting the drive can save unnecessary frustration.
+        </p>
+
+        <h2 className="font-display text-2xl text-foreground mt-8">Is Galgibaga Beach Safe for Swimming?</h2>
+        <p>
+          For most visitors, <strong>yes—Galgibaga Beach is generally safe for swimming</strong>, but it's important to understand that this isn't a heavily managed tourist beach. Unlike beaches with designated swimming zones, lifeguard towers and warning flags, Galgibaga remains largely untouched.
+        </p>
+        <p>
+          Along most of the accessible southern stretch, the sea is usually calm during the tourist season, making it suitable for a relaxed swim when weather conditions are favourable. Families with children often choose this part of the beach because the shoreline slopes gently and the atmosphere is much quieter than many of Goa's more commercial beaches.
+        </p>
+        <p>
+          However, the same advice doesn't apply to the entire coastline. Towards the <strong>northern end</strong>, where the <strong>Galgibaga River</strong> flows into the Arabian Sea, currents can become noticeably stronger. Although the estuary is one of the most scenic parts of the beach, it's also the area where swimming should be avoided. The changing currents near the river mouth can be unpredictable.
+        </p>
+        <p>
+          Another important point is that <strong>there are no lifeguards stationed at Galgibaga Beach</strong>. There are no marked swimming areas, no safety flags and no rescue services. Before entering the water, always assess the conditions yourself.
+        </p>
+        <p>
+          The same "come prepared" approach applies to the rest of your visit. You'll find <strong>no public toilets, no changing rooms and no beach shacks</strong> once you reach the sand. Carry drinking water, sunscreen and essentials.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">What to Visit Near Galgibaga Beach</h2>
         <p>
-          One of the biggest advantages of visiting Galgibaga Beach is that you're already in one of the most beautiful parts of South Goa. Instead of making the drive just to spend an hour on the beach, it's worth planning a full day around the surrounding coastline. Within a short distance, you'll find some of Goa's most scenic beaches, peaceful villages and nature experiences, all without the crowds that are common further north.
+          One of the biggest advantages of visiting Galgibaga Beach is that you're already in one of the most beautiful parts of South Goa. Instead of making the drive just to spend an hour on the beach, it's worth planning a full day around the surrounding coastline.
         </p>
         <p>
-          The easiest addition to your itinerary is Palolem Beach, located just 7 kilometres away. Famous for its crescent-shaped shoreline, colourful cafés and kayaking experiences, Palolem offers a completely different atmosphere from Galgibaga. Many travellers actually choose to stay in Palolem and make a half-day trip to Galgibaga because it combines convenience with easy access to quieter beaches. If you're deciding where to base yourself, Palolem gives you restaurants, supermarkets, medical facilities and a much wider choice of villas and stays while keeping Galgibaga within a comfortable 15 to 20-minute scooter ride.
+          The easiest addition to your itinerary is <Link to="/blog/palolem-beach-south-goa-guide" className="text-ember hover:underline">Palolem Beach</Link>, located just <strong>7 kilometres</strong> away. Palolem offers a completely different atmosphere. Many travellers choose to stay in Palolem and make a half-day trip to Galgibaga. If you're deciding where to base yourself, Palolem gives you restaurants, supermarkets, medical facilities and a much wider choice of villas while keeping Galgibaga within a comfortable <strong>15 to 20-minute scooter ride</strong>.
         </p>
         <p>
-          Just a little further north is Patnem Beach, often described as Palolem's quieter neighbour. It attracts travellers looking for yoga retreats, peaceful cafés and a slower pace without feeling completely isolated. If Palolem feels a little too busy during peak season, Patnem offers a great middle ground while remaining only a short drive from Galgibaga.
+          Just a little further north is <Link to="/blog/patnem-beach-south-goa-guide" className="text-ember hover:underline">Patnem Beach</Link>, often described as Palolem's quieter neighbour. It attracts travellers looking for yoga retreats, peaceful cafés and a slower pace without feeling completely isolated.
         </p>
         <p>
-          If hidden beaches are what brought you to South Goa in the first place, <Link to="/blog/south-goa-travel-guide" className="text-ember hover:underline">Cola Beach</Link> deserves a place on your itinerary. Known for its freshwater lagoon and dramatic coastline, Cola remains one of Goa's most unique beaches. Like Galgibaga, reaching it takes a little extra effort, but that's also why it has managed to retain much of its natural beauty. It's an excellent destination to combine with Galgibaga if you have an entire day and your own scooter or car.
+          If hidden beaches are what brought you to South Goa, Cola Beach deserves a place on your itinerary. Known for its freshwater lagoon and dramatic coastline, Cola remains one of Goa's most unique beaches. Reaching it takes a little extra effort, but that's why it has managed to retain its natural beauty.
         </p>
         <p>
-          Travellers looking for something beyond beaches should consider Cabo de Rama Fort. Perched high above the Arabian Sea, the fort offers sweeping coastal views and one of the most peaceful sunset spots in Goa. Unlike many historical attractions that require hours to explore, Cabo de Rama can comfortably fit into the same day's itinerary while adding a completely different perspective to your South Goa trip.
-        </p>
-        <p>
-          Nature lovers can also head towards Cotigao Wildlife Sanctuary, one of Goa's lesser-known protected forests. Home to deer, monkeys, birdlife and the occasional Indian bison, it's a refreshing change from the coastline and a great option for travellers spending several days exploring South Goa.
-        </p>
-        <p>
-          If you're staying in Palolem, you'll also find plenty of activities that complement a Galgibaga visit. Morning dolphin-watching trips, sunset kayaking sessions and boat rides to Butterfly Beach are all easily accessible from Palolem's shoreline, making it one of the best bases for exploring this entire part of South Goa.
-        </p>
-        <p>
-          In fact, that's the approach we'd generally recommend.
-        </p>
-        <p className="font-semibold text-center text-lg italic text-ember my-4">
-          Rather than trying to find accommodation directly at Galgibaga, most travellers will have a better overall experience by staying in Palolem or Patnem and exploring Galgibaga as a peaceful day trip.
-        </p>
-        <p>
-          You'll enjoy far better dining options, easier transport, more accommodation choices and reliable facilities while still being only a short drive away from one of Goa's most untouched beaches.
-        </p>
-        <p>
-          That naturally leads to one final decision before you book your trip: Should you actually stay near Galgibaga, or is it better to use Palolem or Patnem as your base while exploring South Goa?
+          Travellers looking for something beyond beaches should consider Cabo de Rama Fort. Perched high above the Arabian Sea, the fort offers sweeping coastal views and one of the most peaceful sunset spots in Goa. Nature lovers can also head towards Cotigao Wildlife Sanctuary, one of Goa's lesser-known protected forests.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Should You Stay at Galgibaga or Base Yourself in Palolem?</h2>
         <p>
-          This is probably the most important decision you'll make if you're planning to visit Galgibaga.
+          This is probably the most important decision you'll make if you're planning to visit Galgibaga. The truth is that <strong>Galgibaga is a destination, not a tourist hub</strong>.
         </p>
         <p>
-          While staying directly beside the beach sounds appealing, it's not necessarily the best option for every traveller. The truth is that Galgibaga is a destination, not a tourist hub. That's exactly what makes it so special.
+          There are only a handful of homestays near the beach, and accommodation options remain deliberately limited because of the protected nesting status. If your idea of a holiday is complete silence, waking up to an almost empty beach and disconnecting, staying near Galgibaga can be a wonderful experience. Just remember that you'll be giving up many of the conveniences travellers take for granted.
         </p>
         <p>
-          There are only a handful of homestays and seasonal beach huts near the beach, and accommodation options remain deliberately limited because of the area's protected turtle nesting status. If your idea of a holiday is complete silence, waking up to an almost empty beach and disconnecting from everything for a few days, staying near Galgibaga can be a wonderful experience. Just remember that you'll also be giving up many of the conveniences travellers often take for granted, including restaurants, supermarkets, nightlife and a wider choice of accommodation.
+          For most visitors, <strong>Palolem is the better base</strong>. Located just 7 kilometres away, it gives you the best of both worlds. During the day, you can explore Galgibaga, Patnem or Butterfly Beach, and by evening return to a place with excellent cafés, restaurants, medical facilities and a much larger selection of accommodation.
         </p>
         <p>
-          For most visitors, Palolem is the better base.
+          If you're looking for something quieter than Palolem but don't want to stay as remotely as Galgibaga, Patnem is an excellent middle ground.
         </p>
         <p>
-          Located just 7 kilometres away, it gives you the best of both worlds. During the day, you can explore Galgibaga, Patnem or Butterfly Beach, and by evening return to a place with excellent cafés, restaurants, medical facilities, reliable mobile connectivity and a much larger selection of accommodation. It's also where most dolphin trips, kayaking tours and boat excursions begin, making it a practical choice if you're planning to explore more of South Goa during your stay.
-        </p>
-        <p>
-          If you're looking for something quieter than Palolem but don't want to stay as remotely as Galgibaga, Patnem is an excellent middle ground. It offers a more relaxed atmosphere, yoga studios, independent cafés and easy access to Galgibaga without feeling completely disconnected. Many travellers who have already experienced Palolem choose Patnem for exactly this reason.
-        </p>
-        <p>
-          The type of accommodation you choose matters just as much as the location.
-        </p>
-        <p>
-          Families and groups often prefer private villas because they offer more space, shared living areas, kitchens and a much more relaxed experience than booking multiple hotel rooms. Couples planning longer stays also increasingly choose boutique villas and vacation homes over traditional hotels, especially in quieter parts of South Goa where the accommodation itself becomes part of the holiday.
-        </p>
-        <p>
-          That's also why it's worth paying attention to where you book.
-        </p>
-        <p>
-          Instead of simply comparing prices, look for platforms that focus on verified vacation rentals and transparent listings. At Wayzyy, every Wayzyy Verified property goes through a manual review process before receiving its verification badge. That means guests can book with greater confidence, knowing the photographs, amenities and listing details have been reviewed rather than relying purely on edited images or outdated descriptions. It's a small difference during the booking process, but it can make a significant difference once you arrive.
-        </p>
-        <p>
-          Ultimately, there isn't a right or wrong choice. If your goal is complete peace, nature and disconnecting for a few days, staying near Galgibaga may be exactly what you're looking for.
-        </p>
-        <p className="font-semibold text-foreground text-center text-lg italic my-4">
-          Basing yourself in Palolem or Patnem and exploring Galgibaga as a day trip is the option we'd recommend to most travellers.
-        </p>
-        <p>
-          It gives you far more flexibility while still allowing you to experience one of Goa's last truly untouched beaches.
+          At Wayzyy, we focus on curated, verified villa stays. Every verified property goes through a manual review process before receiving its verification badge, helping guests book with greater confidence.
         </p>
       </div>
 
@@ -245,7 +280,7 @@ export default function GalgibagaBeachGuide() {
       <div className="border-t border-border mt-16 pt-12">
         <h3 className="font-display text-2xl text-foreground mb-6 flex items-center gap-2">
           <HelpCircle className="w-6 h-6 text-ember" />
-          Frequently Asked Questions
+          Frequently Asked Questions About Galgibaga Beach
         </h3>
         <div className="space-y-4">
           {faqJsonLd.mainEntity.map((faq, index) => (
@@ -255,7 +290,7 @@ export default function GalgibagaBeachGuide() {
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full text-left px-6 py-4 flex items-center justify-between font-display text-foreground hover:bg-muted/50 transition-colors"
+                className="w-full text-left px-6 py-4 flex items-center justify-between font-display text-foreground hover:bg-muted/50 transition-colors text-sm sm:text-base"
               >
                 <span>{faq.name}</span>
                 <span className="text-muted-foreground font-light text-xl">
@@ -270,6 +305,16 @@ export default function GalgibagaBeachGuide() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-12 space-y-6">
+        <h2 className="font-display text-2xl text-foreground">Final thoughts</h2>
+        <p>
+          Ultimately, there isn't a right or wrong choice. If your goal is complete peace, nature and disconnecting for a few days, staying near Galgibaga may be exactly what you're looking for.
+        </p>
+        <p>
+          If you're visiting South Goa for the first time, however, basing yourself in Palolem or Patnem and exploring Galgibaga as a day trip is the option we'd recommend to most travellers. It gives you far more flexibility while still allowing you to experience one of Goa's last truly untouched beaches.
+        </p>
       </div>
     </BlogLayout>
   );
