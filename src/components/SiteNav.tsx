@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { KeyJuggler } from "@/components/KeyJuggler";
 
 export function SiteNav() {
   const { scrollY } = useScroll();
@@ -42,7 +43,11 @@ export function SiteNav() {
           <Link className="hover:text-foreground" to="/blog">
             Blog
           </Link>
-          <Link className="hover:text-foreground" to="/host">
+          <Link
+            className="group flex items-center gap-1.5 font-bold text-ember hover:text-ember/80"
+            to="/host"
+          >
+            <KeyJuggler className="h-6 w-6 text-ember" />
             Hosting
           </Link>
         </nav>
