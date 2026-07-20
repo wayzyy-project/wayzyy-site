@@ -125,6 +125,20 @@ const routes = [
     }
   },
   {
+    path: '/host',
+    title: 'List your property — Wayzyy',
+    description: "List your property on Wayzyy directly from the web — the same platform, review process, and database hosts use on the app.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "List your property — Wayzyy",
+      "url": "https://wayzyy.com/host",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/policies',
     title: 'Policies — Wayzyy',
     description: "Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal.",

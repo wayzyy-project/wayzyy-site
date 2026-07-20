@@ -42,6 +42,9 @@ export function SiteNav() {
           <Link className="hover:text-foreground" to="/blog">
             Blog
           </Link>
+          <Link className="hover:text-foreground" to="/host">
+            Hosting
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
