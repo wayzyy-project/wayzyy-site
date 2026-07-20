@@ -136,6 +136,46 @@ export default function PatnemBeachGuide() {
           It is a favorite among digital nomads, couples looking for a slower getaway, and families who want plenty of space to enjoy the ocean without the constant tourist crowds.
         </p>
 
+        <h2 className="font-display text-2xl text-foreground mt-8">How to Reach Patnem Beach</h2>
+        <p>
+          One of Patnem's biggest advantages is that while it feels peaceful and tucked away from Goa's busier tourist hubs, getting here is surprisingly straightforward. Whether you're flying into Goa, arriving by train, or driving down from another city, Patnem is well connected to the rest of the state.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-6">By Air</h3>
+        <p>
+          The closest airport is Manohar International Airport (Mopa) in North Goa, while Goa International Airport (Dabolim) is another popular option, especially for domestic flights. From either airport, the easiest way to reach Patnem is by pre-booked taxi or app-based cab. The drive from Dabolim usually takes around 1.5 hours, while Mopa is slightly farther away and typically takes around 2 to 2.5 hours, depending on traffic.
+        </p>
+        <p>
+          If you're planning to explore different parts of South Goa during your trip, renting a scooter or car after arriving is often the most convenient option.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-6">By Train</h3>
+        <p>
+          The nearest railway station is Canacona, located just a few kilometres from Patnem Beach. From the station, you'll find taxis and auto-rickshaws that can get you to the beach in around 10 minutes, making train travel one of the easiest ways to reach Patnem if you're coming from cities like Mumbai, Bengaluru, Kochi, or Mangalore.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-6">By Road</h3>
+        <p>
+          Driving to Patnem is a popular choice for travellers from Karnataka, Maharashtra, and nearby parts of Goa. The roads leading into South Goa are generally well maintained, and having your own vehicle makes it much easier to explore nearby beaches such as Agonda, Palolem, Galgibaga, Cola Beach, and Cabo de Rama without relying on taxis.
+        </p>
+        <p>
+          Parking is available near most accommodations, although beachfront areas can become busier during the peak tourist season.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-6">Getting Around Once You're There</h3>
+        <p>
+          Patnem itself is relatively compact. Most cafés, restaurants, beach shacks, and accommodations are within walking distance, so you probably won't need transport for your daily routine.
+        </p>
+        <p>
+          However, if you're planning to explore beyond Patnem, renting a scooter is easily the most practical option. It gives you the freedom to visit nearby beaches, hidden viewpoints, local markets, and attractions at your own pace without having to negotiate taxi fares every day.
+        </p>
+        <p>
+          Many visitors actually base themselves in Patnem for this reason. Instead of changing hotels every couple of days, they stay in one place and take short day trips across South Goa. Within 10–30 minutes, you can reach destinations like Palolem Beach, Agonda Beach, Cola Beach, Galgibaga Beach, Butterfly Beach (via boat or trek), and even the historic Cabo de Rama Fort.
+        </p>
+        <p>
+          That central location is one of Patnem's biggest strengths. You get a peaceful beach to return to every evening while still being close to many of South Goa's best attractions, making it an excellent base for exploring the region rather than just visiting a single beach.
+        </p>
+
         <h2 className="font-display text-2xl text-foreground mt-8">Best Things to Do Near Patnem Beach</h2>
         <p>
           One of the biggest advantages of staying in Patnem is that you're never limited to just one beach. While Patnem itself is perfect for slow mornings and relaxed evenings, its location makes it incredibly easy to explore some of South Goa's most beautiful attractions without spending hours on the road. Most places are less than 30 minutes away, making them ideal for half-day trips or spontaneous detours on a scooter.
