@@ -492,4 +492,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-11",
     readTime: "11 Min Read",
   },
+  {
+    slug: "cola-beach-goa-guide",
+    title: "Cola Beach Goa (2026): The Honest Guide to South Goa’s Most Dramatic Hidden Beach",
+    description:
+      "Planning a trip to Cola Beach in South Goa? Read our honest guide to the famous freshwater lagoon, swimming safety tips, road conditions, and things to do nearby.",
+    metaTitle: "Cola Beach Goa Guide (2026) — Freshwater Lagoon & Hidden Stays",
+    metaDescription:
+      "Heading to Cola Beach in South Goa? Read our complete, honest guide to the famous freshwater lagoon, beach cottages, road safety, and nearby attractions.",
+    heroImage: "/blog/cola-beach-lagoon-aerial.webp",
+    publishedDate: "2026-08-12",
+    readTime: "10 Min Read",
+  },
 ];
