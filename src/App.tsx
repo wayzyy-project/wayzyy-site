@@ -57,6 +57,7 @@ import GalgibagaBeachGuide from "./pages/blog/GalgibagaBeachGuide";
 import PalolemBeachGuide from "./pages/blog/PalolemBeachGuide";
 import WhereToStayInSouthGoa from "./pages/blog/WhereToStayInSouthGoa";
 import RealCostOfAirbnbFee from "./pages/blog/RealCostOfAirbnbFee";
+import AgondaBeachGuide from "./pages/blog/AgondaBeachGuide";
 
 const queryClient = new QueryClient();
 
@@ -127,6 +128,7 @@ const App = () => (
               <Route path="/blog/palolem-beach-south-goa-guide" element={<PalolemBeachGuide />} />
               <Route path="/blog/where-to-stay-in-south-goa" element={<WhereToStayInSouthGoa />} />
               <Route path="/blog/real-cost-of-airbnb-fee" element={<RealCostOfAirbnbFee />} />
+              <Route path="/blog/agonda-beach-south-goa-guide" element={<AgondaBeachGuide />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </SmoothScroll>

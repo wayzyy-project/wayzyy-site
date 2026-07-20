@@ -468,4 +468,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-09",
     readTime: "8 Min Read",
   },
+  {
+    slug: "agonda-beach-south-goa-guide",
+    title: "Agonda Beach Goa (2026): The Honest Guide to Huts, Stays & Slow Travel",
+    description:
+      "Heading to Agonda Beach in South Goa? Read our honest guide on the best time to visit, comparisons with Palolem and Patnem, remote work spaces, and beach shacks.",
+    metaTitle: "Agonda Beach Goa Guide (2026) — Stays, Huts & Slow Travel",
+    metaDescription:
+      "Looking for a quiet beach in South Goa? Read our complete, honest guide to Agonda Beach, turtle nesting seasons, shacks, and comparison with Palolem & Patnem.",
+    heroImage: "/blog/agonda-beach-sand.webp",
+    publishedDate: "2026-08-10",
+    readTime: "12 Min Read",
+  },
 ];
