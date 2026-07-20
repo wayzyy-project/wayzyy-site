@@ -480,4 +480,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-10",
     readTime: "12 Min Read",
   },
+  {
+    slug: "patnem-beach-south-goa-guide",
+    title: "Patnem Beach Goa (2026): The Honest Guide to Huts, Stays & Slow Travel",
+    description:
+      "Heading to Patnem Beach in South Goa? Read our honest guide on things to do nearby, common mistakes to avoid, and comparing Patnem with Palolem & Agonda.",
+    metaTitle: "Patnem Beach Goa Guide (2026) — Stays, Huts & Slow Travel",
+    metaDescription:
+      "Planning a trip to Patnem Beach in South Goa? Read our complete, honest guide to beachfront huts, remote working, local shacks, and planning your stay.",
+    heroImage: "/blog/patnem-beach-shacks.webp",
+    publishedDate: "2026-08-11",
+    readTime: "11 Min Read",
+  },
 ];
