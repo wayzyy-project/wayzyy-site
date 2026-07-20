@@ -58,6 +58,7 @@ import RealCostOfAirbnbFee from "@/pages/blog/RealCostOfAirbnbFee";
 import AgondaBeachGuide from "@/pages/blog/AgondaBeachGuide";
 import PatnemBeachGuide from "@/pages/blog/PatnemBeachGuide";
 import ColaBeachGuide from "@/pages/blog/ColaBeachGuide";
+import ButterflyBeachGuide from "@/pages/blog/ButterflyBeachGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -123,6 +124,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/agonda-beach-south-goa-guide": AgondaBeachGuide,
   "/blog/patnem-beach-south-goa-guide": PatnemBeachGuide,
   "/blog/cola-beach-goa-guide": ColaBeachGuide,
+  "/blog/butterfly-beach-goa-guide": ButterflyBeachGuide,
 };
 
 const output: Record<string, string> = {};

@@ -504,4 +504,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-12",
     readTime: "10 Min Read",
   },
+  {
+    slug: "butterfly-beach-goa-guide",
+    title: "Butterfly Beach Goa (2026): Is It Still Worth the Trip? (The Honest Guide)",
+    description:
+      "Planning a trip to Butterfly Beach in South Goa? Read our honest guide to boat rides, forest trekking routes, swimming conditions, and things to do nearby.",
+    metaTitle: "Butterfly Beach Goa Guide (2026) — Stays, Boat Rides & Trekking",
+    metaDescription:
+      "Heading to Butterfly Beach in South Goa? Read our complete, honest guide to boat trip costs, forest treks, dolphin spotting, and common mistakes to avoid.",
+    heroImage: "/blog/butterfly-beach-aerial-bay.webp",
+    publishedDate: "2026-08-13",
+    readTime: "9 Min Read",
+  },
 ];
