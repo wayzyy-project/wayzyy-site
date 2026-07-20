@@ -188,7 +188,62 @@ export default function RealCostOfAirbnbFee() {
         <p>
           Hosts who decide to absorb the additional fee will see their margins shrink. Those who increase their prices to recover the cost risk becoming less competitive. Neither option is particularly attractive, especially in markets like India where guests often compare properties within very specific budget ranges.
         </p>
-        
+
+        <h2 className="font-display text-2xl text-foreground mt-8">Why Indian Hosts Will Feel This More Than Most Markets</h2>
+        <p>
+          For many hosts in countries like the US, increasing prices by 10–15% may not dramatically change their competitiveness. In India, however, every price increase can have a noticeable impact on bookings because guests are often far more price-sensitive and compare dozens of similar properties before making a decision.
+        </p>
+        <p>
+          Take Goa as an example. A host isn't just paying Airbnb's commission. They're also covering housekeeping, laundry, maintenance, electricity, internet, staff salaries, property management, repairs, and local taxes. During peak seasons like Christmas and New Year, these costs are easier to absorb because demand is naturally high. During the monsoon or shoulder season, however, margins are already much thinner.
+        </p>
+        <p>
+          Now add an additional platform fee into that equation. Hosts are left with two choices:
+        </p>
+        <p>
+          The first is to absorb the additional cost themselves. While this keeps the listing price attractive, it also reduces profitability. For independent hosts managing one or two properties, that might mean delaying maintenance or earning significantly less from each booking.
+        </p>
+        <p>
+          The second option is to increase the nightly rate. That sounds simple until you look at how guests actually search. Most guests don't browse every property available in Goa. They start with a budget. Someone searching for stays under ₹10,000 per night is unlikely to ever see a villa that's now priced at ₹11,500, even if that increase happened solely because the host was trying to recover higher Airbnb host fees.
+        </p>
+        <p>
+          This creates an entirely new competitive landscape. A villa that previously competed with similar ₹10,000 properties is suddenly competing with premium listings that have always been in the ₹11,000–₹12,000 range. At the same time, the original ₹10,000 price bracket is now filled with newer or lower-priced competitors.
+        </p>
+        <p>
+          In other words, increasing prices doesn't just change your revenue—it changes who you're competing against. This is one of the most overlooked consequences of changes in Airbnb pricing, and it's particularly relevant in seasonal markets like Goa, where small pricing differences can significantly influence booking decisions.
+        </p>
+        <p>
+          For hosts managing multiple properties, the challenge becomes even bigger. A small reduction in occupancy or a slight drop in average nightly rates isn't limited to a single booking—it affects cash flow across the entire portfolio. This is why many experienced hosts are no longer looking at this as just another pricing update. They're looking at it as a business decision that could reshape how they price properties, diversify bookings, and reduce dependence on a single platform.
+        </p>
+
+        <h2 className="font-display text-2xl text-foreground mt-8">The Ripple Effect Has Already Started</h2>
+        <p>
+          The impact of Airbnb's new fee structure isn't limited to higher platform fees. It's already beginning to influence how hosts, co-hosts, and property managers negotiate their businesses.
+        </p>
+        <p>
+          One discussion that recently caught our attention perfectly illustrates this. A host shared that after Airbnb introduced the 15.5% host-only fee model, their co-host wanted to increase their commission from 26% to 32%. The host argued that doing so would mean absorbing both Airbnb's additional fee and the higher co-host commission, significantly reducing their own earnings.
+        </p>
+        <p>
+          Whether the co-host's request is reasonable isn't really the point. The bigger takeaway is that a single platform policy change is now affecting agreements between business partners who had already settled on a revenue-sharing model. This isn't an isolated pricing problem anymore—it's becoming an operational one.
+        </p>
+        <p>
+          The same conversations are happening around property management companies, cleaning services, and revenue managers. Everyone in the hosting ecosystem is asking the same question: Who should absorb the additional cost? Should the host accept lower profits? Should the guest pay more? Should co-hosts reduce their margins? Or should everyone share the burden?
+        </p>
+        <p>
+          There isn't a universal answer, which is exactly why this change has created so much uncertainty within the hosting community.
+        </p>
+        <p>
+          Another challenge is that pricing isn't something hosts can simply adjust overnight. Many guests have already saved properties to their wishlists, compare prices over several weeks, or return to the same villa every year. A sudden increase in pricing can easily be interpreted as the host becoming more expensive, even though the underlying economics of the booking have changed.
+        </p>
+        <p>
+          For hosts managing multiple properties, making pricing decisions has also become more complex. Every property sits within a specific pricing range. Increasing rates to recover the new Airbnb fees for hosts doesn't just affect profitability—it changes where that listing appears in the market and which properties it competes against.
+        </p>
+        <p>
+          This is why many experienced hosts are no longer asking, "How do I recover 15.5%?" They're asking a much bigger question: "How much control do I really have over my business if a single platform decision can change my pricing strategy overnight?"
+        </p>
+        <p>
+          That question goes far beyond Airbnb. It's about long-term sustainability. As more hosts recognize the risks of relying on a single marketplace, many are beginning to diversify—listing on multiple platforms, encouraging repeat direct bookings, and exploring alternatives that give them greater control over pricing and their relationship with guests.
+        </p>
+
         <h2 className="font-display text-2xl text-foreground mt-8">The 15.5% Price Hike POV: Why Guest Rates Are Rising</h2>
         <p>
           Let's look at the actual math and psychology of this shift. Previously, Airbnb split its service fees: hosts paid a small 3% commission, and guests paid a 14% to 16.5% service fee visible at checkout. Under the new "Simplified Pricing" structure, the guest service fee at checkout is eliminated (showing ₹0), but the host is charged a flat 15% to 15.5% fee directly on the payout subtotal.
@@ -265,22 +320,6 @@ export default function RealCostOfAirbnbFee() {
           <span className="text-xs text-muted-foreground mt-2 block text-center">Indian hosts discussing the psychological impact of fee integration on average ADRs</span>
         </div>
 
-        <p>
-          That pricing decision has a ripple effect. A villa that was comfortably competing around the ₹10,000 mark may now need to be listed at ₹11,500 or more. The property hasn't changed. The amenities haven't changed. The experience hasn't changed. Yet it suddenly finds itself competing with an entirely different set of listings simply because it has moved into a new price bracket.
-        </p>
-        <p>
-          Guests experience the change differently. Someone who stayed at the same villa last year or has had it saved in their wishlist may simply notice that prices have gone up. Most won't know that platform economics played a role in that increase. To them, it looks like the host decided to charge more.
-        </p>
-        <p>
-          For hosts, however, the decision is rarely that simple. Every increase has to be weighed against occupancy, visibility, repeat bookings, and local competition. It's no longer just about setting the right nightly rate—it's about deciding how much of the additional cost the business can realistically absorb.
-        </p>
-        <p>
-          Perhaps that's the biggest takeaway from all of this. The discussion isn't really about a 15.5% commission. It's about how much influence a single platform can have over thousands of independent businesses.
-        </p>
-        <p>
-          One policy update is enough to trigger changes in pricing strategies, revenue-sharing agreements, guest expectations, and even long-term business planning. That's a level of dependence every host should think about, regardless of which platform they use.
-        </p>
-
         <h2 className="font-display text-xl text-foreground mt-8">The Support Gap: High Commissions Without Host Protection</h2>
         <p>
           This structural dependence is made worse by a lack of platform accountability when real disputes occur. For hosts, paying a premium 15.5% commission should theoretically guarantee a high level of customer protection and mediation. In reality, host communities are filled with stories of arbitrary refund decisions and loophole exploitation where the platform offers little meaningful support.
@@ -300,22 +339,45 @@ export default function RealCostOfAirbnbFee() {
           <span className="text-xs text-muted-foreground mt-2 block text-center">Hosts sharing experiences of platform disputes and arbitrary payout reversals</span>
         </div>
 
+        <h2 className="font-display text-2xl text-foreground mt-8">Why We Believe Hosts Need More Than One Platform</h2>
         <p>
-          This is exactly why many professional hosts don't rely on just one booking channel anymore. They diversify their bookings, build repeat guest relationships, and gradually reduce the risk of having a single platform dictate how their business operates.
+          The biggest lesson from this entire discussion isn't that Airbnb made the wrong decision. Every platform has the right to evolve its pricing model based on its own business objectives.
         </p>
         <p>
-          At Wayzyy, that's the future we believe in. Over the last few months, we've had conversations with more than 100 hosts across India. While every host has different goals and operates in a different market, one concern keeps coming up: they want more control over their business.
+          The bigger lesson is what happens when thousands of businesses depend almost entirely on a single platform. When one company changes its commission structure, hosts immediately have to rethink their pricing strategy. If search algorithms change, hosts adapt again. If fees increase, nightly rates change. If visibility drops, bookings are affected. That's a lot of influence for one platform to have over an entire business.
         </p>
         <p>
-          Wayzyy wasn't built to convince hosts to leave Airbnb or any other OTA. It was built because competition creates healthier marketplaces. When hosts have multiple ways to reach guests, they gain more flexibility over pricing, guests get better choices, and the industry becomes less vulnerable to decisions made by any single platform.
+          Over the last few months, we've spoken with and onboarded more than 100 hosts across India. While every host has a different property and a different pricing strategy, one concern kept coming up repeatedly:
+        </p>
+        <p className="italic pl-4 border-l-2 border-ember text-muted-foreground">
+          "We don't want to depend on just one platform anymore."
+        </p>
+        <p>
+          Not because Airbnb doesn't work. It clearly does. But putting all your bookings, pricing, and visibility in one place means every policy update has an immediate impact on your business.
+        </p>
+        <p>
+          That's one of the biggest reasons we started building Wayzyy. Our goal isn't to ask hosts to leave Airbnb or stop listing on other OTAs. In fact, we believe most professional hosts will continue using multiple platforms because that's simply how modern hospitality works.
+        </p>
+        <p>
+          What we're trying to build is another distribution channel—one where hosts have greater control over their pricing, can build direct relationships with guests, and aren't forced to rethink their business every time a marketplace changes its rules.
+        </p>
+        <p>
+          For guests, this also creates a better experience. As hosts increase prices to recover higher platform fees, guests inevitably end up paying more. By giving hosts additional ways to reach travelers, platforms can compete on value rather than simply passing higher costs down the chain.
+        </p>
+        <p>
+          Healthy competition benefits everyone:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-muted-foreground text-sm">
+          <li>Hosts gain more control over their businesses.</li>
+          <li>Guests get more choice and better pricing.</li>
+          <li>The market becomes less dependent on decisions made by any single platform.</li>
+        </ul>
+        <p>
+          Ultimately, that's the future we believe the Indian vacation rental industry should move toward—not replacing one platform with another, but creating an ecosystem where hosts have options, guests benefit from genuine competition, and no single policy change can reshape the economics of an entire industry overnight.
         </p>
 
         {/* Live Interactive Pricing Audit */}
         <InlineCalculator />
-
-        <p>
-          The 15.5% fee change will eventually become just another update in Airbnb's history. The bigger question is whether the industry learns from it. Because the strongest hosting businesses won't be the ones that react to every platform update—they'll be the ones that aren't completely dependent on any single platform in the first place.
-        </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">So, What Should Hosts Do Now?</h2>
         <p>
@@ -330,17 +392,8 @@ export default function RealCostOfAirbnbFee() {
         <p>
           Many experienced hosts already follow this approach. They'll list across multiple OTAs, encourage repeat guests to book again, maintain their own website or social presence, and invest in channels they control. The objective isn't simply to increase bookings—it's to reduce dependency.
         </p>
-        <p>
-          Technology can help too, but it shouldn't replace good judgement. Whether you're using Airbnb Smart Pricing, PriceLabs, or another dynamic pricing tool, remember that they're designed to support your decisions, not make them for you. No algorithm understands your property's unique strengths, your local market, or upcoming events as well as you do.
-        </p>
-        <p>
-          Finally, don't make pricing decisions in isolation. Talk to other hosts in your city. Compare occupancy trends, understand how others are responding to the new fee structure, and learn from what's working. The strongest hosting communities have always been built on shared knowledge, and that's more valuable today than ever before.
-        </p>
-        <p>
-          The platforms will continue to evolve. Fees will change. Algorithms will change. Guest behaviour will change. The hosts who succeed won't necessarily be the ones with the lowest prices. They'll be the ones who adapt the fastest while staying in control of their business.
-        </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">Final Thoughts</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">The Real Cost of the 15.5% Fee Isn't 15.5%</h2>
         <p>
           Airbnb's move to a 15.5% host-only fee will eventually become another milestone in the company's history. Like every platform update before it, hosts will adapt. The more interesting story isn't about the fee itself—it's about what this change reveals.
         </p>
