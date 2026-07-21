@@ -552,5 +552,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-16",
     readTime: "9 Min Read",
   },
+  {
+    slug: "silent-noise-goa-guide",
+    title: "Silent Noise Goa (2026): Is It Really Worth It? The Honest Guide",
+    description:
+      "Planning a night out at Silent Noise Club in Palolem, Goa? Read our complete, honest guide to ticket prices, DJ channels, headphones, timings, and transportation.",
+    metaTitle: "Silent Noise Goa Guide (2026) — Silent Disco Tickets & Timings",
+    metaDescription:
+      "Heading to Silent Noise in Palolem, South Goa? Read our complete, honest guide to silent disco ticket prices, multi-channel headphones, and local tips.",
+    heroImage: "/blog/silent-noise-goa-hero.webp",
+    publishedDate: "2026-08-17",
+    readTime: "9 Min Read",
+  },
 ];
 

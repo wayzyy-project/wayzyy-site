@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2,
+  ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation,
 } from "lucide-react";
@@ -192,6 +192,15 @@ function ListingWizard() {
   };
 
   const removePhoto = (idx: number) => setPhotos((prev) => prev.filter((_, i) => i !== idx));
+
+  // The first photo in the array is the cover shown everywhere (search
+  // cards, listing thumbnails) — same convention as the mobile app.
+  const makeCover = (idx: number) =>
+    setPhotos((prev) => {
+      const next = [...prev];
+      const [picked] = next.splice(idx, 1);
+      return [picked, ...next];
+    });
 
   const isGoa = data.state.trim().toLowerCase() === "goa";
 
@@ -564,15 +573,35 @@ function ListingWizard() {
       {step === 6 && (
         <div className="space-y-4">
           <h2 className="font-display text-xl">Photos</h2>
-          <p className="text-sm text-muted-foreground">At least {MIN_PHOTOS} photos required.</p>
+          <p className="text-sm text-muted-foreground">
+            At least {MIN_PHOTOS} photos required. The cover photo is what guests see first in search
+            and on your listing card.
+          </p>
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
             {photos.map((p, idx) => (
-              <div key={idx} className="relative aspect-square overflow-hidden rounded-xl border border-border">
+              <div
+                key={idx}
+                className={`relative aspect-square overflow-hidden rounded-xl border ${idx === 0 ? "border-ember" : "border-border"}`}
+              >
                 <img src={p.preview} alt="" className="h-full w-full object-cover" />
+                {idx === 0 ? (
+                  <span className="absolute bottom-1 left-1 flex items-center gap-1 rounded-full bg-ember px-2 py-0.5 text-[10px] font-medium text-white">
+                    <Star className="h-2.5 w-2.5 fill-current" />
+                    Cover
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => makeCover(idx)}
+                    className="absolute bottom-1 left-1 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-black/80 transition-colors"
+                  >
+                    Make cover
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => removePhoto(idx)}
-                  className="absolute top-1 right-1 rounded-full bg-black/60 p-1 text-white"
+                  className="absolute top-1 right-1 rounded-full bg-black/60 p-1 text-white hover:bg-black/80 transition-colors"
                 >
                   <X className="h-3 w-3" />
                 </button>
