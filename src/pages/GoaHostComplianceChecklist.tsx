@@ -25,10 +25,10 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "What happens if I don't register my Airbnb or villa listing in Goa?",
+      name: "What happens if I don't register my villa or homestay listing in Goa?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Airbnb can be directed by the Goa Tourism Department to remove your listing entirely if your registration number is missing or invalid. Separately, failing to submit monthly occupancy statistics (Form XI) is treated as its own violation and can block your renewal, with penalties.",
+        text: "Booking platforms (including Airbnb, Booking.com, and Wayzyy) can be directed by the Goa Tourism Department to remove your listing entirely if your registration number is missing or invalid. Separately, failing to submit monthly occupancy statistics (Form XI) is treated as its own violation and can block your renewal, with penalties.",
       },
     },
     {
@@ -177,11 +177,11 @@ export default function GoaHostComplianceChecklist() {
             <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 my-8">
               <p className="font-semibold text-foreground mb-1">What actually happens if you skip this</p>
               <p className="text-sm text-muted-foreground">
-                Airbnb can be directed by the Goa Tourism Department to remove your listing entirely if your
-                registration number is missing or invalid. Separately, failing to submit your monthly occupancy
-                statistics (Form XI — see Section 4) is treated as its own violation, and can block your renewal
-                until it's cleared, penalties included. This isn't a soft guideline — it's an enforceable rule
-                with a real, published consequence chain.
+                Booking platforms (including Airbnb, Booking.com, and Wayzyy) can be directed by the Goa Tourism 
+                Department to remove your listing entirely if your registration number is missing or invalid. 
+                Separately, failing to submit your monthly occupancy statistics (Form XI — see Section 4) is 
+                treated as its own violation, and can block your renewal until it's cleared, penalties included. 
+                This isn't a soft guideline — it's an enforceable rule with a real, published consequence chain.
               </p>
             </div>
 
@@ -209,8 +209,9 @@ export default function GoaHostComplianceChecklist() {
 
             <h3>Why Listings Actually Get Rejected (The Part Nobody Warns You About)</h3>
             <p>
-              Registration is only half the battle. Separately, Airbnb's own verification system rejects a huge
-              number of first-time listings for reasons that have nothing to do with the Goa Rules. Watch for these:
+              Registration is only half the battle. Separately, verification systems on booking platforms 
+              (including Airbnb, Booking.com, and Wayzyy) reject a huge number of first-time listings for reasons 
+              that have nothing to do with the Goa Rules. Watch for these:
             </p>
             <ul>
               <li>
@@ -257,10 +258,10 @@ export default function GoaHostComplianceChecklist() {
             <h2>4. Once You Have Your Registration Number</h2>
             <ul>
               <li>
-                Add your registration certificate number to your Airbnb listing under Policies and rules →
-                Regulations → Register your listing (Airbnb has a dedicated field for this)
+                Add your registration certificate number to your listings. For Airbnb, this is under Policies and rules →
+                Regulations → Register your listing. For Wayzyy, this can be added directly in your host dashboard.
               </li>
-              <li>If listing elsewhere, display the number wherever your platform allows a registration/licence field</li>
+              <li>If listing elsewhere (like Booking.com), display the number wherever your platform allows a registration/licence field</li>
               <li>
                 Set a monthly reminder to submit Form XI (occupancy/guest statistics) before the 5th of the
                 following month, via the Goa Online portal — this is submitted electronically only
@@ -383,9 +384,9 @@ export default function GoaHostComplianceChecklist() {
                 Most platforms treat your registration number as a single text field you fill in once and
                 forget. On Wayzyy, it's a required part of listing creation, and our team checks it as part of
                 our standard 24-hour listing review — not a live government database check (no platform does
-                that today, including Airbnb), but a real human sanity-check rather than a silent self-declared
-                field nobody looks at. If something looks off, we tell you before your listing goes live, not
-                after a guest has already booked.
+                that today, including Airbnb or Booking.com), but a real human sanity-check rather than a silent 
+                self-declared field nobody looks at. If something looks off, we tell you before your listing goes 
+                live, not after a guest has already booked.
               </p>
             </div>
 
