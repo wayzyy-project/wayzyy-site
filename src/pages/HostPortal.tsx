@@ -11,12 +11,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { geocodePincode, reverseGeocode } from "@/lib/geocode";
 import { LocationMap } from "@/components/host/LocationMap";
+import { ListingManagePanel } from "@/components/host/ListingManagePanel";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
 
 // Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx — keeps
 // listings consistent regardless of which platform a host submits from.
@@ -48,7 +50,7 @@ const BED_TYPES = [
 ];
 
 const MIN_PHOTOS = 5;
-const STEPS = ["Place", "Space", "Location", "Capacity", "Sleeping", "Amenities", "Details", "Photos"];
+const STEPS = ["Place", "Space", "Location", "Capacity", "Sleeping", "Amenities", "Details", "Cancellation", "Photos"];
 
 interface BedroomArrangement {
   name: string;
@@ -73,6 +75,8 @@ interface ListingForm {
   beds: string;
   bathrooms: string;
   sleepingArrangements: BedroomArrangement[];
+  cancelPolicy: ShortTermPolicyId;
+  cancelPolicyLongTerm: LongTermPolicyId;
   amenities: string[];
 }
 
@@ -84,6 +88,7 @@ const emptyForm: ListingForm = {
   latitude: null, longitude: null,
   maxGuests: "2", bedrooms: "1", beds: "1", bathrooms: "1",
   sleepingArrangements: [{ name: "Bedroom 1", beds: [{ type: "Double bed", count: 1 }] }],
+  cancelPolicy: "Flexible", cancelPolicyLongTerm: "Firm",
   amenities: [],
 };
 
@@ -197,7 +202,7 @@ function statusMeta(status: string) {
 // The website's equivalent of the app's Host section listings screen — same
 // `properties` table, same host_id, so a listing made on either platform
 // shows up here identically.
-function HostDashboard({ onAddNew }: { onAddNew: () => void }) {
+function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string) => void }) {
   const { user } = useAuth();
   const [listings, setListings] = useState<HostListing[] | null>(null);
 
@@ -270,6 +275,13 @@ function HostDashboard({ onAddNew }: { onAddNew: () => void }) {
                   <p className="mt-1 text-sm font-medium">
                     {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
                   </p>
+                  <button
+                    type="button"
+                    onClick={() => onManage(p.id, p.title || "Untitled listing")}
+                    className="mt-2 text-xs font-medium text-ember hover:underline"
+                  >
+                    Manage calendar, discounts & cancellation policy
+                  </button>
                 </div>
               </div>
             );
@@ -440,7 +452,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
         if (data.title.trim().length < 5) return "Listing title must be at least 5 characters.";
         if (!data.description.trim()) return "Please add a description.";
         return null;
-      case 7:
+      case 8:
         if (photos.length < MIN_PHOTOS) return `Please add at least ${MIN_PHOTOS} photos.`;
         return null;
       default: return null;
@@ -504,6 +516,8 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             beds: Number(data.beds),
             bathrooms: Number(data.bathrooms),
             sleepingArrangements: data.sleepingArrangements,
+            cancelPolicy: data.cancelPolicy,
+            cancelPolicyLongTerm: data.cancelPolicyLongTerm,
             amenities: data.amenities,
             photos: photoUrls,
             instantBook: false,
@@ -779,6 +793,61 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
       )}
 
       {step === 7 && (
+        <div className="space-y-6">
+          <div>
+            <h2 className="font-display text-xl">Cancellation policy</h2>
+            <p className="text-sm text-muted-foreground">Choose a policy for shorter stays, and a separate one for 28+ night stays.</p>
+          </div>
+
+          <div>
+            <p className="mb-3 text-sm font-medium">Under 28 nights</p>
+            <div className="space-y-3">
+              {SHORT_TERM_POLICIES.map((policy) => (
+                <button
+                  key={policy.id}
+                  type="button"
+                  onClick={() => set("cancelPolicy", policy.id)}
+                  className={`flex w-full items-start justify-between gap-4 rounded-xl border p-4 text-left transition-colors ${
+                    data.cancelPolicy === policy.id ? "border-ember bg-ember/10" : "border-border hover:border-foreground/30"
+                  }`}
+                >
+                  <div>
+                    <p className={`text-sm font-medium ${data.cancelPolicy === policy.id ? "text-ember" : ""}`}>{policy.label}</p>
+                    {policy.rules.map((rule) => (
+                      <p key={rule} className="mt-1 text-xs text-muted-foreground">{rule}</p>
+                    ))}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-3 text-sm font-medium">28+ nights</p>
+            <div className="space-y-3">
+              {LONG_TERM_POLICIES.map((policy) => (
+                <button
+                  key={policy.id}
+                  type="button"
+                  onClick={() => set("cancelPolicyLongTerm", policy.id)}
+                  className={`flex w-full items-start justify-between gap-4 rounded-xl border p-4 text-left transition-colors ${
+                    data.cancelPolicyLongTerm === policy.id ? "border-ember bg-ember/10" : "border-border hover:border-foreground/30"
+                  }`}
+                >
+                  <div>
+                    <p className={`text-sm font-medium ${data.cancelPolicyLongTerm === policy.id ? "text-ember" : ""}`}>{policy.label}</p>
+                    {policy.rules.map((rule) => (
+                      <p key={rule} className="mt-1 text-xs text-muted-foreground">{rule}</p>
+                    ))}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === 8 && (
         <div className="space-y-4">
           <h2 className="font-display text-xl">Photos</h2>
           <p className="text-sm text-muted-foreground">
@@ -867,7 +936,8 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
 
 export default function HostPortal() {
   const { user, loading } = useAuth();
-  const [view, setView] = useState<"dashboard" | "wizard">("dashboard");
+  const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
+  const [managing, setManaging] = useState<{ id: string; title: string } | null>(null);
 
   return (
     <SEO
@@ -909,7 +979,19 @@ export default function HostPortal() {
             </div>
           ) : user ? (
             view === "dashboard" ? (
-              <HostDashboard onAddNew={() => setView("wizard")} />
+              <HostDashboard
+                onAddNew={() => setView("wizard")}
+                onManage={(id, title) => {
+                  setManaging({ id, title });
+                  setView("manage");
+                }}
+              />
+            ) : view === "manage" && managing ? (
+              <ListingManagePanel
+                propertyId={managing.id}
+                propertyTitle={managing.title}
+                onBack={() => setView("dashboard")}
+              />
             ) : (
               <ListingWizard onDone={() => setView("dashboard")} />
             )
