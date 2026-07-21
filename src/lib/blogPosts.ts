@@ -440,7 +440,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Palolem Beach Goa — Stays, Huts, Swimming & Scams (2026)",
     metaDescription:
       "Heading to Palolem Beach in South Goa? Read our honest guide on beach huts, tide charts for Monkey Island, digital nomad connectivity, and local scams.",
-    heroImage: "/blog/palolem-beach-hero.webp",
+    heroImage: "/blog/palolem-sunset.webp",
     publishedDate: "2026-08-07",
     readTime: "10 Min Read",
   },
