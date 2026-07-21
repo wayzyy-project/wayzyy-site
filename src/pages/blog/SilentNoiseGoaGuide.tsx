@@ -13,50 +13,106 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      "name": "Is Silent Noise Goa worth it?",
+      "name": "Is Silent Noise Goa open every day?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, especially if you're looking for a unique, memorable nightlife experience in South Goa. While it isn't a traditional club with massive speakers, the silent disco concept, multiple DJ channels, and social atmosphere make it highly recommended."
+        "text": "No. Silent Noise doesn't operate every single day of the week. Events are held on selected days, and the schedule can vary depending on the tourist season, special occasions, and guest DJs. Before planning your evening, it's always a good idea to check the latest event schedule and ticket availability."
       }
     },
     {
       "@type": "Question",
-      "name": "How much time should I spend at Silent Noise?",
+      "name": "How much is the entry fee for Silent Noise Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most visitors spend 2 to 3 hours exploring the venue. If you enjoy dancing and socializing, arriving around 9:00 PM gives you plenty of time before closing."
+        "text": "The entry fee isn't fixed throughout the year. Prices generally depend on the season, the day of the event, and whether there's a special performance or festival taking place. During Christmas, New Year, and long weekends, tickets are usually in much higher demand, so booking early is recommended."
       }
     },
     {
       "@type": "Question",
-      "name": "Can you visit Silent Noise as a day trip?",
+      "name": "Do I need to book tickets in advance?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "While possible, driving back to North Goa after midnight can take 2 to 3 hours. Staying close to the venue around Palolem or Patnem is highly recommended."
+        "text": "If you're visiting during Goa's peak tourist season, the answer is yes. While walk-ins may be available on quieter weekends, popular dates can sell out quickly. Booking in advance gives you peace of mind and helps you avoid unnecessary queues."
       }
     },
     {
       "@type": "Question",
-      "name": "Is there a dress code?",
+      "name": "Is Silent Noise suitable for couples?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No, there is no strict dress code. Casual wear like shorts, linen shirts, summer dresses, and comfortable footwear are perfect."
+        "text": "Absolutely. In fact, many couples prefer Silent Noise over Goa's larger commercial clubs because the atmosphere feels much more relaxed. You can dance together, take breaks whenever you like, enjoy a drink, and still have conversations simply by removing your headphones."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the best time to visit?",
+      "name": "Is Silent Noise good for solo travellers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The signature experience is on Saturday nights during the peak season (October to February), with gates opening in the evening."
+        "text": "Yes. Silent Noise has a friendly and social atmosphere that makes it easy to meet other travellers. Backpackers and solo visitors regularly attend, and it's common for conversations to start naturally while switching between music channels or taking short breaks from dancing."
       }
     },
     {
       "@type": "Question",
-      "name": "Where should I stay when visiting Silent Noise?",
+      "name": "Is Silent Noise family-friendly?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The best places to stay are Palolem, Patnem, and Agonda. Comparing stays on Wayzyy can help you book the exact same vacation rental for up to 20% less without platform markup."
+        "text": "Silent Noise is primarily an evening nightlife experience designed for adults. While the environment is generally relaxed compared to many commercial clubs, it isn't intended as a family attraction for young children."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I wear?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There isn't a formal dress code. Most visitors wear casual summer clothing that's comfortable enough for dancing. T-shirts, shorts, linen shirts, dresses, sandals, or comfortable sneakers are all perfectly suitable. Since Goa remains warm for most of the year, lightweight clothing is usually the best choice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use my own headphones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Silent Noise provides its own wireless headphones that are specially connected to the event's audio system. Personal headphones won't work with the setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there food and drinks available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Depending on the event and venue setup, you'll generally find food and beverages available for purchase, allowing you to take breaks between dancing without leaving the venue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is parking available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, parking is usually available nearby for scooters and private vehicles. During busy weekends and peak tourist season, however, spaces can fill up quickly, so arriving a little earlier is always a good idea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Silent Noise safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Overall, Silent Noise is considered one of the safer nightlife experiences in Goa. Like any popular event, it's important to keep an eye on your belongings, avoid accepting drinks from strangers, and arrange safe transport back to your accommodation if you plan on drinking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Silent Noise better than the clubs in North Goa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That depends on the kind of experience you're looking for. If you enjoy large commercial clubs, celebrity DJs, and high-energy party scenes, North Goa offers plenty of options. But if you're looking for something more unique, interactive, and relaxed, Silent Noise delivers an experience that's difficult to find anywhere else in Goa. The headphone concept, multiple live DJs, and friendly crowd make it memorable even for people who don't usually enjoy nightclubs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where should I stay if I'm attending Silent Noise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The best areas to stay are Palolem and Patnem. Both are only a short distance from the venue, allowing you to enjoy the evening without worrying about a late-night drive. They're also excellent bases for exploring nearby attractions like Butterfly Beach, Cola Beach, Cabo de Rama, and Galgibaga. Before confirming your accommodation, it's worth comparing the same vacation rental across different booking platforms. Since Wayzyy doesn't add an additional markup over the host's pricing, you'll often find the exact same property for up to 20% less, making it easier to stay close to the venue while keeping your overall Goa budget under control."
       }
     }
   ]
@@ -543,8 +599,83 @@ export default function SilentNoiseGoaGuide() {
           If you're booking a villa or vacation rental, it's also worth comparing the same property before confirming your reservation. <strong>Wayzyy works directly with hosts and doesn't add an extra markup over their listed pricing</strong>, so you'll often find the <strong>exact same property for up to 20% less</strong> than on larger booking platforms. That means you can spend less on accommodation and more on experiences.
         </p>
 
+        <h2 className="font-display text-2xl text-foreground mt-8">Things to Do Near Silent Noise Goa</h2>
+        <p>
+          One of the biggest advantages of attending Silent Noise is that you're already in one of the most beautiful parts of Goa. Unlike many nightlife spots that are surrounded by busy commercial streets, Silent Noise is close to beaches, cafés, scenic viewpoints, and nature experiences that are worth exploring before or after the party.
+        </p>
+        <p>
+          Instead of driving in just for the event, spend a couple of days in the area and you'll discover why so many travellers end up extending their stay in South Goa.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Relax at Palolem Beach</h3>
+        <p>
+          Palolem Beach is the obvious place to start. Just a short distance from Silent Noise, it's one of South Goa's most famous beaches and strikes a great balance between activity and relaxation.
+        </p>
+        <p>
+          Spend the morning swimming, rent a kayak, enjoy lunch at one of the beach shacks, or simply relax under the palm trees before getting ready for the evening. As sunset approaches, the atmosphere becomes even more beautiful, making it the perfect way to begin a night out.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Explore Patnem Beach</h3>
+        <p>
+          If Palolem feels a little too lively, head to nearby Patnem Beach.
+        </p>
+        <p>
+          It's quieter, less crowded, and ideal if you're looking for a slower pace. The beach is lined with small cafés, yoga retreats, and boutique stays, making it popular with couples, long-term travellers, and digital nomads.
+        </p>
+        <p>
+          Many visitors actually choose to stay in Patnem and travel the short distance to Silent Noise later in the evening.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Visit Butterfly Beach</h3>
+        <p>
+          If you have an extra morning available, take a boat trip to Butterfly Beach.
+        </p>
+        <p>
+          Accessible mainly by boat or a short trek, it's one of South Goa's hidden gems. The secluded setting, clear water, and peaceful surroundings make it a complete contrast to the energy of Silent Noise the night before.
+        </p>
+        <p>
+          It's an easy addition to your itinerary if you're already staying around Palolem.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Spend Time at Cola Beach</h3>
+        <p>
+          Another favourite nearby is Cola Beach, known for its freshwater lagoon and quieter atmosphere.
+        </p>
+        <p>
+          Unlike Goa's busier beaches, Cola feels more secluded and is perfect for travellers looking to unwind. It's especially popular with photographers thanks to its dramatic scenery and relatively untouched surroundings.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Explore Cabo de Rama Fort</h3>
+        <p>
+          If you enjoy history and viewpoints, don't miss Cabo de Rama Fort.
+        </p>
+        <p>
+          Located roughly half an hour from Palolem, the fort offers panoramic views of the Arabian Sea and some of the most spectacular sunsets in South Goa. It's one of those places where you'll probably spend more time enjoying the scenery than exploring the ruins themselves.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Discover Cotigao Wildlife Sanctuary</h3>
+        <p>
+          Nature lovers should consider visiting Cotigao Wildlife Sanctuary, one of Goa's largest protected forests.
+        </p>
+        <p>
+          The sanctuary is home to walking trails, observation towers, and a variety of birds and wildlife. It's a refreshing change of pace if you've spent the previous evening dancing at Silent Noise.
+        </p>
+
+        <h3 className="font-display text-xl text-foreground mt-4">Make It a Complete South Goa Experience</h3>
+        <p>
+          Rather than treating Silent Noise as a single attraction, think of it as one highlight within a broader South Goa itinerary.
+        </p>
+        <p>
+          Spend your mornings exploring beaches, your afternoons relaxing at cafés, your evenings watching the sunset, and dedicate one night to experiencing Silent Noise. That slower pace is exactly what makes this part of Goa so appealing compared to the busier northern beaches.
+        </p>
+        <p>
+          If you're planning to stay in Palolem or Patnem, it's worth comparing vacation rentals before booking. Since Wayzyy doesn't add an additional platform markup over the host's pricing, you'll often find the same vacation rental for up to 20% less than on larger booking platforms. Staying nearby also means you can enjoy Silent Noise without worrying about a long drive back, while having easy access to many of South Goa's best beaches and attractions.
+        </p>
+
+        <WayzyyLocationPromo />
+
         {/* FAQ Accordion Section */}
-        <h2 className="font-display text-2xl text-foreground mt-12 mb-6">Frequently Asked Questions</h2>
+        <h2 className="font-display text-2xl text-foreground mt-12 mb-6 font-bold">Frequently Asked Questions About Silent Noise Goa</h2>
         <div className="space-y-4 border-t border-border pt-6">
           {faqJsonLd.mainEntity.map((faq, index) => (
             <div key={index} className="border-b border-border/80 pb-4">

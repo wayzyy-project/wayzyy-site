@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
@@ -41,8 +41,19 @@ const AMENITIES = [
   "Workspace", "Gym", "EV Charger",
 ];
 
+// Matches mobile's BecomeHostScreen.tsx per-bedroom bed-type breakdown.
+const BED_TYPES = [
+  "Single bed", "Double bed", "Queen bed", "King bed", "Sofa bed",
+  "Bunk bed", "Floor mattress", "Airbed", "Crib", "Hammock",
+];
+
 const MIN_PHOTOS = 5;
-const STEPS = ["Place", "Space", "Location", "Capacity", "Amenities", "Details", "Photos"];
+const STEPS = ["Place", "Space", "Location", "Capacity", "Sleeping", "Amenities", "Details", "Photos"];
+
+interface BedroomArrangement {
+  name: string;
+  beds: { type: string; count: number }[];
+}
 
 interface ListingForm {
   title: string;
@@ -61,6 +72,7 @@ interface ListingForm {
   bedrooms: string;
   beds: string;
   bathrooms: string;
+  sleepingArrangements: BedroomArrangement[];
   amenities: string[];
 }
 
@@ -71,6 +83,7 @@ const emptyForm: ListingForm = {
   registrationNumber: "",
   latitude: null, longitude: null,
   maxGuests: "2", bedrooms: "1", beds: "1", bathrooms: "1",
+  sleepingArrangements: [{ name: "Bedroom 1", beds: [{ type: "Double bed", count: 1 }] }],
   amenities: [],
 };
 
@@ -193,6 +206,44 @@ function ListingWizard() {
 
   const removePhoto = (idx: number) => setPhotos((prev) => prev.filter((_, i) => i !== idx));
 
+  // Keep the per-bedroom breakdown in sync with the bedroom count field —
+  // grow with default rooms, shrink by dropping the last ones.
+  useEffect(() => {
+    const n = Math.max(0, parseInt(data.bedrooms || "0", 10) || 0);
+    setData((prev) => {
+      if (n === prev.sleepingArrangements.length) return prev;
+      let arrangements = prev.sleepingArrangements;
+      if (n > arrangements.length) {
+        arrangements = [
+          ...arrangements,
+          ...Array.from({ length: n - arrangements.length }, (_, i) => ({
+            name: `Bedroom ${arrangements.length + i + 1}`,
+            beds: [{ type: "Double bed", count: 1 }],
+          })),
+        ];
+      } else {
+        arrangements = arrangements.slice(0, n);
+      }
+      return { ...prev, sleepingArrangements: arrangements };
+    });
+  }, [data.bedrooms]);
+
+  const setBedCount = (roomIdx: number, bedType: string, delta: number) => {
+    setData((prev) => {
+      const arrangements = prev.sleepingArrangements.map((room, i) => {
+        if (i !== roomIdx) return room;
+        const beds = room.beds.filter((b) => b.type !== bedType);
+        const existing = room.beds.find((b) => b.type === bedType);
+        const newCount = Math.max(0, (existing?.count ?? 0) + delta);
+        return { ...room, beds: newCount > 0 ? [...beds, { type: bedType, count: newCount }] : beds };
+      });
+      return { ...prev, sleepingArrangements: arrangements };
+    });
+  };
+
+  const getBedCount = (roomIdx: number, bedType: string): number =>
+    data.sleepingArrangements[roomIdx]?.beds.find((b) => b.type === bedType)?.count ?? 0;
+
   // The first photo in the array is the cover shown everywhere (search
   // cards, listing thumbnails) — same convention as the mobile app.
   const makeCover = (idx: number) =>
@@ -282,11 +333,11 @@ function ListingWizard() {
         if (!Number.isFinite(price) || price < 100 || price > 1000000) return "Price must be between ₹100 and ₹10,00,000 per night.";
         return null;
       }
-      case 5:
+      case 6:
         if (data.title.trim().length < 5) return "Listing title must be at least 5 characters.";
         if (!data.description.trim()) return "Please add a description.";
         return null;
-      case 6:
+      case 7:
         if (photos.length < MIN_PHOTOS) return `Please add at least ${MIN_PHOTOS} photos.`;
         return null;
       default: return null;
@@ -349,6 +400,7 @@ function ListingWizard() {
             bedrooms: Number(data.bedrooms),
             beds: Number(data.beds),
             bathrooms: Number(data.bathrooms),
+            sleepingArrangements: data.sleepingArrangements,
             amenities: data.amenities,
             photos: photoUrls,
             instantBook: false,
@@ -543,6 +595,48 @@ function ListingWizard() {
       )}
 
       {step === 4 && (
+        <div className="space-y-6">
+          <div>
+            <h2 className="font-display text-xl">Sleeping arrangements</h2>
+            <p className="text-sm text-muted-foreground">Make it clear to guests which type of bed is in each room.</p>
+          </div>
+          {data.sleepingArrangements.map((room, roomIdx) => (
+            <div key={room.name} className="rounded-xl border border-border p-4">
+              <p className="mb-3 font-medium text-sm">{room.name}</p>
+              <div className="divide-y divide-border">
+                {BED_TYPES.map((bedType) => {
+                  const count = getBedCount(roomIdx, bedType);
+                  return (
+                    <div key={bedType} className="flex items-center justify-between py-2.5">
+                      <span className="text-sm">{bedType}</span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setBedCount(roomIdx, bedType, -1)}
+                          disabled={count <= 0}
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-border disabled:opacity-30"
+                        >
+                          −
+                        </button>
+                        <span className="w-5 text-center text-sm font-medium">{count}</span>
+                        <button
+                          type="button"
+                          onClick={() => setBedCount(roomIdx, bedType, 1)}
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-border"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {step === 5 && (
         <div className="space-y-4">
           <h2 className="font-display text-xl">Amenities</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -556,7 +650,7 @@ function ListingWizard() {
         </div>
       )}
 
-      {step === 5 && (
+      {step === 6 && (
         <div className="space-y-4">
           <h2 className="font-display text-xl">Title & description</h2>
           <div>
@@ -570,7 +664,7 @@ function ListingWizard() {
         </div>
       )}
 
-      {step === 6 && (
+      {step === 7 && (
         <div className="space-y-4">
           <h2 className="font-display text-xl">Photos</h2>
           <p className="text-sm text-muted-foreground">
