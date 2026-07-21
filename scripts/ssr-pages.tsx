@@ -60,6 +60,7 @@ import PatnemBeachGuide from "@/pages/blog/PatnemBeachGuide";
 import ColaBeachGuide from "@/pages/blog/ColaBeachGuide";
 import ButterflyBeachGuide from "@/pages/blog/ButterflyBeachGuide";
 import DudhsagarFallsGuide from "@/pages/blog/DudhsagarFallsGuide";
+import CaboDeRamaFortGuide from "@/pages/blog/CaboDeRamaFortGuide";
 import AppLaunchSoon from "@/pages/AppLaunchSoon";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -128,6 +129,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/cola-beach-goa-guide": ColaBeachGuide,
   "/blog/butterfly-beach-goa-guide": ButterflyBeachGuide,
   "/blog/dudhsagar-falls-goa-guide": DudhsagarFallsGuide,
+  "/blog/cabo-de-rama-fort-goa-guide": CaboDeRamaFortGuide,
   "/explore": AppLaunchSoon,
 };
 

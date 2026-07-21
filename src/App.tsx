@@ -63,6 +63,7 @@ import PatnemBeachGuide from "./pages/blog/PatnemBeachGuide";
 import ColaBeachGuide from "./pages/blog/ColaBeachGuide";
 import ButterflyBeachGuide from "./pages/blog/ButterflyBeachGuide";
 import DudhsagarFallsGuide from "./pages/blog/DudhsagarFallsGuide";
+import CaboDeRamaFortGuide from "./pages/blog/CaboDeRamaFortGuide";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 
 const queryClient = new QueryClient();
@@ -140,6 +141,7 @@ const App = () => (
               <Route path="/blog/cola-beach-goa-guide" element={<ColaBeachGuide />} />
               <Route path="/blog/butterfly-beach-goa-guide" element={<ButterflyBeachGuide />} />
               <Route path="/blog/dudhsagar-falls-goa-guide" element={<DudhsagarFallsGuide />} />
+              <Route path="/blog/cabo-de-rama-fort-goa-guide" element={<CaboDeRamaFortGuide />} />
               <Route path="/explore" element={<AppLaunchSoon />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

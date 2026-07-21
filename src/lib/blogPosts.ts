@@ -528,4 +528,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-14",
     readTime: "10 Min Read",
   },
+  {
+    slug: "cabo-de-rama-fort-goa-guide",
+    title: "Cabo de Rama Fort Goa (2026): Is It Worth Visiting?",
+    description:
+      "Planning a trip to Cabo de Rama Fort in South Goa? Read our honest guide to the fort ruins, scenic sunset points, beach access, safety, and stays nearby.",
+    metaTitle: "Cabo de Rama Fort Goa Guide (2026) — Sunset Views & Cliff Stays",
+    metaDescription:
+      "Heading to Cabo de Rama Fort in South Goa? Read our complete, honest guide to the fort ruins, St. Anthony chapel, cliffside sunset views, and nearby stays.",
+    heroImage: "/blog/cabo-de-rama-hero.webp",
+    publishedDate: "2026-08-15",
+    readTime: "9 Min Read",
+  },
 ];
+
