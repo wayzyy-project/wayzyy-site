@@ -516,4 +516,16 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-13",
     readTime: "9 Min Read",
   },
+  {
+    slug: "dudhsagar-falls-goa-guide",
+    title: "Dudhsagar Falls Goa (2026): Is It Really Worth Visiting? The Honest Guide",
+    description:
+      "Planning a trip to Dudhsagar Falls in Goa? Read our complete, honest guide to the jeep safari, trekking regulations, safety, swimming, and travel times.",
+    metaTitle: "Dudhsagar Falls Goa Guide (2026) — Jeep Safari, Trekking & Safety",
+    metaDescription:
+      "Heading to Dudhsagar Falls in Goa? Read our complete, honest guide to jeep safari bookings, railway track regulations, safety tips, and travel logistics.",
+    heroImage: "/blog/dudhsagar-falls-hero.webp",
+    publishedDate: "2026-08-14",
+    readTime: "10 Min Read",
+  },
 ];
