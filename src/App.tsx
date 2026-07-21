@@ -65,6 +65,7 @@ import ButterflyBeachGuide from "./pages/blog/ButterflyBeachGuide";
 import DudhsagarFallsGuide from "./pages/blog/DudhsagarFallsGuide";
 import CaboDeRamaFortGuide from "./pages/blog/CaboDeRamaFortGuide";
 import CotigaoWildlifeSanctuaryGuide from "./pages/blog/CotigaoWildlifeSanctuaryGuide";
+import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 
 const queryClient = new QueryClient();
@@ -144,6 +145,7 @@ const App = () => (
               <Route path="/blog/dudhsagar-falls-goa-guide" element={<DudhsagarFallsGuide />} />
               <Route path="/blog/cabo-de-rama-fort-goa-guide" element={<CaboDeRamaFortGuide />} />
               <Route path="/blog/cotigao-wildlife-sanctuary-goa-guide" element={<CotigaoWildlifeSanctuaryGuide />} />
+              <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/explore" element={<AppLaunchSoon />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -62,6 +62,7 @@ import ButterflyBeachGuide from "@/pages/blog/ButterflyBeachGuide";
 import DudhsagarFallsGuide from "@/pages/blog/DudhsagarFallsGuide";
 import CaboDeRamaFortGuide from "@/pages/blog/CaboDeRamaFortGuide";
 import CotigaoWildlifeSanctuaryGuide from "@/pages/blog/CotigaoWildlifeSanctuaryGuide";
+import AirbnbAlternativeLanding from "@/pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "@/pages/AppLaunchSoon";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -132,6 +133,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/dudhsagar-falls-goa-guide": DudhsagarFallsGuide,
   "/blog/cabo-de-rama-fort-goa-guide": CaboDeRamaFortGuide,
   "/blog/cotigao-wildlife-sanctuary-goa-guide": CotigaoWildlifeSanctuaryGuide,
+  "/airbnb-alternative": AirbnbAlternativeLanding,
   "/explore": AppLaunchSoon,
 };
 

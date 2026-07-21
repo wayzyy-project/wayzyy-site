@@ -305,6 +305,24 @@ const routes = [
       "url": "https://wayzyy.com/explore",
       "publisher": { "@type": "Organization", "name": "Wayzyy" }
     }
+  },
+  {
+    path: '/airbnb-alternative',
+    title: 'Airbnb Alternative in Goa: Meet Wayzyy',
+    description: 'Airbnb charges hosts 15.5% per booking. Wayzyy charges a flat, low-cost credit instead. The host-first Airbnb alternative built for Goa.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Wayzyy",
+      "description": "Host-first short-term rental platform for Goa villas. No per-booking commission for hosts.",
+      "brand": {
+        "@type": "Organization",
+        "name": "Wayzyy"
+      },
+      "url": "https://wayzyy.com/airbnb-alternative"
+    }
   }
 ];
 
