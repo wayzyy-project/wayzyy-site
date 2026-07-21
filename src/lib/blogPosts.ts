@@ -540,5 +540,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-15",
     readTime: "9 Min Read",
   },
+  {
+    slug: "cotigao-wildlife-sanctuary-goa-guide",
+    title: "Cotigao Wildlife Sanctuary Goa (2026): Is It Worth Visiting?",
+    description:
+      "Planning a trip to Cotigao Wildlife Sanctuary in South Goa? Read our complete, honest guide to walking trails, watchtower views, wildlife sightings, and forest stays.",
+    metaTitle: "Cotigao Wildlife Sanctuary Goa Guide (2026) — Trails & Watchtowers",
+    metaDescription:
+      "Heading to Cotigao Wildlife Sanctuary in South Goa? Read our complete, honest guide to treetop watchtowers, birdwatching, forest walks, and stays nearby.",
+    heroImage: "/blog/cotigao-wildlife-sanctuary-hero.webp",
+    publishedDate: "2026-08-16",
+    readTime: "9 Min Read",
+  },
 ];
 
