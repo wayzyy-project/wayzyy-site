@@ -3,6 +3,7 @@ import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { WayzyyLocationPromo } from "@/components/WayzyyLocationPromo";
 
 const post = blogPosts.find((p) => p.slug === "butterfly-beach-goa-guide")!;
 
@@ -180,6 +181,9 @@ export default function ButterflyBeachGuide() {
         <p>
           If you're looking for villas, apartments, or locally managed stays in this part of Goa, Wayzyy is a practical place to compare options, especially if you prefer unique vacation rentals over standard hotels. It lets you stay close to South Goa's biggest attractions while giving you the flexibility to explore a different beach each day.
         </p>
+
+        <WayzyyLocationPromo />
+
         <p>
           That doesn't mean Butterfly Beach isn't worth visiting—it absolutely can be. It just depends on what you're looking for.
         </p>

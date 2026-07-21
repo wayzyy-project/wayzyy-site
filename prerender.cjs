@@ -291,6 +291,20 @@ const routes = [
       "url": "https://wayzyy.com/blog",
       "publisher": { "@type": "Organization", "name": "Wayzyy" }
     }
+  },
+  {
+    path: '/explore',
+    title: 'App Launching Soon — Wayzyy Homestays',
+    description: 'We are launching soon with over 500 hand-picked properties and 50 trusted hosts. Join the waitlist for direct booking with zero platform markup.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "App Launching Soon — Wayzyy Homestays",
+      "url": "https://wayzyy.com/explore",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
   }
 ];
 

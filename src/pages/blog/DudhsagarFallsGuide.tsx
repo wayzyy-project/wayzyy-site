@@ -3,6 +3,7 @@ import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { WayzyyLocationPromo } from "@/components/WayzyyLocationPromo";
 
 const post = blogPosts.find((p) => p.slug === "dudhsagar-falls-goa-guide")!;
 
@@ -235,6 +236,9 @@ export default function DudhsagarFallsGuide() {
         <p>
           For visitors staying in South Goa, the journey is generally more convenient than many people expect. Areas like Palolem, Agonda, and Patnem offer a comfortable balance—you can enjoy the beaches for most of your holiday while still taking a single day to explore Goa's forests and waterfalls. That's one reason many experienced travellers prefer staying in South Goa rather than changing hotels every couple of days.
         </p>
+
+        <WayzyyLocationPromo />
+
         <p>
           If you're planning your itinerary, it's worth scheduling Dudhsagar early in your trip rather than on your final day. Unexpected weather, forest restrictions, or seasonal changes can occasionally affect access, and leaving some flexibility in your plans gives you the option to adjust if needed.
         </p>

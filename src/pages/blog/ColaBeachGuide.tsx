@@ -3,6 +3,7 @@ import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { WayzyyLocationPromo } from "@/components/WayzyyLocationPromo";
 
 const post = blogPosts.find((p) => p.slug === "cola-beach-goa-guide")!;
 
@@ -370,10 +371,11 @@ export default function ColaBeachGuide() {
             </tbody>
           </table>
         </div>
-
         <p>
           If you're looking beyond traditional hotels, it's also worth exploring vacation rentals. South Goa has seen a growing number of independent villas, boutique homes, and host-managed stays that offer more space and privacy. Platforms like Wayzyy make it easier to discover these kinds of stays across Agonda, Patnem, and the surrounding areas.
         </p>
+
+        <WayzyyLocationPromo />
 
         <h2 className="font-display text-2xl text-foreground mt-8">How to Reach Cola Beach</h2>
         <p>
