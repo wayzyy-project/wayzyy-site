@@ -177,7 +177,110 @@ function ProgressBar({ step }: { step: number }) {
   );
 }
 
-function ListingWizard() {
+interface HostListing {
+  id: string;
+  title: string;
+  city: string;
+  state: string;
+  price_per_night: number;
+  images: string[];
+  status: string;
+}
+
+function statusMeta(status: string) {
+  if (status === "active") return { label: "Live", className: "bg-green-500/10 text-green-600 dark:text-green-400" };
+  if (status === "pending_review") return { label: "Pending review", className: "bg-amber-500/10 text-amber-600 dark:text-amber-400" };
+  if (status === "rejected") return { label: "Rejected", className: "bg-red-500/10 text-red-600 dark:text-red-400" };
+  return { label: status, className: "bg-muted text-muted-foreground" };
+}
+
+// The website's equivalent of the app's Host section listings screen — same
+// `properties` table, same host_id, so a listing made on either platform
+// shows up here identically.
+function HostDashboard({ onAddNew }: { onAddNew: () => void }) {
+  const { user } = useAuth();
+  const [listings, setListings] = useState<HostListing[] | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    supabase
+      .from("properties")
+      .select("id, title, city, state, price_per_night, images, status")
+      .eq("host_id", user.id)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (!cancelled) setListings((data ?? []) as HostListing[]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  if (listings === null) {
+    return (
+      <div className="flex justify-center py-16">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl">
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <h2 className="font-display text-2xl">Your listings</h2>
+        <Button onClick={onAddNew} className="gap-1.5 bg-ember text-white hover:bg-ember/90">
+          <Home className="h-4 w-4" />
+          List a new property
+        </Button>
+      </div>
+
+      {listings.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-border py-16 text-center">
+          <Home className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+          <p className="mb-1 text-sm font-medium">No listings yet</p>
+          <p className="mb-4 text-xs text-muted-foreground">List your first property to start hosting on Wayzyy.</p>
+          <Button onClick={onAddNew} className="bg-ember text-white hover:bg-ember/90">
+            List a new property
+          </Button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {listings.map((p) => {
+            const meta = statusMeta(p.status);
+            return (
+              <div key={p.id} className="flex gap-4 rounded-xl border border-border p-4">
+                <div className="h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
+                  {p.images?.[0] ? (
+                    <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <Home className="h-5 w-5 text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="truncate font-medium">{p.title || "Untitled listing"}</p>
+                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${meta.className}`}>
+                      {meta.label}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{[p.city, p.state].filter(Boolean).join(", ")}</p>
+                  <p className="mt-1 text-sm font-medium">
+                    {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ListingWizard({ onDone }: { onDone: () => void }) {
   const { user } = useAuth();
   const { toast } = useToast();
   const [step, setStep] = useState(0);
@@ -448,12 +551,23 @@ function ListingWizard() {
           You'll get a confirmation email shortly, and another once our team approves your listing —
           usually within 24 hours.
         </p>
+        <Button onClick={onDone} variant="outline" className="mt-6">
+          Back to your listings
+        </Button>
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-2xl">
+      <button
+        type="button"
+        onClick={onDone}
+        className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" />
+        Back to your listings
+      </button>
       <ProgressBar step={step} />
 
       {step === 0 && (
@@ -671,42 +785,62 @@ function ListingWizard() {
             At least {MIN_PHOTOS} photos required. The cover photo is what guests see first in search
             and on your listing card.
           </p>
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-            {photos.map((p, idx) => (
-              <div
-                key={idx}
-                className={`relative aspect-square overflow-hidden rounded-xl border ${idx === 0 ? "border-ember" : "border-border"}`}
-              >
-                <img src={p.preview} alt="" className="h-full w-full object-cover" />
-                {idx === 0 ? (
-                  <span className="absolute bottom-1 left-1 flex items-center gap-1 rounded-full bg-ember px-2 py-0.5 text-[10px] font-medium text-white">
-                    <Star className="h-2.5 w-2.5 fill-current" />
-                    Cover
-                  </span>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => makeCover(idx)}
-                    className="absolute bottom-1 left-1 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-black/80 transition-colors"
-                  >
-                    Make cover
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => removePhoto(idx)}
-                  className="absolute top-1 right-1 rounded-full bg-black/60 p-1 text-white hover:bg-black/80 transition-colors"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </div>
-            ))}
-            <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-border text-muted-foreground hover:border-ember hover:text-ember transition-colors">
-              <Upload className="h-5 w-5" />
-              <span className="text-xs">Add photos</span>
+          {photos.length === 0 ? (
+            <label className="flex h-56 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border text-muted-foreground hover:border-ember hover:text-ember transition-colors">
+              <Upload className="h-8 w-8" />
+              <span className="text-sm font-medium">Tap to add photos</span>
+              <span className="text-xs">First photo becomes the cover</span>
               <input type="file" accept="image/*" multiple className="hidden" onChange={handlePhotoSelect} />
             </label>
-          </div>
+          ) : (
+            <>
+              {/* Cover photo — large, above the grid, matching the mobile app */}
+              <div className="relative">
+                <img src={photos[0].preview} alt="" className="h-56 w-full rounded-xl border border-ember object-cover sm:h-72" />
+                <span className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-ember px-2.5 py-1 text-xs font-medium text-white">
+                  <Star className="h-3 w-3 fill-current" />
+                  Cover photo
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removePhoto(0)}
+                  className="absolute top-2 right-2 rounded-full bg-black/60 p-1.5 text-white hover:bg-black/80 transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                {photos.slice(1).map((p, i) => {
+                  const idx = i + 1;
+                  return (
+                    <div key={idx} className="relative aspect-square overflow-hidden rounded-xl border border-border">
+                      <img src={p.preview} alt="" className="h-full w-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => makeCover(idx)}
+                        className="absolute bottom-1 left-1 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-black/80 transition-colors"
+                      >
+                        Make cover
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(idx)}
+                        className="absolute top-1 right-1 rounded-full bg-black/60 p-1 text-white hover:bg-black/80 transition-colors"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </div>
+                  );
+                })}
+                <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-border text-muted-foreground hover:border-ember hover:text-ember transition-colors">
+                  <Upload className="h-5 w-5" />
+                  <span className="text-xs">Add photos</span>
+                  <input type="file" accept="image/*" multiple className="hidden" onChange={handlePhotoSelect} />
+                </label>
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -733,11 +867,12 @@ function ListingWizard() {
 
 export default function HostPortal() {
   const { user, loading } = useAuth();
+  const [view, setView] = useState<"dashboard" | "wizard">("dashboard");
 
   return (
     <SEO
-      title="List your property — Wayzyy"
-      description="List your property on Wayzyy directly from the web — the same platform hosts use on the app, with the same review and approval process."
+      title="Host on Wayzyy"
+      description="Manage your listings and list new properties on Wayzyy directly from the web — the same platform, database, and review process as the app."
       path="/host"
     >
       <div className="min-h-screen bg-background text-foreground">
@@ -757,9 +892,11 @@ export default function HostPortal() {
 
         <div className="border-b border-border bg-card/40 py-12 sm:py-16">
           <div className="container max-w-3xl">
-            <h1 className="font-display text-4xl sm:text-5xl text-foreground leading-tight">List your property</h1>
+            <h1 className="font-display text-4xl sm:text-5xl text-foreground leading-tight">
+              {user && view === "dashboard" ? "Your hosting" : "List your property"}
+            </h1>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Same platform, same review process, same database as the Wayzyy app — list from
+              Same platform, same review process, same database as the Wayzyy app — host from
               wherever's easiest for you.
             </p>
           </div>
@@ -771,7 +908,11 @@ export default function HostPortal() {
               <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
             </div>
           ) : user ? (
-            <ListingWizard />
+            view === "dashboard" ? (
+              <HostDashboard onAddNew={() => setView("wizard")} />
+            ) : (
+              <ListingWizard onDone={() => setView("dashboard")} />
+            )
           ) : (
             <AuthPanel />
           )}
