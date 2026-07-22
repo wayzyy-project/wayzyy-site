@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -498,6 +498,90 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   );
 }
 
+// Phone-shaped "what a guest would see" preview — updates live from the
+// wizard's in-progress state. Toggling it never navigates anywhere, so the
+// host stays on exactly the step they were on.
+function PhonePreview({ data, photos }: { data: ListingForm; photos: { file: File; preview: string }[] }) {
+  const placeLabel = PLACE_TYPES.find((p) => p.id === data.placeType)?.label;
+  const bedroomCount = data.sleepingArrangements.length || Number(data.bedrooms) || 0;
+  const bedSummary = data.sleepingArrangements
+    .flatMap((r) => r.beds)
+    .reduce<Record<string, number>>((acc, b) => {
+      acc[b.type] = (acc[b.type] ?? 0) + b.count;
+      return acc;
+    }, {});
+  const bedSummaryText = Object.entries(bedSummary)
+    .map(([type, count]) => `${count} ${type}${count > 1 ? "s" : ""}`)
+    .join(", ");
+
+  return (
+    <div className="rounded-[2.5rem] border-4 border-foreground/10 bg-background p-2 shadow-xl">
+      <div className="flex items-center justify-center gap-1 pb-1.5">
+        <Eye className="h-3 w-3 text-ember" />
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-ember">Preview</span>
+      </div>
+      <div className="max-h-[600px] overflow-y-auto rounded-[1.75rem] border border-border">
+        {photos.length > 0 ? (
+          <img src={photos[0].preview} alt="" className="aspect-[4/3] w-full object-cover" />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-1 bg-muted">
+            <Camera className="h-6 w-6 text-muted-foreground" />
+            <span className="text-[11px] text-muted-foreground">No photos yet</span>
+          </div>
+        )}
+        <div className="space-y-3 p-3">
+          <div>
+            <p className="text-sm font-semibold leading-tight">{data.title.trim() || "Untitled listing"}</p>
+            <p className="text-xs text-muted-foreground">
+              {placeLabel ?? "Place type not set"}
+              {data.city ? ` · ${data.city}${data.state ? `, ${data.state}` : ""}` : " · Location not set"}
+            </p>
+          </div>
+
+          <div>
+            <span className="text-sm font-bold">{data.price ? `₹${data.price}` : "Price not set"}</span>
+            {data.price && <span className="text-xs text-muted-foreground"> / night</span>}
+            {data.weekendPrice && <p className="text-[11px] text-muted-foreground">₹{data.weekendPrice} / night weekends</p>}
+          </div>
+
+          <div className="flex items-center gap-3 border-t border-border pt-3 text-[11px] text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Users className="h-3.5 w-3.5" /> {data.maxGuests} guests
+            </span>
+            <span className="flex items-center gap-1">
+              <BedDouble className="h-3.5 w-3.5" /> {bedroomCount} bed{bedroomCount !== 1 ? "s" : ""}
+            </span>
+            <span className="flex items-center gap-1">
+              <Droplet className="h-3.5 w-3.5" /> {data.bathrooms} bath
+            </span>
+          </div>
+          {bedSummaryText && <p className="text-[11px] text-muted-foreground">{bedSummaryText}</p>}
+
+          <div className="border-t border-border pt-3">
+            <p className="mb-1 text-xs font-semibold">About this place</p>
+            <p className={`text-[11px] leading-relaxed ${data.description.trim() ? "text-muted-foreground" : "italic text-muted-foreground/70"}`}>
+              {data.description.trim() || "No description added yet."}
+            </p>
+          </div>
+
+          <div className="border-t border-border pt-3">
+            <p className="mb-1.5 text-xs font-semibold">What this place offers</p>
+            {data.amenities.length > 0 ? (
+              <div className="flex flex-wrap gap-1">
+                {data.amenities.map((a) => (
+                  <span key={a} className="rounded-full border border-border px-2 py-0.5 text-[10px]">{a}</span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-[11px] italic text-muted-foreground/70">No amenities selected yet.</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ListingWizard({ onDone }: { onDone: () => void }) {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -508,6 +592,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
   const [submitted, setSubmitted] = useState(false);
   const [locLoading, setLocLoading] = useState(false);
   const [pincodeLoading, setPincodeLoading] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const set = <K extends keyof ListingForm>(key: K, value: ListingForm[K]) =>
     setData((prev) => ({ ...prev, [key]: value }));
@@ -780,15 +865,30 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <button
-        type="button"
-        onClick={onDone}
-        className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Back to your listings
-      </button>
+    <div className={`mx-auto ${previewOpen ? "max-w-5xl" : "max-w-2xl"}`}>
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={onDone}
+          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Back to your listings
+        </button>
+        <button
+          type="button"
+          onClick={() => setPreviewOpen((o) => !o)}
+          className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors ${
+            previewOpen ? "border-ember bg-ember/10 text-ember" : "border-border text-muted-foreground hover:border-foreground/30"
+          }`}
+        >
+          <Eye className="h-3.5 w-3.5" />
+          Preview
+        </button>
+      </div>
+
+      <div className={previewOpen ? "flex items-start gap-8" : ""}>
+      <div className={previewOpen ? "min-w-0 flex-1" : ""}>
       <ProgressBar step={step} />
 
       {step === 0 && (
@@ -1147,6 +1247,14 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>
         )}
+      </div>
+      </div>
+
+      {previewOpen && (
+        <div className="sticky top-24 w-[300px] shrink-0">
+          <PhonePreview data={data} photos={photos} />
+        </div>
+      )}
       </div>
     </div>
   );
