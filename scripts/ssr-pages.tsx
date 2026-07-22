@@ -63,6 +63,7 @@ import DudhsagarFallsGuide from "@/pages/blog/DudhsagarFallsGuide";
 import CaboDeRamaFortGuide from "@/pages/blog/CaboDeRamaFortGuide";
 import CotigaoWildlifeSanctuaryGuide from "@/pages/blog/CotigaoWildlifeSanctuaryGuide";
 import SilentNoiseGoaGuide from "@/pages/blog/SilentNoiseGoaGuide";
+import KakolemBeachGuide from "@/pages/blog/KakolemBeachGuide";
 import AirbnbAlternativeLanding from "@/pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "@/pages/AppLaunchSoon";
 
@@ -135,6 +136,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/cabo-de-rama-fort-goa-guide": CaboDeRamaFortGuide,
   "/blog/cotigao-wildlife-sanctuary-goa-guide": CotigaoWildlifeSanctuaryGuide,
   "/blog/silent-noise-goa-guide": SilentNoiseGoaGuide,
+  "/blog/kakolem-beach-goa-guide": KakolemBeachGuide,
   "/airbnb-alternative": AirbnbAlternativeLanding,
   "/explore": AppLaunchSoon,
 };

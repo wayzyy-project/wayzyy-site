@@ -564,5 +564,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-17",
     readTime: "9 Min Read",
   },
+  {
+    slug: "kakolem-beach-goa-guide",
+    title: "Kakolem Beach Goa (Tiger Beach): The Complete Travel Guide (2026)",
+    description:
+      "Planning a trip to Kakolem Beach (Tiger Beach) in South Goa? Read our complete, honest travel guide to the cliff staircase, freshwater stream, swimming conditions, and nearby stays.",
+    metaTitle: "Kakolem Beach Goa (Tiger Beach) Guide (2026) — Cliff Stays & Tips",
+    metaDescription:
+      "Is Kakolem Beach (Tiger Beach) in South Goa worth visiting? Read our complete 2026 travel guide on staircase access, swimming safety, viewpoint spots, and nearby stays.",
+    heroImage: "/blog/kakolem-beach-hero.png",
+    publishedDate: "2026-08-18",
+    readTime: "11 Min Read",
+  },
 ];
 
