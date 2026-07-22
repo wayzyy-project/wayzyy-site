@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { DISCOUNT_TYPES, DISCOUNT_LABELS, DiscountType } from "@/lib/discounts";
+import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
 
 const SUPABASE_URL = "https://eitpwcnsoshweoqzusdk.supabase.co";
@@ -300,14 +300,22 @@ function DiscountsSection({ propertyId }: { propertyId: string }) {
                 <p className="text-sm font-semibold">{meta.label}</p>
                 <p className="text-xs text-muted-foreground">{meta.sub}</p>
               </div>
-              <Switch checked={row.enabled} onCheckedChange={(v) => setRow(row.type, { enabled: v })} />
+              <Switch
+                checked={row.enabled}
+                onCheckedChange={(v) =>
+                  setRow(row.type, {
+                    enabled: v,
+                    percentage: v && !row.percentage ? String(SUGGESTED_DISCOUNT_PERCENTAGE[row.type]) : row.percentage,
+                  })
+                }
+              />
             </div>
             {row.enabled && (
               <div className="mt-3 flex items-center gap-2">
                 <Input
                   type="number"
                   className="w-24"
-                  placeholder="10"
+                  placeholder={String(SUGGESTED_DISCOUNT_PERCENTAGE[row.type])}
                   value={row.percentage}
                   onChange={(e) => setRow(row.type, { percentage: e.target.value.replace(/[^0-9.]/g, "") })}
                 />

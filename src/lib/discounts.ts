@@ -12,3 +12,14 @@ export const DISCOUNT_LABELS: Record<DiscountType, { label: string; sub: string 
   early_bird: { label: "Early-bird", sub: "For stays booked 30+ days before arrival" },
   new_listing: { label: "New listing promotion", sub: "Applies to your first 3 bookings" },
 };
+
+// Suggested starting percentages, matching Airbnb's own defaults — shown as
+// the pre-filled value when a host turns a discount on for the first time,
+// not auto-enabled.
+export const SUGGESTED_DISCOUNT_PERCENTAGE: Record<DiscountType, number> = {
+  weekly: 10,
+  monthly: 15,
+  last_minute: 10,
+  early_bird: 10,
+  new_listing: 20,
+};

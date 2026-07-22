@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
-  BedDouble, Users, Navigation,
+  BedDouble, Users, Navigation, SlidersHorizontal,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -61,6 +61,7 @@ interface ListingForm {
   title: string;
   description: string;
   price: string;
+  weekendPrice: string;
   placeType: string;
   spaceType: string;
   street: string;
@@ -81,7 +82,7 @@ interface ListingForm {
 }
 
 const emptyForm: ListingForm = {
-  title: "", description: "", price: "",
+  title: "", description: "", price: "", weekendPrice: "",
   placeType: "", spaceType: "",
   street: "", city: "Goa", state: "Goa", pincode: "",
   registrationNumber: "",
@@ -254,35 +255,39 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           {listings.map((p) => {
             const meta = statusMeta(p.status);
             return (
-              <div key={p.id} className="flex gap-4 rounded-xl border border-border p-4">
-                <div className="h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
-                  {p.images?.[0] ? (
-                    <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <Home className="h-5 w-5 text-muted-foreground" />
-                    </div>
-                  )}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="truncate font-medium">{p.title || "Untitled listing"}</p>
-                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${meta.className}`}>
-                      {meta.label}
-                    </span>
+              <div key={p.id} className="rounded-xl border border-border p-4">
+                <div className="flex gap-4">
+                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
+                    {p.images?.[0] ? (
+                      <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <Home className="h-5 w-5 text-muted-foreground" />
+                      </div>
+                    )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{[p.city, p.state].filter(Boolean).join(", ")}</p>
-                  <p className="mt-1 text-sm font-medium">
-                    {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => onManage(p.id, p.title || "Untitled listing")}
-                    className="mt-2 text-xs font-medium text-ember hover:underline"
-                  >
-                    Manage calendar, discounts & cancellation policy
-                  </button>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="truncate font-medium">{p.title || "Untitled listing"}</p>
+                      <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${meta.className}`}>
+                        {meta.label}
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{[p.city, p.state].filter(Boolean).join(", ")}</p>
+                    <p className="mt-1 text-sm font-medium">
+                      {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
+                    </p>
+                  </div>
                 </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onManage(p.id, p.title || "Untitled listing")}
+                  className="mt-3 w-full gap-1.5 border-ember text-ember hover:bg-ember/10 hover:text-ember"
+                >
+                  <SlidersHorizontal className="h-3.5 w-3.5" />
+                  Manage calendar, discounts & cancellation policy
+                </Button>
               </div>
             );
           })}
@@ -502,6 +507,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             title: data.title,
             description: data.description,
             price: data.price,
+            weekendPrice: data.weekendPrice,
             placeType: data.placeType,
             spaceType: data.spaceType,
             street: data.street,
@@ -715,9 +721,20 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
               <Input id="bathrooms" type="number" min={0} max={50} value={data.bathrooms} onChange={(e) => set("bathrooms", e.target.value)} required />
             </div>
           </div>
-          <div>
-            <Label htmlFor="price">Price per night (₹)</Label>
-            <Input id="price" type="number" min={100} max={1000000} value={data.price} onChange={(e) => set("price", e.target.value)} required />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="price">Weekday price (₹) — Sun–Thu</Label>
+              <Input id="price" type="number" min={100} max={1000000} value={data.price} onChange={(e) => set("price", e.target.value)} required />
+            </div>
+            <div>
+              <Label htmlFor="weekendPrice">Weekend price (₹) — Fri–Sat</Label>
+              <Input
+                id="weekendPrice" type="number" min={100} max={1000000}
+                value={data.weekendPrice} onChange={(e) => set("weekendPrice", e.target.value)}
+                placeholder="Same as weekday"
+              />
+              <p className="mt-1 text-xs text-muted-foreground">Optional — leave blank to use your weekday rate</p>
+            </div>
           </div>
         </div>
       )}
