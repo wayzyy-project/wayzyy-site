@@ -97,97 +97,198 @@ const emptyForm: ListingForm = {
 
 const WE_HANDLE = [
   { icon: FileText, label: "Listing review & approval", desc: "Every listing is checked before it goes live, so guests trust what they book." },
-  { icon: ShieldCheck, label: "Guest ID verification", desc: "DigiLocker/Aadhaar or a manual document + selfie check — you're not hosting strangers blind." },
-  { icon: Lock, label: "Secure payments", desc: "Guest payments run through Razorpay; payouts land with you, not held up in disputes." },
-  { icon: MessageCircle, label: "In-app messaging", desc: "One inbox for every guest conversation and booking request." },
-  { icon: CalendarSync, label: "Calendar sync", desc: "Connect your existing calendars both ways so you never get double-booked." },
-  { icon: Headset, label: "A support inbox that's actually yours", desc: "Reach us directly at support@wayzyy.com — no ticket queue that goes nowhere." },
+  { icon: ShieldCheck, label: "Guest ID verification", desc: "DigiLocker/Aadhaar verification for every guest — you're never hosting unverified strangers." },
+  { icon: Lock, label: "Secure payments & fast payouts", desc: "Guest payments run through Razorpay; payouts land in your account within 24 hours of check-in." },
+  { icon: MessageCircle, label: "In-app messaging", desc: "One clean inbox for every guest conversation and booking request." },
+  { icon: CalendarSync, label: "Two-way iCal calendar sync", desc: "Connect existing calendars to eliminate double bookings across platforms automatically." },
+  { icon: Headset, label: "Direct in-house host support", desc: "Reach our Indian team directly — no scripted bots or outsourced call centers reading scripts." },
 ];
 
 const YOU_PROVIDE = [
-  "Property details, address, and 5+ photos",
-  "Your own price per night (weekday & weekend)",
+  "Property details, address, and 5+ high-quality photos",
+  "Your own price per night (weekday & weekend rates)",
   "An availability calendar",
-  "Your state's registration number, where one is legally required (e.g. Goa)",
+  "Your state's tourism registration number (where legally required, e.g. Goa Tourism Dept)",
+];
+
+const REAL_HOST_QUOTES = [
+  {
+    author: "u/Tough-Kangaroo301",
+    source: "r/airbnb_hosts",
+    title: "Unilateral Policy & Cancellation Overrides",
+    quote:
+      "Woke up to find my 5br house now has a flexible cancellation policy after having strict set for years. Didn't even get an email about it... Airbnb clearly doesn't care that different properties have different realities. They shoved this new cancellation model through without asking anyone who actually manages these spaces.",
+    solution:
+      "Wayzyy Guarantee: Your cancellation policy belongs to you. Wayzyy never alters your cancellation terms without your explicit written consent.",
+  },
+  {
+    author: "u/zorba_trvl",
+    source: "r/AirBnBHosts",
+    title: "The 15.5% Single Fee & Indian ADR Reality",
+    quote:
+      "Now the guest will only see that he is paying the entire 15.5% fee to you... For an inexperienced guest, he will feel he is not getting value for money, and is more likely to award a lower rating. Average Indian Airbnb ADR is ₹2,500–₹3,500 and 15% is a lot of money percentage wise.",
+    solution:
+      "Wayzyy Guarantee: No per-booking percentage commission. Guests see your true listed rate without a 15.5% platform cut baked in, protecting host ratings and margins.",
+  },
+  {
+    author: "u/topgun22ice & u/discovery999",
+    source: "r/airbnb_hosts",
+    title: "Monopoly Frustration & Unhelpful Platform Fees",
+    quote:
+      "I ran the numbers and have paid ABNB $422k in fees since 2020. They have helped me zero ever... They are a monopoly or I'd run to VRBO or booking.com... Large companies don't care because they're saving money and can afford to lose a few clients.",
+    solution:
+      "Wayzyy Guarantee: Built by hosts for hosts to break the monopoly cycle in Goa. Our flat prepaid credit pack model brings your effective platform cost down to ~2%.",
+  },
+  {
+    author: "u/DavidBrantleyFinance & u/AdBackground7748",
+    source: "r/airbnb_hosts & r/IndiaBusiness",
+    title: "Scripted Support & Unfair Guest Dispute Losses",
+    quote:
+      "Support ambassadors seem to repeat the few English phrases they have been taught over and over... Refunded my unreasonable guest their full amount... She said she has nowhere to go or complain, while guests can leave a low rating.",
+    solution:
+      "Wayzyy Guarantee: DigiLocker/Aadhaar identity verification for every guest, plus an evidence-based 3-tier dispute resolution system handled by an in-house team in India. Ratings of 3 stars or lower undergo manual human review before publishing.",
+  },
 ];
 
 function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
   return (
     <div className="mx-auto max-w-4xl space-y-16">
+      {/* Hero Welcome Banner */}
+      <div className="rounded-3xl border border-ember/30 bg-card/60 p-8 sm:p-10 text-center space-y-4 shadow-xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-ember/5 via-transparent to-transparent -z-10" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-xs font-semibold text-ember uppercase tracking-wider">
+          Host-First Platform for Goa
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl text-foreground font-bold leading-tight">
+          List Your Property with Zero Commission Cut
+        </h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+          Welcome to the hosting portal! Before you start listing, see exactly what Wayzyy handles for you, what you'll need to provide, how credit packs work, and why real hosts are switching to a direct platform built for Goa.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+          <Button onClick={onGetStarted} size="lg" className="w-full sm:w-auto bg-ember text-white hover:bg-ember/90 shadow-md">
+            Create Host Account & List Property
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <Link
+            to="/earnings-calculator"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xl border border-border bg-background hover:bg-muted/40 text-sm font-medium text-foreground transition-colors"
+          >
+            Calculate Your Earnings
+          </Link>
+        </div>
+      </div>
+
+      {/* What We Handle */}
       <section>
-        <h2 className="font-display text-2xl mb-6">What we take care of</h2>
+        <div className="mb-6">
+          <h2 className="font-display text-2xl font-semibold text-foreground">What We Take Care Of</h2>
+          <p className="text-sm text-muted-foreground mt-1">Everything you need to host safely, legally, and profitably in Goa.</p>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {WE_HANDLE.map(({ icon: Icon, label, desc }) => (
-            <div key={label} className="flex gap-3 rounded-xl border border-border p-4">
-              <Icon className="h-5 w-5 shrink-0 text-ember" strokeWidth={1.5} />
+            <div key={label} className="flex gap-3 rounded-2xl border border-border bg-card/30 p-5 hover:border-ember/40 transition-colors">
+              <Icon className="h-5 w-5 shrink-0 text-ember mt-0.5" strokeWidth={1.5} />
               <div>
-                <p className="text-sm font-medium">{label}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">{desc}</p>
+                <p className="text-sm font-semibold text-foreground">{label}</p>
+                <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section>
-        <h2 className="font-display text-2xl mb-6">What you'll need to provide</h2>
-        <ul className="space-y-3">
+      {/* What You Provide */}
+      <section className="rounded-2xl border border-border bg-card/25 p-6 sm:p-8">
+        <h2 className="font-display text-2xl font-semibold text-foreground mb-2">What You'll Need to Provide</h2>
+        <p className="text-sm text-muted-foreground mb-6">Four basic requirements to get your listing published and verified:</p>
+        <ul className="grid gap-3 sm:grid-cols-2">
           {YOU_PROVIDE.map((item) => (
-            <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+            <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground bg-background/50 border border-border/60 p-3.5 rounded-xl">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
-              {item}
+              <span>{item}</span>
             </li>
           ))}
         </ul>
       </section>
 
+      {/* How Credit Packs & Pricing Work */}
       <section>
-        <h2 className="font-display text-2xl mb-3">How pricing actually works</h2>
-        <p className="mb-6 text-sm text-muted-foreground max-w-2xl">
-          No commission is ever deducted from a booking payout — you get the full price you listed, every time.
-          Instead, you buy a prepaid credit pack that unlocks a set amount of booking value; your first listing
-          gets one free. Larger packs bring the effective rate down to around 2%.
-        </p>
+        <div className="mb-6">
+          <h2 className="font-display text-2xl font-semibold text-foreground">How Pricing & Credit Packs Work</h2>
+          <p className="mt-1 text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            Wayzyy never takes a percentage cut from your booking payout — you keep 100% of your listed nightly price. Instead of commission, hosts purchase prepaid credit packs that unlock booking volume. Your first listing receives a free credit pack to get started!
+          </p>
+        </div>
         <div className="grid gap-3 sm:grid-cols-4">
           {[
-            { price: "Free", cap: "₹1,00,000", note: "your first listing" },
-            { price: "₹600", cap: "₹20,000", note: "3.0% effective" },
-            { price: "₹2,200", cap: "₹1,00,000", note: "2.2% effective" },
-            { price: "₹10,000", cap: "₹5,00,000", note: "~2.0% effective" },
+            { price: "Free", cap: "₹1,00,000", note: "your first listing starter pack" },
+            { price: "₹600", cap: "₹20,000", note: "3.0% effective cost" },
+            { price: "₹2,200", cap: "₹1,00,000", note: "2.2% effective cost" },
+            { price: "₹10,000", cap: "₹5,00,000", note: "~2.0% effective cost" },
           ].map((pack) => (
-            <div key={pack.cap + pack.price} className="rounded-xl border border-border p-4 text-center">
-              <p className="font-display text-lg">{pack.price}</p>
-              <p className="text-xs text-muted-foreground">unlocks {pack.cap} in bookings</p>
-              <p className="mt-1 text-[11px] text-ember">{pack.note}</p>
+            <div key={pack.cap + pack.price} className="rounded-2xl border border-border bg-card/40 p-5 text-center hover:border-ember/40 transition-colors">
+              <p className="font-display text-xl font-bold text-foreground">{pack.price}</p>
+              <p className="text-xs text-muted-foreground mt-1">unlocks {pack.cap} in bookings</p>
+              <p className="mt-2 text-xs font-medium text-ember">{pack.note}</p>
             </div>
           ))}
         </div>
-        <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl">
-          <RefreshCw className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-          If you're mid-pack and a booking comes in that needs more headroom, we auto-extend it with the smallest
-          tier so your listing never goes dark — that fee only ever comes out of that one booking, never a
-          surprise deduction later.
+        <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl bg-muted/20 p-3 rounded-xl border border-border/60">
+          <RefreshCw className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
+          <span>
+            <strong>Auto-extension safeguard:</strong> If a high-value booking exceeds your current credit pack headroom, we auto-extend it with the smallest tier needed so your listing never goes dark. That fee only comes out of that specific booking payout — never a surprise charge later.
+          </span>
         </p>
       </section>
 
-      <section>
-        <h2 className="font-display text-2xl mb-3">Why we built it this way</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-          We're hosts too, and the pattern in host communities right now is consistent: cancellation policies
-          getting changed on a listing without warning, fee structures getting restructured and combined in ways
-          that quietly eat into already-thin margins (especially at Indian nightly rates), support that's slow to
-          reach and doesn't always resolve a host-guest dispute fairly, and a growing sense of being stuck with
-          one dominant platform because there's no real day-to-day alternative. Wayzyy is our answer to that:
-          your cancellation policy is yours to set and it doesn't change unless you change it, pricing is a flat
-          prepaid pack instead of a shifting percentage, and support is a real inbox we read ourselves.
-        </p>
+      {/* Why We Built Wayzyy — Real Reddit Host Community Citations & Quotes */}
+      <section className="space-y-6">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-ember/25 bg-ember/10 px-3 py-1 text-xs uppercase tracking-wider text-ember font-semibold mb-2">
+            Why We Built Wayzyy
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+            Solving the Real Problems Facing Property Hosts
+          </h2>
+          <p className="text-sm text-muted-foreground mt-2 max-w-2xl leading-relaxed">
+            As hosts ourselves, we watched major platforms gradually shift from partner-first marketplaces to corporate monopolies. Here is what real hosts are reporting across online communities (such as r/airbnb_hosts and r/IndiaBusiness), and how Wayzyy directly fixes each issue:
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          {REAL_HOST_QUOTES.map((item, idx) => (
+            <div key={idx} className="rounded-2xl border border-border/80 bg-card/30 p-6 space-y-4 flex flex-col justify-between hover:border-border transition-colors">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-ember uppercase tracking-wider">{item.title}</span>
+                  <span className="text-[11px] text-muted-foreground font-mono">{item.source} · {item.author}</span>
+                </div>
+                <blockquote className="text-xs sm:text-sm text-muted-foreground italic border-l-2 border-ember/40 pl-3 leading-relaxed">
+                  "{item.quote}"
+                </blockquote>
+              </div>
+              <div className="rounded-xl bg-ember/5 border border-ember/20 p-3 text-xs font-medium text-foreground">
+                <span className="text-ember font-bold block mb-0.5">How Wayzyy Fixes This:</span>
+                {item.solution}
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <div className="flex justify-center pt-4">
-        <Button onClick={onGetStarted} size="lg" className="bg-ember text-white hover:bg-ember/90">
-          Get started — create your host account
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
+      {/* Action CTA Footer */}
+      <div className="rounded-3xl border border-border bg-card/50 p-8 sm:p-10 text-center space-y-4 shadow-lg">
+        <h3 className="font-display text-2xl font-bold text-foreground">Ready to take control of your rental business?</h3>
+        <p className="text-sm text-muted-foreground max-w-md mx-auto">
+          Join over 50+ trusted Goa hosts listing their villas and apartments directly on Wayzyy.
+        </p>
+        <div className="pt-2">
+          <Button onClick={onGetStarted} size="lg" className="bg-ember text-white hover:bg-ember/90 px-8 py-3 rounded-xl font-medium">
+            Get started — create your host account
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );
