@@ -283,7 +283,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                   variant="outline"
                   size="sm"
                   onClick={() => onManage(p.id, p.title || "Untitled listing")}
-                  className="mt-3 w-full gap-1.5 border-ember text-ember hover:bg-ember/10 hover:text-ember"
+                  className="mt-3 inline-flex w-auto justify-start gap-1.5 rounded-full border-ember text-ember hover:bg-ember/10 hover:text-ember"
                 >
                   <SlidersHorizontal className="h-3.5 w-3.5" />
                   Manage calendar, discounts & cancellation policy
