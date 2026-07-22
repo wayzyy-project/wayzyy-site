@@ -243,7 +243,10 @@ export default function AdminVerifications() {
         <ThemeToggle />
       </header>
       <div className="px-4 pt-8">
-        <h1 className="mx-auto max-w-3xl font-display text-3xl">Identity verification queue</h1>
+        <div className="mx-auto flex max-w-3xl items-center gap-4">
+          <h1 className="font-display text-3xl">Identity verification queue</h1>
+          <Link to="/admin/listings" className="text-sm text-ember hover:underline">Listing review panel →</Link>
+        </div>
       </div>
       <AuthGate>
         <VerificationQueue />

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, Loader2, Star, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -140,6 +140,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (v: number) 
 function ReviewListing({ propertyId }: { propertyId: string }) {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -216,6 +217,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
 
       setDecided(newStatus);
       toast({ title: newStatus === "active" ? "Listing approved" : "Listing rejected" });
+      setTimeout(() => navigate("/admin/listings"), 800);
     } catch (err) {
       toast({ title: "Couldn't save", description: err instanceof Error ? err.message : "Please try again.", variant: "destructive" });
     } finally {
