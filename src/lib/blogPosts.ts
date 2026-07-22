@@ -79,7 +79,7 @@ export const blogPosts: BlogPostMeta[] = [
       "When is the best time to visit Goa? Read our breakdown of seasonal weather, travel styles, crowd patterns, and booking strategies.",
     metaTitle: "Best Time to Visit Goa — Seasonality, Weather & Tips (2026)",
     metaDescription:
-      "Goa in October vs December vs monsoon — real month-by-month breakdown of weather, villa prices, and crowds before you book.",
+      "When is the best time to visit Goa? Detailed month-by-month breakdown of weather, crowds, villa prices, monsoon tips, and when to avoid peak rates.",
     heroImage: "/blog/goa-best-time-hero.webp",
     publishedDate: "2026-07-08",
     readTime: "7 Min Read",
@@ -115,7 +115,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why is everyone suddenly talking about Siolim? Read our honest guide to Siolim's villas, cafes, restaurants, and travel style.",
     metaTitle: "Siolim Villas & Stays Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
-      "Siolim is North Goa's quietest riverside village. Honest guide to Portuguese villas, riverside cafés, and why digital nomads choose it over Anjuna.",
+      "Planning a stay in Siolim, Goa? Discover heritage Portuguese villas, quiet riverside cafes, real costs, and why digital nomads pick Siolim over Anjuna.",
     heroImage: "/blog/goa-siolim-river.webp",
     publishedDate: "2026-07-11",
     readTime: "9 Min Read",
@@ -127,7 +127,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why do repeat visitors choose Mandrem? Read our honest guide to Mandrem's beaches, stays, safety tips, cafes, and typical costs.",
     metaTitle: "Mandrem Beach Guide (2026) — Stays, Cafes & Tips",
     metaDescription:
-      "Mandrem Beach — the quiet alternative to Morjim. Honest guide to turtle sanctuary, slow travel, and staying in North Goa's calmest coastal strip.",
+      "Is Mandrem Beach worth staying in? Honest guide to quiet beach huts, river bridges, surf cafes, safety tips, and villa prices in North Goa's calmest strip.",
     heroImage: "/blog/goa-mandrem-sunset-net.webp",
     publishedDate: "2026-07-12",
     readTime: "9 Min Read",
@@ -139,7 +139,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Why do experienced travellers quietly keep returning to Morjim? Read our honest guide to Morjim's beach shacks, stays, cafes, safety, and typical costs.",
     metaTitle: "Morjim Beach & Stays Guide (2026) — Cafes, Costs & Nesting",
     metaDescription:
-      "Morjim Beach — turtle nesting, surf schools, and North Goa's calmest village. Honest guide to where to stay, what to do, and how crowded it actually gets.",
+      "Planning to visit Morjim Beach? Read our honest guide on turtle nesting season, quiet beach stays, top cafes, surf spots, and real 2026 prices before you book.",
     heroImage: "/blog/goa-morjim-beach-beds.webp",
     publishedDate: "2026-07-13",
     readTime: "9 Min Read",

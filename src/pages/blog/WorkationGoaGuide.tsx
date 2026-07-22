@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { HelpCircle } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 
@@ -74,6 +76,12 @@ const faqJsonLd = {
 };
 
 export default function WorkationGoaGuide() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   return (
     <BlogLayout
       title={post.title}
@@ -86,6 +94,31 @@ export default function WorkationGoaGuide() {
       slug={post.slug}
       extraJsonLd={faqJsonLd}
     >
+      <div className="my-12 p-6 bg-secondary/30 rounded-2xl border border-border">
+        <div className="flex items-center gap-2 mb-6">
+          <HelpCircle className="w-6 h-6 text-primary" />
+          <h2 className="text-2xl font-bold m-0">Frequently Asked Questions</h2>
+        </div>
+        <div className="space-y-4">
+          {faqJsonLd.mainEntity.map((faq, index) => (
+            <div key={index} className="border border-border rounded-xl overflow-hidden">
+              <button
+                onClick={() => toggleFaq(index)}
+                className="w-full text-left p-4 font-semibold bg-background hover:bg-secondary/50 transition-colors flex justify-between items-center"
+              >
+                {faq.name}
+                <span className="text-xl">{openFaq === index ? "−" : "+"}</span>
+              </button>
+              {openFaq === index && (
+                <div className="p-4 bg-background border-t border-border">
+                  {faq.acceptedAnswer.text}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
       <p>
         Most people planning to work remotely from Goa start by looking at beaches, cafes, and listings online. It feels
         like the dream setup—swapping traffic and desk cubicles for warm mornings, pool dips, and evening ocean breezes.

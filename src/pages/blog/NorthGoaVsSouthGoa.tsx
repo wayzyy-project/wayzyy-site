@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { HelpCircle } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 
@@ -65,6 +67,12 @@ const faqJsonLd = {
 };
 
 export default function NorthGoaVsSouthGoa() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   return (
     <BlogLayout
       title={post.title}
@@ -535,48 +543,25 @@ export default function NorthGoaVsSouthGoa() {
       <p>At the end of the day, the platform should simply help you get to the holiday you're looking forward to.</p>
       <p>The real memories usually begin after you've checked in.</p>
 
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>Which is better, North Goa or South Goa?</h3>
-      <p>
-        Neither is objectively better; it depends on your holiday style. Choose North Goa if you want a vibrant atmosphere,
-        cafes, beach clubs, nightlife, and quick travel between spots. Choose South Goa if you prefer a slower pace, long
-        walks on quieter beaches, family time, and pure relaxation.
-      </p>
-
-      <h3>Is South Goa cheaper than North Goa?</h3>
-      <p>
-        Yes, on average. South Goa generally has fewer commercial developments and high-end party venues, which keeps
-        accommodation and local dining more budget-friendly. However, both regions offer budget homestays as well as premium
-        luxury options.
-      </p>
-
-      <h3>Where should digital nomads or remote workers stay in Goa?</h3>
-      <p>
-        North Goa villages like Assagao, Siolim, and Mandrem are highly popular because they have built active remote-work
-        communities around coworking spaces, cafes, and high-speed fiber internet. If you prefer pure quiet, South Goa's
-        Agonda or Palolem are also good options if you verify fiber internet with the host.
-      </p>
-
-      <h3>What makes Wayzyy different from Airbnb and Booking.com?</h3>
-      <p>
-        Wayzyy is a Goa-focused marketplace that charges hosts no per-booking commissions, operating on a credit-based
-        subscription model instead. This allows hosts to pass the platform savings onto guests, offering the same properties at
-        more competitive rates compared to commission-heavy sites.
-      </p>
-
-      <h3>How does the season affect vacation rental pricing in Goa?</h3>
-      <p>
-        Pricing peaks during the Christmas and New Year window, when crowds are dense. Months like October, February, and the
-        monsoon season (June to September) offer significantly lower rates, fewer crowds, and a more relaxed experience.
-      </p>
-
-      <h3>Is it better to book a villa in North Goa or South Goa?</h3>
-      <p>
-        It depends on your group's travel style. North Goa (villas in Assagao, Vagator, and Siolim) is perfect if you want
-        luxury pool villas, heritage homes, and quick access to top restaurants and cafes. South Goa is better if you prefer
-        quiet, secluded private villas where you want to spend your days relaxing away from commercial crowds.
-      </p>
+      <h2 className="font-display text-2xl text-foreground mt-12 mb-6">Frequently Asked Questions</h2>
+      <div className="space-y-4 border-t border-border pt-6 mb-12">
+        {faqJsonLd.mainEntity.map((faq, index) => (
+          <div key={index} className="border-b border-border/80 pb-4">
+            <button
+              onClick={() => toggleFaq(index)}
+              className="w-full flex items-center justify-between text-left font-display text-lg text-foreground hover:text-ember transition-colors py-2 focus:outline-none"
+            >
+              <span>{faq.name}</span>
+              <HelpCircle className={`w-5 h-5 text-muted-foreground transition-transform ${openFaq === index ? "rotate-180 text-ember" : ""}`} />
+            </button>
+            {openFaq === index && (
+              <p className="mt-2 text-muted-foreground text-sm leading-relaxed animate-in fade-in duration-200">
+                {faq.acceptedAnswer.text}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
 
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>

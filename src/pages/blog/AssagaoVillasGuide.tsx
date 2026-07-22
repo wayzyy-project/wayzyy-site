@@ -307,7 +307,7 @@ export default function AssagaoVillasGuide() {
       <p>
         That balance is difficult to find elsewhere in North Goa. Instead of spending your entire trip in one neighbourhood,
         Assagao naturally becomes a base for exploring the surrounding villages. You can drive to Morjim for a quieter beach
-        day, spend an afternoon in Siolim, watch the sunset from Chapora Fort, or explore Anjuna's cafés before returning home
+        day — Morjim is roughly 12km from Assagao, about a 15-20 minute scooter ride on the NH66 — spend an afternoon in Siolim, watch the sunset from Chapora Fort, or explore Anjuna's cafés before returning home
         in less than half an hour.
       </p>
       <p>

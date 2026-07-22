@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { HelpCircle } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 
@@ -38,6 +40,12 @@ const faqJsonLd = {
 };
 
 export default function BestAirbnbAlternativesGoa() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   return (
     <BlogLayout
       title={post.title}
@@ -388,6 +396,26 @@ export default function BestAirbnbAlternativesGoa() {
         Some villas have strict no-refund policies, and travel plans change more during monsoon. Flexible
         cancellation is worth prioritizing when you're booking more than a few weeks out.
       </p>
+
+      <h2 className="font-display text-2xl text-foreground mt-12 mb-6">Frequently Asked Questions</h2>
+      <div className="space-y-4 border-t border-border pt-6 mb-12">
+        {faqJsonLd.mainEntity.map((faq, index) => (
+          <div key={index} className="border-b border-border/80 pb-4">
+            <button
+              onClick={() => toggleFaq(index)}
+              className="w-full flex items-center justify-between text-left font-display text-lg text-foreground hover:text-ember transition-colors py-2 focus:outline-none"
+            >
+              <span>{faq.name}</span>
+              <HelpCircle className={`w-5 h-5 text-muted-foreground transition-transform ${openFaq === index ? "rotate-180 text-ember" : ""}`} />
+            </button>
+            {openFaq === index && (
+              <p className="mt-2 text-muted-foreground text-sm leading-relaxed animate-in fade-in duration-200">
+                {faq.acceptedAnswer.text}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
 
       <h2>The Quick Summary</h2>
       <p>Every platform has a different reason to use it.</p>
