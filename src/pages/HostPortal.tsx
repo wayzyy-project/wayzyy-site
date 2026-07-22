@@ -4,6 +4,8 @@ import {
   ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
+  ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
+  Percent, RefreshCw, Headset, Lock,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -92,6 +94,104 @@ const emptyForm: ListingForm = {
   cancelPolicy: "Flexible", cancelPolicyLongTerm: "Firm",
   amenities: [],
 };
+
+const WE_HANDLE = [
+  { icon: FileText, label: "Listing review & approval", desc: "Every listing is checked before it goes live, so guests trust what they book." },
+  { icon: ShieldCheck, label: "Guest ID verification", desc: "DigiLocker/Aadhaar or a manual document + selfie check — you're not hosting strangers blind." },
+  { icon: Lock, label: "Secure payments", desc: "Guest payments run through Razorpay; payouts land with you, not held up in disputes." },
+  { icon: MessageCircle, label: "In-app messaging", desc: "One inbox for every guest conversation and booking request." },
+  { icon: CalendarSync, label: "Calendar sync", desc: "Connect your existing calendars both ways so you never get double-booked." },
+  { icon: Headset, label: "A support inbox that's actually yours", desc: "Reach us directly at support@wayzyy.com — no ticket queue that goes nowhere." },
+];
+
+const YOU_PROVIDE = [
+  "Property details, address, and 5+ photos",
+  "Your own price per night (weekday & weekend)",
+  "An availability calendar",
+  "Your state's registration number, where one is legally required (e.g. Goa)",
+];
+
+function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
+  return (
+    <div className="mx-auto max-w-4xl space-y-16">
+      <section>
+        <h2 className="font-display text-2xl mb-6">What we take care of</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {WE_HANDLE.map(({ icon: Icon, label, desc }) => (
+            <div key={label} className="flex gap-3 rounded-xl border border-border p-4">
+              <Icon className="h-5 w-5 shrink-0 text-ember" strokeWidth={1.5} />
+              <div>
+                <p className="text-sm font-medium">{label}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="font-display text-2xl mb-6">What you'll need to provide</h2>
+        <ul className="space-y-3">
+          {YOU_PROVIDE.map((item) => (
+            <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="font-display text-2xl mb-3">How pricing actually works</h2>
+        <p className="mb-6 text-sm text-muted-foreground max-w-2xl">
+          No commission is ever deducted from a booking payout — you get the full price you listed, every time.
+          Instead, you buy a prepaid credit pack that unlocks a set amount of booking value; your first listing
+          gets one free. Larger packs bring the effective rate down to around 2%.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-4">
+          {[
+            { price: "Free", cap: "₹1,00,000", note: "your first listing" },
+            { price: "₹600", cap: "₹20,000", note: "3.0% effective" },
+            { price: "₹2,200", cap: "₹1,00,000", note: "2.2% effective" },
+            { price: "₹10,000", cap: "₹5,00,000", note: "~2.0% effective" },
+          ].map((pack) => (
+            <div key={pack.cap + pack.price} className="rounded-xl border border-border p-4 text-center">
+              <p className="font-display text-lg">{pack.price}</p>
+              <p className="text-xs text-muted-foreground">unlocks {pack.cap} in bookings</p>
+              <p className="mt-1 text-[11px] text-ember">{pack.note}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl">
+          <RefreshCw className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+          If you're mid-pack and a booking comes in that needs more headroom, we auto-extend it with the smallest
+          tier so your listing never goes dark — that fee only ever comes out of that one booking, never a
+          surprise deduction later.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="font-display text-2xl mb-3">Why we built it this way</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+          We're hosts too, and the pattern in host communities right now is consistent: cancellation policies
+          getting changed on a listing without warning, fee structures getting restructured and combined in ways
+          that quietly eat into already-thin margins (especially at Indian nightly rates), support that's slow to
+          reach and doesn't always resolve a host-guest dispute fairly, and a growing sense of being stuck with
+          one dominant platform because there's no real day-to-day alternative. Wayzyy is our answer to that:
+          your cancellation policy is yours to set and it doesn't change unless you change it, pricing is a flat
+          prepaid pack instead of a shifting percentage, and support is a real inbox we read ourselves.
+        </p>
+      </section>
+
+      <div className="flex justify-center pt-4">
+        <Button onClick={onGetStarted} size="lg" className="bg-ember text-white hover:bg-ember/90">
+          Get started — create your host account
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 function AuthPanel() {
   const { signIn, signUp } = useAuth();
@@ -955,6 +1055,7 @@ export default function HostPortal() {
   const { user, loading } = useAuth();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
   const [managing, setManaging] = useState<{ id: string; title: string } | null>(null);
+  const [showAuth, setShowAuth] = useState(false);
 
   return (
     <SEO
@@ -978,9 +1079,9 @@ export default function HostPortal() {
         </div>
 
         <div className="border-b border-border bg-card/40 py-12 sm:py-16">
-          <div className="container max-w-3xl">
+          <div className={`container ${!user && !showAuth ? "max-w-4xl" : "max-w-3xl"}`}>
             <h1 className="font-display text-4xl sm:text-5xl text-foreground leading-tight">
-              {user && view === "dashboard" ? "Your hosting" : "List your property"}
+              {user && view === "dashboard" ? "Your hosting" : !user && !showAuth ? "Host on Wayzyy" : "List your property"}
             </h1>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
               Same platform, same review process, same database as the Wayzyy app — host from
@@ -989,7 +1090,7 @@ export default function HostPortal() {
           </div>
         </div>
 
-        <div className="container max-w-3xl py-12 sm:py-16">
+        <div className={`container py-12 sm:py-16 ${!user && !showAuth ? "max-w-4xl" : "max-w-3xl"}`}>
           {loading ? (
             <div className="flex justify-center py-16">
               <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -1013,7 +1114,7 @@ export default function HostPortal() {
               <ListingWizard onDone={() => setView("dashboard")} />
             )
           ) : (
-            <AuthPanel />
+            showAuth ? <AuthPanel /> : <HostIntro onGetStarted={() => setShowAuth(true)} />
           )}
         </div>
       </div>
