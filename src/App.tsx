@@ -20,6 +20,7 @@ import EarningsCalculator from "./pages/EarningsCalculator";
 import GoaHostComplianceChecklist from "./pages/GoaHostComplianceChecklist";
 import HostPortal from "./pages/HostPortal";
 import AdminVerifications from "./pages/AdminVerifications";
+import AdminReviewListing from "./pages/AdminReviewListing";
 import BlogIndex from "./pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "./pages/blog/BestAirbnbAlternativesGoa";
 import WhyGoaVillasCostDifferent from "./pages/blog/WhyGoaVillasCostDifferent";
@@ -101,6 +102,7 @@ const App = () => (
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
               <Route path="/host" element={<HostPortal />} />
               <Route path="/admin/verifications" element={<AdminVerifications />} />
+              <Route path="/admin/review/:propertyId" element={<AdminReviewListing />} />
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />
