@@ -10,6 +10,7 @@ import { Principles } from "@/components/Principles";
 import { CalculatorTeaser } from "@/components/CalculatorTeaser";
 import { BlogSection } from "@/components/BlogSection";
 import { HousePartiesSection } from "@/components/HousePartiesSection";
+import { HostBannerSection } from "@/components/HostBannerSection";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useTrackSection } from "@/hooks/use-track-section";
@@ -139,6 +140,7 @@ const Index = () => {
           <Principles />
           <div ref={housePartiesRef as React.RefObject<HTMLDivElement>}><HousePartiesSection /></div>
           <BlogSection />
+          <HostBannerSection />
           <div ref={waitlistRef as React.RefObject<HTMLDivElement>}><WaitlistSection /></div>
         </main>
 

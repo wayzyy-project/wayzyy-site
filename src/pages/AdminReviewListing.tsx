@@ -217,7 +217,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
 
       setDecided(newStatus);
       toast({ title: newStatus === "active" ? "Listing approved" : "Listing rejected" });
-      setTimeout(() => navigate("/admin/listings"), 800);
+      setTimeout(() => navigate("/adminn/listings"), 800);
     } catch (err) {
       toast({ title: "Couldn't save", description: err instanceof Error ? err.message : "Please try again.", variant: "destructive" });
     } finally {
@@ -263,6 +263,8 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
 
       <div className="grid grid-cols-2 gap-4 rounded-xl border border-border p-4 text-sm sm:grid-cols-3">
         <div><p className="text-muted-foreground">Host</p><p className="font-medium">{property.host_email}</p></div>
+        <div><p className="text-muted-foreground">Location</p><p className="font-medium">{property.location || [property.city, property.state].filter(Boolean).join(", ") || "Goa, India"}</p></div>
+        <div><p className="text-muted-foreground">Coordinates</p><p className="font-medium">{property.latitude && property.longitude ? `${property.latitude}, ${property.longitude}` : "City center fallback"}</p></div>
         <div><p className="text-muted-foreground">Weekday price</p><p className="font-medium">₹{property.price_per_night?.toLocaleString("en-IN")}</p></div>
         <div><p className="text-muted-foreground">Weekend price</p><p className="font-medium">{property.weekend_price ? `₹${property.weekend_price.toLocaleString("en-IN")}` : "Same as weekday"}</p></div>
         <div><p className="text-muted-foreground">Type</p><p className="font-medium">{property.category ?? "—"} · {property.space_type ?? "—"}</p></div>
@@ -342,10 +344,10 @@ export default function AdminReviewListing() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Review listing — Wayzyy Admin" description="Review and approve or reject a submitted listing." />
+      <SEO title="Review listing — Wayzyy Admin" description="Review and approve or reject a submitted listing." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
-        <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> Back to Wayzyy
+        <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard
         </Link>
         <ThemeToggle />
       </header>

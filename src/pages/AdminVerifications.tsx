@@ -235,17 +235,17 @@ function VerificationQueue() {
 export default function AdminVerifications() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Identity verification queue — Wayzyy Admin" description="Review manual identity verification submissions." />
+      <SEO title="Identity verification queue — Wayzyy Admin" description="Review manual identity verification submissions." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
-        <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> Back to Wayzyy
+        <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard
         </Link>
         <ThemeToggle />
       </header>
       <div className="px-4 pt-8">
-        <div className="mx-auto flex max-w-3xl items-center gap-4">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
           <h1 className="font-display text-3xl">Identity verification queue</h1>
-          <Link to="/admin/listings" className="text-sm text-ember hover:underline">Listing review panel →</Link>
+          <Link to="/adminn/listings" className="text-sm text-ember hover:underline">Listing review panel →</Link>
         </div>
       </div>
       <AuthGate>

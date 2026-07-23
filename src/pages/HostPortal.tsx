@@ -601,6 +601,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
   const [locLoading, setLocLoading] = useState(false);
   const [pincodeLoading, setPincodeLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const set = <K extends keyof ListingForm>(key: K, value: ListingForm[K]) =>
     setData((prev) => ({ ...prev, [key]: value }));
@@ -736,7 +737,10 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
   // advance with something missing, and finds out exactly what's wrong. ────
   const stepError = (): string | null => {
     switch (step) {
-      case 0: return data.placeType ? null : "Please select what kind of place you're listing.";
+      case 0:
+        if (!data.placeType) return "Please select what kind of place you're listing.";
+        if (!acceptedTerms) return "Please accept the Host Terms & Conditions to proceed to the next section.";
+        return null;
       case 1: return data.spaceType ? null : "Please select what type of space guests will have.";
       case 2:
         if (!data.street.trim() || !data.city.trim() || !data.state.trim() || !data.pincode.trim()) return "Please complete the address.";
@@ -900,22 +904,49 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
       <ProgressBar step={step} />
 
       {step === 0 && (
-        <div className="space-y-4">
-          <h2 className="font-display text-xl">What kind of place is it?</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {PLACE_TYPES.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => set("placeType", id)}
-                className={`flex flex-col items-center gap-2 rounded-xl border p-5 text-sm transition-colors ${
-                  data.placeType === id ? "border-ember bg-ember/10 text-ember" : "border-border text-muted-foreground hover:border-foreground/30"
-                }`}
-              >
-                <Icon className="h-6 w-6" strokeWidth={1.5} />
-                {label}
-              </button>
-            ))}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <h2 className="font-display text-xl">What kind of place is it?</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {PLACE_TYPES.map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => set("placeType", id)}
+                  className={`flex flex-col items-center gap-2 rounded-xl border p-5 text-sm transition-colors ${
+                    data.placeType === id ? "border-ember bg-ember/10 text-ember" : "border-border text-muted-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  <Icon className="h-6 w-6" strokeWidth={1.5} />
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Terms & Conditions Agreement Box */}
+          <div className="rounded-2xl border border-ember/30 bg-ember/5 p-4 space-y-2">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="host-terms-agree"
+                checked={acceptedTerms}
+                onCheckedChange={(checked) => setAcceptedTerms(Boolean(checked))}
+                className="mt-0.5 border-ember/50 data-[state=checked]:bg-ember data-[state=checked]:text-white"
+              />
+              <label htmlFor="host-terms-agree" className="text-xs text-foreground leading-relaxed cursor-pointer select-none">
+                I agree to the{" "}
+                <Link to="/host-terms" target="_blank" className="font-bold text-ember underline hover:text-ember/80">
+                  Wayzyy Host Terms & Conditions
+                </Link>,{" "}
+                <Link to="/guest-terms" target="_blank" className="font-bold text-ember underline hover:text-ember/80">
+                  Guest Terms
+                </Link>, and{" "}
+                <Link to="/policies/privacy-policy" target="_blank" className="font-bold text-ember underline hover:text-ember/80">
+                  Privacy Policy
+                </Link>.
+                I confirm that I own or hold valid leasing/management authorization to list this property on Wayzyy.
+              </label>
+            </div>
           </div>
         </div>
       )}

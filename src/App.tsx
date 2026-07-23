@@ -19,6 +19,7 @@ import PolicyDocPage from "./pages/PolicyDocPage";
 import EarningsCalculator from "./pages/EarningsCalculator";
 import GoaHostComplianceChecklist from "./pages/GoaHostComplianceChecklist";
 import HostPortal from "./pages/HostPortal";
+import AdminDashboard from "./pages/AdminDashboard";
 import AdminVerifications from "./pages/AdminVerifications";
 import AdminReviewListing from "./pages/AdminReviewListing";
 import AdminListings from "./pages/AdminListings";
@@ -103,10 +104,12 @@ const App = () => (
               <Route path="/policies" element={<Policies />} />
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
               <Route path="/host" element={<HostPortal />} />
-              <Route path="/admin/verifications" element={<AdminVerifications />} />
-              <Route path="/admin/review/:propertyId" element={<AdminReviewListing />} />
-              <Route path="/admin/listings" element={<AdminListings />} />
-              <Route path="/admin/airroi-import" element={<AdminAirroiImport />} />
+              <Route path="/adminn" element={<AdminDashboard />} />
+              <Route path="/adminn/verifications" element={<AdminVerifications />} />
+              <Route path="/adminn/review/:propertyId" element={<AdminReviewListing />} />
+              <Route path="/adminn/listings" element={<AdminListings />} />
+              <Route path="/adminn/airroi-import" element={<AdminAirroiImport />} />
+              <Route path="/adminn/import-airbnb" element={<AdminAirroiImport />} />
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />

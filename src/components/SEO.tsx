@@ -6,6 +6,7 @@ interface SEOProps {
   ogType?: "website" | "article" | "product";
   ogImage?: string;
   path?: string;
+  noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   children?: React.ReactNode;
 }
@@ -16,6 +17,7 @@ export function SEO({
   ogType = "website",
   ogImage = "/og-image.png",
   path,
+  noindex = false,
   jsonLd,
   children,
 }: SEOProps) {
@@ -38,6 +40,10 @@ export function SEO({
     // 2. Core Meta Tags
     setMetaTag("name", "description", description);
     setMetaTag("name", "author", "Wayzyy");
+
+    if (noindex) {
+      setMetaTag("name", "robots", "noindex, nofollow");
+    }
 
     // 3. Open Graph Tags
     const siteUrl = "https://wayzyy.com";

@@ -119,7 +119,7 @@ function ListingQueue() {
       <div className="mb-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <h1 className="font-display text-2xl">Listing review panel</h1>
-          <Link to="/admin/verifications" className="text-sm text-ember hover:underline">Identity verification queue →</Link>
+          <Link to="/adminn/verifications" className="text-sm text-ember hover:underline">Identity verification queue →</Link>
         </div>
         <div className="flex rounded-full border border-border p-1 text-sm">
           <button
@@ -154,7 +154,7 @@ function ListingQueue() {
             <button
               key={l.id}
               type="button"
-              onClick={() => navigate(`/admin/review/${l.id}`)}
+              onClick={() => navigate(`/adminn/review/${l.id}`)}
               className="flex w-full items-center gap-4 rounded-xl border border-border p-4 text-left transition-colors hover:border-ember/50"
             >
               <div className="h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-muted">
@@ -189,10 +189,10 @@ function ListingQueue() {
 export default function AdminListings() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Listing review panel — Wayzyy Admin" description="Review pending listings submitted on Wayzyy." />
+      <SEO title="Listing review panel — Wayzyy Admin" description="Review pending listings submitted on Wayzyy." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
-        <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> Back to Wayzyy
+        <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard
         </Link>
         <ThemeToggle />
       </header>

@@ -44,15 +44,21 @@ export function SiteNav() {
             Blog
           </Link>
           <Link
-            className="group flex items-center gap-1.5 font-bold text-ember hover:text-ember/80"
+            className="group flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1 text-xs font-bold text-ember transition-colors hover:bg-ember hover:text-white"
             to="/host"
           >
-            <KeyJuggler className="h-6 w-6 text-ember" />
-            Hosting
+            <KeyJuggler className="h-5 w-5 text-ember group-hover:text-white" />
+            Host with us
           </Link>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <Link
+            to="/host"
+            className="hidden rounded-full bg-ember px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-ember/90 sm:inline-block"
+          >
+            Host with us
+          </Link>
           <a
             href="#waitlist"
             className="hidden rounded-full bg-foreground px-4 py-1.5 text-sm text-background transition-colors hover:bg-foreground/90 sm:inline-block"
