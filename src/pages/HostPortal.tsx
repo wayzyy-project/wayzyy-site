@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -238,6 +238,14 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
           <RefreshCw className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
           <span>
             <strong>Auto-extension safeguard:</strong> If a high-value booking exceeds your current credit pack headroom, we auto-extend it with the smallest tier needed so your listing never goes dark. That fee only comes out of that specific booking payout — never a surprise charge later.
+          </span>
+        </p>
+        <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl bg-muted/20 p-3 rounded-xl border border-border/60">
+          <TrendingUp className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
+          <span>
+            <strong>Goa pricing swings more than most hosts price for:</strong> across Anjuna, Calangute, and Candolim,
+            December nightly rates run 45–60% above the June baseline — but even at that peak, occupancy tops out
+            around 40–44%. Getting your seasonal pricing and cancellation policy right matters more here than in most markets.
           </span>
         </p>
       </section>
