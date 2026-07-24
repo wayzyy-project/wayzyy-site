@@ -43,7 +43,11 @@ export function SiteNav() {
           <Link className="hover:text-foreground" to="/blog">
             Blog
           </Link>
-          <Link className="hover:text-foreground" to="/host">
+          <Link
+            className="group flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1 text-xs font-bold text-ember transition-colors hover:bg-ember hover:text-white"
+            to="/host"
+          >
+            <KeyJuggler className="h-5 w-5 text-ember group-hover:text-white" />
             Hosting
           </Link>
         </nav>
