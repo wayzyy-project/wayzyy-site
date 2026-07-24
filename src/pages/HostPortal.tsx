@@ -309,10 +309,20 @@ function AuthPanel() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (mode === "signup" && !agreedToTerms) {
+      toast({
+        title: "Terms Agreement Required",
+        description: "Please accept the Host Terms & Conditions to create your account.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSubmitting(true);
     try {
       const { error } =
@@ -365,6 +375,30 @@ function AuthPanel() {
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
         </div>
+
+        {mode === "signup" && (
+          <div className="flex items-start gap-2.5 pt-1">
+            <Checkbox
+              id="signup-terms-agree"
+              checked={agreedToTerms}
+              onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
+              className="mt-0.5 border-ember/50 data-[state=checked]:bg-ember data-[state=checked]:text-white shrink-0"
+            />
+            <label htmlFor="signup-terms-agree" className="text-xs text-muted-foreground leading-snug cursor-pointer select-none">
+              I agree to the{" "}
+              <Link to="/host-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                Host Terms & Conditions
+              </Link>,{" "}
+              <Link to="/guest-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                Guest Terms
+              </Link>, and{" "}
+              <Link to="/policies/privacy-policy" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                Privacy Policy
+              </Link>.
+            </label>
+          </div>
+        )}
+
         <Button type="submit" disabled={submitting} className="w-full bg-ember hover:bg-ember/90 text-white">
           {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {mode === "signup" ? "Create account" : "Log in"}
