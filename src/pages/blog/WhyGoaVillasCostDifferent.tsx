@@ -140,6 +140,77 @@ export default function WhyGoaVillasCostDifferent() {
         loading="lazy"
       />
 
+      {/* ── INTERACTIVE HOST FEE FLOWCHART DIAGRAM ── */}
+      <div className="my-10 rounded-3xl border border-ember/30 bg-card p-6 sm:p-8 space-y-6 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
+          <div>
+            <span className="rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-xs font-semibold text-ember uppercase tracking-wider">
+              Complete Host Guide + Flowchart
+            </span>
+            <h3 className="font-display text-xl font-bold mt-2 text-foreground">
+              How Platform Fees Flow from Guest to Host
+            </h3>
+          </div>
+          <p className="text-xs text-muted-foreground max-w-xs">
+            Visual breakdown of where your booking money goes on traditional platforms vs. Wayzyy.
+          </p>
+        </div>
+
+        {/* Flowchart Steps */}
+        <div className="space-y-6">
+          {/* Step 1: Guest Payment */}
+          <div className="flex items-center justify-center">
+            <div className="w-full max-w-md rounded-2xl border border-border bg-background p-4 text-center shadow-sm">
+              <span className="text-xs font-mono font-bold text-muted-foreground uppercase">Step 1: Guest Booking</span>
+              <p className="text-lg font-bold text-foreground mt-0.5">Guest Pays ₹10,000 for Stay</p>
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <div className="h-6 w-0.5 bg-ember/40" />
+          </div>
+
+          {/* Step 2: Decision Node / Split */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Traditional Path */}
+            <div className="rounded-2xl border border-red-500/30 bg-red-500/5 p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-red-500 uppercase tracking-wider">Traditional OTA Model</span>
+                <span className="rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-mono text-red-500 font-bold">15%–20% Fee</span>
+              </div>
+              <p className="text-sm font-medium text-foreground">Airbnb / Booking.com Take Rate</p>
+              <div className="space-y-1.5 text-xs text-muted-foreground">
+                <p>• Platform Commission: <strong>-₹1,550 to -₹2,000</strong></p>
+                <p>• Host Service Charge: <strong>Deducted</strong></p>
+                <p>• Surprised Cancellation Rules: <strong>Applied</strong></p>
+              </div>
+              <div className="border-t border-red-500/20 pt-3 text-right">
+                <span className="text-xs text-muted-foreground block">Net Host Payout:</span>
+                <span className="text-lg font-bold text-red-600 dark:text-red-400">₹8,000 – ₹8,450</span>
+              </div>
+            </div>
+
+            {/* Wayzyy Path */}
+            <div className="rounded-2xl border border-green-500/30 bg-green-500/5 p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider">Wayzyy Flat Model</span>
+                <span className="rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-mono text-green-600 dark:text-green-400 font-bold">0% Commission</span>
+              </div>
+              <p className="text-sm font-medium text-foreground">Flat Prepaid Subscription Rate</p>
+              <div className="space-y-1.5 text-xs text-muted-foreground">
+                <p>• Platform Commission: <strong>₹0 (Zero %)</strong></p>
+                <p>• Payment Gateway (UPI/Card): <strong>~2%</strong></p>
+                <p>• Host Protection & DigiLocker KYC: <strong>Included</strong></p>
+              </div>
+              <div className="border-t border-green-500/20 pt-3 text-right">
+                <span className="text-xs text-muted-foreground block">Net Host Payout:</span>
+                <span className="text-lg font-bold text-green-600 dark:text-green-400">₹9,800+ (~98% Retained)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h2>So Why Does the Price Change?</h2>
       <p>The simplest answer is that every booking platform runs a different business.</p>
       <p>
