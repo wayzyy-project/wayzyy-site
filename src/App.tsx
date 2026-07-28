@@ -72,6 +72,7 @@ import CaboDeRamaFortGuide from "./pages/blog/CaboDeRamaFortGuide";
 import CotigaoWildlifeSanctuaryGuide from "./pages/blog/CotigaoWildlifeSanctuaryGuide";
 import SilentNoiseGoaGuide from "./pages/blog/SilentNoiseGoaGuide";
 import KakolemBeachGuide from "./pages/blog/KakolemBeachGuide";
+import WhereToStayInGoa2026 from "./pages/blog/WhereToStayInGoa2026";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 
@@ -160,6 +161,7 @@ const App = () => (
               <Route path="/blog/cotigao-wildlife-sanctuary-goa-guide" element={<CotigaoWildlifeSanctuaryGuide />} />
               <Route path="/blog/silent-noise-goa-guide" element={<SilentNoiseGoaGuide />} />
               <Route path="/blog/kakolem-beach-goa-guide" element={<KakolemBeachGuide />} />
+              <Route path="/blog/where-to-stay-in-goa-2026" element={<WhereToStayInGoa2026 />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/explore" element={<AppLaunchSoon />} />
               <Route path="*" element={<NotFound />} />

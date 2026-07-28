@@ -576,5 +576,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-18",
     readTime: "11 Min Read",
   },
+  {
+    slug: "where-to-stay-in-goa-2026",
+    title: "Where to Stay in Goa (2026): The Honest Vacation Rental Guide",
+    description:
+      "Where to Stay in Goa — practical tips, real costs, and honest advice for 2026.",
+    metaTitle: "Where to Stay in Goa (2026) — Complete Guide",
+    metaDescription:
+      "Where to Stay in Goa — practical tips, real costs, and honest advice for 2026.",
+    heroImage: "/blog/where-to-stay-in-goa-2026-hero.jpg",
+    publishedDate: "2026-07-28",
+    readTime: "8 Min Read",
+  },
 ];
 
