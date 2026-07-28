@@ -4,6 +4,20 @@
   "framework": "vite",
   "headers": [
     {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
       "source": "/.well-known/assetlinks.json",
       "headers": [{ "key": "Content-Type", "value": "application/json" }]
     },
@@ -13,9 +27,12 @@
     }
   ],
   "rewrites": [
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/.well-known/assetlinks.json", "destination": "/.well-known/assetlinks.json" },
     { "source": "/.well-known/apple-app-site-association", "destination": "/.well-known/apple-app-site-association" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
+
