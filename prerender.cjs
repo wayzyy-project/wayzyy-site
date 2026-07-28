@@ -328,30 +328,63 @@ const routes = [
 
 // Add blog posts to routes
 blogPosts.forEach((post) => {
+  const postUrl = `https://wayzyy.com/blog/${post.slug}`;
   routes.push({
     path: `/blog/${post.slug}`,
     title: post.metaTitle,
     description: post.metaDescription,
     ogType: 'article',
     ogImage: post.heroImage,
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": post.title,
-      "description": post.description,
-      "datePublished": post.publishedDate,
-      "author": {
-        "@type": "Organization",
-        "name": "Wayzyy"
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title,
+        "description": post.description,
+        "datePublished": post.publishedDate,
+        "author": {
+          "@type": "Person",
+          "name": "Akshay",
+          "jobTitle": "Founder & Goa Stay Specialist",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Wayzyy",
+            "url": "https://wayzyy.com"
+          }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Wayzyy",
+          "url": "https://wayzyy.com"
+        },
+        "url": postUrl,
+        "image": `https://wayzyy.com${post.heroImage}`
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Wayzyy",
-        "url": "https://wayzyy.com"
-      },
-      "url": `https://wayzyy.com/blog/${post.slug}`,
-      "image": `https://wayzyy.com${post.heroImage}`
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://wayzyy.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://wayzyy.com/blog"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": post.title,
+            "item": postUrl
+          }
+        ]
+      }
+    ]
   });
 });
 
@@ -387,13 +420,17 @@ routes.forEach((route) => {
   html = html.replace(/<meta name="twitter:image" content="[\s\S]*?"\s*\/?>/, `<meta name="twitter:image" content="${fullImageUrl}" />`);
 
   // Inject additional meta tags and scripts into head (canonical link, twitter card, twitter title, twitter description, jsonld schema)
+  const jsonLdString = Array.isArray(route.jsonLd)
+    ? route.jsonLd.map(item => `<script type="application/ld+json">${JSON.stringify(item)}</script>`).join('\n    ')
+    : `<script type="application/ld+json">${JSON.stringify(route.jsonLd)}</script>`;
+
   const headInsertions = `
     <link rel="canonical" href="${canonicalUrl}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${route.title}" />
     <meta name="twitter:description" content="${route.description}" />
     <meta name="twitter:image" content="${fullImageUrl}" />
-    <script type="application/ld+json">${JSON.stringify(route.jsonLd)}</script>
+    ${jsonLdString}
   `;
 
   html = html.replace('</head>', `${headInsertions}\n</head>`);

@@ -588,5 +588,32 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-07-28",
     readTime: "8 Min Read",
   },
+  {
+    slug: "tambdi-surla-temple-goa-guide",
+    title: "Tambdi Surla Temple Goa (2026): The Honest Guide to Exploring This Ancient Marvel",
+    description:
+      "Planning a trip to Tambdi Surla Temple in Goa? Read our complete, honest guide to 12th-century Kadamba architecture, ancient basalt carvings, road routes, monsoon weather, and nearby stays.",
+    metaTitle: "Tambdi Surla Temple Goa (2026) — Ancient Kadamba Temple Guide",
+    metaDescription:
+      "Everything you need to know about visiting Tambdi Surla Temple in Goa — 12th-century architecture, road routes, weather, waterfall treks, and practical tips.",
+    heroImage: "/blog/tambdi-surla-temple-goa-hero.png",
+    publishedDate: "2026-08-19",
+    readTime: "10 Min Read",
+  },
+  {
+    slug: "goa-spiritual-tourism-guide",
+    title: "Goa (2026): The Honest Guide to Spiritual Tourism",
+    description:
+      "Planning to explore Goa's spiritual side beyond the beaches? Read our complete 2026 guide to ancient Kadamba temples, UNESCO heritage cathedrals, quiet hinterlands, and visitor tips.",
+    metaTitle: "Goa Spiritual Tourism Guide (2026) — Temples & Heritage",
+    metaDescription:
+      "Exploring Goa's spiritual side beyond beaches — ancient Kadamba temples, heritage cathedrals, quiet stay locations, and practical visitor tips for 2026.",
+    heroImage: "/blog/goa-hero.jpg",
+    publishedDate: "2026-08-20",
+    readTime: "8 Min Read",
+  },
 ];
+
+
+
 

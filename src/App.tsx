@@ -73,7 +73,11 @@ import CotigaoWildlifeSanctuaryGuide from "./pages/blog/CotigaoWildlifeSanctuary
 import SilentNoiseGoaGuide from "./pages/blog/SilentNoiseGoaGuide";
 import KakolemBeachGuide from "./pages/blog/KakolemBeachGuide";
 import WhereToStayInGoa2026 from "./pages/blog/WhereToStayInGoa2026";
+import TambdiSurlaTempleGuide from "./pages/blog/TambdiSurlaTempleGuide";
+import GoaSpiritualTourismGuide from "./pages/blog/GoaSpiritualTourismGuide";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
+
+
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 
 const queryClient = new QueryClient();
@@ -162,7 +166,11 @@ const App = () => (
               <Route path="/blog/silent-noise-goa-guide" element={<SilentNoiseGoaGuide />} />
               <Route path="/blog/kakolem-beach-goa-guide" element={<KakolemBeachGuide />} />
               <Route path="/blog/where-to-stay-in-goa-2026" element={<WhereToStayInGoa2026 />} />
+              <Route path="/blog/tambdi-surla-temple-goa-guide" element={<TambdiSurlaTempleGuide />} />
+              <Route path="/blog/goa-spiritual-tourism-guide" element={<GoaSpiritualTourismGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
+
+
               <Route path="/explore" element={<AppLaunchSoon />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

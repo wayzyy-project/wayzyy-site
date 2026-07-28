@@ -36,6 +36,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /adminn/
+Disallow: /admin/
+Disallow: /property/
 
 Sitemap: https://wayzyy.com/sitemap.xml
 
