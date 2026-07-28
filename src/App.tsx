@@ -75,7 +75,9 @@ import KakolemBeachGuide from "./pages/blog/KakolemBeachGuide";
 import WhereToStayInGoa2026 from "./pages/blog/WhereToStayInGoa2026";
 import TambdiSurlaTempleGuide from "./pages/blog/TambdiSurlaTempleGuide";
 import GoaSpiritualTourismGuide from "./pages/blog/GoaSpiritualTourismGuide";
+import EkadashaTeerthaYatraGuide from "./pages/blog/EkadashaTeerthaYatraGuide";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
+
 
 
 import AppLaunchSoon from "./pages/AppLaunchSoon";
@@ -168,7 +170,9 @@ const App = () => (
               <Route path="/blog/where-to-stay-in-goa-2026" element={<WhereToStayInGoa2026 />} />
               <Route path="/blog/tambdi-surla-temple-goa-guide" element={<TambdiSurlaTempleGuide />} />
               <Route path="/blog/goa-spiritual-tourism-guide" element={<GoaSpiritualTourismGuide />} />
+              <Route path="/blog/ekadasha-teertha-yatra-goa-guide" element={<EkadashaTeerthaYatraGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
+
 
 
               <Route path="/explore" element={<AppLaunchSoon />} />

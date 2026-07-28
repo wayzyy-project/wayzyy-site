@@ -612,7 +612,20 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-20",
     readTime: "8 Min Read",
   },
+  {
+    slug: "ekadasha-teertha-yatra-goa-guide",
+    title: "Ekadasha Teertha Yatra, Goa (2026): The Complete Guide to Goa's 11-Temple Pilgrimage",
+    description:
+      "Planning the Ekadasha Teertha Yatra in Goa? Read our complete 3-day guide to all 11 sacred temples, routes, best season, family stay tips, and senior citizen advice.",
+    metaTitle: "Ekadasha Teertha Yatra Goa (2026) — 11-Temple Circuit Guide",
+    metaDescription:
+      "Complete guide to Goa's Ekadasha Teertha Yatra — 11 temples, 3-day itinerary, travel routes, senior citizen tips, and family-friendly stay locations.",
+    heroImage: "/blog/ekadasha-teertha-yatra-goa-hero.png",
+    publishedDate: "2026-08-21",
+    readTime: "12 Min Read",
+  },
 ];
+
 
 
 
