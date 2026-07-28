@@ -3,35 +3,38 @@ import { ArrowLeft, ChevronRight } from "lucide-react";
 import { SEO } from "./SEO";
 import { ThemeToggle } from "./theme-toggle";
 
+import { BlogPostMeta } from "@/lib/blogPosts";
+
 interface BlogLayoutProps {
-  title: string;
-  description: string;
+  post?: BlogPostMeta;
+  title?: string;
+  description?: string;
   /** Search-result <title> / og:title — keep under 60 chars, distinct from the on-page H1 */
-  metaTitle: string;
+  metaTitle?: string;
   /** Search-result meta description / og:description — keep under 155 chars, distinct from the on-page subtitle */
-  metaDescription: string;
-  heroImage: string;
-  heroImageAlt: string;
-  publishedDate: string;
-  slug: string;
+  metaDescription?: string;
+  heroImage?: string;
+  heroImageAlt?: string;
+  publishedDate?: string;
+  slug?: string;
   children: React.ReactNode;
   extraJsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-export function BlogLayout({
-  title,
-  description,
-  metaTitle,
-  metaDescription,
-  heroImage,
-  heroImageAlt,
-  publishedDate,
-  slug,
-  children,
-  extraJsonLd,
-}: BlogLayoutProps) {
+export function BlogLayout(props: BlogLayoutProps) {
   const location = useLocation();
   const path = location.pathname;
+
+  const post = props.post;
+  const title = props.title || post?.title || "";
+  const description = props.description || post?.description || "";
+  const metaTitle = props.metaTitle || post?.metaTitle || title;
+  const metaDescription = props.metaDescription || post?.metaDescription || description;
+  const heroImage = props.heroImage || post?.heroImage || "/og-image.png";
+  const heroImageAlt = props.heroImageAlt || title;
+  const publishedDate = props.publishedDate || post?.publishedDate || "2026-08-01";
+  const { children, extraJsonLd } = props;
+
 
   const schemas = [
     {

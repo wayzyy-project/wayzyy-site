@@ -1,4 +1,4 @@
-const CACHE_NAME = "wayzyy-cache-v2";
+const CACHE_NAME = "wayzyy-cache-v3";
 const ASSETS = [
   "/",
   "/index.html",
@@ -46,7 +46,9 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => {
-          return caches.match(event.request);
+          return caches.match(event.request).then((res) => {
+            return res || caches.match("/index.html");
+          });
         })
     );
     return;
@@ -59,8 +61,9 @@ self.addEventListener("fetch", (event) => {
         return cachedResponse;
       }
       return fetch(event.request).catch(() => {
-        // Network failure fallback
+        return new Response("Asset not found", { status: 404, headers: { "Content-Type": "text/plain" } });
       });
     })
   );
 });
+

@@ -76,7 +76,18 @@ export default function GoaSpiritualTourismGuide() {
   };
 
   return (
-    <BlogLayout post={post} extraJsonLd={[faqJsonLd]}>
+    <BlogLayout
+      title={post.title}
+      description={post.description}
+      metaTitle={post.metaTitle}
+      metaDescription={post.metaDescription}
+      heroImage={post.heroImage}
+      heroImageAlt="Historic cathedral and ancient spiritual heritage in Goa"
+      publishedDate={post.publishedDate}
+      slug={post.slug}
+      extraJsonLd={[faqJsonLd]}
+    >
+
       <div className="space-y-10 text-foreground/90 leading-relaxed text-base sm:text-lg">
         {/* Intro */}
         <p className="text-xl sm:text-2xl font-light text-foreground leading-snug">
