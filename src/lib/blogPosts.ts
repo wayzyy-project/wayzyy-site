@@ -576,5 +576,17 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-18",
     readTime: "11 Min Read",
   },
+  {
+    slug: "goa",
+    title: "Goa (2026): The Honest Guide to Spiritual Tourism",
+    description:
+      "Goa — practical tips, real costs, and honest advice for 2026.",
+    metaTitle: "Goa (2026) — Complete Guide",
+    metaDescription:
+      "Goa — practical tips, real costs, and honest advice for 2026.",
+    heroImage: "/blog/goa-hero.jpg",
+    publishedDate: "2026-07-28",
+    readTime: "8 Min Read",
+  },
 ];
 
