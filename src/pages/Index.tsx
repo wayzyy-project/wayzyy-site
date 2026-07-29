@@ -55,6 +55,14 @@ const Index = () => {
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "What is Wayzyy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wayzyy is a Goa-focused, India-native short-term rental marketplace where hosts pay a flat prepaid subscription instead of a per-booking commission. It's built specifically for peer-to-peer homestays and villa rentals in India, with Aadhaar-based identity verification for both hosts and guests."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "What is the best Airbnb alternative for homestays in India?",
           "acceptedAnswer": {
             "@type": "Answer",
