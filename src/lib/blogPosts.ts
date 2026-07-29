@@ -624,7 +624,20 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-21",
     readTime: "12 Min Read",
   },
+  {
+    slug: "six-new-goa-tourism-projects-guide-2026",
+    title: "Goa Guide (2026): The 6 New Central-Funded Tourism Projects and What Travelers Need to Know",
+    description:
+      "Detailed guide to the ₹258.1 crore central-funded tourism infrastructure projects in Goa — Ponda museum, Porvorim town square, Old Goa Basilica, Colva, and Harvalem Waterfall.",
+    metaTitle: "6 New Goa Tourism Projects (2026) — Budgets & Locations",
+    metaDescription:
+      "Detailed breakdown of Goa's ₹258 crore central tourism infrastructure projects — Ponda museum, Porvorim town square, Old Goa Basilica, Colva, & Harvalem Waterfall.",
+    heroImage: "/blog/goa-new-tourism-projects-hero.png",
+    publishedDate: "2026-08-22",
+    readTime: "10 Min Read",
+  },
 ];
+
 
 
 
