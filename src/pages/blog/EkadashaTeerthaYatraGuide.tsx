@@ -129,7 +129,7 @@ export default function EkadashaTeerthaYatraGuide() {
             What is the Ekadasha Teertha Yatra?
           </h2>
           <p>
-            The **Ekadasha Teertha Yatra** is an official government-backed pilgrimage circuit that links 11 historically significant temples spread across Goa. Rather than visiting temples individually, pilgrims follow a structured 3-day route covering shrines dedicated to Lord Shiva, Lord Ganesha, Lord Vishnu, Goddess Shantadurga, Lord Dattatreya, Lord Parashuram, and Lord Brahma.
+            The <strong className="font-semibold text-foreground">Ekadasha Teertha Yatra</strong> is an official government-backed pilgrimage circuit that links 11 historically significant temples spread across Goa. Rather than visiting temples individually, pilgrims follow a structured 3-day route covering shrines dedicated to Lord Shiva, Lord Ganesha, Lord Vishnu, Goddess Shantadurga, Lord Dattatreya, Lord Parashuram, and Lord Brahma.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
@@ -345,12 +345,12 @@ export default function EkadashaTeerthaYatraGuide() {
             Where to Stay & Tips for Senior Citizens
           </h2>
           <p>
-            Since the temples span North, Central, and South Goa, **Ponda or Margao** serve as ideal central base locations.
+            Since the temples span North, Central, and South Goa, <strong className="font-semibold text-foreground">Ponda or Margao</strong> serve as ideal central base locations.
           </p>
           <div className="p-6 rounded-2xl border border-ember/30 bg-ember/5 space-y-3">
             <h3 className="font-display text-xl text-foreground">Why Vacation Rentals Beat Hotels for Pilgrimages</h3>
             <p className="text-sm text-foreground/90">
-              When traveling with elderly parents, standard hotel rooms can be restrictive. Booking a **Wayzyy vacation rental, villa, or homestay** provides:
+              When traveling with elderly parents, standard hotel rooms can be restrictive. Booking a <strong className="font-semibold text-foreground">Wayzyy vacation rental, villa, or homestay</strong> provides:
             </p>
             <ul className="text-sm text-foreground/90 space-y-1.5 list-disc list-inside pt-1">
               <li>Full kitchens for preparing familiar home-cooked meals.</li>
