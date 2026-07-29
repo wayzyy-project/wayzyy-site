@@ -323,8 +323,30 @@ const routes = [
       },
       "url": "https://wayzyy.com/airbnb-alternative"
     }
+  },
+  {
+    path: '/what-is-wayzyy',
+    title: 'What is Wayzyy? — Goa\'s Zero-Commission Villa & Stay Platform',
+    description: 'What is Wayzyy? Wayzyy is Goa\'s zero-commission vacation rental and stay booking platform connecting travelers directly with verified local hosts.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Wayzyy",
+      "legalName": "Wayzyy Technologies Private Limited",
+      "url": "https://wayzyy.com",
+      "logo": "https://wayzyy.com/favicon.png",
+      "alternateName": ["Wayzyy Goa", "Wayzyy Stays", "Wayzyy Travel", "Wayzyy Vacation Rentals"],
+      "sameAs": [
+        "https://www.instagram.com/staywayzyy/",
+        "https://www.linkedin.com/company/wayzyy/",
+        "https://x.com/wayzyycom"
+      ]
+    }
   }
 ];
+
 
 // Add blog posts to routes
 blogPosts.forEach((post) => {
