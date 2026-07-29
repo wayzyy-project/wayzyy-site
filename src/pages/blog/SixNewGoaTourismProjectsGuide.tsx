@@ -107,7 +107,7 @@ export default function SixNewGoaTourismProjectsGuide() {
         </p>
 
         <p>
-          This guide breaks down each of the six central-funded Goa tourism infrastructure projects by its actual location—<strong className="font-semibold text-foreground">Ponda, Porvorim, Old Goa, Colva, and Mayem</strong>—answering the real questions: Is it visitable right now? How do you get there? Where do you park? And should you include it in your itinerary today or save it for a return trip?
+          This guide breaks down each of the six central-funded Goa tourism infrastructure projects by its actual location—<strong className="font-semibold text-foreground">Ponda, Porvorim, Old Goa, Colva, and Mayem</strong>—answering the real questions on accessibility, travel routes, and timing. If you're exploring beyond the beach belt, <strong className="font-semibold text-foreground">Wayzyy</strong> helps you find family-friendly villas and verified homestays located directly near these emerging heritage hubs without paying middleman markups.
         </p>
 
         {/* Hero Image */}
@@ -340,23 +340,33 @@ export default function SixNewGoaTourismProjectsGuide() {
         {/* Section 5: Impact on Rentals & Hosts */}
         <section className="space-y-6">
           <h2 className="font-display text-3xl sm:text-4xl text-foreground border-b border-border/60 pb-3">
-            What This Means for Vacation Rentals & Short-Term Hosts
+            What This Means for Vacation Rentals, Hosts & Travelers
           </h2>
           <p>
-            As public funding shifts tourism beyond crowded North Goa beach belts, emerging stay markets are gaining momentum:
+            As central funding shifts tourism focus beyond crowded coastal party strips, emerging hinterland stay markets are gaining rapid momentum:
           </p>
 
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-start gap-2">
-              <Building2 className="h-5 w-5 text-ember shrink-0 mt-0.5" />
-              <span><strong>Porvorim as a Base:</strong> Centrally located between Panjim and coastal beaches, ideal for families and digital nomads wanting quiet stays near civic plazas.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Building2 className="h-5 w-5 text-ember shrink-0 mt-0.5" />
-              <span><strong>Riverside & Hinterland Growth:</strong> Ribandar, Britona, Salvador do Mundo, and Mayem are attracting travelers seeking nature retreats, birdwatching, and heritage architecture.</span>
-            </li>
-          </ul>
+          <div className="space-y-4 text-sm text-muted-foreground">
+            <div className="p-5 rounded-xl border border-border bg-card/30 space-y-2">
+              <h3 className="font-semibold text-foreground flex items-center gap-2">
+                <Building2 className="h-5 w-5 text-ember shrink-0" /> Porvorim & Mandovi River as Base Hubs
+              </h3>
+              <p>
+                Centrally located between Panjim and coastal beaches, Porvorim, Ribandar, and Britona offer strategic base points. Travelers can search <strong className="font-semibold text-foreground">Wayzyy</strong> for verified apartments and heritage villas that bypass traditional booking site commissions.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-xl border border-border bg-card/30 space-y-2">
+              <h3 className="font-semibold text-foreground flex items-center gap-2">
+                <Building2 className="h-5 w-5 text-ember shrink-0" /> Hinterland Growth in Ponda & Mayem
+              </h3>
+              <p>
+                As the Ponda museum and Harvalem waterfall developments take shape, demand for authentic hinterland homestays, spice farm retreats, and nature villas is rising. Hosts in Ponda, Mayem, and Bicholim can list their properties on <strong className="font-semibold text-foreground">Wayzyy</strong> to connect directly with conscious travelers—benefiting from zero host commissions and direct guest communication.
+              </p>
+            </div>
+          </div>
         </section>
+
 
         {/* FAQ Section */}
         <section className="space-y-6 pt-6">
