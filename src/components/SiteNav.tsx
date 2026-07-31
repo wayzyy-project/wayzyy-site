@@ -51,7 +51,7 @@ export function SiteNav() {
             className="group flex items-center gap-1.5 rounded-full border border-[#FF6B00]/40 bg-[#FF6B00]/10 px-3.5 py-1 text-xs font-bold text-[#FF6B00] transition-all hover:bg-[#FF6B00] hover:text-white shadow-sm shadow-[#FF6B00]/10"
             to="/gig-challenge"
           >
-            <Swords className="h-3.5 w-3.5 text-white" />
+            <Swords className="h-3.5 w-3.5 text-[#FF6B00] dark:text-white group-hover:text-white transition-colors" />
             <span>$1,000 Challenge</span>
           </Link>
         </nav>
