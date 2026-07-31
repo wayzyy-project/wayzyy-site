@@ -11,6 +11,7 @@ import { CalculatorTeaser } from "@/components/CalculatorTeaser";
 import { BlogSection } from "@/components/BlogSection";
 import { HousePartiesSection } from "@/components/HousePartiesSection";
 import { HostBannerSection } from "@/components/HostBannerSection";
+import { GigChallengeTeaser } from "@/components/gig-challenge/GigChallengeTeaser";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useTrackSection } from "@/hooks/use-track-section";
@@ -144,6 +145,7 @@ const Index = () => {
           <div ref={whyRef as React.RefObject<HTMLDivElement>}><WhySection /></div>
           <div ref={testimonialsRef as React.RefObject<HTMLDivElement>}><TestimonialsSection /></div>
           <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
+          <GigChallengeTeaser />
           <CalculatorTeaser />
           <Principles />
           <div ref={housePartiesRef as React.RefObject<HTMLDivElement>}><HousePartiesSection /></div>

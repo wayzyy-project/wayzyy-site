@@ -860,7 +860,6 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             photos: photoUrls,
             instantBook: false,
             selfCheckIn: false,
-            cancelPolicy: "Flexible",
             checkInTime: "3:00 PM",
             checkOutTime: "11:00 AM",
           },

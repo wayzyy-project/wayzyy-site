@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
-
+import { ChallengeTopBanner } from "@/components/gig-challenge/ChallengeTopBanner";
 import { Swords } from "lucide-react";
 
 export function SiteNav() {
@@ -12,6 +12,7 @@ export function SiteNav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
+      <ChallengeTopBanner />
       <motion.div
         style={{ opacity: bgOpacity }}
         className="absolute inset-0 bg-background/90 backdrop-blur-md"
