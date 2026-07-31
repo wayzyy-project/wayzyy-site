@@ -148,7 +148,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
       await sendViaZepto({
-        from: "Wayzyy <noreply@wayzyy.com>",
+        from: "Wayzyy <hello@wayzyy.com>",
         to: body.email,
         subject: "Thank you for your submission — Wayzyy Gig Challenge",
         html: emailHtml,

@@ -99,9 +99,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     `;
 
-    // "noreply@wayzyy.com" is the domain-verified sender used consistently
-    // across every wayzyy-app email function.
-    const from = "Wayzyy Waitlist <noreply@wayzyy.com>";
+    // "hello@wayzyy.com" is the domain-verified sender used consistently
+    // across all notifications.
+    const from = "Wayzyy Waitlist <hello@wayzyy.com>";
     const to = "akshaykumar.sharma@wayzyy.com";
     const subject = `New ${audience === "host" ? "Host" : "Traveler"} joined the waitlist`;
 
