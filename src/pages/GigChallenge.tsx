@@ -31,6 +31,7 @@ import {
   CloudLightning,
   MapPin,
   Stamp as StampIcon,
+  Clock,
 } from "lucide-react";
 import {
   Accordion,
@@ -243,7 +244,7 @@ export default function GigChallenge() {
                 <span>SOLO DEVELOPER CHALLENGE • $1,000 OFFER</span>
               </div>
 
-              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.12]">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl text-foreground leading-[1.12] text-balance">
                 Think you can build something better than{" "}
                 <span className="relative inline-block text-[hsl(var(--ember))]">
                   Airbnb's chat moderation?
@@ -310,7 +311,7 @@ export default function GigChallenge() {
                 <CloudLightning className="h-4 w-4" />
                 <span>Turbulence Ahead</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+              <h2 className="font-display text-2xl sm:text-4xl text-foreground text-balance">
                 Why Standard Chat Moderation Fails
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base">
@@ -375,7 +376,7 @@ export default function GigChallenge() {
                 <Layers className="h-4 w-4" />
                 <span>Flight Plan</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+              <h2 className="font-display text-2xl sm:text-4xl text-foreground text-balance">
                 How The Challenge Works
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base">
@@ -453,7 +454,7 @@ export default function GigChallenge() {
                 <Luggage className="h-4 w-4" />
                 <span>In-Flight Perks</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+              <h2 className="font-display text-2xl sm:text-4xl text-foreground text-balance">
                 What You Get
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base">
@@ -503,7 +504,7 @@ export default function GigChallenge() {
                 <Send className="h-4 w-4" />
                 <span>Application & Pitch Submission</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground">
+              <h2 className="font-display text-3xl sm:text-4xl text-foreground">
                 Your Boarding Pass
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
@@ -673,7 +674,7 @@ export default function GigChallenge() {
 
                       <div className="space-y-2">
                         <label className="text-xs font-semibold text-foreground block">
-                          Techniques & Models Considered * <span className="text-muted-foreground font-normal">(pick 3+ for a surprise)</span>
+                          Techniques & Models Considered *
                         </label>
                         <div className="flex flex-wrap gap-2">
                           {["Regex & Rules Engine", "Small Local LLMs (Ollama/SLMs)", "Vector Embeddings & Cosine", "Fine-Tuned Classifier", "Hybrid Deterministic/Probabilistic"].map((tech) => {
@@ -850,7 +851,7 @@ export default function GigChallenge() {
                 <Radar className="h-4 w-4" />
                 <span>Control Tower</span>
               </div>
-              <h2 className="font-display text-3xl font-extrabold text-foreground">
+              <h2 className="font-display text-3xl text-foreground">
                 Logistics & FAQ
               </h2>
             </Reveal>
@@ -898,6 +899,13 @@ export default function GigChallenge() {
             </Accordion>
           </div>
         </section>
+
+        <div className="border-t border-border py-6">
+          <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
+            <Clock className="h-3.5 w-3.5 text-[hsl(var(--ember))]" />
+            Submissions close August 7, 2026 — apply before the gate shuts.
+          </p>
+        </div>
 
         <SiteFooter />
       </div>
