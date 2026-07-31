@@ -84,6 +84,8 @@ export function EasterEggs() {
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
+      if (!e || !e.key) return;
+
       konamiBuffer = [...konamiBuffer, e.key].slice(-KONAMI.length);
       if (konamiBuffer.join(",") === KONAMI.join(",")) {
         konamiBuffer = [];
@@ -91,7 +93,7 @@ export function EasterEggs() {
         return;
       }
 
-      if (e.key.length === 1) {
+      if (typeof e.key === "string" && e.key.length === 1) {
         wordBuffer = (wordBuffer + e.key.toLowerCase()).slice(
           -TARGET_WORD.length
         );
