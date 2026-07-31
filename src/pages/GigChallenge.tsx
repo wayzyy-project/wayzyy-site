@@ -660,15 +660,15 @@ export default function GigChallenge() {
 
                       <div className="space-y-1.5">
                         <label className="text-xs font-semibold text-foreground">
-                          Written Pitch: Approach to Chat Moderation & Contact-Info Detection *
+                          Submit Your Pitch Link Here (Doc / Deck / Notion) *
                         </label>
-                        <textarea
+                        <input
+                          type="url"
                           required
-                          rows={4}
-                          placeholder="Explain how you'd detect obfuscated phone numbers (e.g. 'a92m a121ksh35ay'), symbol insertion, and word-numbers while keeping false positives low."
+                          placeholder="https://docs.google.com/... or Notion link covering your approach to obfuscated phone numbers, symbol insertion, and word-numbers"
                           value={formData.writtenPitch}
                           onChange={(e) => setFormData({ ...formData, writtenPitch: e.target.value })}
-                          className="w-full rounded-xl border border-input bg-background p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ember))]"
+                          className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ember))]"
                         />
                       </div>
 
