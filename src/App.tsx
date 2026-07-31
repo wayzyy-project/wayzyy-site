@@ -84,6 +84,7 @@ import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
 
 
+import GigChallenge from "./pages/GigChallenge";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 
 const queryClient = new QueryClient();
@@ -107,6 +108,8 @@ const App = () => (
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/gig-challenge" element={<GigChallenge />} />
+              <Route path="/build-with-us" element={<GigChallenge />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />

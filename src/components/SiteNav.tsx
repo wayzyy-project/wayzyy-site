@@ -3,31 +3,28 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
 
+import { Swords } from "lucide-react";
+
 export function SiteNav() {
   const { scrollY } = useScroll();
-  const bg = useTransform(
-    scrollY,
-    [0, 80],
-    ["hsla(0,0%,0%,0)", "hsla(var(--background) / 0.75)"]
-  );
-  const border = useTransform(scrollY, [0, 80], ["0", "1px"]);
-  const blur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(10px)"]);
+  const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.85]);
+  const borderOpacity = useTransform(scrollY, [0, 80], [0, 1]);
 
   return (
-    <motion.header
-      style={{
-        backgroundColor: bg,
-        backdropFilter: blur as unknown as string,
-        WebkitBackdropFilter: blur as unknown as string,
-        borderBottomWidth: border as unknown as string,
-      }}
-      className="fixed inset-x-0 top-0 z-50 border-border"
-    >
-      <div className="w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <motion.div
+        style={{ opacity: bgOpacity }}
+        className="absolute inset-0 bg-background/90 backdrop-blur-md"
+      />
+      <motion.div
+        style={{ opacity: borderOpacity }}
+        className="absolute inset-x-0 bottom-0 h-[1px] bg-border"
+      />
+      <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
         <a href="#top" className="group flex items-center">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
-        <nav className="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
+        <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
           <a className="hover:text-foreground" href="#why">
             Why
           </a>
@@ -50,6 +47,13 @@ export function SiteNav() {
             <KeyJuggler className="h-5 w-5 text-ember group-hover:text-white" />
             Hosting
           </Link>
+          <Link
+            className="group flex items-center gap-1.5 rounded-full border border-[#FF6B00]/40 bg-[#FF6B00]/10 px-3.5 py-1 text-xs font-bold text-[#FF6B00] transition-all hover:bg-[#FF6B00] hover:text-white shadow-sm shadow-[#FF6B00]/10"
+            to="/gig-challenge"
+          >
+            <Swords className="h-3.5 w-3.5 text-white" />
+            <span>$1,000 Challenge</span>
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -61,6 +65,6 @@ export function SiteNav() {
           </a>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

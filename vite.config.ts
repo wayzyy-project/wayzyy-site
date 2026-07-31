@@ -13,5 +13,10 @@ export default defineConfig(() => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    // react-globe.gl pulls in its own copy of three.js transitively; without
+    // deduping, two separate THREE realms coexist and cross-realm instances
+    // (e.g. a custom Material built from our own "three" import) silently
+    // fail Three.js's internal instanceof checks, breaking the globe render.
+    dedupe: ["three"],
   },
 }));
