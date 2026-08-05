@@ -19,6 +19,7 @@ import {
   DollarSign,
   CheckCircle2,
   ChevronRight,
+  ChevronDown,
   Send,
   HelpCircle,
   AlertTriangle,
@@ -32,6 +33,10 @@ import {
   MapPin,
   Stamp as StampIcon,
   Clock,
+  Copy,
+  Check,
+  ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import {
   Accordion,
@@ -80,9 +85,103 @@ const gigChallengeSchema = {
 const STAMPS: StampDef[] = [
   { id: "problem", label: "Turbulence Ahead", icon: CloudLightning },
   { id: "process", label: "Flight Plan", icon: Plane },
+  { id: "video-guide", label: "Brief Video", icon: Video },
   { id: "perks", label: "In-Flight Perks", icon: Luggage },
+  { id: "guardrail-tests", label: "Test Cases", icon: Sparkles },
   { id: "apply", label: "Boarding Pass", icon: Ticket },
   { id: "faq", label: "Control Tower", icon: Radar },
+];
+
+interface GuardrailTestCase {
+  id: string;
+  category: string;
+  badgeColor: string;
+  title: string;
+  testPrompt: string;
+  expectedBehavior: string;
+}
+
+const GUARDRAIL_TEST_CASES: GuardrailTestCase[] = [
+  {
+    id: "tc-1",
+    category: "Phone Split",
+    badgeColor: "bg-red-500/10 text-red-500 border-red-500/20",
+    title: "Digit & Word-Number Splitting",
+    testPrompt: "hi i a92m a121ksh35ay call me on nine eight 7 six zero 1 2 3 4",
+    expectedBehavior: "Detect 10-digit phone number hidden inside mixed letters & word-numbers."
+  },
+  {
+    id: "tc-2",
+    category: "Social Handle",
+    badgeColor: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+    title: "Obfuscated Social Handle Evasion",
+    testPrompt: "cannot share phone here but reach out at insta: akshay (dot) goa or telegram @akshay_98_76_five",
+    expectedBehavior: "Flag off-platform social handle evasions (dot / underscore replacements)."
+  },
+  {
+    id: "tc-3",
+    category: "Off-Platform Payment",
+    badgeColor: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+    title: "Direct UPI/GPay Payment Solicitation",
+    testPrompt: "hey don't book through the app directly, send payment to UPI 9876543210 or GPay to get instant 20% discount on the villa",
+    expectedBehavior: "Flag fee-evasion & off-platform financial transaction prompt."
+  },
+  {
+    id: "tc-4",
+    category: "Hostile Threat",
+    badgeColor: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+    title: "Coercion & Negative Review Blackmail",
+    testPrompt: "this villa is a complete scam and host is a fraud! give me full refund right now or i will trash the place and post fake bad reviews everywhere",
+    expectedBehavior: "Trigger safety guardrail for hostile threat, coercion, and blackmail risk."
+  },
+  {
+    id: "tc-5",
+    category: "Email & Domain",
+    badgeColor: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+    title: "Spelled-Out Email & Domain",
+    testPrompt: "email me directly at alex [at] gmail [dot] com or visit my-private-villas-goa (dot) com for photos",
+    expectedBehavior: "Catch bracketed email addresses and masked web domain URLs."
+  },
+  {
+    id: "tc-6",
+    category: "Emoji / Symbols",
+    badgeColor: "bg-pink-500/10 text-pink-500 border-pink-500/20",
+    title: "Emoji & Hyphenated Number Masking",
+    testPrompt: "my cell is 9️⃣8️⃣7️⃣6️⃣5️⃣4️⃣3️⃣2️⃣1️⃣0️⃣ or 9-8-7-6-5-4-3-2-1-0 text me fast",
+    expectedBehavior: "Parse Unicode number emojis and hyphen-separated digit sequences."
+  },
+  {
+    id: "tc-7",
+    category: "Homoglyph / Leetspeak",
+    badgeColor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+    title: "Character Substitution & Leetspeak",
+    testPrompt: "ch@t w!th m30n c@ll: 987 654 3210 for offline booking deal",
+    expectedBehavior: "Normalize leetspeak symbol substitutions and catch offline booking deal."
+  },
+  {
+    id: "tc-8",
+    category: "WhatsApp Link",
+    badgeColor: "bg-teal-500/10 text-teal-500 border-teal-500/20",
+    title: "WhatsApp Shortlink & Spelled Number",
+    testPrompt: "ping me on whtsapp: n1ne 87 65 43 21 0 or wa.me/919876543210",
+    expectedBehavior: "Detect direct messaging app links (wa.me) and obfuscated numbers."
+  },
+  {
+    id: "tc-9",
+    category: "Harassment & Extortion",
+    badgeColor: "bg-rose-500/10 text-rose-500 border-rose-500/20",
+    title: "Personal Defamation & Extortion",
+    testPrompt: "you dirty thief host, i know where you live, transfer 5000 back or i come to your office and cause a public scene",
+    expectedBehavior: "Flag harassment, physical threat, and illegal extortion attempt."
+  },
+  {
+    id: "tc-10",
+    category: "Phishing URL",
+    badgeColor: "bg-indigo-500/10 text-indigo-500 border-indigo-500/20",
+    title: "External Phishing Link Solicitation",
+    testPrompt: "please confirm your booking reservation fee by clicking http://wayzyy-verify-payment-auth.online/login",
+    expectedBehavior: "Block malicious external authentication and payment phishing links."
+  }
 ];
 
 export default function GigChallenge() {
@@ -107,11 +206,36 @@ export default function GigChallenge() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copiedAll, setCopiedAll] = useState(false);
   const comboFiredRef = useRef(false);
   const bookingRef = useMemo(
     () => `WYZ-${Date.now().toString(36).toUpperCase()}`,
     []
   );
+
+  const handleCopyTestCase = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    toast({
+      title: "Test Case Copied!",
+      description: "Sample test prompt copied to clipboard.",
+    });
+    setTimeout(() => setCopiedId(null), 2500);
+  };
+
+  const handleCopyAllTestCases = () => {
+    const allPrompts = GUARDRAIL_TEST_CASES.map(
+      (tc, idx) => `// Test Case ${idx + 1} [${tc.category}]: ${tc.title}\n"${tc.testPrompt}"`
+    ).join("\n\n");
+    navigator.clipboard.writeText(allPrompts);
+    setCopiedAll(true);
+    toast({
+      title: "All 10 Test Cases Copied!",
+      description: "Entire 10 test case benchmark suite copied to clipboard.",
+    });
+    setTimeout(() => setCopiedAll(false), 2500);
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -165,10 +289,22 @@ export default function GigChallenge() {
         body: JSON.stringify({ ...formData, bookingRef }),
       });
       if (!res.ok) {
-        console.warn("API submission returned non-OK status, falling back to local success state:", res.status);
+        console.error("API submission failed:", res.status);
+        toast({
+          title: "Submission Failed",
+          description: "Something went wrong saving your application. Please try again, or email us your pitch directly if this keeps happening.",
+          variant: "destructive"
+        });
+        return;
       }
     } catch (err) {
-      console.warn("API submission endpoint unavailable locally, proceeding with submission flow:", err);
+      console.error("API submission request failed:", err);
+      toast({
+        title: "Submission Failed",
+        description: "We couldn't reach the server. Check your connection and try again.",
+        variant: "destructive"
+      });
+      return;
     } finally {
       setIsSubmitting(false);
     }
@@ -443,6 +579,83 @@ export default function GigChallenge() {
           </div>
         </section>
 
+        {/* ==================== SECTION: VIDEO WALKTHROUGH & GUIDELINES ==================== */}
+        <section id="video-guide" className="py-16 sm:py-24 border-b border-border bg-card/10">
+          <div className="container mx-auto max-w-5xl px-4 sm:px-6 space-y-10">
+            <Reveal className="text-center space-y-3 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[hsl(var(--ember))] uppercase tracking-wider">
+                <Video className="h-4 w-4" />
+                <span>Challenge Brief Walkthrough</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-4xl text-foreground text-balance">
+                Watch How The Challenge & Submissions Work
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Watch this quick video walkthrough detailing the problem statement, pitch deck expectations, and submission steps.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.08} className="rounded-3xl border-2 border-border bg-card p-4 sm:p-6 shadow-xl space-y-6 overflow-hidden">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border/80 bg-black/90 shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/oeGDZ72ECAk"
+                  title="Wayzyy Gig Challenge Video Walkthrough"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="h-full w-full border-0"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
+                <div className="p-3.5 rounded-xl border border-border bg-background/60 space-y-1">
+                  <span className="font-semibold text-foreground flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-[hsl(var(--ember))]" />
+                    1. Understand Evasion Types
+                  </span>
+                  <p className="text-muted-foreground text-[11px] leading-relaxed">
+                    Learn why traditional regex fails when users split numbers and spell out contact handles.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-border bg-background/60 space-y-1">
+                  <span className="font-semibold text-foreground flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-[hsl(var(--ember))]" />
+                    2. Build Pitch Deck & Video
+                  </span>
+                  <p className="text-muted-foreground text-[11px] leading-relaxed">
+                    Record a short 2–5 min screen-recording explaining your tech stack, trade-offs, and cost per check.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-border bg-background/60 space-y-1">
+                  <span className="font-semibold text-foreground flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-[hsl(var(--ember))]" />
+                    3. Submit Application Below
+                  </span>
+                  <p className="text-muted-foreground text-[11px] leading-relaxed">
+                    Fill out your details & pitch links in the Boarding Pass form at the bottom of this page.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-border">
+                <span className="text-xs text-muted-foreground">
+                  Having trouble viewing? Watch directly on YouTube:
+                </span>
+                <a
+                  href="https://youtu.be/oeGDZ72ECAk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[hsl(var(--ember))] hover:underline"
+                >
+                  <span>Open on YouTube (https://youtu.be/oeGDZ72ECAk)</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* ==================== SECTION 4: WHAT YOU GET ==================== */}
         <section id="perks" className="py-16 sm:py-24 border-b border-border">
           <div className="container mx-auto max-w-5xl px-4 sm:px-6 space-y-12">
@@ -490,6 +703,115 @@ export default function GigChallenge() {
                 </p>
               </Reveal>
             </div>
+          </div>
+        </section>
+
+        {/* ==================== SECTION: GUARDRAIL TEST CASES (BENCHMARK) ==================== */}
+        <section id="guardrail-tests" className="py-16 sm:py-20 border-b border-border bg-card/20">
+          <div className="container mx-auto max-w-5xl px-4 sm:px-6 space-y-8">
+            <Reveal className="text-center space-y-3 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[hsl(var(--ember))] uppercase tracking-wider">
+                <Sparkles className="h-4 w-4" />
+                <span>Guardrail Testing Suite</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-4xl text-foreground text-balance">
+                10 Benchmark Test Cases
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base">
+                A single reference suite with 10 sample test prompts for checking contact evasions, social handles, hostile sentiment, and scam links.
+              </p>
+            </Reveal>
+
+            {/* Single Consolidated Benchmark Card */}
+            <Reveal delay={0.05} className="rounded-3xl border-2 border-border bg-card shadow-2xl overflow-hidden">
+              {/* Card Header Bar */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border bg-muted/40 px-6 py-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-2.5 w-2.5 rounded-full bg-[hsl(var(--ember))]" />
+                    <h3 className="font-display font-bold text-base text-foreground">
+                      Chat Moderation Test Prompts (10 Items)
+                    </h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Copy individual prompts below or click <strong className="text-foreground">Copy All 10 Test Cases</strong> to import into your guardrail tests.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopyAllTestCases}
+                  className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--ember))] px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-[hsl(var(--ember))]/20 hover:bg-[hsl(var(--ember))]/90 transition-all cursor-pointer shrink-0 active:scale-95"
+                >
+                  {copiedAll ? (
+                    <>
+                      <Check className="h-4 w-4 text-white" />
+                      <span>All 10 Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4" />
+                      <span>Copy All 10 Test Cases</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* List of 10 Test Cases inside Single Card */}
+              <div className="divide-y divide-border/60">
+                {GUARDRAIL_TEST_CASES.map((tc, index) => {
+                  const isCopied = copiedId === tc.id;
+                  return (
+                    <div
+                      key={tc.id}
+                      className="group p-4 sm:p-5 hover:bg-muted/30 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    >
+                      <div className="space-y-2 flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-mono text-[11px] font-bold text-muted-foreground w-6">
+                            #{index + 1}
+                          </span>
+                          <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold ${tc.badgeColor}`}>
+                            {tc.category}
+                          </span>
+                          <span className="font-semibold text-xs text-foreground">
+                            {tc.title}
+                          </span>
+                        </div>
+
+                        <div className="rounded-lg border border-border/80 bg-background/90 px-3 py-2 font-mono text-xs text-red-500 dark:text-red-400 select-all break-words font-medium">
+                          "{tc.testPrompt}"
+                        </div>
+
+                        <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 pl-0.5">
+                          <span className="font-semibold text-foreground">Expected:</span>
+                          <span>{tc.expectedBehavior}</span>
+                        </div>
+                      </div>
+
+                      {/* Individual Copy Button */}
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTestCase(tc.id, tc.testPrompt)}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-all hover:border-[hsl(var(--ember))]/50 hover:bg-[hsl(var(--ember))]/10 hover:text-[hsl(var(--ember))] cursor-pointer shrink-0 self-end sm:self-center active:scale-95"
+                      >
+                        {isCopied ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-emerald-500" />
+                            <span className="text-emerald-500 font-semibold">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -902,6 +1224,24 @@ export default function GigChallenge() {
             <Clock className="h-3.5 w-3.5 text-[hsl(var(--ember))]" />
             Submissions close August 7, 2026 — apply before the gate shuts.
           </p>
+        </div>
+
+        {/* Floating Submission Indicator Widget */}
+        <div className="fixed right-4 sm:right-6 bottom-6 sm:bottom-8 z-40">
+          <button
+            onClick={() => scrollToSection("apply")}
+            aria-label="Scroll down to submission form"
+            className="group flex items-center gap-2.5 rounded-full border border-[hsl(var(--ember))]/40 bg-background/90 px-4 py-2.5 text-xs font-semibold text-foreground shadow-2xl shadow-[hsl(var(--ember))]/20 backdrop-blur-md transition-all hover:bg-[hsl(var(--ember))] hover:text-white hover:border-[hsl(var(--ember))] hover:scale-105 cursor-pointer ring-1 ring-black/5 dark:ring-white/10"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--ember))] opacity-75 group-hover:bg-white" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--ember))] group-hover:bg-white" />
+            </span>
+            <span>Submission Form Below</span>
+            <div className="animate-bounce rounded-full bg-[hsl(var(--ember))]/10 p-1 text-[hsl(var(--ember))] group-hover:bg-white/20 group-hover:text-white">
+              <ChevronDown className="h-4 w-4" />
+            </div>
+          </button>
         </div>
 
         <SiteFooter />
