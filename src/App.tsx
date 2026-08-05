@@ -16,6 +16,7 @@ import HostTerms from "./pages/HostTerms";
 import GuestTerms from "./pages/GuestTerms";
 import Policies from "./pages/Policies";
 import PolicyDocPage from "./pages/PolicyDocPage";
+import PropertyImportPolicy from "./pages/PropertyImportPolicy";
 import EarningsCalculator from "./pages/EarningsCalculator";
 import GoaHostComplianceChecklist from "./pages/GoaHostComplianceChecklist";
 import HostPortal from "./pages/HostPortal";
@@ -116,6 +117,7 @@ const App = () => (
               <Route path="/host-terms" element={<HostTerms />} />
               <Route path="/guest-terms" element={<GuestTerms />} />
               <Route path="/policies" element={<Policies />} />
+              <Route path="/policies/property-import-policy" element={<PropertyImportPolicy />} />
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
               <Route path="/host" element={<HostPortal />} />
               <Route path="/adminn" element={<AdminDashboard />} />

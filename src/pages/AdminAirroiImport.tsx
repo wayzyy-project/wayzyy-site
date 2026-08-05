@@ -316,6 +316,22 @@ function ImportTool() {
               Import {selectedIds.length} Selected Listing(s)
             </Button>
           </div>
+
+          {/* Import Verification & Policy Disclosures */}
+          <div className="mt-8 rounded-2xl border border-border bg-muted/40 p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <h4 className="font-medium text-sm text-foreground flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                Wayzyy Property Import & Verification Policy
+              </h4>
+              <Link to="/policies/property-import-policy" target="_blank" className="text-xs text-primary font-medium hover:underline">
+                Read Full Policy →
+              </Link>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              When importing listings on behalf of hosts, all third-party guest reviews, star ratings, and algorithmic pricing are intentionally excluded. Imported properties are created in <span className="font-semibold text-foreground">pending review</span> state for manual host price configuration and identity verification.
+            </p>
+          </div>
         </div>
       )}
     </div>

@@ -840,6 +840,59 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
       },
     ],
   },
+  'property-import': {
+    id: 'property-import',
+    title: 'Property Listing & Import Verification Policy',
+    subtitle: 'Governed by Indian Law · Digital Personal Data Protection Act, 2023 · IT Intermediary Rules, 2021 · Consumer Protection Rules, 2020',
+    sections: [
+      {
+        paragraphs: [
+          'This Property Listing & Import Verification Policy ("Policy") details the regulatory, technological, and procedural standards enforced by Wayzyy regarding property listing imports, identity verification, direct host pricing, and review integrity.',
+          'To ensure absolute transparency and guest trust, Wayzyy provides automated listing import tools for hosts transitioning from third-party platforms (e.g. Airbnb, Booking.com). By using our listing import features or maintaining an active property listing on Wayzyy, hosts agree to adhere strictly to the terms of this Policy.',
+        ],
+      },
+      {
+        heading: '1. Prohibition of Third-Party Review & Rating Scraping',
+        paragraphs: [
+          '• Zero External Scraping: Wayzyy explicitly prohibits importing, scraping, or transferring guest reviews, star ratings, or host badges from third-party travel platforms.',
+          '• Platform Authenticity: Every guest review published on Wayzyy represents an authentic, verified stay completed through our platform.',
+          '• Trust Assurance: Guests booking on Wayzyy can rest assured that all displayed reviews reflect real experience on our network, uninfluenced by external platform algorithms or transferred testimonials.',
+        ],
+      },
+      {
+        heading: '2. Exclusion of Third-Party Dynamic Pricing & Direct Host Pricing',
+        paragraphs: [
+          '• Elimination of External Dynamic Pricing: Third-party platform dynamic pricing matrices, algorithmic surge multipliers, and hidden service fee inflations are completely excluded upon import.',
+          '• Direct Host Pricing Mandate: Hosts are required to explicitly enter their own competitive nightly base rate and weekend rate during property review.',
+          '• Transparency Guarantee: Prices displayed on Wayzyy represent the host\'s true direct rate without non-transparent third-party markups.',
+        ],
+      },
+      {
+        heading: '3. Host Authorization & Listing Ownership Declaration',
+        paragraphs: [
+          '• Host Consent Requirement: Property listing imports may only be initiated by the authorized property owner, manager, or designated representative.',
+          '• Ownership Representation: Initiating an import constitutes a legal declaration that the host holds full legal rights to list, lease, and represent the property images and information.',
+          '• Fraud Prevention: Any unauthorized attempt to import listings without host approval will result in immediate listing deactivation and permanent account blacklisting.',
+        ],
+      },
+      {
+        heading: '4. Mandatory Manual Verification & Approval Workflow',
+        paragraphs: [
+          '• Pending Review Status: All imported or newly created listings are initially flagged with a "Pending Review" status.',
+          '• Human Quality Audit: Wayzyy\'s operations team performs a manual review of property photos, geo-location accuracy, amenity accuracy, and host identity verification.',
+          '• Approval Timeline: Listings undergo verification within 2 to 24 hours. Once verified, the listing transitions to "Active" status and becomes discoverable by travellers.',
+        ],
+      },
+      {
+        heading: '5. Host Identity Verification Options',
+        paragraphs: [
+          '• Manual ID Verification: Hosts can complete manual verification by submitting official government-issued ID (Aadhaar, PAN, or Passport) alongside a live selfie.',
+          '• Encrypted Data Protection: Submitted identity verification documents are encrypted and stored securely in compliance with the Digital Personal Data Protection Act, 2023.',
+          '• Verification Badge: Successfully verified hosts receive a public "Verified Host" trust badge on their listings.',
+        ],
+      },
+    ],
+  },
 };
 
 // Table of contents for the /policies hub page, grouped like the mobile app's
@@ -872,6 +925,7 @@ export const POLICY_TOC: { heading: string; links: PolicyLink[] }[] = [
       { title: 'Damage & Security Policy', href: '/policies/damage-security' },
       { title: 'Discrimination & Inclusion Policy', href: '/policies/discrimination-inclusion' },
       { title: 'Prohibited Content & Listings Policy', href: '/policies/prohibited-content' },
+      { title: 'Property Listing & Import Policy', href: '/policies/property-import' },
       { title: 'Review & Rating Policy', href: '/policies/review-rating' },
       { title: 'Trust & Safety Policy', href: '/policies/trust-safety' },
     ],

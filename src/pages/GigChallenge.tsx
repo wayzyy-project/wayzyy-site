@@ -57,18 +57,29 @@ const gigChallengeSchema = {
     "value": "WAYZYY-GIG-2026-01"
   },
   "datePosted": "2026-07-31",
-  "employmentType": "FULL_TIME",
+  "validThrough": "2026-12-31T23:59:59+05:30",
+  "employmentType": ["FULL_TIME", "INTERN", "CONTRACTOR"],
+  "directApply": true,
   "hiringOrganization": {
     "@type": "Organization",
     "name": "Wayzyy",
     "sameAs": "https://wayzyy.com",
-    "logo": "https://wayzyy.com/favicon.png"
+    "logo": "https://wayzyy.com/favicon.svg"
+  },
+  "jobLocationType": "TELECOMMUTE",
+  "applicantLocationRequirements": {
+    "@type": "Country",
+    "name": "India"
   },
   "jobLocation": {
     "@type": "Place",
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "Remote / India"
+      "streetAddress": "Panjim Coastal Highway",
+      "addressLocality": "Panaji",
+      "addressRegion": "Goa",
+      "postalCode": "403001",
+      "addressCountry": "IN"
     }
   },
   "baseSalary": {

@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -21,6 +21,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
+import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
+import { ImportListingModal } from "@/components/host/ImportListingModal";
+import { HostOnboardingTour } from "@/components/host/HostOnboardingTour";
+import { HostProfileModal } from "@/components/host/HostProfileModal";
 
 // Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx — keeps
 // listings consistent regardless of which platform a host submits from.
@@ -309,6 +313,7 @@ function AuthPanel() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -329,13 +334,13 @@ function AuthPanel() {
         mode === "signup" ? await signUp(email, password, name) : await signIn(email, password);
       if (error) throw error;
       if (mode === "signup") {
-        toast({ title: "Check your email", description: "Confirm your address, then log in to list your property." });
+        toast({ title: "Account Created!", description: "Confirm your email address, then log in to view your host portal." });
         setMode("login");
       }
     } catch (err) {
       toast({
-        title: "Something went wrong",
-        description: err instanceof Error ? err.message : "Please try again.",
+        title: "Authentication failed",
+        description: err instanceof Error ? err.message : "Please check your details and try again.",
         variant: "destructive",
       });
     } finally {
@@ -344,70 +349,145 @@ function AuthPanel() {
   };
 
   return (
-    <div className="mx-auto max-w-sm">
-      <div className="mb-6 flex rounded-full border border-border p-1 text-sm">
-        <button
-          className={`flex-1 rounded-full py-2 transition-colors ${mode === "signup" ? "bg-ember text-white" : "text-muted-foreground"}`}
-          onClick={() => setMode("signup")}
-        >
-          Sign up
-        </button>
-        <button
-          className={`flex-1 rounded-full py-2 transition-colors ${mode === "login" ? "bg-ember text-white" : "text-muted-foreground"}`}
-          onClick={() => setMode("login")}
-        >
-          Log in
-        </button>
+    <div className="mx-auto max-w-md">
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-2xl">
+        {/* Travel Hero Header Banner */}
+        <div className="relative h-44 w-full overflow-hidden">
+          <img
+            src="/travel_login_hero.png"
+            alt="Goa Beach Villa Sunset"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+          <div className="absolute bottom-4 left-6 right-6">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-md px-3 py-1 text-[11px] font-semibold text-white">
+              <Sparkles className="h-3 w-3 text-ember" /> Wayzyy Host Network
+            </div>
+            <h2 className="font-display text-xl font-bold text-white mt-1 drop-shadow-sm">
+              {mode === "signup" ? "Create Host Account" : "Welcome Back, Host"}
+            </h2>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-6">
+          {/* Mode Switcher Tabs */}
+          <div className="flex rounded-2xl border border-border bg-muted/30 p-1 text-xs font-semibold">
+            <button
+              type="button"
+              className={`flex-1 rounded-xl py-2.5 transition-all ${
+                mode === "signup"
+                  ? "bg-ember text-white shadow-md font-bold"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              onClick={() => setMode("signup")}
+            >
+              Sign Up
+            </button>
+            <button
+              type="button"
+              className={`flex-1 rounded-xl py-2.5 transition-all ${
+                mode === "login"
+                  ? "bg-ember text-white shadow-md font-bold"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              onClick={() => setMode("login")}
+            >
+              Log In
+            </button>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {mode === "signup" && (
+              <div className="space-y-1.5">
+                <Label htmlFor="name" className="text-xs font-medium text-muted-foreground">Full Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="name"
+                    placeholder="e.g. Ananya Sharma"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="pl-9 text-xs py-5 rounded-xl"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-xs font-medium text-muted-foreground">Email Address</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="host@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="pl-9 text-xs py-5 rounded-xl"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-xs font-medium text-muted-foreground">Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="pl-9 pr-9 text-xs py-5 rounded-xl"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  {showPassword ? <Eye className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+
+            {mode === "signup" && (
+              <div className="flex items-start gap-2.5 pt-1">
+                <Checkbox
+                  id="signup-terms-agree"
+                  checked={agreedToTerms}
+                  onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
+                  className="mt-0.5 border-ember/50 data-[state=checked]:bg-ember data-[state=checked]:text-white shrink-0"
+                />
+                <label htmlFor="signup-terms-agree" className="text-[11px] text-muted-foreground leading-snug cursor-pointer select-none">
+                  I agree to the{" "}
+                  <Link to="/host-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                    Host Terms & Conditions
+                  </Link>,{" "}
+                  <Link to="/guest-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                    Guest Terms
+                  </Link>, and{" "}
+                  <Link to="/policies/privacy-policy" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
+                    Privacy Policy
+                  </Link>.
+                </label>
+              </div>
+            )}
+
+            <Button type="submit" disabled={submitting} className="w-full bg-ember hover:bg-ember/90 text-white py-5 rounded-xl font-semibold shadow-md gap-2">
+              {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+              {mode === "signup" ? "Create Host Account" : "Log In to Host Portal"}
+            </Button>
+          </form>
+
+          <p className="text-center text-[11px] text-muted-foreground leading-relaxed pt-2 border-t border-border">
+            Same unified account system as the Wayzyy mobile app — log in here with the same email or create a new host account.
+          </p>
+        </div>
       </div>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {mode === "signup" && (
-          <div>
-            <Label htmlFor="name">Full name</Label>
-            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-        )}
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-        </div>
-
-        {mode === "signup" && (
-          <div className="flex items-start gap-2.5 pt-1">
-            <Checkbox
-              id="signup-terms-agree"
-              checked={agreedToTerms}
-              onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
-              className="mt-0.5 border-ember/50 data-[state=checked]:bg-ember data-[state=checked]:text-white shrink-0"
-            />
-            <label htmlFor="signup-terms-agree" className="text-xs text-muted-foreground leading-snug cursor-pointer select-none">
-              I agree to the{" "}
-              <Link to="/host-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
-                Host Terms & Conditions
-              </Link>,{" "}
-              <Link to="/guest-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
-                Guest Terms
-              </Link>, and{" "}
-              <Link to="/policies/privacy-policy" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
-                Privacy Policy
-              </Link>.
-            </label>
-          </div>
-        )}
-
-        <Button type="submit" disabled={submitting} className="w-full bg-ember hover:bg-ember/90 text-white">
-          {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {mode === "signup" ? "Create account" : "Log in"}
-        </Button>
-      </form>
-      <p className="mt-4 text-center text-xs text-muted-foreground">
-        This is the same account system as the Wayzyy app — log in here with the same email and
-        password you'd use on mobile, or create a new one either place.
-      </p>
     </div>
   );
 }
@@ -449,21 +529,52 @@ function statusMeta(status: string) {
 function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string) => void }) {
   const { user } = useAuth();
   const [listings, setListings] = useState<HostListing[] | null>(null);
+  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending">("all");
 
-  useEffect(() => {
+  // Verification & Modal states
+  const [isVerified, setIsVerified] = useState(false);
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [showManualVerify, setShowManualVerify] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showTour, setShowTour] = useState(false);
+
+  const fetchDashboardData = () => {
     if (!user) return;
-    let cancelled = false;
+
+    // Fetch properties
     supabase
       .from("properties")
       .select("id, title, city, state, price_per_night, images, status")
       .eq("host_id", user.id)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
-        if (!cancelled) setListings((data ?? []) as HostListing[]);
+        setListings((data ?? []) as HostListing[]);
       });
-    return () => {
-      cancelled = true;
-    };
+
+    // Fetch verification status
+    Promise.all([
+      supabase.from("profiles").select("aadhaar_verified, identity_verified").eq("id", user.id).maybeSingle(),
+      supabase.from("identity_verification_submissions")
+        .select("status")
+        .eq("user_id", user.id)
+        .order("submitted_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+    ]).then(([{ data: profile }, { data: submission }]) => {
+      setIsVerified(profile?.aadhaar_verified === true || profile?.identity_verified === true);
+      setPendingVerification(submission?.status === "pending_review");
+    });
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+    if (user) {
+      const tourDone = localStorage.getItem(`wayzyy_host_tour_completed_${user.id}`);
+      if (tourDone !== "true") {
+        setShowTour(true);
+      }
+    }
   }, [user]);
 
   if (listings === null) {
@@ -474,33 +585,151 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     );
   }
 
+  const filteredListings = listings.filter((l) => {
+    if (activeTab === "active") return l.status === "active";
+    if (activeTab === "pending") return l.status === "pending_review";
+    return true;
+  });
+
   return (
-    <div className="mx-auto max-w-3xl">
-      <div className="mb-8 flex items-center justify-between gap-4">
-        <h2 className="font-display text-2xl">Your listings</h2>
-        <Button onClick={onAddNew} className="gap-1.5 bg-ember text-white hover:bg-ember/90">
-          <Home className="h-4 w-4" />
-          List a new property
-        </Button>
+    <div className="mx-auto max-w-3xl space-y-8">
+      {/* Host Identity Verification Status Card */}
+      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${
+              isVerified
+                ? "bg-green-500/10 text-green-600 dark:text-green-400"
+                : pendingVerification
+                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                : "bg-primary/10 text-primary"
+            }`}>
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-display font-semibold text-base text-foreground">Host Identity Verification</h3>
+                {isVerified && (
+                  <span className="rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-green-600 dark:text-green-400">
+                    Verified Host
+                  </span>
+                )}
+                {pendingVerification && (
+                  <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                    Pending Review
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {isVerified
+                  ? "Your identity has been verified. Your properties display a Verified Host badge."
+                  : pendingVerification
+                  ? "Your manual ID submission is currently under human review by our Indian operations team."
+                  : "Complete manual verification by uploading government ID and a live selfie."}
+              </p>
+            </div>
+          </div>
+
+          {!isVerified && (
+            <Button
+              variant={pendingVerification ? "outline" : "default"}
+              size="sm"
+              onClick={() => setShowManualVerify(true)}
+              className="shrink-0 gap-1.5"
+            >
+              <Camera className="h-4 w-4" />
+              {pendingVerification ? "View Submission" : "Verify Identity Manually"}
+            </Button>
+          )}
+        </div>
       </div>
 
-      {listings.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border py-16 text-center">
-          <Home className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
-          <p className="mb-1 text-sm font-medium">No listings yet</p>
-          <p className="mb-4 text-xs text-muted-foreground">List your first property to start hosting on Wayzyy.</p>
-          <Button onClick={onAddNew} className="bg-ember text-white hover:bg-ember/90">
-            List a new property
-          </Button>
+      {/* Hosting Action Header & Cards */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 className="font-display text-2xl font-bold text-foreground">Property Portfolio</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Manage your existing listings or add properties</p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
+              <User className="h-4 w-4 text-primary" />
+              Host Profile
+            </Button>
+            <Button onClick={() => setShowImportModal(true)} variant="outline" size="sm" className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
+              <Upload className="h-4 w-4" />
+              Import Listing
+            </Button>
+            <Button onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
+              <Home className="h-4 w-4" />
+              List Property
+            </Button>
+          </div>
+        </div>
+
+        {/* Tab Filters */}
+        <div className="flex items-center justify-between border-b border-border pb-2 text-xs font-medium">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-3 py-1.5 rounded-lg transition-colors ${
+                activeTab === "all" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              All Listings ({listings.length})
+            </button>
+            <button
+              onClick={() => setActiveTab("active")}
+              className={`px-3 py-1.5 rounded-lg transition-colors ${
+                activeTab === "active" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Live ({listings.filter((l) => l.status === "active").length})
+            </button>
+            <button
+              onClick={() => setActiveTab("pending")}
+              className={`px-3 py-1.5 rounded-lg transition-colors ${
+                activeTab === "pending" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Pending Review ({listings.filter((l) => l.status === "pending_review").length})
+            </button>
+          </div>
+
+          <button
+            onClick={() => setShowTour(true)}
+            className="text-[11px] text-primary hover:underline font-semibold flex items-center gap-1"
+          >
+            <Sparkles className="h-3 w-3" /> Platform Guide
+          </button>
+        </div>
+      </div>
+
+      {filteredListings.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-border py-16 text-center space-y-3 bg-card/20">
+          <Home className="mx-auto h-8 w-8 text-muted-foreground" />
+          <p className="text-sm font-medium text-foreground">No listings found in this section</p>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            You can list a new property manually or import your existing Airbnb listing link in seconds.
+          </p>
+          <div className="flex justify-center gap-3 pt-2">
+            <Button onClick={() => setShowImportModal(true)} variant="outline" size="sm">
+              Import Airbnb Listing
+            </Button>
+            <Button onClick={onAddNew} size="sm" className="bg-ember text-white hover:bg-ember/90">
+              List Property Manually
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="space-y-4">
-          {listings.map((p) => {
+          {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
             return (
-              <div key={p.id} className="rounded-xl border border-border p-4">
+              <div key={p.id} className="rounded-2xl border border-border bg-card p-4 transition-all hover:border-border/80">
                 <div className="flex gap-4">
-                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
+                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-muted border border-border">
                     {p.images?.[0] ? (
                       <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
                     ) : (
@@ -511,30 +740,70 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="truncate font-medium">{p.title || "Untitled listing"}</p>
-                      <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${meta.className}`}>
+                      <p className="truncate font-semibold text-foreground text-sm">{p.title || "Untitled listing"}</p>
+                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${meta.className}`}>
                         {meta.label}
                       </span>
                     </div>
-                    <p className="text-sm text-muted-foreground">{[p.city, p.state].filter(Boolean).join(", ")}</p>
-                    <p className="mt-1 text-sm font-medium">
+                    <p className="text-xs text-muted-foreground mt-0.5">{[p.city, p.state].filter(Boolean).join(", ")}</p>
+                    <p className="mt-1.5 text-xs font-semibold text-foreground">
                       {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
                     </p>
                   </div>
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onManage(p.id, p.title || "Untitled listing")}
-                  className="mt-3 inline-flex w-auto justify-start gap-1.5 rounded-full border-ember text-ember hover:bg-ember/10 hover:text-ember"
-                >
-                  <SlidersHorizontal className="h-3.5 w-3.5" />
-                  Manage calendar, discounts & cancellation policy
-                </Button>
+                <div className="mt-3 pt-3 border-t border-border/60 flex items-center justify-between">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onManage(p.id, p.title || "Untitled listing")}
+                    className="inline-flex w-auto justify-start gap-1.5 rounded-full border-ember/40 text-ember hover:bg-ember/10 hover:text-ember text-xs"
+                  >
+                    <SlidersHorizontal className="h-3.5 w-3.5" />
+                    Manage Calendar & Pricing
+                  </Button>
+                  <Link to="/policies/property-import-policy" target="_blank" className="text-[11px] text-muted-foreground hover:text-foreground">
+                    Import Policy
+                  </Link>
+                </div>
               </div>
             );
           })}
         </div>
+      )}
+
+      {/* Manual Verification Modal */}
+      <ManualVerificationModal
+        isOpen={showManualVerify}
+        onClose={() => setShowManualVerify(false)}
+        onSuccess={fetchDashboardData}
+      />
+
+      {/* Import Listing Modal */}
+      <ImportListingModal
+        isOpen={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        onSuccess={fetchDashboardData}
+      />
+
+      {/* Host Profile Modal */}
+      <HostProfileModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+        isVerified={isVerified}
+        pendingVerification={pendingVerification}
+        totalListings={listings.length}
+        liveListings={listings.filter((l) => l.status === "active").length}
+        onVerifyClick={() => setShowManualVerify(true)}
+        onStartTourClick={() => setShowTour(true)}
+      />
+
+      {/* Host Onboarding Interactive Tour */}
+      {user && (
+        <HostOnboardingTour
+          userId={user.id}
+          isOpen={showTour}
+          onClose={() => setShowTour(false)}
+        />
       )}
     </div>
   );
