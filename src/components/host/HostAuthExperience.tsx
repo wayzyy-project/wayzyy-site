@@ -331,28 +331,34 @@ export function HostAuthExperience() {
                   )}
 
                   {view === "signup" && (
-                    <div className="flex items-start gap-2 text-left pt-1">
-                      <Checkbox
-                        id="terms-agree"
-                        checked={agreedToTerms}
-                        onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
-                        className="mt-0.5 border-[#ff6b00] data-[state=checked]:bg-[#ff6b00] data-[state=checked]:text-white shrink-0"
-                      />
-                      <label
-                        htmlFor="terms-agree"
-                        className={`text-[11px] font-medium leading-snug cursor-pointer select-none ${
-                          isNight ? "text-slate-200" : "text-slate-700"
+                    <div className="flex items-center justify-center pt-1">
+                      <div
+                        className={`flex items-center gap-2.5 px-4 py-2 rounded-full border shadow-xs transition-all ${
+                          isNight
+                            ? "bg-slate-900/90 border-slate-700 text-slate-100"
+                            : "bg-white/95 border-slate-300/90 text-slate-900"
                         }`}
                       >
-                        I agree to the{" "}
-                        <Link to="/host-terms" target="_blank" className="font-bold text-[#ff6b00] underline">
-                          Host Terms
-                        </Link>{" "}
-                        and{" "}
-                        <Link to="/policies/property-import-policy" target="_blank" className="font-bold text-[#ff6b00] underline">
-                          Import Policy
-                        </Link>.
-                      </label>
+                        <Checkbox
+                          id="terms-agree"
+                          checked={agreedToTerms}
+                          onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
+                          className="border-[#ff6b00] data-[state=checked]:bg-[#ff6b00] data-[state=checked]:text-white shrink-0"
+                        />
+                        <label
+                          htmlFor="terms-agree"
+                          className="text-xs font-bold leading-snug cursor-pointer select-none"
+                        >
+                          I agree to the{" "}
+                          <Link to="/host-terms" target="_blank" className="font-extrabold text-[#ff6b00] underline hover:text-[#e05e00]">
+                            Host Terms
+                          </Link>{" "}
+                          and{" "}
+                          <Link to="/policies/property-import-policy" target="_blank" className="font-extrabold text-[#ff6b00] underline hover:text-[#e05e00]">
+                            Import Policy
+                          </Link>.
+                        </label>
+                      </div>
                     </div>
                   )}
 
