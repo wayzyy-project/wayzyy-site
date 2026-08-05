@@ -232,25 +232,27 @@ export function HostAuthExperience() {
                   </p>
                 </div>
 
-                {/* Floating Inputs with High-Contrast Icons */}
+                {/* Floating Inputs with Solid Bold Icon Badges */}
                 <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 pt-1">
                   {view === "signup" && (
                     <div className="relative text-left">
                       <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                         Full Name
                       </div>
-                      <div className="relative">
-                        <User className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                      <div className="relative flex items-center">
+                        <div className="absolute left-2 top-2 z-10 w-7 h-7 rounded-full bg-[#ff6b00] text-white flex items-center justify-center shadow-xs pointer-events-none">
+                          <User className="h-3.5 w-3.5 stroke-[2.5]" />
+                        </div>
                         <input
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
                           placeholder="e.g. Ananya Sharma"
-                          className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                          className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-11 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                             isNight
                               ? "border-slate-600/90 bg-slate-900/90 text-white"
-                              : "border-slate-300/90 bg-white/90 text-slate-900"
+                              : "border-slate-300/90 bg-white/95 text-slate-900"
                           }`}
                         />
                       </div>
@@ -262,18 +264,20 @@ export function HostAuthExperience() {
                     <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                       Email Id
                     </div>
-                    <div className="relative">
-                      <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                    <div className="relative flex items-center">
+                      <div className="absolute left-2 top-2 z-10 w-7 h-7 rounded-full bg-[#ff6b00] text-white flex items-center justify-center shadow-xs pointer-events-none">
+                        <Mail className="h-3.5 w-3.5 stroke-[2.5]" />
+                      </div>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder="thisuix@mail.com"
-                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-11 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                           isNight
                             ? "border-slate-600/90 bg-slate-900/90 text-white"
-                            : "border-slate-300/90 bg-white/90 text-slate-900"
+                            : "border-slate-300/90 bg-white/95 text-slate-900"
                         }`}
                       />
                     </div>
@@ -284,8 +288,10 @@ export function HostAuthExperience() {
                     <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                       Password
                     </div>
-                    <div className="relative">
-                      <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                    <div className="relative flex items-center">
+                      <div className="absolute left-2 top-2 z-10 w-7 h-7 rounded-full bg-[#ff6b00] text-white flex items-center justify-center shadow-xs pointer-events-none">
+                        <Lock className="h-3.5 w-3.5 stroke-[2.5]" />
+                      </div>
                       <input
                         type={showPassword ? "text" : "password"}
                         value={password}
@@ -293,21 +299,21 @@ export function HostAuthExperience() {
                         required
                         minLength={6}
                         placeholder="••••••••••••••••"
-                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-10 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-11 pr-11 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                           isNight
                             ? "border-slate-600/90 bg-slate-900/90 text-white"
-                            : "border-slate-300/90 bg-white/90 text-slate-900"
+                            : "border-slate-300/90 bg-white/95 text-slate-900"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-3.5 text-slate-400 hover:text-[#ff6b00] transition-colors"
+                        className="absolute right-2 top-2 z-10 w-7 h-7 rounded-full bg-slate-200/90 hover:bg-[#ff6b00] text-slate-700 hover:text-white flex items-center justify-center transition-colors shadow-xs"
                       >
                         {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                          <EyeOff className="h-3.5 w-3.5 stroke-[2.5]" />
                         ) : (
-                          <Eye className="h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                          <Eye className="h-3.5 w-3.5 stroke-[2.5]" />
                         )}
                       </button>
                     </div>
