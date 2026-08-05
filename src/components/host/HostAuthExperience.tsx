@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, ArrowLeft, Sparkles
@@ -44,7 +44,6 @@ export function HostAuthExperience() {
       } else if (targetView === "landing") {
         setIsNight(false);
       } else {
-        // Login can alternate or stay night if switching from signup
         setIsNight((prev) => !prev);
       }
 
@@ -190,12 +189,12 @@ export function HostAuthExperience() {
                   </p>
                 </div>
 
-                {/* Elegant Rounded Slim Buttons using #ff6b00 */}
+                {/* Modern Ultra-Rounded Buttons */}
                 <div className="w-full max-w-xs space-y-3 pt-2">
                   <button
                     type="button"
                     onClick={() => handleScreenAxisRotation("login")}
-                    className="w-full h-11 rounded-full bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-sm tracking-wide shadow-lg shadow-[#ff6b00]/30 hover:shadow-[#ff6b00]/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#ff6b00]"
+                    className="w-full h-11 rounded-full bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-xs tracking-wider uppercase shadow-lg shadow-[#ff6b00]/30 hover:shadow-[#ff6b00]/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#ff6b00]"
                   >
                     LOG IN <ArrowRight className="h-4 w-4" />
                   </button>
@@ -203,7 +202,7 @@ export function HostAuthExperience() {
                   <button
                     type="button"
                     onClick={() => handleScreenAxisRotation("signup")}
-                    className="w-full h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold text-sm tracking-wide shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-white/90 cursor-pointer"
+                    className="w-full h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold text-xs tracking-wider uppercase shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-white/90 cursor-pointer"
                   >
                     CREATE ACCOUNT
                   </button>
@@ -233,25 +232,25 @@ export function HostAuthExperience() {
                   </p>
                 </div>
 
-                {/* Floating Inputs with #ff6b00 Accents - No enclosing heavy box! */}
+                {/* Floating Inputs with High-Contrast Icons */}
                 <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 pt-1">
                   {view === "signup" && (
                     <div className="relative text-left">
-                      <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
+                      <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                         Full Name
                       </div>
                       <div className="relative">
-                        <User className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
+                        <User className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
                         <input
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
                           placeholder="e.g. Ananya Sharma"
-                          className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                          className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                             isNight
-                              ? "border-slate-700/80 bg-slate-900/80 text-white"
-                              : "border-slate-300/80 bg-white/80 text-slate-900"
+                              ? "border-slate-600/90 bg-slate-900/90 text-white"
+                              : "border-slate-300/90 bg-white/90 text-slate-900"
                           }`}
                         />
                       </div>
@@ -260,21 +259,21 @@ export function HostAuthExperience() {
 
                   {/* Email Input */}
                   <div className="relative text-left">
-                    <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
+                    <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                       Email Id
                     </div>
                     <div className="relative">
-                      <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
+                      <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder="thisuix@mail.com"
-                        className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                           isNight
-                            ? "border-slate-700/80 bg-slate-900/80 text-white"
-                            : "border-slate-300/80 bg-white/80 text-slate-900"
+                            ? "border-slate-600/90 bg-slate-900/90 text-white"
+                            : "border-slate-300/90 bg-white/90 text-slate-900"
                         }`}
                       />
                     </div>
@@ -282,11 +281,11 @@ export function HostAuthExperience() {
 
                   {/* Password Input */}
                   <div className="relative text-left">
-                    <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
+                    <div className="absolute -top-2.5 left-4 z-10 bg-white px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/60 shadow-xs">
                       Password
                     </div>
                     <div className="relative">
-                      <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
+                      <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
                       <input
                         type={showPassword ? "text" : "password"}
                         value={password}
@@ -294,20 +293,22 @@ export function HostAuthExperience() {
                         required
                         minLength={6}
                         placeholder="••••••••••••••••"
-                        className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-10 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                        className={`w-full h-11 rounded-[22px] border-2 backdrop-blur-md pl-10 pr-10 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
                           isNight
-                            ? "border-slate-700/80 bg-slate-900/80 text-white"
-                            : "border-slate-300/80 bg-white/80 text-slate-900"
+                            ? "border-slate-600/90 bg-slate-900/90 text-white"
+                            : "border-slate-300/90 bg-white/90 text-slate-900"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className={`absolute right-3.5 top-3.5 ${
-                          isNight ? "text-slate-400 hover:text-white" : "text-slate-500 hover:text-[#ff6b00]"
-                        }`}
+                        className="absolute right-3.5 top-3.5 text-slate-400 hover:text-[#ff6b00] transition-colors"
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-[#ff6b00] stroke-[2.5]" />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -351,44 +352,41 @@ export function HostAuthExperience() {
                     </div>
                   )}
 
-                  {/* Brand #ff6b00 Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="w-full h-11 rounded-xl bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-xs tracking-wider uppercase shadow-lg shadow-[#ff6b00]/30 hover:shadow-[#ff6b00]/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#ff6b00]"
-                  >
-                    {submitting ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : view === "login" ? (
-                      "LOG IN"
-                    ) : (
-                      "REGISTER NOW"
-                    )}
-                  </button>
+                  {/* Modern Sleek Minimal Rounded Pill Submit Button */}
+                  <div className="pt-1">
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="px-8 h-10 rounded-full bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-xs tracking-wider uppercase shadow-md shadow-[#ff6b00]/30 hover:shadow-lg hover:shadow-[#ff6b00]/50 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mx-auto border border-[#ff6b00]"
+                    >
+                      {submitting ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : view === "login" ? (
+                        "LOG IN"
+                      ) : (
+                        "REGISTER NOW"
+                      )}
+                    </button>
+                  </div>
                 </form>
 
-                {/* OR Divider with Minimal Social Icons */}
-                <div className="w-full max-w-sm space-y-3 pt-2">
+                {/* OR Divider */}
+                <div className="w-full max-w-xs space-y-3 pt-2">
                   <div className="flex items-center gap-3">
-                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700" : "bg-slate-300"}`} />
+                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700/80" : "bg-slate-300"}`} />
                     <span className={`text-[10px] font-bold tracking-wider ${isNight ? "text-slate-400" : "text-slate-500"}`}>
                       OR
                     </span>
-                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700" : "bg-slate-300"}`} />
+                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700/80" : "bg-slate-300"}`} />
                   </div>
 
-                  {/* Social Buttons Card */}
-                  <div
-                    className={`flex items-center justify-center gap-4 p-2.5 rounded-2xl shadow-sm border backdrop-blur-md ${
-                      isNight
-                        ? "bg-slate-900/80 border-slate-700/80"
-                        : "bg-white/80 border-white/90"
-                    }`}
-                  >
+                  {/* Separate Floating Circular Social Buttons (No Big Bar!) */}
+                  <div className="flex items-center justify-center gap-4 py-1">
+                    {/* Google Circle */}
                     <button
                       type="button"
                       onClick={() => toast({ title: "Google Login", description: "Initiating Google SSO..." })}
-                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
+                      className="w-11 h-11 rounded-full bg-white shadow-md border border-slate-200/80 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-200 cursor-pointer"
                       title="Login with Google"
                     >
                       <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -399,10 +397,11 @@ export function HostAuthExperience() {
                       </svg>
                     </button>
 
+                    {/* Facebook Circle */}
                     <button
                       type="button"
                       onClick={() => toast({ title: "Facebook Login", description: "Initiating Facebook SSO..." })}
-                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
+                      className="w-11 h-11 rounded-full bg-white shadow-md border border-slate-200/80 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-200 cursor-pointer"
                       title="Login with Facebook"
                     >
                       <svg className="h-5 w-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
@@ -410,17 +409,14 @@ export function HostAuthExperience() {
                       </svg>
                     </button>
 
+                    {/* Apple Circle */}
                     <button
                       type="button"
                       onClick={() => toast({ title: "Apple Login", description: "Initiating Apple SSO..." })}
-                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
+                      className="w-11 h-11 rounded-full bg-white shadow-md border border-slate-200/80 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-200 cursor-pointer"
                       title="Login with Apple"
                     >
-                      <svg
-                        className={`h-5 w-5 ${isNight ? "text-white" : "text-slate-900"}`}
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
+                      <svg className="h-5 w-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.36-.58.67-1.09 1.75-.95 2.78 1.01.08 2.05-.54 2.67-1.29z"/>
                       </svg>
                     </button>
@@ -431,10 +427,10 @@ export function HostAuthExperience() {
                     <button
                       type="button"
                       onClick={() => handleScreenAxisRotation(view === "login" ? "signup" : "login")}
-                      className={`text-xs font-semibold transition-all px-3.5 py-1.5 rounded-full border shadow-xs cursor-pointer ${
+                      className={`text-xs font-semibold transition-all px-4 py-1.5 rounded-full border shadow-xs cursor-pointer ${
                         isNight
-                          ? "bg-slate-900/80 border-slate-700/80 text-slate-200 hover:bg-slate-800"
-                          : "bg-white/80 border-white/90 text-slate-800 hover:bg-white"
+                          ? "bg-slate-900/90 border-slate-700/80 text-slate-200 hover:bg-slate-800"
+                          : "bg-white/90 border-white/90 text-slate-800 hover:bg-white"
                       }`}
                     >
                       {view === "login" ? (
