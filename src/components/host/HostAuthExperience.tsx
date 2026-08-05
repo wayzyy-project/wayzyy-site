@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, ArrowLeft, Sparkles, Check
+  Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, ArrowLeft, Sparkles
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -14,8 +14,9 @@ export function HostAuthExperience() {
   const { toast } = useToast();
 
   const [view, setView] = useState<ViewState>("landing");
-  const [flipDegree, setFlipDegree] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
+  const [isNight, setIsNight] = useState(false);
+  const [isRotatingScreen, setIsRotatingScreen] = useState(false);
+  const [screenRotationY, setScreenRotationY] = useState(0);
 
   // Form states
   const [name, setName] = useState("");
@@ -25,22 +26,40 @@ export function HostAuthExperience() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // ── Disc Flip 3D Rotation Handler ──
-  const handleDiscFlip = (targetView: ViewState) => {
-    if (isFlipping || targetView === view) return;
-    setIsFlipping(true);
+  // ── Full Screen 3D Axis Rotation with Day/Night Background Shift ──
+  const handleScreenAxisRotation = (targetView: ViewState) => {
+    if (isRotatingScreen || targetView === view) return;
+    setIsRotatingScreen(true);
 
-    // Rotate 180 degrees like a spinning disc
-    setFlipDegree((prev) => prev + 180);
+    // Phase 1: Rotate entire screen out 90 degrees (300ms)
+    setScreenRotationY(90);
 
-    // Switch state at the halfway 90 degree mark (250ms)
+    // Phase 2: At 90deg (when view is edge-on), switch background & content
     setTimeout(() => {
       setView(targetView);
-    }, 250);
+
+      // Toggle Night mode for Signup/Login, Day mode for Landing or toggle on transition
+      if (targetView === "signup") {
+        setIsNight(true);
+      } else if (targetView === "landing") {
+        setIsNight(false);
+      } else {
+        // Login can alternate or stay night if switching from signup
+        setIsNight((prev) => !prev);
+      }
+
+      // Snap rotation to -90 degrees instantly so it swings in smoothly from the other side
+      setScreenRotationY(-90);
+
+      // Phase 3: Swing in from -90 to 0 degrees
+      setTimeout(() => {
+        setScreenRotationY(0);
+      }, 50);
+    }, 300);
 
     setTimeout(() => {
-      setIsFlipping(false);
-    }, 500);
+      setIsRotatingScreen(false);
+    }, 650);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,7 +87,7 @@ export function HostAuthExperience() {
           title: "Host Account Created!",
           description: "Check your inbox to confirm your email, then log in to view your dashboard.",
         });
-        handleDiscFlip("login");
+        handleScreenAxisRotation("login");
       }
     } catch (err: any) {
       toast({
@@ -83,87 +102,108 @@ export function HostAuthExperience() {
 
   return (
     <>
-      {/* Import Cursive font for the signature Welcome header matching reference screenshot */}
+      {/* Import Dancing Script for signature Welcome title */}
       <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
 
-      <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden font-sans select-none">
-        {/* ── Generated Clean Goa Coastal Painting Background ── */}
+      {/* ── 3D Viewport Outer Frame ── */}
+      <div
+        className="fixed inset-0 z-50 overflow-hidden font-sans select-none bg-slate-950"
+        style={{ perspective: "1500px" }}
+      >
+        {/* ── Full Screen Axis-Rotating Screen Layer ── */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 ease-out"
+          className="w-full h-full flex items-center justify-center transition-transform duration-300 ease-in-out transform-gpu relative"
           style={{
-            backgroundImage: "url('/goa_coastal_painting_bg.png')",
+            transform: `rotateY(${screenRotationY}deg)`,
+            transformStyle: "preserve-3d",
           }}
-        />
+        >
+          {/* ── Day/Night Goa Coastal Painting Background ── */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 ease-in-out"
+            style={{
+              backgroundImage: isNight
+                ? "url('/goa_coastal_painting_night_bg.png')"
+                : "url('/goa_coastal_painting_bg.png')",
+            }}
+          />
 
-        {/* Soft subtle gradient to enhance foreground contrast while keeping background clean & clear */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-900/10 via-transparent to-sky-950/20" />
+          {/* Atmospheric lighting overlay tuned for Day vs Night */}
+          <div
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              isNight
+                ? "bg-slate-950/40 backdrop-brightness-90"
+                : "bg-gradient-to-b from-sky-900/10 via-transparent to-slate-900/20"
+            }`}
+          />
 
-        {/* ── Top Bar Branding ── */}
-        <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-20">
-          <div className="flex items-center gap-2.5 bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full shadow-md border border-white/60">
-            <img src="/favicon.svg" alt="Wayzyy" className="h-6 w-6 rounded-full object-cover" />
-            <span className="font-display font-bold text-sm tracking-tight text-slate-800">
-              wayzyy <span className="text-sky-600 font-semibold text-xs ml-1">HOST</span>
-            </span>
+          {/* ── Top Bar Branding ── */}
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-20">
+            <div
+              className={`flex items-center gap-2.5 px-4 py-1.5 rounded-full shadow-md border backdrop-blur-md transition-colors ${
+                isNight
+                  ? "bg-slate-900/80 border-slate-700/60 text-white"
+                  : "bg-white/85 border-white/80 text-slate-800"
+              }`}
+            >
+              <img src="/favicon.svg" alt="Wayzyy" className="h-6 w-6 rounded-full object-cover" />
+              <span className="font-display font-bold text-sm tracking-tight">
+                wayzyy <span className="text-[#ff6b00] font-semibold text-xs ml-1">HOST</span>
+              </span>
+            </div>
+
+            <Link
+              to="/"
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium shadow-md border backdrop-blur-md transition-all ${
+                isNight
+                  ? "bg-slate-900/80 border-slate-700/60 text-slate-200 hover:bg-slate-800"
+                  : "bg-white/85 border-white/80 text-slate-700 hover:bg-white hover:text-slate-900"
+              }`}
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to main site
+            </Link>
           </div>
 
-          <Link
-            to="/"
-            className="flex items-center gap-1.5 bg-white/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:text-slate-900 shadow-md border border-white/60 transition-all hover:bg-white"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to main site
-          </Link>
-        </div>
+          {/* ── Main Content Container (No Heavy Dark Box!) ── */}
+          <div className="relative z-10 w-full max-w-md px-4">
 
-        {/* ── 3D Disc Flip Container (No heavy dark background box!) ── */}
-        <div
-          className="relative z-10 w-full max-w-md px-4"
-          style={{ perspective: "1200px" }}
-        >
-          <div
-            className="w-full transition-transform duration-500 ease-in-out transform-gpu"
-            style={{
-              transform: `rotateY(${flipDegree}deg)`,
-              transformStyle: "preserve-3d",
-            }}
-          >
             {/* ================= STAGE 1: LANDING SCREEN ================= */}
             {view === "landing" && (
               <div className="flex flex-col items-center text-center space-y-6 py-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-white/80 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-sky-700 shadow-sm">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#ff6b00]/40 bg-white/85 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-[#ff6b00] shadow-sm">
+                  <Sparkles className="h-3.5 w-3.5 text-[#ff6b00]" />
                   <span>Wayzyy Host Portal</span>
                 </div>
 
                 <div className="space-y-3">
                   <h1
-                    className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 leading-tight"
+                    className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 leading-tight drop-shadow-xs"
                     style={{ fontFamily: "'Dancing Script', cursive" }}
                   >
                     Host Smarter. Grow Faster.
                   </h1>
-                  <p className="text-sm text-slate-700 font-medium max-w-sm mx-auto leading-relaxed bg-white/40 backdrop-blur-xs p-2 rounded-xl">
+                  <p className="text-sm text-slate-700 font-medium max-w-sm mx-auto leading-relaxed bg-white/50 backdrop-blur-xs p-2 rounded-xl">
                     Manage bookings, guests, pricing and payouts from one beautiful dashboard.
                   </p>
                 </div>
 
-                {/* Elegant Rounded Slim Buttons */}
+                {/* Elegant Rounded Slim Buttons using #ff6b00 */}
                 <div className="w-full max-w-xs space-y-3 pt-2">
                   <button
                     type="button"
-                    onClick={() => handleDiscFlip("login")}
-                    className="w-full h-11 rounded-full bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm tracking-wide shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-sky-400/50"
+                    onClick={() => handleScreenAxisRotation("login")}
+                    className="w-full h-11 rounded-full bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-sm tracking-wide shadow-lg shadow-[#ff6b00]/30 hover:shadow-[#ff6b00]/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#ff6b00]"
                   >
-                    LOGIN <ArrowRight className="h-4 w-4" />
+                    LOG IN <ArrowRight className="h-4 w-4" />
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => handleDiscFlip("signup")}
-                    className="w-full h-11 rounded-full bg-white/85 hover:bg-white text-slate-800 font-bold text-sm tracking-wide shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-white/80 cursor-pointer"
+                    onClick={() => handleScreenAxisRotation("signup")}
+                    className="w-full h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold text-sm tracking-wide shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-white/90 cursor-pointer"
                   >
                     CREATE ACCOUNT
                   </button>
@@ -174,65 +214,79 @@ export function HostAuthExperience() {
             {/* ================= STAGE 2 & 3: LOGIN / SIGNUP FORM ================= */}
             {(view === "login" || view === "signup") && (
               <div className="flex flex-col items-center text-center space-y-5 py-4">
-                {/* Script Welcome Title */}
+                {/* Script Title */}
                 <div className="space-y-1">
                   <h1
-                    className="text-4xl sm:text-5xl font-bold text-sky-800 drop-shadow-sm"
+                    className={`text-4xl sm:text-5xl font-bold drop-shadow-sm ${
+                      isNight ? "text-white" : "text-slate-900"
+                    }`}
                     style={{ fontFamily: "'Dancing Script', cursive" }}
                   >
                     {view === "login" ? "Welcome" : "Create Account"}
                   </h1>
-                  <p className="text-xs font-medium text-slate-600 tracking-wide uppercase">
+                  <p
+                    className={`text-xs font-semibold tracking-wide uppercase ${
+                      isNight ? "text-slate-300" : "text-slate-700"
+                    }`}
+                  >
                     {view === "login" ? "Login with Email" : "Sign up with Email"}
                   </p>
                 </div>
 
-                {/* Clean Floating Inputs - No enclosing heavy box! */}
+                {/* Floating Inputs with #ff6b00 Accents - No enclosing heavy box! */}
                 <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 pt-1">
                   {view === "signup" && (
                     <div className="relative text-left">
-                      <div className="absolute -top-2.5 left-4 z-10 bg-sky-100/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-sky-800 border border-sky-300/60 shadow-xs">
+                      <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
                         Full Name
                       </div>
                       <div className="relative">
-                        <User className="absolute left-3.5 top-3.5 h-4 w-4 text-sky-600" />
+                        <User className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
                         <input
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
                           placeholder="e.g. Ananya Sharma"
-                          className="w-full h-11 rounded-2xl border-2 border-sky-300/80 bg-sky-50/70 backdrop-blur-md pl-10 pr-4 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-400/30 transition-all shadow-sm"
+                          className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                            isNight
+                              ? "border-slate-700/80 bg-slate-900/80 text-white"
+                              : "border-slate-300/80 bg-white/80 text-slate-900"
+                          }`}
                         />
                       </div>
                     </div>
                   )}
 
-                  {/* Email Input Field */}
+                  {/* Email Input */}
                   <div className="relative text-left">
-                    <div className="absolute -top-2.5 left-4 z-10 bg-sky-100/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-sky-800 border border-sky-300/60 shadow-xs">
+                    <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
                       Email Id
                     </div>
                     <div className="relative">
-                      <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-sky-600" />
+                      <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder="thisuix@mail.com"
-                        className="w-full h-11 rounded-2xl border-2 border-sky-300/80 bg-sky-50/70 backdrop-blur-md pl-10 pr-4 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-400/30 transition-all shadow-sm"
+                        className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-4 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                          isNight
+                            ? "border-slate-700/80 bg-slate-900/80 text-white"
+                            : "border-slate-300/80 bg-white/80 text-slate-900"
+                        }`}
                       />
                     </div>
                   </div>
 
-                  {/* Password Input Field */}
+                  {/* Password Input */}
                   <div className="relative text-left">
-                    <div className="absolute -top-2.5 left-4 z-10 bg-sky-100/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-sky-800 border border-sky-300/60 shadow-xs">
+                    <div className="absolute -top-2.5 left-4 z-10 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-[#ff6b00] border border-[#ff6b00]/40 shadow-xs">
                       Password
                     </div>
                     <div className="relative">
-                      <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-sky-600" />
+                      <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-[#ff6b00]" />
                       <input
                         type={showPassword ? "text" : "password"}
                         value={password}
@@ -240,12 +294,18 @@ export function HostAuthExperience() {
                         required
                         minLength={6}
                         placeholder="••••••••••••••••"
-                        className="w-full h-11 rounded-2xl border-2 border-sky-300/80 bg-sky-50/70 backdrop-blur-md pl-10 pr-10 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-400/30 transition-all shadow-sm"
+                        className={`w-full h-11 rounded-2xl border-2 backdrop-blur-md pl-10 pr-10 text-xs font-semibold placeholder:text-slate-400 focus:outline-none focus:border-[#ff6b00] focus:ring-2 focus:ring-[#ff6b00]/30 transition-all shadow-sm ${
+                          isNight
+                            ? "border-slate-700/80 bg-slate-900/80 text-white"
+                            : "border-slate-300/80 bg-white/80 text-slate-900"
+                        }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-3.5 text-slate-500 hover:text-sky-700"
+                        className={`absolute right-3.5 top-3.5 ${
+                          isNight ? "text-slate-400 hover:text-white" : "text-slate-500 hover:text-[#ff6b00]"
+                        }`}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -256,7 +316,9 @@ export function HostAuthExperience() {
                     <div className="flex justify-end pr-1">
                       <button
                         type="button"
-                        className="text-[11px] font-semibold text-slate-600 hover:text-sky-700 transition-colors"
+                        className={`text-[11px] font-semibold transition-colors ${
+                          isNight ? "text-slate-300 hover:text-[#ff6b00]" : "text-slate-700 hover:text-[#ff6b00]"
+                        }`}
                       >
                         Forgot your password?
                       </button>
@@ -269,31 +331,36 @@ export function HostAuthExperience() {
                         id="terms-agree"
                         checked={agreedToTerms}
                         onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
-                        className="mt-0.5 border-sky-400 data-[state=checked]:bg-sky-500 data-[state=checked]:text-white shrink-0"
+                        className="mt-0.5 border-[#ff6b00] data-[state=checked]:bg-[#ff6b00] data-[state=checked]:text-white shrink-0"
                       />
-                      <label htmlFor="terms-agree" className="text-[11px] text-slate-700 font-medium leading-snug cursor-pointer select-none">
+                      <label
+                        htmlFor="terms-agree"
+                        className={`text-[11px] font-medium leading-snug cursor-pointer select-none ${
+                          isNight ? "text-slate-200" : "text-slate-700"
+                        }`}
+                      >
                         I agree to the{" "}
-                        <Link to="/host-terms" target="_blank" className="font-bold text-sky-700 underline">
+                        <Link to="/host-terms" target="_blank" className="font-bold text-[#ff6b00] underline">
                           Host Terms
                         </Link>{" "}
                         and{" "}
-                        <Link to="/policies/property-import-policy" target="_blank" className="font-bold text-sky-700 underline">
+                        <Link to="/policies/property-import-policy" target="_blank" className="font-bold text-[#ff6b00] underline">
                           Import Policy
                         </Link>.
                       </label>
                     </div>
                   )}
 
-                  {/* LOGIN / SIGNUP Submit Button */}
+                  {/* Brand #ff6b00 Submit Button */}
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full h-11 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs tracking-wider uppercase shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-sky-400/50"
+                    className="w-full h-11 rounded-xl bg-[#ff6b00] hover:bg-[#e05e00] text-white font-bold text-xs tracking-wider uppercase shadow-lg shadow-[#ff6b00]/30 hover:shadow-[#ff6b00]/50 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#ff6b00]"
                   >
                     {submitting ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : view === "login" ? (
-                      "LOGIN"
+                      "LOG IN"
                     ) : (
                       "REGISTER NOW"
                     )}
@@ -303,17 +370,25 @@ export function HostAuthExperience() {
                 {/* OR Divider with Minimal Social Icons */}
                 <div className="w-full max-w-sm space-y-3 pt-2">
                   <div className="flex items-center gap-3">
-                    <div className="flex-1 h-px bg-slate-300/80" />
-                    <span className="text-[10px] font-bold text-slate-500 tracking-wider">OR</span>
-                    <div className="flex-1 h-px bg-slate-300/80" />
+                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700" : "bg-slate-300"}`} />
+                    <span className={`text-[10px] font-bold tracking-wider ${isNight ? "text-slate-400" : "text-slate-500"}`}>
+                      OR
+                    </span>
+                    <div className={`flex-1 h-px ${isNight ? "bg-slate-700" : "bg-slate-300"}`} />
                   </div>
 
                   {/* Social Buttons Card */}
-                  <div className="flex items-center justify-center gap-4 bg-white/75 backdrop-blur-md p-2.5 rounded-2xl shadow-sm border border-white/90">
+                  <div
+                    className={`flex items-center justify-center gap-4 p-2.5 rounded-2xl shadow-sm border backdrop-blur-md ${
+                      isNight
+                        ? "bg-slate-900/80 border-slate-700/80"
+                        : "bg-white/80 border-white/90"
+                    }`}
+                  >
                     <button
                       type="button"
                       onClick={() => toast({ title: "Google Login", description: "Initiating Google SSO..." })}
-                      className="p-2 rounded-xl hover:bg-sky-100/60 transition-colors cursor-pointer"
+                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
                       title="Login with Google"
                     >
                       <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -327,7 +402,7 @@ export function HostAuthExperience() {
                     <button
                       type="button"
                       onClick={() => toast({ title: "Facebook Login", description: "Initiating Facebook SSO..." })}
-                      className="p-2 rounded-xl hover:bg-sky-100/60 transition-colors cursor-pointer"
+                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
                       title="Login with Facebook"
                     >
                       <svg className="h-5 w-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
@@ -338,26 +413,34 @@ export function HostAuthExperience() {
                     <button
                       type="button"
                       onClick={() => toast({ title: "Apple Login", description: "Initiating Apple SSO..." })}
-                      className="p-2 rounded-xl hover:bg-sky-100/60 transition-colors cursor-pointer"
+                      className="p-2 rounded-xl hover:bg-[#ff6b00]/10 transition-colors cursor-pointer"
                       title="Login with Apple"
                     >
-                      <svg className="h-5 w-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className={`h-5 w-5 ${isNight ? "text-white" : "text-slate-900"}`}
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.36-.58.67-1.09 1.75-.95 2.78 1.01.08 2.05-.54 2.67-1.29z"/>
                       </svg>
                     </button>
                   </div>
 
-                  {/* Switch between Login and Signup */}
+                  {/* Switch View Trigger */}
                   <div className="pt-2">
                     <button
                       type="button"
-                      onClick={() => handleDiscFlip(view === "login" ? "signup" : "login")}
-                      className="text-xs font-semibold text-slate-700 hover:text-sky-800 transition-colors bg-white/60 backdrop-blur-xs px-3 py-1.5 rounded-full border border-white/80 cursor-pointer shadow-xs"
+                      onClick={() => handleScreenAxisRotation(view === "login" ? "signup" : "login")}
+                      className={`text-xs font-semibold transition-all px-3.5 py-1.5 rounded-full border shadow-xs cursor-pointer ${
+                        isNight
+                          ? "bg-slate-900/80 border-slate-700/80 text-slate-200 hover:bg-slate-800"
+                          : "bg-white/80 border-white/90 text-slate-800 hover:bg-white"
+                      }`}
                     >
                       {view === "login" ? (
-                        <>Don't have account? <span className="text-sky-700 underline font-bold">Register Now</span></>
+                        <>Don't have account? <span className="text-[#ff6b00] underline font-bold">Register Now</span></>
                       ) : (
-                        <>Already have an account? <span className="text-sky-700 underline font-bold">Log In</span></>
+                        <>Already have an account? <span className="text-[#ff6b00] underline font-bold">Log In</span></>
                       )}
                     </button>
                   </div>
