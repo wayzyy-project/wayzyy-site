@@ -323,8 +323,10 @@ export function HostAuthExperience() {
                     <div className="flex justify-end pr-1">
                       <button
                         type="button"
-                        className={`text-[11px] font-semibold transition-colors ${
-                          isNight ? "text-slate-300 hover:text-[#ff6b00]" : "text-slate-700 hover:text-[#ff6b00]"
+                        className={`text-xs font-extrabold tracking-tight px-3 py-1 rounded-full border shadow-xs transition-all cursor-pointer ${
+                          isNight
+                            ? "bg-slate-900/90 border-slate-700 text-slate-100 hover:text-[#ff6b00] hover:border-[#ff6b00]"
+                            : "bg-white/95 border-slate-300/90 text-slate-900 hover:text-[#ff6b00] hover:border-[#ff6b00]"
                         }`}
                       >
                         Forgot your password?
