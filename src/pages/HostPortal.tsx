@@ -1424,8 +1424,30 @@ export default function HostPortal() {
   const { user, loading } = useAuth();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
   const [managing, setManaging] = useState<{ id: string; title: string } | null>(null);
-  const [showAuth, setShowAuth] = useState(false);
 
+  // While auth is loading, show a clean full-screen spinner
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-slate-950 flex items-center justify-center z-50">
+        <Loader2 className="h-8 w-8 animate-spin text-amber-400" />
+      </div>
+    );
+  }
+
+  // Not logged in → render full-screen cinematic auth experience
+  if (!user) {
+    return (
+      <SEO
+        title="Host Login — Wayzyy Host Portal"
+        description="Log in or create your free host account to manage bookings, guests, pricing and payouts from the Wayzyy host dashboard."
+        path="/host"
+      >
+        <HostAuthExperience />
+      </SEO>
+    );
+  }
+
+  // Logged in → normal host portal dashboard
   return (
     <SEO
       title="Host on Wayzyy"
@@ -1433,9 +1455,9 @@ export default function HostPortal() {
       path="/host"
     >
       <div className="min-h-screen bg-background text-foreground">
-        <div className="border-b border-border bg-background/80 backdrop-blur sticky top-0 z-40">
-          <div className="container flex items-center justify-between gap-4 py-4">
-            <div className="flex items-center gap-4">
+        <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
+          <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+            <div className="flex items-center gap-3">
               <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Wayzyy
@@ -1445,12 +1467,12 @@ export default function HostPortal() {
             </div>
             <ThemeToggle />
           </div>
-        </div>
+        </header>
 
         <div className="border-b border-border bg-card/40 py-12 sm:py-16">
-          <div className={`container ${!user && !showAuth ? "max-w-4xl" : "max-w-3xl"}`}>
+          <div className="container max-w-3xl">
             <h1 className="font-display text-4xl sm:text-5xl text-foreground leading-tight">
-              {user && view === "dashboard" ? "Your hosting" : !user && !showAuth ? "Host on Wayzyy" : "List your property"}
+              {view === "dashboard" ? "Your hosting" : "List your property"}
             </h1>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
               Same platform, same review process, same database as the Wayzyy app — host from
@@ -1459,31 +1481,23 @@ export default function HostPortal() {
           </div>
         </div>
 
-        <div className={`container py-12 sm:py-16 ${!user && !showAuth ? "max-w-4xl" : "max-w-3xl"}`}>
-          {loading ? (
-            <div className="flex justify-center py-16">
-              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-            </div>
-          ) : user ? (
-            view === "dashboard" ? (
-              <HostDashboard
-                onAddNew={() => setView("wizard")}
-                onManage={(id, title) => {
-                  setManaging({ id, title });
-                  setView("manage");
-                }}
-              />
-            ) : view === "manage" && managing ? (
-              <ListingManagePanel
-                propertyId={managing.id}
-                propertyTitle={managing.title}
-                onBack={() => setView("dashboard")}
-              />
-            ) : (
-              <ListingWizard onDone={() => setView("dashboard")} />
-            )
+        <div className="container py-12 sm:py-16 max-w-3xl">
+          {view === "dashboard" ? (
+            <HostDashboard
+              onAddNew={() => setView("wizard")}
+              onManage={(id, title) => {
+                setManaging({ id, title });
+                setView("manage");
+              }}
+            />
+          ) : view === "manage" && managing ? (
+            <ListingManagePanel
+              propertyId={managing.id}
+              propertyTitle={managing.title}
+              onBack={() => setView("dashboard")}
+            />
           ) : (
-            showAuth ? <AuthPanel /> : <HostIntro onGetStarted={() => setShowAuth(true)} />
+            <ListingWizard onDone={() => setView("dashboard")} />
           )}
         </div>
       </div>
