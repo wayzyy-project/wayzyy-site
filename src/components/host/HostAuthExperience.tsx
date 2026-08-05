@@ -178,10 +178,7 @@ export function HostAuthExperience() {
                 </div>
 
                 <div className="space-y-3">
-                  <h1
-                    className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 leading-tight drop-shadow-xs"
-                    style={{ fontFamily: "'Dancing Script', cursive" }}
-                  >
+                  <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight drop-shadow-xs">
                     Host Smarter. Grow Faster.
                   </h1>
                   <p className="text-sm text-slate-700 font-medium max-w-sm mx-auto leading-relaxed bg-white/50 backdrop-blur-xs p-2 rounded-xl">
@@ -213,13 +210,12 @@ export function HostAuthExperience() {
             {/* ================= STAGE 2 & 3: LOGIN / SIGNUP FORM ================= */}
             {(view === "login" || view === "signup") && (
               <div className="flex flex-col items-center text-center space-y-5 py-4">
-                {/* Script Title */}
+                {/* Home Page Brand Font (Raleway font-display) */}
                 <div className="space-y-1">
                   <h1
-                    className={`text-4xl sm:text-5xl font-bold drop-shadow-sm ${
+                    className={`font-display text-3xl sm:text-4xl font-extrabold tracking-tight drop-shadow-sm ${
                       isNight ? "text-white" : "text-slate-900"
                     }`}
-                    style={{ fontFamily: "'Dancing Script', cursive" }}
                   >
                     {view === "login" ? "Welcome" : "Create Account"}
                   </h1>
