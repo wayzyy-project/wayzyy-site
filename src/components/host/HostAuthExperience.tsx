@@ -172,8 +172,8 @@ export function HostAuthExperience() {
             {/* ================= STAGE 1: LANDING SCREEN ================= */}
             {view === "landing" && (
               <div className="flex flex-col items-center text-center space-y-6 py-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#ff6b00]/40 bg-white/85 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-[#ff6b00] shadow-sm">
-                  <Sparkles className="h-3.5 w-3.5 text-[#ff6b00]" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#ff6b00]/40 bg-white/85 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#ff6b00] shadow-sm">
+                  <img src="/favicon.svg" alt="Wayzyy" className="h-4 w-4 rounded-full object-cover" />
                   <span>Wayzyy Host Portal</span>
                 </div>
 
