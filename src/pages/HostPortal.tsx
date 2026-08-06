@@ -412,30 +412,19 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
-      {/* Host Identity Verification Status Card */}
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-start sm:items-center gap-3">
-            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${
-              isVerified
-                ? "bg-green-500/10 text-green-600 dark:text-green-400"
-                : pendingVerification
-                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                : "bg-primary/10 text-primary"
-            }`}>
-              <ShieldCheck className="h-6 w-6" />
+      {/* Identity Verification Status Banner */}
+      <div id="tour-identity-verification" className="rounded-3xl border border-border bg-gradient-to-br from-card via-card to-muted/20 p-5 sm:p-6 shadow-sm relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+          <div className="flex items-center gap-3.5">
+            <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${isVerified ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : pendingVerification ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" : "bg-primary/10 text-primary border border-primary/20"}`}>
+              {isVerified ? <CheckCircle2 className="h-6 w-6" /> : pendingVerification ? <Loader2 className="h-6 w-6 animate-spin" /> : <ShieldCheck className="h-6 w-6" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-semibold text-base text-foreground">Host Identity Verification</h3>
+                <h3 className="font-display font-bold text-base text-foreground">Host Identity Status</h3>
                 {isVerified && (
-                  <span className="rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-green-600 dark:text-green-400">
-                    Verified Host
-                  </span>
-                )}
-                {pendingVerification && (
-                  <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
-                    Pending Review
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600">
+                    <ShieldCheck className="h-3 w-3" /> Verified Host
                   </span>
                 )}
               </div>
@@ -454,7 +443,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
               variant={pendingVerification ? "outline" : "default"}
               size="sm"
               onClick={() => setShowManualVerify(true)}
-              className="shrink-0 gap-1.5"
+              className="shrink-0 gap-1.5 bg-ember text-white hover:bg-ember/90 shadow-sm"
             >
               <Camera className="h-4 w-4" />
               {pendingVerification ? "View Submission" : "Verify Identity Manually"}
@@ -472,15 +461,15 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
+            <Button id="tour-host-profile" onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
               <User className="h-4 w-4 text-primary" />
               Host Profile
             </Button>
-            <Button onClick={() => setShowImportModal(true)} variant="outline" size="sm" className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
+            <Button id="tour-import-airbnb" onClick={() => setShowImportModal(true)} variant="outline" size="sm" className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
               <Upload className="h-4 w-4" />
               Import Listing
             </Button>
-            <Button onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
+            <Button id="tour-list-property" onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
               <Home className="h-4 w-4" />
               List Property
             </Button>
@@ -488,7 +477,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
 
         {/* Tab Filters */}
-        <div className="flex items-center justify-between border-b border-border pb-2 text-xs font-medium">
+        <div id="tour-listings-tabs" className="flex items-center justify-between border-b border-border pb-2 text-xs font-medium">
           <div className="flex items-center gap-1">
             <button
               onClick={() => setActiveTab("all")}
