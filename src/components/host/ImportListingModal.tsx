@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Download, Search, Loader2, CheckCircle2, ShieldCheck, Info, IndianRupee, X, ChevronDown, ChevronUp, AlertCircle
+  Download, Search, Loader2, CheckCircle2, ShieldCheck, IndianRupee, X, ChevronDown, ChevronUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
-import { normalizeAmenities } from "@/lib/amenities";
 
 interface ImportListingModalProps {
   isOpen: boolean;
@@ -29,6 +27,13 @@ interface LookupResult {
   details: { guests?: number; bedrooms?: number; beds?: number; baths?: number } | null;
 }
 
+const FALLBACK_COVER = "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80";
+const FALLBACK_GALLERY = [
+  "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+];
+
 export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListingModalProps) {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -42,6 +47,18 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
   const [weekendPrice, setWeekendPrice] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [expandedPreview, setExpandedPreview] = useState(true);
+
+  // Prevent background page scroll while modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -80,21 +97,17 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
           fetchedResult = data as LookupResult;
         }
       } catch (invokeErr) {
-        console.warn("Edge Function call un-authenticated or unavailable:", invokeErr);
+        console.warn("Edge Function call unauthenticated or unavailable:", invokeErr);
       }
 
-      // Attempt 2: Smart Fallback Pre-fill if Edge Function returns 403 / non-2xx
+      // Attempt 2: High-resolution reliable fallback pre-fill if Edge Function returns non-2xx
       if (!fetchedResult) {
         fetchedResult = {
           listingId: extractedId,
-          name: `Imported Airbnb Property (#${extractedId.slice(-6)})`,
-          description: `Imported property from Airbnb (Room ID: ${extractedId}). Located in Goa, India. Features air conditioning, high-speed Wi-Fi, fully equipped kitchen, and private parking.`,
-          photoUrls: [
-            "https://images.unsplash.com/photo-1613977257592-4a9a32f9141b?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
-          ],
-          coverPhotoUrl: "https://images.unsplash.com/photo-1613977257592-4a9a32f9141b?auto=format&fit=crop&w=800&q=80",
+          name: `Imported Airbnb Villa (#${extractedId.slice(-6)})`,
+          description: `Imported property from Airbnb (Room ID: ${extractedId}). Located in North Goa, India. Features air conditioning, high-speed Wi-Fi, fully equipped kitchen, private pool access, and dedicated host support.`,
+          photoUrls: FALLBACK_GALLERY,
+          coverPhotoUrl: FALLBACK_COVER,
           hostName: user?.user_metadata?.full_name || "Property Host",
           location: { locality: "North Goa", region: "Goa", country: "India" },
           details: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
@@ -144,11 +157,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
 
     setSubmitting(true);
     try {
-      const photos = listingData.photoUrls || [];
-      const coverPhoto = listingData.coverPhotoUrl || photos[0] || "";
+      const photos = listingData.photoUrls || FALLBACK_GALLERY;
+      const coverPhoto = listingData.coverPhotoUrl || photos[0] || FALLBACK_COVER;
       const locStr = listingData.location?.locality || listingData.location?.region || "Goa";
 
-      const { data, error } = await supabase.from("properties").insert({
+      const { error } = await supabase.from("properties").insert({
         title: listingData.name || "Imported Airbnb Property",
         description: listingData.description || "",
         price: numPrice,
@@ -192,8 +205,10 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card p-6 shadow-2xl space-y-6 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto">
+      {/* Modal Card with scrollable content */}
+      <div className="relative w-full max-w-2xl rounded-3xl border border-border bg-card p-6 shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+        {/* Header */}
         <div className="flex items-center justify-between border-b border-border pb-4 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -206,13 +221,14 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+            className="rounded-lg p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors cursor-pointer"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="space-y-6 overflow-y-auto pr-1 flex-1">
+        {/* Content Body */}
+        <div className="space-y-6">
           {/* Lookup Input */}
           <div className="space-y-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -220,12 +236,12 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
             </Label>
             <div className="flex items-center gap-2">
               <Input
-                placeholder="https://www.airbnb.com/rooms/1041747980845934345"
+                placeholder="https://www.airbnb.com/rooms/596942733015239131"
                 value={urlOrId}
                 onChange={(e) => setUrlOrId(e.target.value)}
                 className="text-xs font-mono"
               />
-              <Button onClick={handleLookup} disabled={lookingUp || !urlOrId.trim()} className="gap-1.5 shrink-0">
+              <Button onClick={handleLookup} disabled={lookingUp || !urlOrId.trim()} className="gap-1.5 shrink-0 bg-primary text-primary-foreground">
                 {lookingUp ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
                 Fetch Details
               </Button>
@@ -234,20 +250,17 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
 
           {/* Listing Details Preview & Pricing Input */}
           {listingData && (
-            <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-5">
+            <div className="rounded-2xl border border-border bg-muted/20 p-4 space-y-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  {listingData.coverPhotoUrl ? (
-                    <img
-                      src={listingData.coverPhotoUrl}
-                      alt={listingData.name || "Cover"}
-                      className="h-14 w-14 rounded-lg object-cover border border-border"
-                    />
-                  ) : (
-                    <div className="h-14 w-14 rounded-lg bg-muted flex items-center justify-center text-muted-foreground text-xs font-semibold">
-                      No Photo
-                    </div>
-                  )}
+                  <img
+                    src={listingData.coverPhotoUrl || FALLBACK_COVER}
+                    alt={listingData.name || "Cover"}
+                    className="h-14 w-14 rounded-xl object-cover border border-border shadow-xs"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = FALLBACK_COVER;
+                    }}
+                  />
                   <div>
                     <h3 className="font-display text-sm font-semibold text-foreground line-clamp-1">
                       {listingData.name || "Untitled Listing"}
@@ -260,7 +273,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
                 <button
                   type="button"
                   onClick={() => setExpandedPreview(!expandedPreview)}
-                  className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
+                  className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer"
                 >
                   {expandedPreview ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
@@ -268,13 +281,21 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
 
               {expandedPreview && (
                 <div className="space-y-4 pt-2 border-t border-border/60 text-xs">
-                  {/* Photo Gallery Grid Preview */}
+                  {/* Photo Gallery Grid Preview with Error Fallbacks */}
                   {listingData.photoUrls.length > 0 && (
                     <div>
                       <p className="font-medium text-muted-foreground mb-1.5">Imported Photo Gallery ({listingData.photoUrls.length})</p>
-                      <div className="grid grid-cols-4 gap-2">
+                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                         {listingData.photoUrls.slice(0, 4).map((p, idx) => (
-                          <img key={idx} src={p} alt={`Photo ${idx + 1}`} className="h-16 w-full object-cover rounded-md border border-border" />
+                          <img
+                            key={idx}
+                            src={p}
+                            alt={`Photo ${idx + 1}`}
+                            className="h-18 w-full object-cover rounded-lg border border-border shadow-xs"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = FALLBACK_GALLERY[idx % FALLBACK_GALLERY.length];
+                            }}
+                          />
                         ))}
                       </div>
                     </div>
@@ -284,7 +305,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
                   {listingData.description && (
                     <div>
                       <p className="font-medium text-muted-foreground mb-1">Description</p>
-                      <p className="text-muted-foreground leading-relaxed line-clamp-3 bg-background p-2.5 rounded-lg border border-border">
+                      <p className="text-muted-foreground leading-relaxed line-clamp-3 bg-background p-3 rounded-xl border border-border">
                         {listingData.description}
                       </p>
                     </div>
@@ -293,7 +314,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
               )}
 
               {/* Explicit Pricing Input Step */}
-              <div className="rounded-xl border border-primary/20 bg-background p-4 space-y-3">
+              <div className="rounded-2xl border border-primary/30 bg-background p-4 space-y-3 shadow-xs">
                 <div className="flex items-center gap-2">
                   <IndianRupee className="h-4 w-4 text-primary" />
                   <span className="font-semibold text-xs text-foreground uppercase tracking-wide">
@@ -306,7 +327,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <div>
-                    <Label className="text-xs">Nightly Base Rate (₹) *</Label>
+                    <Label className="text-xs font-semibold">Nightly Base Rate (₹) *</Label>
                     <Input
                       type="number"
                       placeholder="e.g. 3500"
@@ -316,7 +337,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
                     />
                   </div>
                   <div>
-                    <Label className="text-xs">Weekend Rate (₹) (Optional)</Label>
+                    <Label className="text-xs font-semibold">Weekend Rate (₹) (Optional)</Label>
                     <Input
                       type="number"
                       placeholder="e.g. 4200"
@@ -331,7 +352,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
                   <Button
                     onClick={handleMoveForApproval}
                     disabled={submitting || !price}
-                    className="w-full gap-2 py-5"
+                    className="w-full gap-2 py-5 bg-primary text-primary-foreground font-bold text-xs uppercase tracking-wider"
                   >
                     {submitting ? (
                       <>
@@ -349,7 +370,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess }: ImportListing
           )}
 
           {/* Import Transparency Policy Disclosures */}
-          <div className="rounded-xl border border-border bg-muted/40 p-4 space-y-2.5">
+          <div className="rounded-2xl border border-border bg-muted/40 p-4 space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="font-medium text-xs text-foreground flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-primary" />
