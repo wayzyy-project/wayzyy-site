@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 
-// Mirrors mobile/src/hooks/useAuth.ts — same Supabase Auth instance, so a
-// host account created here works in the app too.
 export const useAuth = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,14 +16,25 @@ export const useAuth = () => {
       setSession(session);
     });
 
+    // Clean up Supabase hash error parameters if email link expired or had origin mismatch
+    if (window.location.hash && window.location.hash.includes("error_description")) {
+      console.warn("Supabase Auth URL Hash Notice:", window.location.hash);
+      // Clean hash from URL bar without forcing page reload
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
     return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, name: string) => {
+    const redirectUrl = `${window.location.origin}/host`;
     return supabase.auth.signUp({
       email,
       password,
-      options: { data: { name } },
+      options: {
+        data: { name },
+        emailRedirectTo: redirectUrl,
+      },
     });
   };
 

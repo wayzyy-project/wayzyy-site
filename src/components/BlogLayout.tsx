@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
+import { useScroll, useSpring, motion } from "framer-motion";
 import { SEO } from "./SEO";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -24,6 +25,14 @@ interface BlogLayoutProps {
 export function BlogLayout(props: BlogLayoutProps) {
   const location = useLocation();
   const path = location.pathname;
+
+  // reading progress bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 30,
+    mass: 0.4,
+  });
 
   const post = props.post;
   const title = props.title || post?.title || "";
@@ -76,6 +85,10 @@ export function BlogLayout(props: BlogLayoutProps) {
   return (
     <SEO title={metaTitle} description={metaDescription} jsonLd={schemas} path={path} ogType="article" ogImage={heroImage}>
       <div className="min-h-screen bg-background text-foreground">
+        <motion.div
+          style={{ scaleX, transformOrigin: "0% 50%" }}
+          className="fixed inset-x-0 top-0 z-[60] h-[2px] bg-ember"
+        />
         <div className="border-b border-border bg-background/80 backdrop-blur sticky top-0 z-40">
           <div className="container flex items-center justify-between gap-4 py-4">
             <div className="flex items-center gap-4">

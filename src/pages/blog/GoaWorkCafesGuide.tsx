@@ -219,7 +219,54 @@ export default function GoaWorkCafesGuide() {
         </p>
       </div>
 
-      {/* 4. Branded Chains Section */}
+      {/* 4. Studying & Deep Focus Section */}
+      <div className="space-y-6 mt-12 border-t border-border pt-10">
+        <h2 className="font-display text-2xl text-foreground">Best Cafes for Studying &amp; Deep Focus Work in Goa</h2>
+        <p>
+          While digital nomads often look for collaborative spaces, students, researchers, and solo creators frequently search for the <strong>best cafes for studying</strong>—places with quiet ambient sound, comfortable ergonomic seating, and low foot traffic.
+        </p>
+        <p>
+          If your priority is 4 to 6 hours of uninterrupted study or reading without loud espresso machines or party music, here are the top quiet study spots in Goa:
+        </p>
+        <ul className="space-y-2 list-disc pl-6 text-muted-foreground">
+          <li>
+            <strong>Barefoot Goa (Parra)</strong>: Known for its library-like tranquility, spacious wooden tables, and minimal background noise. Ideal for reading, exam preparation, and long writing sprints.
+          </li>
+          <li>
+            <strong>Blue Tokai (Assagao)</strong>: Indoor air-conditioned seating provides a focused environment before 11 AM, making it popular for morning study sessions paired with specialty pourover coffee.
+          </li>
+          <li>
+            <strong>Cafe LaDiDa (Porvorim)</strong>: Located outside the heavy tourist belt, offering a peaceful, student-friendly setting with ample desk space and affordable menu options.
+          </li>
+        </ul>
+      </div>
+
+      {/* 5. Wi-Fi & Power Backup Checklist */}
+      <div className="space-y-6 mt-12">
+        <h2 className="font-display text-2xl text-foreground">Finding a Work Cafe with Wi-Fi &amp; Power Backup Near You</h2>
+        <p>
+          When searching for a <strong>work cafe with Wi-Fi near me</strong> or reliable <strong>places to work with Wi-Fi near me</strong> in Goa, general coffee quality is only half the equation. Infrastructure is what keeps your work day running smoothly.
+        </p>
+        <p>
+          Before settling in for a work session, check these four essentials:
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+          <div className="rounded-xl border border-border p-4 bg-card/40 space-y-1">
+            <h4 className="font-semibold text-foreground text-sm flex items-center gap-2">
+              <Wifi className="h-4 w-4 text-ember" /> Fibre Wi-Fi Speed (50–100+ Mbps)
+            </h4>
+            <p className="text-xs text-muted-foreground">Ensure the cafe uses dedicated fibre connections rather than 4G dongles, especially for video calls and heavy downloads.</p>
+          </div>
+          <div className="rounded-xl border border-border p-4 bg-card/40 space-y-1">
+            <h4 className="font-semibold text-foreground text-sm flex items-center gap-2">
+              <BatteryCharging className="h-4 w-4 text-ember" /> Generator / Inverter Power Backup
+            </h4>
+            <p className="text-xs text-muted-foreground">Monsoon power cuts are common in Goa. Places like Mojigao and Babka maintain active backup power to prevent laptop battery panics.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* 6. Branded Chains Section */}
       <div className="space-y-6 mt-12 border-t border-border pt-10">
         <h2 className="font-display text-2xl text-foreground">Independent Cafés vs. Well-Known Chains</h2>
         <p>

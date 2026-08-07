@@ -1,49 +1,56 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, CheckCircle2, Key, ShieldCheck, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "./Reveal";
 
 export function HostBannerSection() {
   return (
-    <section className="relative overflow-hidden border-t border-border bg-card/40 py-20 px-[clamp(1.25rem,6vw,6rem)]">
-      <div className="mx-auto max-w-5xl rounded-3xl border border-ember/25 bg-gradient-to-b from-ember/10 via-card to-card p-8 sm:p-12 shadow-2xl relative">
-        <div className="absolute -top-12 -right-12 h-64 w-64 rounded-full bg-ember/10 blur-3xl pointer-events-none" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <section className="relative scroll-smooth-anchor bg-gradient-to-b from-background via-ember/[0.05] to-background py-28 dark:via-ember/[0.07] dark:to-background sm:py-40">
+      <div className="container">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <div className="lg:col-span-7 space-y-5">
-            <div className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1 text-xs font-semibold text-ember uppercase tracking-wider">
-              <Key className="h-3.5 w-3.5" /> Become a Host
-            </div>
-
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Host With Us on Wayzyy
-            </h2>
-
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim — list your property directly with Wayzyy.
-            </p>
-
-            <div className="space-y-3 pt-2">
-              <div className="flex items-center gap-3 text-sm font-medium text-foreground">
-                <CheckCircle2 className="h-5 w-5 text-ember shrink-0" />
-                <span>Keep ~98% of your booking revenue (flat fee subscription model)</span>
+            <Reveal>
+              <div className="mb-1 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                <Key className="h-3.5 w-3.5 text-ember" /> Become a host
               </div>
-              <div className="flex items-center gap-3 text-sm font-medium text-foreground">
-                <ShieldCheck className="h-5 w-5 text-ember shrink-0" />
-                <span>DigiLocker / Aadhaar identity verification for every guest</span>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <h2 className="font-display text-4xl leading-[1.04] text-foreground sm:text-6xl text-balance">
+                Host With Us on Wayzyy
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim — list your property directly with Wayzyy.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center gap-3 text-sm font-medium text-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-ember shrink-0" />
+                  <span>Keep ~98% of your booking revenue (flat fee subscription model)</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm font-medium text-foreground">
+                  <ShieldCheck className="h-5 w-5 text-ember shrink-0" />
+                  <span>DigiLocker / Aadhaar identity verification for every guest</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm font-medium text-foreground">
+                  <Wallet className="h-5 w-5 text-ember shrink-0" />
+                  <span>Fast 24-hour payouts straight to your Indian bank account</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm font-medium text-foreground">
-                <Wallet className="h-5 w-5 text-ember shrink-0" />
-                <span>Fast 24-hour payouts straight to your Indian bank account</span>
-              </div>
-            </div>
+            </Reveal>
 
             <div className="pt-4">
-              <Link to="/host">
-                <Button size="lg" className="bg-ember text-white hover:bg-ember/90 rounded-xl px-8 py-3 font-semibold text-base gap-2 shadow-lg shadow-ember/20">
+              <Button asChild variant="cta" size="pill-lg" className="gap-2 shadow-lg shadow-ember/20">
+                <Link to="/host">
                   Host With Us — List Your Property
                   <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 

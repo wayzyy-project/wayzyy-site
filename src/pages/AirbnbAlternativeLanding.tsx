@@ -20,8 +20,8 @@ const productSchema = {
 export default function AirbnbAlternativeLanding() {
   return (
     <SEO
-      title="Airbnb Alternative in Goa: Meet Wayzyy"
-      description="Airbnb charges hosts 15.5% per booking. Wayzyy charges a flat, low-cost credit instead. The host-first Airbnb alternative built for Goa."
+      title="Airbnb Alternative in India & Goa: Meet Wayzyy"
+      description="Looking for an Airbnb alternative in India or apps like Airbnb? Wayzyy is the host-first direct rental platform built for Goa villas. No per-booking commission."
       jsonLd={[productSchema]}
     >
       <div className="relative min-h-screen bg-background text-foreground flex flex-col">

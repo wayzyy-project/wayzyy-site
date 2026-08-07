@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Swords, ArrowRight, DollarSign, Zap, ShieldAlert, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "../Reveal";
 
 export function GigChallengeTeaser() {
   return (
-    <section className="relative overflow-hidden border-t border-border bg-card/30 py-16 sm:py-24 px-[clamp(1.25rem,6vw,6rem)]">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background via-ember/[0.05] to-background py-16 dark:via-ember/[0.07] dark:to-background sm:py-24 px-[clamp(1.25rem,6vw,6rem)]">
       {/* Background ambient ember glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-[600px] rounded-full bg-[hsl(var(--ember))]/10 blur-[120px] pointer-events-none" />
 
@@ -14,18 +15,24 @@ export function GigChallengeTeaser() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--ember))]/40 bg-[hsl(var(--ember))]/10 px-3.5 py-1 text-xs font-bold text-[hsl(var(--ember))] uppercase tracking-wider">
-              <Swords className="h-3.5 w-3.5" />
-              <span>Solo Developer Challenge</span>
-            </div>
+            <Reveal>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--ember))]/40 bg-[hsl(var(--ember))]/10 px-3.5 py-1 text-xs font-bold text-[hsl(var(--ember))] uppercase tracking-wider">
+                <Swords className="h-3.5 w-3.5" />
+                <span>Solo Developer Challenge</span>
+              </div>
+            </Reveal>
 
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
-              Think you can beat <span className="text-[hsl(var(--ember))]">Airbnb's chat moderation?</span>
-            </h2>
+            <Reveal delay={0.05}>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground leading-[1.15]">
+                Think you can beat <span className="text-[hsl(var(--ember))]">Airbnb's chat moderation?</span>
+              </h2>
+            </Reveal>
 
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              We're hiring solo developers to solve contact-info evasion (phone digit splitting, obfuscated text, unsafe links). Pitch your architecture and build a production-grade engine.
-            </p>
+            <Reveal delay={0.1}>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                We're hiring solo developers to solve contact-info evasion (phone digit splitting, obfuscated text, unsafe links). Pitch your architecture and build a production-grade engine.
+              </p>
+            </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-background/60 p-3.5">
@@ -50,15 +57,12 @@ export function GigChallengeTeaser() {
             </div>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
-              <Link to="/gig-challenge">
-                <Button
-                  size="lg"
-                  className="rounded-full bg-[hsl(var(--ember))]/90 hover:bg-[hsl(var(--ember))] text-white font-bold text-sm sm:text-base px-8 py-3.5 shadow-lg shadow-[hsl(var(--ember))]/30 transition-all hover:scale-105 gap-2"
-                >
+              <Button asChild variant="cta" size="pill-lg" className="gap-2 font-bold shadow-lg shadow-ember/30">
+                <Link to="/gig-challenge">
                   View Challenge Brief & Pitch
                   <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 

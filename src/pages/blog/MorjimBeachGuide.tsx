@@ -90,6 +90,33 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
+      name: "Is Morjim Beach in North or South Goa?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Morjim Beach is located in North Goa (Pernem sub-district), situated immediately north of the Chapora River estuary across the Siolim-Chopdem bridge.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How far is Morjim Beach from Baga Beach?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Morjim Beach is approximately 18 km from Baga Beach. By scooter or taxi, the drive takes about 35 to 40 minutes via the Siolim-Chopdem bridge.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Morjim Beach crowded?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "No. Morjim Beach is significantly less crowded than central North Goa beaches like Baga, Calangute, or Candolim. Its wide shoreline offers ample space and a peaceful atmosphere.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Are villas in Morjim better than hotels?",
       acceptedAnswer: {
         "@type": "Answer",
@@ -148,6 +175,91 @@ export default function MorjimBeachGuide() {
         with international comforts. If you're renting a scooter—as covered in our{" "}
         <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>—you're only ten minutes from the cafes of Assagao or
         the cliffs of Vagator, giving you a quiet base that remains close to everything.
+      </p>
+
+      <h2>Is Morjim Beach in North or South Goa? (Location &amp; Geography)</h2>
+      <p>
+        One of the most frequent search queries travelers ask is whether <strong>Morjim Beach is in North or South Goa</strong>.
+      </p>
+      <p>
+        <strong>Morjim Beach is located in North Goa</strong>, specifically in the <em>Pernem sub-district (Taluka)</em>. It sits immediately north of the Chapora River estuary. Because Morjim is much quieter, cleaner, and less crowded than party beaches like Baga or Calangute, first-time travelers often mistake it for a South Goa beach. However, geographically and administratively, it is firmly in North Goa.
+      </p>
+
+      <h2>Distances from Morjim Beach to Major Goa Hubs &amp; Beaches</h2>
+      <p>
+        Whether you are planning a day trip from Baga, driving from Mopa Airport, or exploring nearby villages like Siolim and Assagao, knowing the exact <strong>distance from Morjim to other parts of Goa</strong> helps you plan your transit efficiently:
+      </p>
+
+      <div className="overflow-x-auto my-6 border border-border rounded-xl">
+        <table className="w-full text-left border-collapse min-w-[500px]">
+          <thead>
+            <tr className="border-b border-border bg-muted/40">
+              <th className="p-3.5 font-display text-sm font-semibold text-foreground">Route / Journey</th>
+              <th className="p-3.5 font-display text-sm font-semibold text-foreground">Distance</th>
+              <th className="p-3.5 font-display text-sm font-semibold text-foreground">Approx. Travel Time (Scooter / Cab)</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border text-sm">
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Ashwem Beach to Morjim Beach</td>
+              <td className="p-3.5 text-muted-foreground">3 km</td>
+              <td className="p-3.5 text-muted-foreground">5–8 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Siolim to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">5 km</td>
+              <td className="p-3.5 text-muted-foreground">8–10 mins (via Siolim Bridge)</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Mandrem Beach to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">6 km</td>
+              <td className="p-3.5 text-muted-foreground">10–12 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Assagao to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">10 km</td>
+              <td className="p-3.5 text-muted-foreground">15–20 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Vagator Beach to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">12 km</td>
+              <td className="p-3.5 text-muted-foreground">20–25 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Baga Beach to Morjim Beach</td>
+              <td className="p-3.5 text-muted-foreground">18 km</td>
+              <td className="p-3.5 text-muted-foreground">35–40 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Mopa Airport (GOX) to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">28 km</td>
+              <td className="p-3.5 text-muted-foreground">40–45 mins</td>
+            </tr>
+            <tr>
+              <td className="p-3.5 font-medium text-foreground">Benaulim / Palolem (South Goa) to Morjim</td>
+              <td className="p-3.5 text-muted-foreground">68–92 km</td>
+              <td className="p-3.5 text-muted-foreground">1.5 to 2.5 hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Is Morjim Beach Safe and Is It Crowded?</h2>
+      <p>
+        Two common safety and crowd-related queries visitors research are: <strong>is Morjim Beach safe?</strong> and <strong>is Morjim Beach crowded?</strong>
+      </p>
+      <ul className="space-y-3 list-disc pl-6 text-muted-foreground my-4">
+        <li>
+          <strong>Safety</strong>: Morjim is widely considered one of the safest beach villages in North Goa. Because it caters to families, wellness travelers, and digital nomads rather than rowdy nightlife crowds, the atmosphere remains calm late into the evening. Shacks are well lit, and local village communities maintain a friendly environment. Solo female travelers frequently choose Morjim for extended stays.
+        </li>
+        <li>
+          <strong>Crowd Levels</strong>: Unlike Baga or Calangute, Morjim Beach is spacious and uncrowded. Even during peak December season, the wide shoreline ensures you can walk a few hundred meters and find a quiet stretch of sand all to yourself.
+        </li>
+      </ul>
+
+      <h2>Stay Options: From Pod Hostels to Private Luxury Villas</h2>
+      <p>
+        Morjim offers a diverse range of accommodation. Backpackers and solo remote workers often look for social pod hostels (such as <em>14 Pods Morjim</em> or <em>The Social Stays Morjim</em>), while families and groups prefer private villas with pools situated along the Chapora riverfront or near the beach.
       </p>
 
       <h2>Why Choose Morjim Over Other Beaches?</h2>

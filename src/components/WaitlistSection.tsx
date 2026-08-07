@@ -5,7 +5,7 @@ export function WaitlistSection() {
   return (
     <section
       id="waitlist"
-      className="relative scroll-smooth-anchor overflow-hidden border-t border-border py-28 sm:py-36"
+      className="relative scroll-smooth-anchor overflow-hidden py-28 sm:py-36"
     >
       <div
         aria-hidden

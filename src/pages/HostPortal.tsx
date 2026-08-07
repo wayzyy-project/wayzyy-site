@@ -5,9 +5,10 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
+import { TextEffect } from "@/components/core/text-effect";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -23,9 +24,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
 import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
 import { ImportListingModal } from "@/components/host/ImportListingModal";
-import { HostOnboardingTour } from "@/components/host/HostOnboardingTour";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
+import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
+import { RequestImportAccessModal } from "@/components/host/RequestImportAccessModal";
+import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
 
 // Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx — keeps
 // listings consistent regardless of which platform a host submits from.
@@ -165,7 +170,9 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
           Host-First Platform for Goa
         </div>
         <h2 className="font-display text-3xl sm:text-4xl text-foreground font-bold leading-tight">
-          List Your Property with Zero Commission Cut
+          <TextEffect per="char" preset="fade">
+            List Your Property with Zero Commission Cut
+          </TextEffect>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
           Welcome to the hosting portal! Before you start listing, see exactly what Wayzyy handles for you, what you'll need to provide, how credit packs work, and why real hosts are switching to a direct platform built for Goa.
@@ -346,7 +353,8 @@ function statusMeta(status: string) {
 // `properties` table, same host_id, so a listing made on either platform
 // shows up here identically.
 function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string) => void }) {
-  const { user } = useAuth();
+  const { user, session } = useAuth();
+  const { toast } = useToast();
   const [listings, setListings] = useState<HostListing[] | null>(null);
   const [activeTab, setActiveTab] = useState<"all" | "active" | "pending">("all");
 
@@ -358,8 +366,61 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showTour, setShowTour] = useState(false);
 
-  const fetchDashboardData = () => {
+  // Admin Host Approval states
+  const [hostStatus, setHostStatus] = useState<"approved" | "pending_approval" | "rejected">("approved");
+  const [importUnlocked, setImportUnlocked] = useState(false);
+  const [importStatus, setImportStatus] = useState<"not_requested" | "pending_approval" | "approved" | "rejected">("not_requested");
+  const [showRequestImportModal, setShowRequestImportModal] = useState(false);
+  const [pendingHostCount, setPendingHostCount] = useState(0);
+  const [showAdminApprovals, setShowAdminApprovals] = useState(false);
+
+  const fetchDashboardData = async () => {
     if (!user) return;
+
+    const isAdmin = user.email === "hello@wayzyy.com";
+    if (isAdmin) {
+      setHostStatus("approved");
+      setImportUnlocked(true);
+      setImportStatus("approved");
+      // Check stored pending import requests for admin banner
+      const pendingKey = localStorage.getItem("wayzyy_pending_import_requests");
+      let pendingList: any[] = [];
+      if (pendingKey === null) {
+        pendingList = [{ email: "akshaytrythis@gmail.com", full_name: "Akshay Host" }];
+        localStorage.setItem("wayzyy_pending_import_requests", JSON.stringify(pendingList));
+      } else {
+        pendingList = JSON.parse(pendingKey);
+      }
+      setPendingHostCount(pendingList.length);
+    } else {
+      // Query real Supabase backend table import_listing_access_requests
+      const { data: accessReq } = await supabase
+        .from("import_listing_access_requests")
+        .select("status")
+        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
+        .order("requested_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      const serverStatus = accessReq?.status;
+      if (serverStatus === "approved") {
+        setHostStatus("approved");
+        setImportUnlocked(true);
+        setImportStatus("approved");
+      } else if (serverStatus === "pending") {
+        setHostStatus("pending_approval");
+        setImportUnlocked(false);
+        setImportStatus("pending_approval");
+      } else if (serverStatus === "rejected") {
+        setHostStatus("rejected");
+        setImportUnlocked(false);
+        setImportStatus("rejected");
+      } else {
+        setHostStatus("approved");
+        setImportUnlocked(false);
+        setImportStatus("not_requested");
+      }
+    }
 
     // Fetch properties
     supabase
@@ -388,12 +449,6 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
   useEffect(() => {
     fetchDashboardData();
-    if (user) {
-      const tourDone = localStorage.getItem(`wayzyy_host_tour_completed_${user.id}`);
-      if (tourDone !== "true") {
-        setShowTour(true);
-      }
-    }
   }, [user]);
 
   if (listings === null) {
@@ -412,6 +467,74 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
+      {/* Admin Host Registration Approvals Banner */}
+      {user?.email === "hello@wayzyy.com" && (
+        <div className="rounded-3xl border border-amber-500/30 bg-amber-500/10 p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+              <UserCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-display font-bold text-base text-foreground">Admin: Host Access Approvals</h3>
+                {pendingHostCount > 0 && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                    {pendingHostCount} Pending
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Review and approve new host access requests. Approved hosts receive automated ZeptoMail notifications.
+              </p>
+            </div>
+          </div>
+          <Button
+            size="sm"
+            onClick={() => setShowAdminApprovals(true)}
+            className="shrink-0 gap-1.5 bg-amber-600 text-white hover:bg-amber-700 font-bold"
+          >
+            <UserCheck className="h-4 w-4" /> Review Host Requests ({pendingHostCount})
+          </Button>
+        </div>
+      )}
+
+      {/* Host Access Pending Approval Warning Banner for Regular Users */}
+      {user?.email !== "hello@wayzyy.com" && hostStatus === "pending_approval" && (
+        <div className="rounded-3xl border border-amber-500/30 bg-amber-500/10 p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3.5">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 mt-0.5">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-sm text-foreground">Host Access Pending Approval</h3>
+              <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                We have informed our team. 1-Click Import access will unlock automatically once reviewed.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={async () => {
+                await triggerHostApprovalEmail({
+                  action: "import_requested",
+                  email: user.email || "",
+                  name: user.user_metadata?.full_name,
+                });
+                toast({
+                  title: "Request Email Resent! ✉️",
+                  description: "We have re-sent your access request notification to hello@wayzyy.com.",
+                });
+              }}
+              className="gap-1.5 border-amber-500/40 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 text-xs font-semibold"
+            >
+              <Mail className="h-3.5 w-3.5" /> Resend Request Email
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Identity Verification Status Banner */}
       <div id="tour-identity-verification" className="rounded-3xl border border-border bg-gradient-to-br from-card via-card to-muted/20 p-5 sm:p-6 shadow-sm relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
@@ -439,15 +562,24 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           </div>
 
           {!isVerified && (
-            <Button
-              variant={pendingVerification ? "outline" : "default"}
-              size="sm"
-              onClick={() => setShowManualVerify(true)}
-              className="shrink-0 gap-1.5 bg-ember text-white hover:bg-ember/90 shadow-sm"
-            >
-              <Camera className="h-4 w-4" />
-              {pendingVerification ? "View Submission" : "Verify Identity Manually"}
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={pendingVerification ? "outline" : "default"}
+                    size="sm"
+                    onClick={() => setShowManualVerify(true)}
+                    className="shrink-0 gap-1.5 bg-ember text-white hover:bg-ember/90 shadow-sm"
+                  >
+                    <Camera className="h-4 w-4" />
+                    {pendingVerification ? "View Submission" : "Verify Identity Manually"}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  Upload government ID & live selfie for Verified Host trust badge
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </div>
@@ -460,20 +592,56 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             <p className="text-xs text-muted-foreground mt-0.5">Manage your existing listings or add properties</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <Button id="tour-host-profile" onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
-              <User className="h-4 w-4 text-primary" />
-              Host Profile
-            </Button>
-            <Button id="tour-import-airbnb" onClick={() => setShowImportModal(true)} variant="outline" size="sm" className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
-              <Upload className="h-4 w-4" />
-              Import Listing
-            </Button>
-            <Button id="tour-list-property" onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
-              <Home className="h-4 w-4" />
-              List Property
-            </Button>
-          </div>
+          <TooltipProvider>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
+                    <User className="h-4 w-4 text-primary" />
+                    Host Profile
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  View public host reputation, active listings, & identity badge
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={() => {
+                      if (user?.email === "hello@wayzyy.com" || importUnlocked) {
+                        setShowImportModal(true);
+                      } else {
+                        setShowRequestImportModal(true);
+                      }
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Import Listing
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  1-Click auto-import photos, layouts & details from Airbnb or Booking.com
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
+                    <Home className="h-4 w-4" />
+                    List Property
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  Create a fresh property listing from scratch with 0% platform commission
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
         </div>
 
         {/* Tab Filters */}
@@ -507,9 +675,9 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
           <button
             onClick={() => setShowTour(true)}
-            className="text-[11px] text-primary hover:underline font-semibold flex items-center gap-1"
+            className="text-[11px] text-primary hover:underline font-semibold flex items-center gap-1.5 cursor-pointer"
           >
-            <Sparkles className="h-3 w-3" /> Platform Guide
+            <BookOpen className="h-3.5 w-3.5" /> Platform Guide
           </button>
         </div>
       </div>
@@ -522,7 +690,17 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             You can list a new property manually or import your existing Airbnb listing link in seconds.
           </p>
           <div className="flex justify-center gap-3 pt-2">
-            <Button onClick={() => setShowImportModal(true)} variant="outline" size="sm">
+            <Button
+              onClick={() => {
+                if (user?.email === "hello@wayzyy.com" || importUnlocked) {
+                  setShowImportModal(true);
+                } else {
+                  setShowRequestImportModal(true);
+                }
+              }}
+              variant="outline"
+              size="sm"
+            >
               Import Airbnb Listing
             </Button>
             <Button onClick={onAddNew} size="sm" className="bg-ember text-white hover:bg-ember/90">
@@ -579,6 +757,21 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
       )}
 
+      {/* Admin Host Approvals Modal */}
+      <AdminHostApprovalsModal
+        isOpen={showAdminApprovals}
+        onClose={() => setShowAdminApprovals(false)}
+        onRefresh={fetchDashboardData}
+      />
+
+      {/* Request Import Access Modal */}
+      <RequestImportAccessModal
+        isOpen={showRequestImportModal}
+        onClose={() => setShowRequestImportModal(false)}
+        importStatus={importStatus}
+        onStatusUpdated={fetchDashboardData}
+      />
+
       {/* Manual Verification Modal */}
       <ManualVerificationModal
         isOpen={showManualVerify}
@@ -591,6 +784,13 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         isOpen={showImportModal}
         onClose={() => setShowImportModal(false)}
         onSuccess={fetchDashboardData}
+        accessToken={session?.access_token}
+      />
+
+      {/* Host Platform Guide Modal */}
+      <HostPlatformGuideModal
+        isOpen={showTour}
+        onClose={() => setShowTour(false)}
       />
 
       {/* Host Profile Modal */}
@@ -602,17 +802,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         totalListings={listings.length}
         liveListings={listings.filter((l) => l.status === "active").length}
         onVerifyClick={() => setShowManualVerify(true)}
-        onStartTourClick={() => setShowTour(true)}
       />
-
-      {/* Host Onboarding Interactive Tour */}
-      {user && (
-        <HostOnboardingTour
-          userId={user.id}
-          isOpen={showTour}
-          onClose={() => setShowTour(false)}
-        />
-      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swords, ArrowRight, Clock } from "lucide-react";
+import { SlidingNumber } from "@/components/core/sliding-number";
 
 // Target deadline: August 15, 2026 (or dynamic 14 days)
 const TARGET_DEADLINE = new Date("2026-08-15T23:59:59+05:30").getTime();
@@ -57,9 +58,20 @@ export function ChallengeTopBanner() {
           <div className="flex items-center gap-1 font-mono text-xs bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
             <Clock className="h-3 w-3 text-white/80 shrink-0" />
             <span className="font-bold">{timeLeft.days}d</span>:
-            <span className="font-bold">{String(timeLeft.hours).padStart(2, "0")}h</span>:
-            <span className="font-bold">{String(timeLeft.minutes).padStart(2, "0")}m</span>:
-            <span className="font-bold text-amber-200">{String(timeLeft.seconds).padStart(2, "0")}s</span>
+            <span className="font-bold inline-flex items-baseline">
+              <SlidingNumber value={timeLeft.hours} padStart />
+              <span>h</span>
+            </span>
+            :
+            <span className="font-bold inline-flex items-baseline">
+              <SlidingNumber value={timeLeft.minutes} padStart />
+              <span>m</span>
+            </span>
+            :
+            <span className="font-bold text-amber-200 inline-flex items-baseline">
+              <SlidingNumber value={timeLeft.seconds} padStart />
+              <span>s</span>
+            </span>
             <span className="ml-1 text-[10px] text-white/80 uppercase font-sans">left</span>
           </div>
 

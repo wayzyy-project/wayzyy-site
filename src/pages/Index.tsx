@@ -1,11 +1,11 @@
 import React from "react";
 import { useScroll, useSpring, motion } from "framer-motion";
-import { SiteNav } from "@/components/SiteNav";
-import { HeroDualPOV } from "@/components/HeroDualPOV";
+import { HeroStepOut } from "@/components/HeroStepOut";
 import { Marquee } from "@/components/Marquee";
 import { WhySection } from "@/components/WhySection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { TwoSides } from "@/components/TwoSides";
+import { EconomicsSection } from "@/components/EconomicsSection";
 import { Principles } from "@/components/Principles";
 import { CalculatorTeaser } from "@/components/CalculatorTeaser";
 import { BlogSection } from "@/components/BlogSection";
@@ -126,10 +126,8 @@ const Index = () => {
           className="fixed inset-x-0 top-0 z-[60] h-[2px] bg-ember"
         />
 
-        <SiteNav />
-
         <main>
-          <HeroDualPOV />
+          <HeroStepOut />
 
           <Marquee
             items={[
@@ -145,6 +143,7 @@ const Index = () => {
           <div ref={whyRef as React.RefObject<HTMLDivElement>}><WhySection /></div>
           <div ref={testimonialsRef as React.RefObject<HTMLDivElement>}><TestimonialsSection /></div>
           <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
+          <EconomicsSection />
           <GigChallengeTeaser />
           <CalculatorTeaser />
           <Principles />

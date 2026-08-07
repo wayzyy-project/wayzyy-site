@@ -90,7 +90,7 @@ export function TwoSides() {
   const data = content[side];
 
   return (
-    <section id="two-sides" className="relative scroll-smooth-anchor border-y border-border bg-card/40 py-28 sm:py-40">
+    <section id="two-sides" className="relative scroll-smooth-anchor bg-card/40 py-28 sm:py-40">
       <div className="container">
         <Reveal>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -113,7 +113,7 @@ export function TwoSides() {
                   key={s}
                   onClick={() => { setSide(s); mp.sideToggled(s); }}
                   className={
-                    "relative flex-1 rounded-full px-5 py-2 text-center transition-colors sm:flex-none " +
+                    "relative flex-1 rounded-full px-5 py-2 text-center transition-colors active:scale-[0.97] sm:flex-none " +
                     (side === s
                       ? "text-background"
                       : "text-muted-foreground hover:text-foreground")
@@ -153,30 +153,48 @@ export function TwoSides() {
               {data.intro}
             </p>
 
-            <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {data.bullets.map((b, i) => (
-                <motion.div
-                  key={b.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.08 * i,
-                    duration: 0.5,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  whileHover={{ y: -3 }}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-background p-6 sm:p-8"
-                >
-                  <div className="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-ember/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                  <b.icon className="h-5 w-5 text-ember" />
-                  <h4 className="mt-4 font-display text-2xl text-foreground sm:text-3xl">
-                    {b.title}
-                  </h4>
-                  <p className="mt-2 text-pretty text-sm text-muted-foreground sm:text-base">
-                    {b.body}
-                  </p>
-                </motion.div>
-              ))}
+            <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-4">
+                <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border shadow-xl">
+                  <img
+                    src="/illustrations/host-traveler-split.png"
+                    alt="Host vs Traveler Split Minimalist Art"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-center">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                      {side === "host" ? "Host Control & Flat Fee" : "Verified Stays & Honest Pricing"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-8 grid gap-4 sm:grid-cols-2">
+                {data.bullets.map((b, i) => (
+                  <motion.div
+                    key={b.title}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.08 * i,
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    whileHover={{ y: -3 }}
+                    className="group relative overflow-hidden rounded-2xl border border-border bg-background p-6 sm:p-8"
+                  >
+                    <div className="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-ember/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                    <b.icon className="h-5 w-5 text-ember" />
+                    <h4 className="mt-4 font-display text-2xl text-foreground sm:text-3xl">
+                      {b.title}
+                    </h4>
+                    <p className="mt-2 text-pretty text-sm text-muted-foreground sm:text-base">
+                      {b.body}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>

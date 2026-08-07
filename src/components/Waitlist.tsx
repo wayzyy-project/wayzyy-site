@@ -51,7 +51,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
             type="button"
             onClick={() => setAudience(a)}
             className={
-              "relative flex-1 rounded-full px-4 py-1.5 transition-colors " +
+              "relative flex-1 rounded-full px-4 py-1.5 transition-colors active:scale-[0.97] " +
               (audience === a
                 ? "text-background"
                 : "text-muted-foreground hover:text-foreground")
@@ -96,8 +96,9 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
             />
             <Button
               type="submit"
+              variant="cta"
               disabled={loading}
-              className="group h-12 gap-2 bg-foreground px-6 text-background hover:bg-foreground/90 disabled:opacity-60"
+              className="group h-12 gap-2 px-6 disabled:opacity-60"
             >
               {loading ? "Sending…" : audience === "host" ? "Join host list" : "Get early access"}
               {!loading && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}

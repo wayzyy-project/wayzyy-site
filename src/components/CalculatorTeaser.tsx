@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, TrendingUp } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { Button } from "@/components/ui/button";
 
 export function CalculatorTeaser() {
   return (
@@ -21,13 +22,12 @@ export function CalculatorTeaser() {
                 booking value and compare side by side.
               </p>
             </div>
-            <Link
-              to="/earnings-calculator"
-              className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-            >
-              Try the earnings calculator
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <Button asChild variant="cta-outline" size="pill" className="shrink-0">
+              <Link to="/earnings-calculator" className="gap-1.5">
+                Try the earnings calculator
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </Reveal>
       </div>
