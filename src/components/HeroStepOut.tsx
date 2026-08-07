@@ -70,7 +70,9 @@ export function HeroStepOut() {
       onMouseMove={reduce ? undefined : handleHeroMouseMove}
       className="relative flex h-screen min-h-[640px] w-full items-end overflow-hidden bg-[hsl(var(--ink))] sm:items-center"
     >
-      {/* full-bleed background video */}
+      {/* full-bleed background video — stays invisible (dark base shows
+          instead) until playback genuinely starts, so slower connections
+          never flash the browser's native paused/loading affordance */}
       {!reduce && (
         <video
           aria-hidden
@@ -78,7 +80,10 @@ export function HeroStepOut() {
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate nofullscreen"
+          onPlaying={(e) => e.currentTarget.classList.remove("opacity-0")}
+          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500"
         >
           <source src={heroVideo} />
         </video>

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { MobileTabBar } from "@/components/MobileTabBar";
 import { mp } from "@/lib/mixpanel";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -107,6 +108,7 @@ const App = () => (
         <BrowserRouter>
           <SmoothScroll>
             <ScrollToTop />
+            <div className="pb-24 sm:pb-0">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
@@ -191,6 +193,8 @@ const App = () => (
               <Route path="/explore" element={<AppLaunchSoon />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </div>
+            <MobileTabBar />
           </SmoothScroll>
         </BrowserRouter>
       </TooltipProvider>

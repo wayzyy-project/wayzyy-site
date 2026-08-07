@@ -8,7 +8,7 @@ export function CalculatorTeaser() {
     <section className="relative scroll-smooth-anchor py-20 sm:py-28">
       <div className="container">
         <Reveal>
-          <div className="rounded-2xl border border-ember/30 bg-ember/5 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="rounded-2xl border border-ember/30 bg-ember/5 p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6">
             <div>
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
                 <TrendingUp className="h-3.5 w-3.5 text-ember" />

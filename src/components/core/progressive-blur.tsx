@@ -38,7 +38,7 @@ export function ProgressiveBlur({
   const axis = gradientAxis[direction];
 
   return (
-    <div className={`relative ${className ?? ""}`}>
+    <div className={className}>
       {Array.from({ length: layers }).map((_, i) => {
         // Each layer blurs progressively more than the last…
         const blur = ((i + 1) / layers) * blurIntensity;

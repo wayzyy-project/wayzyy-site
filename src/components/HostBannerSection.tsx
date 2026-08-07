@@ -54,18 +54,18 @@ export function HostBannerSection() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 rounded-2xl border border-border/80 bg-background/60 p-6 space-y-4 shadow-sm">
+          <div className="lg:col-span-5 space-y-3 border-t border-border pt-5 sm:rounded-2xl sm:border sm:border-border/80 sm:border-t sm:bg-background/60 sm:p-6 sm:space-y-4 sm:shadow-sm">
             <h3 className="font-display text-lg font-bold">Why Hosts Choose Wayzyy</h3>
-            <div className="space-y-3 text-xs text-muted-foreground leading-relaxed">
-              <div className="rounded-xl border border-border p-3 bg-card/50">
+            <div className="text-xs text-muted-foreground leading-relaxed sm:space-y-3">
+              <div className="pb-3 sm:rounded-xl sm:border sm:border-border sm:bg-card/50 sm:p-3 sm:pb-3">
                 <span className="font-semibold text-foreground block mb-0.5">Zero Percentage Take Rates</span>
                 Stop losing 15-20% on every single reservation to global platforms.
               </div>
-              <div className="rounded-xl border border-border p-3 bg-card/50">
+              <div className="border-t border-border/60 py-3 sm:rounded-xl sm:border sm:border-border sm:bg-card/50 sm:p-3 sm:py-3">
                 <span className="font-semibold text-foreground block mb-0.5">Evidence-Based Policies</span>
                 No automatic refund defaults or silent cancellation policy overrides.
               </div>
-              <div className="rounded-xl border border-border p-3 bg-card/50">
+              <div className="border-t border-border/60 pt-3 sm:rounded-xl sm:border sm:border-border sm:bg-card/50 sm:p-3 sm:pt-3">
                 <span className="font-semibold text-foreground block mb-0.5">Direct Local Support</span>
                 Reach our team directly over WhatsApp & phone whenever you need assistance.
               </div>

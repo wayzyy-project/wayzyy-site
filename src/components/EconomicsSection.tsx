@@ -85,43 +85,43 @@ export function EconomicsSection() {
 
         {/* Big numbers moment */}
         <Reveal delay={0.05}>
-          <div className="mt-24 overflow-hidden rounded-2xl border border-ember/30 bg-ember/5 p-8 sm:p-14">
-            <div className="grid gap-10 sm:grid-cols-2 sm:gap-6">
+          <div className="mt-10 overflow-hidden rounded-2xl border border-ember/30 bg-ember/5 p-5 sm:mt-24 sm:p-14">
+            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:tracking-[0.25em]">
                   <Percent className="h-3.5 w-3.5 text-ember" />
                   Airbnb's effective take rate
                 </div>
-                <div className="mt-3 font-display text-6xl text-foreground sm:text-7xl">
+                <div className="mt-2 font-display text-4xl text-foreground sm:mt-3 sm:text-7xl">
                   ~18%
                 </div>
-                <p className="mt-3 max-w-sm text-sm text-muted-foreground sm:text-base">
+                <p className="mt-2 max-w-sm text-sm text-muted-foreground sm:mt-3 sm:text-base">
                   Skimmed per booking, most Goa villa hosts see this. It scales with your
                   success — the busier you are, the more you hand over.
                 </p>
               </div>
               <div className="sm:border-l sm:border-ember/20 sm:pl-6">
-                <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:tracking-[0.25em]">
                   <Wallet className="h-3.5 w-3.5 text-ember" />
                   Wayzyy's effective rate
                 </div>
-                <div className="mt-3 font-display text-6xl text-ember sm:text-7xl">
+                <div className="mt-2 font-display text-4xl text-ember sm:mt-3 sm:text-7xl">
                   ~2%
                 </div>
-                <p className="mt-3 max-w-sm text-sm text-muted-foreground sm:text-base">
+                <p className="mt-2 max-w-sm text-sm text-muted-foreground sm:mt-3 sm:text-base">
                   A flat, prepaid credit pack. It doesn't creep up as you grow — past
                   ₹5,00,000 a year, it flattens into a Custom plan, still 2.0%.
                 </p>
               </div>
             </div>
 
-            <div className="mt-10 border-t border-ember/20 pt-8">
-              <p className="text-pretty font-display text-2xl leading-snug text-foreground sm:text-3xl">
+            <div className="mt-5 border-t border-ember/20 pt-5 sm:mt-10 sm:pt-8">
+              <p className="text-pretty font-display text-lg leading-snug text-foreground sm:text-3xl">
                 Book ₹1,00,000 worth of stays in a year, and Airbnb takes roughly{" "}
                 <span className="text-muted-foreground line-through decoration-2">₹18,000</span>.
                 On Wayzyy, that's a ₹2,200 credit pack.
               </p>
-              <p className="mt-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground sm:mt-3 sm:text-sm sm:tracking-[0.2em]">
                 That's over ₹15,000 you keep — on that volume alone.
               </p>
             </div>
@@ -129,7 +129,7 @@ export function EconomicsSection() {
         </Reveal>
 
         {/* Block B: text left, image right */}
-        <div className="mt-24 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-14 grid items-center gap-10 sm:mt-24 lg:grid-cols-2 lg:gap-16">
           <Reveal className="lg:order-1">
             <div>
               <h3 className="font-display text-3xl text-foreground sm:text-4xl text-balance">

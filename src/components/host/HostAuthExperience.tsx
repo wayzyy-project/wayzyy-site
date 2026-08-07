@@ -159,7 +159,7 @@ export function HostAuthExperience() {
             <div className="relative w-full max-w-md">
               {/* ================= STAGE 1: LANDING SCREEN ================= */}
               {view === "landing" && (
-                <div className="flex flex-col items-center text-center space-y-7 rounded-3xl border border-white/30 bg-white/25 backdrop-blur-2xl px-8 py-12 shadow-2xl shadow-black/20">
+                <div className="flex flex-col items-center text-center space-y-7 rounded-3xl border border-white/25 bg-white/12 backdrop-blur-xl px-8 py-12 shadow-2xl shadow-black/20">
                   <div className="inline-flex items-center gap-2 rounded-full bg-ember/10 px-4 py-1.5 text-xs font-bold text-ember">
                     <img src="/favicon.svg" alt="Wayzyy" className="h-4 w-4 rounded-full object-cover" />
                     <span>Wayzyy Host Portal</span>
@@ -196,7 +196,7 @@ export function HostAuthExperience() {
 
               {/* ================= STAGE 2 & 3: LOGIN / SIGNUP FORM ================= */}
               {(view === "login" || view === "signup") && (
-                <div className="flex flex-col items-center text-center space-y-6 rounded-3xl border border-white/30 bg-white/25 backdrop-blur-2xl px-8 py-10 sm:px-10 sm:py-11 shadow-2xl shadow-black/20">
+                <div className="flex flex-col items-center text-center space-y-6 rounded-3xl border border-white/25 bg-white/12 backdrop-blur-xl px-8 py-10 sm:px-10 sm:py-11 shadow-2xl shadow-black/20">
                   <div className="space-y-1.5">
                     <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
                       <TextEffect key={view} per="char" preset="fade">
