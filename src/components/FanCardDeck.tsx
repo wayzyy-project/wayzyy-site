@@ -67,7 +67,12 @@ function DeckCard({
   const slot = index - mid + (ROTATIONS.length - count) / 2;
   const baseRotate = ROTATIONS[Math.min(index, ROTATIONS.length - 1)] * (count <= 2 ? 0.6 : 1);
   const baseY = Y_OFFSETS[Math.min(index, Y_OFFSETS.length - 1)];
-  const baseX = slot * (count <= 2 ? 210 : 190);
+  // Viewport-relative spread (vw) instead of a fixed px offset — a fixed
+  // number that looked fine on a wide screen clipped off-screen on real
+  // desktop widths (1024-1440px), since it never scaled down with the
+  // viewport. vw always stays within the true viewport regardless of
+  // screen size, so the outer cards can no longer overflow.
+  const baseXVw = slot * (count <= 2 ? 13 : 11);
 
   const opacity = t;
   const scale = useTransform(t, [0, 1], [0.85, 1]);
@@ -76,13 +81,13 @@ function DeckCard({
 
   return (
     <motion.div
-      style={{ opacity, scale, rotate, y, x: baseX }}
+      style={{ opacity, scale, rotate, y, x: `${baseXVw}vw` }}
       className={
-        "liquid-glass absolute hidden w-80 rounded-2xl p-7 shadow-xl sm:flex sm:w-96 sm:p-9 sm:flex-col " + card.tint
+        "liquid-glass absolute hidden w-64 rounded-2xl p-5 shadow-xl sm:flex sm:flex-col md:w-72 md:p-6 lg:w-80 lg:p-7 xl:w-96 xl:p-9 " + card.tint
       }
     >
-      <h3 className="font-display text-2xl leading-tight text-white sm:text-3xl">{card.heading}</h3>
-      <p className="mt-3 text-base leading-snug text-white/80 sm:text-lg">{card.body}</p>
+      <h3 className="font-display text-lg leading-tight text-white sm:text-xl lg:text-2xl xl:text-3xl">{card.heading}</h3>
+      <p className="mt-2 text-sm leading-snug text-white/80 sm:text-base xl:text-lg">{card.body}</p>
     </motion.div>
   );
 }
