@@ -31,17 +31,14 @@ interface FanCardDeckProps {
   windowOut: [number, number];
 }
 
-// Shallow fan geometry — rotation and vertical stagger per card index,
-// centered so the deck reads symmetric regardless of card count.
-const ROTATIONS = [-8, -3, 3, 8];
-const Y_OFFSETS = [10, -4, -4, 10];
-const X_OFFSETS = [-70, -24, 24, 70];
+// Subtle rotation and vertical stagger per card index for a refined fanned look
+const ROTATIONS = [-3, -1, 1, 3];
+const Y_OFFSETS = [8, -2, -2, 8];
 
 /** One card of the fanned deck — its own entrance/exit window nested inside the deck's overall window, staggered slightly per index. */
 function DeckCard({
   card,
   index,
-  count,
   progress,
   windowIn,
   windowOut,
@@ -53,59 +50,42 @@ function DeckCard({
   windowIn: [number, number];
   windowOut: [number, number];
 }) {
-  // Stagger each card's entrance by a small fraction of the deck's own
-  // in-window width so cards fan in one after another rather than all at
-  // once; exits are kept in sync (no stagger) so the deck merges away as a
-  // single unit rather than peeling apart.
   const stagger = index * 0.025;
   const inStart = windowIn[0] + stagger;
   const inEnd = Math.min(windowIn[1] + stagger, windowOut[0]);
 
   const t = useTransform(progress, (p) => segmentInOut(p, inStart, inEnd, windowOut[0], windowOut[1]));
 
-  const mid = (count - 1) / 2;
-  const slot = index - mid + (ROTATIONS.length - count) / 2;
-  const baseRotate = ROTATIONS[Math.min(index, ROTATIONS.length - 1)] * (count <= 2 ? 0.6 : 1);
+  const baseRotate = ROTATIONS[Math.min(index, ROTATIONS.length - 1)];
   const baseY = Y_OFFSETS[Math.min(index, Y_OFFSETS.length - 1)];
-  // Viewport-relative spread (vw) instead of a fixed px offset — a fixed
-  // number that looked fine on a wide screen clipped off-screen on real
-  // desktop widths (1024-1440px), since it never scaled down with the
-  // viewport. vw always stays within the true viewport regardless of
-  // screen size, so the outer cards can no longer overflow.
-  const baseXVw = slot * (count <= 2 ? 12 : 10);
 
   const opacity = t;
-  const scale = useTransform(t, [0, 1], [0.85, 1]);
-  const rotate = useTransform(t, [0, 1], [baseRotate * 2.2, baseRotate]);
-  const y = useTransform(t, [0, 1], [baseY + 40, baseY]);
+  const scale = useTransform(t, [0, 1], [0.88, 1]);
+  const rotate = useTransform(t, [0, 1], [baseRotate * 2, baseRotate]);
+  const y = useTransform(t, [0, 1], [baseY + 30, baseY]);
 
   return (
     <motion.div
-      // `left-1/2` gives every card the SAME fixed anchor point regardless
-      // of index — without it, an absolutely-positioned flex child with no
-      // explicit inset gets its static position computed as if all 4 cards
-      // were laid out side-by-side across the container (they happened to
-      // exactly fill it), so the fan `x` spread below was compounding on
-      // top of an already-spread-out layout instead of starting from a
-      // shared center. `-50%` re-centers the card on that anchor, then the
-      // fan offset is added on top of that single correct starting point.
-      style={{ opacity, scale, rotate, y, x: `calc(-50% + ${baseXVw}vw)` }}
+      style={{ opacity, scale, rotate, y }}
       className={
-        "liquid-glass absolute left-1/2 hidden w-56 rounded-2xl p-4 shadow-xl sm:flex sm:flex-col md:w-64 md:p-5 lg:w-80 lg:p-6 xl:w-96 xl:p-7 " + card.tint
+        "liquid-glass flex flex-col justify-between w-full rounded-2xl p-4 shadow-xl sm:p-5 md:p-6 lg:p-7 backdrop-blur-xl border border-white/20 " +
+        card.tint
       }
     >
-      <h3 className="font-display text-base leading-tight text-white sm:text-lg lg:text-xl xl:text-2xl">{card.heading}</h3>
-      <p className="mt-1.5 text-xs leading-snug text-white/80 sm:text-sm xl:text-base">{card.body}</p>
+      <div>
+        <h3 className="font-display text-sm font-bold leading-snug text-white sm:text-base md:text-lg lg:text-xl">
+          {card.heading}
+        </h3>
+        <p className="mt-2 text-xs font-normal leading-relaxed text-white/80 sm:text-sm lg:text-base">
+          {card.body}
+        </p>
+      </div>
     </motion.div>
   );
 }
 
 /**
- * Mobile equivalent — the absolute-positioned rotated fan doesn't fit small
- * viewports (fixed widths + rotation caused cards to overflow both the
- * screen width and the deck's height, per user report). Below `sm` we swap
- * to a static 2x2 grid instead: all 4 cards visible at once, no
- * rotate/offset/scroll, just a per-card fade-in.
+ * Mobile equivalent — 2x2 grid for small viewports so all 4 cards fit cleanly.
  */
 function MobileDeckCard({
   card,
@@ -130,28 +110,25 @@ function MobileDeckCard({
   return (
     <motion.div
       style={{ opacity, y }}
-      className={"liquid-glass rounded-2xl p-4 shadow-xl " + card.tint}
+      className={"liquid-glass rounded-2xl p-4 shadow-xl border border-white/20 " + card.tint}
     >
-      <h3 className="font-display text-base leading-tight text-white">{card.heading}</h3>
-      <p className="mt-1.5 text-xs leading-snug text-white/80">{card.body}</p>
+      <h3 className="font-display text-sm font-bold leading-tight text-white">{card.heading}</h3>
+      <p className="mt-1.5 text-xs font-normal leading-snug text-white/80">{card.body}</p>
     </motion.div>
   );
 }
 
 /**
- * A fanned "hand of cards" deck of short pastel-glass panels, replacing a
- * single static caption card. Cards fan in staggered (scale+rotate+opacity)
- * within `windowIn`, hold, then fade/scale down together across
- * `windowOut` so the transition to whatever comes next reads as a merge
- * rather than a jump-cut — same segmentInOut scroll-choreography pattern
- * used throughout CinematicHero.
+ * Side-by-side hand of cards deck of pastel-glass panels in the hero section.
+ * Cards fan in staggered (scale+rotate+opacity) within `windowIn`, hold,
+ * then fade/scale down together across `windowOut`.
  */
 export function FanCardDeck({ cards, progress, windowIn, windowOut }: FanCardDeckProps) {
   return (
     <>
-      {/* Desktop: absolute rotated fan */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[14%] hidden justify-center px-6 sm:flex">
-        <div className="relative flex h-[26rem] w-full max-w-6xl items-center justify-center">
+      {/* Desktop & Tablet: Side-by-side 4-column grid centered in viewport with zero clipping */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-[10%] hidden justify-center px-4 sm:px-6 md:px-8 sm:flex sm:items-center">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-4 gap-3 md:gap-4 lg:gap-6">
           {cards.map((card, i) => (
             <DeckCard
               key={card.heading}
@@ -166,8 +143,8 @@ export function FanCardDeck({ cards, progress, windowIn, windowOut }: FanCardDec
         </div>
       </div>
 
-      {/* Mobile: static 2x2 grid, centered in the viewport, all cards visible at once */}
-      <div className="pointer-events-none absolute inset-0 grid grid-cols-2 content-center items-center gap-3 px-5 sm:hidden">
+      {/* Mobile: static 2x2 grid, centered in the viewport */}
+      <div className="pointer-events-none absolute inset-0 grid grid-cols-2 content-center items-center gap-3 px-4 sm:hidden">
         {cards.map((card, i) => (
           <MobileDeckCard
             key={card.heading}
