@@ -179,16 +179,27 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
         console.log("📦 Function Data:", data);
         console.log("⚠️ Function Error:", error);
 
-        if (!error && data && !data.error && (data.name || data.listingId || data.title)) {
+        // The edge function nests the actual listing fields under
+        // `data.preview` (e.g. { success: true, preview: { title, ... } })
+        // rather than returning them at the top level — read from there.
+        const listing = data?.preview ?? data;
+
+        if (!error && listing && !data?.error && (listing.name || listing.listingId || listing.title)) {
           fetchedResult = {
-            listingId: data.source_airbnb_id || data.listingId || extractedId,
-            name: data.title || data.name,
-            description: data.description,
-            photoUrls: data.images || data.photoUrls || [],
-            coverPhotoUrl: data.cover_image || data.coverPhotoUrl || null,
-            hostName: data.host_name || data.hostName,
-            location: data.location || data.location_info,
-            details: data.details,
+            listingId: listing.source_airbnb_id || listing.listingId || extractedId,
+            name: listing.title || listing.name,
+            description: listing.description,
+            photoUrls: listing.images || listing.photoUrls || [],
+            coverPhotoUrl: listing.images?.[0] || listing.cover_image || listing.coverPhotoUrl || null,
+            hostName: listing.host_name || listing.hostName,
+            location: listing.location || listing.location_info,
+            details: {
+              guests: listing.maxGuests,
+              bedrooms: listing.bedrooms,
+              beds: listing.beds,
+              baths: listing.bathrooms,
+              ...listing.details,
+            },
           } as LookupResult;
         }
       } catch (invokeErr) {
