@@ -20,7 +20,7 @@ const tabs: Tab[] = [
 // Routes that already have their own full-screen chrome (auth overlays,
 // admin dashboards) where a persistent bottom tab bar would just get in
 // the way rather than help navigation.
-const HIDDEN_PREFIXES = ["/adminn"];
+const HIDDEN_PREFIXES = ["/adminn", "/experience"];
 
 /**
  * iOS-style bottom tab bar, mobile only. Lets a visitor jump straight to

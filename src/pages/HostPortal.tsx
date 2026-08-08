@@ -164,17 +164,23 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
   return (
     <div className="mx-auto max-w-4xl space-y-16">
       {/* Hero Welcome Banner */}
-      <div className="rounded-3xl border border-ember/30 bg-card/60 p-8 sm:p-10 text-center space-y-4 shadow-xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-ember/5 via-transparent to-transparent -z-10" />
-        <div className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-xs font-semibold text-ember uppercase tracking-wider">
+      <div className="liquid-glass rounded-3xl border border-white/20 bg-black/40 backdrop-blur-2xl p-8 sm:p-10 text-center space-y-4 shadow-2xl relative overflow-hidden text-white">
+        {/* TODO: swap in generated hero background image here, e.g. src={asset("host-hero-bg.webp")} */}
+        {/* <img
+          src={asset("host-hero-bg.webp")}
+          alt=""
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+        /> */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ember/15 via-transparent to-transparent -z-10" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember/15 px-3 py-1 text-xs font-semibold text-ember uppercase tracking-wider">
           Host-First Platform for Goa
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl text-foreground font-bold leading-tight">
+        <h2 className="font-display text-3xl sm:text-4xl text-white font-bold leading-tight">
           <TextEffect per="char" preset="fade">
             List Your Property with Zero Commission Cut
           </TextEffect>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        <p className="text-white/70 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
           Welcome to the hosting portal! Before you start listing, see exactly what Wayzyy handles for you, what you'll need to provide, how credit packs work, and why real hosts are switching to a direct platform built for Goa.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
@@ -184,7 +190,7 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
           </Button>
           <Link
             to="/earnings-calculator"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xl border border-border bg-background hover:bg-muted/40 text-sm font-medium text-foreground transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xl border border-white/20 bg-white/10 hover:bg-white/15 text-sm font-medium text-white transition-colors backdrop-blur-md"
           >
             Calculate Your Earnings
           </Link>
@@ -382,16 +388,12 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
       setHostStatus("approved");
       setImportUnlocked(true);
       setImportStatus("approved");
-      // Check stored pending import requests for admin banner
-      const pendingKey = localStorage.getItem("wayzyy_pending_import_requests");
-      let pendingList: any[] = [];
-      if (pendingKey === null) {
-        pendingList = [{ email: "akshaytrythis@gmail.com", full_name: "Akshay Host" }];
-        localStorage.setItem("wayzyy_pending_import_requests", JSON.stringify(pendingList));
-      } else {
-        pendingList = JSON.parse(pendingKey);
-      }
-      setPendingHostCount(pendingList.length);
+      // Query real Supabase backend table import_listing_access_requests for pending count
+      const { count } = await supabase
+        .from("import_listing_access_requests")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "pending");
+      setPendingHostCount(count || 0);
     } else {
       // Query real Supabase backend table import_listing_access_requests
       const { data: accessReq } = await supabase
@@ -454,7 +456,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   if (listings === null) {
     return (
       <div className="flex justify-center py-16">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <Loader2 className="h-6 w-6 animate-spin text-white/50" />
       </div>
     );
   }
@@ -476,14 +478,14 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-bold text-base text-foreground">Admin: Host Access Approvals</h3>
+                <h3 className="font-display font-bold text-base text-white">Admin: Host Access Approvals</h3>
                 {pendingHostCount > 0 && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
                     {pendingHostCount} Pending
                   </span>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-white/70 mt-0.5">
                 Review and approve new host access requests. Approved hosts receive automated ZeptoMail notifications.
               </p>
             </div>
@@ -506,8 +508,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
               <Loader2 className="h-5 w-5 animate-spin" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-sm text-foreground">Host Access Pending Approval</h3>
-              <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+              <h3 className="font-display font-bold text-sm text-white">Host Access Pending Approval</h3>
+              <p className="text-xs text-white/70 mt-0.5 leading-relaxed">
                 We have informed our team. 1-Click Import access will unlock automatically once reviewed.
               </p>
             </div>
@@ -536,22 +538,22 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
       )}
 
       {/* Identity Verification Status Banner */}
-      <div id="tour-identity-verification" className="rounded-3xl border border-border bg-gradient-to-br from-card via-card to-muted/20 p-5 sm:p-6 shadow-sm relative overflow-hidden">
+      <div id="tour-identity-verification" className="liquid-glass rounded-3xl border border-white/20 bg-black/40 backdrop-blur-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden text-white">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
           <div className="flex items-center gap-3.5">
-            <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${isVerified ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : pendingVerification ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" : "bg-primary/10 text-primary border border-primary/20"}`}>
+            <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${isVerified ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40" : pendingVerification ? "bg-amber-500/20 text-amber-400 border border-amber-500/40" : "bg-ember/20 text-ember border border-ember/40"}`}>
               {isVerified ? <CheckCircle2 className="h-6 w-6" /> : pendingVerification ? <Loader2 className="h-6 w-6 animate-spin" /> : <ShieldCheck className="h-6 w-6" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-bold text-base text-foreground">Host Identity Status</h3>
+                <h3 className="font-display font-bold text-base text-white">Host Identity Status</h3>
                 {isVerified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600">
-                    <ShieldCheck className="h-3 w-3" /> Verified Host
+                  <span className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-bold text-emerald-300 sm:px-2.5 sm:text-[11px]">
+                    <ShieldCheck className="h-3 w-3 shrink-0" /> Verified Host
                   </span>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-white/70 mt-0.5">
                 {isVerified
                   ? "Your identity has been verified. Your properties display a Verified Host badge."
                   : pendingVerification
@@ -588,16 +590,16 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="font-display text-2xl font-bold text-foreground">Property Portfolio</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">Manage your existing listings or add properties</p>
+            <h2 className="font-display text-2xl font-bold text-white">Property Portfolio</h2>
+            <p className="text-xs text-white/60 mt-0.5">Manage your existing listings or add properties</p>
           </div>
 
           <TooltipProvider>
             <div className="flex flex-wrap items-center gap-2">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="gap-1.5 border border-border">
-                    <User className="h-4 w-4 text-primary" />
+                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                    <User className="h-3.5 w-3.5 shrink-0 text-primary sm:h-4 sm:w-4" />
                     Host Profile
                   </Button>
                 </TooltipTrigger>
@@ -618,9 +620,9 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     }}
                     variant="outline"
                     size="sm"
-                    className="gap-1.5 border-primary/30 text-primary hover:bg-primary/10"
+                    className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
                   >
-                    <Upload className="h-4 w-4" />
+                    <Upload className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     Import Listing
                   </Button>
                 </TooltipTrigger>
@@ -631,8 +633,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={onAddNew} size="sm" className="gap-1.5 bg-ember text-white hover:bg-ember/90">
-                    <Home className="h-4 w-4" />
+                  <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                    <Home className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     List Property
                   </Button>
                 </TooltipTrigger>
@@ -645,12 +647,12 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
 
         {/* Tab Filters */}
-        <div id="tour-listings-tabs" className="flex items-center justify-between border-b border-border pb-2 text-xs font-medium">
+        <div id="tour-listings-tabs" className="flex items-center justify-between border-b border-white/15 pb-2 text-xs font-medium">
           <div className="flex items-center gap-1">
             <button
               onClick={() => setActiveTab("all")}
               className={`px-3 py-1.5 rounded-lg transition-colors ${
-                activeTab === "all" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                activeTab === "all" ? "bg-white/10 font-semibold text-white shadow-sm" : "text-white/60 hover:text-white"
               }`}
             >
               All Listings ({listings.length})
@@ -658,7 +660,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             <button
               onClick={() => setActiveTab("active")}
               className={`px-3 py-1.5 rounded-lg transition-colors ${
-                activeTab === "active" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                activeTab === "active" ? "bg-white/10 font-semibold text-white shadow-sm" : "text-white/60 hover:text-white"
               }`}
             >
               Live ({listings.filter((l) => l.status === "active").length})
@@ -666,7 +668,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             <button
               onClick={() => setActiveTab("pending")}
               className={`px-3 py-1.5 rounded-lg transition-colors ${
-                activeTab === "pending" ? "bg-card font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                activeTab === "pending" ? "bg-white/10 font-semibold text-white shadow-sm" : "text-white/60 hover:text-white"
               }`}
             >
               Pending Review ({listings.filter((l) => l.status === "pending_review").length})
@@ -683,13 +685,13 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
       </div>
 
       {filteredListings.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border py-16 text-center space-y-3 bg-card/20">
-          <Home className="mx-auto h-8 w-8 text-muted-foreground" />
-          <p className="text-sm font-medium text-foreground">No listings found in this section</p>
-          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+        <div className="liquid-glass rounded-2xl border border-dashed border-white/20 py-16 text-center space-y-3 bg-black/30">
+          <Home className="mx-auto h-8 w-8 text-white/40" />
+          <p className="text-sm font-medium text-white">No listings found in this section</p>
+          <p className="text-xs text-white/60 max-w-sm mx-auto">
             You can list a new property manually or import your existing Airbnb listing link in seconds.
           </p>
-          <div className="flex justify-center gap-3 pt-2">
+          <div className="flex flex-wrap justify-center gap-2 pt-2 sm:gap-3">
             <Button
               onClick={() => {
                 if (user?.email === "hello@wayzyy.com" || importUnlocked) {
@@ -700,10 +702,11 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
               }}
               variant="outline"
               size="sm"
+              className="h-8 bg-transparent px-2.5 text-xs border-white/20 text-white hover:bg-white/10 hover:text-white sm:h-9 sm:px-3 sm:text-sm"
             >
               Import Airbnb Listing
             </Button>
-            <Button onClick={onAddNew} size="sm" className="bg-ember text-white hover:bg-ember/90">
+            <Button onClick={onAddNew} size="sm" className="h-8 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:px-3 sm:text-sm">
               List Property Manually
             </Button>
           </div>
@@ -713,31 +716,31 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
             return (
-              <div key={p.id} className="rounded-2xl border border-border bg-card p-4 transition-all hover:border-border/80">
+              <div key={p.id} className="liquid-glass rounded-2xl border border-white/15 bg-black/30 p-4 transition-all hover:border-white/25">
                 <div className="flex gap-4">
-                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-muted border border-border">
+                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-white/5 border border-white/15">
                     {p.images?.[0] ? (
                       <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">
-                        <Home className="h-5 w-5 text-muted-foreground" />
+                        <Home className="h-5 w-5 text-white/40" />
                       </div>
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="truncate font-semibold text-foreground text-sm">{p.title || "Untitled listing"}</p>
+                      <p className="truncate font-semibold text-white text-sm">{p.title || "Untitled listing"}</p>
                       <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${meta.className}`}>
                         {meta.label}
                       </span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{[p.city, p.state].filter(Boolean).join(", ")}</p>
-                    <p className="mt-1.5 text-xs font-semibold text-foreground">
+                    <p className="text-xs text-white/60 mt-0.5">{[p.city, p.state].filter(Boolean).join(", ")}</p>
+                    <p className="mt-1.5 text-xs font-semibold text-white">
                       {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-border/60 flex items-center justify-between">
+                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
                   <Button
                     variant="outline"
                     size="sm"
@@ -747,7 +750,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     <SlidersHorizontal className="h-3.5 w-3.5" />
                     Manage Calendar & Pricing
                   </Button>
-                  <Link to="/policies/property-import-policy" target="_blank" className="text-[11px] text-muted-foreground hover:text-foreground">
+                  <Link to="/policies/property-import-policy" target="_blank" className="text-[11px] text-white/60 hover:text-white">
                     Import Policy
                   </Link>
                 </div>
@@ -1633,34 +1636,45 @@ export default function HostPortal() {
       description="Manage your listings and list new properties on Wayzyy directly from the web — the same platform, database, and review process as the app."
       path="/host"
     >
-      <div className="min-h-screen bg-background text-foreground">
-        <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
+      <div className="min-h-screen relative text-foreground overflow-x-hidden bg-slate-950">
+        {/* Full-bleed twilight Goa villa background artwork */}
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+          <img
+            src="/illustrations/sunset-host.png"
+            alt="Goa Sunset Host Villa Backdrop"
+            className="w-full h-full object-cover opacity-50 mix-blend-luminosity scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+        </div>
+
+        <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur-xl text-white">
           <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center gap-3">
-              <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Wayzyy
               </Link>
-              <span className="text-border">·</span>
+              <span className="text-white/20">·</span>
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </div>
             <ThemeToggle />
           </div>
         </header>
 
-        <div className="border-b border-border bg-card/40 py-12 sm:py-16">
+        <div className="relative z-10 border-b border-white/10 bg-black/30 backdrop-blur-xl py-12 sm:py-16">
           <div className="container max-w-3xl">
-            <h1 className="font-display text-4xl sm:text-5xl text-foreground leading-tight">
+            <h1 className="font-display text-4xl sm:text-5xl text-white leading-tight">
               {view === "dashboard" ? "Your hosting" : "List your property"}
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
+            <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-xl">
               Same platform, same review process, same database as the Wayzyy app — host from
               wherever's easiest for you.
             </p>
           </div>
         </div>
 
-        <div className="container py-12 sm:py-16 max-w-3xl">
+        <div className="relative z-10 container py-12 sm:py-16 max-w-3xl">
           {view === "dashboard" ? (
             <HostDashboard
               onAddNew={() => setView("wizard")}

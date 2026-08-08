@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { UserCheck, ShieldCheck, Mail, Loader2, CheckCircle2, XCircle, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
 
 interface PendingHost {
-  id: string;
+  /** import_listing_access_requests.id — the row to update on approve/decline. */
+  requestId: string;
+  userId: string;
   email: string;
   full_name: string | null;
   import_status: string;
@@ -24,26 +27,37 @@ export function AdminHostApprovalsModal({ isOpen, onClose, onRefresh }: AdminHos
   const [pendingHosts, setPendingHosts] = useState<PendingHost[]>([]);
   const [processingId, setProcessingId] = useState<string | null>(null);
 
-  const fetchPending = () => {
+  const fetchPending = async () => {
     setLoading(true);
     try {
-      const raw = localStorage.getItem("wayzyy_pending_import_requests");
-      let list: PendingHost[] = [];
-      if (raw === null) {
-        list = [
-          {
-            id: "demo-host-1",
-            email: "akshaytrythis@gmail.com",
-            full_name: "Akshay Host",
-            import_status: "pending_approval",
-            updated_at: new Date().toISOString(),
-          },
-        ];
-        localStorage.setItem("wayzyy_pending_import_requests", JSON.stringify(list));
-      } else {
-        list = JSON.parse(raw);
+      const { data: requests, error } = await supabase
+        .from("import_listing_access_requests")
+        .select("id, user_id, email, requested_at")
+        .eq("status", "pending")
+        .order("requested_at", { ascending: false });
+
+      if (error) throw error;
+
+      const userIds = (requests || []).map((r) => r.user_id).filter(Boolean);
+      let namesById: Record<string, string | null> = {};
+      if (userIds.length > 0) {
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("id, full_name")
+          .in("id", userIds);
+        namesById = Object.fromEntries((profiles || []).map((p) => [p.id, p.full_name]));
       }
-      setPendingHosts(list);
+
+      setPendingHosts(
+        (requests || []).map((r) => ({
+          requestId: r.id,
+          userId: r.user_id,
+          email: r.email || "",
+          full_name: namesById[r.user_id] ?? null,
+          import_status: "pending_approval",
+          updated_at: r.requested_at,
+        }))
+      );
     } catch (err) {
       console.error("Fetch pending import requests error:", err);
       setPendingHosts([]);
@@ -65,24 +79,19 @@ export function AdminHostApprovalsModal({ isOpen, onClose, onRefresh }: AdminHos
     try {
       const newStatus = approve ? "approved" : "rejected";
 
-      // 1. Update host import status in local state storage & Supabase
-      if (host.id) {
-        localStorage.setItem(`wayzyy_import_status_${host.id}`, newStatus);
-        try {
-          await supabase
-            .from("import_listing_access_requests")
-            .update({ status: newStatus, reviewed_at: new Date().toISOString() })
-            .eq("user_id", host.id);
-        } catch (err) {
-          // Silently skip if table migration pending
-        }
-      }
+      // 1. Update the real request row in Supabase — this is the row
+      // import-listing-for-host actually checks before allowing an import.
+      const { error } = await supabase
+        .from("import_listing_access_requests")
+        .update({ status: newStatus, reviewed_at: new Date().toISOString() })
+        .eq("id", host.requestId);
+      if (error) throw error;
 
-      // 2. Remove from pending list
-      const raw = localStorage.getItem("wayzyy_pending_import_requests");
-      const list: PendingHost[] = raw ? JSON.parse(raw) : [];
-      const updatedList = list.filter((item) => item.email !== host.email);
-      localStorage.setItem("wayzyy_pending_import_requests", JSON.stringify(updatedList));
+      // 2. Keep the per-user cached status in sync for any UI that still
+      // reads it locally on the host's own device.
+      if (host.userId) {
+        localStorage.setItem(`wayzyy_import_status_${host.userId}`, newStatus);
+      }
 
       // 3. Trigger ZeptoMail email notification
       if (approve) {
@@ -152,7 +161,7 @@ export function AdminHostApprovalsModal({ isOpen, onClose, onRefresh }: AdminHos
           <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
             {pendingHosts.map((host) => (
               <div
-                key={host.email}
+                key={host.requestId}
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors"
               >
                 <div className="space-y-1">

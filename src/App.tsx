@@ -88,6 +88,9 @@ import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
 import GigChallenge from "./pages/GigChallenge";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
+import ExperienceGoa from "./pages/ExperienceGoa";
+import WaitlistChooser from "./pages/WaitlistChooser";
+import WaitlistTravelers from "./pages/WaitlistTravelers";
 
 const queryClient = new QueryClient();
 
@@ -185,6 +188,9 @@ const App = () => (
               <Route path="/blog/six-new-goa-tourism-projects-guide-2026" element={<SixNewGoaTourismProjectsGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
+              <Route path="/experience" element={<ExperienceGoa />} />
+              <Route path="/waitlist" element={<WaitlistChooser />} />
+              <Route path="/waitlist/travelers" element={<WaitlistTravelers />} />
 
 
 

@@ -13,8 +13,8 @@ import { ImageComparison, ImageComparisonBase, ImageComparisonImage } from "@/co
 import { Tilt } from "@/components/core/tilt";
 import { blogPosts } from "@/lib/blogPosts";
 
-import hostBg1 from "@/assets/host-auth/host-login-illustration.png";
-import hostBg2 from "@/assets/host-auth/host-signup-illustration.png";
+import hostBg1 from "@/assets/goa-cinematic/sunset-host.png"; // login — sunset
+import hostBg2 from "@/assets/goa-cinematic/sunrise-host.png"; // signup — sunrise
 
 type ViewState = "landing" | "login" | "signup";
 
@@ -127,14 +127,14 @@ export function HostAuthExperience() {
               <ImageComparisonBase src={hostBg1} alt="Wayzyy host — Goa coastline at sunset" />
               <ImageComparisonImage
                 src={hostBg2}
-                alt="Wayzyy host — Goa coastline, alternate view"
+                alt="Wayzyy host — Goa coastline at sunrise"
                 showWhen="signup"
               />
             </ImageComparison>
-            {/* Soft, even wash so the photo reads everywhere behind the glass card, rather than being hidden on one side */}
-            <div className="absolute inset-0 bg-white/10" />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-white/10 to-white/35" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(255,255,255,0.25)_100%)]" />
+            {/* Dark cinematic wash so text stays readable against a real photo background */}
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.35)_100%)]" />
           </div>
 
           {/* ══════════════════ Top Bar Branding ══════════════════ */}
@@ -159,17 +159,17 @@ export function HostAuthExperience() {
             <div className="relative w-full max-w-md">
               {/* ================= STAGE 1: LANDING SCREEN ================= */}
               {view === "landing" && (
-                <div className="flex flex-col items-center text-center space-y-7 rounded-3xl border border-white/25 bg-white/12 backdrop-blur-xl px-8 py-12 shadow-2xl shadow-black/20">
+                <div className="liquid-glass flex flex-col items-center text-center space-y-7 rounded-3xl border border-white/20 bg-black/40 backdrop-blur-2xl px-8 py-12 shadow-2xl shadow-black/20">
                   <div className="inline-flex items-center gap-2 rounded-full bg-ember/10 px-4 py-1.5 text-xs font-bold text-ember">
                     <img src="/favicon.svg" alt="Wayzyy" className="h-4 w-4 rounded-full object-cover" />
                     <span>Wayzyy Host Portal</span>
                   </div>
 
                   <div className="space-y-3">
-                    <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                    <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
                       Host Smarter. Grow Faster.
                     </h1>
-                    <p className="text-sm text-slate-600 font-medium max-w-sm mx-auto leading-relaxed">
+                    <p className="text-sm text-white/70 font-medium max-w-sm mx-auto leading-relaxed">
                       Manage bookings, guests, pricing and payouts from one beautiful dashboard.
                     </p>
                   </div>
@@ -196,14 +196,14 @@ export function HostAuthExperience() {
 
               {/* ================= STAGE 2 & 3: LOGIN / SIGNUP FORM ================= */}
               {(view === "login" || view === "signup") && (
-                <div className="flex flex-col items-center text-center space-y-6 rounded-3xl border border-white/25 bg-white/12 backdrop-blur-xl px-8 py-10 sm:px-10 sm:py-11 shadow-2xl shadow-black/20">
+                <div className="liquid-glass flex flex-col items-center text-center space-y-6 rounded-3xl border border-white/20 bg-black/40 backdrop-blur-2xl px-8 py-10 sm:px-10 sm:py-11 shadow-2xl shadow-black/20">
                   <div className="space-y-1.5">
-                    <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                    <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
                       <TextEffect key={view} per="char" preset="fade">
                         {view === "login" ? "Welcome back, host" : "Join Wayzyy, host"}
                       </TextEffect>
                     </h1>
-                    <p className="text-xs font-semibold tracking-wide uppercase text-slate-500">
+                    <p className="text-xs font-semibold tracking-wide uppercase text-white/70">
                       {view === "login" ? "Login with Email" : "Sign up with Email"}
                     </p>
                   </div>
@@ -212,18 +212,18 @@ export function HostAuthExperience() {
                   <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4 pt-1">
                     {view === "signup" && (
                       <div className="relative text-left">
-                        <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                        <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">
                           Full Name
                         </label>
                         <div className="relative flex items-center">
-                          <User className="absolute left-4 h-4 w-4 text-slate-400 pointer-events-none" />
+                          <User className="absolute left-4 h-4 w-4 text-white/50 pointer-events-none" />
                           <input
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
                             placeholder="e.g. Ananya Sharma"
-                            className="w-full h-12 rounded-2xl bg-slate-100/70 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder:text-slate-400 shadow-sm shadow-black/5 focus:outline-none focus:bg-white focus:ring-2 focus:ring-ember/25 transition-all"
+                            className="w-full h-12 rounded-2xl bg-white/10 pl-11 pr-4 text-sm font-medium text-white placeholder:text-white/40 shadow-sm shadow-black/5 focus:outline-none focus:bg-white/15 focus:ring-2 focus:ring-ember/25 transition-all"
                           />
                         </div>
                       </div>
@@ -231,29 +231,29 @@ export function HostAuthExperience() {
 
                     {/* Email Input */}
                     <div className="relative text-left">
-                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">
                         Email Id
                       </label>
                       <div className="relative flex items-center">
-                        <Mail className="absolute left-4 h-4 w-4 text-slate-400 pointer-events-none" />
+                        <Mail className="absolute left-4 h-4 w-4 text-white/50 pointer-events-none" />
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
                           placeholder="thisuix@mail.com"
-                          className="w-full h-12 rounded-2xl bg-slate-100/70 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder:text-slate-400 shadow-sm shadow-black/5 focus:outline-none focus:bg-white focus:ring-2 focus:ring-ember/25 transition-all"
+                          className="w-full h-12 rounded-2xl bg-white/10 pl-11 pr-4 text-sm font-medium text-white placeholder:text-white/40 shadow-sm shadow-black/5 focus:outline-none focus:bg-white/15 focus:ring-2 focus:ring-ember/25 transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Password Input */}
                     <div className="relative text-left">
-                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">
                         Password
                       </label>
                       <div className="relative flex items-center">
-                        <Lock className="absolute left-4 h-4 w-4 text-slate-400 pointer-events-none" />
+                        <Lock className="absolute left-4 h-4 w-4 text-white/50 pointer-events-none" />
                         <input
                           type={showPassword ? "text" : "password"}
                           value={password}
@@ -261,12 +261,12 @@ export function HostAuthExperience() {
                           required
                           minLength={6}
                           placeholder="••••••••••••••••"
-                          className="w-full h-12 rounded-2xl bg-slate-100/70 pl-11 pr-11 text-sm font-medium text-slate-900 placeholder:text-slate-400 shadow-sm shadow-black/5 focus:outline-none focus:bg-white focus:ring-2 focus:ring-ember/25 transition-all"
+                          className="w-full h-12 rounded-2xl bg-white/10 pl-11 pr-11 text-sm font-medium text-white placeholder:text-white/40 shadow-sm shadow-black/5 focus:outline-none focus:bg-white/15 focus:ring-2 focus:ring-ember/25 transition-all"
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 h-6 w-6 flex items-center justify-center text-slate-400 hover:text-ember active:scale-90 transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                          className="absolute right-3 h-6 w-6 flex items-center justify-center text-white/50 hover:text-ember active:scale-90 transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
                         >
                           {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
@@ -277,7 +277,7 @@ export function HostAuthExperience() {
                       <div className="flex justify-end pr-1">
                         <button
                           type="button"
-                          className="text-xs font-semibold text-slate-500 hover:text-ember transition-colors cursor-pointer"
+                          className="text-xs font-semibold text-white/70 hover:text-ember transition-colors cursor-pointer"
                         >
                           Forgot your password?
                         </button>
@@ -290,9 +290,9 @@ export function HostAuthExperience() {
                           id="terms-agree"
                           checked={agreedToTerms}
                           onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
-                          className="mt-0.5 border-slate-300 data-[state=checked]:bg-ember data-[state=checked]:border-ember data-[state=checked]:text-white shrink-0"
+                          className="mt-0.5 border-white/30 data-[state=checked]:bg-ember data-[state=checked]:border-ember data-[state=checked]:text-white shrink-0"
                         />
-                        <label htmlFor="terms-agree" className="text-xs font-medium leading-snug text-slate-600 cursor-pointer select-none">
+                        <label htmlFor="terms-agree" className="text-xs font-medium leading-snug text-white/70 cursor-pointer select-none">
                           I agree to the{" "}
                           <Link to="/host-terms" target="_blank" className="font-semibold text-ember underline hover:text-ember/80">
                             Host Terms
@@ -325,9 +325,9 @@ export function HostAuthExperience() {
                   {/* OR Divider */}
                   <div className="w-full max-w-xs space-y-3 pt-2">
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 h-px bg-slate-200" />
-                      <span className="text-[10px] font-bold tracking-wider text-slate-400">OR</span>
-                      <div className="flex-1 h-px bg-slate-200" />
+                      <div className="flex-1 h-px bg-white/15" />
+                      <span className="text-[10px] font-bold tracking-wider text-white/50">OR</span>
+                      <div className="flex-1 h-px bg-white/15" />
                     </div>
 
                     <div className="flex items-center justify-center gap-4 py-1">
@@ -372,7 +372,7 @@ export function HostAuthExperience() {
                       <button
                         type="button"
                         onClick={() => switchView(view === "login" ? "signup" : "login")}
-                        className="text-xs font-semibold text-slate-500 hover:text-slate-800 active:scale-[0.97] transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] px-4 py-1.5 cursor-pointer"
+                        className="text-xs font-semibold text-white/70 hover:text-white active:scale-[0.97] transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] px-4 py-1.5 cursor-pointer"
                       >
                         {view === "login" ? (
                           <>Don't have account? <span className="text-ember underline font-bold">Register Now</span></>

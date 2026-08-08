@@ -90,8 +90,18 @@ export function TwoSides() {
   const data = content[side];
 
   return (
-    <section id="two-sides" className="relative scroll-smooth-anchor bg-card/40 py-28 sm:py-40">
-      <div className="container">
+    <section
+      id="two-sides"
+      className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-card/40 via-card/40 to-background py-28 sm:py-40"
+    >
+      {/* Same ember glow treatment EconomicsSection uses just below this
+          section — carried up here so the two read as one continuous
+          scroll-story instead of two unrelated design passes. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_100%,hsl(var(--ember)/0.08),transparent_65%)]"
+      />
+      <div className="container relative">
         <Reveal>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -141,7 +151,8 @@ export function TwoSides() {
           <motion.div
             key={side}
             initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="mt-12"
@@ -175,7 +186,8 @@ export function TwoSides() {
                   <motion.div
                     key={b.title}
                     initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
                     transition={{
                       delay: 0.08 * i,
                       duration: 0.5,

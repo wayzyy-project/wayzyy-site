@@ -3,8 +3,8 @@ import { Instagram, Linkedin, Twitter } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="container py-12">
+    <footer className="px-6 pt-8 pb-6 sm:px-10 sm:pt-14 sm:pb-10">
+      <div className="liquid-glass container rounded-3xl border border-white/10 py-12">
         {/* Top row */}
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
@@ -29,7 +29,7 @@ export function SiteFooter() {
               <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Navigate</p>
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="#why">Why Wayzyy</a>
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="#two-sides">For Hosts & Guests</a>
-              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#waitlist">Join Waitlist</a>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/waitlist">Join Waitlist</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host">List your property</Link>
             </div>
 

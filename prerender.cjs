@@ -139,6 +139,34 @@ const routes = [
     }
   },
   {
+    path: '/waitlist',
+    title: 'Join Wayzyy — Waitlist',
+    description: 'Hosting is live on Wayzyy today. Travelers — booking opens soon. Pick your path and get in.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Join Wayzyy — Waitlist",
+      "url": "https://wayzyy.com/waitlist",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/waitlist/travelers',
+    title: 'Traveler Waitlist — Wayzyy',
+    description: "Booking for travelers isn't open yet. Join the Wayzyy waitlist and be first in when Goa stays go live.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Traveler Waitlist — Wayzyy",
+      "url": "https://wayzyy.com/waitlist/travelers",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/policies',
     title: 'Policies — Wayzyy',
     description: "Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal.",

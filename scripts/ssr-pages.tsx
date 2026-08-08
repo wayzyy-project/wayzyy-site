@@ -66,6 +66,8 @@ import SilentNoiseGoaGuide from "@/pages/blog/SilentNoiseGoaGuide";
 import KakolemBeachGuide from "@/pages/blog/KakolemBeachGuide";
 import AirbnbAlternativeLanding from "@/pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "@/pages/AppLaunchSoon";
+import WaitlistChooser from "@/pages/WaitlistChooser";
+import WaitlistTravelers from "@/pages/WaitlistTravelers";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -139,6 +141,8 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/kakolem-beach-goa-guide": KakolemBeachGuide,
   "/airbnb-alternative": AirbnbAlternativeLanding,
   "/explore": AppLaunchSoon,
+  "/waitlist": WaitlistChooser,
+  "/waitlist/travelers": WaitlistTravelers,
 };
 
 const output: Record<string, string> = {};

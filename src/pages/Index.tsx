@@ -1,9 +1,8 @@
 import React from "react";
 import { useScroll, useSpring, motion } from "framer-motion";
-import { HeroStepOut } from "@/components/HeroStepOut";
+import { CinematicHero } from "@/components/CinematicHero";
 import { Marquee } from "@/components/Marquee";
 import { WhySection } from "@/components/WhySection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { TwoSides } from "@/components/TwoSides";
 import { EconomicsSection } from "@/components/EconomicsSection";
 import { Principles } from "@/components/Principles";
@@ -28,7 +27,6 @@ const Index = () => {
 
   // section tracking refs
   const whyRef = useTrackSection("Why Section");
-  const testimonialsRef = useTrackSection("Testimonials");
   const twoSidesRef = useTrackSection("Two Sides");
   const housePartiesRef = useTrackSection("House Parties");
   const waitlistRef = useTrackSection("Waitlist");
@@ -127,7 +125,7 @@ const Index = () => {
         />
 
         <main>
-          <HeroStepOut />
+          <CinematicHero showSightsSlider={false} />
 
           <Marquee
             items={[
@@ -141,7 +139,6 @@ const Index = () => {
           />
 
           <div ref={whyRef as React.RefObject<HTMLDivElement>}><WhySection /></div>
-          <div ref={testimonialsRef as React.RefObject<HTMLDivElement>}><TestimonialsSection /></div>
           <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
           <EconomicsSection />
           <GigChallengeTeaser />

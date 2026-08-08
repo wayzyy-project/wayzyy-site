@@ -27,20 +27,20 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack }: Props)
       <button
         type="button"
         onClick={onBack}
-        className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        className="mb-6 flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors"
       >
         <ArrowLeft className="h-3.5 w-3.5" />
         Back to your listings
       </button>
 
-      <h2 className="font-display text-2xl">{propertyTitle}</h2>
-      <p className="mb-6 text-sm text-muted-foreground">Manage calendar sync, discounts, and cancellation policy.</p>
+      <h2 className="font-display text-2xl text-white">{propertyTitle}</h2>
+      <p className="mb-6 text-sm text-white/60">Manage calendar sync, discounts, and cancellation policy.</p>
 
       <Tabs defaultValue="calendar">
-        <TabsList className="mb-6">
-          <TabsTrigger value="calendar">Calendar</TabsTrigger>
-          <TabsTrigger value="discounts">Discounts</TabsTrigger>
-          <TabsTrigger value="cancellation">Cancellation</TabsTrigger>
+        <TabsList className="mb-6 bg-white/10 text-white/60">
+          <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
+          <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
+          <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar">
           <CalendarSection propertyId={propertyId} propertyTitle={propertyTitle} />
@@ -144,24 +144,24 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
   if (loading) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        <Loader2 className="h-5 w-5 animate-spin text-white/50" />
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-white/60">
         This two-way connection will update both calendars when a night is booked for{" "}
-        <span className="font-medium text-foreground">{propertyTitle}</span>.
+        <span className="font-medium text-white">{propertyTitle}</span>.
       </p>
 
       <div>
-        <p className="mb-2 text-sm font-semibold">Step 1 — add this link to the other website</p>
-        <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
+        <p className="mb-2 text-sm font-semibold text-white">Step 1 — add this link to the other website</p>
+        <div className="liquid-glass flex items-center gap-3 rounded-xl border border-white/15 bg-black/30 p-4">
           <div className="min-w-0 flex-1">
-            <p className="mb-0.5 text-xs text-muted-foreground">Wayzyy calendar link</p>
-            <p className="truncate text-sm">{exportUrl ?? "—"}</p>
+            <p className="mb-0.5 text-xs text-white/60">Wayzyy calendar link</p>
+            <p className="truncate text-sm text-white">{exportUrl ?? "—"}</p>
           </div>
           <Button size="sm" onClick={handleCopy} disabled={!exportUrl} className="gap-1.5">
             <Copy className="h-3.5 w-3.5" />
@@ -171,15 +171,15 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-semibold">Step 2 — paste the other website's .ics link</p>
-        <div className="space-y-3 rounded-xl border border-border p-4">
+        <p className="mb-2 text-sm font-semibold text-white">Step 2 — paste the other website's .ics link</p>
+        <div className="space-y-3 rounded-xl border border-white/15 p-4">
           <div>
-            <Label htmlFor="other-cal-url">Other website link</Label>
-            <Input id="other-cal-url" value={otherUrl} onChange={(e) => setOtherUrl(e.target.value)} placeholder="https://…/calendar.ics" />
+            <Label htmlFor="other-cal-url" className="text-white">Other website link</Label>
+            <Input id="other-cal-url" value={otherUrl} onChange={(e) => setOtherUrl(e.target.value)} placeholder="https://…/calendar.ics" className="border-white/20 bg-black/30 text-white placeholder:text-white/40" />
           </div>
           <div>
-            <Label htmlFor="other-cal-name">Calendar name</Label>
-            <Input id="other-cal-name" value={calendarName} onChange={(e) => setCalendarName(e.target.value)} placeholder="e.g. Airbnb" />
+            <Label htmlFor="other-cal-name" className="text-white">Calendar name</Label>
+            <Input id="other-cal-name" value={calendarName} onChange={(e) => setCalendarName(e.target.value)} placeholder="e.g. Airbnb" className="border-white/20 bg-black/30 text-white placeholder:text-white/40" />
           </div>
           <Button onClick={handleAdd} disabled={!otherUrl.trim() || !calendarName.trim() || adding} className="w-full bg-ember text-white hover:bg-ember/90">
             {adding && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -190,13 +190,13 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
 
       {calendars.length > 0 && (
         <div>
-          <p className="mb-2 text-sm font-semibold">Connected calendars</p>
-          <div className="divide-y divide-border rounded-xl border border-border">
+          <p className="mb-2 text-sm font-semibold text-white">Connected calendars</p>
+          <div className="divide-y divide-white/10 rounded-xl border border-white/15">
             {calendars.map((cal) => (
               <div key={cal.id} className="flex items-center justify-between gap-3 p-4">
                 <div className="min-w-0">
-                  <p className="text-sm font-medium">{cal.source_name}</p>
-                  <p className="truncate text-xs text-muted-foreground">
+                  <p className="text-sm font-medium text-white">{cal.source_name}</p>
+                  <p className="truncate text-xs text-white/60">
                     {cal.last_sync_status === "error"
                       ? `Sync failed${cal.last_sync_error ? `: ${cal.last_sync_error}` : ""}`
                       : cal.last_synced_at
@@ -204,7 +204,7 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
                       : "Not synced yet"}
                   </p>
                 </div>
-                <button type="button" onClick={() => handleRemove(cal.id)} className="text-muted-foreground hover:text-destructive transition-colors">
+                <button type="button" onClick={() => handleRemove(cal.id)} className="text-white/50 hover:text-destructive transition-colors">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
@@ -281,24 +281,24 @@ function DiscountsSection({ propertyId }: { propertyId: string }) {
   if (loading) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        <Loader2 className="h-5 w-5 animate-spin text-white/50" />
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-white/60">
         Only the single best-matching discount is applied to any one booking, never stacked.
       </p>
       {rows.map((row) => {
         const meta = DISCOUNT_LABELS[row.type];
         return (
-          <div key={row.type} className="rounded-xl border border-border p-4">
+          <div key={row.type} className="rounded-xl border border-white/15 p-4">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold">{meta.label}</p>
-                <p className="text-xs text-muted-foreground">{meta.sub}</p>
+                <p className="text-sm font-semibold text-white">{meta.label}</p>
+                <p className="text-xs text-white/60">{meta.sub}</p>
               </div>
               <Switch
                 checked={row.enabled}
@@ -314,12 +314,12 @@ function DiscountsSection({ propertyId }: { propertyId: string }) {
               <div className="mt-3 flex items-center gap-2">
                 <Input
                   type="number"
-                  className="w-24"
+                  className="w-24 border-white/20 bg-black/30 text-white placeholder:text-white/40"
                   placeholder={String(SUGGESTED_DISCOUNT_PERCENTAGE[row.type])}
                   value={row.percentage}
                   onChange={(e) => setRow(row.type, { percentage: e.target.value.replace(/[^0-9.]/g, "") })}
                 />
-                <span className="text-sm text-muted-foreground">% off</span>
+                <span className="text-sm text-white/60">% off</span>
               </div>
             )}
           </div>
@@ -376,7 +376,7 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
   if (loading) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        <Loader2 className="h-5 w-5 animate-spin text-white/50" />
       </div>
     );
   }
@@ -384,7 +384,7 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-3 text-sm font-semibold">Under 28 nights</p>
+        <p className="mb-3 text-sm font-semibold text-white">Under 28 nights</p>
         <div className="space-y-3">
           {SHORT_TERM_POLICIES.map((policy) => (
             <button
@@ -392,13 +392,13 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
               type="button"
               onClick={() => setShortTerm(policy.id)}
               className={`flex w-full items-start justify-between gap-4 rounded-xl border p-4 text-left transition-colors ${
-                shortTerm === policy.id ? "border-ember bg-ember/10" : "border-border hover:border-foreground/30"
+                shortTerm === policy.id ? "border-ember bg-ember/10" : "border-white/15 hover:border-white/30"
               }`}
             >
               <div>
-                <p className={`text-sm font-medium ${shortTerm === policy.id ? "text-ember" : ""}`}>{policy.label}</p>
+                <p className={`text-sm font-medium ${shortTerm === policy.id ? "text-ember" : "text-white"}`}>{policy.label}</p>
                 {policy.rules.map((rule) => (
-                  <p key={rule} className="mt-1 text-xs text-muted-foreground">{rule}</p>
+                  <p key={rule} className="mt-1 text-xs text-white/60">{rule}</p>
                 ))}
               </div>
             </button>
@@ -407,7 +407,7 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-semibold">28+ nights</p>
+        <p className="mb-3 text-sm font-semibold text-white">28+ nights</p>
         <div className="space-y-3">
           {LONG_TERM_POLICIES.map((policy) => (
             <button
@@ -415,13 +415,13 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
               type="button"
               onClick={() => setLongTerm(policy.id)}
               className={`flex w-full items-start justify-between gap-4 rounded-xl border p-4 text-left transition-colors ${
-                longTerm === policy.id ? "border-ember bg-ember/10" : "border-border hover:border-foreground/30"
+                longTerm === policy.id ? "border-ember bg-ember/10" : "border-white/15 hover:border-white/30"
               }`}
             >
               <div>
-                <p className={`text-sm font-medium ${longTerm === policy.id ? "text-ember" : ""}`}>{policy.label}</p>
+                <p className={`text-sm font-medium ${longTerm === policy.id ? "text-ember" : "text-white"}`}>{policy.label}</p>
                 {policy.rules.map((rule) => (
-                  <p key={rule} className="mt-1 text-xs text-muted-foreground">{rule}</p>
+                  <p key={rule} className="mt-1 text-xs text-white/60">{rule}</p>
                 ))}
               </div>
             </button>

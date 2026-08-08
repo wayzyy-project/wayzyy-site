@@ -1,5 +1,6 @@
 import { SEO } from "@/components/SEO";
 import { SiteFooter } from "@/components/SiteFooter";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ShieldCheck, Heart, Sparkles, Building2, HelpCircle, Instagram, Linkedin, Twitter } from "lucide-react";
 
@@ -98,7 +99,15 @@ export default function WhatIsWayzyy() {
               </div>
             </div>
           </section>
+        </div>
 
+        {/* Testimonials — the community evidence behind "Why Was Wayzyy Built?" above.
+            Full-bleed section (its own `container`), so it steps outside the page's
+            max-w-3xl reading column the same way the Hero and Content sections above
+            each carry their own width. */}
+        <TestimonialsSection />
+
+        <div className="container max-w-3xl py-12 sm:py-16 space-y-12 text-base sm:text-lg text-foreground/90 leading-relaxed">
           {/* Pronunciation & Identity */}
           <section className="space-y-6">
             <h2 className="font-display text-3xl text-foreground border-b border-border/60 pb-3">

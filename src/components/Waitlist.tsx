@@ -92,7 +92,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
               }
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-12 flex-1 border-border bg-card text-base"
+              className="liquid-glass h-12 flex-1 rounded-full px-5 text-base placeholder:text-muted-foreground"
             />
             <Button
               type="submit"
