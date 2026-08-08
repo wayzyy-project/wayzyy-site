@@ -3,78 +3,82 @@ import { Instagram, Linkedin, Twitter } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="px-6 pt-8 pb-6 sm:px-10 sm:pt-14 sm:pb-10">
-      <div className="liquid-glass container rounded-3xl border border-white/10 py-12">
+    <footer className="px-4 pt-6 pb-20 sm:px-10 sm:pt-14 sm:pb-10">
+      <div className="liquid-glass container rounded-3xl border border-white/10 p-5 sm:p-12">
         {/* Top row */}
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <div className="flex items-center">
-              <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <img src="/favicon.svg" alt="Wayzyy" className="h-8 w-8 sm:h-11 sm:w-11 rounded-full object-cover" />
+              <span className="font-display font-bold text-sm tracking-wide text-foreground sm:hidden">
+                WAYZYY
+              </span>
             </div>
-            <p className="mt-3 max-w-xs text-sm text-muted-foreground">
+            <p className="max-w-xs text-xs sm:text-sm text-muted-foreground leading-relaxed">
               cozy stays, crazy nights and fair hosting . That's wayzyy
             </p>
             <a
               href="mailto:hello@wayzyy.com"
-              className="mt-1 block text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-block text-xs text-muted-foreground hover:text-foreground transition-colors font-medium"
             >
               hello@wayzyy.com
             </a>
           </div>
 
-          {/* Links */}
-          <div className="flex flex-col gap-6 sm:flex-row sm:gap-12 text-sm">
+          {/* Links — 2-column grid on mobile, flex row on sm+ */}
+          <div className="grid grid-cols-2 gap-5 text-xs sm:flex sm:flex-row sm:gap-12 sm:text-sm pt-2 sm:pt-0 border-t border-white/10 sm:border-0">
             {/* Nav */}
-            <div className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Navigate</p>
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Navigate</p>
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="#why">Why Wayzyy</a>
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="#two-sides">For Hosts & Guests</a>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/waitlist">Join Waitlist</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host">List your property</Link>
             </div>
 
-            {/* Legal */}
-            <div className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Legal</p>
-              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/policies">Policies</Link>
-              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/privacy">Privacy Policy</Link>
-            </div>
+            {/* Legal & Socials */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Legal</p>
+                <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/policies">Policies</Link>
+                <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/privacy">Privacy Policy</Link>
+              </div>
 
-            {/* Socials */}
-            <div className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Follow Us</p>
-              <a
-                href="https://www.instagram.com/staywayzyy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Instagram className="h-4 w-4 text-ember" /> Instagram
-              </a>
-              <a
-                href="https://www.linkedin.com/company/wayzyy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin className="h-4 w-4 text-ember" /> LinkedIn
-              </a>
-              <a
-                href="https://x.com/wayzyycom"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Twitter className="h-4 w-4 text-ember" /> X (Twitter)
-              </a>
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Follow Us</p>
+                <a
+                  href="https://www.instagram.com/staywayzyy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Instagram className="h-3.5 w-3.5 text-ember shrink-0" /> Instagram
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/wayzyy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Linkedin className="h-3.5 w-3.5 text-ember shrink-0" /> LinkedIn
+                </a>
+                <a
+                  href="https://x.com/wayzyycom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Twitter className="h-3.5 w-3.5 text-ember shrink-0" /> X (Twitter)
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground">
+        <div className="mt-6 flex flex-col gap-2 border-t border-border pt-4 sm:mt-10 sm:pt-6 sm:flex-row sm:items-center sm:justify-between text-[11px] sm:text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} Wayzyy Technologies Private Limited. Built honest.</span>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <a href="https://www.instagram.com/staywayzyy/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
             <span>·</span>
             <a href="https://www.linkedin.com/company/wayzyy/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>

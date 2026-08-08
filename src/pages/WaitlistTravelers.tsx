@@ -119,29 +119,29 @@ export default function WaitlistTravelers() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="liquid-glass w-full rounded-3xl p-6 md:p-10 text-white/70 mt-32 md:mt-64 relative z-10 max-w-7xl mx-6 sm:mx-10"
+          className="liquid-glass w-full rounded-3xl p-5 md:p-10 text-white/70 mt-16 md:mt-64 relative z-10 max-w-7xl mx-4 sm:mx-10"
         >
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-            <div className="md:col-span-5">
+          <div className="flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-10">
+            <div className="md:col-span-5 space-y-2">
               <Link to="/" className="flex items-center gap-2">
                 <img
                   src="/favicon.svg"
                   alt="Wayzyy"
-                  className="h-9 w-9 rounded-full object-cover"
+                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover"
                 />
-                <span className="font-display text-lg tracking-wide text-white">
+                <span className="font-display text-base sm:text-lg tracking-wide text-white">
                   WAYZYY
                 </span>
               </Link>
-              <p className="mt-3 max-w-xs text-sm text-white/60">
+              <p className="max-w-xs text-xs sm:text-sm text-white/60 leading-relaxed">
                 Cozy stays, crazy nights and fair hosting. That's Wayzyy —
                 homestays without the small print.
               </p>
             </div>
 
-            <div className="md:col-span-7 grid grid-cols-1 gap-8 sm:grid-cols-3">
-              <div className="flex flex-col gap-2">
-                <p className="text-xs uppercase tracking-widest text-white/40 mb-1">
+            <div className="grid grid-cols-2 gap-4 text-xs sm:text-sm md:col-span-7 sm:grid-cols-3 sm:gap-8 pt-2 sm:pt-0 border-t border-white/10 sm:border-0">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] sm:text-xs uppercase tracking-widest text-white/40 font-semibold mb-0.5">
                   Explore
                 </p>
                 <Link className="text-white/70 hover:text-white transition-colors" to="/blog">
@@ -158,8 +158,8 @@ export default function WaitlistTravelers() {
                 </Link>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <p className="text-xs uppercase tracking-widest text-white/40 mb-1">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] sm:text-xs uppercase tracking-widest text-white/40 font-semibold mb-0.5">
                   Company
                 </p>
                 <Link
@@ -176,44 +176,44 @@ export default function WaitlistTravelers() {
                 </Link>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <p className="text-xs uppercase tracking-widest text-white/40 mb-1">
+              <div className="flex flex-col gap-1.5 col-span-2 sm:col-span-1">
+                <p className="text-[10px] sm:text-xs uppercase tracking-widest text-white/40 font-semibold mb-0.5">
                   Connect
                 </p>
                 <a
                   href="https://www.instagram.com/staywayzyy/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
                 >
-                  <Instagram className="h-4 w-4 text-ember" /> Instagram
+                  <Instagram className="h-3.5 w-3.5 text-ember shrink-0" /> Instagram
                 </a>
                 <a
                   href="https://www.linkedin.com/company/wayzyy/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
                 >
-                  <Linkedin className="h-4 w-4 text-ember" /> LinkedIn
+                  <Linkedin className="h-3.5 w-3.5 text-ember shrink-0" /> LinkedIn
                 </a>
                 <a
                   href="https://x.com/wayzyycom"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
                 >
-                  <Twitter className="h-4 w-4 text-ember" /> X (Twitter)
+                  <Twitter className="h-3.5 w-3.5 text-ember shrink-0" /> X (Twitter)
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-4 text-[11px] sm:text-xs text-white/50 sm:mt-10 sm:pt-6 sm:flex-row sm:items-center sm:justify-between">
             <span>
               © {new Date().getFullYear()} Wayzyy Technologies Private
               Limited. Built honest.
             </span>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <a
                 href="https://www.instagram.com/staywayzyy/"
                 target="_blank"
