@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
+import { AMENITIES } from "@/lib/amenities";
 import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
 import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
@@ -47,12 +48,6 @@ const SPACE_TYPES = [
   { id: "entire", label: "Entire place", icon: Home, desc: "Guests have the whole place to themselves" },
   { id: "private", label: "Private room", icon: BedDouble, desc: "Guests have their own room; some areas may be shared" },
   { id: "shared", label: "Shared room", icon: Users, desc: "Guests share a sleeping space with others" },
-];
-
-const AMENITIES = [
-  "WiFi", "Kitchen", "Washer", "AC", "Heating", "Hot Water", "TV", "Pool",
-  "Parking", "Breakfast", "Garden", "Beach Access", "Pet-friendly", "BBQ",
-  "Workspace", "Gym", "EV Charger",
 ];
 
 // Matches mobile's BecomeHostScreen.tsx per-bedroom bed-type breakdown.

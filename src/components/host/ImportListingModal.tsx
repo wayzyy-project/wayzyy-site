@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
+import { AMENITIES, matchKnownAmenities } from "@/lib/amenities";
 
 interface ImportListingModalProps {
   isOpen: boolean;
@@ -29,6 +30,40 @@ interface LookupResult {
   location: { locality?: string; region?: string; country?: string } | null;
   details: { guests?: number; bedrooms?: number; beds?: number; baths?: number } | null;
   isManualDraft?: boolean;
+  amenities?: string[];
+  selfCheckIn?: boolean;
+  petsAllowed?: boolean;
+  latitude?: number | null;
+  longitude?: number | null;
+  city?: string | null;
+  state?: string | null;
+}
+
+// AirROI's amenity strings are free-text and won't exactly match our
+// canonical AMENITIES list — reuse the app's existing, more thorough
+// alias-based normalizer (already relied on by AdminAirroiImport.tsx)
+// rather than a second, weaker matcher, then narrow to the checkbox list.
+// Anything that doesn't match a known amenity is dropped — hosts can still
+// add it manually via the toggle chips.
+function mapAirroiAmenities(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  const strings = raw.filter((entry): entry is string => typeof entry === "string");
+  return matchKnownAmenities(strings);
+}
+
+// AirROI descriptions arrive as an unbroken wall of text with "◆" section
+// markers and no line breaks between merged sentences (e.g.
+// "One king-sized bedEnsuite bathroomAC"). This is a readability pass, not
+// perfect formatting — insert a newline before each "◆" marker, and before a
+// capital letter that directly follows a lowercase letter with no
+// intervening space/punctuation.
+function cleanupImportedDescription(text: string | null | undefined): string {
+  if (!text) return "";
+  return text
+    .replace(/\s*◆\s*/g, "\n◆ ")
+    .replace(/([a-z])([A-Z])/g, "$1\n$2")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
 }
 
 export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: propAccessToken }: ImportListingModalProps) {
@@ -47,6 +82,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [weekendPrice, setWeekendPrice] = useState("");
+  const [amenities, setAmenities] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [expandedPreview, setExpandedPreview] = useState(true);
 
@@ -200,6 +236,13 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
               baths: listing.bathrooms,
               ...listing.details,
             },
+            amenities: listing.amenities,
+            selfCheckIn: listing.selfCheckIn,
+            petsAllowed: listing.petsAllowed,
+            latitude: listing.latitude,
+            longitude: listing.longitude,
+            city: listing.city,
+            state: listing.state,
           } as LookupResult;
         }
       } catch (invokeErr) {
@@ -228,7 +271,8 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
 
       setListingData(fetchedResult);
       setTitle(fetchedResult.name || "");
-      setDescription(fetchedResult.description || "");
+      setDescription(cleanupImportedDescription(fetchedResult.description));
+      setAmenities(mapAirroiAmenities(fetchedResult.amenities));
 
       toast({
         title: "Listing Ready for Review",
@@ -265,46 +309,85 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     try {
       const photos = listingData.photoUrls || [];
       const coverPhoto = listingData.coverPhotoUrl || photos[0] || "";
-      const locStr = listingData.location?.locality || listingData.location?.region || "Goa";
+      const city = listingData.city || listingData.location?.locality || "Goa";
+      const state = listingData.state || listingData.location?.region || "Goa";
+      const bedrooms = listingData.details?.bedrooms || 1;
+      const finalTitle = title || listingData.name || "Imported Airbnb Property";
+      const finalDescription = description || listingData.description || "";
 
-      try {
-        await supabase.from("properties").insert({
-          title: title || listingData.name || "Imported Airbnb Property",
-          description: description || listingData.description || "",
-          price: numPrice,
-          weekend_price: numWeekendPrice,
-          host_id: user.id,
-          host_name: user.user_metadata?.full_name || listingData.hostName || "Host",
-          cover_image: coverPhoto,
-          images: photos,
-          city: locStr,
-          location: locStr,
-          state: "Goa",
-          max_guests: listingData.details?.guests || 2,
-          bedrooms: listingData.details?.bedrooms || 1,
-          beds: listingData.details?.beds || 1,
-          bathrooms: listingData.details?.baths || 1,
-          status: "pending_review",
-          source: "airbnb_import",
-          source_airbnb_id: listingData.listingId,
-          created_at: new Date().toISOString(),
-        });
-      } catch (dbErr) {
-        console.warn("Database property insert fallback:", dbErr);
+      // submit-listing is the canonical submission pipeline (same one the
+      // manual wizard uses in HostPortal.tsx) — it validates and writes the
+      // property row server-side. AirROI doesn't provide the wizard-only
+      // fields below (placeType, street, registration, etc.), so we fill in
+      // sensible defaults consistent with emptyForm in HostPortal.tsx.
+      // Pricing and reviews are deliberately never imported from AirROI —
+      // price/weekendPrice stay host-entered, and no review data exists on
+      // the AirROI preview to import in the first place.
+      const { data: result, error: fnError } = await supabase.functions.invoke("submit-listing", {
+        body: {
+          listingData: {
+            title: finalTitle,
+            description: finalDescription,
+            price: String(numPrice),
+            weekendPrice: String(numWeekendPrice),
+            placeType: "villa",
+            spaceType: "entire",
+            street: listingData.location?.locality || "",
+            city,
+            state,
+            pincode: "",
+            registrationNumber: "",
+            latitude: listingData.latitude ?? null,
+            longitude: listingData.longitude ?? null,
+            maxGuests: listingData.details?.guests || 2,
+            bedrooms,
+            beds: listingData.details?.beds || 1,
+            bathrooms: listingData.details?.baths || 1,
+            sleepingArrangements: Array.from({ length: bedrooms }, (_, i) => ({
+              name: `Bedroom ${i + 1}`,
+              beds: [{ type: "Double bed", count: 1 }],
+            })),
+            cancelPolicy: "Flexible",
+            cancelPolicyLongTerm: "Firm",
+            amenities,
+            photos,
+            instantBook: false,
+            selfCheckIn: listingData.selfCheckIn ?? false,
+            checkInTime: "3:00 PM",
+            checkOutTime: "11:00 AM",
+          },
+          hostEmail: user.email ?? "",
+          hostName: user.user_metadata?.full_name || listingData.hostName || "Host",
+          hostId: user.id,
+        },
+      });
+
+      if (fnError) {
+        let message = fnError.message ?? "Submission failed";
+        try {
+          const body = await (fnError as any).context?.json?.();
+          if (body?.error) message = body.error;
+        } catch {
+          // ignore — fall back to generic message
+        }
+        throw new Error(message);
       }
+      if (!result?.success) throw new Error(result?.error ?? "Submission failed");
 
-      // Also save locally so it immediately shows up on dashboard
+      // Also save locally so it immediately shows up on dashboard — this is
+      // only an optimistic supplement now; the edge function call above is
+      // the source of truth and its errors are surfaced to the user.
       const localKey = `wayzyy_user_listings_${user.id}`;
       const existingRaw = localStorage.getItem(localKey);
       const existingList = existingRaw ? JSON.parse(existingRaw) : [];
       existingList.unshift({
         id: `prop_${Date.now()}`,
-        title: title || listingData.name || "Imported Airbnb Property",
-        description: description || listingData.description || "",
+        title: finalTitle,
+        description: finalDescription,
         price: numPrice,
         weekend_price: numWeekendPrice,
         status: "pending_review",
-        city: locStr,
+        city,
         cover_image: coverPhoto,
         created_at: new Date().toISOString(),
       });
@@ -312,7 +395,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
 
       toast({
         title: "Submitted for Approval! 🚀",
-        description: `"${title || "Property"}" is now pending review by our team.`,
+        description: `"${finalTitle}" is now pending review by our team.`,
       });
 
       if (onSuccess) onSuccess();
@@ -532,6 +615,35 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                         </div>
                       </div>
                     )}
+
+                    {/* Amenities — pre-checked from AirROI's best-effort match, but
+                        always host-editable since this is a review step, not a locked import. */}
+                    <div>
+                      <p className="font-medium text-muted-foreground mb-1.5">Amenities</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {AMENITIES.map((a) => {
+                          const active = amenities.includes(a);
+                          return (
+                            <button
+                              key={a}
+                              type="button"
+                              onClick={() =>
+                                setAmenities((prev) =>
+                                  prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]
+                                )
+                              }
+                              className={`rounded-full border px-2.5 py-1 text-[11px] transition-colors cursor-pointer ${
+                                active
+                                  ? "border-ember bg-ember/10 text-ember"
+                                  : "border-border text-muted-foreground hover:border-foreground/30"
+                              }`}
+                            >
+                              {a}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 )}
 

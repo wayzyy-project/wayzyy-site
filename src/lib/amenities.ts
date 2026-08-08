@@ -4,6 +4,15 @@
  * used across the website, mobile app, and backend database.
  */
 
+// Canonical amenity checklist shown in the manual listing wizard (HostPortal.tsx)
+// and the Airbnb import review flow (ImportListingModal.tsx) — kept as a single
+// shared list so both paths stay in sync.
+export const AMENITIES = [
+  "WiFi", "Kitchen", "Washer", "AC", "Heating", "Hot Water", "TV", "Pool",
+  "Parking", "Breakfast", "Garden", "Beach Access", "Pet-friendly", "BBQ",
+  "Workspace", "Gym", "EV Charger",
+];
+
 export const AMENITY_ALIASES: Record<string, string[]> = {
   // WiFi
   wifi: ['WiFi', 'Wifi'],
@@ -126,4 +135,12 @@ export function normalizeAmenities(rawAmenities: string[]): string[] {
   }
 
   return Array.from(result);
+}
+
+/** normalizeAmenities() returns a broad label set (some outside the AMENITIES
+ * checklist, e.g. "Sea View", "Iron"); this narrows it down to only the
+ * canonical checkbox labels, for pre-checking the AMENITIES toggle UI. */
+export function matchKnownAmenities(rawAmenities: string[]): string[] {
+  const normalized = new Set(normalizeAmenities(rawAmenities));
+  return AMENITIES.filter((known) => normalized.has(known));
 }
