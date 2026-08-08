@@ -395,16 +395,27 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         .eq("status", "pending");
       setPendingHostCount(count || 0);
     } else {
-      // Query real Supabase backend table import_listing_access_requests
-      const { data: accessReq } = await supabase
+      // Query every request row for this host — not just the most recent —
+      // since a re-request (e.g. "Resend Request Email") inserts a new
+      // pending row without touching the earlier approved one. Ordering by
+      // date and taking the top row can then show "pending" even after
+      // access was already granted, so an approval anywhere in the history
+      // always wins.
+      const { data: accessReqs } = await supabase
         .from("import_listing_access_requests")
         .select("status")
         .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-        .order("requested_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+        .order("requested_at", { ascending: false });
 
-      const serverStatus = accessReq?.status;
+      const statuses = (accessReqs ?? []).map((r) => r.status);
+      const serverStatus = statuses.includes("approved")
+        ? "approved"
+        : statuses.includes("pending")
+        ? "pending"
+        : statuses.includes("rejected")
+        ? "rejected"
+        : undefined;
+
       if (serverStatus === "approved") {
         setHostStatus("approved");
         setImportUnlocked(true);

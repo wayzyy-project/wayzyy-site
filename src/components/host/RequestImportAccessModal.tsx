@@ -45,15 +45,29 @@ export function RequestImportAccessModal({
         // Silently skip if table schema differs
       }
 
+      // Only insert a new row if this host doesn't already have one —
+      // re-requesting used to always insert a fresh "pending" row, which
+      // could outrank an already-"approved" row when the dashboard read
+      // "most recent" instead of "any approved", making granted access
+      // look stuck on "pending" again.
       try {
-        await supabase
+        const { data: existing } = await supabase
           .from("import_listing_access_requests")
-          .insert({
-            user_id: user.id,
-            email: email,
-            status: "pending",
-            requested_at: new Date().toISOString(),
-          });
+          .select("id")
+          .or(`user_id.eq.${user.id},email.eq.${email}`)
+          .limit(1)
+          .maybeSingle();
+
+        if (!existing) {
+          await supabase
+            .from("import_listing_access_requests")
+            .insert({
+              user_id: user.id,
+              email: email,
+              status: "pending",
+              requested_at: new Date().toISOString(),
+            });
+        }
       } catch (err) {
         // Silently skip if table schema differs
       }
