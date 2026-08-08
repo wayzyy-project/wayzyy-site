@@ -72,7 +72,7 @@ function DeckCard({
   // desktop widths (1024-1440px), since it never scaled down with the
   // viewport. vw always stays within the true viewport regardless of
   // screen size, so the outer cards can no longer overflow.
-  const baseXVw = slot * (count <= 2 ? 13 : 11);
+  const baseXVw = slot * (count <= 2 ? 12 : 10);
 
   const opacity = t;
   const scale = useTransform(t, [0, 1], [0.85, 1]);
@@ -81,13 +81,21 @@ function DeckCard({
 
   return (
     <motion.div
-      style={{ opacity, scale, rotate, y, x: `${baseXVw}vw` }}
+      // `left-1/2` gives every card the SAME fixed anchor point regardless
+      // of index — without it, an absolutely-positioned flex child with no
+      // explicit inset gets its static position computed as if all 4 cards
+      // were laid out side-by-side across the container (they happened to
+      // exactly fill it), so the fan `x` spread below was compounding on
+      // top of an already-spread-out layout instead of starting from a
+      // shared center. `-50%` re-centers the card on that anchor, then the
+      // fan offset is added on top of that single correct starting point.
+      style={{ opacity, scale, rotate, y, x: `calc(-50% + ${baseXVw}vw)` }}
       className={
-        "liquid-glass absolute hidden w-64 rounded-2xl p-5 shadow-xl sm:flex sm:flex-col md:w-72 md:p-6 lg:w-80 lg:p-7 xl:w-96 xl:p-9 " + card.tint
+        "liquid-glass absolute left-1/2 hidden w-56 rounded-2xl p-4 shadow-xl sm:flex sm:flex-col md:w-64 md:p-5 lg:w-80 lg:p-6 xl:w-96 xl:p-7 " + card.tint
       }
     >
-      <h3 className="font-display text-lg leading-tight text-white sm:text-xl lg:text-2xl xl:text-3xl">{card.heading}</h3>
-      <p className="mt-2 text-sm leading-snug text-white/80 sm:text-base xl:text-lg">{card.body}</p>
+      <h3 className="font-display text-base leading-tight text-white sm:text-lg lg:text-xl xl:text-2xl">{card.heading}</h3>
+      <p className="mt-1.5 text-xs leading-snug text-white/80 sm:text-sm xl:text-base">{card.body}</p>
     </motion.div>
   );
 }
