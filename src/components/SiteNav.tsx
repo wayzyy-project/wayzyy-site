@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
 import { ChallengeTopBanner } from "@/components/gig-challenge/ChallengeTopBanner";
-import { Swords, ChevronDown, Calculator, ArrowUpRight } from "lucide-react";
+import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,31 +14,36 @@ import {
 
 /** Real host-relevant links surfaced in the "Hosting" nav dropdown — pulled
  *  from actual host-focused posts in src/lib/blogPosts.ts, not placeholders. */
-const hostLinks: { to: string; label: string; description: string }[] = [
+const hostLinks: { to: string; label: string; description: string; icon: typeof Home }[] = [
   {
     to: "/host",
     label: "Host portal",
     description: "List your property and manage bookings",
+    icon: Home,
   },
   {
     to: "/earnings-calculator",
     label: "Earnings calculator",
     description: "See what you'd keep vs Airbnb, side by side",
+    icon: Calculator,
   },
   {
     to: "/blog/how-much-can-you-earn-vacation-rental-goa",
     label: "How much can you actually earn?",
     description: "The real profit breakdown for a Goa vacation rental",
+    icon: TrendingUp,
   },
   {
     to: "/blog/hidden-costs-of-running-an-airbnb",
     label: "The hidden costs of running an Airbnb",
     description: "What nobody tells new hosts",
+    icon: ShieldAlert,
   },
   {
     to: "/blog/real-cost-of-airbnb-fee",
     label: "The real cost of Airbnb's 15.5% fee",
     description: "Isn't actually 15.5% — here's the ripple effect",
+    icon: Percent,
   },
 ];
 
@@ -74,8 +79,13 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const itemClass =
     variant === "floating"
-      ? "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-      : "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 cursor-pointer";
+      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 cursor-pointer";
+
+  const iconWrapClass =
+    variant === "floating"
+      ? "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80"
+      : "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted/40 text-foreground/80";
 
   const descriptionClass = variant === "floating" ? "text-xs text-white/60" : "text-xs text-muted-foreground";
 
@@ -94,18 +104,25 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
           onMouseEnter={openNow}
           onMouseLeave={closeSoon}
         >
-          {hostLinks.map((link) => (
-            <DropdownMenuItem key={link.to} asChild className={itemClass}>
-              <Link to={link.to}>
-                <span className="flex items-center gap-1.5 font-semibold">
-                  {link.to === "/earnings-calculator" && <Calculator className="h-3.5 w-3.5 shrink-0 text-ember" />}
-                  {link.label}
-                  <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0 opacity-40" />
-                </span>
-                <span className={descriptionClass}>{link.description}</span>
-              </Link>
-            </DropdownMenuItem>
-          ))}
+          {hostLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <DropdownMenuItem key={link.to} asChild className={itemClass}>
+                <Link to={link.to}>
+                  <span className={iconWrapClass}>
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
+                    <span className="flex items-center gap-1.5 font-semibold">
+                      {link.label}
+                      <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0 opacity-40" />
+                    </span>
+                    <span className={descriptionClass}>{link.description}</span>
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </div>
     </DropdownMenu>
