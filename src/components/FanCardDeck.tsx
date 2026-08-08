@@ -117,10 +117,10 @@ function MobileDeckCard({
   return (
     <motion.div
       style={{ opacity, y }}
-      className={"liquid-glass rounded-xl p-3 shadow-xl " + card.tint}
+      className={"liquid-glass rounded-2xl p-4 shadow-xl " + card.tint}
     >
-      <h3 className="font-display text-sm leading-tight text-white">{card.heading}</h3>
-      <p className="mt-1 text-[11px] leading-snug text-white/80">{card.body}</p>
+      <h3 className="font-display text-base leading-tight text-white">{card.heading}</h3>
+      <p className="mt-1.5 text-xs leading-snug text-white/80">{card.body}</p>
     </motion.div>
   );
 }
@@ -153,8 +153,8 @@ export function FanCardDeck({ cards, progress, windowIn, windowOut }: FanCardDec
         </div>
       </div>
 
-      {/* Mobile: static 2x2 grid, all cards visible at once */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[10%] grid grid-cols-2 gap-2 px-4 sm:hidden">
+      {/* Mobile: static 2x2 grid, centered in the viewport, all cards visible at once */}
+      <div className="pointer-events-none absolute inset-0 grid grid-cols-2 content-center items-center gap-3 px-5 sm:hidden">
         {cards.map((card, i) => (
           <MobileDeckCard
             key={card.heading}

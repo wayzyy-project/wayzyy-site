@@ -168,7 +168,7 @@ export function TwoSides() {
               <div className="lg:col-span-4">
                 <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border shadow-xl">
                   <img
-                    src="/illustrations/host-traveler-split.png"
+                    src="/illustrations/host-traveler-split.webp"
                     alt="Host vs Traveler Split Minimalist Art"
                     className="h-full w-full object-cover"
                   />

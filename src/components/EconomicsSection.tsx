@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 // Served straight from /public so the SSR prerender script (which runs the
 // component tree through plain tsx, without Vite's asset pipeline) can
 // resolve these as plain string URLs instead of bundler-processed imports.
-const economicsIllustration = "/illustrations/economics-illustration.png";
-const realHostingIllustration = "/illustrations/real-hosting-illustration.png";
+const economicsIllustration = "/illustrations/economics-illustration.webp";
+const realHostingIllustration = "/illustrations/real-hosting-illustration.webp";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 

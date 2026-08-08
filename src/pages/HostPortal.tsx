@@ -1646,7 +1646,7 @@ export default function HostPortal() {
         {/* Full-bleed twilight Goa villa background artwork */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           <img
-            src="/illustrations/sunset-host.png"
+            src="/illustrations/sunset-host.webp"
             alt="Goa Sunset Host Villa Backdrop"
             className="w-full h-full object-cover opacity-50 mix-blend-luminosity scale-105"
           />

@@ -13,8 +13,8 @@ import { ImageComparison, ImageComparisonBase, ImageComparisonImage } from "@/co
 import { Tilt } from "@/components/core/tilt";
 import { blogPosts } from "@/lib/blogPosts";
 
-import hostBg1 from "@/assets/goa-cinematic/sunset-host.png"; // login — sunset
-import hostBg2 from "@/assets/goa-cinematic/sunrise-host.png"; // signup — sunrise
+import hostBg1 from "@/assets/goa-cinematic/sunset-host.webp"; // login — sunset
+import hostBg2 from "@/assets/goa-cinematic/sunrise-host.webp"; // signup — sunrise
 
 type ViewState = "landing" | "login" | "signup";
 
