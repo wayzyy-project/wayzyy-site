@@ -26,6 +26,9 @@ function asset(name: string) {
 const heroSky = asset("hero-sky.webp");
 const heroMidground = asset("hero-midground.webp");
 const heroForeground = asset("hero-foreground.webp");
+const zoomWide = asset("zoom-wide.webp");
+const zoomCloser = asset("zoom-closer.webp");
+const doorOpen = asset("door-open.webp");
 const doorLantern = asset("door-lantern.webp");
 const doorPool = asset("door-pool.webp");
 const poolDeck = asset("pool-deck.webp");
@@ -64,21 +67,39 @@ function segmentInOut(
   return Math.min(fadeIn, fadeOut);
 }
 
-/** Scroll-progress thresholds for the whole sticky stage (0 = stage enters, 1 = stage releases). */
+/**
+ * Scroll-progress thresholds for the whole sticky stage (0 = stage enters,
+ * 1 = stage releases). The stage grew from 420vh to ~562.8vh to make room
+ * for a new "push-in" scene (zoomWide -> zoomCloser -> doorOpen) inserted
+ * right after scene1 ends and before the door-lantern sequence begins.
+ * The new scene reuses the exact same crossfade-cycle proportions as the
+ * existing door-lantern/door-pool/pool-deck sequence — 42vh dwell per
+ * image with a 16.8vh crossfade overlap — so the pacing feels identical,
+ * just with three extra images before the door opens. Every threshold
+ * from `doorLantern` onward is the original value shifted later by
+ * exactly the 142.8vh the new scene occupies, converted to a fraction of
+ * the new total — everything else keeps its original on-screen dwell
+ * time, just starts later. `scene1End` and `headline`/`layersFadeOut`
+ * (all at or before the insertion point) only get renormalized to the
+ * new total, since their vh position didn't change.
+ */
 const T = {
-  scene1End: 0.32,
+  scene1End: 0.2388,
   headline: [
-    { in: [0.0, 0.02], out: [0.07, 0.09] },
-    { in: [0.11, 0.13], out: [0.18, 0.2] },
-    { in: [0.22, 0.24], out: [0.3, 0.32] },
+    { in: [0.0, 0.0149], out: [0.0522, 0.0672] },
+    { in: [0.0821, 0.097], out: [0.1344, 0.1493] },
+    { in: [0.1642, 0.1791], out: [0.2239, 0.2388] },
   ],
-  layersFadeOut: [0.26, 0.32],
-  doorLantern: { in: [0.32, 0.36], out: [0.42, 0.46] },
-  doorPool: { in: [0.42, 0.46], out: [0.52, 0.56] },
-  poolDeck: { in: [0.52, 0.56], out: [0.62, 0.66] },
-  story2: { in: [0.34, 0.38], out: [0.58, 0.62] },
-  bazaar: { in: [0.66, 0.7], out: [0.94, 1.0] },
-  story3: { in: [0.7, 0.74], out: [0.9, 0.94] },
+  layersFadeOut: [0.194, 0.2388],
+  zoomWide: { in: [0.2388, 0.2687], out: [0.3134, 0.3433] },
+  zoomCloser: { in: [0.3134, 0.3433], out: [0.3881, 0.418] },
+  doorOpen: { in: [0.3881, 0.418], out: [0.4627, 0.4926] },
+  doorLantern: { in: [0.4627, 0.4926], out: [0.5672, 0.597] },
+  doorPool: { in: [0.5672, 0.597], out: [0.6418, 0.6717] },
+  poolDeck: { in: [0.6418, 0.6717], out: [0.7165, 0.7463] },
+  story2: { in: [0.5075, 0.5373], out: [0.6866, 0.7165] },
+  bazaar: { in: [0.7463, 0.7761], out: [0.9552, 1.0] },
+  story3: { in: [0.7761, 0.806], out: [0.9254, 0.9552] },
 };
 
 const headlinePhrases: { text: ReactNode; ember: boolean }[] = [
@@ -366,10 +387,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // useState + a motion-value change listener rather than anything that
   // re-renders per frame.
   const [scene1Mounted, setScene1Mounted] = useState(true);
+  const [sceneZoomMounted, setSceneZoomMounted] = useState(false);
   const [scene2Mounted, setScene2Mounted] = useState(false);
   const [scene3Mounted, setScene3Mounted] = useState(false);
   useMotionValueEvent(progress, "change", (p) => {
     setScene1Mounted(p < T.scene1End + 0.06);
+    setSceneZoomMounted(p > T.zoomWide.in[0] - 0.04 && p < T.doorOpen.out[1] + 0.06);
     setScene2Mounted(p > T.doorLantern.in[0] - 0.04 && p < T.poolDeck.out[1] + 0.06);
     setScene3Mounted(p > T.bazaar.in[0] - 0.06);
   });
@@ -419,6 +442,24 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const story2Opacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.story2.in as [number, number]), ...(T.story2.out as [number, number])),
   );
+
+  // Scene 1.5 — push-in zoom (wide aerial -> closer villa -> door open),
+  // crossfading the same way the door sequence below does, but scaling
+  // *up* through each image (1 -> 1.1) instead of settling down to 1, so
+  // the sequence reads as the camera continuously pushing toward the
+  // villa rather than a series of independent stills.
+  const zoomWideOpacity = useTransform(progress, (p) =>
+    segmentInOut(p, ...(T.zoomWide.in as [number, number]), ...(T.zoomWide.out as [number, number])),
+  );
+  const zoomCloserOpacity = useTransform(progress, (p) =>
+    segmentInOut(p, ...(T.zoomCloser.in as [number, number]), ...(T.zoomCloser.out as [number, number])),
+  );
+  const doorOpenOpacity = useTransform(progress, (p) =>
+    segmentInOut(p, ...(T.doorOpen.in as [number, number]), ...(T.doorOpen.out as [number, number])),
+  );
+  const zoomWideScale = useTransform(progress, [T.zoomWide.in[0], T.zoomWide.out[1]], [1, 1.1]);
+  const zoomCloserScale = useTransform(progress, [T.zoomCloser.in[0], T.zoomCloser.out[1]], [1, 1.1]);
+  const doorOpenScale = useTransform(progress, [T.doorOpen.in[0], T.doorOpen.out[1]], [1, 1.1]);
 
   // Scene 3 — bazaar.
   const bazaarOpacity = useTransform(progress, (p) =>
@@ -479,7 +520,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
       {/* the tall scroll driver — its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
-      <div ref={stageRef} className="relative h-[420vh] w-full">
+      <div ref={stageRef} className="relative h-[563vh] w-full">
         <div
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
@@ -521,6 +562,33 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 </div>
               </div>
             </motion.div>
+          )}
+
+          {/* ---------------- Scene 1.5: push-in zoom toward the villa ---------------- */}
+          {sceneZoomMounted && (
+            <>
+              <motion.img
+                src={zoomWide}
+                alt="A wide dusk view of a Goan villa on a coastal headland, seen from far above the beach"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ opacity: zoomWideOpacity, scale: zoomWideScale }}
+              />
+              <motion.img
+                src={zoomCloser}
+                alt="A closer dusk view of the same Goan villa, lantern-lit windows glowing above the coastline"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ opacity: zoomCloserOpacity, scale: zoomCloserScale }}
+              />
+              <motion.img
+                src={doorOpen}
+                alt="The villa's carved wooden front door standing open at dusk, lit by hanging lanterns"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ opacity: doorOpenOpacity, scale: doorOpenScale }}
+              />
+            </>
           )}
 
           {/* ---------------- Scene 2: arrival sequence ---------------- */}
