@@ -29,8 +29,6 @@ const heroForeground = asset("hero-foreground.webp");
 const zoomWide = asset("zoom-wide.webp");
 const zoomCloser = asset("zoom-closer.webp");
 const doorOpen = asset("door-open.webp");
-const doorLantern = asset("door-lantern.webp");
-const doorPool = asset("door-pool.webp");
 const poolDeck = asset("pool-deck.webp");
 const bazaar = asset("bazaar.webp");
 const iconLantern = asset("icon-lantern.webp");
@@ -69,37 +67,31 @@ function segmentInOut(
 
 /**
  * Scroll-progress thresholds for the whole sticky stage (0 = stage enters,
- * 1 = stage releases). The stage grew from 420vh to ~562.8vh to make room
- * for a new "push-in" scene (zoomWide -> zoomCloser -> doorOpen) inserted
- * right after scene1 ends and before the door-lantern sequence begins.
- * The new scene reuses the exact same crossfade-cycle proportions as the
- * existing door-lantern/door-pool/pool-deck sequence — 42vh dwell per
- * image with a 16.8vh crossfade overlap — so the pacing feels identical,
- * just with three extra images before the door opens. Every threshold
- * from `doorLantern` onward is the original value shifted later by
- * exactly the 142.8vh the new scene occupies, converted to a fraction of
- * the new total — everything else keeps its original on-screen dwell
- * time, just starts later. `scene1End` and `headline`/`layersFadeOut`
- * (all at or before the insertion point) only get renormalized to the
- * new total, since their vh position didn't change.
+ * 1 = stage releases). Door-lantern and door-pool were removed entirely —
+ * the new push-in zoom scene (zoomWide -> zoomCloser -> doorOpen) replaces
+ * them, with the FanCardDeck caption cards (`story2`) now riding directly
+ * on top of that zoom scene instead: the deck's stagger means card 1 lands
+ * roughly with zoomWide, card 2 with zoomCloser, and cards 3-4 together
+ * with doorOpen, fading out as pool-deck crossfades in right after the
+ * door. Every segment reuses the same 42vh-dwell/16.8vh-crossfade cycle
+ * used throughout this file. Stage total is now ~462vh (down from the
+ * ~562.8vh mid-build version, since two full segments were cut).
  */
 const T = {
-  scene1End: 0.2388,
+  scene1End: 0.2909,
   headline: [
-    { in: [0.0, 0.0149], out: [0.0522, 0.0672] },
-    { in: [0.0821, 0.097], out: [0.1344, 0.1493] },
-    { in: [0.1642, 0.1791], out: [0.2239, 0.2388] },
+    { in: [0.0, 0.0182], out: [0.0636, 0.0818] },
+    { in: [0.1, 0.1182], out: [0.1636, 0.1818] },
+    { in: [0.2, 0.2182], out: [0.2727, 0.2909] },
   ],
-  layersFadeOut: [0.194, 0.2388],
-  zoomWide: { in: [0.2388, 0.2687], out: [0.3134, 0.3433] },
-  zoomCloser: { in: [0.3134, 0.3433], out: [0.3881, 0.418] },
-  doorOpen: { in: [0.3881, 0.418], out: [0.4627, 0.4926] },
-  doorLantern: { in: [0.4627, 0.4926], out: [0.5672, 0.597] },
-  doorPool: { in: [0.5672, 0.597], out: [0.6418, 0.6717] },
-  poolDeck: { in: [0.6418, 0.6717], out: [0.7165, 0.7463] },
-  story2: { in: [0.5075, 0.5373], out: [0.6866, 0.7165] },
-  bazaar: { in: [0.7463, 0.7761], out: [0.9552, 1.0] },
-  story3: { in: [0.7761, 0.806], out: [0.9254, 0.9552] },
+  layersFadeOut: [0.2364, 0.2909],
+  zoomWide: { in: [0.2909, 0.3273], out: [0.3818, 0.4182] },
+  zoomCloser: { in: [0.3818, 0.4182], out: [0.4727, 0.5091] },
+  doorOpen: { in: [0.4727, 0.5091], out: [0.5636, 0.6] },
+  poolDeck: { in: [0.5636, 0.6], out: [0.6545, 0.6909] },
+  story2: { in: [0.2909, 0.3273], out: [0.5636, 0.6] },
+  bazaar: { in: [0.6909, 0.7273], out: [0.9455, 1.0] },
+  story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
 };
 
 const headlinePhrases: { text: ReactNode; ember: boolean }[] = [
@@ -388,12 +380,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // re-renders per frame.
   const [scene1Mounted, setScene1Mounted] = useState(true);
   const [sceneZoomMounted, setSceneZoomMounted] = useState(false);
-  const [scene2Mounted, setScene2Mounted] = useState(false);
+  const [scenePoolMounted, setScenePoolMounted] = useState(false);
   const [scene3Mounted, setScene3Mounted] = useState(false);
   useMotionValueEvent(progress, "change", (p) => {
     setScene1Mounted(p < T.scene1End + 0.06);
     setSceneZoomMounted(p > T.zoomWide.in[0] - 0.04 && p < T.doorOpen.out[1] + 0.06);
-    setScene2Mounted(p > T.doorLantern.in[0] - 0.04 && p < T.poolDeck.out[1] + 0.06);
+    setScenePoolMounted(p > T.poolDeck.in[0] - 0.04 && p < T.poolDeck.out[1] + 0.06);
     setScene3Mounted(p > T.bazaar.in[0] - 0.06);
   });
 
@@ -426,28 +418,11 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const fgY = useTransform(progress, [0, T.scene1End], ["0%", "-20%"]);
   const fgScale = useTransform(progress, [0, T.scene1End], [1, 1.1]);
 
-  // Scene 2 — arrival sequence crossfades.
-  const doorLanternOpacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.doorLantern.in as [number, number]), ...(T.doorLantern.out as [number, number])),
-  );
-  const doorPoolOpacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.doorPool.in as [number, number]), ...(T.doorPool.out as [number, number])),
-  );
-  const poolDeckOpacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.poolDeck.in as [number, number]), ...(T.poolDeck.out as [number, number])),
-  );
-  const doorLanternScale = useTransform(progress, [T.doorLantern.in[0], T.doorLantern.out[1]], [1.06, 1]);
-  const doorPoolScale = useTransform(progress, [T.doorPool.in[0], T.doorPool.out[1]], [1.06, 1]);
-  const poolDeckScale = useTransform(progress, [T.poolDeck.in[0], T.poolDeck.out[1]], [1.06, 1]);
-  const story2Opacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.story2.in as [number, number]), ...(T.story2.out as [number, number])),
-  );
-
   // Scene 1.5 — push-in zoom (wide aerial -> closer villa -> door open),
-  // crossfading the same way the door sequence below does, but scaling
-  // *up* through each image (1 -> 1.1) instead of settling down to 1, so
-  // the sequence reads as the camera continuously pushing toward the
-  // villa rather than a series of independent stills.
+  // scaling *up* through each image (1 -> 1.1) so the sequence reads as
+  // the camera continuously pushing toward the villa rather than a series
+  // of independent stills. The FanCardDeck caption cards (`story2Opacity`
+  // below) ride on top of this whole sequence.
   const zoomWideOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.zoomWide.in as [number, number]), ...(T.zoomWide.out as [number, number])),
   );
@@ -460,6 +435,15 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const zoomWideScale = useTransform(progress, [T.zoomWide.in[0], T.zoomWide.out[1]], [1, 1.1]);
   const zoomCloserScale = useTransform(progress, [T.zoomCloser.in[0], T.zoomCloser.out[1]], [1, 1.1]);
   const doorOpenScale = useTransform(progress, [T.doorOpen.in[0], T.doorOpen.out[1]], [1, 1.1]);
+  const story2Opacity = useTransform(progress, (p) =>
+    segmentInOut(p, ...(T.story2.in as [number, number]), ...(T.story2.out as [number, number])),
+  );
+
+  // Scene 2 — pool deck, picking up right where the door-open scene ends.
+  const poolDeckOpacity = useTransform(progress, (p) =>
+    segmentInOut(p, ...(T.poolDeck.in as [number, number]), ...(T.poolDeck.out as [number, number])),
+  );
+  const poolDeckScale = useTransform(progress, [T.poolDeck.in[0], T.poolDeck.out[1]], [1.06, 1]);
 
   // Scene 3 — bazaar.
   const bazaarOpacity = useTransform(progress, (p) =>
@@ -487,7 +471,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
           </div>
         </section>
         <StoryPanelStatic
-          image={doorPool}
+          image={doorOpen}
           headline="Every stay starts with an open door."
           body="No lobby, no keycard queue — just a host who's already waiting, a lantern lit, and a villa that was empty until it was yours for the week."
         />
@@ -520,7 +504,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
       {/* the tall scroll driver — its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
-      <div ref={stageRef} className="relative h-[563vh] w-full">
+      <div ref={stageRef} className="relative h-[462vh] w-full">
         <div
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
@@ -588,33 +572,6 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: doorOpenOpacity, scale: doorOpenScale }}
               />
-            </>
-          )}
-
-          {/* ---------------- Scene 2: arrival sequence ---------------- */}
-          {scene2Mounted && (
-            <>
-              <motion.img
-                src={doorLantern}
-                alt="An open wooden gate with a lit lantern, revealing a path down to the village"
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: doorLanternOpacity, scale: doorLanternScale }}
-              />
-              <motion.img
-                src={doorPool}
-                alt="A door opening further to reveal a glimpse of a pool and palms"
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: doorPoolOpacity, scale: doorPoolScale }}
-              />
-              <motion.img
-                src={poolDeck}
-                alt="A villa infinity pool at dusk under a starry sky"
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: poolDeckOpacity, scale: poolDeckScale }}
-              />
               <motion.div
                 style={{ opacity: story2Opacity }}
                 className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20"
@@ -647,6 +604,17 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 ]}
               />
             </>
+          )}
+
+          {/* ---------------- Scene 2: pool deck ---------------- */}
+          {scenePoolMounted && (
+            <motion.img
+              src={poolDeck}
+              alt="A villa infinity pool at dusk under a starry sky"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ opacity: poolDeckOpacity, scale: poolDeckScale }}
+            />
           )}
 
           {/* ---------------- Scene 3: bazaar ---------------- */}
