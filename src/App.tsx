@@ -79,6 +79,7 @@ import TambdiSurlaTempleGuide from "./pages/blog/TambdiSurlaTempleGuide";
 import GoaSpiritualTourismGuide from "./pages/blog/GoaSpiritualTourismGuide";
 import EkadashaTeerthaYatraGuide from "./pages/blog/EkadashaTeerthaYatraGuide";
 import SixNewGoaTourismProjectsGuide from "./pages/blog/SixNewGoaTourismProjectsGuide";
+import AguadaMonsoonHeritageGuide from "./pages/blog/AguadaMonsoonHeritageGuide";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
@@ -186,6 +187,7 @@ const App = () => (
               <Route path="/blog/goa-spiritual-tourism-guide" element={<GoaSpiritualTourismGuide />} />
               <Route path="/blog/ekadasha-teertha-yatra-goa-guide" element={<EkadashaTeerthaYatraGuide />} />
               <Route path="/blog/six-new-goa-tourism-projects-guide-2026" element={<SixNewGoaTourismProjectsGuide />} />
+              <Route path="/blog/aguada-port-jail-monsoon-heritage-tourism-guide" element={<AguadaMonsoonHeritageGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
               <Route path="/experience" element={<ExperienceGoa />} />

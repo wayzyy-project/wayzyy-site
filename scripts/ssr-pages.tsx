@@ -68,6 +68,7 @@ import AirbnbAlternativeLanding from "@/pages/AirbnbAlternativeLanding";
 import AppLaunchSoon from "@/pages/AppLaunchSoon";
 import WaitlistChooser from "@/pages/WaitlistChooser";
 import WaitlistTravelers from "@/pages/WaitlistTravelers";
+import AguadaMonsoonHeritageGuide from "@/pages/blog/AguadaMonsoonHeritageGuide";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -143,6 +144,7 @@ const routes: Record<string, React.ComponentType> = {
   "/explore": AppLaunchSoon,
   "/waitlist": WaitlistChooser,
   "/waitlist/travelers": WaitlistTravelers,
+  "/blog/aguada-port-jail-monsoon-heritage-tourism-guide": AguadaMonsoonHeritageGuide,
 };
 
 const output: Record<string, string> = {};

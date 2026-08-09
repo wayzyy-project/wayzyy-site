@@ -636,6 +636,18 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-22",
     readTime: "10 Min Read",
   },
+  {
+    slug: "aguada-port-jail-monsoon-heritage-tourism-guide",
+    title: "Aguad Port & Jail Complex (2026): The Honest Guide to the Monsoon Heritage Tourism Initiative",
+    description:
+      "Goa Tourism's Monsoon Heritage Tourism Initiative at Aguad Port & Jail Complex explained — what's confirmed, what isn't, and how to actually plan a visit between June and September.",
+    metaTitle: "Aguad Monsoon Heritage Tourism Guide (2026) — What to Know",
+    metaDescription:
+      "The honest guide to Aguad Port & Jail Complex's Monsoon Heritage Tourism Initiative — schedules, pricing, access, and whether it's worth visiting in the rains.",
+    heroImage: "/blog/aguada-port-jail-monsoon-hero.webp",
+    publishedDate: "2026-08-09",
+    readTime: "12 Min Read",
+  },
 ];
 
 
