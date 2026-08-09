@@ -29,6 +29,15 @@ interface FanCardDeckProps {
   progress: MotionValue<number>;
   windowIn: [number, number];
   windowOut: [number, number];
+  /**
+   * Optional per-card [in, out] windows — when provided, each card fades
+   * in/out on its own schedule instead of a uniform stagger inside
+   * `windowIn`/`windowOut`. Use this when cards need to track specific
+   * background images (e.g. card N should be visible exactly while image N
+   * is on screen) rather than all bunching up near the start of a shared
+   * window. Must be the same length as `cards`.
+   */
+  cardWindows?: { in: [number, number]; out: [number, number] }[];
 }
 
 // Subtle rotation and vertical stagger per card index for a refined fanned look
@@ -42,6 +51,7 @@ function DeckCard({
   progress,
   windowIn,
   windowOut,
+  ownWindow,
 }: {
   card: FanCard;
   index: number;
@@ -49,12 +59,16 @@ function DeckCard({
   progress: MotionValue<number>;
   windowIn: [number, number];
   windowOut: [number, number];
+  ownWindow?: { in: [number, number]; out: [number, number] };
 }) {
-  const stagger = index * 0.025;
-  const inStart = windowIn[0] + stagger;
-  const inEnd = Math.min(windowIn[1] + stagger, windowOut[0]);
+  const [inStart, inEnd, outStart, outEnd] = ownWindow
+    ? [ownWindow.in[0], ownWindow.in[1], ownWindow.out[0], ownWindow.out[1]]
+    : (() => {
+        const stagger = index * 0.025;
+        return [windowIn[0] + stagger, Math.min(windowIn[1] + stagger, windowOut[0]), windowOut[0], windowOut[1]];
+      })();
 
-  const t = useTransform(progress, (p) => segmentInOut(p, inStart, inEnd, windowOut[0], windowOut[1]));
+  const t = useTransform(progress, (p) => segmentInOut(p, inStart, inEnd, outStart, outEnd));
 
   const baseRotate = ROTATIONS[Math.min(index, ROTATIONS.length - 1)];
   const baseY = Y_OFFSETS[Math.min(index, Y_OFFSETS.length - 1)];
@@ -123,7 +137,7 @@ function MobileDeckCard({
  * Cards fan in staggered (scale+rotate+opacity) within `windowIn`, hold,
  * then fade/scale down together across `windowOut`.
  */
-export function FanCardDeck({ cards, progress, windowIn, windowOut }: FanCardDeckProps) {
+export function FanCardDeck({ cards, progress, windowIn, windowOut, cardWindows }: FanCardDeckProps) {
   return (
     <>
       {/* Desktop & Tablet: Side-by-side 4-column grid centered in viewport with zero clipping */}
@@ -138,12 +152,16 @@ export function FanCardDeck({ cards, progress, windowIn, windowOut }: FanCardDec
               progress={progress}
               windowIn={windowIn}
               windowOut={windowOut}
+              ownWindow={cardWindows?.[i]}
             />
           ))}
         </div>
       </div>
 
-      {/* Mobile: static 2x2 grid, centered in the viewport */}
+      {/* Mobile: static 2x2 grid, centered in the viewport — all 4 cards
+          shown together regardless of cardWindows, since the mobile layout
+          doesn't have per-image screen real estate to spare for staged
+          reveals; it just fades the whole deck in over windowIn/windowOut. */}
       <div className="pointer-events-none absolute inset-0 grid grid-cols-2 content-center items-center gap-3 px-4 sm:hidden">
         {cards.map((card, i) => (
           <MobileDeckCard

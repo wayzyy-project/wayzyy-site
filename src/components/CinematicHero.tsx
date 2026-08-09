@@ -580,6 +580,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 progress={progress}
                 windowIn={T.story2.in as [number, number]}
                 windowOut={T.story2.out as [number, number]}
+                cardWindows={[
+                  { in: T.zoomWide.in as [number, number], out: T.zoomWide.out as [number, number] },
+                  { in: T.zoomCloser.in as [number, number], out: T.zoomCloser.out as [number, number] },
+                  { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
+                  { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
+                ]}
                 cards={[
                   {
                     heading: "Every stay starts with an open door.",
