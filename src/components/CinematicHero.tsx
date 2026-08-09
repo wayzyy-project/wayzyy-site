@@ -389,6 +389,28 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     setScene3Mounted(p > T.bazaar.in[0] - 0.06);
   });
 
+  // Subtle ocean-waves audio, playing only while the pool-deck scene is on
+  // screen — fades in/out with the scene's own opacity window rather than
+  // hard-cutting, and stays muted for prefers-reduced-motion users (who get
+  // the static fallback below instead of this scroll rig entirely, but the
+  // guard is kept here too in case that ever changes).
+  const waveAudioRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(() => {
+    const audio = waveAudioRef.current;
+    if (!audio || reduce) return;
+    if (scenePoolMounted) {
+      audio.volume = 0.22;
+      audio.currentTime = 0;
+      audio.play().catch(() => {
+        // Autoplay can still be blocked in some browsers even after
+        // scroll interaction — failing silently is correct here, this
+        // is ambience, not required content.
+      });
+    } else {
+      audio.pause();
+    }
+  }, [scenePoolMounted, reduce]);
+
   // Scene 1 — sky, midground, and foreground are three separate, fully
   // opaque photographs (not transparent-cutout depth layers), so stacking
   // them and only varying a shared opacity would always show just the
@@ -505,6 +527,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
       {/* the tall scroll driver — its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
       <div ref={stageRef} className="relative h-[462vh] w-full">
+        <audio ref={waveAudioRef} src="/audio/ocean-waves.mp3" preload="none" loop />
         <div
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
@@ -578,8 +601,17 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               />
               <FanCardDeck
                 progress={progress}
-                windowIn={T.story2.in as [number, number]}
-                windowOut={T.story2.out as [number, number]}
+                // Desktop ignores windowIn/windowOut entirely (it uses the
+                // explicit per-card cardWindows below) — these two values
+                // now only drive the mobile 2x2 grid, which shows all 4
+                // cards at once rather than staged per-image. Timed to
+                // doorOpen's own window (not the full zoomWide-to-doorOpen
+                // span) so the deck doesn't appear while still showing the
+                // wide/closer shots, when "We took the lock off" and
+                // "Community, not just a marketplace" would read as wrong
+                // relative to what's on screen.
+                windowIn={T.doorOpen.in as [number, number]}
+                windowOut={T.doorOpen.out as [number, number]}
                 cardWindows={[
                   { in: T.zoomWide.in as [number, number], out: T.zoomWide.out as [number, number] },
                   { in: T.zoomCloser.in as [number, number], out: T.zoomCloser.out as [number, number] },
@@ -614,13 +646,22 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
           {/* ---------------- Scene 2: pool deck ---------------- */}
           {scenePoolMounted && (
-            <motion.img
-              src={poolDeck}
-              alt="A villa infinity pool at dusk under a starry sky"
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ opacity: poolDeckOpacity, scale: poolDeckScale }}
-            />
+            <>
+              <motion.img
+                src={poolDeck}
+                alt="A villa infinity pool at dusk under a starry sky"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ opacity: poolDeckOpacity, scale: poolDeckScale }}
+              />
+              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
+                <div className="relative h-[3.4em] w-full max-w-4xl sm:h-[1.6em]">
+                  <HeadlineBeat progress={progress} window={T.poolDeck} ember={false}>
+                    Breathe out — the waves are getting near.
+                  </HeadlineBeat>
+                </div>
+              </div>
+            </>
           )}
 
           {/* ---------------- Scene 3: bazaar ---------------- */}
