@@ -26,6 +26,7 @@ import AdminVerifications from "./pages/AdminVerifications";
 import AdminReviewListing from "./pages/AdminReviewListing";
 import AdminListings from "./pages/AdminListings";
 import AdminAirroiImport from "./pages/AdminAirroiImport";
+import AdminGigChallenge from "./pages/AdminGigChallenge";
 import BlogIndex from "./pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "./pages/blog/BestAirbnbAlternativesGoa";
 import WhyGoaVillasCostDifferent from "./pages/blog/WhyGoaVillasCostDifferent";
@@ -132,6 +133,7 @@ const App = () => (
               <Route path="/adminn/listings" element={<AdminListings />} />
               <Route path="/adminn/airroi-import" element={<AdminAirroiImport />} />
               <Route path="/adminn/import-airbnb" element={<AdminAirroiImport />} />
+              <Route path="/admin-wayzyy-lol" element={<AdminGigChallenge />} />
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />
