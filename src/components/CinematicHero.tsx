@@ -495,12 +495,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
         <StoryPanelStatic
           image={doorOpen}
           headline="Every stay starts with an open door."
-          body="No lobby, no keycard queue — just a host who's already waiting, a lantern lit, and a villa that was empty until it was yours for the week."
+          body="No lobby, no keycard queue, just a host who's already waiting, a lantern lit, and a villa that was empty until it was yours for the week."
         />
         <StoryPanelStatic
           image={bazaar}
           headline="The best mornings start in a market."
-          body="Not a tourist trap with printed menus — a real Goan spice street, the kind locals actually shop at, where the best find is whatever the vendor recommends."
+          body="Not a tourist trap with printed menus, a real Goan spice street, the kind locals actually shop at, where the best find is whatever the vendor recommends."
         />
         {showSightsSlider && (
           <section className="bg-ink px-6 py-20">
@@ -613,15 +613,15 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 windowIn={T.doorOpen.in as [number, number]}
                 windowOut={T.doorOpen.out as [number, number]}
                 cardWindows={[
-                  { in: T.zoomWide.in as [number, number], out: T.zoomWide.out as [number, number] },
-                  { in: T.zoomCloser.in as [number, number], out: T.zoomCloser.out as [number, number] },
+                  { in: T.zoomWide.in as [number, number], out: T.doorOpen.out as [number, number] },
+                  { in: T.zoomCloser.in as [number, number], out: T.doorOpen.out as [number, number] },
                   { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
                   { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
                 ]}
                 cards={[
                   {
                     heading: "Every stay starts with an open door.",
-                    body: "No wait, no queue, no \"request to book\" — just a host who's already expecting you.",
+                    body: "No wait, no queue, no \"request to book,\" just a host who's already expecting you.",
                     tint: "bg-violet-200/15",
                   },
                   {
@@ -636,7 +636,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                   },
                   {
                     heading: "Community, not just a marketplace.",
-                    body: "Hosts are heard, disputes are resolved by people — not an algorithm.",
+                    body: "Hosts are heard, disputes are resolved by people, not an algorithm.",
                     tint: "bg-amber-200/15",
                   },
                 ]}
@@ -657,7 +657,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
                 <div className="relative h-[3.4em] w-full max-w-4xl sm:h-[1.6em]">
                   <HeadlineBeat progress={progress} window={T.poolDeck} ember={false}>
-                    Breathe out — the waves are getting near.
+                    Breathe out, the waves are getting near.
                   </HeadlineBeat>
                 </div>
               </div>
@@ -685,7 +685,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 cards={[
                   {
                     heading: "The best mornings start in a market.",
-                    body: "Not a tourist trap — a real Goan spice street, the kind locals actually shop at.",
+                    body: "Not a tourist trap, a real Goan spice street, the kind locals actually shop at.",
                     tint: "bg-violet-200/15",
                   },
                   {
@@ -695,7 +695,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                   },
                   {
                     heading: "You get the right money's worth.",
-                    body: "And hosts get paid what they actually charge — no cut skimmed off either side.",
+                    body: "And hosts get paid what they actually charge, no cut skimmed off either side.",
                     tint: "bg-sky-200/15",
                   },
                   {
