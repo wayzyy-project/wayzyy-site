@@ -12,10 +12,18 @@ const ADMIN_EMAIL = "hello@wayzyy.com";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const supabaseUrl = process.env.SUPABASE_URL;
-  const anonKey = process.env.VITE_SUPABASE_ANON_KEY;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!supabaseUrl || !anonKey || !serviceKey) {
+  // Only the two server-only vars are required — the anon key isn't
+  // needed at all: the service-role client's own auth.getUser(jwt) can
+  // validate a caller's access token directly, without a separate
+  // anon-key client. (Previously this also required VITE_SUPABASE_ANON_KEY,
+  // which is meant for the client build and isn't guaranteed to be present
+  // in the serverless function runtime the same way — that was causing a
+  // 500 here even though gig-challenge.ts's insert, which only needs these
+  // same two vars, works fine in production.)
+  if (!supabaseUrl || !serviceKey) {
+    console.error("admin-gig-challenge: missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
     return res.status(500).json({ error: "Server not configured" });
   }
 
@@ -25,15 +33,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
   const token = authHeader.replace(/^Bearer\s+/i, "");
 
-  const authedClient = createClient(supabaseUrl, anonKey, {
-    global: { headers: { Authorization: `Bearer ${token}` } },
-  });
-  const { data: { user }, error: userErr } = await authedClient.auth.getUser();
+  const admin = createClient(supabaseUrl, serviceKey);
+
+  const { data: { user }, error: userErr } = await admin.auth.getUser(token);
   if (userErr || !user || user.email !== ADMIN_EMAIL) {
     return res.status(403).json({ error: "Not authorized" });
   }
-
-  const admin = createClient(supabaseUrl, serviceKey);
 
   if (req.method === "GET") {
     const { data, error } = await admin
