@@ -74,7 +74,7 @@ export function TextEffect({
   }
 
   // per="char": split into words first so each word's characters stay
-  // grouped in a single non-breaking unit — otherwise every character is
+  // grouped in a single non-breaking unit - otherwise every character is
   // its own independent inline-block and the browser is free to insert a
   // line break between any two of them, including mid-word.
   const words = children.split(/(\s+)/);

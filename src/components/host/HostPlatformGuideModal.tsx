@@ -92,7 +92,7 @@ export function HostPlatformGuideModal({ isOpen, onClose }: HostPlatformGuideMod
             </div>
             <div>
               <h2 className="font-display text-base font-bold text-foreground">Wayzyy Host Guide</h2>
-              <p className="text-xs text-muted-foreground">Step {currentStep + 1} of {GUIDE_STEPS.length} — Platform Overview</p>
+              <p className="text-xs text-muted-foreground">Step {currentStep + 1} of {GUIDE_STEPS.length} - Platform Overview</p>
             </div>
           </div>
           <button

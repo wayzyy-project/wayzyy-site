@@ -1,4 +1,4 @@
-// Free geocoding via OpenStreetMap's Nominatim — no API key needed. Mirrors
+// Free geocoding via OpenStreetMap's Nominatim - no API key needed. Mirrors
 // the mobile app's Location.geocodeAsync/reverseGeocodeAsync behavior:
 // pincode -> coordinates -> pan the map -> reverse geocode -> fill address
 // fields, and the reverse direction when a pin is placed/dragged directly.

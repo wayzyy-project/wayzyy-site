@@ -153,7 +153,7 @@ export default function ColaBeachGuide() {
           One thing that often surprises first-time visitors is that Cola Beach is really two destinations in one.
         </p>
         <p>
-          Most people come for the famous lagoon—the calm stretch of freshwater surrounded by coconut palms that has become one of South Goa's most photographed locations. But just a few steps away is the Arabian Sea, where the experience changes completely. Instead of calm waters, you'll find stronger waves, a more rugged coastline, and a beach that feels far wilder than its neighbouring destinations.
+          Most people come for the famous lagoon - the calm stretch of freshwater surrounded by coconut palms that has become one of South Goa's most photographed locations. But just a few steps away is the Arabian Sea, where the experience changes completely. Instead of calm waters, you'll find stronger waves, a more rugged coastline, and a beach that feels far wilder than its neighbouring destinations.
         </p>
 
         <div className="my-8">
@@ -192,7 +192,7 @@ export default function ColaBeachGuide() {
           Perhaps the biggest misconception about Cola Beach is that it's a destination where you spend an entire holiday. For many travellers, it works much better as a half-day or full-day experience, especially if you're staying in nearby Agonda or Patnem. You can spend the morning kayaking on the lagoon, relax by the beach, enjoy lunch overlooking the water, and return to a town with more accommodation and dining choices in the evening.
         </p>
         <p>
-          On the other hand, if complete peace and disconnecting from everyday life are your priorities, staying overnight at Cola offers something very few places in Goa still can—a beach that becomes remarkably quiet once the day visitors leave, leaving behind little more than the sound of the sea and the surrounding forest. That sense of isolation is exactly why Cola continues to attract travellers looking for a different side of Goa.
+          On the other hand, if complete peace and disconnecting from everyday life are your priorities, staying overnight at Cola offers something very few places in Goa still can - a beach that becomes remarkably quiet once the day visitors leave, leaving behind little more than the sound of the sea and the surrounding forest. That sense of isolation is exactly why Cola continues to attract travellers looking for a different side of Goa.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The Cola Lagoon: What Makes Cola Beach So Special?</h2>
@@ -200,7 +200,7 @@ export default function ColaBeachGuide() {
           If there's one reason Cola Beach has become one of South Goa's most talked-about hidden destinations, it's the lagoon.
         </p>
         <p>
-          Unlike most beaches in Goa, where the sea meets the sand uninterrupted, Cola offers something much rarer—a freshwater lagoon separated from the Arabian Sea by a narrow strip of golden beach. On one side, you'll hear waves crashing against the coastline. On the other, you'll find calm, emerald-green water surrounded by coconut palms and forested hills. It's this unusual landscape that makes Cola unlike anywhere else in Goa.
+          Unlike most beaches in Goa, where the sea meets the sand uninterrupted, Cola offers something much rarer - a freshwater lagoon separated from the Arabian Sea by a narrow strip of golden beach. On one side, you'll hear waves crashing against the coastline. On the other, you'll find calm, emerald-green water surrounded by coconut palms and forested hills. It's this unusual landscape that makes Cola unlike anywhere else in Goa.
         </p>
         <p>
           The first thing that surprises most visitors is just how peaceful the lagoon feels. While the sea can be rough and unpredictable, the lagoon is almost the complete opposite. The water is usually calm, making it one of the most relaxing spots in South Goa to simply float, paddle a kayak, or spend an afternoon without constantly watching the waves.
@@ -439,7 +439,7 @@ export default function ColaBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Common Mistakes to Avoid When Visiting Cola Beach</h2>
         <p>
-          Cola Beach isn't difficult to enjoy—but it does reward travellers who arrive with the right expectations.
+          Cola Beach isn't difficult to enjoy - but it does reward travellers who arrive with the right expectations.
         </p>
         <ol className="list-decimal pl-6 space-y-2 text-muted-foreground text-sm font-medium">
           <li>
@@ -503,7 +503,7 @@ export default function ColaBeachGuide() {
       <div className="mt-12 space-y-6">
         <h2 className="font-display text-2xl text-foreground">Final Thoughts</h2>
         <p>
-          Cola Beach isn't the kind of destination that appeals to everyone—and that's exactly why it has remained one of South Goa's most special places.
+          Cola Beach isn't the kind of destination that appeals to everyone - and that's exactly why it has remained one of South Goa's most special places.
         </p>
         <p>
           There are no crowded promenades, late-night beach parties, or endless rows of cafés. Instead, you'll find a rare freshwater lagoon, a dramatic stretch of coastline, and a slower pace that's becoming increasingly difficult to find in Goa.
@@ -515,7 +515,7 @@ export default function ColaBeachGuide() {
           If you're planning to explore South Goa beyond Cola, consider basing yourself in nearby Agonda or Patnem. Both offer easy access to the region's best beaches while giving you a much wider choice of restaurants, activities, and accommodation. For travellers looking for villas, apartments, or unique vacation rentals, platforms like Wayzyy make it easier to discover independent host-managed stays across South Goa, helping you build an itinerary that suits your style of travel rather than settling for standard hotel options.
         </p>
         <p>
-          At the end of the day, Cola Beach isn't memorable because it's the easiest place to reach—it's memorable because it still feels like a place worth discovering. That's a rarity in Goa today, and one of the biggest reasons so many travellers leave planning their next visit before they've even driven back up the hill.
+          At the end of the day, Cola Beach isn't memorable because it's the easiest place to reach - it's memorable because it still feels like a place worth discovering. That's a rarity in Goa today, and one of the biggest reasons so many travellers leave planning their next visit before they've even driven back up the hill.
         </p>
       </div>
     </BlogLayout>

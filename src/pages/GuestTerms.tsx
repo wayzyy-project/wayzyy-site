@@ -4,7 +4,7 @@ import { SEO } from "@/components/SEO";
 export default function GuestTerms() {
   return (
     <SEO
-      title="Guest Terms of Service — Wayzyy"
+      title="Guest Terms of Service - Wayzyy"
       description="Read Wayzyy's Guest Terms of Service: Aadhaar verification guidelines, booking rules, and guest obligations for homestay bookings in India."
       path="/guest-terms"
     >

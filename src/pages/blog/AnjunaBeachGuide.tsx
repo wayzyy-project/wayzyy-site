@@ -191,8 +191,8 @@ export default function AnjunaBeachGuide() {
       </p>
       <p>
         But what makes Anjuna truly stand out is its central location. Squeezed between Vagator to the north and Baga to the
-        south, it is the perfect base if you want to explore the rest of North Goa. Within a ten to twenty minute ride—which
-        we break down in our <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>—you can have breakfast in Assagao,
+        south, it is the perfect base if you want to explore the rest of North Goa. Within a ten to twenty minute ride - which
+        we break down in our <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a> - you can have breakfast in Assagao,
         explore the quiet river paths of Siolim, or catch the sunset from Vagator's cliffs.
       </p>
 
@@ -367,8 +367,8 @@ export default function AnjunaBeachGuide() {
         calmer atmosphere with easy access to nightlife, Vagator is another excellent choice.
       </p>
       <p>
-        But if you're looking for somewhere that sits comfortably in the middle—social without feeling chaotic, lively without becoming
-        exhausting and central enough to explore the rest of North Goa with ease—Anjuna is genuinely difficult to beat. It's the kind of
+        But if you're looking for somewhere that sits comfortably in the middle - social without feeling chaotic, lively without becoming
+        exhausting and central enough to explore the rest of North Goa with ease - Anjuna is genuinely difficult to beat. It's the kind of
         place where a weekend trip often turns into a week, and a week somehow turns into a month.
       </p>
       <p>
@@ -383,7 +383,7 @@ export default function AnjunaBeachGuide() {
       </p>
       <p>
         Because the best trip usually isn't about finding the cheapest stay. It's about finding the right one. And when you get that
-        right, everything else—from the cafés you discover to the conversations you have and the places you explore—tends to fall into
+        right, everything else - from the cafés you discover to the conversations you have and the places you explore - tends to fall into
         place naturally.
       </p>
 
@@ -419,7 +419,7 @@ export default function AnjunaBeachGuide() {
         </li>
       </ul>
       <p className="mt-6">
-        And when you're ready to book, explore <strong>Wayzyy</strong> to discover verified villas across Goa—from boutique homes in
+        And when you're ready to book, explore <strong>Wayzyy</strong> to discover verified villas across Goa - from boutique homes in
         North Goa to peaceful stays in the south. Whether you're planning a weekend with friends, a family holiday, a month-long
         workation or simply want a villa with a private pool, Wayzyy is designed to help you find stays based on what actually matters
         to you, not just whichever listing appears first.
@@ -464,13 +464,13 @@ export default function AnjunaBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/vagator-goa-beach-guide">Vagator Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
             <a href="/blog/best-airbnb-alternatives-goa">5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)</a>

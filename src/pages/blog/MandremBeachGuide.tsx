@@ -94,7 +94,7 @@ export default function MandremBeachGuide() {
       <p>
         It's one of those places that rarely makes flashy &quot;Top 10 Places to Visit in Goa&quot; lists, yet keeps appearing
         whenever people ask locals, frequent travellers, or even Reddit communities where they should actually stay. Read enough
-        travel discussions and you'll notice the same pattern—people who wanted a quieter beach, cleaner surroundings, and a slower
+        travel discussions and you'll notice the same pattern - people who wanted a quieter beach, cleaner surroundings, and a slower
         pace almost always ended up pointing others towards Mandrem, Ashwem, or Morjim instead of Goa's busiest tourist belt.
       </p>
       <p>
@@ -107,8 +107,8 @@ export default function MandremBeachGuide() {
       <p>
         The biggest surprise for most visitors is how well Mandrem balances peace with convenience. You're close enough to Ashwem,
         Morjim, Arambol, and Vagator whenever you want to explore, but far enough away that your mornings don't begin with traffic jams
-        or hundreds of people competing for the same stretch of sand. Rent a scooter—as we covered in our{" "}
-        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>—and most of North Goa becomes an easy day trip while your
+        or hundreds of people competing for the same stretch of sand. Rent a scooter - as we covered in our{" "}
+        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a> - and most of North Goa becomes an easy day trip while your
         accommodation remains somewhere genuinely relaxing to return to.
       </p>
       <p>
@@ -125,7 +125,7 @@ export default function MandremBeachGuide() {
       </p>
       <p>
         Rather than focusing on charging hosts a percentage on every booking, Wayzyy is being built around a host-first model that makes
-        hosting simpler while helping travellers discover verified stays with the amenities they actually care about—whether that's
+        hosting simpler while helping travellers discover verified stays with the amenities they actually care about - whether that's
         reliable Wi-Fi, a private pool, pet-friendly spaces, dedicated workstations, or homes better suited for longer stays. The goal
         isn't simply to show more listings; it's to make choosing the right stay easier while reducing the unnecessary markups that
         often creep into traditional booking platforms.
@@ -143,7 +143,7 @@ export default function MandremBeachGuide() {
         choose it over Goa's more commercial beaches.
       </p>
       <p>
-        By the end, you'll know whether Mandrem is simply another beach in North Goa—or whether it's exactly the kind of Goa you've been
+        By the end, you'll know whether Mandrem is simply another beach in North Goa - or whether it's exactly the kind of Goa you've been
         looking for.
       </p>
 
@@ -154,7 +154,7 @@ export default function MandremBeachGuide() {
       </p>
       <p>
         If you're visiting Goa because you want loud beach clubs, packed nightlife, and streets that stay busy until three in the morning,
-        you'll probably enjoy places like Baga or Calangute more. There's absolutely nothing wrong with that—those areas have their own
+        you'll probably enjoy places like Baga or Calangute more. There's absolutely nothing wrong with that - those areas have their own
         energy, and for many first-time visitors that's exactly what Goa means.
       </p>
       <p>
@@ -167,7 +167,7 @@ export default function MandremBeachGuide() {
       <p>
         Interestingly, when we were researching discussions across Reddit and travel communities, one pattern kept appearing. People
         who had already visited Goa once or twice often suggested skipping the busiest beaches altogether and choosing Mandrem, Ashwem,
-        or Morjim instead. The reason wasn't that these beaches had more attractions—it was that they offered a far more relaxed version
+        or Morjim instead. The reason wasn't that these beaches had more attractions - it was that they offered a far more relaxed version
         of North Goa while still being close enough to explore everything else by scooter.
       </p>
       <p>
@@ -222,7 +222,7 @@ export default function MandremBeachGuide() {
         after year, but they don't always appear at the top of search results. Local recommendations are almost always worth following.
       </p>
       <p>
-        If you're planning a workation, confirm two things before you book—whether the villa has <strong>fibre internet</strong> and
+        If you're planning a workation, confirm two things before you book - whether the villa has <strong>fibre internet</strong> and
         whether there's <strong>power backup</strong>. Mobile networks like Jio and Airtel generally work well across Mandrem, but
         during the peak monsoon months, occasional power interruptions can still happen in some parts of Goa. Most villas designed
         for longer stays now provide inverters or generators, but it's always worth confirming before you arrive rather than finding
@@ -297,7 +297,7 @@ export default function MandremBeachGuide() {
       </p>
       <p>
         Rather than endlessly scrolling through hundreds of listings, our goal is to help travellers find verified villas based on what
-        actually matters to them—whether that's reliable Wi-Fi for a workation, family-friendly spaces, pet-friendly stays, private pools,
+        actually matters to them - whether that's reliable Wi-Fi for a workation, family-friendly spaces, pet-friendly stays, private pools,
         or longer-stay discounts. At the same time, by following a host-first model instead of charging commissions on every booking, we're
         working towards giving hosts greater flexibility while helping travellers find better value across Goa.
       </p>
@@ -320,7 +320,7 @@ export default function MandremBeachGuide() {
         breakfasts to fresh seafood and Goan dishes later in the day. Artjuna, although technically closer to Anjuna, is worth the short
         drive if you're planning a café-hopping day. Around Mandrem itself, you'll come across beach cafés and independent restaurants
         where people are just as likely to be working on their laptops as they are planning the rest of their holiday. That's part of the
-        charm—you never feel like anyone is trying to hurry you along.
+        charm - you never feel like anyone is trying to hurry you along.
       </p>
       <p>
         If you're staying for more than a few days, don't limit yourself to Mandrem alone. Ashwem is only a few minutes away and offers
@@ -383,7 +383,7 @@ export default function MandremBeachGuide() {
       </p>
       <p>
         Another factor that many travellers overlook is the platform they're booking through. It's surprisingly common to find the same
-        villa listed at different prices across multiple booking websites. The difference usually isn't the property itself—it's how the
+        villa listed at different prices across multiple booking websites. The difference usually isn't the property itself - it's how the
         platform operates. Some marketplaces charge hosts a percentage on every booking, while others add service fees during checkout.
         Those costs eventually become part of the price you pay.
       </p>
@@ -400,14 +400,14 @@ export default function MandremBeachGuide() {
       </p>
       <p>
         For travellers, that means access to verified villas without unnecessary platform markups, along with filters that actually
-        matter—whether you're looking for fibre internet for a workation, a private pool for a family holiday, pet-friendly
+        matter - whether you're looking for fibre internet for a workation, a private pool for a family holiday, pet-friendly
         accommodation, or homes that are better suited for longer stays.
       </p>
       <p>
         At the end of the day, choosing where to stay isn't only about finding the lowest nightly price. It's about finding the best
         overall value. A villa that's a little more expensive but saves you hours in traffic, gives you a peaceful place to unwind, and
         lets you experience a completely different side of Goa often turns out to be the better decision. That's exactly why so many
-        travellers who discover Mandrem once end up returning again—not because it's the cheapest destination in North Goa, but because
+        travellers who discover Mandrem once end up returning again - not because it's the cheapest destination in North Goa, but because
         the overall experience feels worth every rupee.
       </p>
       <p>
@@ -447,7 +447,7 @@ export default function MandremBeachGuide() {
       </ul>
       <p className="mt-6">
         And when you're ready to book, <strong>Wayzyy</strong> helps you discover verified villas across Goa with filters for the
-        things that actually matter—private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
+        things that actually matter - private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
         Instead of charging hosts a commission on every booking, our host-first credit model keeps pricing more transparent while
         making it easier for travellers to find stays that genuinely fit their trip.
       </p>
@@ -508,16 +508,16 @@ export default function MandremBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa - The Complete Guide for Every Vibe</a>
           </li>
         </ul>
       </div>

@@ -24,7 +24,7 @@ const organizationSchema = {
 export default function WhatIsWayzyy() {
   return (
     <SEO
-      title="What is Wayzyy? — Goa's Zero-Commission Villa & Stay Platform"
+      title="What is Wayzyy? - Goa's Zero-Commission Villa & Stay Platform"
       description="What is Wayzyy? Wayzyy is Goa's zero-commission stay platform connecting travelers directly with verified local villa and homestay hosts."
       jsonLd={organizationSchema}
     >
@@ -101,7 +101,7 @@ export default function WhatIsWayzyy() {
           </section>
         </div>
 
-        {/* Testimonials — the community evidence behind "Why Was Wayzyy Built?" above.
+        {/* Testimonials - the community evidence behind "Why Was Wayzyy Built?" above.
             Full-bleed section (its own `container`), so it steps outside the page's
             max-w-3xl reading column the same way the Hero and Content sections above
             each carry their own width. */}

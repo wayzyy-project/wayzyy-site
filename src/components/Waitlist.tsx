@@ -121,7 +121,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
 
       <p className="mt-3 text-xs text-muted-foreground">
         {audience === "host"
-          ? "Choose your subscription tier at launch. No per-booking percentage — ever."
+          ? "Choose your subscription tier at launch. No per-booking percentage - ever."
           : "No subscription required. Join early and unlock referral discounts for you and a friend."}
       </p>
     </div>

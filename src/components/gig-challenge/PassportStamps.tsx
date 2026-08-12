@@ -10,7 +10,7 @@ export type StampDef = {
 
 /**
  * A vertical passport-stamp tracker. Each entry lights up while its section
- * is in view and un-stamps once you scroll back past it — a live "you are
+ * is in view and un-stamps once you scroll back past it - a live "you are
  * here" indicator, not a permanent collection. Desktop only; not worth the
  * real estate on mobile.
  */

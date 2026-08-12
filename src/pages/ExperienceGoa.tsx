@@ -6,7 +6,7 @@ import { CinematicHero } from "@/components/CinematicHero";
  * Standalone route for the cinematic scroll sequence. The actual
  * scene/stage/slider logic lives in `CinematicHero` (also used as the
  * homepage hero in src/pages/Index.tsx) so it isn't duplicated between the
- * two places it's rendered — this page just wraps it with a simple
+ * two places it's rendered - this page just wraps it with a simple
  * back-to-home link and a closing CTA.
  */
 export function ExperienceGoa() {

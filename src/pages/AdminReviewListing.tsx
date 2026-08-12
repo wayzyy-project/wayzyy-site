@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 // this codebase (mobile app + AdminVerifications.tsx): a hardcoded email
 // check, enforced server-side by RLS on the `properties` update and by the
 // approve-listing/reject-listing edge functions themselves. That email
-// string being readable in this page's JS bundle isn't a credential leak —
+// string being readable in this page's JS bundle isn't a credential leak - 
 // it's not a secret, any more than a username is. The actual protection is
 // the account's password (never shipped to the client) plus the server-side
 // checks, which is what actually stops someone acting as admin.
@@ -267,9 +267,9 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
         <div><p className="text-muted-foreground">Coordinates</p><p className="font-medium">{property.latitude && property.longitude ? `${property.latitude}, ${property.longitude}` : "City center fallback"}</p></div>
         <div><p className="text-muted-foreground">Weekday price</p><p className="font-medium">₹{property.price_per_night?.toLocaleString("en-IN")}</p></div>
         <div><p className="text-muted-foreground">Weekend price</p><p className="font-medium">{property.weekend_price ? `₹${property.weekend_price.toLocaleString("en-IN")}` : "Same as weekday"}</p></div>
-        <div><p className="text-muted-foreground">Type</p><p className="font-medium">{property.category ?? "—"} · {property.space_type ?? "—"}</p></div>
+        <div><p className="text-muted-foreground">Type</p><p className="font-medium">{property.category ?? " - "} · {property.space_type ?? " - "}</p></div>
         <div><p className="text-muted-foreground">Guests / beds / baths</p><p className="font-medium">{property.max_guests} guests · {property.bedrooms}br · {property.beds} beds · {property.bathrooms} bath</p></div>
-        <div><p className="text-muted-foreground">Registration #</p><p className="font-medium">{property.registration_number ?? "—"}</p></div>
+        <div><p className="text-muted-foreground">Registration #</p><p className="font-medium">{property.registration_number ?? " - "}</p></div>
         <div><p className="text-muted-foreground">Cancellation policy</p><p className="font-medium">{property.cancel_policy}</p></div>
         <div><p className="text-muted-foreground">Instant book</p><p className="font-medium">{property.instant_book ? "Yes" : "No"}</p></div>
         <div><p className="text-muted-foreground">Status</p><p className="font-medium">{property.status}</p></div>
@@ -278,7 +278,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
       <div>
         <p className="mb-1 text-sm font-semibold">Description</p>
         <p className="whitespace-pre-wrap rounded-xl border border-border bg-card/40 p-4 text-sm text-muted-foreground">
-          {property.description || "—"}
+          {property.description || " - "}
         </p>
       </div>
 
@@ -344,7 +344,7 @@ export default function AdminReviewListing() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Review listing — Wayzyy Admin" description="Review and approve or reject a submitted listing." noindex />
+      <SEO title="Review listing - Wayzyy Admin" description="Review and approve or reject a submitted listing." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
         <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard

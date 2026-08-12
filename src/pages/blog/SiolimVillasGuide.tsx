@@ -13,7 +13,7 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Siolim is popular because it sits in a geographical sweet spot—right between the lively cafes of Assagao/Vagator and the quiet beaches of Morjim/Ashwem. It offers quiet, riverfront residential peace with excellent villa properties at better value than beachside hubs.",
+          "Siolim is popular because it sits in a geographical sweet spot - right between the lively cafes of Assagao/Vagator and the quiet beaches of Morjim/Ashwem. It offers quiet, riverfront residential peace with excellent villa properties at better value than beachside hubs.",
       },
     },
     {
@@ -124,8 +124,8 @@ export default function SiolimVillasGuide() {
       </p>
       <p>
         If you are travelling in a group or with family, the village has become particularly well-known for gated villa
-        communities. These developments offer a great balance: you get the privacy of a fully furnished home—complete with a
-        kitchen, living area, and private garden—alongside the security, power backup, and housekeeping service of a hotel. Many
+        communities. These developments offer a great balance: you get the privacy of a fully furnished home - complete with a
+        kitchen, living area, and private garden - alongside the security, power backup, and housekeeping service of a hotel. Many
         of these villas also feature private pools or overlook local paddy fields, offering a peaceful backdrop that is
         difficult to find near the beach.
       </p>
@@ -191,7 +191,7 @@ export default function SiolimVillasGuide() {
         The season you choose also has a much bigger impact on pricing than most people realise. December and the New Year period
         remain the busiest time in Goa, with demand for villas reaching its peak. The most popular properties in Siolim are often
         booked months in advance, especially those with larger layouts or private pools. If you're travelling during this period,
-        booking early isn't just about getting a better price—it's often about having any good options left at all.
+        booking early isn't just about getting a better price - it's often about having any good options left at all.
       </p>
       <p>
         On the other hand, months like October, early November and March offer some of the best value you'll find all year. The
@@ -222,7 +222,7 @@ export default function SiolimVillasGuide() {
         That's one of the principles behind <strong>Wayzyy</strong>. Rather than following the traditional commission model,
         we're building a host-first marketplace where hosts simply maintain booking credits instead of giving away a percentage
         of every reservation. That gives them more flexibility to price their villas fairly while making the overall booking
-        experience much more transparent for travellers. Our focus isn't on showing thousands of listings—it's on helping
+        experience much more transparent for travellers. Our focus isn't on showing thousands of listings - it's on helping
         people discover verified villas that genuinely match the kind of trip they're planning, whether that's a family
         holiday, a workation or a weekend away with friends.
       </p>
@@ -244,7 +244,7 @@ export default function SiolimVillasGuide() {
         experience North Goa at your own pace, it's difficult to go wrong.
       </p>
       <p>
-        That's really what makes Siolim different: you aren't choosing between convenience and peace—you get a bit of both. You
+        That's really what makes Siolim different: you aren't choosing between convenience and peace - you get a bit of both. You
         can spend the morning at a neighbourhood café, work from your villa for a few hours, head to Morjim or Vagator for
         sunset, have dinner in Assagao and still be back home within minutes. After a day or two, that routine starts to feel
         surprisingly natural.
@@ -272,7 +272,7 @@ export default function SiolimVillasGuide() {
         simpler.
       </p>
       <p>
-        You'll also start seeing verified badges that highlight things travellers genuinely care about—reliable fibre internet,
+        You'll also start seeing verified badges that highlight things travellers genuinely care about - reliable fibre internet,
         dedicated workspaces, power backup, pet-friendly stays, family-friendly amenities, private pools and other features
         that are often difficult to compare across traditional booking platforms. Combined with our host-first pricing model,
         the goal is to make booking feel more transparent for both travellers and hosts.
@@ -297,16 +297,16 @@ export default function SiolimVillasGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

@@ -8,7 +8,7 @@ export default function PropertyImportPolicy() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Property Listing & Import Verification Policy — Wayzyy"
+        title="Property Listing & Import Verification Policy - Wayzyy"
         description="Learn how Wayzyy handles property listing imports, direct host pricing, manual identity verification, and third-party review exclusions."
       />
 

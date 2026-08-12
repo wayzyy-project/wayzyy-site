@@ -125,7 +125,7 @@ export default function GoaMonsoonGuide() {
           The lesson isn't to avoid Dudhsagar. It's to visit with the right expectations.
         </p>
         <p>
-          Goa during monsoon rewards travellers who adapt their plans instead of trying to recreate a winter itinerary. Once you do that, experiences like Dudhsagar become even more memorable because you're seeing them exactly as nature intended—not from a crowded jeep queue, but in the middle of one of the most spectacular rainy landscapes in the country.
+          Goa during monsoon rewards travellers who adapt their plans instead of trying to recreate a winter itinerary. Once you do that, experiences like Dudhsagar become even more memorable because you're seeing them exactly as nature intended - not from a crowded jeep queue, but in the middle of one of the most spectacular rainy landscapes in the country.
         </p>
         <p>
           Of course, even the best itinerary can be affected by one simple decision.
@@ -205,7 +205,7 @@ export default function GoaMonsoonGuide() {
           By working directly with local hosts, Wayzyy also helps travellers discover unique stays that often offer better value than larger booking platforms, while giving you local recommendations that no search filter can replicate.
         </p>
         <p>
-          One final question remains before you book your trip: what are the biggest mistakes people make when visiting Goa during the monsoon—and how can you avoid them completely? That's exactly what we'll cover next, because a few simple decisions can make the difference between an unforgettable rainy-season holiday and one you'll wish you'd planned differently.
+          One final question remains before you book your trip: what are the biggest mistakes people make when visiting Goa during the monsoon - and how can you avoid them completely? That's exactly what we'll cover next, because a few simple decisions can make the difference between an unforgettable rainy-season holiday and one you'll wish you'd planned differently.
         </p>
       </div>
 
@@ -231,7 +231,7 @@ export default function GoaMonsoonGuide() {
           Swimming, however, is a completely different story.
         </p>
         <p>
-          Strong currents and rough seas mean lifeguards prohibit entering the water across Goa's coastline during the monsoon. Beaches are places to walk, relax, enjoy the scenery and watch the changing weather—not places to spend the afternoon swimming or booking water sports. Planning your trip with that expectation immediately removes one of the biggest sources of disappointment.
+          Strong currents and rough seas mean lifeguards prohibit entering the water across Goa's coastline during the monsoon. Beaches are places to walk, relax, enjoy the scenery and watch the changing weather - not places to spend the afternoon swimming or booking water sports. Planning your trip with that expectation immediately removes one of the biggest sources of disappointment.
         </p>
 
         <div className="my-8">
@@ -296,7 +296,7 @@ export default function GoaMonsoonGuide() {
           That's the version of Goa that many repeat visitors return for every single year.
         </p>
         <p>
-          And if you're planning that kind of trip, Wayzyy can help you find verified villas and homestays that are genuinely suited to the season—whether that means reliable power backup for a workation, a peaceful countryside escape or a cosy stay close to Goa's best cafés and heritage neighbourhoods.
+          And if you're planning that kind of trip, Wayzyy can help you find verified villas and homestays that are genuinely suited to the season - whether that means reliable power backup for a workation, a peaceful countryside escape or a cosy stay close to Goa's best cafés and heritage neighbourhoods.
         </p>
         <p>
           Because in the monsoon, where you stay doesn't just support your holiday. It becomes part of the experience.

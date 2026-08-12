@@ -23,14 +23,14 @@ export default function PropertyShare() {
     const openTime = Date.now();
     window.location.href = deepLink;
 
-    // If still here after 2.5s the app isn't installed — show download buttons
+    // If still here after 2.5s the app isn't installed - show download buttons
     const timer = setTimeout(() => {
       if (Date.now() - openTime < 3500) {
         setAppMissing(true);
       }
     }, 2500);
 
-    // If page was hidden the app opened — cancel the fallback
+    // If page was hidden the app opened - cancel the fallback
     const onVisibilityChange = () => {
       if (document.hidden) clearTimeout(timer);
     };
@@ -82,7 +82,7 @@ export default function PropertyShare() {
 
   return (
     <SEO
-      title={`Property Share #${propertyId} — Wayzyy`}
+      title={`Property Share #${propertyId} - Wayzyy`}
       description="Check out this homestay share on Wayzyy. India's favorite getaway platform offering flat-free subscriptions."
       jsonLd={schemas}
       path={`/property/${propertyId}`}
@@ -131,7 +131,7 @@ export default function PropertyShare() {
           Open in Wayzyy App
         </button>
 
-        {/* Download links — shown when app isn't installed or on desktop */}
+        {/* Download links - shown when app isn't installed or on desktop */}
         {(appMissing || !isMobile) && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}

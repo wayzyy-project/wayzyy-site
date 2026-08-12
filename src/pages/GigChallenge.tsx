@@ -49,7 +49,7 @@ import { useToast } from "@/components/ui/use-toast";
 const gigChallengeSchema = {
   "@context": "https://schema.org",
   "@type": "JobPosting",
-  "title": "Solo Developer Challenge — AI Chat Moderation & Evasion Detection",
+  "title": "Solo Developer Challenge - AI Chat Moderation & Evasion Detection",
   "description": "Wayzyy is hiring solo developers for a 2-day paid challenge to build next-generation chat moderation and contact evasion detection. $1,000/month internship or full-time opportunity.",
   "identifier": {
     "@type": "PropertyValue",
@@ -336,7 +336,7 @@ export default function GigChallenge() {
 
   return (
     <SEO
-      title="Build Challenge — $1,000 Solo Developer Internship / FTE | Wayzyy"
+      title="Build Challenge - $1,000 Solo Developer Internship / FTE | Wayzyy"
       description="Can you build chat moderation better than Airbnb? $1,000/month opportunity + 2-day paid trial for solo devs to solve contact-info evasion & chat safety."
       jsonLd={gigChallengeSchema}
     >
@@ -436,7 +436,7 @@ export default function GigChallenge() {
               </div>
             </div>
 
-            {/* 3D Goa globe — flight paths converging from Indian tech hubs */}
+            {/* 3D Goa globe - flight paths converging from Indian tech hubs */}
             <div className="relative mx-auto h-[280px] w-[280px] sm:h-[360px] sm:w-[360px] lg:h-[420px] lg:w-[420px]">
               <GoaGlobe className="h-full w-full" />
               <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full border border-border/60 bg-background/80 backdrop-blur-sm px-3 py-1 text-[10px] font-semibold text-muted-foreground">
@@ -710,7 +710,7 @@ export default function GigChallenge() {
                 </div>
                 <h3 className="font-display text-lg font-bold text-foreground">Effective Probation</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  If your 2-day build works well, that build serves directly as your probation — leading to immediate onboarding.
+                  If your 2-day build works well, that build serves directly as your probation - leading to immediate onboarding.
                 </p>
               </Reveal>
             </div>
@@ -826,7 +826,7 @@ export default function GigChallenge() {
           </div>
         </section>
 
-        {/* ==================== SECTION 5: APPLICATION — BOARDING PASS ==================== */}
+        {/* ==================== SECTION 5: APPLICATION - BOARDING PASS ==================== */}
         <section id="apply" className="py-16 sm:py-24 border-b border-border bg-card/30">
           <div className="container mx-auto max-w-4xl px-4 sm:px-6 space-y-8">
             <Reveal className="text-center space-y-3">
@@ -848,7 +848,7 @@ export default function GigChallenge() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-[hsl(var(--ember))]/5 px-6 sm:px-10 py-5 font-mono text-[10px] sm:text-xs">
                 <div>
                   <div className="text-muted-foreground">PASSENGER</div>
-                  <div className="font-bold text-foreground truncate">{formData.fullName || "— — —"}</div>
+                  <div className="font-bold text-foreground truncate">{formData.fullName || " - - - "}</div>
                 </div>
                 <div>
                   <div className="text-muted-foreground">DESTINATION</div>
@@ -1092,7 +1092,7 @@ export default function GigChallenge() {
                         3. Pitch Deck Video Requirement (REQUIRED)
                       </h3>
                       <p className="text-xs text-muted-foreground leading-relaxed">
-                        Upload or link a <strong className="text-foreground">2-5 minute video</strong> walking through your 3-6 slide pitch deck explaining your approach directly to camera (Loom, Google Drive, unlisted YouTube — any format works).
+                        Upload or link a <strong className="text-foreground">2-5 minute video</strong> walking through your 3-6 slide pitch deck explaining your approach directly to camera (Loom, Google Drive, unlisted YouTube - any format works).
                       </p>
 
                       <div className="space-y-1.5">
@@ -1126,8 +1126,8 @@ export default function GigChallenge() {
                             onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
                             className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ember))]"
                           >
-                            <option value="yes">Yes — Ready immediately</option>
-                            <option value="within_1_week">Yes — Within 1 week</option>
+                            <option value="yes">Yes - Ready immediately</option>
+                            <option value="within_1_week">Yes - Within 1 week</option>
                             <option value="no">No</option>
                           </select>
                         </div>
@@ -1210,7 +1210,7 @@ export default function GigChallenge() {
                   Can I apply as a team of 2 or 3 developers?
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-                  No — this challenge is strictly for solo developers. We are evaluating individual architectural thinking, speed, and end-to-end execution ability.
+                  No - this challenge is strictly for solo developers. We are evaluating individual architectural thinking, speed, and end-to-end execution ability.
                 </AccordionContent>
               </AccordionItem>
 
@@ -1233,7 +1233,7 @@ export default function GigChallenge() {
         <div className="border-t border-border py-6">
           <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
             <Clock className="h-3.5 w-3.5 text-[hsl(var(--ember))]" />
-            Submissions close August 7, 2026 — apply before the gate shuts.
+            Submissions close August 7, 2026 - apply before the gate shuts.
           </p>
         </div>
 

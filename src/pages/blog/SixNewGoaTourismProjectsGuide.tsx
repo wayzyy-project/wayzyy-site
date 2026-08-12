@@ -168,15 +168,15 @@ export default function SixNewGoaTourismProjectsGuide() {
       <div className="space-y-10 text-foreground/90 leading-relaxed text-base sm:text-lg">
         {/* Intro */}
         <p className="text-xl sm:text-2xl font-light text-foreground leading-snug">
-          You’ve probably seen the headline by now: <strong className="font-semibold text-ember">“Goa gets Centre’s nod for six tourism infra projects.”</strong> Most reports stop at the budget table — <strong className="font-semibold text-ember">₹258.1 crore</strong> across two financial years, six schemes, and a Lok Sabha reply by Union Tourism Minister Gajendra Singh Shekhawat. That tells you the Centre is spending money. It doesn’t tell you whether the Chhatrapati Shivaji Maharaj Museum in Ponda is already open, if the Porvorim town square is still a construction site, or whether Harvalem Waterfall is reachable without a four-wheel-drive in monsoon.
+          You’ve probably seen the headline by now: <strong className="font-semibold text-ember">“Goa gets Centre’s nod for six tourism infra projects.”</strong> Most reports stop at the budget table - <strong className="font-semibold text-ember">₹258.1 crore</strong> across two financial years, six schemes, and a Lok Sabha reply by Union Tourism Minister Gajendra Singh Shekhawat. That tells you the Centre is spending money. It doesn’t tell you whether the Chhatrapati Shivaji Maharaj Museum in Ponda is already open, if the Porvorim town square is still a construction site, or whether Harvalem Waterfall is reachable without a four-wheel-drive in monsoon.
         </p>
 
         <p>
-          This guide is for travelers, not policy watchers. We break down each of the six Goa tourism infrastructure projects by its real location — <strong className="font-semibold text-foreground">Ponda, Porvorim, Old Goa, Colva, and Mayem</strong> — and answer the questions that matter on the ground. Is it visitable in 2026? How do you get there? Where do you park? Are there washrooms, ATMs, or a working phone signal? And most importantly, does each site deserve a slot in your itinerary, or should you save it for a return trip?
+          This guide is for travelers, not policy watchers. We break down each of the six Goa tourism infrastructure projects by its real location - <strong className="font-semibold text-foreground">Ponda, Porvorim, Old Goa, Colva, and Mayem</strong> - and answer the questions that matter on the ground. Is it visitable in 2026? How do you get there? Where do you park? Are there washrooms, ATMs, or a working phone signal? And most importantly, does each site deserve a slot in your itinerary, or should you save it for a return trip?
         </p>
 
         <p>
-          If your idea of Goa begins and ends at a beach shack, this probably isn’t for you. But if you want to see where the state is heading — restored churches, new museum complexes, creek walkways, and a quieter South Goa waterfront — these projects are worth knowing about before the crowds catch up.
+          If your idea of Goa begins and ends at a beach shack, this probably isn’t for you. But if you want to see where the state is heading - restored churches, new museum complexes, creek walkways, and a quieter South Goa waterfront - these projects are worth knowing about before the crowds catch up.
         </p>
 
         {/* Section 1: Overview & Budget Table */}
@@ -290,7 +290,7 @@ export default function SixNewGoaTourismProjectsGuide() {
 
           <h3 className="font-display text-2xl text-foreground mt-4">What the ₹258 crore is meant to build</h3>
           <p>
-            The money covers museums, town squares, church restoration, creek walkways, beachfront facilities, and waterfall access. Most projects aim to improve how visitors move, wait, and learn at each location. A few — like Porvorim town square and the Ponda museum — account for the bulk of the spending.
+            The money covers museums, town squares, church restoration, creek walkways, beachfront facilities, and waterfall access. Most projects aim to improve how visitors move, wait, and learn at each location. A few - like Porvorim town square and the Ponda museum - account for the bulk of the spending.
           </p>
         </section>
 
@@ -327,7 +327,7 @@ export default function SixNewGoaTourismProjectsGuide() {
             </p>
             <div className="p-4 rounded-xl border border-border/60 bg-card/60 text-xs text-muted-foreground space-y-2">
               <strong className="text-foreground font-semibold block text-sm">For Hosts & Homeowners:</strong>
-              A finished town square raises Porvorim's profile from a bedroom suburb to a place travelers might actually base themselves — especially families who want to be close to Panjim and North Goa beaches without the noise.
+              A finished town square raises Porvorim's profile from a bedroom suburb to a place travelers might actually base themselves - especially families who want to be close to Panjim and North Goa beaches without the noise.
             </div>
           </div>
 
@@ -341,7 +341,7 @@ export default function SixNewGoaTourismProjectsGuide() {
             </p>
             <div className="p-4 rounded-xl border border-border/60 bg-card/60 text-xs text-muted-foreground space-y-2">
               <strong className="text-foreground font-semibold block text-sm">For Hosts & Homeowners:</strong>
-              Old Goa and the surrounding villages — Ribandar, Chimbel, Santa Cruz — remain undervalued. Improved access and a more polished heritage trail could pull some demand away from the coastal belt toward the Mandovi riverside, where old Portuguese houses and quiet lanes are still affordable.
+              Old Goa and the surrounding villages - Ribandar, Chimbel, Santa Cruz - remain undervalued. Improved access and a more polished heritage trail could pull some demand away from the coastal belt toward the Mandovi riverside, where old Portuguese houses and quiet lanes are still affordable.
             </div>
           </div>
 
@@ -351,14 +351,14 @@ export default function SixNewGoaTourismProjectsGuide() {
               <Waves className="h-5 w-5 text-ember" /> Porvorim Creek Experience (₹24 Cr)
             </h3>
             <p className="text-sm text-foreground/90">
-              This Swadesh Darshan 2.0 project focuses on the creeks and backwaters behind Porvorim, likely threading through areas such as Salvador do Mundo and parts of the Socorro-Reis Magos watershed. For travelers, the appeal is a cooler, greener alternative to the beach belt — boardwalks, birdwatching, small cafés, and maybe kayak or canoe access. The experience works best in monsoon and the cooler months, when the creek is full and the mangroves are alive.
+              This Swadesh Darshan 2.0 project focuses on the creeks and backwaters behind Porvorim, likely threading through areas such as Salvador do Mundo and parts of the Socorro-Reis Magos watershed. For travelers, the appeal is a cooler, greener alternative to the beach belt - boardwalks, birdwatching, small cafés, and maybe kayak or canoe access. The experience works best in monsoon and the cooler months, when the creek is full and the mangroves are alive.
             </p>
             <p className="text-sm text-muted-foreground">
               Connectivity is the question. Many of these creek-side roads are narrow village lanes that flood in July and August. If the project includes proper embankments, drainage, and a small jetty or two, it becomes a genuine alternative to the usual North Goa itinerary. If it is just a signboard and a viewing point, skip it.
             </p>
             <div className="p-4 rounded-xl border border-border/60 bg-card/60 text-xs text-muted-foreground space-y-2">
               <strong className="text-foreground font-semibold block text-sm">For Hosts & Homeowners:</strong>
-              Hosts in the immediate hinterland — Salvador do Mundo, Penha de França, and parts of Betim across the river — could benefit from travelers looking for "authentic" Goa without the beach-party crowd.
+              Hosts in the immediate hinterland - Salvador do Mundo, Penha de França, and parts of Betim across the river - could benefit from travelers looking for "authentic" Goa without the beach-party crowd.
             </div>
           </div>
 
@@ -372,7 +372,7 @@ export default function SixNewGoaTourismProjectsGuide() {
             </p>
             <div className="p-4 rounded-xl border border-border/60 bg-card/60 text-xs text-muted-foreground space-y-2">
               <strong className="text-foreground font-semibold block text-sm">For Hosts & Homeowners:</strong>
-              Colva and nearby Benaulim and Sernabatim already have strong short-term rental demand, especially from families from Karnataka and Maharashtra. New facilities may increase occupancy and allow hosts to charge a slight premium in peak season, but they will also draw more day-trippers and noise. Quality control — gated parking, reliable Wi-Fi, backup power — will matter more than ever.
+              Colva and nearby Benaulim and Sernabatim already have strong short-term rental demand, especially from families from Karnataka and Maharashtra. New facilities may increase occupancy and allow hosts to charge a slight premium in peak season, but they will also draw more day-trippers and noise. Quality control - gated parking, reliable Wi-Fi, backup power - will matter more than ever.
             </div>
           </div>
 
@@ -397,7 +397,7 @@ export default function SixNewGoaTourismProjectsGuide() {
         {/* Location Promo */}
         <WayzyyLocationPromo
           title="Planning a trip around Goa's heritage & hinterland circuit?"
-          description="Discover verified villas, beach houses, and homestays on Wayzyy — filter by North Goa or South Goa with zero host commissions and direct host contact."
+          description="Discover verified villas, beach houses, and homestays on Wayzyy - filter by North Goa or South Goa with zero host commissions and direct host contact."
         />
 
         {/* Section 4: Getting Around */}
@@ -433,7 +433,7 @@ export default function SixNewGoaTourismProjectsGuide() {
             </div>
             <div className="p-5 rounded-xl border border-border bg-card/30 space-y-2">
               <strong className="text-foreground font-semibold block text-base">Heritage lovers:</strong>
-              Basilica of Bom Jesus is the obvious choice. It has been standing since 1605, the new PRASHAD money is only improving what already exists, and you do not need construction to finish before you go. The Chhatrapati Shivaji Maharaj Museum in Ponda is more speculative — plan it only if you are already passing through for temples or spice farms.
+              Basilica of Bom Jesus is the obvious choice. It has been standing since 1605, the new PRASHAD money is only improving what already exists, and you do not need construction to finish before you go. The Chhatrapati Shivaji Maharaj Museum in Ponda is more speculative - plan it only if you are already passing through for temples or spice farms.
             </div>
             <div className="p-5 rounded-xl border border-border bg-card/30 space-y-2">
               <strong className="text-foreground font-semibold block text-base">Beachgoers:</strong>
@@ -488,7 +488,7 @@ export default function SixNewGoaTourismProjectsGuide() {
             Goa’s visitor numbers have long outpaced its public infrastructure. Before the pandemic, the state was drawing well over eight million tourists annually on a resident population of roughly 1.5 million. That volume creates predictable pressure points: jammed coastal roads, overflowing parking at Calangute and Baga, patchy sewage and waste management, and a heavy concentration of visitors in a thin north-south coastal strip.
           </p>
           <p>
-            The result is a distorted market. North Goa’s beach belt is saturated for much of the year, while inland talukas like Ponda, Sattari, Bicholim, and parts of Sanguem remain comparatively empty despite having temples, waterfalls, wildlife, and heritage homes. The Centre’s new projects reflect a broader attempt to redistribute tourism geographically and seasonally — to make the hinterland easier to reach, more comfortable to explore, and more viable as an overnight destination.
+            The result is a distorted market. North Goa’s beach belt is saturated for much of the year, while inland talukas like Ponda, Sattari, Bicholim, and parts of Sanguem remain comparatively empty despite having temples, waterfalls, wildlife, and heritage homes. The Centre’s new projects reflect a broader attempt to redistribute tourism geographically and seasonally - to make the hinterland easier to reach, more comfortable to explore, and more viable as an overnight destination.
           </p>
           <p className="text-sm text-muted-foreground bg-card/40 p-4 rounded-xl border border-border">
             For travelers, the practical takeaway is that Goa is slowly becoming more than its beaches. The new investments do not yet add up to a transformed state, but they do signal where the comfortable, curated experiences of the next decade are likely to emerge: creek walks, restored churches, museum districts, and waterfall circuits that currently feel like detours.
@@ -507,7 +507,7 @@ export default function SixNewGoaTourismProjectsGuide() {
           <div className="space-y-4 text-sm text-muted-foreground">
             <div className="p-4 rounded-xl border border-border bg-card/30 space-y-1">
               <strong className="text-foreground font-semibold text-base block">Ponda and the museum effect:</strong>
-              Temple tourism already brings buses and day-trippers to Ponda. A high-profile museum could extend that into a longer, more leisurely visit. Hosts with heritage homes, farm stays, or garden cottages in Ponda, Curti, and Farmagudi should think about adding basic comforts — reliable hot water, parking, and a local guidebook — rather than competing on luxury.
+              Temple tourism already brings buses and day-trippers to Ponda. A high-profile museum could extend that into a longer, more leisurely visit. Hosts with heritage homes, farm stays, or garden cottages in Ponda, Curti, and Farmagudi should think about adding basic comforts - reliable hot water, parking, and a local guidebook - rather than competing on luxury.
             </div>
 
             <div className="p-4 rounded-xl border border-border bg-card/30 space-y-1">
@@ -532,7 +532,7 @@ export default function SixNewGoaTourismProjectsGuide() {
           </div>
 
           <p className="text-sm text-foreground/90 pt-2">
-            For hosts looking to list or improve visibility, curated platforms such as <strong className="font-semibold text-foreground">Wayzyy</strong> can help match properties with travelers who want verified stays, transparent pricing, and direct host contact — particularly in emerging areas where trust matters more than brand recognition.
+            For hosts looking to list or improve visibility, curated platforms such as <strong className="font-semibold text-foreground">Wayzyy</strong> can help match properties with travelers who want verified stays, transparent pricing, and direct host contact - particularly in emerging areas where trust matters more than brand recognition.
           </p>
         </section>
 
@@ -584,7 +584,7 @@ export default function SixNewGoaTourismProjectsGuide() {
           </p>
 
           <div className="pt-4 text-xs sm:text-sm text-muted-foreground border-t border-border/60">
-            Looking for a villa or vacation rental in Goa? <strong className="text-foreground">Wayzyy</strong> helps you discover verified stays — villas, beach houses, and homestays — with direct host contact, zero commissions, and honest prices. Email us at{" "}
+            Looking for a villa or vacation rental in Goa? <strong className="text-foreground">Wayzyy</strong> helps you discover verified stays - villas, beach houses, and homestays - with direct host contact, zero commissions, and honest prices. Email us at{" "}
             <a href="mailto:hello@wayzyy.com" className="text-ember underline font-medium">
               hello@wayzyy.com
             </a>.

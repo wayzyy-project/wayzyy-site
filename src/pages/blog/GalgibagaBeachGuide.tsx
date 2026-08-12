@@ -129,7 +129,7 @@ export default function GalgibagaBeachGuide() {
           That's also why many travel guides fail to set the right expectations.
         </p>
         <p>
-          Most describe Galgibaga as a "hidden gem" and stop there. What they don't tell you is that choosing to visit Galgibaga means accepting a different kind of beach experience. There are no endless cafés lining the shore, no beach clubs and very few commercial establishments. The lack of development isn't accidental—it's a direct result of the area's protected turtle nesting status, which has helped preserve the coastline in its natural form.
+          Most describe Galgibaga as a "hidden gem" and stop there. What they don't tell you is that choosing to visit Galgibaga means accepting a different kind of beach experience. There are no endless cafés lining the shore, no beach clubs and very few commercial establishments. The lack of development isn't accidental - it's a direct result of the area's protected turtle nesting status, which has helped preserve the coastline in its natural form.
         </p>
         <p>
           The beach itself stretches for around <strong>1.7 kilometres</strong> and is divided into two distinct sections. The southern side is open to visitors, while parts of the northern section remain protected during the turtle nesting season because that's where the <strong>Galgibaga River</strong> meets the Arabian Sea. This estuary is not only one of the most scenic parts of the beach but also attracts birdlife that many visitors don't expect to find here.
@@ -141,7 +141,7 @@ export default function GalgibagaBeachGuide() {
           If you're planning a <Link to="/blog/south-goa-travel-guide" className="text-ember hover:underline">South Goa itinerary</Link>, Galgibaga isn't the place where you'll spend an entire day hopping between activities. It's the place where you slow down, put your phone away and appreciate why some beaches are better left exactly as they are.
         </p>
         <p>
-          Before deciding whether Galgibaga deserves a place on your itinerary, it's worth understanding what the beach is actually like once you arrive—because the reality is quite different from what most travel blogs describe.
+          Before deciding whether Galgibaga deserves a place on your itinerary, it's worth understanding what the beach is actually like once you arrive - because the reality is quite different from what most travel blogs describe.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">What Galgibaga Beach Is Actually Like</h2>
@@ -164,7 +164,7 @@ export default function GalgibagaBeachGuide() {
           Swimming is generally possible, but it's important to know where. The waters along most of the accessible beach are relatively calm, making them suitable for a relaxed swim when sea conditions are favourable. However, the <strong>river mouth near the northern estuary</strong> can have noticeably stronger currents, so it's best avoided, particularly if you're unfamiliar with the area. Since there are no lifeguards or designated swimming zones, you'll need to assess the conditions carefully before entering the water.
         </p>
         <p>
-          Perhaps the biggest trade-off is connectivity—not just in terms of mobile signal, but convenience overall. Mobile coverage can be patchy depending on your network, parking requires a short walk across soft sand, and you won't have dozens of cafés or shops within a few minutes' walk. For some travellers, these are inconveniences. For others, they're exactly why Galgibaga remains one of the few beaches in Goa that still feels genuinely peaceful.
+          Perhaps the biggest trade-off is connectivity - not just in terms of mobile signal, but convenience overall. Mobile coverage can be patchy depending on your network, parking requires a short walk across soft sand, and you won't have dozens of cafés or shops within a few minutes' walk. For some travellers, these are inconveniences. For others, they're exactly why Galgibaga remains one of the few beaches in Goa that still feels genuinely peaceful.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The Turtle Nesting Season: What to Expect (And What Not to Do)</h2>
@@ -178,7 +178,7 @@ export default function GalgibagaBeachGuide() {
           The nesting season generally begins in <strong>November</strong>, with the highest activity taking place between <strong>December and February</strong>. The Goa Forest Department continues monitoring the beach until around <strong>April</strong>, protecting nests and ensuring hatchlings have the best possible chance of reaching the sea safely.
         </p>
         <p>
-          This conservation work is also the reason Galgibaga looks so different from many other beaches. The absence of beach shacks, commercial construction and heavy nightlife isn't because the area hasn't been developed—it's because development is intentionally restricted to protect one of Goa's most sensitive nesting habitats. In many ways, the peaceful atmosphere visitors enjoy today exists because these conservation efforts have been taken seriously for years.
+          This conservation work is also the reason Galgibaga looks so different from many other beaches. The absence of beach shacks, commercial construction and heavy nightlife isn't because the area hasn't been developed - it's because development is intentionally restricted to protect one of Goa's most sensitive nesting habitats. In many ways, the peaceful atmosphere visitors enjoy today exists because these conservation efforts have been taken seriously for years.
         </p>
         <p>
           If you're visiting during the nesting season, it's important to understand that parts of the beach operate differently. The <strong>northern section</strong>, where most nesting activity takes place, is protected and may have restricted public access. Visitors are expected to remain within accessible areas, follow Forest Department signage and avoid entering protected nesting zones. During some periods, <strong>late-night access may also be restricted</strong> to minimise disturbance to nesting turtles and hatchlings.
@@ -187,7 +187,7 @@ export default function GalgibagaBeachGuide() {
           One question many travellers ask is: <strong>"Can I actually see the turtles?"</strong>
         </p>
         <p>
-          Possibly—but only under the right circumstances. The Goa Forest Department occasionally organises <strong>limited, supervised hatchling-viewing sessions</strong> for the public. These aren't daily tourist attractions or commercial experiences. They're conducted in a controlled manner to ensure the turtles aren't disturbed, and availability depends entirely on the nesting season and conservation requirements. If you're specifically hoping to witness this experience, it's worth checking with the Canacona Forest Department or asking your accommodation in Palolem or Agonda if any supervised viewings are taking place during your visit.
+          Possibly - but only under the right circumstances. The Goa Forest Department occasionally organises <strong>limited, supervised hatchling-viewing sessions</strong> for the public. These aren't daily tourist attractions or commercial experiences. They're conducted in a controlled manner to ensure the turtles aren't disturbed, and availability depends entirely on the nesting season and conservation requirements. If you're specifically hoping to witness this experience, it's worth checking with the Canacona Forest Department or asking your accommodation in Palolem or Agonda if any supervised viewings are taking place during your visit.
         </p>
         <p>
           Whether or not you see a turtle, every visitor plays a role in protecting the beach. A few simple actions make a significant difference:
@@ -226,7 +226,7 @@ export default function GalgibagaBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Is Galgibaga Beach Safe for Swimming?</h2>
         <p>
-          For most visitors, <strong>yes—Galgibaga Beach is generally safe for swimming</strong>, but it's important to understand that this isn't a heavily managed tourist beach. Unlike beaches with designated swimming zones, lifeguard towers and warning flags, Galgibaga remains largely untouched.
+          For most visitors, <strong>yes - Galgibaga Beach is generally safe for swimming</strong>, but it's important to understand that this isn't a heavily managed tourist beach. Unlike beaches with designated swimming zones, lifeguard towers and warning flags, Galgibaga remains largely untouched.
         </p>
         <p>
           Along most of the accessible southern stretch, the sea is usually calm during the tourist season, making it suitable for a relaxed swim when weather conditions are favourable. Families with children often choose this part of the beach because the shoreline slopes gently and the atmosphere is much quieter than many of Goa's more commercial beaches.

@@ -104,7 +104,7 @@ export default function EkadashaTeerthaYatraGuide() {
       <div className="space-y-10 text-foreground/90 leading-relaxed text-base sm:text-lg">
         {/* Intro */}
         <p className="text-xl sm:text-2xl font-light text-foreground leading-snug">
-          Goa may be world-famous for its coastline, but beyond the beaches lies a deeply rooted spiritual heritage. Recognizing this, the Goa government introduced the <strong className="font-semibold text-ember">Ekadasha Teertha Yatra</strong>—a curated three-day pilgrimage connecting <strong className="font-semibold text-ember">11 of Goa’s most sacred and historic temples</strong> across North, Central, and South Goa.
+          Goa may be world-famous for its coastline, but beyond the beaches lies a deeply rooted spiritual heritage. Recognizing this, the Goa government introduced the <strong className="font-semibold text-ember">Ekadasha Teertha Yatra</strong> - a curated three-day pilgrimage connecting <strong className="font-semibold text-ember">11 of Goa’s most sacred and historic temples</strong> across North, Central, and South Goa.
         </p>
 
         <p>
@@ -157,7 +157,7 @@ export default function EkadashaTeerthaYatraGuide() {
             Why Was the Yatra Introduced & Who Is It For?
           </h2>
           <p>
-            Many of Goa's temples survived centuries of migrations, changing dynasties, and colonial rule. The Ekadasha Teertha Yatra encourages slower, thoughtful travel—giving visitors time to appreciate the architecture, forest surroundings, and living traditions of local Goan communities.
+            Many of Goa's temples survived centuries of migrations, changing dynasties, and colonial rule. The Ekadasha Teertha Yatra encourages slower, thoughtful travel - giving visitors time to appreciate the architecture, forest surroundings, and living traditions of local Goan communities.
           </p>
 
           <div className="p-6 rounded-2xl border border-border bg-card/30 space-y-4">
@@ -217,7 +217,7 @@ export default function EkadashaTeerthaYatraGuide() {
                 <MapPin className="h-5 w-5 text-ember" /> 4. Shri Mahadev Temple, Tambdi Surla
               </h4>
               <p className="text-sm text-muted-foreground">
-                An 800-year-old black basalt Kadamba masterpiece nestled deep in the jungle of Bhagwan Mahaveer Wildlife Sanctuary—Goa's oldest surviving active stone temple.
+                An 800-year-old black basalt Kadamba masterpiece nestled deep in the jungle of Bhagwan Mahaveer Wildlife Sanctuary - Goa's oldest surviving active stone temple.
               </p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function EkadashaTeerthaYatraGuide() {
         {/* Location Promo */}
         <WayzyyLocationPromo
           title="Traveling with family or elderly parents on the Yatra?"
-          description="Book family-friendly villas and homestays with kitchens and caretakers across Ponda, Margao, and Central Goa on Wayzyy — zero host commissions, honest traveler pricing."
+          description="Book family-friendly villas and homestays with kitchens and caretakers across Ponda, Margao, and Central Goa on Wayzyy - zero host commissions, honest traveler pricing."
         />
 
         {/* Section 4: Travel Modes & Best Time */}

@@ -7,7 +7,7 @@ import { POLICY_TOC, EFFECTIVE_DATE } from "@/data/legalDocs";
 export default function Policies() {
   return (
     <SEO
-      title="Policies — Wayzyy"
+      title="Policies - Wayzyy"
       description="Every Wayzyy policy in one place: guest and host terms, cancellations, payments, safety, discrimination, disputes, and grievance redressal."
       path="/policies"
     >

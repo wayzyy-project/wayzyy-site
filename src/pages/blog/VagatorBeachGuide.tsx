@@ -154,7 +154,7 @@ export default function VagatorBeachGuide() {
       </p>
       <p>
         If you've been planning a trip to North Goa for more than a few minutes, you've probably noticed something: no matter
-        where people recommend staying—Morjim, Assagao, Siolim, Anjuna or even Ashwem—<strong>Vagator somehow always enters the
+        where people recommend staying - Morjim, Assagao, Siolim, Anjuna or even Ashwem - <strong>Vagator somehow always enters the
         conversation.</strong>
       </p>
       <p>
@@ -168,7 +168,7 @@ export default function VagatorBeachGuide() {
       </p>
       <p>
         That's exactly why so many repeat travellers recommend Vagator as their base instead of trying to stay right in the
-        middle of Goa's busiest tourist belts. During our research, one trend appeared over and over again—people suggested Vagator
+        middle of Goa's busiest tourist belts. During our research, one trend appeared over and over again - people suggested Vagator
         because it gives easy access to cafés, beaches, nightlife and sightseeing without forcing you to spend hours travelling
         between them.
       </p>
@@ -185,7 +185,7 @@ export default function VagatorBeachGuide() {
         overall experience.
       </p>
       <p>
-        That doesn't mean Vagator is quiet—far from it. It's one of the liveliest parts of North Goa. The difference is that the
+        That doesn't mean Vagator is quiet - far from it. It's one of the liveliest parts of North Goa. The difference is that the
         energy feels more spread out. Instead of everything revolving around one crowded road, you'll find beach cafés overlooking
         the sea, boutique villas tucked into quieter lanes, cliffside restaurants, music venues, co-working-friendly cafés and
         neighbourhoods that become peaceful the moment you leave the main strip.
@@ -254,8 +254,8 @@ export default function VagatorBeachGuide() {
       <p>
         That's one of the reasons Vagator has become increasingly popular for villa stays. Unlike traditional hotel rooms, villas give
         groups and families the chance to stay together under one roof, cook meals when they want to, enjoy private outdoor spaces
-        and settle into a slower routine. If you're travelling with six or eight people, booking a villa is often more comfortable—and
-        sometimes even better value—than splitting across multiple hotel rooms.
+        and settle into a slower routine. If you're travelling with six or eight people, booking a villa is often more comfortable - and
+        sometimes even better value - than splitting across multiple hotel rooms.
       </p>
       <p>
         Longer stays benefit from a slightly different approach. Instead of focusing only on how close the property is to the beach,
@@ -292,11 +292,11 @@ export default function VagatorBeachGuide() {
       <p>
         Travellers who enjoy discovering cafés and local food will also appreciate Vagator's location. Assagao, Siolim and Anjuna
         are all close enough for an easy breakfast or lunch ride, which means you're never limited to restaurants around your
-        accommodation. That's one of the reasons Vagator works so well as a base—you can explore a different neighbourhood almost
+        accommodation. That's one of the reasons Vagator works so well as a base - you can explore a different neighbourhood almost
         every day without spending hours travelling across Goa.
       </p>
       <p>
-        If you're planning to rent a scooter—and we genuinely recommend doing so—be sure to check out our{" "}
+        If you're planning to rent a scooter - and we genuinely recommend doing so - be sure to check out our{" "}
         <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>. It covers rental costs, required documents, safety tips,
         recent speed enforcement zones and practical advice that first-time visitors often overlook.
       </p>
@@ -347,7 +347,7 @@ export default function VagatorBeachGuide() {
       </p>
       <p>
         One thing we'd genuinely recommend is leaving room in your itinerary for places you discover by accident. Some of the best
-        cafés in Vagator aren't the ones with the biggest Instagram following—they're the small bakeries, neighbourhood coffee shops
+        cafés in Vagator aren't the ones with the biggest Instagram following - they're the small bakeries, neighbourhood coffee shops
         and family-run restaurants tucked away from the main road. Ask your villa host where they usually have breakfast or dinner,
         and there's a good chance you'll discover somewhere that's missing from most travel guides.
       </p>
@@ -374,7 +374,7 @@ export default function VagatorBeachGuide() {
         It's also why we've seen growing demand on Wayzyy for villas close to Vagator's café district. Travellers increasingly want
         accommodation that lets them walk to breakfast, work from a nearby café when they feel like a change of scenery and return
         to a quieter villa in the evening. Instead of searching for &quot;the cheapest room,&quot; they're looking for stays that
-        fit the way they actually travel—and that's exactly what we're building our marketplace around.
+        fit the way they actually travel - and that's exactly what we're building our marketplace around.
       </p>
       <p>
         One final tip before moving on: don't try to visit every famous café because someone on social media told you to. Choose two
@@ -444,7 +444,7 @@ export default function VagatorBeachGuide() {
       </p>
       <p>
         That flexibility is one of Vagator's biggest strengths. You can have a peaceful evening. You can have a lively one. Or you
-        can do a bit of both—all within walking distance. And that's something very few places in North Goa manage quite as well.
+        can do a bit of both - all within walking distance. And that's something very few places in North Goa manage quite as well.
       </p>
 
       <h2>Nightlife in Vagator: More Than Just Clubs and Parties</h2>
@@ -482,7 +482,7 @@ export default function VagatorBeachGuide() {
         If you're planning to drink, avoid riding your scooter afterwards. Besides being unsafe, travellers regularly mention police
         checkpoints and breathalyser checks around parts of North Goa, particularly during weekends and busy holiday periods. It's
         always better to book a cab back to your accommodation or have someone in the group who isn't drinking handle the ride home.
-        That small decision can save you from an expensive fine—or much worse.
+        That small decision can save you from an expensive fine - or much worse.
       </p>
       <p>
         It's also worth remembering that Goa's nightlife isn't something you have to experience every single day. Some of the best
@@ -513,7 +513,7 @@ export default function VagatorBeachGuide() {
         the rain.
       </p>
       <p>
-        If you're planning a workation, the monsoon can actually be one of the better times to visit—as long as you're prepared. Before
+        If you're planning a workation, the monsoon can actually be one of the better times to visit - as long as you're prepared. Before
         booking, confirm that your accommodation has reliable fibre internet and power backup, since heavy rainfall can occasionally
         lead to short electricity interruptions in some areas.
       </p>
@@ -729,13 +729,13 @@ export default function VagatorBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
             <a href="/blog/best-airbnb-alternatives-goa">5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)</a>

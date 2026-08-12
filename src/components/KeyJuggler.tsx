@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 type Props = { className?: string };
 
 /**
- * Tiny stylized figure tossing a key up and catching it, on loop — same
+ * Tiny stylized figure tossing a key up and catching it, on loop - same
  * stick-figure art language as Backpacker (circle head, hat brim, rect
  * limbs, currentColor + ember accents). Sits next to the "Hosting" nav
  * link as a small bit of motion, not a full illustration.
@@ -34,7 +34,7 @@ export function KeyJuggler({ className }: Props) {
       {/* still arm */}
       <rect x="12.5" y="19" width="2.4" height="9" rx="1.2" fill="currentColor" />
 
-      {/* throwing arm — swings up then back down, catching */}
+      {/* throwing arm - swings up then back down, catching */}
       <g>
         <rect x="25" y="19" width="2.4" height="9" rx="1.2" fill="currentColor">
           {!reduce && (
@@ -50,7 +50,7 @@ export function KeyJuggler({ className }: Props) {
         </rect>
       </g>
 
-      {/* the key — arcs up out of the hand and drops back into it */}
+      {/* the key - arcs up out of the hand and drops back into it */}
       {!reduce && (
         <g fill="hsl(var(--ember))">
           <circle cx="0" cy="0" r="1.6" fill="none" stroke="hsl(var(--ember))" strokeWidth="1.3" />

@@ -146,8 +146,8 @@ export default function AshwemBeachGuide() {
       <p>
         The village offers a unique combination of peaceful surroundings and trendy convenience. You can spend the morning in
         near-total silence on the beach, have lunch at an upscale boutique restaurant, work from a welcoming café in the
-        afternoon, and cross the bridge to Siolim or Assagao in minutes. Renting a scooter—as covered in our{" "}
-        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>—makes exploring the surrounding region exceptionally
+        afternoon, and cross the bridge to Siolim or Assagao in minutes. Renting a scooter - as covered in our{" "}
+        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a> - makes exploring the surrounding region exceptionally
         convenient while keeping your accommodation tucked away in a peaceful enclave.
       </p>
 
@@ -222,7 +222,7 @@ export default function AshwemBeachGuide() {
         Ashwem is genuinely difficult to beat.
       </p>
       <p>
-        That's probably why so many repeat visitors end up returning here—not because it has the biggest attractions, but because it
+        That's probably why so many repeat visitors end up returning here - not because it has the biggest attractions, but because it
         gives them the kind of holiday they were actually hoping for.
       </p>
       <p>
@@ -261,7 +261,7 @@ export default function AshwemBeachGuide() {
       </ul>
       <p className="mt-6">
         And when you're ready to book, <strong>Wayzyy</strong> helps you discover verified villas across Goa with filters for the
-        things that actually matter—private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
+        things that actually matter - private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
         Instead of charging hosts a commission on every booking, our host-first credit model keeps pricing more transparent while
         making it easier for travellers to find stays that genuinely fit their trip.
       </p>
@@ -270,16 +270,16 @@ export default function AshwemBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/morjim-goa-beach-guide">Morjim Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

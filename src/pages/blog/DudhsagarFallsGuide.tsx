@@ -127,7 +127,7 @@ export default function DudhsagarFallsGuide() {
           The reality is much simpler.
         </p>
         <p>
-          Dudhsagar Falls is absolutely worth visiting if you're prepared for it. The waterfall is spectacular, the surrounding forests are part of the Bhagwan Mahavir Wildlife Sanctuary, and the journey itself—whether by jeep or through the surrounding landscape—is part of what makes the experience memorable. At the same time, it isn't the quiet, untouched paradise that older travel blogs often describe. During peak tourist season, you should expect queues for jeep safaris, shared transport, and plenty of fellow visitors hoping to capture the same iconic view.
+          Dudhsagar Falls is absolutely worth visiting if you're prepared for it. The waterfall is spectacular, the surrounding forests are part of the Bhagwan Mahavir Wildlife Sanctuary, and the journey itself - whether by jeep or through the surrounding landscape - is part of what makes the experience memorable. At the same time, it isn't the quiet, untouched paradise that older travel blogs often describe. During peak tourist season, you should expect queues for jeep safaris, shared transport, and plenty of fellow visitors hoping to capture the same iconic view.
         </p>
         <p>
           This guide is designed to help you plan around those realities. We'll cover the best ways to reach Dudhsagar Falls, explain how the jeep safari works, discuss whether trekking is still an option, look at swimming and safety, break down the best time to visit, and share the common mistakes that travellers make before they arrive.
@@ -168,10 +168,10 @@ export default function DudhsagarFallsGuide() {
         </div>
 
         <p>
-          It may be less appealing if your primary goal is to spend every day by the beach. Since visiting Dudhsagar usually takes most of the day—including travel time—it makes the most sense for travellers staying in Goa for at least four or five days. If you're only visiting for a weekend, you may prefer to focus entirely on the beaches and save Dudhsagar for a longer trip.
+          It may be less appealing if your primary goal is to spend every day by the beach. Since visiting Dudhsagar usually takes most of the day - including travel time - it makes the most sense for travellers staying in Goa for at least four or five days. If you're only visiting for a weekend, you may prefer to focus entirely on the beaches and save Dudhsagar for a longer trip.
         </p>
         <p>
-          One of the biggest advantages is that the waterfall fits naturally into a South Goa itinerary. Many visitors staying around Palolem, Agonda, or Patnem leave early in the morning, spend several hours exploring Dudhsagar, and return to the coast by evening. That way, you get to experience two completely different sides of Goa in a single day—lush forests in the morning and a sunset by the Arabian Sea in the evening.
+          One of the biggest advantages is that the waterfall fits naturally into a South Goa itinerary. Many visitors staying around Palolem, Agonda, or Patnem leave early in the morning, spend several hours exploring Dudhsagar, and return to the coast by evening. That way, you get to experience two completely different sides of Goa in a single day - lush forests in the morning and a sunset by the Arabian Sea in the evening.
         </p>
         <p>
           Before planning your visit, however, it's important to understand where Dudhsagar is located and what the different transport options actually involve. That's often where first-time travellers make their biggest mistakes, and knowing the logistics in advance can save you a considerable amount of time.
@@ -234,7 +234,7 @@ export default function DudhsagarFallsGuide() {
           One of the biggest misconceptions is that Dudhsagar is a quick stop that can easily be squeezed into a packed sightseeing schedule. In reality, it's best treated as a full-day excursion. Between driving to Mollem, waiting for your jeep or transport, spending time at the waterfall, and returning to your accommodation, most travellers should expect to dedicate at least six to eight hours to the experience.
         </p>
         <p>
-          For visitors staying in South Goa, the journey is generally more convenient than many people expect. Areas like Palolem, Agonda, and Patnem offer a comfortable balance—you can enjoy the beaches for most of your holiday while still taking a single day to explore Goa's forests and waterfalls. That's one reason many experienced travellers prefer staying in South Goa rather than changing hotels every couple of days.
+          For visitors staying in South Goa, the journey is generally more convenient than many people expect. Areas like Palolem, Agonda, and Patnem offer a comfortable balance - you can enjoy the beaches for most of your holiday while still taking a single day to explore Goa's forests and waterfalls. That's one reason many experienced travellers prefer staying in South Goa rather than changing hotels every couple of days.
         </p>
 
         <WayzyyLocationPromo />
@@ -245,7 +245,7 @@ export default function DudhsagarFallsGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">How to Reach Dudhsagar Falls</h2>
         <p>
-          Getting to Dudhsagar Falls is one of the most confusing parts of planning a visit. If you've watched a few YouTube videos or read older travel blogs, you've probably come across completely different suggestions—some recommend driving all the way, others talk about trekking along the railway tracks, while many mention the famous jeep safari.
+          Getting to Dudhsagar Falls is one of the most confusing parts of planning a visit. If you've watched a few YouTube videos or read older travel blogs, you've probably come across completely different suggestions - some recommend driving all the way, others talk about trekking along the railway tracks, while many mention the famous jeep safari.
         </p>
         <p>
           The truth is that access to Dudhsagar has changed over the years, mainly because the waterfall lies inside a protected forest area. Depending on the season and forest department regulations, some routes that were popular in the past may no longer be available or practical. That's why it's always better to plan using the latest information rather than relying on articles written several years ago.
@@ -285,7 +285,7 @@ export default function DudhsagarFallsGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Dudhsagar Jeep Safari: Is It Worth It?</h2>
         <p>
-          For most travellers, the jeep safari isn't just the easiest way to reach Dudhsagar Falls—it's an important part of the overall experience. While the waterfall is undoubtedly the main attraction, the journey through the forests of the Bhagwan Mahavir Wildlife Sanctuary adds a sense of adventure that you simply don't get by looking at photographs online.
+          For most travellers, the jeep safari isn't just the easiest way to reach Dudhsagar Falls - it's an important part of the overall experience. While the waterfall is undoubtedly the main attraction, the journey through the forests of the Bhagwan Mahavir Wildlife Sanctuary adds a sense of adventure that you simply don't get by looking at photographs online.
         </p>
 
         <div className="my-8">
@@ -333,7 +333,7 @@ export default function DudhsagarFallsGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">What Is Dudhsagar Falls Actually Like?</h2>
         <p>
-          If you've only seen Dudhsagar Falls through drone footage or perfectly edited Instagram reels, it's easy to imagine an isolated waterfall hidden deep inside the forest with hardly anyone around. The reality is a little different—and knowing that beforehand will help you appreciate the experience much more.
+          If you've only seen Dudhsagar Falls through drone footage or perfectly edited Instagram reels, it's easy to imagine an isolated waterfall hidden deep inside the forest with hardly anyone around. The reality is a little different - and knowing that beforehand will help you appreciate the experience much more.
         </p>
         <p>
           The first thing you'll notice is the sheer scale of the waterfall. Dudhsagar is one of the tallest waterfalls in India, cascading down four distinct tiers from a height of over 300 metres. During and immediately after the monsoon, the volume of water is immense, creating a powerful white curtain that can be seen from quite a distance. It's this dramatic appearance that gave the waterfall its name, which translates to "Sea of Milk."
@@ -375,7 +375,7 @@ export default function DudhsagarFallsGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Best Time to Visit Dudhsagar Falls</h2>
         <p>
-          Dudhsagar Falls can be visited for much of the year, but the experience varies considerably depending on the season. Choosing the right time isn't just about the weather—it also affects water flow, accessibility, crowd levels, and even whether certain activities are available.
+          Dudhsagar Falls can be visited for much of the year, but the experience varies considerably depending on the season. Choosing the right time isn't just about the weather - it also affects water flow, accessibility, crowd levels, and even whether certain activities are available.
         </p>
         <p>
           For most travellers, the <strong>best overall time to visit is between October and February</strong>. During these months, the waterfall still carries a healthy flow from the monsoon, temperatures are much more comfortable, and road conditions are generally at their best. Jeep safaris operate regularly, the forests remain lush and green, and the weather is ideal for spending several hours outdoors.
@@ -433,7 +433,7 @@ export default function DudhsagarFallsGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-12">Final Thoughts</h2>
         <p>
-          Dudhsagar Falls is one of those places that lives up to its reputation—as long as you arrive with the right expectations. It's not an attraction you'll casually stop by for half an hour, nor is it a secluded secret known only to locals. Instead, it's a well-loved destination that combines spectacular scenery with a memorable journey through Goa's forests.
+          Dudhsagar Falls is one of those places that lives up to its reputation - as long as you arrive with the right expectations. It's not an attraction you'll casually stop by for half an hour, nor is it a secluded secret known only to locals. Instead, it's a well-loved destination that combines spectacular scenery with a memorable journey through Goa's forests.
         </p>
         <p>
           Planning ahead makes all the difference. Starting early, choosing the right season, understanding how transport works, and treating Dudhsagar as a dedicated day trip will help you enjoy the experience far more than trying to fit it into an already packed itinerary.

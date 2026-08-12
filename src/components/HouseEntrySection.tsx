@@ -10,7 +10,7 @@ import {
 import { Backpacker } from "./Backpacker";
 
 /* ─────────────────────────────────────────────────────────────
-   Tiny reusable helper — keeps useTransform calls tidy
+   Tiny reusable helper - keeps useTransform calls tidy
 ───────────────────────────────────────────────────────────── */
 function usePx(
   p: MotionValue<number>,
@@ -377,7 +377,7 @@ function OpenBook({
           }}
         />
 
-        {/* left page — static cover art */}
+        {/* left page - static cover art */}
         <div
           style={{
             position: "absolute",
@@ -525,7 +525,7 @@ function OpenBook({
               Why we're building Wayzyy
             </p>
             <p className="text-sm leading-relaxed" style={{ color: mutedColor }}>
-              Because travel should feel human again — not a transaction.
+              Because travel should feel human again - not a transaction.
             </p>
             <p className="text-sm mt-2 leading-relaxed" style={{ color: mutedColor }}>
               We're starting from scratch, with trust as the foundation.
@@ -565,7 +565,7 @@ function OpenBook({
           }}
         >
           <PageFace isFront bg="hsl(36,33%,97%)">
-            {/* blank first right page — just lines for decoration */}
+            {/* blank first right page - just lines for decoration */}
             <div className="space-y-2 opacity-30">
               {[1, 0.85, 0.95, 0.7, 0.88].map((w, i) => (
                 <div
@@ -588,7 +588,7 @@ function OpenBook({
               Why we're building Wayzyy
             </p>
             <p className="text-sm leading-relaxed" style={{ color: mutedColor }}>
-              Because travel should feel human again — not a transaction.
+              Because travel should feel human again - not a transaction.
             </p>
             <div
               className="mt-4 w-6 rounded-full"

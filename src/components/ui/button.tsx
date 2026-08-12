@@ -21,7 +21,7 @@ const buttonVariants = cva(
         // Site-wide primary CTA pill: the one "make it happen" button style
         // used across the homepage (waitlist, host banner, gig challenge…).
         cta: "rounded-full bg-ember text-white shadow-md hover:bg-ember/90 hover:shadow-[0_0_24px_rgba(255,107,0,0.45)] transition-all duration-200 active:scale-[0.97]",
-        // Site-wide secondary/outline pill — pairs with `cta` wherever a
+        // Site-wide secondary/outline pill - pairs with `cta` wherever a
         // page offers a primary + secondary action side by side.
         "cta-outline":
           "rounded-full border border-border bg-background/80 text-foreground backdrop-blur-md hover:border-ember/50 hover:bg-accent/10 hover:shadow-[0_0_18px_rgba(255,107,0,0.2)] transition-all duration-200 active:scale-[0.97]",

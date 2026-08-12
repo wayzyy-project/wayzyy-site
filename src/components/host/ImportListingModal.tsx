@@ -40,10 +40,10 @@ interface LookupResult {
 }
 
 // AirROI's amenity strings are free-text and won't exactly match our
-// canonical AMENITIES list — reuse the app's existing, more thorough
+// canonical AMENITIES list - reuse the app's existing, more thorough
 // alias-based normalizer (already relied on by AdminAirroiImport.tsx)
 // rather than a second, weaker matcher, then narrow to the checkbox list.
-// Anything that doesn't match a known amenity is dropped — hosts can still
+// Anything that doesn't match a known amenity is dropped - hosts can still
 // add it manually via the toggle chips.
 function mapAirroiAmenities(raw: unknown): string[] {
   if (!Array.isArray(raw)) return [];
@@ -54,7 +54,7 @@ function mapAirroiAmenities(raw: unknown): string[] {
 // AirROI descriptions arrive as an unbroken wall of text with "◆" section
 // markers and no line breaks between merged sentences (e.g.
 // "One king-sized bedEnsuite bathroomAC"). This is a readability pass, not
-// perfect formatting — insert a newline before each "◆" marker, and before a
+// perfect formatting - insert a newline before each "◆" marker, and before a
 // capital letter that directly follows a lowercase letter with no
 // intervening space/punctuation.
 function cleanupImportedDescription(text: string | null | undefined): string {
@@ -217,7 +217,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
 
         // The edge function nests the actual listing fields under
         // `data.preview` (e.g. { success: true, preview: { title, ... } })
-        // rather than returning them at the top level — read from there.
+        // rather than returning them at the top level - read from there.
         const listing = data?.preview ?? data;
 
         if (!error && listing && !data?.error && (listing.name || listing.listingId || listing.title)) {
@@ -254,7 +254,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       // 2. Seamless Fallback: Pre-populate property submission draft with Listing ID
       if (!fetchedResult) {
         setLookupNotice(
-          "Automated AirROI details lookup was unavailable. Property pre-filled with your Airbnb Room ID below — please review title & set your direct rates."
+          "Automated AirROI details lookup was unavailable. Property pre-filled with your Airbnb Room ID below - please review title & set your direct rates."
         );
         fetchedResult = {
           listingId: extractedId,
@@ -316,11 +316,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       const finalDescription = description || listingData.description || "";
 
       // submit-listing is the canonical submission pipeline (same one the
-      // manual wizard uses in HostPortal.tsx) — it validates and writes the
+      // manual wizard uses in HostPortal.tsx) - it validates and writes the
       // property row server-side. AirROI doesn't provide the wizard-only
       // fields below (placeType, street, registration, etc.), so we fill in
       // sensible defaults consistent with emptyForm in HostPortal.tsx.
-      // Pricing and reviews are deliberately never imported from AirROI —
+      // Pricing and reviews are deliberately never imported from AirROI - 
       // price/weekendPrice stay host-entered, and no review data exists on
       // the AirROI preview to import in the first place.
       const { data: result, error: fnError } = await supabase.functions.invoke("submit-listing", {
@@ -368,13 +368,13 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
           const body = await (fnError as any).context?.json?.();
           if (body?.error) message = body.error;
         } catch {
-          // ignore — fall back to generic message
+          // ignore - fall back to generic message
         }
         throw new Error(message);
       }
       if (!result?.success) throw new Error(result?.error ?? "Submission failed");
 
-      // Also save locally so it immediately shows up on dashboard — this is
+      // Also save locally so it immediately shows up on dashboard - this is
       // only an optimistic supplement now; the edge function call above is
       // the source of truth and its errors are surfaced to the user.
       const localKey = `wayzyy_user_listings_${user.id}`;
@@ -427,7 +427,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                 </div>
                 <div>
                   <h2 className="font-display text-lg font-semibold text-foreground">Import Airbnb Listing</h2>
-                  <p className="text-xs text-muted-foreground">Import property details & images — set your direct rates</p>
+                  <p className="text-xs text-muted-foreground">Import property details & images - set your direct rates</p>
                 </div>
               </div>
               <button
@@ -616,7 +616,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                       </div>
                     )}
 
-                    {/* Amenities — pre-checked from AirROI's best-effort match, but
+                    {/* Amenities - pre-checked from AirROI's best-effort match, but
                         always host-editable since this is a review step, not a locked import. */}
                     <div>
                       <p className="font-medium text-muted-foreground mb-1.5">Amenities</p>

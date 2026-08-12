@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { FanCardDeck } from "@/components/FanCardDeck";
 
-// Resolved via `new URL(..., import.meta.url)` rather than a static import —
+// Resolved via `new URL(..., import.meta.url)` rather than a static import - 
 // this component is prerendered for "/" by scripts/ssr-pages.tsx under
 // plain Node/tsx, which can't parse a raw binary asset as a module. Vite
 // still hashes/optimizes it normally at build time. Same pattern as
@@ -36,7 +36,7 @@ const iconLeaf = asset("icon-leaf.webp");
 const iconWave = asset("icon-wave.webp");
 
 /**
- * Classic smoothstep — an S-curve ease between two edges, 0 outside
+ * Classic smoothstep - an S-curve ease between two edges, 0 outside
  * [edge0, edge1], 1 past edge1, smooth in between.
  */
 function smoothstep(edge0: number, edge1: number, x: number) {
@@ -67,7 +67,7 @@ function segmentInOut(
 
 /**
  * Scroll-progress thresholds for the whole sticky stage (0 = stage enters,
- * 1 = stage releases). Door-lantern and door-pool were removed entirely —
+ * 1 = stage releases). Door-lantern and door-pool were removed entirely - 
  * the new push-in zoom scene (zoomWide -> zoomCloser -> doorOpen) replaces
  * them, with the FanCardDeck caption cards (`story2`) now riding directly
  * on top of that zoom scene instead: the deck's stagger means card 1 lands
@@ -146,7 +146,7 @@ const sights = [
  * cards back to back and starts scrolled into the middle set; each
  * prev/next tap animates one card-width, and once the transition lands the
  * effect checks whether the active index has drifted into the first or
- * third set — if so it snaps (no transition) back to the equivalent card
+ * third set - if so it snaps (no transition) back to the equivalent card
  * in the middle set, so the loop never visibly resets.
  */
 function SightsSlider() {
@@ -166,17 +166,17 @@ function SightsSlider() {
     [],
   );
 
-  // Slide duration in ms — kept as one constant so the "wait for the slide
+  // Slide duration in ms - kept as one constant so the "wait for the slide
   // to land" timer below can't drift out of sync with the CSS transition.
   const SLIDE_MS = 550;
 
   // After the slide transition lands, if we've drifted into the clone set
   // on either edge, silently jump back to the matching card in the real
-  // (middle) set with no transition — the seam the loop hides. Driven by a
+  // (middle) set with no transition - the seam the loop hides. Driven by a
   // timer matched to the transition duration rather than the DOM
   // `transitionend` event, which can be unreliable to depend on alone
   // (skipped by rapid/interrupted transitions, some browser/embedding
-  // quirks) — a timer is a simpler, more robust source of truth here.
+  // quirks) - a timer is a simpler, more robust source of truth here.
   useEffect(() => {
     if (!animate) return;
     const id = window.setTimeout(() => {
@@ -327,10 +327,10 @@ interface CinematicHeroProps {
 
 /**
  * The cinematic scroll-driven hero: a `position: sticky` stage that plays
- * three scenes as the page scrolls through its `h-[420vh]` runway —
+ * three scenes as the page scrolls through its `h-[420vh]` runway - 
  * (1) a layered-parallax night balcony scene with a flowing 4-phrase
  * headline, (2) a door → pool "arrival" crossfade sequence with a story
- * panel, (3) a spice-market bazaar scene with a story panel — followed by
+ * panel, (3) a spice-market bazaar scene with a story panel - followed by
  * an infinite-loop "sights worth the detour" card slider. Originally built
  * as the standalone /experience page; extracted here so it can also serve
  * as the homepage hero without duplicating the scroll-choreography logic.
@@ -344,13 +344,13 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     offset: ["start start", "end end"],
   });
   // Lenis (SmoothScroll) already smooths the raw scroll position at the
-  // input level — the same reason EconomicsSection's parallax feeds
+  // input level - the same reason EconomicsSection's parallax feeds
   // scrollYProgress straight into useTransform with no extra spring.
   // Springing it again here would double up the smoothing and make the
   // choreography visibly lag behind the user's actual scroll position.
   const progress = scrollYProgress;
 
-  // Mouse-parallax on the foreground layer — identical spring config to
+  // Mouse-parallax on the foreground layer - identical spring config to
   // HeroStepOut's cursor-glow, reused here to drift the closest depth
   // layer a modest amount around its resting position.
   const mouseX = useMotionValue(0.5);
@@ -369,7 +369,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
   // This stage has 7 full-bleed photos across three scenes. Cross-fading
   // all of them via opacity alone would mean every one of them stays
-  // mounted (and painted/composited) for the entire scroll — seven large
+  // mounted (and painted/composited) for the entire scroll - seven large
   // decoded images alive at once is unnecessary GPU/paint work for photos
   // that are fully transparent 80% of the time. Instead each scene's
   // images are only mounted while scroll progress is near that scene (with
@@ -390,7 +390,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   });
 
   // Subtle ocean-waves audio, playing only while the pool-deck scene is on
-  // screen — fades in/out with the scene's own opacity window rather than
+  // screen - fades in/out with the scene's own opacity window rather than
   // hard-cutting, and stays muted for prefers-reduced-motion users (who get
   // the static fallback below instead of this scroll rig entirely, but the
   // guard is kept here too in case that ever changes).
@@ -403,7 +403,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
       audio.currentTime = 0;
       audio.play().catch(() => {
         // Autoplay can still be blocked in some browsers even after
-        // scroll interaction — failing silently is correct here, this
+        // scroll interaction - failing silently is correct here, this
         // is ambience, not required content.
       });
     } else {
@@ -411,15 +411,15 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     }
   }, [scenePoolMounted, reduce]);
 
-  // Scene 1 — sky, midground, and foreground are three separate, fully
+  // Scene 1 - sky, midground, and foreground are three separate, fully
   // opaque photographs (not transparent-cutout depth layers), so stacking
   // them and only varying a shared opacity would always show just the
-  // topmost one (foreground) — sky and midground would never be visible at
+  // topmost one (foreground) - sky and midground would never be visible at
   // any scroll position. Sequenced as a crossfade instead, same technique
   // as the Scene 2 door sequence below, just three beats instead of two.
   const scene1Windows = {
     // sky's "in" window collapses to a single point at 0 so it's already at
-    // full opacity the instant the page loads, before any scrolling — the
+    // full opacity the instant the page loads, before any scrolling - the
     // other two layers still crossfade in on their own schedule below.
     sky: { in: [0, 0], out: [0.09, 0.12] },
     mid: { in: [0.09, 0.12], out: [0.19, 0.22] },
@@ -440,7 +440,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const fgY = useTransform(progress, [0, T.scene1End], ["0%", "-20%"]);
   const fgScale = useTransform(progress, [0, T.scene1End], [1, 1.1]);
 
-  // Scene 1.5 — push-in zoom (wide aerial -> closer villa -> door open),
+  // Scene 1.5 - push-in zoom (wide aerial -> closer villa -> door open),
   // scaling *up* through each image (1 -> 1.1) so the sequence reads as
   // the camera continuously pushing toward the villa rather than a series
   // of independent stills. The FanCardDeck caption cards (`story2Opacity`
@@ -461,13 +461,13 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     segmentInOut(p, ...(T.story2.in as [number, number]), ...(T.story2.out as [number, number])),
   );
 
-  // Scene 2 — pool deck, picking up right where the door-open scene ends.
+  // Scene 2 - pool deck, picking up right where the door-open scene ends.
   const poolDeckOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.poolDeck.in as [number, number]), ...(T.poolDeck.out as [number, number])),
   );
   const poolDeckScale = useTransform(progress, [T.poolDeck.in[0], T.poolDeck.out[1]], [1.06, 1]);
 
-  // Scene 3 — bazaar.
+  // Scene 3 - bazaar.
   const bazaarOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.bazaar.in as [number, number]), ...(T.bazaar.out as [number, number])),
   );
@@ -524,7 +524,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     <div id="top" className="relative bg-ink">
       {renderNav && <SiteNav floating />}
 
-      {/* the tall scroll driver — its height is the entire runway for the
+      {/* the tall scroll driver - its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
       <div ref={stageRef} className="relative h-[462vh] w-full">
         <audio ref={waveAudioRef} src="/audio/ocean-waves.mp3" preload="none" loop />
@@ -558,7 +558,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30" />
 
-              {/* flowing headline — one phrase visible at a time */}
+              {/* flowing headline - one phrase visible at a time */}
               <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
                 <div className="relative h-[5em] w-full max-w-4xl sm:h-[2.8em]">
                   {headlinePhrases.map((p, i) => (
@@ -602,7 +602,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <FanCardDeck
                 progress={progress}
                 // Desktop ignores windowIn/windowOut entirely (it uses the
-                // explicit per-card cardWindows below) — these two values
+                // explicit per-card cardWindows below) - these two values
                 // now only drive the mobile 2x2 grid, which shows all 4
                 // cards at once rather than staged per-image. Timed to
                 // doorOpen's own window (not the full zoomWide-to-doorOpen
@@ -710,7 +710,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
         </div>
       </div>
 
-      {/* ---------------- Sights slider — flies in after the stage releases ---------------- */}
+      {/* ---------------- Sights slider - flies in after the stage releases ---------------- */}
       {showSightsSlider && (
         <motion.section
           initial={{ opacity: 0, y: 40 }}
@@ -734,7 +734,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
         </motion.section>
       )}
 
-      {/* Bridge — the cinematic stage is bg-ink; the rest of the page runs on
+      {/* Bridge - the cinematic stage is bg-ink; the rest of the page runs on
           bg-background. Cross-fading straight from one flat color to the other
           reads as a hard cut ("cinematic thing ends, normal site begins"), so
           this closes the gap with an actual gradient handoff instead of a seam. */}

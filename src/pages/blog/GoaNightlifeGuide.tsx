@@ -166,7 +166,7 @@ export default function GoaNightlifeGuide() {
           Seasonality also makes a noticeable difference. Between November and March, almost every venue is operating at full capacity, live music calendars are packed and night markets are at their busiest. Visit during the monsoon and you'll discover a quieter side of Goa. While some seasonal beach shacks close, many cocktail bars, restaurants and indoor venues continue to welcome visitors, creating a more relaxed atmosphere that regular travellers often enjoy.
         </p>
         <p>
-          One final point that's easy to overlook is timing. Popular sunset venues begin filling up well before the sun actually sets, particularly during peak season. Arriving thirty to forty-five minutes early not only gives you a better table but also lets you enjoy the gradual transition from afternoon to evening—the part of the experience many people remember most.
+          One final point that's easy to overlook is timing. Popular sunset venues begin filling up well before the sun actually sets, particularly during peak season. Arriving thirty to forty-five minutes early not only gives you a better table but also lets you enjoy the gradual transition from afternoon to evening - the part of the experience many people remember most.
         </p>
 
         <div className="my-8">
@@ -208,7 +208,7 @@ export default function GoaNightlifeGuide() {
           Goa has always been a place that rewards curiosity more than schedules.
         </p>
         <p>
-          Give yourself enough time to wander, say yes to a recommendation from a local or another traveller and don't feel pressured to tick every famous venue off a list. Chances are, your favourite night won't be the one you spent planning—it'll be the one that happened almost by accident.
+          Give yourself enough time to wander, say yes to a recommendation from a local or another traveller and don't feel pressured to tick every famous venue off a list. Chances are, your favourite night won't be the one you spent planning - it'll be the one that happened almost by accident.
         </p>
       </div>
 

@@ -59,7 +59,7 @@ export default function GoaHostComplianceChecklist() {
       "@type": "Article",
       headline: "The Goa Host's Compliance Checklist",
       description:
-        "A free, plain-language checklist for registering a homestay, villa, or B&B in Goa — based on the Goa Registration of Tourist Trade Rules, 1985, the Homestay & B&B Scheme 2025, and the Department of Tourism's administrative order dated 13 January 2026.",
+        "A free, plain-language checklist for registering a homestay, villa, or B&B in Goa - based on the Goa Registration of Tourist Trade Rules, 1985, the Homestay & B&B Scheme 2025, and the Department of Tourism's administrative order dated 13 January 2026.",
       datePublished: "2026-01-13",
       author: { "@type": "Organization", name: "Wayzyy" },
       publisher: { "@type": "Organization", name: "Wayzyy", logo: { "@type": "ImageObject", url: "https://wayzyy.com/favicon.png" } },
@@ -70,7 +70,7 @@ export default function GoaHostComplianceChecklist() {
 
   return (
     <SEO
-      title="The Goa Host's Compliance Checklist — Wayzyy"
+      title="The Goa Host's Compliance Checklist - Wayzyy"
       description="Free checklist for registering a Goa homestay, villa, or B&B: documents, fees, timelines, and renewal rules under the Goa Tourist Trade Rules and 2026 Dept. of Tourism order."
       jsonLd={schemas}
       path={location.pathname}
@@ -123,7 +123,7 @@ export default function GoaHostComplianceChecklist() {
           <div className="policy-content">
             <h2>1. Which Category Do You Fall Under?</h2>
             <p>
-              Under the Goa Rules, short-term rental accommodation falls into <strong>Category D</strong> —
+              Under the Goa Rules, short-term rental accommodation falls into <strong>Category D</strong> - 
               rented/serviced apartments, bungalows, homestay units, and bed &amp; breakfast establishments.
               Within this category:
             </p>
@@ -157,7 +157,7 @@ export default function GoaHostComplianceChecklist() {
               <tbody>
                 <tr>
                   <td>Registration fee</td>
-                  <td>~₹1,000/year (confirm current fee on goaonline.gov.in — subject to revision)</td>
+                  <td>~₹1,000/year (confirm current fee on goaonline.gov.in - subject to revision)</td>
                 </tr>
                 <tr>
                   <td>Fire NOC fee</td>
@@ -165,11 +165,11 @@ export default function GoaHostComplianceChecklist() {
                 </tr>
                 <tr>
                   <td>RWA/Society NOC</td>
-                  <td>Usually free to nominal, but budget time — this can be the slowest step if your society is unresponsive</td>
+                  <td>Usually free to nominal, but budget time - this can be the slowest step if your society is unresponsive</td>
                 </tr>
                 <tr>
                   <td>Processing time</td>
-                  <td>Up to 90 days stated by the Department — apply at least 3-4 months before you plan to go live</td>
+                  <td>Up to 90 days stated by the Department - apply at least 3-4 months before you plan to go live</td>
                 </tr>
               </tbody>
             </table>
@@ -179,9 +179,9 @@ export default function GoaHostComplianceChecklist() {
               <p className="text-sm text-muted-foreground">
                 Booking platforms (including Airbnb, Booking.com, and Wayzyy) can be directed by the Goa Tourism 
                 Department to remove your listing entirely if your registration number is missing or invalid. 
-                Separately, failing to submit your monthly occupancy statistics (Form XI — see Section 4) is 
+                Separately, failing to submit your monthly occupancy statistics (Form XI - see Section 4) is 
                 treated as its own violation, and can block your renewal until it's cleared, penalties included. 
-                This isn't a soft guideline — it's an enforceable rule with a real, published consequence chain.
+                This isn't a soft guideline - it's an enforceable rule with a real, published consequence chain.
               </p>
             </div>
 
@@ -196,13 +196,13 @@ export default function GoaHostComplianceChecklist() {
               <li>Fire NOC from the Directorate of Fire and Emergency Services</li>
               <li>Housing Society / RWA / Home Owner Association NOC (where applicable)</li>
               <li>
-                Lease and licence agreement, OR a notarised NOC from the property owner — required only if you
+                Lease and licence agreement, OR a notarised NOC from the property owner - required only if you
                 are leasing the property rather than owning it (rental arbitrage)
               </li>
-              <li>Ownership documents — title deed, gift deed, sale deed, or Form I &amp; XIV, OR house tax receipt</li>
+              <li>Ownership documents - title deed, gift deed, sale deed, or Form I &amp; XIV, OR house tax receipt</li>
             </ul>
             <p className="text-sm italic">
-              Note: this list was simplified by the Department specifically to reduce the paperwork burden —
+              Note: this list was simplified by the Department specifically to reduce the paperwork burden - 
               earlier versions of the process required more documents. Always check goatourism.gov.in for the
               current requirement before you apply, since these rules do get revised.
             </p>
@@ -215,19 +215,19 @@ export default function GoaHostComplianceChecklist() {
             </p>
             <ul>
               <li>
-                Photos taken from your phone gallery instead of inside the platform's app — GPS location data
+                Photos taken from your phone gallery instead of inside the platform's app - GPS location data
                 only embeds correctly when photos are captured live, in-app
               </li>
               <li>
-                Your listed address doesn't precisely match the GPS pin from your verification photos —
+                Your listed address doesn't precisely match the GPS pin from your verification photos - 
                 double-check the map pin, not just the typed address
               </li>
               <li>
-                Blurry, dark, or low-resolution verification photos — the platform's automated review rejects
+                Blurry, dark, or low-resolution verification photos - the platform's automated review rejects
                 these outright, no human ever looks at them first
               </li>
               <li>
-                An incomplete amenity checklist — missing an amenity you actually have (WiFi, AC, parking,
+                An incomplete amenity checklist - missing an amenity you actually have (WiFi, AC, parking,
                 kitchen) can silently drop your listing out of filtered search results even after approval
               </li>
             </ul>
@@ -242,16 +242,16 @@ export default function GoaHostComplianceChecklist() {
               <li>Complete the application in Form XXIII and upload the documents from Section 2</li>
               <li>
                 Pay the applicable registration fee (₹1,000/year for most Homestay/B&amp;B registrations under
-                the current policy — confirm the current fee on the portal, as it is subject to revision)
+                the current policy - confirm the current fee on the portal, as it is subject to revision)
               </li>
-              <li>Submit and save your acknowledgment number — this is what you track your application status with</li>
+              <li>Submit and save your acknowledgment number - this is what you track your application status with</li>
               <li>
                 Offline alternative: Form XXIII can also be submitted in person at the Registration Desk, 1st
                 Floor, Paryatan Bhavan, Patto, Panaji – 403001
               </li>
             </ul>
             <p>
-              Processing time stated by the Department is <strong>up to 90 days</strong> — apply well ahead of
+              Processing time stated by the Department is <strong>up to 90 days</strong> - apply well ahead of
               your intended listing date, not the week before.
             </p>
 
@@ -264,7 +264,7 @@ export default function GoaHostComplianceChecklist() {
               <li>If listing elsewhere (like Booking.com), display the number wherever your platform allows a registration/licence field</li>
               <li>
                 Set a monthly reminder to submit Form XI (occupancy/guest statistics) before the 5th of the
-                following month, via the Goa Online portal — this is submitted electronically only
+                following month, via the Goa Online portal - this is submitted electronically only
               </li>
               <li>
                 Keep a digital copy of your registration certificate somewhere you can access quickly if a
@@ -275,8 +275,8 @@ export default function GoaHostComplianceChecklist() {
               <p className="font-semibold text-foreground mb-1">This is the step most first-time hosts miss</p>
               <p className="text-sm text-muted-foreground">
                 Registration is not a one-time task. Failing to submit Form XI on time is treated as a violation
-                in its own right under the Goa Rules — separate from whether your original registration was in
-                order — and can hold up your renewal until it's cleared, penalties included.
+                in its own right under the Goa Rules - separate from whether your original registration was in
+                order - and can hold up your renewal until it's cleared, penalties included.
               </p>
             </div>
 
@@ -305,7 +305,7 @@ export default function GoaHostComplianceChecklist() {
               </tbody>
             </table>
             <p className="text-sm italic">
-              Note: field names and locations change as platforms update their dashboards — this is accurate as
+              Note: field names and locations change as platforms update their dashboards - this is accurate as
               of publication but always confirm within your own account if it's been a while since you last
               checked.
             </p>
@@ -313,15 +313,15 @@ export default function GoaHostComplianceChecklist() {
             <h3>Don't Forget: This Needs Renewing</h3>
             <ul>
               <li>
-                Mark your registration expiry date somewhere you'll actually see it — a calendar reminder 60
+                Mark your registration expiry date somewhere you'll actually see it - a calendar reminder 60
                 days before expiry, not 60 minutes before
               </li>
               <li>
-                Renewal uses the same Goa Online portal flow as initial registration — start it early, since the
+                Renewal uses the same Goa Online portal flow as initial registration - start it early, since the
                 same ~90-day processing window can apply
               </li>
               <li>
-                Confirm your Form XI submissions have been consistent — a gap in monthly filings can complicate a
+                Confirm your Form XI submissions have been consistent - a gap in monthly filings can complicate a
                 renewal even if everything else is in order
               </li>
             </ul>
@@ -329,22 +329,22 @@ export default function GoaHostComplianceChecklist() {
             <h2>5. Other Permissions That May Apply to Your Property</h2>
             <p>
               The Department of Tourism notes that, depending on your specific establishment, you may separately
-              need permissions from other local bodies — actual requirements vary case by case:
+              need permissions from other local bodies - actual requirements vary case by case:
             </p>
             <ul>
               <li>
-                FDA (Food and Drug Administration) licence — required for B&amp;Bs serving food to guests.
+                FDA (Food and Drug Administration) licence - required for B&amp;Bs serving food to guests.
                 Homestays serving only home-cooked food to residents may be eligible for an exemption; check
                 directly with FDA Goa.
               </li>
               <li>Local panchayat / municipal council permissions applicable to your specific property and taluka</li>
-              <li>GST registration — mandatory if your annual rental income crosses ₹20 lakh</li>
+              <li>GST registration - mandatory if your annual rental income crosses ₹20 lakh</li>
             </ul>
 
             <h2>6. Worth Checking: The Homestay &amp; B&amp;B Scheme 2025</h2>
             <p>
-              If your property is in one of these seven talukas — <strong>Sattari, Sanguem, Dharbandora,
-              Bicholim, Canacona, Ponda, or Quepem</strong> — you may be eligible for a one-time{" "}
+              If your property is in one of these seven talukas - <strong>Sattari, Sanguem, Dharbandora,
+              Bicholim, Canacona, Ponda, or Quepem</strong> - you may be eligible for a one-time{" "}
               <strong>₹2 lakh grant</strong>, plus training and marketing support through official Goa Tourism
               channels, under the state's rural-tourism-focused Homestay and B&amp;B Scheme. Already-registered
               homestay owners can check eligibility by logging into the Goa Online portal and selecting "Know
@@ -383,7 +383,7 @@ export default function GoaHostComplianceChecklist() {
               <p className="text-sm text-muted-foreground">
                 Most platforms treat your registration number as a single text field you fill in once and
                 forget. On Wayzyy, it's a required part of listing creation, and our team checks it as part of
-                our standard 24-hour listing review — not a live government database check (no platform does
+                our standard 24-hour listing review - not a live government database check (no platform does
                 that today, including Airbnb or Booking.com), but a real human sanity-check rather than a silent 
                 self-declared field nobody looks at. If something looks off, we tell you before your listing goes 
                 live, not after a guest has already booked.
@@ -392,7 +392,7 @@ export default function GoaHostComplianceChecklist() {
 
             <p className="text-xs text-muted-foreground border-t border-border pt-6 mt-10">
               This checklist is informational, not legal advice. Rules, fees, and required documents are set by
-              the Government of Goa and do change — always confirm current requirements directly on
+              the Government of Goa and do change - always confirm current requirements directly on
               goatourism.gov.in or goaonline.gov.in before applying, or consult a local professional for your
               specific property. Sources referenced: Goa Registration of Tourist Trade Rules 1985 (as amended
               2021 &amp; 2022), the Homestay and B&amp;B Scheme 2025, the Department of Tourism's administrative
@@ -422,7 +422,7 @@ export default function GoaHostComplianceChecklist() {
               <a href="mailto:hello@wayzyy.com" className="text-ember hover:underline">
                 hello@wayzyy.com
               </a>{" "}
-              — Wayzyy is launching soon in Goa.
+             - Wayzyy is launching soon in Goa.
             </p>
           </div>
         </div>

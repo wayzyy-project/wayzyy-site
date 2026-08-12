@@ -100,7 +100,7 @@ export default function GoaFoodGuide() {
           />
         </div>
 
-        <h3 className="font-display text-xl font-bold text-foreground mt-8">Khatkhate — A Dish That Feels Like Home</h3>
+        <h3 className="font-display text-xl font-bold text-foreground mt-8">Khatkhate - A Dish That Feels Like Home</h3>
         <p>
           If fish curry is everyday comfort food for many coastal families, khatkhate plays a similar role in vegetarian households.
         </p>
@@ -221,7 +221,7 @@ export default function GoaFoodGuide() {
           The pace changes noticeably once you move further north.
         </p>
         <p>
-          Restaurants here reflect the beaches themselves—quieter, less hurried and more focused on long breakfasts, fresh seafood and relaxed dinners than busy nightlife. Many cafés open early for remote workers and long-stay travellers, while seafood restaurants make the most of the day's catch rather than relying on elaborate menus.
+          Restaurants here reflect the beaches themselves - quieter, less hurried and more focused on long breakfasts, fresh seafood and relaxed dinners than busy nightlife. Many cafés open early for remote workers and long-stay travellers, while seafood restaurants make the most of the day's catch rather than relying on elaborate menus.
         </p>
         <p>
           It's also one of the best parts of Goa for people who enjoy discovering smaller family-run restaurants. You won't always find the biggest crowds here, but you'll often leave feeling like you've found somewhere you'll happily return to.
@@ -268,7 +268,7 @@ export default function GoaFoodGuide() {
           That doesn't mean you should avoid Goa's well-known restaurants. It simply means leaving room for a little curiosity.
         </p>
         <p>
-          Ask your host where they eat. Speak to the café owner while having breakfast. Chat with the person serving your fish thali. Those conversations often lead to places that never appear in &quot;Top 10 Restaurants in Goa&quot; articles—and they're usually the recommendations you'll end up passing on to someone else.
+          Ask your host where they eat. Speak to the café owner while having breakfast. Chat with the person serving your fish thali. Those conversations often lead to places that never appear in &quot;Top 10 Restaurants in Goa&quot; articles - and they're usually the recommendations you'll end up passing on to someone else.
         </p>
       </div>
 

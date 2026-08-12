@@ -153,14 +153,14 @@ export default function GoaTransportGuide() {
           The good news is that getting around Goa isn't difficult once you understand how the system works. The trick is choosing the right option for your trip rather than assuming one solution fits everyone.
         </p>
         <p>
-          A solo traveller hopping between cafés in Assagao has very different transport needs from a family staying in South Goa for a week. A couple visiting during the monsoon should plan differently from a group of friends arriving in December. Even the airport you fly into—Mopa (GOX) or Dabolim (GOI)—can easily add an extra two hours to your journey if you book accommodation in the wrong part of the state.
+          A solo traveller hopping between cafés in Assagao has very different transport needs from a family staying in South Goa for a week. A couple visiting during the monsoon should plan differently from a group of friends arriving in December. Even the airport you fly into - Mopa (GOX) or Dabolim (GOI) - can easily add an extra two hours to your journey if you book accommodation in the wrong part of the state.
         </p>
 
         <p className="font-semibold text-foreground">
           In this guide, we'll break down every major way to travel around Goa:
         </p>
         <ul className="list-disc pl-6 space-y-2">
-          <li>When renting a scooter is the smartest choice—and when it isn't.</li>
+          <li>When renting a scooter is the smartest choice - and when it isn't.</li>
           <li>Whether a self-drive car is worth the extra money.</li>
           <li>How GoaMiles compares with traditional taxis.</li>
           <li>Airport transfers from both GOX and GOI.</li>
@@ -187,7 +187,7 @@ export default function GoaTransportGuide() {
           So before comparing scooter rentals, taxis and self-drive cars, there's one important thing every first-time visitor should understand:
         </p>
         <p className="font-medium text-foreground text-center italic py-2">
-          Goa's transport system doesn't work like Mumbai, Bengaluru or Delhi—and that's where most planning mistakes begin.
+          Goa's transport system doesn't work like Mumbai, Bengaluru or Delhi - and that's where most planning mistakes begin.
         </p>
       </div>
 
@@ -304,7 +304,7 @@ export default function GoaTransportGuide() {
           Plan your itinerary first. Choose the right part of Goa to stay. Then pick the transport that complements those decisions instead of working against them.
         </p>
         <p>
-          That's the approach experienced travellers follow—and it's usually what turns a good Goa trip into a great one.
+          That's the approach experienced travellers follow - and it's usually what turns a good Goa trip into a great one.
         </p>
       </div>
 

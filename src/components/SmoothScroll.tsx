@@ -6,7 +6,7 @@ type Props = { children: ReactNode };
 
 /**
  * Buttery-smooth scrolling powered by Lenis.
- * One global instance — RAF-driven, respects reduced-motion.
+ * One global instance - RAF-driven, respects reduced-motion.
  */
 export function SmoothScroll({ children }: Props) {
   useEffect(() => {

@@ -53,22 +53,22 @@ export default function BestAirbnbAlternativesGoa() {
       metaTitle={post.metaTitle}
       metaDescription={post.metaDescription}
       heroImage={post.heroImage}
-      heroImageAlt="Private villa with pool in Goa — the kind of stay travelers compare across booking platforms"
+      heroImageAlt="Private villa with pool in Goa - the kind of stay travelers compare across booking platforms"
       publishedDate={post.publishedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
     >
       <p>
-        Most people planning a Goa trip open Airbnb first. Makes sense — it's the most familiar, it has the most
+        Most people planning a Goa trip open Airbnb first. Makes sense - it's the most familiar, it has the most
         listings, and the filters do work.
       </p>
       <p>
         But a question a lot of travelers are asking more seriously now is: is the platform itself adding to what
-        I'm paying? Not taxes, not cleaning fees — the platform's own cut of the transaction.
+        I'm paying? Not taxes, not cleaning fees - the platform's own cut of the transaction.
       </p>
       <p>
         Once you understand how these platforms actually make money, the answer changes how you search for a villa.
-        This breakdown covers the main platforms for booking villas and vacation rentals in Goa — what each one does
+        This breakdown covers the main platforms for booking villas and vacation rentals in Goa - what each one does
         well, what the fee situation looks like behind the scenes in 2026, and a few specific things worth checking
         before you pay.
       </p>
@@ -81,7 +81,7 @@ export default function BestAirbnbAlternativesGoa() {
       <p>
         For years, Airbnb used what it called a "split fee" model. Hosts paid around 3% per booking, and guests paid
         a separate service fee of 14–16.5% on top of whatever nightly rate they saw. That's why you'd often see a
-        villa listed at ₹8,000/night and end up paying ₹9,200+ by checkout — the guest service fee was added on at
+        villa listed at ₹8,000/night and end up paying ₹9,200+ by checkout - the guest service fee was added on at
         the end.
       </p>
       <p>
@@ -93,7 +93,7 @@ export default function BestAirbnbAlternativesGoa() {
         <strong>So does that mean Airbnb got cheaper for guests?</strong>
       </p>
       <p>
-        Not exactly. The platform still takes roughly 15% of every transaction — it just moved who visibly pays it.
+        Not exactly. The platform still takes roughly 15% of every transaction - it just moved who visibly pays it.
         Now the host absorbs the 15.5% cut on their end.
       </p>
       <p>
@@ -103,7 +103,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         Hosts aren't charities. Like any business, they factor operating costs into pricing. So that 15.5% tends to
-        end up in the nightly rate one way or another — it's just less visible now.
+        end up in the nightly rate one way or another - it's just less visible now.
       </p>
       <p>
         This is why a growing number of travelers have started looking at what alternatives actually exist for
@@ -112,7 +112,7 @@ export default function BestAirbnbAlternativesGoa() {
 
       <img
         src="/blog/airbnb-host-fee-comparison-india-2026.webp"
-        alt="How booking platform fees affect villa rental prices in Goa — commission comparison 2026"
+        alt="How booking platform fees affect villa rental prices in Goa - commission comparison 2026"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
       />
@@ -136,7 +136,7 @@ export default function BestAirbnbAlternativesGoa() {
           </tr>
           <tr>
             <td>Wayzyy</td>
-            <td>0% — flat prepaid credit model, no per-booking commission</td>
+            <td>0% - flat prepaid credit model, no per-booking commission</td>
           </tr>
         </tbody>
       </table>
@@ -145,22 +145,22 @@ export default function BestAirbnbAlternativesGoa() {
 
       <h3>Airbnb</h3>
       <p>
-        Still the most-used platform for villa rentals in Goa, and for good reason. The inventory is the largest —
-        from budget rooms in Calangute to 4-bedroom private pool villas in Assagao — and the filters actually work.
+        Still the most-used platform for villa rentals in Goa, and for good reason. The inventory is the largest - 
+        from budget rooms in Calangute to 4-bedroom private pool villas in Assagao - and the filters actually work.
         You can search for private pools, pet-friendly listings, workation setups, beachfront, number of bedrooms,
         long-term discounts. The review system, while imperfect, is the most mature of any platform in this space.
       </p>
       <p>
         One thing that's useful to know before you search: "beachfront" in Goa listing titles is interpreted
         loosely. Many villas tagged as beachfront in Vagator or Anjuna are a 10–15 minute walk from the actual
-        waterline — some are further. Not necessarily a problem, but worth checking the map pin yourself rather than
+        waterline - some are further. Not necessarily a problem, but worth checking the map pin yourself rather than
         trusting the listing category. Similarly, private pool photos in listings are the single most likely thing
-        to not match what you find on arrival — some hosts update pool photos infrequently. Recent reviews that
+        to not match what you find on arrival - some hosts update pool photos infrequently. Recent reviews that
         specifically mention the pool condition are more reliable than the listing photos.
       </p>
       <p>
         The 15.5% host fee is now the standard, and as explained above, it tends to flow into pricing. The checkout
-        price is also more transparent than it used to be — you're less likely to get a big surprise at the payment
+        price is also more transparent than it used to be - you're less likely to get a big surprise at the payment
         screen now. But you're also less likely to find genuine negotiating room, because the host has already
         built their costs into the listed rate.
       </p>
@@ -178,15 +178,15 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         <strong>One thing to be aware of:</strong> Booking.com charges accommodation providers a commission of
-        typically 15–18% in India. Guests don't see this as a separate line item — it comes out on the host's end —
+        typically 15–18% in India. Guests don't see this as a separate line item - it comes out on the host's end - 
         but the same logic applies as with Airbnb. Hosts price with their full cost structure in mind.
       </p>
       <p>
         Booking.com also handles payments differently from Airbnb in India. Many listings don't collect payment
-        upfront — you pay at the property. That sounds convenient, but it means neither side has fully committed
+        upfront - you pay at the property. That sounds convenient, but it means neither side has fully committed
         until you show up. If you're booking a villa for a group trip, a long weekend, or any stay where a
         last-minute cancellation would be a real problem, this is worth factoring in. A group of 8 people landing
-        in Goa and finding the caretaker unavailable because the host had a better offer — it happens more than
+        in Goa and finding the caretaker unavailable because the host had a better offer - it happens more than
         you'd think on platforms where no money changes hands before arrival.
       </p>
       <p>
@@ -198,7 +198,7 @@ export default function BestAirbnbAlternativesGoa() {
       <p>This one's newer and worth knowing about specifically because the underlying model is different.</p>
       <p>
         Wayzyy is a Goa-focused platform where hosts don't pay a commission on each booking. Instead, they work on
-        a credit-based system — they recharge a credit balance and use it as bookings come in. No percentage of
+        a credit-based system - they recharge a credit balance and use it as bookings come in. No percentage of
         each reservation goes to the platform.
       </p>
       <p>
@@ -206,12 +206,12 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         If a host isn't giving up 15.5% of every booking to the platform, they don't need to build that margin into
-        their nightly rate. In theory — and this plays out in practice — the same property listed on Wayzyy is
+        their nightly rate. In theory - and this plays out in practice - the same property listed on Wayzyy is
         priced roughly 15–20% lower than it would be on a commission-heavy platform. That's not a guarantee on every
         listing, but it's the natural consequence of a no-commission model for hosts.
       </p>
       <p>
-        The platform is Goa-first, built by people who've managed short-term rental properties there — so the
+        The platform is Goa-first, built by people who've managed short-term rental properties there - so the
         understanding of the local market runs deeper than a global platform's algorithm. Things like which Siolim
         lanes actually have good road access for guests arriving with luggage, or which parts of South Goa are
         genuinely quiet vs. quietly becoming crowded. That kind of context tends to show up in how properties are
@@ -227,7 +227,7 @@ export default function BestAirbnbAlternativesGoa() {
 
       <img
         src="/blog/goa-villa-interior-living-room-vacation-rental.webp"
-        alt="Villa living room interior in Goa — what to expect from a private vacation rental stay"
+        alt="Villa living room interior in Goa - what to expect from a private vacation rental stay"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
       />
@@ -235,7 +235,7 @@ export default function BestAirbnbAlternativesGoa() {
       <h3>MakeMyTrip</h3>
       <p>
         Most Indian travelers open MakeMyTrip for flights first, then notice you can also book accommodation there.
-        The appeal is obvious — bundle your Goa flights and your villa in one transaction, apply a bank offer, and
+        The appeal is obvious - bundle your Goa flights and your villa in one transaction, apply a bank offer, and
         be done.
       </p>
       <p>
@@ -243,13 +243,13 @@ export default function BestAirbnbAlternativesGoa() {
         effective price on an MMT booking can undercut what you'd find elsewhere after cashback.
       </p>
       <p>
-        The trade-off: MakeMyTrip is one of the higher-commission OTAs in India — accommodation providers are often
+        The trade-off: MakeMyTrip is one of the higher-commission OTAs in India - accommodation providers are often
         dealing with up to 21% commission including GST. That factors into how properties are priced on the
         platform. The selection also skews more towards hotels and standardized properties than genuinely unique
         villa rentals.
       </p>
       <p>
-        If your priority is a bundled trip — flights, stay, transfers — it's the most convenient option. If you're
+        If your priority is a bundled trip - flights, stay, transfers - it's the most convenient option. If you're
         specifically hunting for a villa and comparing prices closely, it's worth cross-checking against other
         platforms.
       </p>
@@ -257,7 +257,7 @@ export default function BestAirbnbAlternativesGoa() {
       <h3>StayVista and SaffronStays</h3>
       <p>
         These are a different category entirely. If you're planning a group birthday, a bachelorette weekend, a
-        wedding anniversary stay, or a corporate retreat — StayVista and SaffronStays specialize in curated luxury
+        wedding anniversary stay, or a corporate retreat - StayVista and SaffronStays specialize in curated luxury
         villas. Private pools, dedicated caretakers, in-house chefs, concierge service, well-maintained interiors
         that actually match the photos.
       </p>
@@ -272,7 +272,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
 
       <h2>Okay, So Does the Platform Really Affect What I Pay?</h2>
-      <p>Yes — more than most people realise.</p>
+      <p>Yes - more than most people realise.</p>
       <p>
         Here's a simple way to think about it. Two hosts. Same type of villa. One is on a platform that charges
         15.5% per booking. The other is on a platform that charges no commission at all.
@@ -319,7 +319,7 @@ export default function BestAirbnbAlternativesGoa() {
       </table>
 
       <p>
-        This is why comparing final checkout prices across platforms — not just nightly rates — is the single most
+        This is why comparing final checkout prices across platforms - not just nightly rates - is the single most
         useful thing you can do before confirming any villa booking.
       </p>
 
@@ -346,21 +346,21 @@ export default function BestAirbnbAlternativesGoa() {
 
       <h3>Figure out which part of Goa fits your trip first.</h3>
       <p>
-        This matters more than the platform. North Goa and South Goa are genuinely different places. North Goa —
-        Vagator, Anjuna, Assagao, Morjim, Siolim, Candolim — is cafes, beach clubs, nightlife, energy. South Goa —
-        Palolem, Agonda, Benaulim, Patnem, Cavelossim — is quieter beaches, slower mornings, more space.
+        This matters more than the platform. North Goa and South Goa are genuinely different places. North Goa - 
+        Vagator, Anjuna, Assagao, Morjim, Siolim, Candolim - is cafes, beach clubs, nightlife, energy. South Goa - 
+        Palolem, Agonda, Benaulim, Patnem, Cavelossim - is quieter beaches, slower mornings, more space.
       </p>
 
       <img
         src="/blog/north-goa-beach-coastline-vagator-anjuna.webp"
-        alt="Goa coastline near popular villa rental areas in North Goa — Vagator and Anjuna"
+        alt="Goa coastline near popular villa rental areas in North Goa - Vagator and Anjuna"
         className="w-full aspect-video object-cover rounded-2xl border border-border my-8"
         loading="lazy"
       />
 
       <p>
         A few things that don't show up on maps: Assagao looks compact and walkable when you're zoomed out, but the
-        restaurant strip is spread across a couple of kilometres of narrow lanes — you'll want a scooter. Palolem
+        restaurant strip is spread across a couple of kilometres of narrow lanes - you'll want a scooter. Palolem
         feels like it should be quieter than Anjuna but can get genuinely crowded in peak season (November–January).
         Agonda, just 10 km away, stays calmer. If quiet is what you're after in South Goa, search for Agonda
         specifically, not just "South Goa."
@@ -373,7 +373,7 @@ export default function BestAirbnbAlternativesGoa() {
       <h3>Read recent reviews, not just the star rating.</h3>
       <p>
         Listing photos are curated, often professionally shot, sometimes years old. Reviews are usually honest.
-        Look for recent ones — the last 3–6 months — and scan specifically for comments on cleanliness, host
+        Look for recent ones - the last 3–6 months - and scan specifically for comments on cleanliness, host
         responsiveness, Wi-Fi, and pool condition. Pool photos are the single most misleading element in Goa villa
         listings. A review from last month that says "pool was clean and well-maintained" is worth more than any
         photo. A 4.8 star average from reviews that are all from 2023 tells you less than 10 reviews from this
@@ -383,7 +383,7 @@ export default function BestAirbnbAlternativesGoa() {
       <h3>Ask the host directly about Wi-Fi if you're working remotely.</h3>
       <p>
         "High-speed Wi-Fi" on a listing can mean anything from a solid fibre connection to a 4G router that drops
-        out when it rains — and in Goa, it rains. Most villas in areas like Assagao and Siolim now have fibre, but
+        out when it rains - and in Goa, it rains. Most villas in areas like Assagao and Siolim now have fibre, but
         pockets of Morjim, Mandrem, and parts of South Goa still rely on mobile broadband that gets unreliable
         during peak monsoon months. Ask the host for the actual ISP name and whether it's fibre or mobile data. Ask
         them to share a speed test screenshot if you need reassurance. Any host who's used to remote-work guests
@@ -427,7 +427,7 @@ export default function BestAirbnbAlternativesGoa() {
       </p>
       <p>
         The practical move: pick two platforms, go all the way to the checkout screen on each for the same
-        property, and compare what you actually pay. Not the nightly rate — the total after GST, cleaning fees, and
+        property, and compare what you actually pay. Not the nightly rate - the total after GST, cleaning fees, and
         anything else added on.
       </p>
       <p>
@@ -440,10 +440,10 @@ export default function BestAirbnbAlternativesGoa() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms — The Fee Breakdown</a>
+            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms - The Fee Breakdown</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
             <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>

@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
 
 interface PendingHost {
-  /** import_listing_access_requests.id — the row to update on approve/decline. */
+  /** import_listing_access_requests.id - the row to update on approve/decline. */
   requestId: string;
   userId: string;
   email: string;
@@ -79,7 +79,7 @@ export function AdminHostApprovalsModal({ isOpen, onClose, onRefresh }: AdminHos
     try {
       const newStatus = approve ? "approved" : "rejected";
 
-      // 1. Update the real request row in Supabase — this is the row
+      // 1. Update the real request row in Supabase - this is the row
       // import-listing-for-host actually checks before allowing an import.
       const { error } = await supabase
         .from("import_listing_access_requests")

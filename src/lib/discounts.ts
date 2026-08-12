@@ -13,7 +13,7 @@ export const DISCOUNT_LABELS: Record<DiscountType, { label: string; sub: string 
   new_listing: { label: "New listing promotion", sub: "Applies to your first 3 bookings" },
 };
 
-// Suggested starting percentages, matching Airbnb's own defaults — shown as
+// Suggested starting percentages, matching Airbnb's own defaults - shown as
 // the pre-filled value when a host turns a discount on for the first time,
 // not auto-enabled.
 export const SUGGESTED_DISCOUNT_PERCENTAGE: Record<DiscountType, number> = {

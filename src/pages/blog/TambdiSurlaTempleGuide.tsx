@@ -147,7 +147,7 @@ export default function TambdiSurlaTempleGuide() {
         </p>
 
         <p>
-          This guide takes you through every practical aspect of visiting Tambdi Surla Temple Goa—from optimal travel timings and road routes to history, Kadamba architecture, surrounding waterfalls, and honest expectations. Whether you’re a history buff, nature enthusiast, or traveler seeking Goa’s quiet hinterlands, here is everything you need to plan your trip.
+          This guide takes you through every practical aspect of visiting Tambdi Surla Temple Goa - from optimal travel timings and road routes to history, Kadamba architecture, surrounding waterfalls, and honest expectations. Whether you’re a history buff, nature enthusiast, or traveler seeking Goa’s quiet hinterlands, here is everything you need to plan your trip.
         </p>
 
         {/* Hero Image */}
@@ -281,7 +281,7 @@ export default function TambdiSurlaTempleGuide() {
         {/* Location Promo */}
         <WayzyyLocationPromo
           title="Looking for a verified stay near Goa's nature trails?"
-          description="Explore handpicked, zero-commission villas and homestays across Goa on Wayzyy — fair pricing for travelers and full profits for local hosts."
+          description="Explore handpicked, zero-commission villas and homestays across Goa on Wayzyy - fair pricing for travelers and full profits for local hosts."
         />
 
         {/* Section: Best Time */}
@@ -375,7 +375,7 @@ export default function TambdiSurlaTempleGuide() {
             <a href="mailto:hello@wayzyy.com" className="text-ember underline font-medium">
               hello@wayzyy.com
             </a>{" "}
-            — Wayzyy is launching soon across Goa.
+           - Wayzyy is launching soon across Goa.
           </div>
         </section>
       </div>

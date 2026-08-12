@@ -30,15 +30,15 @@ const complaints = [
     handle: "u/GoodGuyGoing",
     subreddit: "r/airbnb_hosts",
     age: "2mo ago",
-    title: "Airbnb — An Unreliable Partner",
-    body: "We had a **4.97 rating from 50 reviews**, then in short succession we got a couple of guests that had problems with the stairs leading to the villa. We got a few **1 and 2 star ratings** and wham!, we got **suspended. Just like that**, thrown off the site. My commitment to Airbnb is no longer the same — I will hence forward charge **$10–20 more on Airbnb** than we do on Booking.com.",
+    title: "Airbnb - An Unreliable Partner",
+    body: "We had a **4.97 rating from 50 reviews**, then in short succession we got a couple of guests that had problems with the stairs leading to the villa. We got a few **1 and 2 star ratings** and wham!, we got **suspended. Just like that**, thrown off the site. My commitment to Airbnb is no longer the same - I will hence forward charge **$10–20 more on Airbnb** than we do on Booking.com.",
   },
   {
     handle: "u/Soggy-Maintenance",
     subreddit: "r/airbnb_hosts",
     age: "2y ago",
     title: "The 2 big ways Airbnb is failing its users",
-    body: "For me, the 2 big ways that Airbnb is failing is **oversaturation and unhappy users**. My last stay was approximately **$8K and we had no AC** — spent the first week being promised repair people would stop by (no-shows). Two of the places we rented had obvious **insect issues** we were forced to deal with ourselves. **Airbnb has virtually lost my business.** I've never had an issue with a hotel. Nor do I pay a cleaning fee and then have a hotel make me **change and wash my own linens** before I leave.",
+    body: "For me, the 2 big ways that Airbnb is failing is **oversaturation and unhappy users**. My last stay was approximately **$8K and we had no AC** - spent the first week being promised repair people would stop by (no-shows). Two of the places we rented had obvious **insect issues** we were forced to deal with ourselves. **Airbnb has virtually lost my business.** I've never had an issue with a hotel. Nor do I pay a cleaning fee and then have a hotel make me **change and wash my own linens** before I leave.",
   },
 ];
 
@@ -66,7 +66,7 @@ export function TestimonialsSection() {
 
         <Reveal delay={0.08}>
           <p className="mt-5 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Hosts leaving in droves. Travelers overpaying for substandard stays. Platforms that don't pick sides — until they pick the wrong one. Here's what the community has been saying.
+            Hosts leaving in droves. Travelers overpaying for substandard stays. Platforms that don't pick sides - until they pick the wrong one. Here's what the community has been saying.
           </p>
         </Reveal>
 
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
               This is what we're building against.
             </p>
             <p className="mt-4 max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
-              Wayzyy is built around one idea: a platform that takes strict measures against bad actors on all sides — so hosts can run legitimate businesses, travelers can book with real confidence, and a community worth belonging to actually exists.
+              Wayzyy is built around one idea: a platform that takes strict measures against bad actors on all sides - so hosts can run legitimate businesses, travelers can book with real confidence, and a community worth belonging to actually exists.
             </p>
           </div>
         </Reveal>

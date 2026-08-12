@@ -23,7 +23,7 @@ export function HostBannerSection() {
 
             <Reveal delay={0.08}>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim — list your property directly with Wayzyy.
+                Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim - list your property directly with Wayzyy.
               </p>
             </Reveal>
 
@@ -47,7 +47,7 @@ export function HostBannerSection() {
             <div className="pt-4">
               <Button asChild variant="cta" size="pill-lg" className="gap-2 shadow-lg shadow-ember/20">
                 <Link to="/host">
-                  Host With Us — List Your Property
+                  Host With Us - List Your Property
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>

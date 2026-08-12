@@ -200,7 +200,7 @@ export default function WhereToStayInGoa() {
           Those are the questions that actually determine whether you'll enjoy your trip.
         </p>
         <p>
-          During our research, we went through recent discussions from travellers, long-term residents, digital nomads and local communities across Reddit, travel forums and specialised guides. One pattern appeared over and over again. People rarely regretted visiting a particular part of Goa—they regretted choosing an area that didn't match the kind of experience they wanted. Someone expecting peaceful mornings accidentally booked the busiest neighbourhood in North Goa. Others chose an isolated beach because it looked beautiful online, only to realise every café, restaurant and supermarket required a long <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">scooter ride</Link>. The destination wasn't the problem. The mismatch was.
+          During our research, we went through recent discussions from travellers, long-term residents, digital nomads and local communities across Reddit, travel forums and specialised guides. One pattern appeared over and over again. People rarely regretted visiting a particular part of Goa - they regretted choosing an area that didn't match the kind of experience they wanted. Someone expecting peaceful mornings accidentally booked the busiest neighbourhood in North Goa. Others chose an isolated beach because it looked beautiful online, only to realise every café, restaurant and supermarket required a long <Link to="/blog/goa-scooter-rental-guide" className="hover:text-ember text-ember underline decoration-dotted">scooter ride</Link>. The destination wasn't the problem. The mismatch was.
         </p>
         <p>
           That's why this guide is different.
@@ -212,7 +212,7 @@ export default function WhereToStayInGoa() {
           &quot;Which part of Goa is right for the way I travel?&quot;
         </p>
         <p>
-          We'll help you choose based on your personality, your travel style and the experience you're hoping to have—not just the nearest beach.
+          We'll help you choose based on your personality, your travel style and the experience you're hoping to have - not just the nearest beach.
         </p>
         <p>
           Along the way, we'll cover where remote workers actually live, which neighbourhoods have the strongest café culture, where solo travellers naturally meet people, where families feel most comfortable, which areas are best for couples and even where you can enjoy Goa's famous sunset drinking culture without spending every night in a nightclub. We'll also show you how to avoid the biggest mistake first-time visitors make when choosing accommodation.
@@ -291,7 +291,7 @@ export default function WhereToStayInGoa() {
           Families often have a very different idea of the perfect holiday than social travellers.
         </p>
         <p>
-          The goal usually isn't to visit five beach clubs in one weekend or chase the busiest parts of North Goa. Parents tend to value quieter neighbourhoods, spacious accommodation and places where everyone—from young children to grandparents—can relax without constantly moving around.
+          The goal usually isn't to visit five beach clubs in one weekend or chase the busiest parts of North Goa. Parents tend to value quieter neighbourhoods, spacious accommodation and places where everyone - from young children to grandparents - can relax without constantly moving around.
         </p>
         <p>
           That's why Morjim, Ashwem and Mandrem continue to be recommended by families. The beaches are generally less crowded, mornings are more peaceful and the overall pace of life feels noticeably slower than areas like Anjuna or Vagator. Restaurants are easier to enjoy without waiting in long queues, roads tend to feel less hectic and the atmosphere encourages longer walks, slower breakfasts and evenings that finish with a quiet dinner instead of loud music.
@@ -433,7 +433,7 @@ export default function WhereToStayInGoa() {
           Most booking platforms expect you to know exactly what you're looking for. You open the website, type in your dates, apply a few filters and scroll through hundreds of properties that all start to look the same after a while. The problem is that most people don't actually know which area suits them best.
         </p>
         <p className="text-sm leading-relaxed">
-          That's exactly what we're trying to solve at Wayzyy. Instead of treating every traveller the same, we're building a platform around how people actually travel. Whether you're planning a workation in Siolim, a café-filled getaway in Assagao, a social trip centred around Anjuna, a family holiday in Morjim or a peaceful escape in Ashwem, the goal is to help you discover stays that match your lifestyle—not just your dates.
+          That's exactly what we're trying to solve at Wayzyy. Instead of treating every traveller the same, we're building a platform around how people actually travel. Whether you're planning a workation in Siolim, a café-filled getaway in Assagao, a social trip centred around Anjuna, a family holiday in Morjim or a peaceful escape in Ashwem, the goal is to help you discover stays that match your lifestyle - not just your dates.
         </p>
         <p className="text-sm leading-relaxed">
           Because Wayzyy works directly with property owners through a host-first model, travellers can often find prices that are up to around 20% lower than comparable listings on <Link to="/blog/best-airbnb-alternatives-goa" className="text-ember hover:underline font-medium">larger booking platforms</Link>, depending on the property and travel season. More importantly, you're exploring verified homes that have been curated around different travel styles rather than simply ranked by advertising budgets or marketplace algorithms.

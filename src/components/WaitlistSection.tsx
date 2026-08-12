@@ -30,7 +30,7 @@ export function WaitlistSection() {
               <p className="mt-5 max-w-xl text-pretty text-base text-muted-foreground sm:text-lg">
                 Two lists. One for travelers who want stays without the small
                 print. One for hosts ready for a fair subscription model.
-                Join early — referral discounts go live for the first wave.
+                Join early - referral discounts go live for the first wave.
               </p>
             </Reveal>
           </div>

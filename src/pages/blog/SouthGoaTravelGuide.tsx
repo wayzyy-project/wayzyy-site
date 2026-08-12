@@ -39,7 +39,7 @@ const faqJsonLd = {
       "name": "Is South Goa better than North Goa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Neither is better—they simply offer different experiences. North Goa is better suited for travellers looking for nightlife, shopping and a busier atmosphere. South Goa is a better choice if you're travelling with family, planning a romantic getaway, working remotely or simply looking for a quieter and more relaxed holiday. If you're still deciding, our detailed North Goa vs South Goa guide compares both regions in depth to help you choose the right destination."
+        "text": "Neither is better - they simply offer different experiences. North Goa is better suited for travellers looking for nightlife, shopping and a busier atmosphere. South Goa is a better choice if you're travelling with family, planning a romantic getaway, working remotely or simply looking for a quieter and more relaxed holiday. If you're still deciding, our detailed North Goa vs South Goa guide compares both regions in depth to help you choose the right destination."
       }
     },
     {
@@ -519,7 +519,7 @@ export default function SouthGoaTravelGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Why More Travellers Are Choosing South Goa Every Year</h2>
         <p>
-          South Goa has always been beautiful. What's changing isn't the destination—it's the way people want to experience it.
+          South Goa has always been beautiful. What's changing isn't the destination - it's the way people want to experience it.
         </p>
         <p>
           A few years ago, many travellers measured a successful Goa trip by the number of places they managed to visit. Today, more people are choosing slower, longer and more meaningful holidays. Instead of spending every day moving between attractions, they're looking for destinations where they can genuinely relax.

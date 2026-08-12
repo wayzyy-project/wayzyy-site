@@ -16,7 +16,7 @@ const faqJsonLd = {
       name: "What is the Aguad Port & Jail Complex Monsoon Heritage Tourism Initiative?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "It's a seasonal program by Goa Tourism that opens the restored Aguad Port & Jail Complex to visitors during the rainy months, when many beach activities slow down. The site includes the old central jail, port infrastructure, and interpretive spaces about Goa's maritime and colonial history — a wet-weather alternative to the beach built around heritage walks, storytelling sessions, and guided tours.",
+        text: "It's a seasonal program by Goa Tourism that opens the restored Aguad Port & Jail Complex to visitors during the rainy months, when many beach activities slow down. The site includes the old central jail, port infrastructure, and interpretive spaces about Goa's maritime and colonial history - a wet-weather alternative to the beach built around heritage walks, storytelling sessions, and guided tours.",
       },
     },
     {
@@ -24,7 +24,7 @@ const faqJsonLd = {
       name: "When does the initiative run and is it open daily?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "It usually runs during the monsoon window from June to September, though Goa Tourism announces exact dates each year. It isn't always a daily event — some editions open only on weekends or during select festival long weekends. Check the official Goa Tourism social media or website before leaving, since heavy rain can trigger last-minute closures.",
+        text: "It usually runs during the monsoon window from June to September, though Goa Tourism announces exact dates each year. It isn't always a daily event - some editions open only on weekends or during select festival long weekends. Check the official Goa Tourism social media or website before leaving, since heavy rain can trigger last-minute closures.",
       },
     },
     {
@@ -74,7 +74,7 @@ export default function AguadaMonsoonHeritageGuide() {
       extraJsonLd={faqJsonLd}
     >
       <p>
-        You've probably seen the headlines by now — Aguad Port & Jail Complex is launching a Monsoon Heritage Tourism Initiative, and Goa Tourism wants more travelers to show up between June and September. The press release sounds promising. But here's the problem: nearly every news report just repeats the same announcement without telling you what you'll actually do once you get there, how much it costs, or whether it even runs on the day you plan to visit.
+        You've probably seen the headlines by now - Aguad Port & Jail Complex is launching a Monsoon Heritage Tourism Initiative, and Goa Tourism wants more travelers to show up between June and September. The press release sounds promising. But here's the problem: nearly every news report just repeats the same announcement without telling you what you'll actually do once you get there, how much it costs, or whether it even runs on the day you plan to visit.
       </p>
 
       <p>
@@ -108,7 +108,7 @@ export default function AguadaMonsoonHeritageGuide() {
       </p>
 
       <p>
-        That layered history is what the monsoon initiative tries to highlight. In dry season, the complex can feel like a tidy museum. In the rains, with fewer visitors and grey light filtering through the barred windows, the same corridors feel heavier and more immediate. The initiative isn't just about keeping a monument open — it's about presenting the fort, the port, and the jail as living heritage rather than a polished backdrop.
+        That layered history is what the monsoon initiative tries to highlight. In dry season, the complex can feel like a tidy museum. In the rains, with fewer visitors and grey light filtering through the barred windows, the same corridors feel heavier and more immediate. The initiative isn't just about keeping a monument open - it's about presenting the fort, the port, and the jail as living heritage rather than a polished backdrop.
       </p>
 
       <WayzyyLocationPromo />
@@ -120,7 +120,7 @@ export default function AguadaMonsoonHeritageGuide() {
       </p>
 
       <p>
-        Between walks, there may be short storytelling sessions inside one of the covered courtyards. These are usually bilingual, mixing English with Konkani, and focus on tales of prisoners, shipwrecks, monsoon voyages, and local folklore. On festival weekends — especially around Sao Joao in June or the Assumption in August — the programming can expand to include folk music, traditional dance, or craft workshops. You might learn to weave a small fishing-net panel, paint a Portuguese-inspired azulejo tile, or listen to a fado-influenced set under a temporary canopy.
+        Between walks, there may be short storytelling sessions inside one of the covered courtyards. These are usually bilingual, mixing English with Konkani, and focus on tales of prisoners, shipwrecks, monsoon voyages, and local folklore. On festival weekends - especially around Sao Joao in June or the Assumption in August - the programming can expand to include folk music, traditional dance, or craft workshops. You might learn to weave a small fishing-net panel, paint a Portuguese-inspired azulejo tile, or listen to a fado-influenced set under a temporary canopy.
       </p>
 
       <p>
@@ -204,7 +204,7 @@ export default function AguadaMonsoonHeritageGuide() {
       <h3>Who should skip it and go elsewhere</h3>
 
       <p>
-        If you need a fixed itinerary and confirmed online tickets, don't make Aguad your main heritage stop — you'll be better served by a covered museum or gallery with clearer timings. Families with very young children or travelers with limited mobility should also wait for the dry season, when paths are easier and the full site is more likely to stay open.
+        If you need a fixed itinerary and confirmed online tickets, don't make Aguad your main heritage stop - you'll be better served by a covered museum or gallery with clearer timings. Families with very young children or travelers with limited mobility should also wait for the dry season, when paths are easier and the full site is more likely to stay open.
       </p>
 
       <p>
@@ -215,9 +215,9 @@ export default function AguadaMonsoonHeritageGuide() {
 
       <ul>
         <li><strong>Entry Fee:</strong> Not consistently published as of early 2026. Some heritage sessions are free walk-in, others may be ticketed on-site. Carry cash and a UPI app.</li>
-        <li><strong>Timings:</strong> No fixed daily hours confirmed yet — some editions run weekends or festival long weekends only. Confirm the current schedule before leaving your hotel.</li>
+        <li><strong>Timings:</strong> No fixed daily hours confirmed yet - some editions run weekends or festival long weekends only. Confirm the current schedule before leaving your hotel.</li>
         <li><strong>Weather Contingency:</strong> Outdoor rampart walks pause first in heavy rain; indoor galleries and jail blocks tend to stay open longer. Full closures can happen with little notice.</li>
-        <li><strong>Access:</strong> The Sinquerim access road can get muddy in heavy rain — check conditions and taxi availability before you set out.</li>
+        <li><strong>Access:</strong> The Sinquerim access road can get muddy in heavy rain - check conditions and taxi availability before you set out.</li>
       </ul>
 
       <h2>Frequently Asked Questions</h2>
@@ -251,20 +251,20 @@ export default function AguadaMonsoonHeritageGuide() {
       </p>
 
       <p>
-        Go if you like heritage walks, quieter monsoon afternoons, and the idea of seeing a Goa that predates the beach shacks. Skip it if you're only after sun, sand, and guaranteed entertainment. For the curious traveler, Aguad in the rains delivers something the peak-season crowds rarely get — space, stories, and a fort that finally feels like its own.
+        Go if you like heritage walks, quieter monsoon afternoons, and the idea of seeing a Goa that predates the beach shacks. Skip it if you're only after sun, sand, and guaranteed entertainment. For the curious traveler, Aguad in the rains delivers something the peak-season crowds rarely get - space, stories, and a fort that finally feels like its own.
       </p>
 
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <Link to="/blog/palolem-beach-south-goa-guide">Palolem Beach South Goa — The Complete Travel Guide</Link>
+            <Link to="/blog/palolem-beach-south-goa-guide">Palolem Beach South Goa - The Complete Travel Guide</Link>
           </li>
           <li>
-            <Link to="/blog/agonda-beach-south-goa-guide">Agonda Beach South Goa — The Complete Travel Guide</Link>
+            <Link to="/blog/agonda-beach-south-goa-guide">Agonda Beach South Goa - The Complete Travel Guide</Link>
           </li>
           <li>
-            <Link to="/blog/dudhsagar-falls-goa-guide">Dudhsagar Falls Goa — The Complete Trekking Guide</Link>
+            <Link to="/blog/dudhsagar-falls-goa-guide">Dudhsagar Falls Goa - The Complete Trekking Guide</Link>
           </li>
           <li>
             <Link to="/blog/six-new-goa-tourism-projects-guide-2026">6 New Central-Funded Tourism Projects in Goa (2026)</Link>

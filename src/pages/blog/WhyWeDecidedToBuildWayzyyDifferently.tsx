@@ -149,7 +149,7 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           Guests pay pricing that feels transparent.
         </p>
         <p>
-          The platform still provides professional support, secure bookings and reliable hospitality—but without making every successful booking progressively more expensive for the person who owns the property.
+          The platform still provides professional support, secure bookings and reliable hospitality - but without making every successful booking progressively more expensive for the person who owns the property.
         </p>
         <p>
           We don't believe the future of short-term rentals is about charging the highest commission possible.
@@ -186,13 +186,13 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           That made us question whether there was another way to think about the problem.
         </p>
         <p>
-          Instead of asking how much commission a platform could charge, we asked ourselves how much money a host should realistically be able to keep. After all, the person investing in the property, hiring the caretaker, paying for maintenance and creating a memorable guest experience is the host—not the marketplace.
+          Instead of asking how much commission a platform could charge, we asked ourselves how much money a host should realistically be able to keep. After all, the person investing in the property, hiring the caretaker, paying for maintenance and creating a memorable guest experience is the host - not the marketplace.
         </p>
         <p>
           That single question eventually shaped the way Wayzyy works today.
         </p>
         <p>
-          Rather than taking a large share from every reservation, we chose a model that keeps platform costs predictable and significantly lower over the long run. As hosts grow their business, more of their revenue stays exactly where it should—inside the business itself. Those savings can be invested in better interiors, faster internet, improved amenities, additional staff or simply building a healthier business with stronger cash flow.
+          Rather than taking a large share from every reservation, we chose a model that keeps platform costs predictable and significantly lower over the long run. As hosts grow their business, more of their revenue stays exactly where it should - inside the business itself. Those savings can be invested in better interiors, faster internet, improved amenities, additional staff or simply building a healthier business with stronger cash flow.
         </p>
         <p>
           Guests benefit from that approach as well.
@@ -237,10 +237,10 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           Imagine a marketplace where the success of a host doesn't automatically mean a larger deduction from every booking. Picture a model where owners have more freedom to reinvest in their homes, travellers benefit from fairer pricing and hospitality becomes the biggest competitive advantage rather than aggressive discounting.
         </p>
         <p>
-          Those ideas aren't just ambitions for us—they're the principles behind everything we're building at Wayzyy.
+          Those ideas aren't just ambitions for us - they're the principles behind everything we're building at Wayzyy.
         </p>
         <p>
-          Our objective isn't to replace every booking platform that already exists. Millions of travellers rely on established marketplaces, and they'll continue to play an important role in the travel ecosystem. What we're trying to change is the experience for independent hosts by offering another path—one that focuses on healthier unit economics, transparent pricing and long-term sustainability instead of larger recurring commissions.
+          Our objective isn't to replace every booking platform that already exists. Millions of travellers rely on established marketplaces, and they'll continue to play an important role in the travel ecosystem. What we're trying to change is the experience for independent hosts by offering another path - one that focuses on healthier unit economics, transparent pricing and long-term sustainability instead of larger recurring commissions.
         </p>
         <p>
           Success, in our eyes, isn't measured by how much revenue a platform extracts from a booking.
@@ -252,7 +252,7 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           Ultimately, that's the kind of ecosystem we want to contribute to.
         </p>
         <p>
-          One where platforms succeed because hosts succeed, not because they continue taking a bigger share of every reservation. If the people opening their homes to travellers are able to earn more, improve more and deliver exceptional hospitality, everyone involved—from the property owner to the guest—wins together.
+          One where platforms succeed because hosts succeed, not because they continue taking a bigger share of every reservation. If the people opening their homes to travellers are able to earn more, improve more and deliver exceptional hospitality, everyone involved - from the property owner to the guest - wins together.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Final Thoughts</h2>
@@ -273,7 +273,7 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           Building trust, responding quickly, maintaining high standards and continuously improving the experience are what create businesses that last. Revenue matters, but the ability to retain more of that revenue matters just as much. Every unnecessary expense reduces the amount that could have been invested back into the property, and every improvement postponed today often becomes a missed opportunity tomorrow.
         </p>
         <p>
-          Looking ahead, we believe independent hosts deserve business models that reward the effort they put into creating exceptional stays. That's exactly why Wayzyy exists. Our goal isn't to convince every property owner to abandon the platforms they're already using. Instead, we want to provide another option—one that believes success should be shared with the people creating the experience rather than relying on increasingly expensive commission structures.
+          Looking ahead, we believe independent hosts deserve business models that reward the effort they put into creating exceptional stays. That's exactly why Wayzyy exists. Our goal isn't to convince every property owner to abandon the platforms they're already using. Instead, we want to provide another option - one that believes success should be shared with the people creating the experience rather than relying on increasingly expensive commission structures.
         </p>
         <p>
           Hospitality has always been a people-first business.
@@ -303,7 +303,7 @@ export default function WhyWeDecidedToBuildWayzyyDifferently() {
           If you're thinking about starting your first short-term rental, take the time to understand how the business really works before deciding where to list.
         </p>
         <p className="font-semibold text-foreground text-center text-lg italic my-2">
-          The platform you choose should help your business become stronger every year—not simply become more expensive with every booking.
+          The platform you choose should help your business become stronger every year - not simply become more expensive with every booking.
         </p>
         <p>
           That's the philosophy we've built Wayzyy around, and it's the standard we'll continue working towards as we grow.

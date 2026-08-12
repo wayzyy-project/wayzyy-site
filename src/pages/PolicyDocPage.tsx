@@ -3,7 +3,7 @@ import { PolicyLayout } from "@/components/PolicyLayout";
 import { SEO } from "@/components/SEO";
 import { LEGAL_DOCS, EFFECTIVE_DATE } from "@/data/legalDocs";
 
-// Renders any doc registered in LEGAL_DOCS by id — bullet lines ("• ...")
+// Renders any doc registered in LEGAL_DOCS by id - bullet lines ("• ...")
 // group into a <ul>, everything else is a <p>, matching the styling the
 // hand-written policy pages (PrivacyPolicy.tsx etc.) already use via the
 // shared .policy-content CSS rules.
@@ -44,7 +44,7 @@ export default function PolicyDocPage() {
 
   return (
     <SEO
-      title={`${doc.title} — Wayzyy`}
+      title={`${doc.title} - Wayzyy`}
       description={doc.subtitle}
       path={`/policies/${doc.id}`}
     >

@@ -19,7 +19,7 @@ interface Props {
 }
 
 // The website's equivalent of the app's ConnectCalendarScreen + HostDiscountsScreen +
-// cancellation-policy cards — same tables and edge functions as mobile, so a
+// cancellation-policy cards - same tables and edge functions as mobile, so a
 // change made here shows up in the app instantly and vice versa.
 export function ListingManagePanel({ propertyId, propertyTitle, onBack }: Props) {
   return (
@@ -157,11 +157,11 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
       </p>
 
       <div>
-        <p className="mb-2 text-sm font-semibold text-white">Step 1 — add this link to the other website</p>
+        <p className="mb-2 text-sm font-semibold text-white">Step 1 - add this link to the other website</p>
         <div className="liquid-glass flex items-center gap-3 rounded-xl border border-white/15 bg-black/30 p-4">
           <div className="min-w-0 flex-1">
             <p className="mb-0.5 text-xs text-white/60">Wayzyy calendar link</p>
-            <p className="truncate text-sm text-white">{exportUrl ?? "—"}</p>
+            <p className="truncate text-sm text-white">{exportUrl ?? " - "}</p>
           </div>
           <Button size="sm" onClick={handleCopy} disabled={!exportUrl} className="gap-1.5">
             <Copy className="h-3.5 w-3.5" />
@@ -171,7 +171,7 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-semibold text-white">Step 2 — paste the other website's .ics link</p>
+        <p className="mb-2 text-sm font-semibold text-white">Step 2 - paste the other website's .ics link</p>
         <div className="space-y-3 rounded-xl border border-white/15 p-4">
           <div>
             <Label htmlFor="other-cal-url" className="text-white">Other website link</Label>

@@ -334,7 +334,7 @@ export default function NorthGoaTravelGuide() {
           </li>
         </ul>
         <p>
-          One thing we've noticed at Wayzyy is that travellers who choose a centrally located villa rarely spend much time worrying about transport in the first place. Staying in areas like Anjuna, Vagator or Siolim means you're never too far from the beaches, cafés and villages that make North Goa special. Instead of changing hotels every couple of days, you can settle into one comfortable base and explore the region at your own pace—a much more relaxed way to experience Goa.
+          One thing we've noticed at Wayzyy is that travellers who choose a centrally located villa rarely spend much time worrying about transport in the first place. Staying in areas like Anjuna, Vagator or Siolim means you're never too far from the beaches, cafés and villages that make North Goa special. Instead of changing hotels every couple of days, you can settle into one comfortable base and explore the region at your own pace - a much more relaxed way to experience Goa.
         </p>
       </div>
 
@@ -345,7 +345,7 @@ export default function NorthGoaTravelGuide() {
           When Is the Best Time to Visit North Goa?
         </h2>
         <p>
-          There isn't a single &quot;best&quot; time to visit North Goa—it really depends on the kind of trip you're planning.
+          There isn't a single &quot;best&quot; time to visit North Goa - it really depends on the kind of trip you're planning.
         </p>
         <p>
           If you're imagining lively beach cafés, sunset parties, busy flea markets and a social atmosphere where something is always happening, then the months between October and March are exactly what you're looking for. This is Goa's peak tourist season, when the weather is comfortably warm, the sea is generally calm and almost every café, beach shack and event venue is operating at full swing. It's also the busiest time of the year, so expect popular beaches like Anjuna and Vagator to feel much livelier than they do during the off-season.
@@ -354,7 +354,7 @@ export default function NorthGoaTravelGuide() {
           That popularity comes with one trade-off.
         </p>
         <p>
-          Accommodation fills up quickly, especially around Christmas, New Year and long weekends. If you're planning to travel during this period, booking your villa well in advance isn't just a good idea—it usually gives you access to better properties and more reasonable prices before demand peaks.
+          Accommodation fills up quickly, especially around Christmas, New Year and long weekends. If you're planning to travel during this period, booking your villa well in advance isn't just a good idea - it usually gives you access to better properties and more reasonable prices before demand peaks.
         </p>
         <p>
           If your priorities are a little different, the quieter months can be just as rewarding.
@@ -385,7 +385,7 @@ export default function NorthGoaTravelGuide() {
           A question we often come across is whether North Goa is worth visiting during the rainy season.
         </p>
         <p>
-          The answer is yes—as long as your expectations match the season.
+          The answer is yes - as long as your expectations match the season.
         </p>
         <p>
           If you're travelling specifically for beach hopping, swimming every day and nightlife, you'll probably enjoy visiting between October and March. On the other hand, if you're looking for peaceful mornings, lower accommodation prices, dramatic landscapes and enough time to slow down, the monsoon offers a side of Goa that many travellers never get to experience.
@@ -403,7 +403,7 @@ export default function NorthGoaTravelGuide() {
           Winter is vibrant. Summer is relaxed. The monsoon is peaceful.
         </p>
         <p>
-          Choosing the right time isn't about finding the &quot;perfect&quot; month—it's about finding the version of Goa that matches the holiday you're hoping to have.
+          Choosing the right time isn't about finding the &quot;perfect&quot; month - it's about finding the version of Goa that matches the holiday you're hoping to have.
         </p>
 
         <h3 className="font-display text-lg text-foreground mt-8">A Quick Seasonal Guide</h3>
@@ -416,7 +416,7 @@ export default function NorthGoaTravelGuide() {
           <li><strong>June to September:</strong> Perfect for workations, long stays, photographers, nature lovers and travellers who enjoy a quieter, greener Goa.</li>
         </ul>
         <p>
-          No matter which season you choose, one thing remains the same. North Goa isn't a place that's meant to be rushed. The best memories usually come from slowing down, staying in the right location and giving yourself enough time to enjoy everything between the famous attractions—not just the attractions themselves.
+          No matter which season you choose, one thing remains the same. North Goa isn't a place that's meant to be rushed. The best memories usually come from slowing down, staying in the right location and giving yourself enough time to enjoy everything between the famous attractions - not just the attractions themselves.
         </p>
       </div>
 
@@ -455,7 +455,7 @@ export default function NorthGoaTravelGuide() {
           One of our favourite recommendations is to avoid planning every meal in advance.
         </p>
         <p>
-          North Goa has no shortage of restaurants that appear in every travel guide, but some of the best experiences come from places you discover naturally. A roadside bakery with fresh sourdough, a family-run café serving breakfast until noon or a small restaurant tucked away behind a quiet lane often ends up being far more memorable than the places with the longest queues. During our research, this was something travellers mentioned repeatedly—they remembered the unexpected discoveries far more vividly than the attractions they had planned weeks in advance.
+          North Goa has no shortage of restaurants that appear in every travel guide, but some of the best experiences come from places you discover naturally. A roadside bakery with fresh sourdough, a family-run café serving breakfast until noon or a small restaurant tucked away behind a quiet lane often ends up being far more memorable than the places with the longest queues. During our research, this was something travellers mentioned repeatedly - they remembered the unexpected discoveries far more vividly than the attractions they had planned weeks in advance.
         </p>
         <p>
           If you're renting a scooter, don't be afraid to take the slower roads connecting villages instead of always following the fastest route on Google Maps. The drive between Assagao, Siolim, Morjim and Ashwem is beautiful in its own right, especially during the early morning or just before sunset. Rice fields, old Goan homes, quiet churches and small local cafés appear where you least expect them, reminding you that North Goa is much more than its coastline.
@@ -523,21 +523,21 @@ export default function NorthGoaTravelGuide() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Village Guides</span>
-            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Beach Guide — Stays, Cafes &amp; Planning</Link>
-            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Beach Guide — Stays, Cafes &amp; Planning</Link>
-            <Link to="/blog/morjim-goa-beach-guide" className="text-ember hover:underline block">Morjim Beach Guide — Stays, Cafes &amp; Planning</Link>
-            <Link to="/blog/ashwem-goa-beach-guide" className="text-ember hover:underline block">Ashwem Beach Guide — Stays, Cafes &amp; Planning</Link>
-            <Link to="/blog/mandrem-goa-beach-guide" className="text-ember hover:underline block">Mandrem Beach Guide — Stays, Cafes &amp; Planning</Link>
-            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Villas Guide — Riverfront, Stays &amp; Tips</Link>
-            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Villas Guide — Cafes, Design &amp; Tips</Link>
+            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Beach Guide - Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Beach Guide - Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/morjim-goa-beach-guide" className="text-ember hover:underline block">Morjim Beach Guide - Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/ashwem-goa-beach-guide" className="text-ember hover:underline block">Ashwem Beach Guide - Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/mandrem-goa-beach-guide" className="text-ember hover:underline block">Mandrem Beach Guide - Stays, Cafes &amp; Planning</Link>
+            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Villas Guide - Riverfront, Stays &amp; Tips</Link>
+            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Villas Guide - Cafes, Design &amp; Tips</Link>
           </div>
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Planning Guides</span>
-            <Link to="/blog/goa-trip-budget-guide" className="text-ember hover:underline block">Goa Trip Budget Guide (2026) — Stays &amp; Food Costs</Link>
-            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Goa Scooter Rental Guide — Licensing &amp; Driving Rules</Link>
-            <Link to="/blog/north-goa-vs-south-goa-guide" className="text-ember hover:underline block">North vs South Goa Guide — Choose the Right Vibe</Link>
-            <Link to="/blog/best-time-to-visit-goa" className="text-ember hover:underline block">Best Time to Visit Goa — Seasonal Weather Advice</Link>
-            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Goa Workation Guide — WiFi, Coworking &amp; Setup Tips</Link>
+            <Link to="/blog/goa-trip-budget-guide" className="text-ember hover:underline block">Goa Trip Budget Guide (2026) - Stays &amp; Food Costs</Link>
+            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Goa Scooter Rental Guide - Licensing &amp; Driving Rules</Link>
+            <Link to="/blog/north-goa-vs-south-goa-guide" className="text-ember hover:underline block">North vs South Goa Guide - Choose the Right Vibe</Link>
+            <Link to="/blog/best-time-to-visit-goa" className="text-ember hover:underline block">Best Time to Visit Goa - Seasonal Weather Advice</Link>
+            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Goa Workation Guide - WiFi, Coworking &amp; Setup Tips</Link>
           </div>
         </div>
         <p className="text-sm text-muted-foreground mt-6 pt-6 border-t border-border/40">

@@ -101,7 +101,7 @@ export default function GoaItineraryGuide() {
         </p>
 
         {/* Day 3 */}
-        <h3 className="font-display text-xl font-bold text-foreground mt-8">Day 3: Move South—But Make the Journey Part of the Trip</h3>
+        <h3 className="font-display text-xl font-bold text-foreground mt-8">Day 3: Move South - But Make the Journey Part of the Trip</h3>
         <p>
           Most people think of changing accommodation as a day that's simply lost to travel. It doesn't have to be.
         </p>
@@ -140,7 +140,7 @@ export default function GoaItineraryGuide() {
           There's no need to wake up early just to beat the crowds or rush between attractions before traffic builds up. Days here are better spent enjoying long breakfasts, quiet beaches, seafood lunches and evenings that end with little more than a walk along the shoreline.
         </p>
         <p>
-          Palolem, Agonda, Colva and Benaulim each offer their own personality, but they all share something in common—they encourage you to slow down. Rather than trying to visit every beach in the area, choose one or two and allow yourself to spend an entire afternoon there. If you're looking for something beyond the coastline, this is also a great time to explore backwaters, take a kayaking trip or simply enjoy the facilities at your villa without feeling guilty that you're &quot;missing out.&quot;
+          Palolem, Agonda, Colva and Benaulim each offer their own personality, but they all share something in common - they encourage you to slow down. Rather than trying to visit every beach in the area, choose one or two and allow yourself to spend an entire afternoon there. If you're looking for something beyond the coastline, this is also a great time to explore backwaters, take a kayaking trip or simply enjoy the facilities at your villa without feeling guilty that you're &quot;missing out.&quot;
         </p>
         <p>
           By the final evening, you'll understand why so many people recommend staying in both regions instead of choosing just one.
@@ -207,7 +207,7 @@ export default function GoaItineraryGuide() {
           By now, you've probably realised there isn't one perfect Goa itinerary. The right one depends entirely on the time you have and the kind of holiday you're looking for.
         </p>
         <p>
-          If you're visiting for a long weekend, three days are enough—as long as you stay in one region and resist the temptation to cross the state every day.
+          If you're visiting for a long weekend, three days are enough - as long as you stay in one region and resist the temptation to cross the state every day.
         </p>
         <p>
           If this is your first proper holiday in Goa, five days strike the best balance, giving you enough time to enjoy both North and South Goa without turning the trip into a race between attractions.

@@ -499,7 +499,7 @@ export default function NorthGoaVsSouthGoa() {
       </p>
       <p>That's difficult to describe on a map.</p>
       <p>It's even harder to capture in a travel itinerary.</p>
-      <p>And that's probably why no article—including this one—can tell you exactly which part of Goa you'll fall in love with.</p>
+      <p>And that's probably why no article - including this one - can tell you exactly which part of Goa you'll fall in love with.</p>
       <p>The only thing we can do is help you find the version of Goa that feels most like you.</p>
       <p>The rest usually happens on its own.</p>
 
@@ -529,7 +529,7 @@ export default function NorthGoaVsSouthGoa() {
       <p>
         That doesn't mean every property will automatically be cheaper, and it certainly isn't the only thing you should compare
         before booking. Reviews, host responsiveness, cancellation policies and the location itself matter just as much. But
-        if you're already comparing prices across multiple websites—which most experienced travellers do anyway—it makes sense
+        if you're already comparing prices across multiple websites - which most experienced travellers do anyway - it makes sense
         to include a Goa-first platform in that comparison as well.
       </p>
       <p>
@@ -570,10 +570,10 @@ export default function NorthGoaVsSouthGoa() {
             <a href="/blog/best-airbnb-alternatives-goa">5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)</a>
           </li>
           <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa - The Complete Guide for Every Vibe</a>
           </li>
           <li>
-            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
+            <a href="/blog/workation-goa-guide">Workation in Goa - What You Actually Need Before You Book</a>
           </li>
         </ul>
       </div>

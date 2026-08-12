@@ -16,7 +16,7 @@ const faqJsonLd = {
       "name": "Can I start a short-term rental business with just one property?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely. Many successful hospitality businesses begin with a single apartment, villa or holiday home. The important part isn't how many properties you own—it's whether you've built systems that allow the business to grow sustainably. Once your first property consistently delivers great guest experiences and healthy profits, expanding becomes much easier."
+        "text": "Absolutely. Many successful hospitality businesses begin with a single apartment, villa or holiday home. The important part isn't how many properties you own - it's whether you've built systems that allow the business to grow sustainably. Once your first property consistently delivers great guest experiences and healthy profits, expanding becomes much easier."
       }
     },
     {
@@ -32,7 +32,7 @@ const faqJsonLd = {
       "name": "Why do many hosts never expand beyond one property?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The biggest challenge usually isn't demand—it's operations and economics. As the business grows, so do housekeeping, maintenance, staffing and platform costs. Without healthy margins and well-defined systems, adding another property often creates more work than opportunity. That's why successful operators focus on building scalable processes before expanding."
+        "text": "The biggest challenge usually isn't demand - it's operations and economics. As the business grows, so do housekeeping, maintenance, staffing and platform costs. Without healthy margins and well-defined systems, adding another property often creates more work than opportunity. That's why successful operators focus on building scalable processes before expanding."
       }
     },
     {
@@ -48,7 +48,7 @@ const faqJsonLd = {
       "name": "Why does Wayzyy use a recharge-based model instead of charging a percentage on every booking?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We believe hosts should keep more of what they earn. Instead of taking a significant commission every time your business grows, Wayzyy's recharge-based credit model keeps platform costs predictable. The idea is simple: as your hospitality business becomes more successful, more of your earnings should remain available for improving guest experiences, hiring better staff and expanding your business—not disappear into higher recurring commissions."
+        "text": "We believe hosts should keep more of what they earn. Instead of taking a significant commission every time your business grows, Wayzyy's recharge-based credit model keeps platform costs predictable. The idea is simple: as your hospitality business becomes more successful, more of your earnings should remain available for improving guest experiences, hiring better staff and expanding your business - not disappear into higher recurring commissions."
       }
     },
     {
@@ -100,7 +100,7 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           Interestingly, demand isn't what stops most hosts from expanding. Travel continues to grow, domestic tourism is increasing and more travellers are choosing villas, apartments and holiday homes over traditional hotels for many types of trips. The opportunity to build a successful hospitality business is still very much there.
         </p>
         <p>
-          The bigger challenge is building a business that can support growth without becoming increasingly difficult—or increasingly expensive—to operate. That's where many hosts begin asking different questions. How do I manage multiple properties without spending every day solving operational problems? How do I maintain the same guest experience across every stay? How do I keep enough profit to reinvest into another property instead of watching recurring costs grow alongside revenue?
+          The bigger challenge is building a business that can support growth without becoming increasingly difficult - or increasingly expensive - to operate. That's where many hosts begin asking different questions. How do I manage multiple properties without spending every day solving operational problems? How do I maintain the same guest experience across every stay? How do I keep enough profit to reinvest into another property instead of watching recurring costs grow alongside revenue?
         </p>
         <p className="font-semibold text-foreground text-center text-lg italic my-4">
           Those are business questions. And they're exactly the questions that separate someone who owns a vacation rental from someone who's building a hospitality company.
@@ -112,7 +112,7 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           In this guide, we'll look at why so many short-term rental businesses stop after one property, the challenges that quietly prevent hosts from scaling and the decisions that make long-term growth far more achievable. Because success in hospitality isn't measured by your first booking. It's measured by whether your business is still getting stronger years after that first guest checks out.
         </p>
 
-        <h2 className="font-display text-2xl text-foreground mt-8">The Real Reason Most Hosts Never Scale Isn't Demand—It's Economics</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">The Real Reason Most Hosts Never Scale Isn't Demand - It's Economics</h2>
         
         <p>
           One of the biggest misconceptions about the short-term rental industry is that businesses stop growing because there aren't enough guests. In most cases, that's not what happens. Properties continue receiving enquiries, occupancy remains healthy and tourism keeps growing. The real challenge begins when owners start looking at what actually reaches their bank account after every booking. Revenue may be increasing, but so are housekeeping costs, maintenance, staff salaries, utilities, platform commissions and the dozens of smaller expenses that quietly become part of running a hospitality business.
@@ -121,13 +121,13 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           That's why experienced hosts rarely judge their business by revenue alone. They focus on retained profit.
         </p>
         <p>
-          Imagine you've listed your property for <strong className="text-foreground">₹5,00,000</strong> in monthly bookings. If the effective platform cost works out to around <strong className="text-foreground">15–16%</strong>, you have already paid approximately <strong className="text-foreground">₹80,000</strong> in platform fees before covering housekeeping, utilities, maintenance or staff salaries. Stretch that over a year and you're looking at <strong className="text-foreground">₹9.6 lakh</strong>—an amount that's larger than the annual salary of many full-time caretakers or enough to renovate significant portions of your property.
+          Imagine you've listed your property for <strong className="text-foreground">₹5,00,000</strong> in monthly bookings. If the effective platform cost works out to around <strong className="text-foreground">15–16%</strong>, you have already paid approximately <strong className="text-foreground">₹80,000</strong> in platform fees before covering housekeeping, utilities, maintenance or staff salaries. Stretch that over a year and you're looking at <strong className="text-foreground">₹9.6 lakh</strong> - an amount that's larger than the annual salary of many full-time caretakers or enough to renovate significant portions of your property.
         </p>
         <p>
           If your property generates <strong className="text-foreground">₹1 lakh</strong> in bookings during the month, around <strong className="text-foreground">₹15,500–₹16,000</strong> could disappear in platform fees alone, depending on the platform and pricing model. That amount is enough to cover a caretaker's salary in many markets, improve guest amenities, invest in better housekeeping or prepare the property before the next tourist season. Instead, it becomes another recurring business expense that grows simply because your revenue grows.
         </p>
         <p>
-          This is exactly where we believe the industry needs to think differently. At Wayzyy, we've never believed that a platform should become more expensive every time a host becomes more successful. A growing hospitality business should have more capital available to improve guest experiences, hire better people and expand into another property—not less. That's why our recharge-based model is designed to keep platform costs predictable, allowing hosts to retain more of what they earn and reinvest it where it creates the greatest impact.
+          This is exactly where we believe the industry needs to think differently. At Wayzyy, we've never believed that a platform should become more expensive every time a host becomes more successful. A growing hospitality business should have more capital available to improve guest experiences, hire better people and expand into another property - not less. That's why our recharge-based model is designed to keep platform costs predictable, allowing hosts to retain more of what they earn and reinvest it where it creates the greatest impact.
         </p>
         <p>
           The difference isn't just financial. Better margins create better businesses. When more of your earnings stay with you, every business decision becomes easier. Hiring a dedicated caretaker no longer feels like an unnecessary expense. Replacing ageing furniture before guests complain becomes a planned investment instead of a delayed decision. Even expanding into a second property starts looking far more achievable because the business is generating capital instead of constantly giving away a percentage of every successful booking.
@@ -151,7 +151,7 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           That shift in thinking also changes how you evaluate success. A fully booked calendar certainly feels rewarding, but it doesn't tell the whole story. A healthier business is one where guests recommend your property to friends, positive reviews arrive consistently, operations run smoothly without constant supervision and enough profit remains to improve the property year after year.
         </p>
         <p>
-          The same principle applies when choosing the businesses you work with. Every partner should help you move closer to those goals. Whether it's a housekeeping agency, a property management company, a payment provider or the booking platform itself, each decision should make the business easier to operate—not introduce another recurring challenge that slows growth.
+          The same principle applies when choosing the businesses you work with. Every partner should help you move closer to those goals. Whether it's a housekeeping agency, a property management company, a payment provider or the booking platform itself, each decision should make the business easier to operate - not introduce another recurring challenge that slows growth.
         </p>
         <p>
           That's one of the beliefs we've carried into Wayzyy from the beginning. We never wanted to build a platform that simply helped hosts receive bookings. We wanted to build one that genuinely supports the business behind those bookings. That means keeping pricing predictable, creating stronger trust between guests and hosts, reducing unnecessary friction during the booking journey and giving property owners more freedom to reinvest in hospitality instead of watching recurring platform costs grow alongside their success.
@@ -163,7 +163,7 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           Don't measure your progress by the number of properties you own. Measure it by the quality of the business you're building.
         </p>
         <p>
-          The hosts who continue improving their systems, protecting their margins and investing in better hospitality are usually the ones who still enjoy running their business years later. More often than not, they're also the ones who eventually expand—not because growth was their only objective, but because they built a business that was ready for it.
+          The hosts who continue improving their systems, protecting their margins and investing in better hospitality are usually the ones who still enjoy running their business years later. More often than not, they're also the ones who eventually expand - not because growth was their only objective, but because they built a business that was ready for it.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Building the Future of Hospitality Starts With Better Decisions Today</h2>
@@ -187,10 +187,10 @@ export default function WhyRentalBusinessesNeverScaleBeyondOneProperty() {
           Whether you're preparing your first vacation rental or planning to expand into your fifth property, remember that growth isn't measured by the number of listings you own. It's measured by the strength of the business you've built behind them. Bookings will always come and go. Tourism trends will continue changing. New platforms will enter the market.
         </p>
         <p>
-          The businesses that continue succeeding through all of those changes are usually the ones built on strong fundamentals—great hospitality, healthy margins, dependable systems and partners that grow alongside them instead of becoming more expensive every time they succeed.
+          The businesses that continue succeeding through all of those changes are usually the ones built on strong fundamentals - great hospitality, healthy margins, dependable systems and partners that grow alongside them instead of becoming more expensive every time they succeed.
         </p>
         <p>
-          That's the future we believe in. And that's the kind of hospitality ecosystem we're building at Wayzyy—one where hosts aren't just creating listings, they're building businesses that guests trust, recommend and return to for years to come.
+          That's the future we believe in. And that's the kind of hospitality ecosystem we're building at Wayzyy - one where hosts aren't just creating listings, they're building businesses that guests trust, recommend and return to for years to come.
         </p>
         <InlineCalculator />
 

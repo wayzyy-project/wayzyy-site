@@ -41,7 +41,7 @@ export default function GoaGlobeScene() {
   const { ref: containerRef, size } = useElementSize<HTMLDivElement>();
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
 
-  // Real country boundaries — converted once from Natural Earth topojson.
+  // Real country boundaries - converted once from Natural Earth topojson.
   const countries = useMemo<CountryFeature[]>(() => {
     const geo = topojson.feature(
       worldTopo as any,

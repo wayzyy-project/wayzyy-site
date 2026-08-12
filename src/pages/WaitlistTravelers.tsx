@@ -11,12 +11,12 @@ import { CinematicBackgroundMedia } from "@/components/waitlist-travelers/Cinema
 import { mp } from "@/lib/mixpanel";
 
 /**
- * Dedicated traveler-waitlist landing — the "For Users" destination from
+ * Dedicated traveler-waitlist landing - the "For Users" destination from
  * the /waitlist chooser. Hosts already have a live portal (/host), so
  * this page exists purely to capture traveler emails ahead of launch.
  *
  * The email form below posts to the same /api/waitlist endpoint (and
- * fires the same mixpanel event) that the homepage's <Waitlist /> uses —
+ * fires the same mixpanel event) that the homepage's <Waitlist /> uses - 
  * it's a purpose-styled variant of that same submission logic, not a
  * disconnected/fake form, adapted for a fixed "traveler" audience and a
  * dark cinematic backdrop where the shared component's light-theme
@@ -54,7 +54,7 @@ export default function WaitlistTravelers() {
   return (
     <>
       <SEO
-        title="Traveler Waitlist — Wayzyy"
+        title="Traveler Waitlist - Wayzyy"
         description="Booking for travelers isn't open yet. Join the Wayzyy waitlist and be first in when Goa stays go live."
         path="/waitlist/travelers"
       />
@@ -66,14 +66,14 @@ export default function WaitlistTravelers() {
         <div className="relative z-10 w-full max-w-7xl px-6 pt-40 sm:pt-48 md:pt-56 flex flex-col items-center text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full liquid-glass px-3 py-1 text-xs uppercase tracking-[0.25em] text-white/80">
             <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-            Travelers — coming soon
+            Travelers - coming soon
           </div>
           <h1 className="font-display text-4xl leading-[1.05] text-white sm:text-6xl md:text-7xl text-balance max-w-4xl">
             Be first when{" "}
             <span className="italic text-ember">Goa opens up.</span>
           </h1>
           <p className="mt-5 max-w-xl text-pretty text-base text-white/70 sm:text-lg">
-            Hosting is already live. Booking isn't — yet. Join the list and
+            Hosting is already live. Booking isn't - yet. Join the list and
             we'll let you through the door before anyone else, with referral
             discounts for the first wave.
           </p>
@@ -111,7 +111,7 @@ export default function WaitlistTravelers() {
           )}
 
           <p className="mt-3 text-xs text-white/50">
-            No subscription required. Just an email — unsubscribe anytime.
+            No subscription required. Just an email - unsubscribe anytime.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ export default function WaitlistTravelers() {
                 </span>
               </Link>
               <p className="max-w-xs text-xs sm:text-sm text-white/60 leading-relaxed">
-                Cozy stays, crazy nights and fair hosting. That's Wayzyy —
+                Cozy stays, crazy nights and fair hosting. That's Wayzyy - 
                 homestays without the small print.
               </p>
             </div>

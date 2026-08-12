@@ -117,7 +117,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           It isn't.
         </p>
         <p>
-          Finding guests is only one part of running a successful Airbnb. Once someone checks in, you're responsible for everything that follows—from making sure the property is spotless and the Wi-Fi works to handling late-night calls, maintenance requests and reviews that can influence future bookings.
+          Finding guests is only one part of running a successful Airbnb. Once someone checks in, you're responsible for everything that follows - from making sure the property is spotless and the Wi-Fi works to handling late-night calls, maintenance requests and reviews that can influence future bookings.
         </p>
         <p>
           That's why an Airbnb should never be looked at as a side hustle that runs on its own. The hosts who build successful vacation rental businesses are usually the ones who treat it like any other business. They create systems, focus on hospitality and understand that every guest experience contributes to the reputation of their property.
@@ -135,7 +135,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           Instead of walking you through how to create an Airbnb listing in ten easy steps, we're going to focus on the decisions that actually determine whether your vacation rental becomes a profitable business. We'll cover choosing the right property, understanding your target guests, preparing your operations, avoiding the mistakes that catch most first-time hosts off guard and building a business that continues growing long after the excitement of the first booking wears off.
         </p>
         <p>
-          By the time you finish reading, you'll have a much clearer picture of what it really takes to build a successful vacation rental business—not just how to publish a listing online.
+          By the time you finish reading, you'll have a much clearer picture of what it really takes to build a successful vacation rental business - not just how to publish a listing online.
         </p>
         <p>
           Because starting an Airbnb is easy.
@@ -165,7 +165,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           Others convert a family-owned property or holiday home into a vacation rental.
         </p>
         <p>
-          A growing number of entrepreneurs also build successful businesses by leasing properties from owners through long-term agreements and operating them as short-term rentals—a model commonly known as rental arbitrage. While this approach requires lower upfront investment, it also demands careful planning, clear agreements with the property owner and a thorough understanding of local regulations before welcoming guests.
+          A growing number of entrepreneurs also build successful businesses by leasing properties from owners through long-term agreements and operating them as short-term rentals - a model commonly known as rental arbitrage. While this approach requires lower upfront investment, it also demands careful planning, clear agreements with the property owner and a thorough understanding of local regulations before welcoming guests.
         </p>
         <p>
           There's no universally right approach.
@@ -198,7 +198,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           Excitement often pushes new hosts to create a listing as quickly as possible.
         </p>
         <p>
-          The sooner the property goes live, the sooner bookings can start coming in—or at least that's how most people think. In reality, spending a few extra weeks building a strong foundation usually saves months of stress once guests begin arriving.
+          The sooner the property goes live, the sooner bookings can start coming in - or at least that's how most people think. In reality, spending a few extra weeks building a strong foundation usually saves months of stress once guests begin arriving.
         </p>
         <p>
           One of the first things to sort out is the legal side of the business.
@@ -214,7 +214,7 @@ export default function HowToStartAirbnbBusinessIndia() {
             <a href="/goa-host-compliance-checklist" className="text-ember hover:underline">
               Goa Host Compliance Checklist
             </a>{" "}
-            covering exactly which documents, fees, and government registrations you need before going live —
+            covering exactly which documents, fees, and government registrations you need before going live - 
             and what actually gets listings rejected beyond the paperwork.
           </p>
         </div>
@@ -226,7 +226,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           Most people calculate how much they <em>can</em> earn, but very few calculate how much they'll actually keep. Furnishing the property is only the beginning. Every booking brings recurring costs like housekeeping, laundry, electricity, internet, maintenance, guest amenities and staff. Those expenses continue whether you're managing one booking a month or a fully occupied calendar.
         </p>
         <p>
-          Then comes the cost that many first-time hosts don't think about until much later—the platform itself.
+          Then comes the cost that many first-time hosts don't think about until much later - the platform itself.
         </p>
         <p>
           Imagine you've listed your property for <strong className="text-foreground">₹5,000 per night</strong>. A booking comes in and everything feels great until you realise that if you're paying around <strong className="text-foreground">16%</strong> in platform fees, roughly <strong className="text-foreground">₹800</strong> from that booking is already gone. You haven't paid your cleaner yet. Your caretaker still needs to be paid. Electricity, laundry and maintenance are still waiting. Now imagine that happening on every reservation throughout the year.
@@ -238,7 +238,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           They also compare them based on what the business looks like after all the costs have been deducted.
         </p>
         <p>
-          This is one of the reasons Wayzyy follows a different approach. Instead of taking a large percentage from every successful reservation, the platform works on a recharge-based credit model. If your property generates around <strong className="text-foreground">₹1 lakh</strong> in bookings, you're looking at a recharge of roughly <strong className="text-foreground">₹2,200</strong> instead of losing <strong className="text-foreground">₹16,000 or more</strong> in recurring commissions. That difference doesn't just improve profitability—it gives you the flexibility to hire better staff, maintain the property properly and continue investing in the guest experience rather than watching a larger percentage disappear every time your business grows.
+          This is one of the reasons Wayzyy follows a different approach. Instead of taking a large percentage from every successful reservation, the platform works on a recharge-based credit model. If your property generates around <strong className="text-foreground">₹1 lakh</strong> in bookings, you're looking at a recharge of roughly <strong className="text-foreground">₹2,200</strong> instead of losing <strong className="text-foreground">₹16,000 or more</strong> in recurring commissions. That difference doesn't just improve profitability - it gives you the flexibility to hire better staff, maintain the property properly and continue investing in the guest experience rather than watching a larger percentage disappear every time your business grows.
         </p>
         
         <InlineCalculator />
@@ -276,7 +276,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           There's nothing wrong with that, but it's surprisingly easy to spend money in the wrong places.
         </p>
         <p>
-          Many first-time hosts invest heavily in expensive décor because it looks impressive in photographs. Meanwhile, the things guests actually remember—comfortable beds, spotless bathrooms, reliable Wi-Fi, a functional kitchen and smooth communication—receive far less attention.
+          Many first-time hosts invest heavily in expensive décor because it looks impressive in photographs. Meanwhile, the things guests actually remember - comfortable beds, spotless bathrooms, reliable Wi-Fi, a functional kitchen and smooth communication - receive far less attention.
         </p>
         <p>
           That's where the difference between a beautiful property and a successful hospitality business starts to show.
@@ -312,7 +312,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           Photography is another investment that pays for itself.
         </p>
         <p>
-          Professional photographs don't just make a property look attractive—they help guests understand exactly what they're booking. Accurate images build trust, reduce misunderstandings and generally attract guests whose expectations match the experience you're offering.
+          Professional photographs don't just make a property look attractive - they help guests understand exactly what they're booking. Accurate images build trust, reduce misunderstandings and generally attract guests whose expectations match the experience you're offering.
         </p>
         <p>
           One thing worth remembering is that preparing a property never truly ends.
@@ -525,16 +525,16 @@ export default function HowToStartAirbnbBusinessIndia() {
           Every few months, ask yourself a few simple questions.
         </p>
         <p className="pl-6 border-l border-border italic text-muted-foreground py-1">
-          - Which expenses are helping me deliver a better guest experience?<br />
-          - Which costs are simply reducing my profit without adding much value?<br />
-          - Is there a smarter way to operate the business?<br />
-          - Am I investing enough back into the property?
+         - Which expenses are helping me deliver a better guest experience?<br />
+         - Which costs are simply reducing my profit without adding much value?<br />
+         - Is there a smarter way to operate the business?<br />
+         - Am I investing enough back into the property?
         </p>
         <p>
           Questions like these help you make better decisions as the business grows.
         </p>
         <p>
-          One area where many hosts are now rethinking their approach is platform costs. As bookings increase, recurring commissions naturally become a larger expense, which is why more hosts are starting to evaluate alternatives that allow them to retain a greater share of their earnings. Money saved on recurring platform fees can often be redirected towards improvements that guests actually notice—better housekeeping, property upgrades, additional amenities or even expanding into another vacation rental.
+          One area where many hosts are now rethinking their approach is platform costs. As bookings increase, recurring commissions naturally become a larger expense, which is why more hosts are starting to evaluate alternatives that allow them to retain a greater share of their earnings. Money saved on recurring platform fees can often be redirected towards improvements that guests actually notice - better housekeeping, property upgrades, additional amenities or even expanding into another vacation rental.
         </p>
         <p>
           Building a successful Airbnb business isn't about avoiding every mistake.
@@ -597,7 +597,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           That's the philosophy behind Wayzyy.
         </p>
         <p>
-          We don't believe hosts should lose a significant percentage of every successful booking simply because their business is growing. Instead, we've built a platform around predictable pricing, stronger trust between hosts and guests and tools that help independent property owners focus on what matters most—creating memorable stays.
+          We don't believe hosts should lose a significant percentage of every successful booking simply because their business is growing. Instead, we've built a platform around predictable pricing, stronger trust between hosts and guests and tools that help independent property owners focus on what matters most - creating memorable stays.
         </p>
         <p>
           Whether you're planning to list your very first apartment, convert a family home into a vacation rental or build a portfolio of properties over the next few years, remember this.
@@ -622,7 +622,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           If you're unable to personally manage your property every day, having the right support system becomes essential. A reliable co-host, caretaker or property manager can ensure guests receive the same level of attention whether you're in the city or halfway across the world. Simple things like welcoming guests on time, resolving maintenance requests quickly and making sure the property is ready before every check-in build trust that no marketing campaign can ever replace.
         </p>
         <p>
-          At Wayzyy, we encourage hosts to think about hospitality as an ongoing relationship rather than a single transaction. A successful stay doesn't end when payment is completed—it ends when guests leave feeling confident enough to recommend your property to friends or return for their next holiday. That's the kind of trust every hospitality business should aim to build.
+          At Wayzyy, we encourage hosts to think about hospitality as an ongoing relationship rather than a single transaction. A successful stay doesn't end when payment is completed - it ends when guests leave feeling confident enough to recommend your property to friends or return for their next holiday. That's the kind of trust every hospitality business should aim to build.
         </p>
         <p>
           The same philosophy guides how we continue improving the platform. Verification helps guests book with greater confidence, but trust also comes from transparent communication, responsive support and ensuring hosts have the tools they need to deliver consistent experiences. Our goal has never been to become another marketplace filled with thousands of listings. We want to build a platform where quality, transparency and hospitality matter just as much as availability.
@@ -631,7 +631,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           When hosts focus on creating exceptional stays instead of simply chasing the next booking, everyone benefits. Guests receive the experience they were promised, hosts earn stronger reviews and repeat customers, and the business becomes easier to grow over time.
         </p>
         <p>
-          In our view, that's what the future of short-term rentals should look like—not a race to collect more listings, but an industry built around trust, consistency and genuine hospitality.
+          In our view, that's what the future of short-term rentals should look like - not a race to collect more listings, but an industry built around trust, consistency and genuine hospitality.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The Future of Short-Term Rentals Isn't More Listings. It's More Trust.</h2>
@@ -654,7 +654,7 @@ export default function HowToStartAirbnbBusinessIndia() {
           For guests, that means being able to book with greater confidence through initiatives like Wayzyy Verified, where manually reviewed properties provide an additional layer of trust before a reservation is made.
         </p>
         <p>
-          For hosts, it means having a platform that supports long-term business growth instead of becoming more expensive every time the business becomes more successful. Money saved on unnecessary recurring commissions can be invested where it creates the greatest impact—better housekeeping, improved amenities, reliable co-hosts, property upgrades and ultimately a better guest experience.
+          For hosts, it means having a platform that supports long-term business growth instead of becoming more expensive every time the business becomes more successful. Money saved on unnecessary recurring commissions can be invested where it creates the greatest impact - better housekeeping, improved amenities, reliable co-hosts, property upgrades and ultimately a better guest experience.
         </p>
         <p>
           Hospitality has never been about simply handing over the keys.

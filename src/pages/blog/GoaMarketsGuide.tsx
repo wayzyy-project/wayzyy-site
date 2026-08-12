@@ -121,7 +121,7 @@ export default function GoaMarketsGuide() {
           Many of Goa's most famous flea markets are seasonal rather than permanent. If you're visiting during the monsoon, chances are the Wednesday Anjuna Flea Market and the Saturday Night Market won't even be operating. During those months, municipal markets like Mapusa, Panjim and Margao become the places where both locals and travellers spend their time, making them far more rewarding than searching for attractions that simply aren't open.
         </p>
         <p>
-          By the time you've finished this guide, you'll know exactly where to shop, what to buy, which products are genuinely worth bringing home and which famous markets deserve a place on your itinerary—and which ones you can comfortably skip.
+          By the time you've finished this guide, you'll know exactly where to shop, what to buy, which products are genuinely worth bringing home and which famous markets deserve a place on your itinerary - and which ones you can comfortably skip.
         </p>
       </div>
 
@@ -142,12 +142,12 @@ export default function GoaMarketsGuide() {
         </p>
 
         {/* Cashews */}
-        <h3 className="font-display text-lg text-foreground mt-8">Cashews Are Worth Buying—Just Don't Buy the First Pack You See</h3>
+        <h3 className="font-display text-lg text-foreground mt-8">Cashews Are Worth Buying - Just Don't Buy the First Pack You See</h3>
         <p>
           Almost everyone returns from Goa with cashews. Unfortunately, many also end up paying far more than they need to.
         </p>
         <p>
-          Airport stores and souvenir shops usually stock neatly packaged boxes that are convenient to carry home, but they're often more expensive than the same quality available at local markets. If you're interested in bringing back premium cashews, markets like Mapusa give you the opportunity to compare different grades, taste before you buy and speak directly with the vendors about what's fresh. Your research also highlights the industry grading system—labels like W180 and W240 aren't marketing terms but genuine quality grades, with lower numbers indicating larger whole cashews.
+          Airport stores and souvenir shops usually stock neatly packaged boxes that are convenient to carry home, but they're often more expensive than the same quality available at local markets. If you're interested in bringing back premium cashews, markets like Mapusa give you the opportunity to compare different grades, taste before you buy and speak directly with the vendors about what's fresh. Your research also highlights the industry grading system - labels like W180 and W240 aren't marketing terms but genuine quality grades, with lower numbers indicating larger whole cashews.
         </p>
         <p>
           You don't need to become an expert overnight. Simply tasting a few varieties before making a decision usually leads to a much better purchase than grabbing the first sealed box you see.
@@ -180,7 +180,7 @@ export default function GoaMarketsGuide() {
           No product is more closely associated with Goa than feni.
         </p>
         <p>
-          At first glance it looks like just another local spirit, but there's far more to it than that. Feni is protected by a Geographical Indication (GI) tag, meaning authentic feni can only be produced in Goa. There are also two distinct varieties—cashew feni, which has a bold, fruity character, and coconut feni, a smoother and increasingly rare version made from fermented palm sap.
+          At first glance it looks like just another local spirit, but there's far more to it than that. Feni is protected by a Geographical Indication (GI) tag, meaning authentic feni can only be produced in Goa. There are also two distinct varieties - cashew feni, which has a bold, fruity character, and coconut feni, a smoother and increasingly rare version made from fermented palm sap.
         </p>
         <p>
           If you're buying a bottle as a gift, established local brands are an excellent choice. On the other hand, travellers looking for something more traditional often discover small producers selling limited batches through local markets and village stores. Talking to the vendor, asking where it was made and learning a little about the production process usually makes the purchase far more memorable than simply picking a bottle off a supermarket shelf.
@@ -273,7 +273,7 @@ export default function GoaMarketsGuide() {
           Shopping in Goa is much more relaxed than in many other tourist destinations, but a little preparation can make the experience noticeably better.
         </p>
         <p>
-          The first tip is surprisingly simple—visit early whenever you can. Markets like Mapusa are busiest around midday, while Anjuna becomes much more enjoyable during the morning or later in the afternoon when the heat begins to ease and crowds thin out. Starting early also gives you a better chance of browsing before the busiest hours and, if you're shopping for fresh produce or seafood, you'll have the widest selection available.
+          The first tip is surprisingly simple - visit early whenever you can. Markets like Mapusa are busiest around midday, while Anjuna becomes much more enjoyable during the morning or later in the afternoon when the heat begins to ease and crowds thin out. Starting early also gives you a better chance of browsing before the busiest hours and, if you're shopping for fresh produce or seafood, you'll have the widest selection available.
         </p>
         <p>
           Carrying a little cash is still a good idea even though UPI has become common across much of Goa. Larger shops and cafés usually accept digital payments without any issues, but smaller vendors, especially in local markets, often prefer cash for quicker transactions. Having both options means you won't need to skip something simply because of the payment method.

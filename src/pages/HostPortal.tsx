@@ -33,7 +33,7 @@ import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
 
-// Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx — keeps
+// Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx - keeps
 // listings consistent regardless of which platform a host submits from.
 const PLACE_TYPES = [
   { id: "villa", label: "Villa", icon: Home },
@@ -102,11 +102,12 @@ const emptyForm: ListingForm = {
 
 const WE_HANDLE = [
   { icon: FileText, label: "Listing review & approval", desc: "Every listing is checked before it goes live, so guests trust what they book." },
-  { icon: ShieldCheck, label: "Guest ID verification", desc: "DigiLocker/Aadhaar verification for every guest — you're never hosting unverified strangers." },
+  { icon: ShieldCheck, label: "Guest ID verification", desc: "DigiLocker/Aadhaar verification for every guest - you're never hosting unverified strangers." },
   { icon: Lock, label: "Secure payments & fast payouts", desc: "Guest payments run through Razorpay; payouts land in your account within 24 hours of check-in." },
   { icon: MessageCircle, label: "In-app messaging", desc: "One clean inbox for every guest conversation and booking request." },
   { icon: CalendarSync, label: "Two-way iCal calendar sync", desc: "Connect existing calendars to eliminate double bookings across platforms automatically." },
-  { icon: Headset, label: "Direct in-house host support", desc: "Reach our Indian team directly — no scripted bots or outsourced call centers reading scripts." },
+  { icon: Headset, label: "Direct in-house host support", desc: "Reach our Indian team directly - no scripted bots or outsourced call centers reading scripts." },
+  { icon: Camera, label: "Built-in dispute documentation", desc: "Check-in and check-out condition records are captured through the Wayzyy app around every stay, so damage or cleanliness disputes are backed by evidence, not he-said-she-said." },
 ];
 
 const YOU_PROVIDE = [
@@ -230,7 +231,7 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
         <div className="mb-6">
           <h2 className="font-display text-2xl font-semibold text-foreground">How Pricing & Credit Packs Work</h2>
           <p className="mt-1 text-sm text-muted-foreground max-w-2xl leading-relaxed">
-            Wayzyy never takes a percentage cut from your booking payout — you keep 100% of your listed nightly price. Instead of commission, hosts purchase prepaid credit packs that unlock booking volume. Your first listing receives a free credit pack to get started!
+            Wayzyy never takes a percentage cut from your booking payout - you keep 100% of your listed nightly price. Instead of commission, hosts purchase prepaid credit packs that unlock booking volume. Your first listing receives a free credit pack to get started!
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-4">
@@ -250,20 +251,20 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
         <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl bg-muted/20 p-3 rounded-xl border border-border/60">
           <RefreshCw className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
           <span>
-            <strong>Auto-extension safeguard:</strong> If a high-value booking exceeds your current credit pack headroom, we auto-extend it with the smallest tier needed so your listing never goes dark. That fee only comes out of that specific booking payout — never a surprise charge later.
+            <strong>Auto-extension safeguard:</strong> If a high-value booking exceeds your current credit pack headroom, we auto-extend it with the smallest tier needed so your listing never goes dark. That fee only comes out of that specific booking payout - never a surprise charge later.
           </span>
         </p>
         <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground max-w-2xl bg-muted/20 p-3 rounded-xl border border-border/60">
           <TrendingUp className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
           <span>
             <strong>Goa pricing swings more than most hosts price for:</strong> across Anjuna, Calangute, and Candolim,
-            December nightly rates run 45–60% above the June baseline — but even at that peak, occupancy tops out
+            December nightly rates run 45–60% above the June baseline - but even at that peak, occupancy tops out
             around 40–44%. Getting your seasonal pricing and cancellation policy right matters more here than in most markets.
           </span>
         </p>
       </section>
 
-      {/* Why We Built Wayzyy — Real Reddit Host Community Citations & Quotes */}
+      {/* Why We Built Wayzyy - Real Reddit Host Community Citations & Quotes */}
       <section className="space-y-6">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-ember/25 bg-ember/10 px-3 py-1 text-xs uppercase tracking-wider text-ember font-semibold mb-2">
@@ -306,7 +307,7 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
         </p>
         <div className="pt-2">
           <Button onClick={onGetStarted} size="lg" className="bg-ember text-white hover:bg-ember/90 px-8 py-3 rounded-xl font-medium">
-            Get started — create your host account
+            Get started - create your host account
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
@@ -350,7 +351,7 @@ function statusMeta(status: string) {
   return { label: status, className: "bg-muted text-muted-foreground" };
 }
 
-// The website's equivalent of the app's Host section listings screen — same
+// The website's equivalent of the app's Host section listings screen - same
 // `properties` table, same host_id, so a listing made on either platform
 // shows up here identically.
 function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string) => void }) {
@@ -390,7 +391,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         .eq("status", "pending");
       setPendingHostCount(count || 0);
     } else {
-      // Query every request row for this host — not just the most recent —
+      // Query every request row for this host - not just the most recent - 
       // since a re-request (e.g. "Resend Request Email") inserts a new
       // pending row without touching the earlier approved one. Ordering by
       // date and taking the top row can then show "pending" even after
@@ -816,7 +817,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   );
 }
 
-// Phone-shaped "what a guest would see" preview — updates live from the
+// Phone-shaped "what a guest would see" preview - updates live from the
 // wizard's in-progress state. Toggling it never navigates anywhere, so the
 // host stays on exactly the step they were on.
 function PhonePreview({ data, photos }: { data: ListingForm; photos: { file: File; preview: string }[] }) {
@@ -931,7 +932,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
 
   const removePhoto = (idx: number) => setPhotos((prev) => prev.filter((_, i) => i !== idx));
 
-  // Keep the per-bedroom breakdown in sync with the bedroom count field —
+  // Keep the per-bedroom breakdown in sync with the bedroom count field - 
   // grow with default rooms, shrink by dropping the last ones.
   useEffect(() => {
     const n = Math.max(0, parseInt(data.bedrooms || "0", 10) || 0);
@@ -970,7 +971,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
     data.sleepingArrangements[roomIdx]?.beds.find((b) => b.type === bedType)?.count ?? 0;
 
   // The first photo in the array is the cover shown everywhere (search
-  // cards, listing thumbnails) — same convention as the mobile app.
+  // cards, listing thumbnails) - same convention as the mobile app.
   const makeCover = (idx: number) =>
     setPhotos((prev) => {
       const next = [...prev];
@@ -980,7 +981,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
 
   const isGoa = data.state.trim().toLowerCase() === "goa";
 
-  // ── Location handling — mirrors the mobile app: detect current location,
+  // ── Location handling - mirrors the mobile app: detect current location,
   // or type a pincode, and the map pans + address fields fill in. Dragging
   // or clicking the pin re-runs the same reverse-geocode. ──────────────────
   const applyReverseGeocode = async (lat: number, lng: number) => {
@@ -995,7 +996,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
         pincode: result.pincode ?? prev.pincode,
       }));
     } catch {
-      // Reverse geocoding can fail independently of placing the pin — leave
+      // Reverse geocoding can fail independently of placing the pin - leave
       // address fields as-is so the host can still fill them manually.
     }
   };
@@ -1043,7 +1044,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
     );
   };
 
-  // ── Per-step validation — mirrors mobile's getStepError, so a host can't
+  // ── Per-step validation - mirrors mobile's getStepError, so a host can't
   // advance with something missing, and finds out exactly what's wrong. ────
   const stepError = (): string | null => {
     switch (step) {
@@ -1151,7 +1152,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
           const body = await (fnError as any).context?.json?.();
           if (body?.error) message = body.error;
         } catch {
-          // ignore — fall back to generic message
+          // ignore - fall back to generic message
         }
         throw new Error(message);
       }
@@ -1175,7 +1176,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
         <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-ember" />
         <h2 className="font-display text-2xl mb-2">Submitted for review</h2>
         <p className="text-sm text-muted-foreground">
-          You'll get a confirmation email shortly, and another once our team approves your listing —
+          You'll get a confirmation email shortly, and another once our team approves your listing - 
           usually within 24 hours.
         </p>
         <Button onClick={onDone} variant="outline" className="mt-6">
@@ -1372,17 +1373,17 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">Weekday price (₹) — Sun–Thu</Label>
+              <Label htmlFor="price">Weekday price (₹) - Sun–Thu</Label>
               <Input id="price" type="number" min={100} max={1000000} value={data.price} onChange={(e) => set("price", e.target.value)} required />
             </div>
             <div>
-              <Label htmlFor="weekendPrice">Weekend price (₹) — Fri–Sat</Label>
+              <Label htmlFor="weekendPrice">Weekend price (₹) - Fri–Sat</Label>
               <Input
                 id="weekendPrice" type="number" min={100} max={1000000}
                 value={data.weekendPrice} onChange={(e) => set("weekendPrice", e.target.value)}
                 placeholder="Same as weekday"
               />
-              <p className="mt-1 text-xs text-muted-foreground">Optional — leave blank to use your weekday rate</p>
+              <p className="mt-1 text-xs text-muted-foreground">Optional - leave blank to use your weekday rate</p>
             </div>
           </div>
         </div>
@@ -1529,7 +1530,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             </label>
           ) : (
             <>
-              {/* Cover photo — large, above the grid, matching the mobile app */}
+              {/* Cover photo - large, above the grid, matching the mobile app */}
               <div className="relative">
                 <img src={photos[0].preview} alt="" className="h-56 w-full rounded-xl border border-ember object-cover sm:h-72" />
                 <span className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-ember px-2.5 py-1 text-xs font-medium text-white">
@@ -1626,7 +1627,7 @@ export default function HostPortal() {
   if (!user) {
     return (
       <SEO
-        title="Host Login — Wayzyy Host Portal"
+        title="Host Login - Wayzyy Host Portal"
         description="Log in or create your free host account to manage bookings, guests, pricing and payouts from the Wayzyy host dashboard."
         path="/host"
       >
@@ -1639,7 +1640,7 @@ export default function HostPortal() {
   return (
     <SEO
       title="Host on Wayzyy"
-      description="Manage your listings and list new properties on Wayzyy directly from the web — the same platform, database, and review process as the app."
+      description="Manage your listings and list new properties on Wayzyy directly from the web - the same platform, database, and review process as the app."
       path="/host"
     >
       <div className="min-h-screen relative text-foreground overflow-x-hidden bg-slate-950">
@@ -1674,7 +1675,7 @@ export default function HostPortal() {
               {view === "dashboard" ? "Your hosting" : "List your property"}
             </h1>
             <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-xl">
-              Same platform, same review process, same database as the Wayzyy app — host from
+              Same platform, same review process, same database as the Wayzyy app - host from
               wherever's easiest for you.
             </p>
           </div>

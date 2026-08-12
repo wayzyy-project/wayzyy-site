@@ -45,7 +45,7 @@ export function RequestImportAccessModal({
         // Silently skip if table schema differs
       }
 
-      // Only insert a new row if this host doesn't already have one —
+      // Only insert a new row if this host doesn't already have one - 
       // re-requesting used to always insert a fresh "pending" row, which
       // could outrank an already-"approved" row when the dashboard read
       // "most recent" instead of "any approved", making granted access
@@ -143,7 +143,7 @@ export function RequestImportAccessModal({
           </p>
           <div className="pt-1 flex items-center gap-2 text-[11px] text-muted-foreground font-medium">
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-            Protected feature — manual admin review required to grant API access.
+            Protected feature - manual admin review required to grant API access.
           </div>
         </div>
 

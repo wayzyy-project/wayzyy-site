@@ -47,7 +47,7 @@ const faqJsonLd = {
       "name": "Is Palolem better than Patnem?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Neither beach is objectively better—they simply offer different experiences. Palolem has more restaurants, nightlife and activities, making it ideal for first-time visitors. Patnem is quieter, more wellness-focused and popular with couples, yoga enthusiasts and long-stay travellers. Since they're so close to each other, many visitors explore both during the same trip."
+        "text": "Neither beach is objectively better - they simply offer different experiences. Palolem has more restaurants, nightlife and activities, making it ideal for first-time visitors. Patnem is quieter, more wellness-focused and popular with couples, yoga enthusiasts and long-stay travellers. Since they're so close to each other, many visitors explore both during the same trip."
       }
     },
     {
@@ -153,12 +153,12 @@ export default function PalolemBeachGuide() {
           <li>And how do you choose accommodation that matches the kind of holiday you're planning?</li>
         </ul>
         <p>
-          By the end of this guide, you should know not only whether <strong>Palolem Beach</strong> is the right destination for your trip—but also exactly how to experience it the right way.
+          By the end of this guide, you should know not only whether <strong>Palolem Beach</strong> is the right destination for your trip - but also exactly how to experience it the right way.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">What Palolem Beach Is Actually Like</h2>
         <p>
-          One of the biggest misconceptions about <strong>Palolem Beach</strong> is that it's either a party beach or a quiet beach. The truth is that it's both—depending on where you are and what time of day you visit.
+          One of the biggest misconceptions about <strong>Palolem Beach</strong> is that it's either a party beach or a quiet beach. The truth is that it's both - depending on where you are and what time of day you visit.
         </p>
         <p>
           Early mornings are surprisingly peaceful. As the sun rises over the coconut trees, you'll find people practising yoga on the sand, joggers following the shoreline and fishermen returning with their catch. The sea is usually calm, cafés begin setting up for breakfast and the beach feels worlds apart from the lively atmosphere it develops later in the day.
@@ -187,7 +187,7 @@ export default function PalolemBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Which Part of Palolem Should You Stay In?</h2>
         <p>
-          One of the biggest reasons travellers leave Palolem with completely different opinions is surprisingly simple—they stayed in different parts of the beach. Palolem may only stretch for around <strong>1.5 kilometres</strong>, but each section has its own personality. Choosing the right area often has a bigger impact on your trip than choosing the right hotel or villa.
+          One of the biggest reasons travellers leave Palolem with completely different opinions is surprisingly simple - they stayed in different parts of the beach. Palolem may only stretch for around <strong>1.5 kilometres</strong>, but each section has its own personality. Choosing the right area often has a bigger impact on your trip than choosing the right hotel or villa.
         </p>
 
         <h3 className="font-display text-xl text-foreground mt-6">The Northern End – Best for Families, Quiet Stays & Longer Holidays</h3>
@@ -233,7 +233,7 @@ export default function PalolemBeachGuide() {
           Start your morning with a walk along the shoreline before the crowds arrive. This is when Palolem is at its best. The sea is calm, fishermen head out for the day and many cafés begin serving breakfast with uninterrupted views of the bay. If you're visiting during the tourist season, it's also the ideal time for <strong>kayaking</strong>, when the water is usually at its calmest.
         </p>
         <p>
-          One of the most popular experiences is taking a <strong>boat trip to Butterfly Beach</strong>. These trips usually combine dolphin spotting with visits to nearby secluded beaches, making them one of the easiest ways to explore the coastline without driving yourself. It's worth remembering that dolphin sightings can never be guaranteed—they're wild animals, not tourist attractions—but many travellers still enjoy the boat ride for the coastal views alone.
+          One of the most popular experiences is taking a <strong>boat trip to Butterfly Beach</strong>. These trips usually combine dolphin spotting with visits to nearby secluded beaches, making them one of the easiest ways to explore the coastline without driving yourself. It's worth remembering that dolphin sightings can never be guaranteed - they're wild animals, not tourist attractions - but many travellers still enjoy the boat ride for the coastal views alone.
         </p>
         <p>
           Another experience many visitors look forward to is <strong>Monkey Island</strong>. Despite the name, it's not actually an island throughout the day. During <strong>low tide</strong>, you can walk across the rocky pathway from the northern end of Palolem. Once the tide rises, however, the path disappears beneath the water. Many first-time visitors don't realise this and either arrive too late or find themselves waiting for the tide to change before returning. Checking the tide timings before heading across is one of the simplest ways to avoid unnecessary frustration.
@@ -245,7 +245,7 @@ export default function PalolemBeachGuide() {
           As the day winds down, don't rush back to your accommodation immediately after sunset. Spend some time exploring the cafés and bars around the village. While Palolem isn't known for large nightclubs, it offers a much more laid-back evening scene with live music, beachfront dining and small venues where people gather long after the sun has disappeared. If you're looking for something livelier, places like <strong>9pm Bar & Cafe</strong> and <strong>Leopard Valley</strong> have largely become the area's preferred nightlife options, replacing recommendations that many older travel blogs still mention.
         </p>
         <p>
-          If you're staying for more than a couple of days, Palolem also works exceptionally well as a base for exploring the rest of South Goa. Patnem, Galgibaga, Agonda, Cola Beach and even Cotigao Wildlife Sanctuary are all close enough to visit as day trips before returning to Palolem in the evening. That's one of the biggest advantages of staying here—you get the convenience of a lively beach town while remaining within easy reach of some of Goa's quietest coastal destinations.
+          If you're staying for more than a couple of days, Palolem also works exceptionally well as a base for exploring the rest of South Goa. Patnem, Galgibaga, Agonda, Cola Beach and even Cotigao Wildlife Sanctuary are all close enough to visit as day trips before returning to Palolem in the evening. That's one of the biggest advantages of staying here - you get the convenience of a lively beach town while remaining within easy reach of some of Goa's quietest coastal destinations.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Where to Eat in Palolem: Cafés and Restaurants That Are Actually Worth Visiting</h2>
@@ -390,7 +390,7 @@ export default function PalolemBeachGuide() {
           If you're still deciding where to stay, that's exactly where choosing the right accommodation becomes important. Instead of selecting a property simply because it's closest to the beach, think about the experience you want. Families often prefer quieter villas away from the busiest cafés, couples usually enjoy boutique stays near Colomb Bay or Patnem, while larger groups benefit from spacious villas that provide easy access to multiple beaches.
         </p>
         <p>
-          At Wayzyy, we've designed our platform around helping travellers make those decisions more confidently. Rather than simply listing properties, verified homes go through a manual review process so guests can compare verified amenities, neighbourhoods and accommodation styles before booking. The goal isn't just to help you find a place to stay—it's to help you choose the part of South Goa that best matches the holiday you're planning.
+          At Wayzyy, we've designed our platform around helping travellers make those decisions more confidently. Rather than simply listing properties, verified homes go through a manual review process so guests can compare verified amenities, neighbourhoods and accommodation styles before booking. The goal isn't just to help you find a place to stay - it's to help you choose the part of South Goa that best matches the holiday you're planning.
         </p>
       </div>
 
@@ -428,7 +428,7 @@ export default function PalolemBeachGuide() {
       <div className="mt-12 space-y-6">
         <h2 className="font-display text-2xl text-foreground">Final Thoughts</h2>
         <p>
-          Palolem has earned its reputation as one of Goa's most loved beaches—not because it's the quietest or the busiest, but because it offers the best balance of both.
+          Palolem has earned its reputation as one of Goa's most loved beaches - not because it's the quietest or the busiest, but because it offers the best balance of both.
         </p>
         <p>
           Whether you're planning your first trip to Goa, a family vacation, a workation or a relaxed getaway with friends, Palolem gives you easy access to some of South Goa's most beautiful destinations while providing enough cafés, restaurants and accommodation options to make it a comfortable base for exploring the region.

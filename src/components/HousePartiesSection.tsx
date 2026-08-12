@@ -46,7 +46,7 @@ export function HousePartiesSection() {
 
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-pretty text-base text-muted-foreground sm:text-lg">
-              Find your perfect Wayzyy, lock in your venue, and manage guests, payments, and headcount — all on one platform. You handle the vibe. We handle the rest.
+              Find your perfect Wayzyy, lock in your venue, and manage guests, payments, and headcount - all on one platform. You handle the vibe. We handle the rest.
             </p>
           </Reveal>
 
@@ -75,7 +75,7 @@ export function HousePartiesSection() {
 
           <Reveal delay={0.18}>
             <div className="mt-10 rounded-2xl border border-ember/20 bg-ember/5 p-6 text-sm text-muted-foreground">
-              Secure your Wayzyy. Count your people. Collect payments. Stay protected. All under one roof —{" "}
+              Secure your Wayzyy. Count your people. Collect payments. Stay protected. All under one roof - {" "}
               <span className="text-foreground font-medium">no spreadsheets, no group chats, no chaos.</span>
             </div>
           </Reveal>

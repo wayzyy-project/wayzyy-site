@@ -115,7 +115,7 @@ export default function GoaTripBudgetGuide() {
         By the end of this guide, you'll have a realistic idea of how much to budget whether you're travelling for a
         weekend, planning a family vacation, spending a month working remotely, organising a startup offsite, or simply
         looking for the most affordable way to experience Goa without missing out on what makes it special. Because the goal
-        isn't to spend the least—it's to spend wisely.
+        isn't to spend the least - it's to spend wisely.
       </p>
 
       <h2>What Actually Decides Your Goa Trip Budget?</h2>
@@ -148,7 +148,7 @@ export default function GoaTripBudgetGuide() {
         <a href="/blog/best-time-to-visit-goa">best time to visit Goa guide</a>.
       </p>
       <p>
-        Once you understand these four factors—season, accommodation, location and travel style—planning your budget becomes
+        Once you understand these four factors - season, accommodation, location and travel style - planning your budget becomes
         far less confusing.
       </p>
 
@@ -183,7 +183,7 @@ export default function GoaTripBudgetGuide() {
       </p>
       <p>
         That's one of the biggest reasons villa stays have become so popular over the last few years. You're not only paying
-        for a place to sleep—you're paying for the experience of spending time together.
+        for a place to sleep - you're paying for the experience of spending time together.
       </p>
       <p>
         For larger groups, villas generally start around <strong>₹8,000–₹12,000 per night</strong> during quieter months,
@@ -219,7 +219,7 @@ export default function GoaTripBudgetGuide() {
         booking through a platform with transparent pricing, accommodation often becomes far more affordable than expected.
       </p>
 
-      <h2>Transport Costs — Budget Around ₹500–₹1,500 Per Day</h2>
+      <h2>Transport Costs - Budget Around ₹500–₹1,500 Per Day</h2>
       <p>
         Getting around Goa doesn't have to be expensive, but your transport budget will depend entirely on how you plan to
         explore the state.
@@ -294,7 +294,7 @@ export default function GoaTripBudgetGuide() {
       <p>
         Nightlife is another area where your spending can vary dramatically. Some travellers are perfectly happy spending an
         evening at a beach shack listening to live music with a couple of drinks, while others plan their trip around beach
-        clubs, music festivals and nightlife. Neither approach is right or wrong—it simply depends on the experience you're
+        clubs, music festivals and nightlife. Neither approach is right or wrong - it simply depends on the experience you're
         looking for. If nightlife is a big part of your trip, it's a good idea to set aside a separate budget rather than
         letting it eat into the rest of your expenses.
       </p>
@@ -430,11 +430,11 @@ export default function GoaTripBudgetGuide() {
       </p>
       <p>
         Those decisions can easily save far more than cutting back on coffees or skipping an activity during the trip.
-        Budgeting isn't really about spending less—it's about spending smarter. Once you understand where your money
-        actually goes, planning a Goa trip becomes far less stressful—and far more enjoyable.
+        Budgeting isn't really about spending less - it's about spending smarter. Once you understand where your money
+        actually goes, planning a Goa trip becomes far less stressful - and far more enjoyable.
       </p>
       <p>
-        <strong>The single biggest lever on your accommodation budget is which platform you book through</strong> —
+        <strong>The single biggest lever on your accommodation budget is which platform you book through</strong> - 
         commission-charging platforms like Airbnb (15.5% host fee) and MakeMyTrip (up to 21%) build that cost into
         the nightly rate, while no-commission models like Wayzyy's prepaid credit system don't add that layer at all.
       </p>
@@ -452,7 +452,7 @@ export default function GoaTripBudgetGuide() {
       <h3>Is Goa actually expensive?</h3>
       <p>
         Not necessarily. Goa has become more premium over the years, but it also offers options for almost every budget.
-        It's entirely possible to spend ₹800 on a day's food or ₹4,000—it depends on where you choose to eat. The same applies
+        It's entirely possible to spend ₹800 on a day's food or ₹4,000 - it depends on where you choose to eat. The same applies
         to accommodation, transport and activities. The destination hasn't become expensive; travellers simply have far more
         choices than they did a few years ago.
       </p>
@@ -489,7 +489,7 @@ export default function GoaTripBudgetGuide() {
         That's also one of the ideas behind <strong>Wayzyy</strong>. We're building a host-first marketplace that makes
         finding the right villa simpler and pricing more transparent. Instead of charging hosts a commission on every
         booking, Wayzyy follows a straightforward credit-based model that gives hosts greater flexibility in how they price
-        their properties. The goal isn't to advertise the cheapest stay on the internet—it's to help travellers discover
+        their properties. The goal isn't to advertise the cheapest stay on the internet - it's to help travellers discover
         verified villas that offer genuine value for the kind of trip they're planning, whether that's a weekend with
         friends, a family holiday, a month-long workation or a startup retreat.
       </p>
@@ -502,7 +502,7 @@ export default function GoaTripBudgetGuide() {
         <a href="/blog/goa-scooter-rental-guide">renting a scooter in Goa</a>.
       </p>
       <p>
-        Together, these guides are designed to answer the questions we wish someone had answered before our own trips—and
+        Together, these guides are designed to answer the questions we wish someone had answered before our own trips - and
         we're only getting started.
       </p>
       <p>
@@ -518,10 +518,10 @@ export default function GoaTripBudgetGuide() {
             <a href="/blog/best-airbnb-alternatives-goa">5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)</a>
           </li>
           <li>
-            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms — The Fee Breakdown</a>
+            <a href="/blog/why-villas-goa-different-prices-platforms">Why Villas in Goa Cost Different Prices on Different Platforms - The Fee Breakdown</a>
           </li>
           <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa - The Complete Guide for Every Vibe</a>
           </li>
         </ul>
       </div>

@@ -13,14 +13,14 @@ import { ImageComparison, ImageComparisonBase, ImageComparisonImage } from "@/co
 import { Tilt } from "@/components/core/tilt";
 import { blogPosts } from "@/lib/blogPosts";
 
-import hostBg1 from "@/assets/goa-cinematic/sunset-host.webp"; // login — sunset
-import hostBg2 from "@/assets/goa-cinematic/sunrise-host.webp"; // signup — sunrise
+import hostBg1 from "@/assets/goa-cinematic/sunset-host.webp"; // login - sunset
+import hostBg2 from "@/assets/goa-cinematic/sunrise-host.webp"; // signup - sunrise
 
 type ViewState = "landing" | "login" | "signup";
 
-// Latest published post — used on the login view.
+// Latest published post - used on the login view.
 const latestPost = blogPosts[blogPosts.length - 1];
-// A host-economics-focused post — used on the signup view.
+// A host-economics-focused post - used on the signup view.
 const hostFocusedPost =
   blogPosts.find((p) => p.slug === "how-much-can-you-earn-vacation-rental-goa") ?? blogPosts[0];
 
@@ -121,13 +121,13 @@ export function HostAuthExperience() {
 
       <div className="fixed inset-0 z-50 overflow-hidden font-sans select-none bg-white">
         <div className="relative flex h-full w-full">
-          {/* ══════════════════ Background image panel (wipe-transitions between bg1/bg2) — full-bleed ══════════════════ */}
+          {/* ══════════════════ Background image panel (wipe-transitions between bg1/bg2) - full-bleed ══════════════════ */}
           <div className="absolute inset-0">
             <ImageComparison value={view === "signup" ? "signup" : "login"} className="h-full w-full" duration={0.65}>
-              <ImageComparisonBase src={hostBg1} alt="Wayzyy host — Goa coastline at sunset" />
+              <ImageComparisonBase src={hostBg1} alt="Wayzyy host - Goa coastline at sunset" />
               <ImageComparisonImage
                 src={hostBg2}
-                alt="Wayzyy host — Goa coastline at sunrise"
+                alt="Wayzyy host - Goa coastline at sunrise"
                 showWhen="signup"
               />
             </ImageComparison>
@@ -385,7 +385,7 @@ export function HostAuthExperience() {
                 </div>
               )}
 
-              {/* ══════════════════ Bottom-left blog tilt card — fixed to the viewport so it's always fully visible ══════════════════ */}
+              {/* ══════════════════ Bottom-left blog tilt card - fixed to the viewport so it's always fully visible ══════════════════ */}
               {(view === "login" || view === "signup") && (
                 <div className="hidden md:block fixed bottom-6 left-6 z-20 w-56">
                   <AnimatePresence mode="wait">

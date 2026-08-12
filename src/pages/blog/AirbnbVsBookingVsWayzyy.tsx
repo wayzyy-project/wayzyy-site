@@ -69,7 +69,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           Choosing a booking platform isn't just about getting more bookings. It's about choosing a business model that still makes sense years after your first guest checks in.
         </p>
         <p>
-          If you've recently purchased a villa, holiday home or homestay—especially in a market like Goa—one of the first questions you'll probably ask is surprisingly simple.
+          If you've recently purchased a villa, holiday home or homestay - especially in a market like Goa - one of the first questions you'll probably ask is surprisingly simple.
         </p>
         <p>
           <strong>Where should I list my property?</strong>
@@ -99,13 +99,13 @@ export default function AirbnbVsBookingVsWayzyy() {
           Each platform solves a different problem.
         </p>
         <p>
-          Airbnb changed the way people think about short-term rentals by making unique homes discoverable across the world. Booking.com built one of the largest travel marketplaces and continues to dominate hotel bookings while expanding aggressively into vacation rentals. Wayzyy was created with a different objective altogether—to build a platform where independent hosts could retain more of what they earn while giving travellers access to high-quality stays with transparent pricing.
+          Airbnb changed the way people think about short-term rentals by making unique homes discoverable across the world. Booking.com built one of the largest travel marketplaces and continues to dominate hotel bookings while expanding aggressively into vacation rentals. Wayzyy was created with a different objective altogether - to build a platform where independent hosts could retain more of what they earn while giving travellers access to high-quality stays with transparent pricing.
         </p>
         <p>
           Comparing these platforms only on the number of bookings would miss the bigger picture. A better question is this: <strong>Which platform aligns with the kind of business you want to build?</strong>
         </p>
         <p>
-          That's exactly what we'll help you answer in this guide. Rather than declaring a single winner, we'll compare Airbnb, Booking.com and Wayzyy across the factors that matter most to property owners—from guest reach and platform fees to host experience, pricing philosophy and long-term sustainability.
+          That's exactly what we'll help you answer in this guide. Rather than declaring a single winner, we'll compare Airbnb, Booking.com and Wayzyy across the factors that matter most to property owners - from guest reach and platform fees to host experience, pricing philosophy and long-term sustainability.
         </p>
         <p>
           Because choosing a booking platform isn't about winning your first booking. It's about building a business that still feels rewarding after your hundredth.
@@ -143,7 +143,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           That's why choosing the right platform shouldn't start with a comparison table. It should begin with understanding your property. Once you know who your ideal guest is, comparing platforms becomes much easier because you'll be evaluating them against your own business goals rather than simply looking at which company has the biggest name.
         </p>
         <p>
-          That's exactly where most comparisons on the internet stop. We're going to take it one step further by looking at what actually matters once your listing goes live—how guests discover your property, how each platform earns money and, ultimately, how those decisions affect the profitability of your business over the years.
+          That's exactly where most comparisons on the internet stop. We're going to take it one step further by looking at what actually matters once your listing goes live - how guests discover your property, how each platform earns money and, ultimately, how those decisions affect the profitability of your business over the years.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Where Do Your Guests Actually Come From?</h2>
@@ -154,10 +154,10 @@ export default function AirbnbVsBookingVsWayzyy() {
           Different platforms attract different travel behaviours, and understanding those patterns helps you market your property much more effectively.
         </p>
         <p>
-          Airbnb has built its reputation around experiences. Many travellers visit Airbnb because they're specifically looking for something unique—a beachfront villa, a mountain cabin, a heritage home or a space that feels different from a traditional hotel. Guests booking through Airbnb are often comfortable staying in residential neighbourhoods and usually expect a more personal experience.
+          Airbnb has built its reputation around experiences. Many travellers visit Airbnb because they're specifically looking for something unique - a beachfront villa, a mountain cabin, a heritage home or a space that feels different from a traditional hotel. Guests booking through Airbnb are often comfortable staying in residential neighbourhoods and usually expect a more personal experience.
         </p>
         <p>
-          Booking.com serves a much broader audience. Business travellers, international tourists, families on road trips and even last-minute bookers regularly use the platform because they can compare hotels, apartments, resorts and vacation rentals in a single search. For many people, Booking.com isn't necessarily a vacation rental platform—it's simply where they begin planning any trip.
+          Booking.com serves a much broader audience. Business travellers, international tourists, families on road trips and even last-minute bookers regularly use the platform because they can compare hotels, apartments, resorts and vacation rentals in a single search. For many people, Booking.com isn't necessarily a vacation rental platform - it's simply where they begin planning any trip.
         </p>
         <p>
           Goa is slightly different. The majority of travellers aren't looking for just a room. They're looking for a holiday.
@@ -169,7 +169,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           Those expectations naturally align with homestays and private villas. That's one of the reasons Goa has seen such strong growth in the short-term rental market over the last few years. Instead of squeezing four or five people into separate hotel rooms, travellers increasingly prefer booking an entire home where they can cook together, relax together and enjoy the destination at their own pace.
         </p>
         <p>
-          That shift also influenced the way we approached Wayzyy. Rather than trying to become another platform for every type of accommodation imaginable, we decided to focus on what we understood best—quality vacation homes, villas and family-friendly stays. Our goal wasn't simply to increase the number of listings available. We wanted guests to discover properties where hospitality, comfort and transparency mattered just as much as location.
+          That shift also influenced the way we approached Wayzyy. Rather than trying to become another platform for every type of accommodation imaginable, we decided to focus on what we understood best - quality vacation homes, villas and family-friendly stays. Our goal wasn't simply to increase the number of listings available. We wanted guests to discover properties where hospitality, comfort and transparency mattered just as much as location.
         </p>
         <p>
           Of course, no single platform has a monopoly on good guests. Excellent travellers book through Airbnb every day. The same is true for Booking.com and every other marketplace. What changes is the intent behind the booking and the overall experience those platforms are designed to deliver.
@@ -189,7 +189,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           Airbnb primarily earns revenue by charging fees on bookings. Depending on the pricing structure, hosts and guests may both contribute towards the platform's revenue. In practice, many hosts find that the effective cost associated with a booking can range between <strong>16% and 24%</strong> once the overall fee structure is taken into account. That doesn't mean every reservation falls within the same percentage, but it does highlight why experienced operators pay close attention to their booking economics instead of looking only at occupancy.
         </p>
         <p>
-          Booking.com follows a different approach. Traditionally, hosts pay a commission on confirmed bookings while guests usually see a single final checkout price. Commission rates vary depending on location, agreements and visibility programmes, but the underlying principle remains similar—the platform earns a percentage whenever your property generates revenue.
+          Booking.com follows a different approach. Traditionally, hosts pay a commission on confirmed bookings while guests usually see a single final checkout price. Commission rates vary depending on location, agreements and visibility programmes, but the underlying principle remains similar - the platform earns a percentage whenever your property generates revenue.
         </p>
         <p>
           For many hosts, that model works perfectly well. After all, global distribution, payment infrastructure, customer support and traveller acquisition all cost money. Booking platforms create enormous value by connecting millions of travellers with accommodation providers across the world. Nobody expects those services to exist without a sustainable business model behind them.
@@ -207,7 +207,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           That observation shaped the way we approached Wayzyy. Rather than asking how much commission could be charged on every reservation, we started with a different question: <strong>What if hosts could keep more of the value they create?</strong>
         </p>
         <p>
-          Instead of relying on a traditional high-percentage commission model, Wayzyy was designed around predictable platform costs that allow property owners to retain a significantly larger share of their revenue over time. The idea wasn't to eliminate platform fees altogether—our goal was simply to create a model where successful hosts benefit the most from their own success rather than seeing platform costs rise in proportion to every booking.
+          Instead of relying on a traditional high-percentage commission model, Wayzyy was designed around predictable platform costs that allow property owners to retain a significantly larger share of their revenue over time. The idea wasn't to eliminate platform fees altogether - our goal was simply to create a model where successful hosts benefit the most from their own success rather than seeing platform costs rise in proportion to every booking.
         </p>
         <p>
           That difference becomes more meaningful as a property matures. During the first few months, the gap between different pricing models may not seem dramatic. Fast forward a few years, however, and the cumulative savings can often be redirected towards renovations, better amenities, additional staff, improved guest experiences or even expanding into a second property.
@@ -221,7 +221,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           By now, you've probably realised there isn't a single platform that's objectively better than every other option.
         </p>
         <p>
-          Each one was built with a different philosophy, attracts a different audience and supports hosts in different ways. That's why experienced operators don't simply ask which platform has the largest number of users—they ask which platform aligns with the kind of business they're trying to build.
+          Each one was built with a different philosophy, attracts a different audience and supports hosts in different ways. That's why experienced operators don't simply ask which platform has the largest number of users - they ask which platform aligns with the kind of business they're trying to build.
         </p>
         <p>
           To make the comparison easier, here's a high-level overview of where each platform performs best.
@@ -301,7 +301,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           That's one of the biggest reasons we decided to build Wayzyy around vacation rentals rather than trying to become everything for everyone.
         </p>
         <p>
-          Instead of filling the platform with every possible type of accommodation, we've focused on creating a marketplace where quality homes receive the attention they deserve and travellers can confidently book properties designed around comfort, hospitality and transparency. That philosophy naturally resonates with destinations like Goa, where many visitors aren't simply looking for a place to sleep—they're looking for a place to spend time together.
+          Instead of filling the platform with every possible type of accommodation, we've focused on creating a marketplace where quality homes receive the attention they deserve and travellers can confidently book properties designed around comfort, hospitality and transparency. That philosophy naturally resonates with destinations like Goa, where many visitors aren't simply looking for a place to sleep - they're looking for a place to spend time together.
         </p>
         <p>
           Of course, none of this means you should only list on one platform. In fact, we'd argue the opposite.
@@ -394,7 +394,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           Instead of creating another marketplace that earns a sizeable percentage from every reservation, we questioned whether there was a better way to support independent hosts. Most property owners already spend heavily on housekeeping, maintenance, caretakers, utilities and continuous upgrades. Watching another <strong className="text-foreground">15–16% or more</strong> disappear from every successful booking makes it much harder to reinvest in the business over time.
         </p>
         <p>
-          Our approach is different. Wayzyy works on a <strong className="text-ember">recharge-based credit model</strong>. Hosts purchase booking credits in advance, and as booking volume grows, the effective platform cost typically comes down to around <strong className="text-foreground">2–3%</strong> of the booking value rather than losing a large percentage on every reservation. Instead of increasing the platform's earnings every time your business grows, that difference allows more of your revenue to stay exactly where it belongs—with the host.
+          Our approach is different. Wayzyy works on a <strong className="text-ember">recharge-based credit model</strong>. Hosts purchase booking credits in advance, and as booking volume grows, the effective platform cost typically comes down to around <strong className="text-foreground">2–3%</strong> of the booking value rather than losing a large percentage on every reservation. Instead of increasing the platform's earnings every time your business grows, that difference allows more of your revenue to stay exactly where it belongs - with the host.
         </p>
         <p>
           Think about what those savings can do over the course of a year. Rather than paying higher recurring commissions, that money could fund a full-time caretaker, renovate a bedroom, upgrade your swimming pool, improve Wi-Fi, replace ageing furniture or simply create a financial buffer during the quieter months. Every improvement benefits the next guest, strengthens reviews and increases the long-term value of the property.
@@ -441,7 +441,7 @@ export default function AirbnbVsBookingVsWayzyy() {
           Airbnb deserves credit for transforming the way people travel. Booking.com has built one of the world's largest travel marketplaces and continues connecting millions of travellers with accommodation every single day.
         </p>
         <p>
-          Wayzyy isn't trying to erase what those platforms have built. We're trying to solve a different problem. Our mission is to help independent hosts—especially those managing villas, homestays and vacation rentals in destinations like Goa—build businesses that remain profitable, sustainable and rewarding for years to come.
+          Wayzyy isn't trying to erase what those platforms have built. We're trying to solve a different problem. Our mission is to help independent hosts - especially those managing villas, homestays and vacation rentals in destinations like Goa - build businesses that remain profitable, sustainable and rewarding for years to come.
         </p>
         <p>
           At the end of the day, the best platform isn't necessarily the one with the biggest brand or the highest number of listings: <strong>it's the one that helps you build the kind of hosting business you're proud to run five years from now.</strong>

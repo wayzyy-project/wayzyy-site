@@ -4,7 +4,7 @@ import { SEO } from "@/components/SEO";
 export default function PrivacyPolicy() {
   return (
     <SEO
-      title="Privacy Policy — Wayzyy"
+      title="Privacy Policy - Wayzyy"
       description="Wayzyy's Privacy Policy: how we collect, use, store, and protect your personal data, including Aadhaar/DigiLocker verification, under India's DPDP Act 2023."
       path="/privacy"
     >
@@ -84,16 +84,16 @@ export default function PrivacyPolicy() {
         <li>You retain the absolute right to withdraw consent for identity verification at any time by writing to <a href="mailto:privacy@wayzyy.com">privacy@wayzyy.com</a>. Because verification is a foundational platform requirement to maintain community safety, withdrawing verification consent will result in the immediate termination of your platform access and account deactivation.</li>
       </ul>
 
-      <h2>5. Legal Basis for Processing — Consent Framework</h2>
+      <h2>5. Legal Basis for Processing - Consent Framework</h2>
       <p>
         Under the DPDP Act, 2023, consent is the primary legal basis for processing personal data. Wayzyy relies on clear, affirmative consent for all data processing activities. We explicitly reject the use of broad, unilateral clauses such as &lsquo;legitimate interests&rsquo; to bypass user consent.
       </p>
       <p>Your consent on Wayzyy is strictly:</p>
       <ul>
-        <li><strong>Free</strong> — not bundled or made a condition for any basic service you are entitled to receive without it.</li>
-        <li><strong>Informed</strong> — presented clearly via an upfront itemized data notice specifying exactly what data is collected and why before processing begins.</li>
-        <li><strong>Specific</strong> — separately toggled for different operational features (e.g., standard hosting/booking vs. marketing opt-ins).</li>
-        <li><strong>Unambiguous</strong> — attained strictly via a clear, affirmative digital action (e.g., explicit opt-in confirmations), never via pre-ticked check-boxes or inferred from user silence.</li>
+        <li><strong>Free</strong> - not bundled or made a condition for any basic service you are entitled to receive without it.</li>
+        <li><strong>Informed</strong> - presented clearly via an upfront itemized data notice specifying exactly what data is collected and why before processing begins.</li>
+        <li><strong>Specific</strong> - separately toggled for different operational features (e.g., standard hosting/booking vs. marketing opt-ins).</li>
+        <li><strong>Unambiguous</strong> - attained strictly via a clear, affirmative digital action (e.g., explicit opt-in confirmations), never via pre-ticked check-boxes or inferred from user silence.</li>
       </ul>
       <p>
         You may withdraw consent for any processing purpose at any time by contacting <a href="mailto:privacy@wayzyy.com">privacy@wayzyy.com</a>. Withdrawal of consent does not impact the lawfulness of any data processing successfully completed before the timestamp of withdrawal.
@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
       <ul>
         <li>100% of data transmitted across the Platform is secured using industry-standard Transport Layer Security (TLS) encryption protocols.</li>
         <li>Financial details, tax inputs, and tokenized identity records are encrypted at rest using high-grade cryptographic algorithms.</li>
-        <li>Data access inside Wayzyy is governed by the Principle of Least Privilege — only authorized core security personnel can access specific fields under audited conditions.</li>
+        <li>Data access inside Wayzyy is governed by the Principle of Least Privilege - only authorized core security personnel can access specific fields under audited conditions.</li>
         <li>Continuous security monitoring, automated vulnerability scanning, and routine platform patches are executed natively.</li>
         <li>In strict alignment with the DPDP Rules and CERT-In guidelines, in the event of a suspected or confirmed data breach that impacts user records, Wayzyy will report the incident to the Data Protection Board of India (DPBI) and CERT-In within the statutory hours of discovery and notify all impacted users via direct digital communication without delay.</li>
       </ul>

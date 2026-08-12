@@ -160,7 +160,7 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
 
         <InlineCalculator />
 
-        <h2 className="font-display text-2xl text-foreground mt-8">Goa Isn't a 12-Month Business—And That's Completely Normal</h2>
+        <h2 className="font-display text-2xl text-foreground mt-8">Goa Isn't a 12-Month Business - And That's Completely Normal</h2>
         
         <p>
           One of the biggest surprises for first-time hosts is discovering that Goa doesn't behave like a typical rental market.
@@ -241,7 +241,7 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
           In other cases, it was spending too much on features guests barely noticed.
         </p>
         <p>
-          Quite often, though, the biggest mistakes weren't about hospitality at all—they were about business.
+          Quite often, though, the biggest mistakes weren't about hospitality at all - they were about business.
         </p>
         <p>
           The first mistake is focusing entirely on occupancy.
@@ -316,7 +316,7 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
           A successful hospitality business isn't built by maximising revenue alone.
         </p>
         <p>
-          Healthy cash flow, consistent guest experiences and smart long-term decisions are what separate properties that thrive for years from those that struggle after the initial excitement wears off. Every improvement you make—whether it's upgrading a bedroom, hiring a better caretaker or investing in professional photography—depends on one thing: having enough profit left to reinvest back into the business.
+          Healthy cash flow, consistent guest experiences and smart long-term decisions are what separate properties that thrive for years from those that struggle after the initial excitement wears off. Every improvement you make - whether it's upgrading a bedroom, hiring a better caretaker or investing in professional photography - depends on one thing: having enough profit left to reinvest back into the business.
         </p>
         <p>
           That's why understanding your costs is just as important as understanding your bookings.
@@ -340,13 +340,13 @@ export default function HowMuchCanYouEarnVacationRentalGoa() {
           Our goal with Wayzyy has never been to dismiss that contribution.
         </p>
         <p>
-          We simply believe independent hosts deserve another option—one designed around healthier unit economics, transparent pricing and a business model that allows owners to retain more of what they earn. Rather than charging a large percentage on every successful booking, we built a recharge-based credit system that keeps platform costs predictable, allowing hosts to invest those savings where they matter most: improving the guest experience.
+          We simply believe independent hosts deserve another option - one designed around healthier unit economics, transparent pricing and a business model that allows owners to retain more of what they earn. Rather than charging a large percentage on every successful booking, we built a recharge-based credit system that keeps platform costs predictable, allowing hosts to invest those savings where they matter most: improving the guest experience.
         </p>
         <p>
           That difference becomes especially meaningful in destinations like Goa.
         </p>
         <p>
-          Families booking a villa aren't just paying for a place to sleep. They're choosing a home where grandparents, parents and children can spend time together, cook meals in the kitchen, relax by the pool and create memories that wouldn't be possible inside a standard hotel room. Helping hosts deliver those experiences requires more than a booking engine—it requires a platform that understands hospitality from both sides.
+          Families booking a villa aren't just paying for a place to sleep. They're choosing a home where grandparents, parents and children can spend time together, cook meals in the kitchen, relax by the pool and create memories that wouldn't be possible inside a standard hotel room. Helping hosts deliver those experiences requires more than a booking engine - it requires a platform that understands hospitality from both sides.
         </p>
         <p>
           Ultimately, no platform can guarantee success.

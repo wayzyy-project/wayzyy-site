@@ -75,7 +75,7 @@ export default function GoaScooterRentalGuide() {
       <p>
         Goa is one of those places that's best explored without a fixed itinerary. One moment you're sitting at a café in
         Assagao, the next you're watching the sunset at Vagator, and an hour later you somehow end up finding a quiet
-        beach that wasn't even on your list. That kind of flexibility is difficult—and often expensive—if you're depending
+        beach that wasn't even on your list. That kind of flexibility is difficult - and often expensive - if you're depending
         on taxis for every short ride.
       </p>
       <p>
@@ -107,7 +107,7 @@ export default function GoaScooterRentalGuide() {
       </p>
       <p>
         At <strong>Wayzyy</strong>, we focus on verified villa stays with transparent pricing and trusted local
-        recommendations—from workation-friendly homes with fast Wi-Fi to reliable scooter rentals. The goal is to spend
+        recommendations - from workation-friendly homes with fast Wi-Fi to reliable scooter rentals. The goal is to spend
         less time coordinating logistics and more time enjoying your trip.
       </p>
       <p>
@@ -121,8 +121,8 @@ export default function GoaScooterRentalGuide() {
         be <strong>no</strong>.
       </p>
       <p>
-        But if you're staying for more than two or three days—whether that's a family vacation, a{" "}
-        <a href="/blog/workation-goa-guide">workation in Goa</a>, or a villa stay with friends—a scooter is one of the best
+        But if you're staying for more than two or three days - whether that's a family vacation, a{" "}
+        <a href="/blog/workation-goa-guide">workation in Goa</a>, or a villa stay with friends - a scooter is one of the best
         decisions you can make.
       </p>
       <p>
@@ -150,7 +150,7 @@ export default function GoaScooterRentalGuide() {
       </blockquote>
       <p>
         While the exact numbers depend on the season and where you're staying, scooters usually become the more economical
-        option surprisingly quickly—especially if you're planning to explore beyond one neighbourhood.
+        option surprisingly quickly - especially if you're planning to explore beyond one neighbourhood.
       </p>
       <p>
         Of course, two-wheelers are not for everyone. If you're travelling with family, carrying heavy luggage, or are not
@@ -183,7 +183,7 @@ export default function GoaScooterRentalGuide() {
         many rental providers offer better pricing for longer durations compared to single-day rentals.
       </p>
       <p>
-        If you're planning a longer stay—especially for a workation or while staying in a villa—you'll probably end up
+        If you're planning a longer stay - especially for a workation or while staying in a villa - you'll probably end up
         using the scooter for much more than sightseeing. Grocery runs, cafés, coworking spaces, beaches, local markets,
         and evening dinners all become much easier when transport is available whenever you need it.
       </p>
@@ -206,7 +206,7 @@ export default function GoaScooterRentalGuide() {
       </p>
       <p>So, what's actually happening?</p>
       <p>
-        The truth is that scooter rental prices in Goa depend on several factors—the time of the year, the location you're
+        The truth is that scooter rental prices in Goa depend on several factors - the time of the year, the location you're
         renting from, the type of scooter, how long you're renting it for, and even how busy that particular week is.
       </p>
       <p>
@@ -298,7 +298,7 @@ export default function GoaScooterRentalGuide() {
 
       <h3>Are There Any Hidden Charges?</h3>
       <p>This is another question travellers ask frequently.</p>
-      <p>The answer is—sometimes.</p>
+      <p>The answer is - sometimes.</p>
       <p>Before confirming your booking, make sure you understand:</p>
       <ul>
         <li>Is petrol included, or do you need to refill it before returning?</li>
@@ -360,7 +360,7 @@ export default function GoaScooterRentalGuide() {
         It gives you the chance to compare prices before your trip, reserve a scooter during busy seasons, and avoid the
         uncertainty of searching after you land.
       </p>
-      <p>At the same time, local rentals still have one big advantage—you get to see exactly what you're renting.</p>
+      <p>At the same time, local rentals still have one big advantage - you get to see exactly what you're renting.</p>
       <p>
         If you're booking online, don't choose a provider simply because they appear first on Google. Spend a couple of
         minutes reading recent Google Reviews, look through customer-uploaded photos instead of only promotional pictures,
@@ -379,8 +379,8 @@ export default function GoaScooterRentalGuide() {
       </p>
       <p>
         This is something we're also building into <strong>Wayzyy</strong>. Alongside verified villas and transparent
-        pricing, we're working towards connecting travellers with trusted local services recommended by hosts—from scooter
-        rentals and airport pickups to workation-friendly amenities—so guests spend less time searching after they arrive
+        pricing, we're working towards connecting travellers with trusted local services recommended by hosts - from scooter
+        rentals and airport pickups to workation-friendly amenities - so guests spend less time searching after they arrive
         and more time enjoying their stay.
       </p>
 
@@ -490,7 +490,7 @@ export default function GoaScooterRentalGuide() {
       <p>Having the right paperwork is only one part of renting a scooter.</p>
       <p>You're also riding in a city that may be completely unfamiliar to you.</p>
       <p>
-        Roads in Goa can change quickly—from busy tourist streets to narrow village lanes within a few minutes. You'll also
+        Roads in Goa can change quickly - from busy tourist streets to narrow village lanes within a few minutes. You'll also
         come across pedestrians, animals crossing the road, sharp turns and unfamiliar intersections.
       </p>
       <p>Take it easy during your first day.</p>
@@ -533,7 +533,7 @@ export default function GoaScooterRentalGuide() {
       <h2>Traffic Rules, Speed Cameras &amp; Common Mistakes Every Visitor Should Know</h2>
       <p>
         If you've been browsing Reddit or Goa travel communities recently, you've probably come across people talking about
-        one thing more than anything else—<strong>traffic fines.</strong>
+        one thing more than anything else - <strong>traffic fines.</strong>
       </p>
       <p>
         Several travellers have shared their experiences about seeing more automated speed cameras, increased police checks
@@ -545,7 +545,7 @@ export default function GoaScooterRentalGuide() {
         for everyone, especially during the busy tourist season when thousands of visitors are driving on unfamiliar roads
         every day.
       </p>
-      <p>The easiest way to avoid unnecessary fines is surprisingly simple—ride the same way you would if you were driving in your own city.</p>
+      <p>The easiest way to avoid unnecessary fines is surprisingly simple - ride the same way you would if you were driving in your own city.</p>
 
       <h3>Don't Assume Every Road Is a Tourist Road</h3>
       <p>One mistake many visitors make is assuming that every road in Goa is meant for sightseeing.</p>
@@ -575,7 +575,7 @@ export default function GoaScooterRentalGuide() {
       </p>
       <p>Even if the rental shop has already taken copies of your documents, you should still carry the documents required by law while riding.</p>
 
-      <h3>Wear the Helmet—Even for a Five-Minute Ride</h3>
+      <h3>Wear the Helmet - Even for a Five-Minute Ride</h3>
       <p>This probably sounds obvious, but it's worth repeating.</p>
       <p>Many people skip the helmet when they're riding just a short distance to a nearby café or beach.</p>
       <p>Don't.</p>
@@ -599,7 +599,7 @@ export default function GoaScooterRentalGuide() {
 
       <h3>Don't Drink and Ride</h3>
       <p>Goa has a vibrant nightlife, beach parties and some fantastic places to spend your evenings.</p>
-      <p>If you're planning to drink, leave the scooter where it is and book a taxi back. It's not worth risking your safety—or someone else's.</p>
+      <p>If you're planning to drink, leave the scooter where it is and book a taxi back. It's not worth risking your safety - or someone else's.</p>
       <p>
         The same goes for using your phone while riding, taking selfies on moving scooters or trying to navigate unfamiliar
         roads without stopping first. Pull over somewhere safe, check your route, and then continue.
@@ -608,7 +608,7 @@ export default function GoaScooterRentalGuide() {
       <h3>A Few Small Habits That Can Save You a Lot of Trouble</h3>
       <p>
         After talking to travellers and reading countless discussions online, the people who have the smoothest experience
-        usually follow a few simple habits—like keeping enough fuel instead of waiting until the last minute, avoiding
+        usually follow a few simple habits - like keeping enough fuel instead of waiting until the last minute, avoiding
         aggressive riding when the roads look empty, parking only where permitted, locking the scooter whenever it is left
         unattended, and most importantly, not rushing. Goa is best experienced slowly.
       </p>
@@ -625,7 +625,7 @@ export default function GoaScooterRentalGuide() {
         your surroundings, and treat the roads with the same care you would anywhere else.
       </p>
       <p>
-        A little caution goes a long way—and it means your memories of Goa will be about beautiful roads, sunsets and
+        A little caution goes a long way - and it means your memories of Goa will be about beautiful roads, sunsets and
         hidden beaches, not unexpected traffic fines.
       </p>
 
@@ -699,11 +699,11 @@ export default function GoaScooterRentalGuide() {
       <p>
         Wayzyy isn't another booking platform. We're creating a host-first marketplace that helps travellers discover
         verified villas and vacation homes with transparent pricing, while making it easier to coordinate the services you need
-        upon arrival—such as trusted local scooter rentals, airport transfers, and workation-ready setups.
+        upon arrival - such as trusted local scooter rentals, airport transfers, and workation-ready setups.
       </p>
       <p>
         Instead of spending your first afternoon comparing rental operators or worrying about Wi-Fi reliability, our goal is
-        to help you arrive with the essentials ready. Explore slowly, drive safely, and take your time—Goa is best experienced
+        to help you arrive with the essentials ready. Explore slowly, drive safely, and take your time - Goa is best experienced
         without a rush.
       </p>
 
@@ -711,10 +711,10 @@ export default function GoaScooterRentalGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa - The Complete Guide for Every Vibe</a>
           </li>
           <li>
             <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>

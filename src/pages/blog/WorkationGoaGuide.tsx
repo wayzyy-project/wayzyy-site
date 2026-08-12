@@ -24,7 +24,7 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "June to September (monsoon season) offers the lowest accommodation prices for a budget workation in Goa. March to May is the shoulder season sweet spot — quieter than peak season but with better weather than monsoon.",
+          "June to September (monsoon season) offers the lowest accommodation prices for a budget workation in Goa. March to May is the shoulder season sweet spot - quieter than peak season but with better weather than monsoon.",
       },
     },
     {
@@ -121,7 +121,7 @@ export default function WorkationGoaGuide() {
 
       <p>
         Most people planning to work remotely from Goa start by looking at beaches, cafes, and listings online. It feels
-        like the dream setup—swapping traffic and desk cubicles for warm mornings, pool dips, and evening ocean breezes.
+        like the dream setup - swapping traffic and desk cubicles for warm mornings, pool dips, and evening ocean breezes.
       </p>
       <p>
         But once you actually start planning, practical questions emerge: Is the internet good enough? Do I need a
@@ -130,7 +130,7 @@ export default function WorkationGoaGuide() {
       </p>
       <p>
         After speaking to remote workers, founders, and property hosts who make Goa their base, we put together the honest,
-        practical guide to planning a workation in Goa that travel blogs usually skip. And if you're wondering whether a workation in Goa actually fits your budget — we'll give you the real numbers, not the vague estimates.
+        practical guide to planning a workation in Goa that travel blogs usually skip. And if you're wondering whether a workation in Goa actually fits your budget - we'll give you the real numbers, not the vague estimates.
       </p>
 
       <h2>Do You Even Need a Coworking Space in Goa?</h2>
@@ -146,7 +146,7 @@ export default function WorkationGoaGuide() {
         meeting rooms, or simply want to meet other remote professionals.
       </p>
       <p>
-        That's one of the biggest advantages of a workation—you don't have to work from the same place every single day. A
+        That's one of the biggest advantages of a workation - you don't have to work from the same place every single day. A
         change in environment often helps you stay productive without feeling like you're living the exact same routine
         you left behind.
       </p>
@@ -158,7 +158,7 @@ export default function WorkationGoaGuide() {
       <h2>The Best Coworking Spaces in Goa</h2>
       <p>
         Goa's coworking ecosystem has grown significantly over the last few years. While it doesn't have the sheer number
-        of options you'll find in Bangalore or Mumbai, it has something those cities often don't—a much stronger sense of
+        of options you'll find in Bangalore or Mumbai, it has something those cities often don't - a much stronger sense of
         community.
       </p>
       <p>
@@ -266,7 +266,7 @@ export default function WorkationGoaGuide() {
       </blockquote>
       <p>
         That's exactly what we'll break down next. Instead of vague estimates, we'll look at realistic monthly budgets for
-        solo travellers, couples, startup founders and teams—including accommodation, food, scooter rentals, coworking
+        solo travellers, couples, startup founders and teams - including accommodation, food, scooter rentals, coworking
         memberships and the platform transaction costs.
       </p>
 
@@ -298,7 +298,7 @@ export default function WorkationGoaGuide() {
 
       <h3>Budget Workation in Goa: What to Realistically Expect</h3>
       <p>
-        If you're planning a budget workation in Goa, the good news is that it remains one of the most affordable remote-work destinations in India — but what &quot;budget&quot; actually means depends heavily on when you go and how long you stay. A solo remote worker planning a budget workation in Goa outside peak season can realistically manage a full month for between ₹40,000 and ₹55,000, which covers a comfortable studio or shared villa, daily meals, a scooter, fuel, and occasional café work sessions. That number climbs closer to ₹65,000–₹70,000 during October to February when accommodation costs rise with demand.
+        If you're planning a budget workation in Goa, the good news is that it remains one of the most affordable remote-work destinations in India - but what &quot;budget&quot; actually means depends heavily on when you go and how long you stay. A solo remote worker planning a budget workation in Goa outside peak season can realistically manage a full month for between ₹40,000 and ₹55,000, which covers a comfortable studio or shared villa, daily meals, a scooter, fuel, and occasional café work sessions. That number climbs closer to ₹65,000–₹70,000 during October to February when accommodation costs rise with demand.
       </p>
 
       <h3>Solo Remote Worker</h3>
@@ -323,13 +323,13 @@ export default function WorkationGoaGuide() {
       <p>This is where villas become especially interesting.</p>
       <p>
         Instead of booking five or six hotel rooms, many startups and creator communities now rent an entire villa
-        together. When the cost is split across multiple people, the price per person often ends up being comparable to—or
-        even lower than—staying in individual hotels.
+        together. When the cost is split across multiple people, the price per person often ends up being comparable to - or
+        even lower than - staying in individual hotels.
       </p>
       <p>
         Beyond the financial aspect, there's also the experience. Living under one roof naturally creates more
         opportunities for brainstorming, casual discussions and collaboration. Some of the best ideas don't happen during
-        scheduled meetings—they happen over breakfast, late-night conversations or while everyone is relaxing by the pool
+        scheduled meetings - they happen over breakfast, late-night conversations or while everyone is relaxing by the pool
         after work. It's one of the reasons founder retreats, AI residencies and creator houses have become increasingly
         popular in Goa over the last few years.
       </p>
@@ -355,7 +355,7 @@ export default function WorkationGoaGuide() {
       <p>
         You might find a property listed at one price, only to discover additional service fees, platform charges or taxes
         added just before payment. While taxes are unavoidable, the way booking platforms charge hosts and guests can vary
-        significantly—and that ultimately influences what you pay.
+        significantly - and that ultimately influences what you pay.
       </p>
 
       <h2>Why the Same Villa Can Have Different Prices</h2>
@@ -378,8 +378,8 @@ export default function WorkationGoaGuide() {
       <p>
         One example is <strong>Wayzyy</strong>, a newer Goa-focused marketplace built around this host-first approach.
         Instead of taking a commission on every reservation, hosts simply maintain a credit balance that covers bookings.
-        For travellers, the model isn't really about how the platform earns revenue—it's about the outcome. When hosts
-        keep more of what they earn, they have greater flexibility to offer fairer pricing for guests—especially those
+        For travellers, the model isn't really about how the platform earns revenue - it's about the outcome. When hosts
+        keep more of what they earn, they have greater flexibility to offer fairer pricing for guests - especially those
         booking longer stays.
       </p>
       <p>
@@ -394,7 +394,7 @@ export default function WorkationGoaGuide() {
 
       <h2>Can You Reduce Your Monthly Costs?</h2>
       <p>Absolutely.</p>
-      <p>The easiest way isn't necessarily finding the cheapest villa—it's booking smarter.</p>
+      <p>The easiest way isn't necessarily finding the cheapest villa - it's booking smarter.</p>
       <p>
         Travelling outside peak season, staying for longer than two weeks, comparing prices across multiple booking
         platforms, sharing a villa with friends or teammates, and choosing locations just outside the busiest tourist
@@ -433,7 +433,7 @@ export default function WorkationGoaGuide() {
         easier to settle into a daily routine.
       </p>
       <p>Then there's the monsoon.</p>
-      <p>At first glance, most people rule it out completely—but that's a mistake.</p>
+      <p>At first glance, most people rule it out completely - but that's a mistake.</p>
       <p>
         Between June and September, Goa transforms into a completely different destination. Everything becomes greener,
         waterfalls come alive, cafés become quieter, and the pace of life slows down considerably. If you don't mind the
@@ -456,7 +456,7 @@ export default function WorkationGoaGuide() {
       <h2>Planning Your Workation? Here's One Last Tip</h2>
       <p>
         No matter which season you choose, one decision has a bigger impact on your experience than almost anything
-        else—choosing the right place to stay.
+        else - choosing the right place to stay.
       </p>
       <p>
         A beautiful villa means very little if the internet isn't reliable, there's no proper workspace, or you spend half your
@@ -468,7 +468,7 @@ export default function WorkationGoaGuide() {
       <p>
         Rather than being just another booking platform, Wayzyy is being built specifically around the needs of modern
         travellers and hosts. Alongside villas, apartments and vacation homes across Goa, we're introducing{" "}
-        <strong>Workation Verified</strong> stays—properties that meet practical standards remote workers actually care
+        <strong>Workation Verified</strong> stays - properties that meet practical standards remote workers actually care
         about, such as reliable high-speed internet, dedicated workspaces, backup power, comfortable long-stay setups and other
         amenities that make working remotely easier.
       </p>
@@ -477,7 +477,7 @@ export default function WorkationGoaGuide() {
         Instead of charging hosts a commission on every booking, Wayzyy follows a simple credit-based model. Hosts recharge
         credits based on their bookings rather than giving away a portion of every reservation. While that change happens
         behind the scenes, the idea is straightforward: when hosts keep more of what they earn, they have greater
-        flexibility to offer fairer pricing for guests—especially those booking longer stays.
+        flexibility to offer fairer pricing for guests - especially those booking longer stays.
       </p>
       <p>
         For travellers, that means a platform focused on transparent pricing, carefully verified stays, and a better
@@ -485,7 +485,7 @@ export default function WorkationGoaGuide() {
       </p>
       <p>
         Whether you eventually book through Wayzyy or another platform, our advice remains the same: compare your options,
-        ask the right questions before booking, and choose a stay that's designed for the way you actually work—not just
+        ask the right questions before booking, and choose a stay that's designed for the way you actually work - not just
         one that looks good in photos.
       </p>
 
@@ -555,13 +555,13 @@ export default function WorkationGoaGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/assagao-goa-villas-guide">Assagao Villas Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa — The Complete Guide for Every Vibe</a>
+            <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa - The Complete Guide for Every Vibe</a>
           </li>
         </ul>
       </div>

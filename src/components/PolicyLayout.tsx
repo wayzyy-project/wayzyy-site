@@ -42,7 +42,7 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": `${title} — Wayzyy`,
+      "name": `${title} - Wayzyy`,
       "description": subtitle ?? `Wayzyy legal policies and documentation: ${title}.`,
       "publisher": {
         "@type": "Organization",
@@ -53,7 +53,7 @@ export function PolicyLayout({ title, subtitle, effectiveDate, children }: Polic
 
   return (
     <SEO
-      title={`${title} — Wayzyy`}
+      title={`${title} - Wayzyy`}
       description={subtitle ?? `Read the official ${title} of Wayzyy. cozy stays, crazy nights and fair hosting . That's wayzyy.`}
       jsonLd={schemas}
       path={path}

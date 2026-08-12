@@ -69,7 +69,7 @@ export function HeroDualPOV() {
               <em className="italic text-ember">actually backs you.</em>
             </h1>
             <p className="mt-5 text-pretty text-base text-muted-foreground sm:text-lg">
-              A simple flat-fee subscription — not a percentage of every
+              A simple flat-fee subscription - not a percentage of every
               booking. 24/7 support from real agents, not bots. Getting
               listed shouldn't require a PhD.
             </p>
@@ -101,7 +101,7 @@ export function HeroDualPOV() {
         {/* GROUND seam */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-muted/60 to-transparent" />
 
-        {/* BACKPACKER walks across — pinned to ground on mobile, floats up on desktop */}
+        {/* BACKPACKER walks across - pinned to ground on mobile, floats up on desktop */}
         <motion.div
           aria-hidden
           style={{ left: walkerX, scale: walkerScale }}

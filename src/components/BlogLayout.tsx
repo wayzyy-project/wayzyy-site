@@ -10,9 +10,9 @@ interface BlogLayoutProps {
   post?: BlogPostMeta;
   title?: string;
   description?: string;
-  /** Search-result <title> / og:title — keep under 60 chars, distinct from the on-page H1 */
+  /** Search-result <title> / og:title - keep under 60 chars, distinct from the on-page H1 */
   metaTitle?: string;
-  /** Search-result meta description / og:description — keep under 155 chars, distinct from the on-page subtitle */
+  /** Search-result meta description / og:description - keep under 155 chars, distinct from the on-page subtitle */
   metaDescription?: string;
   heroImage?: string;
   heroImageAlt?: string;
@@ -157,7 +157,7 @@ export function BlogLayout(props: BlogLayoutProps) {
                 <a href="mailto:hello@wayzyy.com" className="text-ember hover:underline font-medium">
                   hello@wayzyy.com
                 </a>{" "}
-                — Wayzyy is launching soon in Goa.
+               - Wayzyy is launching soon in Goa.
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/40">

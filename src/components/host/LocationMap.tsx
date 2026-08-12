@@ -3,7 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
 
-// A simple ember-colored teardrop pin, matching the site's accent color —
+// A simple ember-colored teardrop pin, matching the site's accent color - 
 // deliberately not Leaflet's default blue marker.
 const pinIcon = L.divIcon({
   className: "",

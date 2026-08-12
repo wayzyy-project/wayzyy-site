@@ -17,7 +17,7 @@ export default function BlogIndex() {
 
   return (
     <SEO
-      title="Wayzyy Blog — Villas, Vacation Rentals & Honest Travel Guides"
+      title="Wayzyy Blog - Villas, Vacation Rentals & Honest Travel Guides"
       description="Guides on booking villas in Goa, comparing Airbnb alternatives, and finding transparent, locally hosted vacation rentals in India."
       jsonLd={schemas}
       path="/blog"

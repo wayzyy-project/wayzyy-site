@@ -2,11 +2,11 @@ import React, { createContext, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
- * ImageComparison — automatic animated wipe reveal between two images,
+ * ImageComparison - automatic animated wipe reveal between two images,
  * triggered whenever the `value` prop changes (e.g. a login/signup toggle).
  *
  * Unlike a manual drag-slider comparison, this swaps images with a
- * clip-path wipe animation driven entirely by props — no pointer handling.
+ * clip-path wipe animation driven entirely by props - no pointer handling.
  */
 
 type WipeDirection = "left-to-right" | "right-to-left" | "diagonal";
@@ -30,7 +30,7 @@ function useImageComparisonContext() {
 interface ImageComparisonProps {
   children: React.ReactNode;
   className?: string;
-  /** Current active key — changing this triggers the wipe transition. */
+  /** Current active key - changing this triggers the wipe transition. */
   value: string;
   direction?: WipeDirection;
   /** Transition duration in seconds. */
@@ -109,7 +109,7 @@ export function ImageComparisonImage({ src, alt, showWhen, className }: ImageCom
 }
 
 /**
- * Optional static base layer — the previous image stays mounted underneath
+ * Optional static base layer - the previous image stays mounted underneath
  * so there's never a flash of empty background while the wipe is mid-flight.
  */
 export function ImageComparisonBase({ src, alt, className }: { src: string; alt: string; className?: string }) {

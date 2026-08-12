@@ -1,4 +1,4 @@
-// Mirrors mobile/src/utils/cancellationPolicies.ts — keep both in sync.
+// Mirrors mobile/src/utils/cancellationPolicies.ts - keep both in sync.
 export type ShortTermPolicyId = "Flexible" | "Moderate" | "Limited" | "Firm";
 export type LongTermPolicyId = "Moderate" | "Limited" | "Firm";
 

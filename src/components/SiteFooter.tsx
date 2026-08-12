@@ -25,7 +25,7 @@ export function SiteFooter() {
             </a>
           </div>
 
-          {/* Links — 2-column grid on mobile, flex row on sm+ */}
+          {/* Links - 2-column grid on mobile, flex row on sm+ */}
           <div className="grid grid-cols-2 gap-5 text-xs sm:flex sm:flex-row sm:gap-12 sm:text-sm pt-2 sm:pt-0 border-t border-white/10 sm:border-0">
             {/* Nav */}
             <div className="flex flex-col gap-1.5">

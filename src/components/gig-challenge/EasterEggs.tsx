@@ -44,7 +44,7 @@ function fireConfetti() {
   });
 }
 
-/** Console ASCII art — a small wink at the exact audience this page targets. */
+/** Console ASCII art - a small wink at the exact audience this page targets. */
 function logConsoleEasterEgg() {
   const style = "color:#ff6b1a;font-weight:bold;font-size:12px;";
   console.log(

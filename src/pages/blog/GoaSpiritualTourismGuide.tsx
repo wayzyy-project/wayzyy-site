@@ -91,7 +91,7 @@ export default function GoaSpiritualTourismGuide() {
       <div className="space-y-10 text-foreground/90 leading-relaxed text-base sm:text-lg">
         {/* Intro */}
         <p className="text-xl sm:text-2xl font-light text-foreground leading-snug">
-          Most travelers associate Goa exclusively with sun-drenched beaches and nightlife. But beyond the coast lies a vibrant, centuries-old <strong className="font-semibold text-ember">spiritual and heritage landscape</strong>—where 12th-century stone shrines, hilltop temples, and UNESCO-listed Portuguese cathedrals coexist in serene jungle valleys.
+          Most travelers associate Goa exclusively with sun-drenched beaches and nightlife. But beyond the coast lies a vibrant, centuries-old <strong className="font-semibold text-ember">spiritual and heritage landscape</strong> - where 12th-century stone shrines, hilltop temples, and UNESCO-listed Portuguese cathedrals coexist in serene jungle valleys.
         </p>
 
         <p>
@@ -116,7 +116,7 @@ export default function GoaSpiritualTourismGuide() {
             What Goa's Spiritual Tourism Is Actually Like
           </h2>
           <p>
-            Visiting Goa's sacred sites is an invitation to slow down. On weekday mornings, temple courtyards are filled with the rustle of banyan leaves, bird calls, and the gentle ring of temple bells—a world away from coastal traffic.
+            Visiting Goa's sacred sites is an invitation to slow down. On weekday mornings, temple courtyards are filled with the rustle of banyan leaves, bird calls, and the gentle ring of temple bells - a world away from coastal traffic.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
@@ -216,7 +216,7 @@ export default function GoaSpiritualTourismGuide() {
         {/* Location Promo */}
         <WayzyyLocationPromo
           title="Planning a quiet stay near Goa's heritage villages?"
-          description="Explore verified homestays and villas across Goa on Wayzyy — zero host commissions, honest traveler pricing, and direct host connections."
+          description="Explore verified homestays and villas across Goa on Wayzyy - zero host commissions, honest traveler pricing, and direct host connections."
         />
 
         {/* Section: Where to Stay */}
@@ -301,7 +301,7 @@ export default function GoaSpiritualTourismGuide() {
             <a href="mailto:hello@wayzyy.com" className="text-ember underline font-medium">
               hello@wayzyy.com
             </a>{" "}
-            — Wayzyy is launching soon across Goa.
+           - Wayzyy is launching soon across Goa.
           </div>
         </section>
       </div>

@@ -5,7 +5,7 @@
  */
 
 // Canonical amenity checklist shown in the manual listing wizard (HostPortal.tsx)
-// and the Airbnb import review flow (ImportListingModal.tsx) — kept as a single
+// and the Airbnb import review flow (ImportListingModal.tsx) - kept as a single
 // shared list so both paths stay in sync.
 export const AMENITIES = [
   "WiFi", "Kitchen", "Washer", "AC", "Heating", "Hot Water", "TV", "Pool",

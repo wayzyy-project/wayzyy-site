@@ -4,7 +4,7 @@ import { SEO } from "@/components/SEO";
 export default function PaymentRefundPolicy() {
   return (
     <SEO
-      title="Payment & Refund Policy — Wayzyy"
+      title="Payment & Refund Policy - Wayzyy"
       description="Wayzyy's Payment & Refund Policy: flat subscription activation, UPI payments, and refund rules for Indian hosts and guests."
       path="/payment-refund"
     >
@@ -27,43 +27,43 @@ export default function PaymentRefundPolicy() {
 
       <h2>2. Accepted Payment Methods</h2>
       <ul>
-        <li>UPI — all UPI-enabled apps including GPay, PhonePe, Paytm, and BHIM</li>
-        <li>Debit cards — Visa, Mastercard, and RuPay</li>
-        <li>Credit cards — Visa, Mastercard, and American Express</li>
-        <li>Net banking — all major Indian banks</li>
-        <li>Wayzyy wallet credits — for refunds, promotional credits, and referral rewards</li>
+        <li>UPI - all UPI-enabled apps including GPay, PhonePe, Paytm, and BHIM</li>
+        <li>Debit cards - Visa, Mastercard, and RuPay</li>
+        <li>Credit cards - Visa, Mastercard, and American Express</li>
+        <li>Net banking - all major Indian banks</li>
+        <li>Wayzyy wallet credits - for refunds, promotional credits, and referral rewards</li>
       </ul>
 
       <h2>3. What Guests Pay</h2>
       <h3>3.1 Total Price Breakdown</h3>
       <p>The total amount charged to a guest at checkout consists of:</p>
       <ul>
-        <li><strong>Nightly rate</strong> — set entirely by the host. Wayzyy never alters or suppresses host pricing</li>
-        <li><strong>Guest service fee</strong> — charged by Wayzyy at 7% of the total nightly rate for the booking</li>
-        <li><strong>GST</strong> — applicable taxes displayed at checkout as required by law</li>
+        <li><strong>Nightly rate</strong> - set entirely by the host. Wayzyy never alters or suppresses host pricing</li>
+        <li><strong>Guest service fee</strong> - charged by Wayzyy at 7% of the total nightly rate for the booking</li>
+        <li><strong>GST</strong> - applicable taxes displayed at checkout as required by law</li>
       </ul>
       <h3>3.2 How Wayzyy Compares</h3>
       <p>Wayzyy charges guests significantly less than other platforms. At a nightly rate of ₹5,000:</p>
       <ul>
         <li>Other platforms (~14% fee): Guest pays ₹5,700</li>
-        <li>Wayzyy (7% fee): Guest pays ₹5,350 — saving ₹350 per night</li>
+        <li>Wayzyy (7% fee): Guest pays ₹5,350 - saving ₹350 per night</li>
       </ul>
       <h3>3.3 No Hidden Fees</h3>
       <p>The price you see at checkout is the total price you pay. Wayzyy does not add surprise fees after booking confirmation.</p>
 
-      <h2>4. What Hosts Pay — The Prepaid Credit Model</h2>
+      <h2>4. What Hosts Pay - The Prepaid Credit Model</h2>
       <h3>4.1 No Per-Booking Commission</h3>
       <p>
-        Unlike other platforms that deduct a commission from every booking payout, Wayzyy operates a prepaid credit model. Hosts purchase a credit pack upfront that unlocks a certain value of bookings on the platform. There are no deductions from your payout — you receive the full nightly rate you set.
+        Unlike other platforms that deduct a commission from every booking payout, Wayzyy operates a prepaid credit model. Hosts purchase a credit pack upfront that unlocks a certain value of bookings on the platform. There are no deductions from your payout - you receive the full nightly rate you set.
       </p>
       <h3>4.2 Credit Tier Structure</h3>
       <ul>
-        <li><strong>₹600 pack</strong> — unlocks bookings worth ₹20,000 (effective rate: 3.0%)</li>
-        <li><strong>₹1,200 pack</strong> — unlocks bookings worth ₹50,000 (effective rate: 2.4%, save 20%)</li>
-        <li><strong>₹2,200 pack</strong> — unlocks bookings worth ₹1,00,000 (effective rate: 2.2%, save 27%)</li>
-        <li><strong>₹5,000 pack</strong> — unlocks bookings worth ₹2,50,000 (effective rate: 2.0%, save 33%)</li>
-        <li><strong>₹10,000 pack</strong> — unlocks bookings worth ₹5,00,000 (effective rate: 2.0%, save 33%)</li>
-        <li><strong>Custom plan</strong> — for bookings beyond ₹5,00,000 (recharges at a flat 2.0% effective rate for any customized amount)</li>
+        <li><strong>₹600 pack</strong> - unlocks bookings worth ₹20,000 (effective rate: 3.0%)</li>
+        <li><strong>₹1,200 pack</strong> - unlocks bookings worth ₹50,000 (effective rate: 2.4%, save 20%)</li>
+        <li><strong>₹2,200 pack</strong> - unlocks bookings worth ₹1,00,000 (effective rate: 2.2%, save 27%)</li>
+        <li><strong>₹5,000 pack</strong> - unlocks bookings worth ₹2,50,000 (effective rate: 2.0%, save 33%)</li>
+        <li><strong>₹10,000 pack</strong> - unlocks bookings worth ₹5,00,000 (effective rate: 2.0%, save 33%)</li>
+        <li><strong>Custom plan</strong> - for bookings beyond ₹5,00,000 (recharges at a flat 2.0% effective rate for any customized amount)</li>
       </ul>
       <h3>4.3 Credit Pack Terms</h3>
       <ul>

@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 
-// Real, documented Wayzyy prepaid credit tiers — see /host-terms section 5.2.
+// Real, documented Wayzyy prepaid credit tiers - see /host-terms section 5.2.
 // Beyond ₹5,00,000, hosts move to a Custom plan that holds the same 2.0%
 // effective rate for any booking volume.
 const WAYZYY_TIERS = [
@@ -48,7 +48,7 @@ const faqJsonLd = {
       name: "How does Wayzyy's pricing work instead of commission?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Wayzyy uses a prepaid credit model instead of a per-booking commission. Hosts buy a credit pack that unlocks a set value of bookings — for example, a ₹2,200 pack unlocks ₹1,00,000 in bookings (2.2% effective rate), and a ₹10,000 pack unlocks ₹5,00,000 in bookings (2.0% effective rate). Beyond ₹5,00,000, hosts move to a Custom plan at the same flat 2.0% rate. There is no deduction from individual payouts.",
+        text: "Wayzyy uses a prepaid credit model instead of a per-booking commission. Hosts buy a credit pack that unlocks a set value of bookings - for example, a ₹2,200 pack unlocks ₹1,00,000 in bookings (2.2% effective rate), and a ₹10,000 pack unlocks ₹5,00,000 in bookings (2.0% effective rate). Beyond ₹5,00,000, hosts move to a Custom plan at the same flat 2.0% rate. There is no deduction from individual payouts.",
       },
     },
     {
@@ -105,7 +105,7 @@ export default function EarningsCalculator() {
 
   return (
     <SEO
-      title="Airbnb vs Wayzyy Host Earnings Calculator — Wayzyy"
+      title="Airbnb vs Wayzyy Host Earnings Calculator - Wayzyy"
       description="See exactly how much more you'd take home hosting on Wayzyy instead of Airbnb. Enter your booking value, compare commission vs our flat credit model."
       jsonLd={schemas}
       path={location.pathname}
@@ -143,11 +143,11 @@ export default function EarningsCalculator() {
               Calculator
             </div>
             <h1 className="font-display text-3xl sm:text-5xl text-foreground mt-2 leading-tight">
-              Airbnb vs Wayzyy — Host Earnings Calculator
+              Airbnb vs Wayzyy - Host Earnings Calculator
             </h1>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
               Enter what your villa actually books for in a year and see exactly how much of that Airbnb's
-              commission eats up — versus what you'd keep on Wayzyy's flat prepaid credit model.
+              commission eats up - versus what you'd keep on Wayzyy's flat prepaid credit model.
             </p>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function EarningsCalculator() {
               />
               <p className="mt-2 text-xs text-muted-foreground">
                 Airbnb's host-only fee typically ranges 16–24% depending on your cancellation policy and location.
-                Default is 18%, a realistic average for Goa villa listings — adjust to match your own.
+                Default is 18%, a realistic average for Goa villa listings - adjust to match your own.
               </p>
             </div>
 
@@ -233,7 +233,7 @@ export default function EarningsCalculator() {
             <h2>Wayzyy's Prepaid Credit Tiers</h2>
             <p>
               Instead of a per-booking commission, Wayzyy hosts buy a credit pack upfront that unlocks a set value
-              of bookings. There's no deduction from individual payouts — you keep 100% of the nightly rate you set.
+              of bookings. There's no deduction from individual payouts - you keep 100% of the nightly rate you set.
             </p>
             <table>
               <caption>Wayzyy host credit tiers</caption>
@@ -278,7 +278,7 @@ export default function EarningsCalculator() {
               </tbody>
             </table>
             <p>
-              From ₹2,50,000/year onward, the effective rate holds at a 2.0% floor — and for bookings beyond
+              From ₹2,50,000/year onward, the effective rate holds at a 2.0% floor - and for bookings beyond
               ₹5,00,000/year, hosts move to a Custom plan at the same flat 2.0% rate, however much you book. Full
               terms are in our <a href="/host-terms">Host Terms of Service</a>.
             </p>
@@ -314,7 +314,7 @@ export default function EarningsCalculator() {
               <a href="mailto:hello@wayzyy.com" className="text-ember hover:underline">
                 hello@wayzyy.com
               </a>{" "}
-              — Wayzyy is launching soon in Goa.
+             - Wayzyy is launching soon in Goa.
             </p>
           </div>
         </div>

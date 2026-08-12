@@ -84,7 +84,7 @@ const faqJsonLd = {
       name: "What documents do I need to check into a vacation rental in Goa?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every guest aged 18 and above needs a government photo ID — Aadhaar, passport, or driving license. Foreign nationals must show their passport and valid visa. Some hosts also collect contact details for local police registration, which is required by law.",
+        text: "Every guest aged 18 and above needs a government photo ID - Aadhaar, passport, or driving license. Foreign nationals must show their passport and valid visa. Some hosts also collect contact details for local police registration, which is required by law.",
       },
     },
     {
@@ -123,7 +123,7 @@ export default function WhereToStayInGoa2026() {
         Most people start by typing “best place to stay in Goa” into Google. They get the same list: Baga, Anjuna, Palolem, Calangute. It’s not wrong, but it treats Goa like one destination, which it is not. A Goa vacation rental in a quiet fishing village and one above a nightclub in North Goa are completely different trips, even if both have the same star rating.
       </p>
       <p>
-        This guide cuts through that noise. We’ll break down which area matches which kind of traveler, how season changes prices and crowds, and the fine print that hotel booking sites often skip — parking, power backup, Wi-Fi speed, and how far the beach really is on foot. Platforms like Wayzyy help travelers compare verified rentals directly with owners, so you see real photos, real reviews, and real costs before you book.
+        This guide cuts through that noise. We’ll break down which area matches which kind of traveler, how season changes prices and crowds, and the fine print that hotel booking sites often skip - parking, power backup, Wi-Fi speed, and how far the beach really is on foot. Platforms like Wayzyy help travelers compare verified rentals directly with owners, so you see real photos, real reviews, and real costs before you book.
       </p>
       <p>
         This is for anyone tired of paying “beachfront” prices for a room that faces a road. It is not for travelers who want a one-click hotel experience and do not care about the neighborhood. If you want honest rental advice for Goa, keep reading.
@@ -144,12 +144,12 @@ export default function WhereToStayInGoa2026() {
       <p>
         Old Goa and Fontainhas have homes converted into small guesthouses or boutique rentals. Ceilings are high, tiles are original, and stairs are steep. These places have character, but not always air-conditioning in every room or hot water all day. Prices range from ₹3,500 to ₹12,000 per night. Book directly with the owner when possible; policies on check-in times and cancellations vary widely.
       </p>
-      <h3>Beach cottages, shacks, and budget rooms — what's still legal and safe</h3>
+      <h3>Beach cottages, shacks, and budget rooms - what's still legal and safe</h3>
       <p>
         After the 2022 coastal regulation crackdown, many beach shacks stopped offering overnight stays. Some still operate informally, but legal budget rooms now sit just behind the beach belt in villages like Arambol, Morjim, and Patnem. Expect ₹1,200–₹3,000 per night for a basic room with a fan, cold water, and maybe Wi-Fi. Read recent reviews for cleanliness and safety, especially for solo travelers.
       </p>
       <p>
-        Wayzyy lets you filter stays by private pool or gated complex — handy if you're planning a family trip or a group getaway.
+        Wayzyy lets you filter stays by private pool or gated complex - handy if you're planning a family trip or a group getaway.
       </p>
       <h2>What Does a Goa Villa Stay Actually Include?</h2>
       <p>
@@ -159,7 +159,7 @@ export default function WhereToStayInGoa2026() {
       <p>
         Bedrooms usually have AC, but it may not run all day. Hot water comes from a solar or electric geyser, so back-to-back showers drain it fast. Wi-Fi in North Goa villages often hits 20–40 Mbps; in South Goa it can drop below 10 Mbps. Kitchens include basic cookware, a fridge, and a gas stove, but you buy oil, spices, and drinking water yourself.
       </p>
-      <h3>Staffing: caretaker, cleaner, cook — what to expect</h3>
+      <h3>Staffing: caretaker, cleaner, cook - what to expect</h3>
       <p>
         Most properties include a caretaker who lives on-site or nearby. They handle check-in, basic repairs, and calling the plumber when the geyser fails. Daily cleaning is standard, though timing varies. A cook is rarely included; if you want one, budget ₹1,500–₹2,500 per meal plus ingredients, and give a day's notice.
       </p>
@@ -286,7 +286,7 @@ export default function WhereToStayInGoa2026() {
       </p>
       <h3>What documents do I need to check into a vacation rental in Goa?</h3>
       <p>
-        Every guest aged 18 and above needs a government photo ID — Aadhaar, passport, or driving license. Foreign nationals must show their passport and valid visa. Some hosts also collect contact details for local police registration, which is required by law.
+        Every guest aged 18 and above needs a government photo ID - Aadhaar, passport, or driving license. Foreign nationals must show their passport and valid visa. Some hosts also collect contact details for local police registration, which is required by law.
       </p>
       <h3>Is parking available at most Goa villas and apartments?</h3>
       <p>
@@ -304,7 +304,7 @@ export default function WhereToStayInGoa2026() {
         That said, if you want nightly turndown service, 24-hour room service, and a concierge at your beck and call, a hotel will serve you better. Solo travellers on short trips may also find hotels more convenient and often cheaper.
       </p>
       <p>
-        Goa works best when you treat it like a home base — slow mornings, late breakfasts, scooter rides to different beaches, and dinners that stretch for hours. A good rental gives you exactly that. Book one that matches your location, budget, and non-negotiables, and you will have a far more relaxed trip.
+        Goa works best when you treat it like a home base - slow mornings, late breakfasts, scooter rides to different beaches, and dinners that stretch for hours. A good rental gives you exactly that. Book one that matches your location, budget, and non-negotiables, and you will have a far more relaxed trip.
       </p>
       <p>
         My recommendation: choose a vacation rental if you are travelling as a group, family, or for more than four days. Stick to a hotel only if service and convenience matter more than space and independence.

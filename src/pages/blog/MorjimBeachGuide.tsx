@@ -172,8 +172,8 @@ export default function MorjimBeachGuide() {
       <p>
         That doesn't mean Morjim is completely isolated. The village is home to a growing collection of boutique hotels, independent
         cafés, premium restaurants, and surf schools, making it highly convenient for modern travellers who want local character
-        with international comforts. If you're renting a scooter—as covered in our{" "}
-        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a>—you're only ten minutes from the cafes of Assagao or
+        with international comforts. If you're renting a scooter - as covered in our{" "}
+        <a href="/blog/goa-scooter-rental-guide">Goa Scooter Rental Guide</a> - you're only ten minutes from the cafes of Assagao or
         the cliffs of Vagator, giving you a quiet base that remains close to everything.
       </p>
 
@@ -299,7 +299,7 @@ export default function MorjimBeachGuide() {
         One of the biggest misconceptions about Morjim is that it's an expensive part of Goa. The reality is a little more nuanced.
         Morjim has plenty of luxury villas and boutique stays, so if you're travelling during Christmas or New Year's, you'll
         certainly find premium prices. But outside the festive season, the village offers accommodation for almost every kind of
-        traveller—from hostels and boutique guesthouses to family villas and private homes designed for month-long stays.
+        traveller - from hostels and boutique guesthouses to family villas and private homes designed for month-long stays.
       </p>
       <p>
         Like the rest of Goa, prices change dramatically depending on when you visit.
@@ -328,7 +328,7 @@ export default function MorjimBeachGuide() {
       </p>
       <p>
         Another thing worth paying attention to is where you book your stay. It's surprisingly common to find the same villa listed
-        across multiple booking platforms at different prices. The difference usually isn't the property itself—it's the booking
+        across multiple booking platforms at different prices. The difference usually isn't the property itself - it's the booking
         platform. Some marketplaces charge hosts significant commissions on every reservation, while others add service fees during
         checkout. Eventually, those costs become part of the amount you pay.
       </p>
@@ -369,7 +369,7 @@ export default function MorjimBeachGuide() {
       <p>
         The pace also helps. Instead of feeling like you're on a constant holiday, Morjim makes it surprisingly easy to build a
         routine. Morning walks along the beach, breakfast at a local café, a few focused hours of work, an evening scooter ride to
-        Vagator or Ashwem and dinner back in the village—it's a rhythm that many people end up following without even planning it.
+        Vagator or Ashwem and dinner back in the village - it's a rhythm that many people end up following without even planning it.
       </p>
       <p>
         Before booking, there are two things we'd always recommend confirming with your host.
@@ -390,7 +390,7 @@ export default function MorjimBeachGuide() {
         spend a few weeks or even a month here, it's well worth reading alongside this guide.
       </p>
       <p>
-        For many travellers, that's exactly what Morjim becomes—not just somewhere to visit for a weekend, but somewhere that's
+        For many travellers, that's exactly what Morjim becomes - not just somewhere to visit for a weekend, but somewhere that's
         comfortable enough to temporarily call home.
       </p>
 
@@ -399,7 +399,7 @@ export default function MorjimBeachGuide() {
         The best part about Morjim isn't something you'll find on a map. It's how easy it is to settle into a rhythm once you're here.
       </p>
       <p>
-        Many first-time visitors make the mistake of treating Morjim as another stop on a packed Goa itinerary—checking in, spending
+        Many first-time visitors make the mistake of treating Morjim as another stop on a packed Goa itinerary - checking in, spending
         a few hours on the beach and leaving the next morning. But ask people who've stayed here for a week or longer, and you'll
         hear a very different story. Morjim is one of those places that becomes more enjoyable the longer you stay.
       </p>
@@ -433,7 +433,7 @@ export default function MorjimBeachGuide() {
         longer-stay properties make it much easier to shortlist accommodation that genuinely matches the kind of trip you're planning.
       </p>
       <p>
-        One thing that often surprises first-time visitors is how quickly the days start feeling unplanned—in the best possible
+        One thing that often surprises first-time visitors is how quickly the days start feeling unplanned - in the best possible
         way. You might head out intending to spend an hour at a café and end up working there until lunch. You might stop at
         Ashwem for sunset and continue all the way to Mandrem or Arambol because everything is so close together. That's why we
         always recommend renting a scooter early in your trip instead of waiting until the last day. It gives you the freedom to
@@ -455,7 +455,7 @@ export default function MorjimBeachGuide() {
       </p>
       <p>
         Finally, don't try to compare Morjim with every other beach in Goa. That's probably the quickest way to miss what makes
-        it special. Morjim isn't trying to compete with Baga's nightlife or Anjuna's markets. It offers something different—a
+        it special. Morjim isn't trying to compete with Baga's nightlife or Anjuna's markets. It offers something different - a
         slower, more comfortable way to experience North Goa where you can spend the morning working from a café, the afternoon
         by the beach and the evening with friends at a villa without feeling like you need to constantly be somewhere else.
       </p>
@@ -521,7 +521,7 @@ export default function MorjimBeachGuide() {
       <p>
         We're also taking a different approach to hosting. Instead of charging hosts a percentage every time a booking is made,
         Wayzyy follows a simple credit-based model that makes hosting easier and gives property owners more flexibility in how
-        they price their stays. The result is a marketplace that's designed around long-term trust instead of higher commissions—something
+        they price their stays. The result is a marketplace that's designed around long-term trust instead of higher commissions - something
         we believe ultimately benefits both travellers and hosts.
       </p>
       <p>
@@ -565,7 +565,7 @@ export default function MorjimBeachGuide() {
       </ul>
       <p className="mt-6">
         And when you're ready to book, <strong>Wayzyy</strong> helps you discover verified villas across Goa with filters for the
-        things that actually matter—private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
+        things that actually matter - private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
         Instead of charging hosts a commission on every booking, our host-first credit model keeps pricing more transparent while
         making it easier for travellers to find stays that genuinely fit their trip.
       </p>
@@ -651,16 +651,16 @@ export default function MorjimBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/ashwem-goa-beach-guide">Ashwem Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/mandrem-goa-beach-guide">Mandrem Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>

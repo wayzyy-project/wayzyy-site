@@ -8,7 +8,7 @@ export default function AppLaunchSoon() {
   return (
     <div className="relative min-h-screen flex flex-col justify-between bg-background text-foreground">
       <SEO
-        title="App Launching Soon — Wayzyy Homestays"
+        title="App Launching Soon - Wayzyy Homestays"
         description="We are launching soon with over 500 hand-picked properties and 50 trusted hosts. Join the waitlist for direct booking with zero platform markup."
       />
       <SiteNav />

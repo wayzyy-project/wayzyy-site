@@ -31,7 +31,7 @@ const faqJsonLd = {
       "name": "Is Patnem better than Agonda?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Neither beach is objectively better—they simply offer different experiences. Agonda is quieter, less commercial, and ideal if your goal is complete peace and long walks along the beach. Patnem offers a little more convenience, with a wider selection of cafés, restaurants, accommodation, and easy access to nearby attractions while still maintaining a relaxed atmosphere."
+        "text": "Neither beach is objectively better - they simply offer different experiences. Agonda is quieter, less commercial, and ideal if your goal is complete peace and long walks along the beach. Patnem offers a little more convenience, with a wider selection of cafés, restaurants, accommodation, and easy access to nearby attractions while still maintaining a relaxed atmosphere."
       }
     },
     {
@@ -128,7 +128,7 @@ export default function PatnemBeachGuide() {
           Palolem is known for its lively beach shacks, cafés, and evening atmosphere. Agonda, on the other hand, has built a reputation as one of the quietest beaches in Goa, attracting travellers looking to disconnect completely.
         </p>
         <p>
-          Somewhere between these two sits <strong>Patnem Beach</strong>—a place that rarely gets the same attention but quietly wins over the people who stay there. That's probably why you'll hear so many repeat visitors recommend it.
+          Somewhere between these two sits <strong>Patnem Beach</strong> - a place that rarely gets the same attention but quietly wins over the people who stay there. That's probably why you'll hear so many repeat visitors recommend it.
         </p>
         <p>
           Patnem isn't trying to be the busiest beach in South Goa, nor is it completely isolated from everything around it. Instead, it strikes a balance that's surprisingly difficult to find elsewhere in Goa. You can spend the morning swimming in relatively calm waters, work from a beach café in the afternoon, enjoy a peaceful dinner by the sea, and still reach Palolem in just a few minutes if you're looking for a little more energy in the evening.
@@ -143,13 +143,13 @@ export default function PatnemBeachGuide() {
           That doesn't mean Patnem is for everyone.
         </p>
         <p>
-          If you're looking for beach parties, shopping streets packed with tourists, or a nightlife scene that continues well past midnight, you'll probably feel more at home in North Goa—or even in nearby Palolem. Patnem has deliberately held on to a slower rhythm. Even during peak season, the evenings are more about live music drifting from a beach shack, conversations over dinner, or simply listening to the waves than large crowds and loud clubs.
+          If you're looking for beach parties, shopping streets packed with tourists, or a nightlife scene that continues well past midnight, you'll probably feel more at home in North Goa - or even in nearby Palolem. Patnem has deliberately held on to a slower rhythm. Even during peak season, the evenings are more about live music drifting from a beach shack, conversations over dinner, or simply listening to the waves than large crowds and loud clubs.
         </p>
         <p>
           Over the years, Patnem has naturally grown alongside neighbouring beaches, but it has managed to retain much of its original character. While some travellers who've been visiting for years mention that it has become a little more commercial than it once was, it's still widely considered one of the calmer beaches on Goa's southern coastline and a welcome alternative to the busier stretches nearby.
         </p>
         <p>
-          This guide brings together official information, local recommendations, and real traveller experiences to help you decide whether Patnem is the right fit for your trip. We'll cover everything—from swimming safety and the best places to stay to cafés, work-friendly spots, nearby attractions, and how Patnem compares with beaches like Palolem and Agonda—so you can book with confidence rather than relying on generic travel lists.
+          This guide brings together official information, local recommendations, and real traveller experiences to help you decide whether Patnem is the right fit for your trip. We'll cover everything - from swimming safety and the best places to stay to cafés, work-friendly spots, nearby attractions, and how Patnem compares with beaches like Palolem and Agonda - so you can book with confidence rather than relying on generic travel lists.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Is Patnem Beach Right for You?</h2>
@@ -181,10 +181,10 @@ export default function PatnemBeachGuide() {
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground text-sm">
           <li><strong>Choose Agonda</strong> if your priority is complete peace and long, uninterrupted walks on the beach.</li>
           <li><strong>Choose Palolem</strong> if you want cafés, shopping, nightlife, and a busier social atmosphere.</li>
-          <li><strong>Choose Patnem</strong> if you want something comfortably in between—a place that's lively enough that you won't get bored, but quiet enough that you can genuinely switch off.</li>
+          <li><strong>Choose Patnem</strong> if you want something comfortably in between - a place that's lively enough that you won't get bored, but quiet enough that you can genuinely switch off.</li>
         </ul>
         <p>
-          That's exactly why many repeat visitors end up preferring it. It doesn't try to compete with Palolem's energy or Agonda's solitude. Instead, it quietly offers a balance of both, making it one of the easiest beaches in South Goa to settle into for a few days—or even a few weeks.
+          That's exactly why many repeat visitors end up preferring it. It doesn't try to compete with Palolem's energy or Agonda's solitude. Instead, it quietly offers a balance of both, making it one of the easiest beaches in South Goa to settle into for a few days - or even a few weeks.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Patnem vs Palolem vs Agonda: Which Beach Should You Choose?</h2>
@@ -250,12 +250,12 @@ export default function PatnemBeachGuide() {
         </div>
 
         <p>
-          One advantage Patnem has that many visitors don't realise until they arrive is its location. You're only a short scooter ride—or even a pleasant walk—from Palolem, which means you don't have to give up its cafés or evening atmosphere entirely. You can spend your days on Patnem's quieter shoreline and head over to Palolem whenever you feel like exploring before returning to a much calmer beach at night.
+          One advantage Patnem has that many visitors don't realise until they arrive is its location. You're only a short scooter ride - or even a pleasant walk - from Palolem, which means you don't have to give up its cafés or evening atmosphere entirely. You can spend your days on Patnem's quieter shoreline and head over to Palolem whenever you feel like exploring before returning to a much calmer beach at night.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Is Patnem Beach Safe for Swimming?</h2>
         <p>
-          One of the first questions travellers ask before booking a stay near Patnem is whether it's actually safe to swim. The short answer is <strong>yes</strong>—but, like most beaches in Goa, the full answer is a little more nuanced.
+          One of the first questions travellers ask before booking a stay near Patnem is whether it's actually safe to swim. The short answer is <strong>yes</strong> - but, like most beaches in Goa, the full answer is a little more nuanced.
         </p>
         <p>
           According to the <strong>Goa Tourism Development Corporation (GTDC)</strong>, Patnem is generally considered safe for swimming. However, the official guidance also points out that swimmers should always pay attention to lifeguard instructions, as certain conditions can create strong undertows that may not be obvious, particularly for inexperienced swimmers.
@@ -275,7 +275,7 @@ export default function PatnemBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Where to Stay in Patnem: Beach Huts, Villas or Boutique Hotels?</h2>
         <p>
-          One of the reasons Patnem feels different from many beaches in Goa is that the accommodation reflects the personality of the destination. You won't find rows of large resorts dominating the coastline or high-rise hotels overlooking the beach. Instead, Patnem has grown around smaller stays—beach huts tucked beneath coconut trees, family-run guesthouses, boutique hotels, and private villas a short walk from the sea.
+          One of the reasons Patnem feels different from many beaches in Goa is that the accommodation reflects the personality of the destination. You won't find rows of large resorts dominating the coastline or high-rise hotels overlooking the beach. Instead, Patnem has grown around smaller stays - beach huts tucked beneath coconut trees, family-run guesthouses, boutique hotels, and private villas a short walk from the sea.
         </p>
         <p>
           The best place to stay ultimately depends on how you're planning to spend your time.
@@ -310,7 +310,7 @@ export default function PatnemBeachGuide() {
           One of the biggest misconceptions about Patnem is that because it's quieter than Palolem, there aren't many places to eat. In reality, that's far from the case. While you won't find long rows of restaurants or busy café streets like you do in North Goa, Patnem has quietly built a reputation for having some of the best beachside dining in South Goa.
         </p>
         <p>
-          What makes Patnem different isn't the number of restaurants—it's the pace. Most cafés here encourage you to stay awhile. It's common to see people reading a book after breakfast, working on a laptop for a few hours, or lingering over sunset drinks rather than rushing through a meal.
+          What makes Patnem different isn't the number of restaurants - it's the pace. Most cafés here encourage you to stay awhile. It's common to see people reading a book after breakfast, working on a laptop for a few hours, or lingering over sunset drinks rather than rushing through a meal.
         </p>
         <p>
           Breakfast is one of the highlights. You'll find plenty of cafés serving smoothie bowls, fresh fruit, eggs, pancakes, sandwiches, and locally roasted coffee. It's the kind of place where mornings start slowly, often with a view of the sea rather than a crowded road.
@@ -319,7 +319,7 @@ export default function PatnemBeachGuide() {
           Lunch and dinner offer a similar mix. Fresh seafood is naturally a favourite, with many restaurants serving the day's catch alongside Goan curries. At the same time, the international influence that South Goa is known for means it's easy to find Italian, Mediterranean, continental, vegan, and vegetarian options without having to leave the beach.
         </p>
         <p>
-          If you're travelling on a budget, you're not limited to beach cafés either. Just a short distance inland, you'll find local eateries serving simple Goan meals at much lower prices. This is another small advantage Patnem has over some quieter beaches—you're close enough to everyday conveniences that eating well doesn't have to mean paying tourist prices.
+          If you're travelling on a budget, you're not limited to beach cafés either. Just a short distance inland, you'll find local eateries serving simple Goan meals at much lower prices. This is another small advantage Patnem has over some quieter beaches - you're close enough to everyday conveniences that eating well doesn't have to mean paying tourist prices.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Is Patnem a Good Place for a Workation?</h2>

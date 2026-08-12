@@ -30,7 +30,7 @@ interface FanCardDeckProps {
   windowIn: [number, number];
   windowOut: [number, number];
   /**
-   * Optional per-card [in, out] windows — when provided, each card fades
+   * Optional per-card [in, out] windows - when provided, each card fades
    * in/out on its own schedule instead of a uniform stagger inside
    * `windowIn`/`windowOut`. Use this when cards need to track specific
    * background images (e.g. card N should be visible exactly while image N
@@ -44,7 +44,7 @@ interface FanCardDeckProps {
 const ROTATIONS = [-3, -1, 1, 3];
 const Y_OFFSETS = [8, -2, -2, 8];
 
-/** One card of the fanned deck — its own entrance/exit window nested inside the deck's overall window, staggered slightly per index. */
+/** One card of the fanned deck - its own entrance/exit window nested inside the deck's overall window, staggered slightly per index. */
 function DeckCard({
   card,
   index,
@@ -99,7 +99,7 @@ function DeckCard({
 }
 
 /**
- * Mobile equivalent — 2x2 grid for small viewports so all 4 cards fit cleanly.
+ * Mobile equivalent - 2x2 grid for small viewports so all 4 cards fit cleanly.
  */
 function MobileDeckCard({
   card,
@@ -158,7 +158,7 @@ export function FanCardDeck({ cards, progress, windowIn, windowOut, cardWindows 
         </div>
       </div>
 
-      {/* Mobile: static 2x2 grid, centered in the viewport — all 4 cards
+      {/* Mobile: static 2x2 grid, centered in the viewport - all 4 cards
           shown together regardless of cardWindows, since the mobile layout
           doesn't have per-image screen real estate to spare for staged
           reveals; it just fades the whole deck in over windowIn/windowOut. */}

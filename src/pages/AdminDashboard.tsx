@@ -240,7 +240,7 @@ function DashboardContent() {
 export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SEO title="System Admin Control Hub — Wayzyy" description="Executive control panel for Wayzyy administration." noindex />
+      <SEO title="System Admin Control Hub - Wayzyy" description="Executive control panel for Wayzyy administration." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
         <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> Back to Wayzyy

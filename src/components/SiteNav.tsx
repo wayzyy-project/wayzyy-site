@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-/** Real host-relevant links surfaced in the "Hosting" nav dropdown — pulled
+/** Real host-relevant links surfaced in the "Hosting" nav dropdown - pulled
  *  from actual host-focused posts in src/lib/blogPosts.ts, not placeholders. */
 const hostLinks: { to: string; label: string; description: string; icon: typeof Home }[] = [
   {
@@ -42,7 +42,7 @@ const hostLinks: { to: string; label: string; description: string; icon: typeof 
   {
     to: "/blog/real-cost-of-airbnb-fee",
     label: "The real cost of Airbnb's 15.5% fee",
-    description: "Isn't actually 15.5% — here's the ripple effect",
+    description: "Isn't actually 15.5% - here's the ripple effect",
     icon: Percent,
   },
 ];
@@ -197,13 +197,13 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <ChallengeTopBanner />
       {/* Scroll-driven background: the outer motion.div owns the
           fade-in opacity (absolute positioning must live here, not on the
-          liquid-glass element — liquid-glass sets `position: relative`,
+          liquid-glass element - liquid-glass sets `position: relative`,
           which would stomp an `absolute` utility applied to the same
           node). The inner div carries the actual liquid-glass treatment
           plus an explicit inline background-color: liquid-glass's own
           `background` is a near-transparent 1% white, fine for a photo
           hero but unreadable once real page content is scrolling behind
-          an opaque nav — the inline style (highest-specificity, always
+          an opaque nav - the inline style (highest-specificity, always
           wins over any class) restores the solid backdrop this nav needs
           for legibility while still keeping liquid-glass's blur, inset
           highlight, and gradient-edge border. */}

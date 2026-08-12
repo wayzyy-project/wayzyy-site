@@ -100,7 +100,7 @@ export default function AgondaBeachGuide() {
           <li>The liveliest atmosphere without feeling overcrowded</li>
         </ul>
         <p>
-          Since this is peak tourist season, accommodation fills up quickly—especially during Christmas and New Year. If you're travelling during this period, it's worth booking your stay several weeks in advance. Platforms like <Link to="/earnings-calculator" className="text-ember hover:underline">Wayzyy</Link> make it easier to compare verified villas, holiday homes, and boutique stays before prices start increasing.
+          Since this is peak tourist season, accommodation fills up quickly - especially during Christmas and New Year. If you're travelling during this period, it's worth booking your stay several weeks in advance. Platforms like <Link to="/earnings-calculator" className="text-ember hover:underline">Wayzyy</Link> make it easier to compare verified villas, holiday homes, and boutique stays before prices start increasing.
         </p>
 
         <h3 className="font-display text-xl text-foreground mt-6">March to May – Warm but Less Crowded</h3>
@@ -225,7 +225,7 @@ export default function AgondaBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Agonda vs Palolem vs Patnem: Which Beach Should You Choose?</h2>
         <p>
-          One of the most common questions travellers ask while planning a South Goa trip is whether they should stay in Agonda, Palolem, or Patnem. The truth is, all three beaches are beautiful—but they're designed for completely different types of travellers. Choosing the right one depends less on which beach is "better" and more on the kind of holiday you're looking for.
+          One of the most common questions travellers ask while planning a South Goa trip is whether they should stay in Agonda, Palolem, or Patnem. The truth is, all three beaches are beautiful - but they're designed for completely different types of travellers. Choosing the right one depends less on which beach is "better" and more on the kind of holiday you're looking for.
         </p>
 
         <div className="overflow-x-auto my-6 border border-border rounded-xl">
@@ -295,7 +295,7 @@ export default function AgondaBeachGuide() {
 
         <h3 className="font-display text-xl text-foreground mt-6">Choose Palolem If You Want Action</h3>
         <p>
-          Palolem is South Goa's busiest beach—and for good reason. It's packed with restaurants, cafés, shopping, kayaking, boat trips, live music, and the famous Silent Noise parties. If you're someone who likes having plenty to do within walking distance, Palolem is hard to beat.
+          Palolem is South Goa's busiest beach - and for good reason. It's packed with restaurants, cafés, shopping, kayaking, boat trips, live music, and the famous Silent Noise parties. If you're someone who likes having plenty to do within walking distance, Palolem is hard to beat.
         </p>
         <p>
           However, that popularity also comes with trade-offs. During peak season you'll find more traffic, busier beaches, and less privacy. For many travellers, Palolem works best as a day trip rather than a place to stay for an entire week. You can read our detailed <Link to="/blog/palolem-beach-south-goa-guide" className="text-ember hover:underline">Palolem Beach Guide</Link> for more information.
@@ -308,7 +308,7 @@ export default function AgondaBeachGuide() {
 
         <h3 className="font-display text-xl text-foreground mt-6">Can You Stay in Agonda and Visit the Other Beaches?</h3>
         <p>
-          Absolutely—and that's one of the biggest advantages of choosing Agonda. The three beaches are only a short drive apart:
+          Absolutely - and that's one of the biggest advantages of choosing Agonda. The three beaches are only a short drive apart:
         </p>
         <ul className="list-disc pl-6 space-y-1">
           <li>Agonda → Palolem: 10–15 minutes</li>
@@ -325,7 +325,7 @@ export default function AgondaBeachGuide() {
           If you're travelling with children, Agonda and Patnem are generally better choices than Palolem. Both offer a quieter environment, less traffic, and a more relaxed atmosphere. Villas are also more common, giving families extra space, private kitchens, parking, and outdoor areas that are difficult to find in standard hotel rooms.
         </p>
         <p>
-          If you're travelling as a larger family or with grandparents, booking a private villa through Wayzyy can often be more practical than booking multiple hotel rooms. You'll have shared living spaces, more privacy, and amenities like kitchens, washing machines, dedicated parking, and workspaces—all of which make longer stays much more comfortable. Read our <Link to="/blog/goa-family-trip-guide" className="text-ember hover:underline">Goa Family Trip Guide</Link> to help plan your family itinerary.
+          If you're travelling as a larger family or with grandparents, booking a private villa through Wayzyy can often be more practical than booking multiple hotel rooms. You'll have shared living spaces, more privacy, and amenities like kitchens, washing machines, dedicated parking, and workspaces - all of which make longer stays much more comfortable. Read our <Link to="/blog/goa-family-trip-guide" className="text-ember hover:underline">Goa Family Trip Guide</Link> to help plan your family itinerary.
         </p>
 
         <h3 className="font-display text-xl text-foreground mt-6">Which Beach Is Better for Couples?</h3>
@@ -338,7 +338,7 @@ export default function AgondaBeachGuide() {
 
         <h3 className="font-display text-xl text-foreground mt-6">The Verdict</h3>
         <p>
-          There's no universal winner—only the beach that best matches your travel style. Choose Palolem if you want nightlife, shopping, and activities. Choose Patnem if you want a balanced mix of relaxation and convenience. Choose Agonda if you're looking for South Goa at its most peaceful, with uncrowded beaches, slower mornings, boutique stays, and easy access to nearby attractions.
+          There's no universal winner - only the beach that best matches your travel style. Choose Palolem if you want nightlife, shopping, and activities. Choose Patnem if you want a balanced mix of relaxation and convenience. Choose Agonda if you're looking for South Goa at its most peaceful, with uncrowded beaches, slower mornings, boutique stays, and easy access to nearby attractions.
         </p>
 
         {/* Agonda Beach Huts sunset */}

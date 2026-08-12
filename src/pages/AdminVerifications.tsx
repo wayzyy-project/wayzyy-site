@@ -202,7 +202,7 @@ function VerificationQueue() {
 
           <Textarea
             className="mt-4"
-            placeholder="Rejection reason (optional — shown to the user if you reject)"
+            placeholder="Rejection reason (optional - shown to the user if you reject)"
             value={rejectReason[item.id] ?? ""}
             onChange={(e) => setRejectReason((prev) => ({ ...prev, [item.id]: e.target.value }))}
           />
@@ -235,7 +235,7 @@ function VerificationQueue() {
 export default function AdminVerifications() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Identity verification queue — Wayzyy Admin" description="Review manual identity verification submissions." noindex />
+      <SEO title="Identity verification queue - Wayzyy Admin" description="Review manual identity verification submissions." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
         <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard

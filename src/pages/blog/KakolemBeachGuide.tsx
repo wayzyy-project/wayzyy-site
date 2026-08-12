@@ -110,7 +110,7 @@ export default function KakolemBeachGuide() {
       </p>
 
       <p>
-        Tucked away between <Link to="/blog/cabo-de-rama-fort-goa-guide">Cabo de Rama</Link> and <Link to="/blog/agonda-beach-south-goa-guide">Agonda</Link>, Kakolem has built a reputation as one of Goa's last truly secluded beaches. Calling it a "secret beach" today would probably be an exaggeration—social media has made sure of that—but it still attracts far fewer visitors than places like Palolem, Colva, or Baga. The reason is simple: you don't accidentally stumble upon Kakolem. You come here because you've deliberately chosen a quieter, less commercial side of Goa.
+        Tucked away between <Link to="/blog/cabo-de-rama-fort-goa-guide">Cabo de Rama</Link> and <Link to="/blog/agonda-beach-south-goa-guide">Agonda</Link>, Kakolem has built a reputation as one of Goa's last truly secluded beaches. Calling it a "secret beach" today would probably be an exaggeration - social media has made sure of that - but it still attracts far fewer visitors than places like Palolem, Colva, or Baga. The reason is simple: you don't accidentally stumble upon Kakolem. You come here because you've deliberately chosen a quieter, less commercial side of Goa.
       </p>
 
       <p>
@@ -120,7 +120,7 @@ export default function KakolemBeachGuide() {
       <p>That said, Kakolem isn't the kind of destination that appeals to everyone.</p>
 
       <p>
-        If your perfect beach day involves hopping between cafés, trying water sports, or spending the afternoon at a lively beach club, you'll probably enjoy <Link to="/blog/palolem-beach-south-goa-guide">Palolem</Link> or <Link to="/blog/morjim-goa-beach-guide">Morjim</Link> more. Kakolem offers something entirely different. There are no rows of restaurants overlooking the shore, no bustling markets nearby, and no packed promenade buzzing with activity. What draws people here is the sense of isolation—a rare feeling in a destination as popular as Goa.
+        If your perfect beach day involves hopping between cafés, trying water sports, or spending the afternoon at a lively beach club, you'll probably enjoy <Link to="/blog/palolem-beach-south-goa-guide">Palolem</Link> or <Link to="/blog/morjim-goa-beach-guide">Morjim</Link> more. Kakolem offers something entirely different. There are no rows of restaurants overlooking the shore, no bustling markets nearby, and no packed promenade buzzing with activity. What draws people here is the sense of isolation - a rare feeling in a destination as popular as Goa.
       </p>
 
       <p>
@@ -134,7 +134,7 @@ export default function KakolemBeachGuide() {
       </p>
 
       <p>
-        In this guide, we'll cover everything you need to know before visiting Kakolem Beach—from how to reach it and whether the climb is difficult to the best time to visit, swimming conditions, nearby attractions, and a few common mistakes that first-time visitors often make.
+        In this guide, we'll cover everything you need to know before visiting Kakolem Beach - from how to reach it and whether the climb is difficult to the best time to visit, swimming conditions, nearby attractions, and a few common mistakes that first-time visitors often make.
       </p>
 
       <h2>Where Is Kakolem Beach?</h2>
@@ -161,7 +161,7 @@ export default function KakolemBeachGuide() {
       <p>One question almost everyone asks before visiting is why Kakolem is also called <strong>Tiger Beach</strong>.</p>
 
       <p>
-        Despite the name, there aren't—and never have been—tigers roaming the beach. The nickname is believed to have originated from local folklore rather than documented history. Some stories suggest the dense forests surrounding the cliffs reminded locals of tiger habitats, while others link the name to old legends that have been passed down through generations. There isn't any definitive explanation, but the name has remained popular enough that many travellers know the destination as Tiger Beach rather than Kakolem Beach.
+        Despite the name, there aren't - and never have been - tigers roaming the beach. The nickname is believed to have originated from local folklore rather than documented history. Some stories suggest the dense forests surrounding the cliffs reminded locals of tiger habitats, while others link the name to old legends that have been passed down through generations. There isn't any definitive explanation, but the name has remained popular enough that many travellers know the destination as Tiger Beach rather than Kakolem Beach.
       </p>
 
       <p>
@@ -177,7 +177,7 @@ export default function KakolemBeachGuide() {
       </p>
 
       <p>
-        The beach isn't famous because of luxury resorts or entertainment. People come here for the experience of discovering a quieter side of Goa—the steep walk down the cliffs, the first panoramic view from above, the stream flowing into the sea, and the sense of calm that's increasingly difficult to find on the state's more popular beaches.
+        The beach isn't famous because of luxury resorts or entertainment. People come here for the experience of discovering a quieter side of Goa - the steep walk down the cliffs, the first panoramic view from above, the stream flowing into the sea, and the sense of calm that's increasingly difficult to find on the state's more popular beaches.
       </p>
 
       <p>
@@ -190,7 +190,7 @@ export default function KakolemBeachGuide() {
         At first glance, Kakolem Beach might seem like just another quiet beach in South Goa. After all, Goa has no shortage of beautiful coastlines. So what makes this one stand out?
       </p>
 
-      <p>The answer isn't any single attraction—it's the overall experience.</p>
+      <p>The answer isn't any single attraction - it's the overall experience.</p>
 
       <p>
         Unlike beaches that have gradually transformed into bustling tourist hubs, Kakolem has managed to retain a sense of wilderness that's becoming increasingly rare in Goa. There's no commercial strip running alongside the sand, no rows of beach clubs competing for attention, and no endless stream of tourists arriving every few minutes. Even during the peak season, the beach often feels surprisingly peaceful compared to better-known destinations.
@@ -245,7 +245,7 @@ export default function KakolemBeachGuide() {
       </p>
 
       <p>
-        It's a reminder that this isn't just a beach—it's part of a much larger natural ecosystem where forests, cliffs, freshwater, and the ocean all come together in one place.
+        It's a reminder that this isn't just a beach - it's part of a much larger natural ecosystem where forests, cliffs, freshwater, and the ocean all come together in one place.
       </p>
 
       <h3>It Still Feels Untouched</h3>
@@ -264,9 +264,9 @@ export default function KakolemBeachGuide() {
         If you enjoy landscape photography, Kakolem is one of the most rewarding beaches in South Goa. The elevated viewpoint, rugged cliffs, winding staircase, and contrasting colours of the sea and surrounding greenery create plenty of opportunities for stunning photographs. Sunrise and late afternoon are particularly good times to visit, when the softer light brings out the textures of the cliffs and gives the water a deeper shade of blue.
       </p>
 
-      <h3>It's Not About Activities—It's About Slowing Down</h3>
+      <h3>It's Not About Activities - It's About Slowing Down</h3>
 
-      <p>Visitors often ask what there is to <em>do</em> at Kakolem. The honest answer is—not much. And that's precisely why people come.</p>
+      <p>Visitors often ask what there is to <em>do</em> at Kakolem. The honest answer is - not much. And that's precisely why people come.</p>
 
       <p>
         This isn't a destination for parasailing, jet skiing, or beach parties. Instead, it's a place to disconnect from busy itineraries, spend a few quiet hours by the sea, read a book under the shade of a tree, or simply listen to the waves without constant distractions.
@@ -332,7 +332,7 @@ export default function KakolemBeachGuide() {
       <h3>Is the Trek Difficult?</h3>
 
       <p>
-        Calling it a trek might be slightly misleading. This isn't a hiking trail through the forest or a challenging mountain climb—it's simply a steep walk down a series of steps. For most healthy adults, it's completely manageable.
+        Calling it a trek might be slightly misleading. This isn't a hiking trail through the forest or a challenging mountain climb - it's simply a steep walk down a series of steps. For most healthy adults, it's completely manageable.
       </p>
 
       <p>However, it may not be suitable for:</p>
@@ -393,10 +393,10 @@ export default function KakolemBeachGuide() {
       </p>
 
       <ul>
-        <li><Link to="/blog/cabo-de-rama-fort-goa-guide"><strong>Cabo de Rama Fort:</strong></Link> 15 minutes away — ideal for cliffside ruins and dramatic sunsets.</li>
+        <li><Link to="/blog/cabo-de-rama-fort-goa-guide"><strong>Cabo de Rama Fort:</strong></Link> 15 minutes away - ideal for cliffside ruins and dramatic sunsets.</li>
         <li><Link to="/blog/cola-beach-goa-guide"><strong>Cola Beach:</strong></Link> Famous for its freshwater lagoon meeting the sea.</li>
-        <li><Link to="/blog/agonda-beach-south-goa-guide"><strong>Agonda Beach:</strong></Link> 20 minutes away — peaceful beach shacks, yoga cafés, and boutique stays.</li>
-        <li><Link to="/blog/palolem-beach-south-goa-guide"><strong>Palolem Beach:</strong></Link> 30 minutes away — kayaking, beach restaurants, and <Link to="/blog/silent-noise-goa-guide">Silent Noise party</Link>.</li>
+        <li><Link to="/blog/agonda-beach-south-goa-guide"><strong>Agonda Beach:</strong></Link> 20 minutes away - peaceful beach shacks, yoga cafés, and boutique stays.</li>
+        <li><Link to="/blog/palolem-beach-south-goa-guide"><strong>Palolem Beach:</strong></Link> 30 minutes away - kayaking, beach restaurants, and <Link to="/blog/silent-noise-goa-guide">Silent Noise party</Link>.</li>
         <li><Link to="/blog/butterfly-beach-goa-guide"><strong>Butterfly Beach:</strong></Link> Secluded cove accessible by boat or short trek.</li>
         <li><Link to="/blog/cotigao-wildlife-sanctuary-goa-guide"><strong>Cotigao Wildlife Sanctuary:</strong></Link> Treetop watchtowers and forest canopy walks.</li>
       </ul>
@@ -425,16 +425,16 @@ export default function KakolemBeachGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <Link to="/blog/cabo-de-rama-fort-goa-guide">Cabo de Rama Fort Goa — Sunset Views &amp; Cliff Stays</Link>
+            <Link to="/blog/cabo-de-rama-fort-goa-guide">Cabo de Rama Fort Goa - Sunset Views &amp; Cliff Stays</Link>
           </li>
           <li>
-            <Link to="/blog/cola-beach-goa-guide">Cola Beach Goa — Lagoon Stays &amp; Secret Beach Guide</Link>
+            <Link to="/blog/cola-beach-goa-guide">Cola Beach Goa - Lagoon Stays &amp; Secret Beach Guide</Link>
           </li>
           <li>
-            <Link to="/blog/agonda-beach-south-goa-guide">Agonda Beach South Goa — The Complete Travel Guide</Link>
+            <Link to="/blog/agonda-beach-south-goa-guide">Agonda Beach South Goa - The Complete Travel Guide</Link>
           </li>
           <li>
-            <Link to="/blog/south-goa-travel-guide">South Goa Travel Guide — Best Beaches, Villages &amp; Planning Advice</Link>
+            <Link to="/blog/south-goa-travel-guide">South Goa Travel Guide - Best Beaches, Villages &amp; Planning Advice</Link>
           </li>
         </ul>
       </div>

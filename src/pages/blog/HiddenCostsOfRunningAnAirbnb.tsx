@@ -144,7 +144,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Those are the questions that repeatedly surfaced.
         </p>
         <p>
-          One discussion that particularly caught our attention came from a long-time Superhost who explained that recovering money through AirCover wasn't nearly as straightforward as the marketing made it sound (read the <a href="https://www.reddit.com/r/airbnb_hosts/s/FNzQNIBCpy" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">original AirCover thread on Reddit</a>). According to the host, the claim required invoices, payment records, photographs and multiple rounds of communication before it could move forward. Other experienced hosts joined the discussion with similar stories, describing how the process often became frustrating when they were already dealing with the aftermath of guest damage. The issue wasn't simply the damage itself—it was the amount of time and effort required after it happened.
+          One discussion that particularly caught our attention came from a long-time Superhost who explained that recovering money through AirCover wasn't nearly as straightforward as the marketing made it sound (read the <a href="https://www.reddit.com/r/airbnb_hosts/s/FNzQNIBCpy" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">original AirCover thread on Reddit</a>). According to the host, the claim required invoices, payment records, photographs and multiple rounds of communication before it could move forward. Other experienced hosts joined the discussion with similar stories, describing how the process often became frustrating when they were already dealing with the aftermath of guest damage. The issue wasn't simply the damage itself - it was the amount of time and effort required after it happened.
         </p>
         <p>
           Another thread focused on something even more surprising.
@@ -156,7 +156,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Hosts weren't asking for special treatment.
         </p>
         <p>
-          Most were simply looking for quicker resolutions, consistent communication and a process they could rely on when something went wrong. In one recent discussion, several hosts even began talking about organising collectively because they felt their concerns around support quality and host protection weren't receiving enough attention (view the <a href="https://www.reddit.com/r/airbnb_hosts/s/hf1wp4ckVe" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">community support thread on Reddit</a>). Whether every host shares that opinion or not, the conversation itself highlights an important reality—many independent hosts want a platform that listens to them as much as it listens to guests.
+          Most were simply looking for quicker resolutions, consistent communication and a process they could rely on when something went wrong. In one recent discussion, several hosts even began talking about organising collectively because they felt their concerns around support quality and host protection weren't receiving enough attention (view the <a href="https://www.reddit.com/r/airbnb_hosts/s/hf1wp4ckVe" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">community support thread on Reddit</a>). Whether every host shares that opinion or not, the conversation itself highlights an important reality - many independent hosts want a platform that listens to them as much as it listens to guests.
         </p>
 
         <img
@@ -206,7 +206,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Our goal is much simpler.
         </p>
         <p>
-          Before you welcome your first guest, you deserve to know about the challenges experienced hosts wish someone had warned them about. Understanding those realities won't stop you from becoming a host—it'll help you become a better one from day one.
+          Before you welcome your first guest, you deserve to know about the challenges experienced hosts wish someone had warned them about. Understanding those realities won't stop you from becoming a host - it'll help you become a better one from day one.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The Cost You Can't Add to a Spreadsheet</h2>
@@ -218,7 +218,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Sometimes it's the uncertainty that comes with every booking.
         </p>
         <p>
-          After speaking with hosts and spending hours reading discussions on <a href="https://www.reddit.com/r/Airbnb_Hosts/" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">r/Airbnb_Hosts</a>, we noticed that experienced hosts rarely complain about cleaning bills or electricity costs. Those expenses are expected. What repeatedly comes up are the situations nobody can plan for—a guest threatening a bad review, a damage claim that takes weeks to resolve or the feeling that years of consistently good hosting can be affected by one unexpected booking.
+          After speaking with hosts and spending hours reading discussions on <a href="https://www.reddit.com/r/Airbnb_Hosts/" target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">r/Airbnb_Hosts</a>, we noticed that experienced hosts rarely complain about cleaning bills or electricity costs. Those expenses are expected. What repeatedly comes up are the situations nobody can plan for - a guest threatening a bad review, a damage claim that takes weeks to resolve or the feeling that years of consistently good hosting can be affected by one unexpected booking.
         </p>
         <p>
           Take ratings as an example.
@@ -233,7 +233,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Unlike a broken chair or damaged linen, ratings directly influence visibility, future bookings and guest confidence. One unfair review can have an impact long after the guest has checked out.
         </p>
         <p>
-          One discussion that caught our attention involved a long-time host explaining how a single unexpected review affected their Superhost status despite years of consistently excellent hosting. Another thread questioned why a four-star review—something most businesses would consider a positive experience—is often treated as a poor outcome within the short-term rental industry. Those conversations aren't isolated incidents. They appear repeatedly whenever experienced hosts discuss the pressures of maintaining high ratings.
+          One discussion that caught our attention involved a long-time host explaining how a single unexpected review affected their Superhost status despite years of consistently excellent hosting. Another thread questioned why a four-star review - something most businesses would consider a positive experience - is often treated as a poor outcome within the short-term rental industry. Those conversations aren't isolated incidents. They appear repeatedly whenever experienced hosts discuss the pressures of maintaining high ratings.
         </p>
         <p>
           While reading through those discussions, another pattern became impossible to ignore.
@@ -281,7 +281,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Unfortunately, ratings are only one side of the equation.
         </p>
         <p>
-          The moment property damage enters the picture, the challenges become even more complicated—and that's where many hosts discover that recovering their losses isn't always as simple as clicking a &quot;Submit Claim&quot; button.
+          The moment property damage enters the picture, the challenges become even more complicated - and that's where many hosts discover that recovering their losses isn't always as simple as clicking a &quot;Submit Claim&quot; button.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">When Guest Damage Turns Into a Paperwork Battle</h2>
@@ -307,7 +307,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Another discussion followed a similar pattern.
         </p>
         <p>
-          Hosts explained that even when they believed a claim was straightforward, they still found themselves spending hours collecting evidence, responding to follow-up requests and waiting for updates. Nobody questioned the importance of verifying claims—most agreed that evidence is necessary. The concern was the amount of time and effort required while also preparing the property for the next guest.
+          Hosts explained that even when they believed a claim was straightforward, they still found themselves spending hours collecting evidence, responding to follow-up requests and waiting for updates. Nobody questioned the importance of verifying claims - most agreed that evidence is necessary. The concern was the amount of time and effort required while also preparing the property for the next guest.
         </p>
         <p>
           Think about it from the host's perspective.
@@ -319,7 +319,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           The next guests arrive at 3 p.m.
         </p>
         <p>
-          In those few hours, you might already be coordinating housekeeping, replacing damaged items, speaking with the caretaker, arranging emergency repairs and making sure the property is ready again. Adding lengthy documentation and back-and-forth communication on top of all that quickly becomes another hidden cost of hosting—not necessarily in money, but in time and operational stress.
+          In those few hours, you might already be coordinating housekeeping, replacing damaged items, speaking with the caretaker, arranging emergency repairs and making sure the property is ready again. Adding lengthy documentation and back-and-forth communication on top of all that quickly becomes another hidden cost of hosting - not necessarily in money, but in time and operational stress.
         </p>
         <p>
           Reading those conversations made us ask an important question.
@@ -361,7 +361,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           Guest damage, however, isn't the only thing that quietly affects profitability.
         </p>
         <p>
-          There's another expense that many hosts underestimate because it doesn't arrive as a repair bill or an emergency invoice. Instead, it disappears a small percentage at a time—with every single booking you receive.
+          There's another expense that many hosts underestimate because it doesn't arrive as a repair bill or an emergency invoice. Instead, it disappears a small percentage at a time - with every single booking you receive.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The Expense That Quietly Grows With Every Booking</h2>
@@ -391,7 +391,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           If the effective platform cost on traditional commission-driven sites works out to around <strong className="text-foreground">16% to 20%</strong>, you have already paid approximately <strong className="text-foreground">₹16,000 to ₹20,000</strong> in platform fees before covering housekeeping, utilities, maintenance or staff salaries.
         </p>
         <p>
-          Instead of hurting your business with a substantial commission cut that penalises your success, Wayzyy manages platform services through a simple credit-based subscription. Hosts purchase a flat <strong className="text-ember">₹2,200 subscription package</strong>. This package covers everything—including your payments, profile listing, checkout, guest verification, and support—meaning your effective cost drops to a minimal rate as you make more money.
+          Instead of hurting your business with a substantial commission cut that penalises your success, Wayzyy manages platform services through a simple credit-based subscription. Hosts purchase a flat <strong className="text-ember">₹2,200 subscription package</strong>. This package covers everything - including your payments, profile listing, checkout, guest verification, and support - meaning your effective cost drops to a minimal rate as you make more money.
         </p>
 
         <div className="overflow-x-auto my-8 rounded-xl border border-border">
@@ -684,7 +684,7 @@ export default function HiddenCostsOfRunningAnAirbnb() {
           It's about creating experiences people genuinely want to come back to.
         </p>
         <p>
-          Everything else—including the platform you choose—should help make that easier, not harder.
+          Everything else - including the platform you choose - should help make that easier, not harder.
         </p>
       </div>
 

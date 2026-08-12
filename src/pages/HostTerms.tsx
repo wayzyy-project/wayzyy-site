@@ -4,7 +4,7 @@ import { SEO } from "@/components/SEO";
 export default function HostTerms() {
   return (
     <SEO
-      title="Host Terms of Service — Wayzyy"
+      title="Host Terms of Service - Wayzyy"
       description="Read Wayzyy's Host Terms of Service: listing rules, prepaid credit limits, and host obligations under Indian law for homestay hosts."
       path="/host-terms"
     >
@@ -64,12 +64,12 @@ export default function HostTerms() {
       <p>Wayzyy operates a prepaid credit model for hosts. Instead of deducting a commission from each individual booking, you purchase a credit pack that unlocks a certain value of bookings on the platform. This means you know your exact cost upfront with no hidden deductions from your payouts.</p>
       <h3>5.2 Credit Tiers</h3>
       <ul>
-        <li><strong>₹600 credit pack</strong> — unlocks bookings up to ₹20,000 in value (effective rate: 3.0%)</li>
-        <li><strong>₹1,200 credit pack</strong> — unlocks bookings up to ₹50,000 in value (effective rate: 2.4%)</li>
-        <li><strong>₹2,200 credit pack</strong> — unlocks bookings up to ₹1,00,000 in value (effective rate: 2.2%)</li>
-        <li><strong>₹5,000 credit pack</strong> — unlocks bookings up to ₹2,50,000 in value (effective rate: 2.0%)</li>
-        <li><strong>₹10,000 credit pack</strong> — unlocks bookings up to ₹5,00,000 in value (effective rate: 2.0%)</li>
-        <li><strong>Custom plan</strong> — for bookings beyond ₹5,00,000 (recharges at a flat 2.0% effective rate for any customized amount)</li>
+        <li><strong>₹600 credit pack</strong> - unlocks bookings up to ₹20,000 in value (effective rate: 3.0%)</li>
+        <li><strong>₹1,200 credit pack</strong> - unlocks bookings up to ₹50,000 in value (effective rate: 2.4%)</li>
+        <li><strong>₹2,200 credit pack</strong> - unlocks bookings up to ₹1,00,000 in value (effective rate: 2.2%)</li>
+        <li><strong>₹5,000 credit pack</strong> - unlocks bookings up to ₹2,50,000 in value (effective rate: 2.0%)</li>
+        <li><strong>₹10,000 credit pack</strong> - unlocks bookings up to ₹5,00,000 in value (effective rate: 2.0%)</li>
+        <li><strong>Custom plan</strong> - for bookings beyond ₹5,00,000 (recharges at a flat 2.0% effective rate for any customized amount)</li>
       </ul>
       <h3>5.3 Founding Host Offer</h3>
       <p>Hosts who join Wayzyy during the founding host period receive 6 months of complimentary credits as detailed in their onboarding agreement. After the free period, standard credit tier pricing applies.</p>

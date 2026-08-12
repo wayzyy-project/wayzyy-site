@@ -341,7 +341,7 @@ function ImportTool() {
 export default function AdminAirroiImport() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Import Airbnb listing — Wayzyy Admin" description="Import a host's existing Airbnb listing with their approval." noindex />
+      <SEO title="Import Airbnb listing - Wayzyy Admin" description="Import a host's existing Airbnb listing with their approval." noindex />
       <header className="flex items-center justify-between border-b border-border px-4 py-4">
         <Link to="/adminn" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> Back to Admin Dashboard

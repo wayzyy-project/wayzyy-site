@@ -61,7 +61,7 @@ export default function BestTimeToVisitGoa() {
     >
       <p>
         Most travel guides discuss Goa as if it were a single, uniform destination. In reality, choosing between the north
-        and south changes your trip entirely—especially depending on the month you visit. During the peak season, they feel
+        and south changes your trip entirely - especially depending on the month you visit. During the peak season, they feel
         like two different worlds, and the same is true during the monsoon or shoulder months.
       </p>
       <p>
@@ -124,7 +124,7 @@ export default function BestTimeToVisitGoa() {
         peaceful villa stays will find them in South Goa.
       </p>
       <p>
-        Many travellers choose to do both—spending the first few days exploring the energetic north before heading south to wind
+        Many travellers choose to do both - spending the first few days exploring the energetic north before heading south to wind
         down. This approach lets you experience two distinct faces of Goa in a single trip.
       </p>
 
@@ -138,7 +138,7 @@ export default function BestTimeToVisitGoa() {
       <h3>If It's Your First Time Visiting Goa</h3>
       <p>
         First-time visitors will find it hard to go wrong with November, January, or February. During these months, the classic
-        Goan tourist experience is fully operational—beach shacks are open, cafes are buzzing, water sports are active, and
+        Goan tourist experience is fully operational - beach shacks are open, cafes are buzzing, water sports are active, and
         nightlife is at its peak. While accommodation and travel cost more than in the off-season, you will experience Goa at
         its liveliest.
       </p>
@@ -161,7 +161,7 @@ export default function BestTimeToVisitGoa() {
       <p>
         For families, priorities usually center around stable weather, comfortable lodging, and easy beach access. The core dry
         months of November through February are the most predictable option. If your schedule is flexible, early November or
-        late February offer a great balance—you get beautiful weather while avoiding the crowded Christmas and New Year peaks.
+        late February offer a great balance - you get beautiful weather while avoiding the crowded Christmas and New Year peaks.
         Families often prefer South Goa for its wide, quiet sands and spacious villas where children can play without the rush of
         tourist hubs.
       </p>
@@ -190,7 +190,7 @@ export default function BestTimeToVisitGoa() {
       <p>
         If you want beach shacks, music festivals, and nightlife, target November to February. This is when the state is at its
         most energetic, hosting major parties and winter festivals. Because you will be sharing the coast with thousands of
-        other travellers, secure your flights, lodging, and vehicle rentals months in advance—particularly if you plan to visit
+        other travellers, secure your flights, lodging, and vehicle rentals months in advance - particularly if you plan to visit
         in late December.
       </p>
 
@@ -201,7 +201,7 @@ export default function BestTimeToVisitGoa() {
       </p>
       <p>
         If you are planning a trip around Christmas or New Year's, book your villa three to four months in advance. The
-        highly-rated properties—particularly those with private pools or direct beach access—sell out early. For the rest of the
+        highly-rated properties - particularly those with private pools or direct beach access - sell out early. For the rest of the
         peak season (November to February), booking six to eight weeks in advance is usually enough to secure a good place.
       </p>
       <p>
@@ -242,13 +242,13 @@ export default function BestTimeToVisitGoa() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
             <a href="/blog/goa-trip-budget-guide">Goa Trip Budget Guide (2026): How Much Does a Goa Trip Actually Cost?</a>
           </li>
           <li>
-            <a href="/blog/workation-goa-guide">Workation in Goa — What You Actually Need Before You Book</a>
+            <a href="/blog/workation-goa-guide">Workation in Goa - What You Actually Need Before You Book</a>
           </li>
         </ul>
       </div>

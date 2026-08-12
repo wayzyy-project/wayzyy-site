@@ -11,7 +11,7 @@ import { TextEffect } from "@/components/core/text-effect";
 import { ProgressiveBlur } from "@/components/core/progressive-blur";
 import { Button } from "@/components/ui/button";
 
-// Resolved via `new URL(..., import.meta.url)` rather than a static import —
+// Resolved via `new URL(..., import.meta.url)` rather than a static import - 
 // same reason as the old hero photo import: this component is prerendered
 // for "/" by scripts/ssr-pages.tsx under plain Node/tsx, which can't parse
 // a raw binary asset as a module. Vite still hashes/optimizes it normally
@@ -24,13 +24,13 @@ const heroVideo = new URL(
 /**
  * Clean, photo-free hero: a still, atmospheric dark-to-background gradient
  * (built entirely from the site's own `--ink` / `--ember` / `--background`
- * tokens — no imagery) with a soft ember glow behind the headline for
+ * tokens - no imagery) with a soft ember glow behind the headline for
  * depth, and a ProgressiveBlur wash at the foot of the section that
  * softens the seam where the hero meets the page below.
  *
  * The gradient anchors on `--ink`, a token that stays a fixed dark shade
  * in both themes (see src/index.css), so the floating white-text pill
- * navbar and headline keep the same contrast regardless of site theme —
+ * navbar and headline keep the same contrast regardless of site theme - 
  * same job the old photo's dark overlay used to do, minus the photo.
  */
 export function HeroStepOut() {
@@ -39,7 +39,7 @@ export function HeroStepOut() {
   // Cursor-following ambient glow. Raw mouse position feels artificial, so
   // the position is spring-smoothed (per Emil Kowalski's mouse-tracking
   // guidance) and only used to *drift* the glow a modest distance around
-  // its resting spot — this stays decorative background warmth, not a
+  // its resting spot - this stays decorative background warmth, not a
   // spotlight that chases the pointer.
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -70,7 +70,7 @@ export function HeroStepOut() {
       onMouseMove={reduce ? undefined : handleHeroMouseMove}
       className="relative flex h-screen min-h-[640px] w-full items-end overflow-hidden bg-[hsl(var(--ink))] sm:items-center"
     >
-      {/* full-bleed background video — stays invisible (dark base shows
+      {/* full-bleed background video - stays invisible (dark base shows
           instead) until playback genuinely starts, so slower connections
           never flash the browser's native paused/loading affordance */}
       {!reduce && (
@@ -144,14 +144,14 @@ export function HeroStepOut() {
         </h1>
         <p className="mt-5 max-w-md text-pretty text-base text-white/85 sm:text-lg text-left">
           Honest pricing for travelers. A flat-fee deal for hosts. No
-          commissions, no surprises — just real homes and real nights.
+          commissions, no surprises - just real homes and real nights.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-start gap-3">
           <Button asChild variant="cta" size="pill-lg">
             <a href="#waitlist">Get early access</a>
           </Button>
           {/* Same shape/padding/press-feedback as the site-wide outline CTA,
-              recolored for contrast against the video — the hero sits on
+              recolored for contrast against the video - the hero sits on
               moving footage, not the paper/ink surface the token colors
               assume. */}
           <Button

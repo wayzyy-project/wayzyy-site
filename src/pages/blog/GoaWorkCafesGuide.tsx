@@ -81,7 +81,7 @@ export default function GoaWorkCafesGuide() {
           They find a café where work doesn't feel like work anymore.
         </p>
         <p>
-          Over the last few years, North Goa has become one of India's most popular destinations for remote workers, founders, freelancers and creators. As a result, many cafés have quietly evolved beyond serving good coffee. Reliable fibre internet, accessible plug points, comfortable seating and a relaxed atmosphere are now just as important as the food itself. The difference is noticeable—some cafés actively welcome people working for several hours, while others are much better suited for a leisurely breakfast before heading to the beach.
+          Over the last few years, North Goa has become one of India's most popular destinations for remote workers, founders, freelancers and creators. As a result, many cafés have quietly evolved beyond serving good coffee. Reliable fibre internet, accessible plug points, comfortable seating and a relaxed atmosphere are now just as important as the food itself. The difference is noticeable - some cafés actively welcome people working for several hours, while others are much better suited for a leisurely breakfast before heading to the beach.
         </p>
         <p>
           If you're planning to spend half a day working, choosing the right café makes all the difference.
@@ -99,7 +99,7 @@ export default function GoaWorkCafesGuide() {
               rel="noopener noreferrer" 
               className="hover:text-ember transition-colors inline-flex items-center gap-1"
             >
-              Blue Tokai — Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+              Blue Tokai - Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
             </a>
           </h3>
           <p>
@@ -120,14 +120,14 @@ export default function GoaWorkCafesGuide() {
               rel="noopener noreferrer" 
               className="hover:text-ember transition-colors inline-flex items-center gap-1"
             >
-              Mojigao — Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+              Mojigao - Assagao <span className="text-xs font-normal text-muted-foreground/60">↗</span>
             </a>
           </h3>
           <p>
             Hidden away from the main roads, Mojigao feels less like a commercial café and more like someone's thoughtfully designed garden.
           </p>
           <p>
-            It's one of those places where people arrive intending to stay for an hour and end up spending the entire afternoon. The relaxed outdoor setting, excellent food and surprisingly reliable internet have made it a favourite among long-term visitors. Unlike many cafés where finding a charging point becomes a daily challenge, Mojigao has multiple power strips available, making it genuinely practical for longer work sessions. The research even notes creators editing and uploading full podcast episodes here without connection issues—something that speaks louder than simply calling the Wi-Fi &quot;good.&quot;
+            It's one of those places where people arrive intending to stay for an hour and end up spending the entire afternoon. The relaxed outdoor setting, excellent food and surprisingly reliable internet have made it a favourite among long-term visitors. Unlike many cafés where finding a charging point becomes a daily challenge, Mojigao has multiple power strips available, making it genuinely practical for longer work sessions. The research even notes creators editing and uploading full podcast episodes here without connection issues - something that speaks louder than simply calling the Wi-Fi &quot;good.&quot;
           </p>
           <span className="text-xs font-semibold text-ember uppercase block">Best for: Writers, designers, freelancers and anyone who enjoys working outdoors.</span>
         </div>
@@ -141,7 +141,7 @@ export default function GoaWorkCafesGuide() {
               rel="noopener noreferrer" 
               className="hover:text-ember transition-colors inline-flex items-center gap-1"
             >
-              Babka — Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+              Babka - Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
             </a>
           </h3>
           <p>
@@ -171,7 +171,7 @@ export default function GoaWorkCafesGuide() {
               rel="noopener noreferrer" 
               className="hover:text-ember transition-colors inline-flex items-center gap-1"
             >
-              Artjuna Garden Café — Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
+              Artjuna Garden Café - Anjuna <span className="text-xs font-normal text-muted-foreground/60">↗</span>
             </a>
           </h3>
           <p>
@@ -223,7 +223,7 @@ export default function GoaWorkCafesGuide() {
       <div className="space-y-6 mt-12 border-t border-border pt-10">
         <h2 className="font-display text-2xl text-foreground">Best Cafes for Studying &amp; Deep Focus Work in Goa</h2>
         <p>
-          While digital nomads often look for collaborative spaces, students, researchers, and solo creators frequently search for the <strong>best cafes for studying</strong>—places with quiet ambient sound, comfortable ergonomic seating, and low foot traffic.
+          While digital nomads often look for collaborative spaces, students, researchers, and solo creators frequently search for the <strong>best cafes for studying</strong> - places with quiet ambient sound, comfortable ergonomic seating, and low foot traffic.
         </p>
         <p>
           If your priority is 4 to 6 hours of uninterrupted study or reading without loud espresso machines or party music, here are the top quiet study spots in Goa:
@@ -276,7 +276,7 @@ export default function GoaWorkCafesGuide() {
           While these branded chains offer a highly standardized environment and familiar menus, they are rarely the best choice for remote work in Goa. Hard Rock Cafe, for example, is designed for loud music, dining, and late-night drinks, making it unsuitable for quiet laptop work or study sessions. 
         </p>
         <p>
-          At Wayzyy, we always advocate for supporting independent, local Goan cafés instead. Places like Mojigao, Artjuna, or Babka don't just offer specialty coffee and reliable Wi-Fi—they provide lush garden settings, creative local communities, and a unique tropical atmosphere that makes working remotely feel rewarding rather than routine.
+          At Wayzyy, we always advocate for supporting independent, local Goan cafés instead. Places like Mojigao, Artjuna, or Babka don't just offer specialty coffee and reliable Wi-Fi - they provide lush garden settings, creative local communities, and a unique tropical atmosphere that makes working remotely feel rewarding rather than routine.
         </p>
       </div>
 
@@ -290,7 +290,7 @@ export default function GoaWorkCafesGuide() {
           If you have one or two meetings, want a relaxed atmosphere and enjoy changing locations every day, cafés are usually the better choice. They're ideal for creative work, writing, planning and lighter workloads while giving you the chance to experience Goa's café culture at the same time.
         </p>
         <p>
-          If you're working full-time with multiple client calls, fixed deadlines or a team spread across different time zones, you'll probably be happier combining cafés with dedicated coworking spaces. Many remote workers naturally settle into a routine—coworking during the busiest part of the day, followed by a café for lunch, an afternoon coffee or a quieter few hours of work before heading to the beach.
+          If you're working full-time with multiple client calls, fixed deadlines or a team spread across different time zones, you'll probably be happier combining cafés with dedicated coworking spaces. Many remote workers naturally settle into a routine - coworking during the busiest part of the day, followed by a café for lunch, an afternoon coffee or a quieter few hours of work before heading to the beach.
         </p>
         <p>
           If you're planning to work remotely for more than a few days, our <Link to="/blog/workation-goa-guide" className="text-ember hover:underline">Workation in Goa Guide</Link> covers everything from internet reliability and coworking spaces to choosing the best neighbourhood for longer stays.
@@ -311,16 +311,16 @@ export default function GoaWorkCafesGuide() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Village Guides</span>
-            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Villas Guide — Stays near Blue Tokai &amp; Mojigao</Link>
-            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Villas Guide — Quiet riverfront remote workspaces</Link>
-            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Beach Guide — Work-friendly stays near Babka &amp; Artjuna</Link>
-            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Beach Guide — Cliffside stays and sunset points</Link>
+            <Link to="/blog/assagao-goa-villas-guide" className="text-ember hover:underline block">Assagao Villas Guide - Stays near Blue Tokai &amp; Mojigao</Link>
+            <Link to="/blog/siolim-goa-villas-guide" className="text-ember hover:underline block">Siolim Villas Guide - Quiet riverfront remote workspaces</Link>
+            <Link to="/blog/anjuna-goa-beach-guide" className="text-ember hover:underline block">Anjuna Beach Guide - Work-friendly stays near Babka &amp; Artjuna</Link>
+            <Link to="/blog/vagator-goa-beach-guide" className="text-ember hover:underline block">Vagator Beach Guide - Cliffside stays and sunset points</Link>
           </div>
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-wider text-muted-foreground/75 font-semibold block mb-1">Nomad Planning Guides</span>
-            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Goa Workation Guide — WiFi, monthly budgets &amp; setup tips</Link>
-            <Link to="/blog/where-to-stay-in-goa" className="text-ember hover:underline block">Where to Stay in Goa — The ultimate lifestyle decision guide</Link>
-            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Goa Scooter Rental Guide — Licensing &amp; transit rules</Link>
+            <Link to="/blog/workation-goa-guide" className="text-ember hover:underline block">Goa Workation Guide - WiFi, monthly budgets &amp; setup tips</Link>
+            <Link to="/blog/where-to-stay-in-goa" className="text-ember hover:underline block">Where to Stay in Goa - The ultimate lifestyle decision guide</Link>
+            <Link to="/blog/goa-scooter-rental-guide" className="text-ember hover:underline block">Goa Scooter Rental Guide - Licensing &amp; transit rules</Link>
           </div>
         </div>
       </div>

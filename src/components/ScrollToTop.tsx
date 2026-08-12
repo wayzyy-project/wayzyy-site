@@ -8,7 +8,7 @@ export function ScrollToTop() {
   useEffect(() => {
     // A same-page hash change (e.g. the mobile tab bar linking to "/#why"
     // while already on "/") also needs to land on the target section, not
-    // just reset to top — handle that before falling back to the plain
+    // just reset to top - handle that before falling back to the plain
     // top-of-page reset used for every other navigation.
     if (hash) {
       const id = hash.slice(1);
@@ -31,7 +31,7 @@ export function ScrollToTop() {
       return;
     }
 
-    // Lenis keeps its own internal scroll target — a plain window.scrollTo()
+    // Lenis keeps its own internal scroll target - a plain window.scrollTo()
     // doesn't tell it, so on the next animation frame it can ease back toward
     // wherever it last was (e.g. mid-scroll on the previous page). Reset
     // through Lenis when it's running so both stay in sync.

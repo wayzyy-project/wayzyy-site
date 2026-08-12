@@ -16,7 +16,7 @@ const faqJsonLd = {
       "name": "Is Butterfly Beach worth visiting?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, especially if you enjoy quieter beaches, scenic boat rides, and natural landscapes. It's one of South Goa's most picturesque spots, but it's best approached with realistic expectations. Butterfly Beach isn't designed for spending an entire day—it works much better as a half-day excursion combined with nearby beaches like Palolem or Agonda."
+        "text": "Yes, especially if you enjoy quieter beaches, scenic boat rides, and natural landscapes. It's one of South Goa's most picturesque spots, but it's best approached with realistic expectations. Butterfly Beach isn't designed for spending an entire day - it works much better as a half-day excursion combined with nearby beaches like Palolem or Agonda."
       }
     },
     {
@@ -120,7 +120,7 @@ export default function ButterflyBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Butterfly Beach vs Palolem vs Agonda vs Cola Beach</h2>
         <p>
-          One of the reasons Butterfly Beach gets so much attention is because it's surrounded by some of South Goa's best beaches. If you're planning a trip, the bigger question usually isn't <em>"Should I visit Butterfly Beach?"</em>—it's <em>"Should I spend my time here or somewhere else?"</em>
+          One of the reasons Butterfly Beach gets so much attention is because it's surrounded by some of South Goa's best beaches. If you're planning a trip, the bigger question usually isn't <em>"Should I visit Butterfly Beach?"</em> - it's <em>"Should I spend my time here or somewhere else?"</em>
         </p>
         <p>
           The answer depends entirely on the kind of holiday you're after.
@@ -185,7 +185,7 @@ export default function ButterflyBeachGuide() {
         <WayzyyLocationPromo />
 
         <p>
-          That doesn't mean Butterfly Beach isn't worth visiting—it absolutely can be. It just depends on what you're looking for.
+          That doesn't mean Butterfly Beach isn't worth visiting - it absolutely can be. It just depends on what you're looking for.
         </p>
         <p>
           If you're chasing quiet beaches with cafés, comfortable stays, and long walks by the sea, you'll probably enjoy places like Patnem or Agonda more. If you're after a short adventure, a scenic boat ride, dramatic coastal views, and don't mind putting in a little extra effort, Butterfly Beach offers an experience that's quite different from anywhere else in Goa.
@@ -197,7 +197,7 @@ export default function ButterflyBeachGuide() {
           It's also worth setting expectations before you go. Despite its reputation as a hidden beach, Butterfly Beach isn't exactly a secret anymore. During weekends and peak season, several boats can arrive throughout the morning, making the beach noticeably busier than many first-time visitors expect. Going early in the day generally offers the calmest experience, before the majority of tour boats begin arriving.
         </p>
         <p>
-          In this guide, we'll cover everything you need to know before planning your visit—from whether Butterfly Beach is actually worth the effort, the best way to reach it, swimming conditions, dolphin boat rides, and nearby places to stay, to the common mistakes first-time visitors often make.
+          In this guide, we'll cover everything you need to know before planning your visit - from whether Butterfly Beach is actually worth the effort, the best way to reach it, swimming conditions, dolphin boat rides, and nearby places to stay, to the common mistakes first-time visitors often make.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">How to Reach Butterfly Beach</h2>
@@ -243,12 +243,12 @@ export default function ButterflyBeachGuide() {
           Unless you're comfortable with hiking, wearing proper footwear, and carrying enough water, the trek may end up feeling more exhausting than enjoyable.
         </p>
         <p>
-          Arriving early—whether by boat or on foot—usually offers the quietest conditions.
+          Arriving early - whether by boat or on foot - usually offers the quietest conditions.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">What Is Butterfly Beach Actually Like?</h2>
         <p>
-          If you've only seen Butterfly Beach through Instagram reels or drone videos, it's easy to imagine a vast stretch of untouched coastline. The reality is quite different—and that's not necessarily a bad thing.
+          If you've only seen Butterfly Beach through Instagram reels or drone videos, it's easy to imagine a vast stretch of untouched coastline. The reality is quite different - and that's not necessarily a bad thing.
         </p>
         <p>
           Butterfly Beach is relatively small. Instead of a long shoreline lined with cafés and beach shacks, you'll find a quiet cove surrounded by green hills and rocky cliffs. The enclosed setting is what gives the beach its charm. It feels tucked away from the rest of South Goa, and the scenery is easily one of the most beautiful along this part of the coast.
@@ -274,7 +274,7 @@ export default function ButterflyBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Can You Swim at Butterfly Beach?</h2>
         <p>
-          One of the most common questions travellers ask before visiting Butterfly Beach is whether it's a good place for swimming. The short answer is <strong>yes—but only if the sea conditions are suitable</strong>.
+          One of the most common questions travellers ask before visiting Butterfly Beach is whether it's a good place for swimming. The short answer is <strong>yes - but only if the sea conditions are suitable</strong>.
         </p>
         <p>
           Unlike Palolem, which is known for its relatively calm waters during the tourist season, Butterfly Beach doesn't always offer the same predictable swimming conditions. Since it's a small cove with rocky edges and changing tides, the sea can look inviting one day and become much rougher on another.
@@ -381,7 +381,7 @@ export default function ButterflyBeachGuide() {
         </p>
 
         <p>
-          If you're looking beyond traditional hotels, vacation rentals are often a better fit—especially for families, groups, or longer stays. A private apartment or villa gives you more space, better privacy, and often better value.
+          If you're looking beyond traditional hotels, vacation rentals are often a better fit - especially for families, groups, or longer stays. A private apartment or villa gives you more space, better privacy, and often better value.
         </p>
         <p>
           That's where Wayzyy becomes particularly useful. Rather than limiting yourself to hotels around a single beach, you can browse villas, apartments, and locally managed vacation homes across <strong>Palolem, Agonda, Patnem, and the rest of South Goa</strong>.
@@ -437,7 +437,7 @@ export default function ButterflyBeachGuide() {
           That doesn't make it any less worth visiting.
         </p>
         <p>
-          If you arrive early, plan your transport in advance, and treat it as part of a broader South Goa itinerary, Butterfly Beach delivers exactly what many travellers are looking for—a scenic boat ride, spectacular coastal views, peaceful surroundings, and a chance to experience a less commercial side of Goa.
+          If you arrive early, plan your transport in advance, and treat it as part of a broader South Goa itinerary, Butterfly Beach delivers exactly what many travellers are looking for - a scenic boat ride, spectacular coastal views, peaceful surroundings, and a chance to experience a less commercial side of Goa.
         </p>
         <p>
           Rather than trying to stay right next to Butterfly Beach, base yourself in Palolem, Patnem, or Agonda, where you'll have better restaurants, easier transport, and far more accommodation choices. From there, Butterfly Beach is an easy morning adventure before you spend the rest of the day exploring everything else South Goa has to offer.
@@ -446,7 +446,7 @@ export default function ButterflyBeachGuide() {
           If you're planning your trip, Wayzyy makes that easier by offering vacation rentals across South Goa, from beachfront apartments to private villas and locally hosted stays. Instead of limiting your search to a single beach, you can choose accommodation that's perfectly positioned for exploring Butterfly Beach along with Palolem, Agonda, Cola, Galgibaga, and many of the region's other hidden gems.
         </p>
         <p>
-          With the right expectations—and the right base—you'll likely find that Butterfly Beach becomes one of the most memorable stops on your Goa itinerary.
+          With the right expectations - and the right base - you'll likely find that Butterfly Beach becomes one of the most memorable stops on your Goa itinerary.
         </p>
       </div>
     </BlogLayout>

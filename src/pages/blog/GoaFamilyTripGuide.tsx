@@ -94,7 +94,7 @@ export default function GoaFamilyTripGuide() {
           Family holidays aren't meant to feel like a checklist.
         </p>
         <p>
-          The best memories rarely come from visiting the highest number of attractions. They come from the slower moments that weren't even part of the original itinerary. Watching your children spend an extra hour on the beach because they don't want to leave, enjoying breakfast together without worrying about the next reservation or sitting by the pool while grandparents share stories from their own travels—those are the moments most families remember long after the trip is over.
+          The best memories rarely come from visiting the highest number of attractions. They come from the slower moments that weren't even part of the original itinerary. Watching your children spend an extra hour on the beach because they don't want to leave, enjoying breakfast together without worrying about the next reservation or sitting by the pool while grandparents share stories from their own travels - those are the moments most families remember long after the trip is over.
         </p>
         <p>
           That's why we always recommend planning around experiences instead of attractions.
@@ -106,7 +106,7 @@ export default function GoaFamilyTripGuide() {
           Rest isn't wasted time.
         </p>
         <p>
-          Children often need an afternoon nap after spending hours in the sun, while elderly parents usually appreciate a quiet break before heading out again in the evening. Even teenagers, despite insisting they're full of energy, usually enjoy having a few hours to relax, swim or simply spend time together at the stay. Building those breaks into your itinerary doesn't mean you'll see less of Goa—it usually means you'll enjoy much more of it.
+          Children often need an afternoon nap after spending hours in the sun, while elderly parents usually appreciate a quiet break before heading out again in the evening. Even teenagers, despite insisting they're full of energy, usually enjoy having a few hours to relax, swim or simply spend time together at the stay. Building those breaks into your itinerary doesn't mean you'll see less of Goa - it usually means you'll enjoy much more of it.
         </p>
         <p>
           Another tip that makes a noticeable difference is leaving space for unplanned discoveries.
@@ -133,7 +133,7 @@ export default function GoaFamilyTripGuide() {
           Once you start planning your trip around comfort rather than rushing from one attraction to the next, Goa begins to feel very different. It becomes less about ticking places off a list and more about creating memories together as a family.
         </p>
         <p>
-          That's also why the place you stay can influence your holiday more than almost any attraction you'll visit—and that's exactly what we wanted to solve with Wayzyy.
+          That's also why the place you stay can influence your holiday more than almost any attraction you'll visit - and that's exactly what we wanted to solve with Wayzyy.
         </p>
 
         <img
@@ -183,7 +183,7 @@ export default function GoaFamilyTripGuide() {
           What we're building is a better alternative for people who want to travel differently.
         </p>
         <p>
-          Families deserve accommodation that feels like home while still delivering the hospitality, cleanliness and professional standards they expect when they're away from home. That's why the homes you'll discover on Wayzyy aren't simply places to stay—they're spaces designed for living. Fully equipped kitchens give you the freedom to prepare a familiar meal whenever you need one. Spacious living rooms become the heart of family conversations after a day of exploring. Multiple bedrooms allow everyone to enjoy their own privacy without feeling disconnected, while dedicated parking, professionally managed properties and local caretakers make longer stays far more comfortable than constantly adapting to hotel routines.
+          Families deserve accommodation that feels like home while still delivering the hospitality, cleanliness and professional standards they expect when they're away from home. That's why the homes you'll discover on Wayzyy aren't simply places to stay - they're spaces designed for living. Fully equipped kitchens give you the freedom to prepare a familiar meal whenever you need one. Spacious living rooms become the heart of family conversations after a day of exploring. Multiple bedrooms allow everyone to enjoy their own privacy without feeling disconnected, while dedicated parking, professionally managed properties and local caretakers make longer stays far more comfortable than constantly adapting to hotel routines.
         </p>
         <p>
           Another thing we strongly believe is that hospitality shouldn't stop once you've checked in.
@@ -245,7 +245,7 @@ export default function GoaFamilyTripGuide() {
           That's the philosophy behind Wayzyy.
         </p>
         <p>
-          We've always believed that the best holidays don't begin when you arrive at the beach—they begin the moment you walk into a place that already feels welcoming. Our goal is to help families discover thoughtfully managed homes where parents can relax, children can play, grandparents can feel comfortable and everyone has enough space to enjoy the journey together.
+          We've always believed that the best holidays don't begin when you arrive at the beach - they begin the moment you walk into a place that already feels welcoming. Our goal is to help families discover thoughtfully managed homes where parents can relax, children can play, grandparents can feel comfortable and everyone has enough space to enjoy the journey together.
         </p>
         <p>
           Goa has something for every generation.
@@ -295,17 +295,17 @@ export default function GoaFamilyTripGuide() {
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <a href="/blog/north-goa-vs-south-goa-guide" className="hover:text-ember transition-colors">
-              North Goa vs South Goa — Stays, Vibe, and Beach Comparison Guide
+              North Goa vs South Goa - Stays, Vibe, and Beach Comparison Guide
             </a>
           </li>
           <li>
             <a href="/blog/goa-hotel-vs-villa-vs-homestay" className="hover:text-ember transition-colors">
-              Hotel vs Villa vs Homestay — Which Accommodation to Book in Goa?
+              Hotel vs Villa vs Homestay - Which Accommodation to Book in Goa?
             </a>
           </li>
           <li>
             <a href="/blog/goa-transport-guide" className="hover:text-ember transition-colors">
-              Getting Around Goa — Scooter Rentals, Cabs, and Self-Drive Rentals Guide
+              Getting Around Goa - Scooter Rentals, Cabs, and Self-Drive Rentals Guide
             </a>
           </li>
         </ul>

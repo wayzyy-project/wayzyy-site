@@ -6,8 +6,8 @@ import { SEO } from "@/components/SEO";
 import { Reveal } from "@/components/Reveal";
 
 /**
- * /waitlist — a chooser, not a form. Hosts already have a real, live
- * portal at /host (list a property, manage bookings — no waiting around),
+ * /waitlist - a chooser, not a form. Hosts already have a real, live
+ * portal at /host (list a property, manage bookings - no waiting around),
  * so this page's only job is to split visitors into the path that's
  * actually right for them: straight into the host portal, or onto the
  * traveler waitlist at /waitlist/travelers for the booking side, which
@@ -17,8 +17,8 @@ export default function WaitlistChooser() {
   return (
     <>
       <SEO
-        title="Join Wayzyy — Waitlist"
-        description="Hosting is live on Wayzyy today. Travelers — booking opens soon. Pick your path and get in."
+        title="Join Wayzyy - Waitlist"
+        description="Hosting is live on Wayzyy today. Travelers - booking opens soon. Pick your path and get in."
         path="/waitlist"
       />
       <div className="relative min-h-screen bg-background text-foreground">
@@ -59,7 +59,7 @@ export default function WaitlistChooser() {
                       For Hosts
                     </h2>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Live today — no waiting list. List your Goa property,
+                      Live today - no waiting list. List your Goa property,
                       set your own price, and keep what you earn with a flat
                       subscription instead of a per-booking cut.
                     </p>
@@ -85,7 +85,7 @@ export default function WaitlistChooser() {
                     </h2>
                     <p className="mt-2 text-sm text-muted-foreground">
                       Almost ready. We're not taking bookings yet, but the
-                      waitlist gets you in first — plus referral discounts
+                      waitlist gets you in first - plus referral discounts
                       for the first wave.
                     </p>
                   </div>

@@ -52,10 +52,10 @@ export function PartyFigurines({ className }: { className?: string }) {
         <circle cx="0" cy="22" r="9" fill="currentColor" />
         {/* torso */}
         <rect x="-7" y="31" width="14" height="26" rx="4" fill="currentColor" />
-        {/* left arm — angled up-left */}
+        {/* left arm - angled up-left */}
         <rect x="-14" y="25" width="5" height="19" rx="2.5" fill="currentColor"
           transform="rotate(-48, -12, 33)" />
-        {/* right arm — angled up-right */}
+        {/* right arm - angled up-right */}
         <rect x="9" y="25" width="5" height="19" rx="2.5" fill="currentColor"
           transform="rotate(48, 11, 33)" />
         {/* left leg */}
@@ -92,7 +92,7 @@ export function PartyFigurines({ className }: { className?: string }) {
         {/* cup */}
         <rect x="20" y="6" width="7" height="9" rx="1.5" fill="hsl(var(--ember))" />
         <rect x="19" y="14" width="9" height="2" rx="1" fill="hsl(var(--ember))" opacity="0.6" />
-        {/* left arm — slightly out */}
+        {/* left arm - slightly out */}
         <rect x="-14" y="28" width="5" height="17" rx="2.5" fill="currentColor"
           transform="rotate(22, -12, 33)" />
         {/* left leg */}
@@ -125,16 +125,16 @@ export function PartyFigurines({ className }: { className?: string }) {
           strokeLinecap="round" />
         {/* torso */}
         <rect x="-8" y="30" width="16" height="28" rx="5" fill="currentColor" />
-        {/* left arm — wide out-left */}
+        {/* left arm - wide out-left */}
         <rect x="-24" y="30" width="5" height="20" rx="2.5" fill="currentColor"
           transform="rotate(80, -22, 34)" />
-        {/* right arm — wide out-right */}
+        {/* right arm - wide out-right */}
         <rect x="19" y="30" width="5" height="20" rx="2.5" fill="currentColor"
           transform="rotate(-80, 21, 34)" />
-        {/* left leg — spread */}
+        {/* left leg - spread */}
         <rect x="-8" y="58" width="6" height="22" rx="3" fill="currentColor"
           transform="rotate(-22, -5, 58)" />
-        {/* right leg — spread */}
+        {/* right leg - spread */}
         <rect x="2" y="58" width="6" height="22" rx="3" fill="currentColor"
           transform="rotate(22, 5, 58)" />
         {/* shoes */}
@@ -156,16 +156,16 @@ export function PartyFigurines({ className }: { className?: string }) {
         )}
         {/* head */}
         <circle cx="0" cy="22" r="9" fill="currentColor" />
-        {/* torso — lean left */}
+        {/* torso - lean left */}
         <rect x="-7" y="31" width="14" height="26" rx="4" fill="currentColor"
           transform="rotate(-6, 0, 44)" />
-        {/* left arm — extended forward holding bottle */}
+        {/* left arm - extended forward holding bottle */}
         <rect x="-22" y="26" width="5" height="19" rx="2.5" fill="currentColor"
           transform="rotate(75, -20, 33)" />
         {/* bottle */}
         <rect x="-32" y="14" width="6" height="13" rx="2" fill="hsl(var(--ember))" />
         <rect x="-31" y="11" width="4" height="5" rx="1.5" fill="hsl(var(--ember))" opacity="0.7" />
-        {/* right arm — behind back */}
+        {/* right arm - behind back */}
         <rect x="7" y="28" width="5" height="16" rx="2.5" fill="currentColor"
           transform="rotate(-15, 9, 33)" />
         {/* legs */}
@@ -196,10 +196,10 @@ export function PartyFigurines({ className }: { className?: string }) {
         <circle cx="0" cy="22" r="9" fill="currentColor" />
         {/* torso */}
         <rect x="-7" y="31" width="14" height="26" rx="4" fill="currentColor" />
-        {/* left arm — up diagonal */}
+        {/* left arm - up diagonal */}
         <rect x="-13" y="24" width="5" height="19" rx="2.5" fill="currentColor"
           transform="rotate(-35, -11, 33)" />
-        {/* right arm — down at hip */}
+        {/* right arm - down at hip */}
         <rect x="8" y="31" width="5" height="17" rx="2.5" fill="currentColor"
           transform="rotate(25, 10, 35)" />
         {/* mid-step legs */}
@@ -235,7 +235,7 @@ export function PartyFigurines({ className }: { className?: string }) {
           transform="rotate(38, 13, 33)" />
         {/* small star accent near right hand */}
         <circle cx="24" cy="10" r="3" fill="hsl(var(--ember))" opacity="0.85" />
-        {/* legs — together, slight bounce stance */}
+        {/* legs - together, slight bounce stance */}
         <rect x="-7" y="57" width="6" height="22" rx="3" fill="currentColor"
           transform="rotate(-7, -4, 57)" />
         <rect x="1" y="57" width="6" height="22" rx="3" fill="currentColor"

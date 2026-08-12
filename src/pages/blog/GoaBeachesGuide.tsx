@@ -122,7 +122,7 @@ export default function GoaBeachesGuide() {
           Just because a beach looks calm doesn't necessarily mean it's safe to swim.
         </p>
         <p>
-          The Arabian Sea changes constantly with the tides, underwater currents and seasonal weather. A stretch of water that feels perfectly safe in the morning can become much stronger later in the day, particularly during the monsoon months. That's why experienced travellers don't judge a beach by its photographs—they look for lifeguard zones and the safety flags before stepping into the water.
+          The Arabian Sea changes constantly with the tides, underwater currents and seasonal weather. A stretch of water that feels perfectly safe in the morning can become much stronger later in the day, particularly during the monsoon months. That's why experienced travellers don't judge a beach by its photographs - they look for lifeguard zones and the safety flags before stepping into the water.
         </p>
         <p>
           Goa's beaches are monitored by Drishti Marine, the state's official lifeguard service. If you notice green flags, conditions are generally considered suitable for swimming within the designated area. Yellow flags indicate that extra caution is required, while red flags mean entering the water is unsafe. Ignoring these warnings is one of the most common mistakes visitors make, especially during the rainy season when sea conditions can change very quickly.
@@ -136,7 +136,7 @@ export default function GoaBeachesGuide() {
       <div className="space-y-8 mt-12">
         {/* Palolem */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Palolem — One of the Best Beaches for Casual Swimming</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">Palolem - One of the Best Beaches for Casual Swimming</h3>
           <p>
             Palolem has earned its reputation for more than just its scenery.
           </p>
@@ -160,7 +160,7 @@ export default function GoaBeachesGuide() {
 
         {/* Colva & Benaulim */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Colva and Benaulim — Great Choices for Families</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">Colva and Benaulim - Great Choices for Families</h3>
           <p>
             Families often prioritise completely different things from other travellers.
           </p>
@@ -175,7 +175,7 @@ export default function GoaBeachesGuide() {
 
         {/* Morjim & Candolim */}
         <div className="border-l-4 border-ember pl-6 space-y-3">
-          <h3 className="font-display text-xl font-bold text-foreground">Morjim and Candolim — A Comfortable Balance</h3>
+          <h3 className="font-display text-xl font-bold text-foreground">Morjim and Candolim - A Comfortable Balance</h3>
           <p>
             Not everyone wants to choose between complete peace and busy tourist beaches.
           </p>
@@ -221,7 +221,7 @@ export default function GoaBeachesGuide() {
           Planning to drive? Some beaches have large organised parking areas, while others involve narrow village roads where finding a space becomes difficult by late morning. Visiting during the monsoon? Many seasonal beach shacks are dismantled, meaning facilities like changing rooms, showers and restaurants may not be available. Working remotely? Mobile network quality can vary surprisingly between beaches, making areas like Mandrem and more remote stretches worth checking before planning a workday by the sea.
         </p>
         <p>
-          These aren't the details that usually appear in glossy travel guides. They're the things people search for after arriving in Goa—or wish they'd known before booking their stay.
+          These aren't the details that usually appear in glossy travel guides. They're the things people search for after arriving in Goa - or wish they'd known before booking their stay.
         </p>
         <p>
           That's also why choosing the right beach isn't simply about where you'll spend a few hours. It's about choosing the area that best fits the way you want to experience Goa.
@@ -356,7 +356,7 @@ export default function GoaBeachesGuide() {
           That's where many Goa itineraries quietly fall apart.
         </p>
         <p>
-          Someone books a beautiful villa because it has a private pool, only to realise they're driving forty-five minutes every morning to reach the beach they wanted to visit. Another traveller chooses accommodation near a busy tourist area, only to discover they were actually looking for quiet mornings and peaceful evenings. The property wasn't the problem—the location was.
+          Someone books a beautiful villa because it has a private pool, only to realise they're driving forty-five minutes every morning to reach the beach they wanted to visit. Another traveller chooses accommodation near a busy tourist area, only to discover they were actually looking for quiet mornings and peaceful evenings. The property wasn't the problem - the location was.
         </p>
         <p>
           A better way to plan your trip is to work backwards: Choose the beach first. Then choose the neighbourhood around it. Everything else becomes much easier.

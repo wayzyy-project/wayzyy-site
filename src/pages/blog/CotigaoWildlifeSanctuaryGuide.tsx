@@ -130,7 +130,7 @@ export default function CotigaoWildlifeSanctuaryGuide() {
           Unlike Goa's beaches, where there's always something happening, Cotigao encourages you to slow your pace. There are no beach shacks, loud cafés, or music playing in the background. Instead, you'll spend your time walking along forest trails, spotting butterflies, listening to birds, and enjoying the quiet that has become increasingly difficult to find in popular tourist destinations.
         </p>
         <p>
-          The sanctuary is particularly popular among <strong>birdwatchers and photographers</strong>. While sightings of larger mammals like gaur, deer, or wild boar are never guaranteed, the forest is home to a wide variety of birds, butterflies, reptiles, and smaller wildlife. If you're lucky—and more importantly, patient—you might spot animals near the watering holes during the cooler parts of the day.
+          The sanctuary is particularly popular among <strong>birdwatchers and photographers</strong>. While sightings of larger mammals like gaur, deer, or wild boar are never guaranteed, the forest is home to a wide variety of birds, butterflies, reptiles, and smaller wildlife. If you're lucky - and more importantly, patient - you might spot animals near the watering holes during the cooler parts of the day.
         </p>
         <p>
           Perhaps the sanctuary's biggest attraction is its <strong>treetop watchtower</strong>.
@@ -239,7 +239,7 @@ export default function CotigaoWildlifeSanctuaryGuide() {
           If there's one experience you shouldn't miss, it's climbing the <strong>treetop watchtower</strong>.
         </p>
         <p>
-          Standing high above the forest floor, the tower overlooks a natural watering hole that attracts wildlife throughout the year. While there are no guarantees you'll spot deer or gaur during your visit, the view itself is worth the climb. Looking out across an endless canopy of green gives you a completely different perspective of Goa—one that most visitors never get to see.
+          Standing high above the forest floor, the tower overlooks a natural watering hole that attracts wildlife throughout the year. While there are no guarantees you'll spot deer or gaur during your visit, the view itself is worth the climb. Looking out across an endless canopy of green gives you a completely different perspective of Goa - one that most visitors never get to see.
         </p>
         <p>
           Many people spend 20 to 30 minutes here simply listening to the sounds of the forest. Even without wildlife sightings, it's one of the most peaceful moments you'll have during your trip.
@@ -253,7 +253,7 @@ export default function CotigaoWildlifeSanctuaryGuide() {
         </p>
         <h3 className="font-display text-xl text-foreground mt-4">Photography Opportunities</h3>
         <p>
-          Cotigao isn't about dramatic landmarks—it's about subtle beauty.
+          Cotigao isn't about dramatic landmarks - it's about subtle beauty.
         </p>
         <p>
           Photographers will find plenty to capture, from towering evergreen trees and winding forest paths to colourful butterflies, birds, mushrooms during the monsoon, and rays of sunlight filtering through the canopy. If you're lucky enough to spot wildlife near the watchtower, that's an added bonus rather than the main objective.
@@ -450,7 +450,7 @@ export default function CotigaoWildlifeSanctuaryGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-12">Final Thoughts</h2>
         <p>
-          Cotigao Wildlife Sanctuary proves that Goa is much more than beaches and nightlife. Hidden beneath a dense canopy of towering trees, it offers a completely different side of the state—one defined by quiet walking trails, rich biodiversity, and the chance to disconnect from the usual tourist circuit.
+          Cotigao Wildlife Sanctuary proves that Goa is much more than beaches and nightlife. Hidden beneath a dense canopy of towering trees, it offers a completely different side of the state - one defined by quiet walking trails, rich biodiversity, and the chance to disconnect from the usual tourist circuit.
         </p>
         <p>
           It may not offer guaranteed wildlife sightings, but that's part of its charm. Every visit is different. Some travellers leave talking about birds they spotted from the watchtower, others remember the peaceful forest trails, and many simply appreciate spending a few hours surrounded by nature.
@@ -459,7 +459,7 @@ export default function CotigaoWildlifeSanctuaryGuide() {
           The best way to experience it is to include it as part of a slower South Goa itinerary. Combine it with <strong>Palolem</strong>, <strong>Patnem</strong>, <strong>Agonda</strong>, <strong>Galgibaga Beach</strong>, or <strong>Cabo de Rama Fort</strong>, and you'll discover a side of Goa that many visitors never get to see.
         </p>
         <p>
-          If you're planning to stay in South Goa, don't forget to compare accommodation before booking. <strong>Wayzyy connects you directly with hosts without adding an extra platform markup</strong>, which means you can often book the <strong>exact same villa or vacation rental for up to 20% less</strong> than on larger booking platforms. It's a smarter way to book—and it leaves more of your budget for the experiences that make a Goa trip memorable.
+          If you're planning to stay in South Goa, don't forget to compare accommodation before booking. <strong>Wayzyy connects you directly with hosts without adding an extra platform markup</strong>, which means you can often book the <strong>exact same villa or vacation rental for up to 20% less</strong> than on larger booking platforms. It's a smarter way to book - and it leaves more of your budget for the experiences that make a Goa trip memorable.
         </p>
       </div>
     </BlogLayout>

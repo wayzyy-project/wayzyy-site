@@ -18,20 +18,20 @@ const content = {
   host: {
     label: "I'm Hosting",
     headline: (
-      <>We grow with you —{" "}<span className="text-ember italic font-display">not off you.</span></>
+      <>We grow with you - {" "}<span className="text-ember italic font-display">not off you.</span></>
     ),
     intro:
-      "Choose a subscription tier that fits your booking volume. Keep far more of each booking than you would anywhere else — no per-booking percentage, ever. And if a guest causes repeated trouble, they're off the platform.",
+      "Choose a subscription tier that fits your booking volume. Keep far more of each booking than you would anywhere else - no per-booking percentage, ever. And if a guest causes repeated trouble, they're off the platform.",
     bullets: [
       {
         icon: Tag,
         title: "Tiered subscription plans",
         body:
-          "Pick a pass that matches your booking volume — Starter, Growth, or Pro. A flat fee per tier, not a percentage bled from every guest payment. Predictable costs, no surprises.",
+          "Pick a pass that matches your booking volume - Starter, Growth, or Pro. A flat fee per tier, not a percentage bled from every guest payment. Predictable costs, no surprises.",
       },
       {
         icon: Headphones,
-        title: "24/7 support — real agents",
+        title: "24/7 support - real agents",
         body:
           "Unlike other platforms where you're stuck in a loop of automated replies, our team picks up. Real humans, with authority, around the clock. Email, call, sorted.",
       },
@@ -39,7 +39,7 @@ const content = {
         icon: ShieldCheck,
         title: "Aadhaar-verified guest identity",
         body:
-          "Every guest's identity is digitally verified via Aadhaar before they book. Full KYC details secured on both ends — you know exactly who's walking through your door.",
+          "Every guest's identity is digitally verified via Aadhaar before they book. Full KYC details secured on both ends - you know exactly who's walking through your door.",
       },
       {
         icon: TrendingUp,
@@ -55,19 +55,19 @@ const content = {
       <>Real listings.{" "}<span className="text-ember italic font-display">Real protection.</span></>
     ),
     intro:
-      "No fake images. No mystery fees. Every host is Aadhaar-verified, every new listing reviewed by our staff, and guests who leave a trail of dishonest reviews get blacklisted — so the community stays worth being part of.",
+      "No fake images. No mystery fees. Every host is Aadhaar-verified, every new listing reviewed by our staff, and guests who leave a trail of dishonest reviews get blacklisted - so the community stays worth being part of.",
     bullets: [
       {
         icon: Camera,
         title: "AI-verified listing photos",
         body:
-          "Every image uploaded by a host is run through our AI detection pipeline. Fake renders, old photos, stock images — flagged before they reach you.",
+          "Every image uploaded by a host is run through our AI detection pipeline. Fake renders, old photos, stock images - flagged before they reach you.",
       },
       {
         icon: ShieldCheck,
         title: "Aadhaar-verified hosts",
         body:
-          "Hosts are identity-verified via Aadhaar before listing. Privacy and security come first — you always know the property is owned by a real, verifiable person.",
+          "Hosts are identity-verified via Aadhaar before listing. Privacy and security come first - you always know the property is owned by a real, verifiable person.",
       },
       {
         icon: Star,
@@ -79,7 +79,7 @@ const content = {
         icon: Gift,
         title: "Early joiner referral discounts",
         body:
-          "Join early, refer a friend, both of you get discounts on your first stays. Guests who leave repeated bad-faith reviews are removed from the platform — keeping the community clean.",
+          "Join early, refer a friend, both of you get discounts on your first stays. Guests who leave repeated bad-faith reviews are removed from the platform - keeping the community clean.",
       },
     ],
   },
@@ -95,7 +95,7 @@ export function TwoSides() {
       className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-card/40 via-card/40 to-background py-28 sm:py-40"
     >
       {/* Same ember glow treatment EconomicsSection uses just below this
-          section — carried up here so the two read as one continuous
+          section - carried up here so the two read as one continuous
           scroll-story instead of two unrelated design passes. */}
       <div
         aria-hidden

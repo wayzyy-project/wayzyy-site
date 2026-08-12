@@ -18,7 +18,7 @@ export function CalculatorTeaser() {
                 Want to know the difference? Calculate it.
               </h2>
               <p className="mt-2 text-sm text-muted-foreground max-w-md">
-                See exactly how much more you'd take home listing on Wayzyy instead of Airbnb — enter your real
+                See exactly how much more you'd take home listing on Wayzyy instead of Airbnb - enter your real
                 booking value and compare side by side.
               </p>
             </div>

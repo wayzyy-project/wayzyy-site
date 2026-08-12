@@ -105,7 +105,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
       extraJsonLd={faqJsonLd}
     >
       <p>
-        One of the biggest decisions you'll make before booking a villa isn't choosing the property itself—it's deciding which part of Goa you want to wake up in every morning.
+        One of the biggest decisions you'll make before booking a villa isn't choosing the property itself - it's deciding which part of Goa you want to wake up in every morning.
       </p>
       <p>
         This question comes up so often because North and South Goa offer completely different experiences. It's not that one is better than the other; they simply appeal to different kinds of travellers. If you book a villa without thinking about the surrounding area, even the most beautiful property can end up feeling like the wrong choice.
@@ -117,7 +117,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         What kind of holiday are you actually planning?
       </p>
       <p>
-        If your ideal trip includes café hopping, exploring different beaches every day, discovering local restaurants, shopping at flea markets and having plenty of options once the sun goes down, you'll almost certainly enjoy North Goa more. Villages such as Anjuna, Vagator, Morjim, Ashwem, Siolim and Assagao are all within a comfortable drive of one another, making it easy to spend the morning in one place and the evening somewhere completely different. That's one of North Goa's biggest strengths—you're never limited to a single destination.
+        If your ideal trip includes café hopping, exploring different beaches every day, discovering local restaurants, shopping at flea markets and having plenty of options once the sun goes down, you'll almost certainly enjoy North Goa more. Villages such as Anjuna, Vagator, Morjim, Ashwem, Siolim and Assagao are all within a comfortable drive of one another, making it easy to spend the morning in one place and the evening somewhere completely different. That's one of North Goa's biggest strengths - you're never limited to a single destination.
       </p>
       <p>
         South Goa tells a different story.
@@ -153,7 +153,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         That difference becomes even more noticeable depending on who you're travelling with.
       </p>
       <p>
-        A group of friends celebrating a birthday will usually appreciate the energy and flexibility of North Goa. Being close to popular cafés, restaurants and nightlife means there's always something happening without needing long drives. Families often find themselves split between the two. North Goa offers more activities and dining options, while South Goa provides quieter surroundings and beaches that many parents find more relaxing with younger children. Couples can enjoy either side of the state depending on the experience they're after—North Goa for variety and exploration, South Goa for slower days and uninterrupted time together.
+        A group of friends celebrating a birthday will usually appreciate the energy and flexibility of North Goa. Being close to popular cafés, restaurants and nightlife means there's always something happening without needing long drives. Families often find themselves split between the two. North Goa offers more activities and dining options, while South Goa provides quieter surroundings and beaches that many parents find more relaxing with younger children. Couples can enjoy either side of the state depending on the experience they're after - North Goa for variety and exploration, South Goa for slower days and uninterrupted time together.
       </p>
       <p>
         Remote workers often ask a slightly different question:
@@ -235,13 +235,13 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         What type of villa actually matches the way you're travelling?
       </p>
       <p>
-        A couple, a family of five, a birthday group and someone planning a month-long workation are all looking for very different things—and that's exactly what we'll help you choose next.
+        A couple, a family of five, a birthday group and someone planning a month-long workation are all looking for very different things - and that's exactly what we'll help you choose next.
       </p>
 
       <div className="my-8">
         <img
           src="/blog/goa-villa-floresta.webp"
-          alt="Villa Floresta — a beautiful traditional-style white villa in Goa with a private swimming pool"
+          alt="Villa Floresta - a beautiful traditional-style white villa in Goa with a private swimming pool"
           className="w-full rounded-2xl border border-border object-cover aspect-video"
           loading="lazy"
         />
@@ -350,7 +350,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         A short conversation with the host before booking usually answers all of those questions.
       </p>
       <p>
-        That's also why we've built Wayzyy around verified properties and transparent information rather than simply displaying attractive photographs. Every traveller values different things—some care about work-friendly internet, others need pet-friendly accommodation, while many simply want a villa close to North Goa's cafés and beaches. Helping people understand those practical details before they book leads to better holidays and happier hosts, which is exactly what a host-first platform should do.
+        That's also why we've built Wayzyy around verified properties and transparent information rather than simply displaying attractive photographs. Every traveller values different things - some care about work-friendly internet, others need pet-friendly accommodation, while many simply want a villa close to North Goa's cafés and beaches. Helping people understand those practical details before they book leads to better holidays and happier hosts, which is exactly what a host-first platform should do.
       </p>
 
       {/* Comparison Box: Villa vs Hotel */}
@@ -410,7 +410,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         If you enjoy lively cafés, nightlife and exploring different beaches, Anjuna or Vagator are likely to suit you better. Travellers looking for quieter surroundings often prefer Morjim, Ashwem or Mandrem, while longer stays and workations naturally fit places like Siolim and Assagao.
       </p>
       <p>
-        The villa should complement the location—not replace it.
+        The villa should complement the location - not replace it.
       </p>
 
       <h3>Booking Solely Because the Villa Looks Beautiful</h3>
@@ -429,7 +429,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         If you're travelling between December and early January, delaying your booking is one of the easiest ways to limit your options.
       </p>
       <p>
-        Goa's best villas—particularly larger homes with private pools—are often reserved months in advance. Waiting until the final few weeks usually means choosing from whatever remains rather than from the properties you actually wanted.
+        Goa's best villas - particularly larger homes with private pools - are often reserved months in advance. Waiting until the final few weeks usually means choosing from whatever remains rather than from the properties you actually wanted.
       </p>
       <p>
         Booking early doesn't just provide better availability. It often results in better prices as well.
@@ -505,7 +505,7 @@ export default function NorthGoaVillasVsSouthGoaVillas() {
         A beautiful villa tucked away in the wrong area can easily turn into long drives, unnecessary taxi expenses and a holiday that feels more rushed than relaxing. On the other hand, a thoughtfully chosen villa in the right neighbourhood naturally becomes the centre of your trip. Mornings start without a plan, afternoons are flexible and evenings unfold without constantly checking maps or travel times. Those small details rarely appear in booking listings, yet they're often what determine whether a holiday feels effortless or exhausting.
       </p>
       <p>
-        Throughout this guide, we've focused on helping you make those decisions before you book. We've compared villas with hotels, explored the differences between North and South Goa, discussed budgets, highlighted the questions worth asking and covered the mistakes that travellers most commonly regret. The goal wasn't simply to help you book accommodation—it was to help you book accommodation that genuinely improves your overall experience.
+        Throughout this guide, we've focused on helping you make those decisions before you book. We've compared villas with hotels, explored the differences between North and South Goa, discussed budgets, highlighted the questions worth asking and covered the mistakes that travellers most commonly regret. The goal wasn't simply to help you book accommodation - it was to help you book accommodation that genuinely improves your overall experience.
       </p>
       <p>
         That's the same philosophy we've followed while building Wayzyy.

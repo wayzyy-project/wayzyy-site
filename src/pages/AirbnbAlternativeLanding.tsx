@@ -62,7 +62,7 @@ export default function AirbnbAlternativeLanding() {
             <div>
               <h2 className="font-display text-lg font-semibold text-foreground mb-2">The Hidden 15.5% Commission</h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                Airbnb charges hosts a <strong>15.5% fee</strong> on every single booking, forever, with no ceiling. That cost almost always ends up baked into the price a guest pays. Wayzyy works differently — hosts pay a flat, low-cost credit instead of a percentage cut, which means the price you see is closer to the price the host actually wanted to charge.
+                Airbnb charges hosts a <strong>15.5% fee</strong> on every single booking, forever, with no ceiling. That cost almost always ends up baked into the price a guest pays. Wayzyy works differently - hosts pay a flat, low-cost credit instead of a percentage cut, which means the price you see is closer to the price the host actually wanted to charge.
               </p>
             </div>
           </div>
@@ -135,14 +135,14 @@ export default function AirbnbAlternativeLanding() {
                 <div className="text-2xl text-ember font-bold">02</div>
                 <h3 className="font-display font-semibold text-foreground text-lg">Real protection</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Every host and guest goes through Aadhaar-based identity verification. Disputes are resolved by a real team, using photo evidence and a structured claims process — not an outsourced call center reading a script.
+                  Every host and guest goes through Aadhaar-based identity verification. Disputes are resolved by a real team, using photo evidence and a structured claims process - not an outsourced call center reading a script.
                 </p>
               </div>
               <div className="rounded-2xl border border-border bg-card/30 p-6 space-y-3 hover:border-ember/40 transition-colors">
                 <div className="text-2xl text-ember font-bold">03</div>
                 <h3 className="font-display font-semibold text-foreground text-lg">Built for Goa</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Wayzyy understands the local market — from village-level villa knowledge to Goa-specific compliance requirements — in a way a platform built for every country at once cannot.
+                  Wayzyy understands the local market - from village-level villa knowledge to Goa-specific compliance requirements - in a way a platform built for every country at once cannot.
                 </p>
               </div>
             </div>

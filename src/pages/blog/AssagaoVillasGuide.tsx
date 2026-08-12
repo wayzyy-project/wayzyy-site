@@ -60,13 +60,13 @@ export default function AssagaoVillasGuide() {
       extraJsonLd={faqJsonLd}
     >
       <p>
-        A few years ago, if someone asked where to stay in Goa, the answers were almost always Baga, Calangute, or Candolim—maybe
+        A few years ago, if someone asked where to stay in Goa, the answers were almost always Baga, Calangute, or Candolim - maybe
         Anjuna if they wanted something slightly quieter. Today, the conversation has changed completely. Ask regular
         visitors, digital nomads, founders planning offsites, or even locals where they would choose to stay, and one place
         keeps coming up over and over: <strong>Assagao</strong>.
       </p>
       <p>
-        It has become one of the most talked-about villages in North Goa—not because of loud beach parties or massive
+        It has become one of the most talked-about villages in North Goa - not because of loud beach parties or massive
         resorts, but because it offers something many travellers eventually look for after their first trip to Goa: a slower
         pace, beautiful Portuguese-style homes, excellent cafés, independent restaurants, tree-lined roads, and boutique
         stores. It sits at a comfortable distance from the crowds, yet remains only a short drive away from beaches like
@@ -92,7 +92,7 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         Of course, that popularity has also brought one challenge: accommodation here is no longer the bargain it once was.
-        As one of the most sought-after places to stay in North Goa, the best villas get booked well in advance—especially
+        As one of the most sought-after places to stay in North Goa, the best villas get booked well in advance - especially
         during the winter season. The good news is that with a little planning, it is still possible to find excellent properties
         that offer far better value than many travellers expect.
       </p>
@@ -121,7 +121,7 @@ export default function AssagaoVillasGuide() {
         hubs, and that is exactly what made it special. While other parts of North Goa became busier every year, Assagao held
         on to its tree-lined roads, Portuguese homes, and slower pace of life. Over time, independent cafés, thoughtfully
         restored villas, boutique restaurants, and local brands naturally found a home here, attracting a different kind of
-        traveller—people who wanted to experience Goa beyond beach clubs and crowded markets.
+        traveller - people who wanted to experience Goa beyond beach clubs and crowded markets.
       </p>
       <p>
         Spend a day here and you'll understand why. It's the kind of place where mornings begin at a neighbourhood café,
@@ -131,7 +131,7 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         The rise of remote work accelerated that shift. Founders, creators, designers, and freelancers choose Assagao because
-        it offers something many cities cannot—beautiful homes, reliable cafés, easy access to coworking spaces, and an
+        it offers something many cities cannot - beautiful homes, reliable cafés, easy access to coworking spaces, and an
         environment that makes it easy to settle into a routine. It is one of the reasons we recommended it throughout our{" "}
         <a href="/blog/workation-goa-guide">Workation in Goa Guide</a>, and why it continues to be one of the first places
         people consider for longer stays.
@@ -139,7 +139,7 @@ export default function AssagaoVillasGuide() {
       <p>
         Of course, popularity comes with a trade-off. Assagao is not the hidden village it once was, and demand has pushed
         accommodation prices higher than many neighbouring areas. But that is also why planning ahead matters. Choosing the
-        right season and booking early makes a much bigger difference than most travellers realise—a topic we've covered in
+        right season and booking early makes a much bigger difference than most travellers realise - a topic we've covered in
         our <a href="/blog/best-time-to-visit-goa">Best Time to Visit Goa Guide</a>.
       </p>
 
@@ -154,7 +154,7 @@ export default function AssagaoVillasGuide() {
       <p>
         That's exactly why so many people end up loving it. Assagao gives you the freedom to experience North Goa without
         living in the middle of its busiest tourist areas. Vagator Beach is only a short drive away, Anjuna's cafés and
-        markets are close by, and Siolim sits just a few minutes down the road. Morjim is roughly 12km from Assagao — about a 15-20 minute scooter ride on the NH66 — making it an easy half-day beach trip without needing to move accommodation. Ashwem sits just 3km further north, providing another quiet beach day option. You can spend the day exploring wherever you like and still return to a peaceful villa instead of traffic and crowds.
+        markets are close by, and Siolim sits just a few minutes down the road. Morjim is roughly 12km from Assagao - about a 15-20 minute scooter ride on the NH66 - making it an easy half-day beach trip without needing to move accommodation. Ashwem sits just 3km further north, providing another quiet beach day option. You can spend the day exploring wherever you like and still return to a peaceful villa instead of traffic and crowds.
       </p>
 
       <div className="bg-card border border-border rounded-2xl p-6 my-8">
@@ -191,8 +191,8 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         Another thing people sometimes overlook is that Assagao has become one of North Goa's most desirable villages, which
-        means accommodation fills up quickly during the winter season. The best villas—especially those with private pools,
-        gardens, and larger layouts for families or groups—often don't stay available for long. If you are planning to visit
+        means accommodation fills up quickly during the winter season. The best villas - especially those with private pools,
+        gardens, and larger layouts for families or groups - often don't stay available for long. If you are planning to visit
         between November and February, booking a little earlier usually gives you far better options.
       </p>
       <p>
@@ -242,7 +242,7 @@ export default function AssagaoVillasGuide() {
       <p>
         Location inside Assagao matters too. Properties tucked away inside quieter residential lanes usually offer more privacy
         and less traffic, while villas closer to the main road make it easier to reach cafés, restaurants, and nearby beaches.
-        Neither option is objectively better—it simply depends on whether convenience or complete peace matters more to you.
+        Neither option is objectively better - it simply depends on whether convenience or complete peace matters more to you.
       </p>
       <p>
         One mistake many first-time travellers make is focusing only on photographs. Beautiful interiors certainly matter, but
@@ -255,7 +255,7 @@ export default function AssagaoVillasGuide() {
       <p>
         The same applies if you are planning a longer remote work stay. A stylish villa means very little if video calls keep
         dropping or the dining table is the only place available to work from. That's why, in our Workation Guide, we
-        recommend looking beyond aesthetics and prioritising everyday comfort—especially if you'll be spending more than a
+        recommend looking beyond aesthetics and prioritising everyday comfort - especially if you'll be spending more than a
         few days there.
       </p>
       <p>
@@ -307,13 +307,13 @@ export default function AssagaoVillasGuide() {
       <p>
         That balance is difficult to find elsewhere in North Goa. Instead of spending your entire trip in one neighbourhood,
         Assagao naturally becomes a base for exploring the surrounding villages. You can drive to Morjim for a quieter beach
-        day — Morjim is roughly 12km from Assagao, about a 15-20 minute scooter ride on the NH66 — spend an afternoon in Siolim, watch the sunset from Chapora Fort, or explore Anjuna's cafés before returning home
+        day - Morjim is roughly 12km from Assagao, about a 15-20 minute scooter ride on the NH66 - spend an afternoon in Siolim, watch the sunset from Chapora Fort, or explore Anjuna's cafés before returning home
         in less than half an hour.
       </p>
       <p>
         It is one of the reasons longer stays work so well here. Every day feels a little different, even though you are
         staying in the same place. And that is probably the biggest compliment you can give any destination: it never feels
-        like you have run out of things to do—it simply gives you the freedom to experience Goa at your own pace.
+        like you have run out of things to do - it simply gives you the freedom to experience Goa at your own pace.
       </p>
 
       <h2>How Much Does It Cost to Stay in Assagao?</h2>
@@ -341,8 +341,8 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         Another factor that people rarely think about is how long they are staying. If you are booking a villa for a weekend,
-        the nightly rate is usually what matters most. But for longer stays—whether it's a two-week holiday, a month-long
-        workation, or an extended family trip—many hosts offer better pricing than the standard nightly rate. It never hurts to
+        the nightly rate is usually what matters most. But for longer stays - whether it's a two-week holiday, a month-long
+        workation, or an extended family trip - many hosts offer better pricing than the standard nightly rate. It never hurts to
         ask, especially if you are travelling outside peak season.
       </p>
       <p>
@@ -365,7 +365,7 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         More importantly, we are not trying to become another endless list of properties. Our goal is to help people find stays
-        that actually match the trip they are planning—whether that is a peaceful villa for a family holiday, a
+        that actually match the trip they are planning - whether that is a peaceful villa for a family holiday, a
         workation-ready home with reliable Wi-Fi, or a large property for a startup offsite or group getaway.
       </p>
 
@@ -395,7 +395,7 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         The only advice we'd give is to plan a little earlier than you might for other parts of Goa. Assagao has become one
-        of the most sought-after villages in North Goa, and the best villas—especially during October through February—don't
+        of the most sought-after villages in North Goa, and the best villas - especially during October through February - don't
         remain available for very long. If your travel dates are fixed, booking in advance usually gives you far more choice
         than waiting until the last minute.
       </p>
@@ -406,7 +406,7 @@ export default function AssagaoVillasGuide() {
       </p>
       <p>
         Whether you are planning a weekend getaway, a month-long workation, a family holiday, or a startup retreat, you will
-        be able to filter stays using verified badges for things that genuinely matter—reliable Wi-Fi, dedicated workspaces,
+        be able to filter stays using verified badges for things that genuinely matter - reliable Wi-Fi, dedicated workspaces,
         private pools, family-friendly homes, pet-friendly stays, longer-stay discounts, and other amenities that are often
         buried deep inside listing descriptions on traditional booking platforms.
       </p>
@@ -450,7 +450,7 @@ export default function AssagaoVillasGuide() {
       </ul>
       <p className="mt-6">
         And when you're ready to book, <strong>Wayzyy</strong> helps you discover verified villas across Goa with filters for the
-        things that actually matter—private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
+        things that actually matter - private pools, fibre internet, pet-friendly stays, family villas and longer-stay accommodation.
         Instead of charging hosts a commission on every booking, our host-first credit model keeps pricing more transparent while
         making it easier for travellers to find stays that genuinely fit their trip.
       </p>
@@ -459,16 +459,16 @@ export default function AssagaoVillasGuide() {
         <p className="font-semibold text-foreground mb-4">Also worth reading:</p>
         <ul className="space-y-2">
           <li>
-            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa — The Only Decision Guide You Need</a>
+            <a href="/blog/where-to-stay-in-goa">Where to Stay in Goa - The Only Decision Guide You Need</a>
           </li>
           <li>
-            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa — Which Part Is Right for Your Trip?</a>
+            <a href="/blog/north-goa-vs-south-goa-guide">North Goa vs South Goa - Which Part Is Right for Your Trip?</a>
           </li>
           <li>
-            <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/siolim-goa-villas-guide">Siolim Villas Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
           <li>
-            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide — Stays, Cafes &amp; Planning Advice</a>
+            <a href="/blog/anjuna-goa-beach-guide">Anjuna Beach Guide - Stays, Cafes &amp; Planning Advice</a>
           </li>
         </ul>
       </div>
