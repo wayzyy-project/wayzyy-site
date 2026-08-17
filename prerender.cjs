@@ -56,6 +56,20 @@ const routes = [
     }
   },
   {
+    path: '/links',
+    title: 'Wayzyy — all our links in one place',
+    description: 'Every Wayzyy link in one place: our socials, how to reach a real person, and the app.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Wayzyy links",
+      "url": "https://wayzyy.com/links",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/privacy',
     title: 'Privacy Policy — Wayzyy',
     description: "Wayzyy's Privacy Policy: how we collect, use, and protect your personal data, including Aadhaar and DigiLocker verification, under India's DPDP Act 2023.",
