@@ -41,6 +41,21 @@ const templateHtml = fs.readFileSync(indexHtmlPath, 'utf8');
 // 3. Define routes and their specific metadata
 const routes = [
   {
+    path: '/grand-prix',
+    title: 'Wayzyy Grand Prix Hackathon — Pitch, Win, Get Hired',
+    description: "Grand Prix Hackathon participants: pitch how you'd make Wayzyy better than Airbnb. ₹500 in Wayzyy credits for every offline team, and a $1,000/month build-with-us opportunity for the strongest pitch.",
+    ogType: 'website',
+    ogImage: '/og-grand-prix.jpg',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Wayzyy Grand Prix Hackathon",
+      "url": "https://wayzyy.com/grand-prix",
+      "description": "Pitch how you would make Wayzyy better than Airbnb. Wayzyy credits for every offline Grand Prix Hackathon team, and a $1,000/month build-with-us opportunity for the strongest pitch.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/privacy',
     title: 'Privacy Policy — Wayzyy',
     description: "Wayzyy's Privacy Policy: how we collect, use, and protect your personal data, including Aadhaar and DigiLocker verification, under India's DPDP Act 2023.",

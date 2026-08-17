@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowLeft, Flag, Users, Rocket, Loader2, CheckCircle2 } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { ArrowLeft, ChevronDown, Flag, Users, Rocket, Loader2, CheckCircle2 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import raceVeryFar from "@/assets/grand-prix/very-far.webp";
+import raceUpClose from "@/assets/grand-prix/up-close.webp";
+import raceMirror from "@/assets/grand-prix/closers-on-mirror.webp";
+import racePedal from "@/assets/grand-prix/cockpit-pedal.webp";
 
 /** Classic F1 5-red-lights-out start sequence, looping. */
 function StartingLights() {
@@ -105,173 +109,132 @@ function WavingFlag({ className }: { className?: string }) {
   );
 }
 
-/** A single F1 wheel: dark tyre, rim spokes, spun by CSS so it survives re-renders. */
-function Wheel({ cx, cy, r }: { cx: number; cy: number; r: number }) {
+/**
+ * One frame of the race sequence. `win` is four scroll stops: fade-in start,
+ * fade-in end, fade-out start, fade-out end. The image keeps scaling across
+ * its whole window so consecutive shots read as one continuous push-in.
+ */
+function RaceFrame({
+  p,
+  src,
+  win,
+  from = 1,
+  to = 1.22,
+  reduce,
+}: {
+  p: MotionValue<number>;
+  src: string;
+  win: [number, number, number, number];
+  from?: number;
+  to?: number;
+  reduce: boolean | null;
+}) {
+  const opacity = useTransform(p, win, [0, 1, 1, 0]);
+  const scale = useTransform(p, [win[0], win[3]], [from, to]);
+
   return (
-    <g>
-      {/* tyre */}
-      <circle cx={cx} cy={cy} r={r} fill="#0d0d0f" />
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#2a2a2e" strokeWidth="2" />
-      {/* soft-compound sidewall stripe */}
-      <circle cx={cx} cy={cy} r={r - 3.5} fill="none" stroke="hsl(25,100%,50%)" strokeWidth="1.2" opacity="0.55" />
-      {/* spinning rim */}
-      <g className="gpx-wheel" style={{ ["--gpx-cx" as string]: `${cx}px`, ["--gpx-cy" as string]: `${cy}px` }}>
-        <circle cx={cx} cy={cy} r={r - 6} fill="#17171b" />
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-          <rect
-            key={deg}
-            x={cx - 1}
-            y={cy - (r - 6)}
-            width="2"
-            height={r - 6}
-            fill="#5b5b63"
-            transform={`rotate(${deg} ${cx} ${cy})`}
-          />
-        ))}
-        <circle cx={cx} cy={cy} r="2.6" fill="hsl(25,100%,50%)" />
-      </g>
-    </g>
-  );
-}
-
-/** Stylized modern F1 car, side profile, facing right. */
-function F1Car({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 260 92" className={className} aria-hidden xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gpxBody" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="hsl(25,100%,52%)" />
-          <stop offset="45%" stopColor="#ef4444" />
-          <stop offset="100%" stopColor="#a51d1d" />
-        </linearGradient>
-        <linearGradient id="gpxCover" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="hsl(25,100%,58%)" />
-          <stop offset="100%" stopColor="#e0431f" />
-        </linearGradient>
-      </defs>
-
-      {/* ---- rear wing ---- */}
-      <rect x="222" y="18" width="34" height="6" rx="2" fill="#ef4444" />
-      <rect x="224" y="27" width="30" height="3.5" rx="1.5" fill="#26262b" />
-      <rect x="236" y="22" width="5" height="30" fill="#1c1c20" />
-      <rect x="252" y="16" width="4" height="34" rx="1.5" fill="#2f2f36" />
-
-      {/* ---- floor / plank ---- */}
-      <path d="M46 62 L232 60 L236 70 L44 70 Z" fill="#131317" />
-
-      {/* ---- main tub + sidepod ---- */}
-      <path
-        d="M18 62
-           L54 54
-           L104 50
-           Q118 34 146 34
-           L166 34
-           Q182 34 190 44
-           L226 50
-           L234 62
-           L20 66
-           Z"
-        fill="url(#gpxBody)"
+    <motion.div style={{ opacity }} className="absolute inset-0 will-change-[opacity]">
+      <motion.img
+        src={src}
+        alt=""
+        aria-hidden
+        style={{ scale: reduce ? 1 : scale }}
+        className="h-full w-full object-cover will-change-transform"
       />
-
-      {/* sidepod inlet */}
-      <path d="M150 46 L188 48 L192 60 L150 60 Z" fill="#c22c2c" />
-      <rect x="152" y="49" width="26" height="6" rx="3" fill="#0d0d0f" opacity="0.85" />
-
-      {/* ---- nose cone ---- */}
-      <path d="M0 66 L20 60 L22 68 L2 71 Z" fill="#1c1c20" />
-      <path d="M18 61 L46 55 L48 64 L20 67 Z" fill="url(#gpxBody)" />
-
-      {/* ---- front wing (multi-element) ---- */}
-      <rect x="-2" y="70" width="42" height="4" rx="1.5" fill="#f2f2f2" />
-      <rect x="2" y="66" width="30" height="3" rx="1.5" fill="#d4d4d8" opacity="0.9" />
-      <rect x="-2" y="62" width="4" height="14" rx="1.5" fill="#2f2f36" />
-
-      {/* ---- engine cover / airbox ---- */}
-      <path d="M158 34 Q170 12 182 12 L188 12 Q194 12 196 20 L206 48 L172 44 Z" fill="url(#gpxCover)" />
-
-      {/* ---- halo ---- */}
-      <path d="M124 40 Q126 22 150 22 Q170 22 176 32" fill="none" stroke="#1c1c20" strokeWidth="4.5" strokeLinecap="round" />
-      <rect x="120" y="30" width="4" height="14" rx="2" fill="#1c1c20" />
-
-      {/* ---- cockpit + driver helmet ---- */}
-      <path d="M128 42 Q132 32 152 32 L170 34 L172 44 Z" fill="#0d0d0f" />
-      <circle cx="150" cy="34" r="8" fill="#f4f4f5" />
-      <path d="M143 34 a7 7 0 0 1 14 0 z" fill="hsl(25,100%,50%)" />
-      <rect x="143" y="33" width="13" height="3.5" rx="1.5" fill="#18181b" />
-
-      {/* ---- livery ---- */}
-      <path d="M56 56 L206 52 L207 57 L57 61 Z" fill="#fff" opacity="0.9" />
-      <text x="206" y="40" fontSize="14" fontWeight="800" fill="#fff" fontFamily="sans-serif">W</text>
-
-      {/* ---- wheels ---- */}
-      <Wheel cx={62} cy={64} r={19} />
-      <Wheel cx={214} cy={64} r={21} />
-    </svg>
+    </motion.div>
   );
 }
 
-/** Scroll-driven section where the F1 car races across the full width of the viewport. */
-function RaceStrip() {
+/** A line of copy timed to one beat of the race sequence. */
+function RaceBeat({
+  p,
+  win,
+  children,
+}: {
+  p: MotionValue<number>;
+  win: [number, number, number, number];
+  children: React.ReactNode;
+}) {
+  const opacity = useTransform(p, win, [0, 1, 1, 0]);
+  const y = useTransform(p, [win[0], win[1]], [22, 0]);
+
+  return (
+    <motion.p
+      style={{ opacity, y }}
+      className="absolute inset-x-0 bottom-[14%] mx-auto max-w-3xl px-6 text-center font-display text-2xl font-bold leading-tight drop-shadow-[0_2px_18px_rgba(0,0,0,0.85)] sm:text-4xl"
+    >
+      {children}
+    </motion.p>
+  );
+}
+
+/** Persistent "keep going" nudge, fades out as soon as the sequence starts moving. */
+function ScrollCue({ p }: { p: MotionValue<number> }) {
+  const opacity = useTransform(p, [0, 0.05], [1, 0]);
+
+  return (
+    <motion.div
+      style={{ opacity }}
+      className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-2"
+    >
+      <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/70">
+        Keep scrolling, keep building
+      </span>
+      <motion.span
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="text-white/60"
+      >
+        <ChevronDown className="h-5 w-5" />
+      </motion.span>
+    </motion.div>
+  );
+}
+
+/** Scroll-driven cinematic: wide shot, into the mirror, into the driver, onto the pedal. */
+function RaceSequence() {
   const ref = useRef<HTMLDivElement | null>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const p = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.5 });
-
-  // The car crosses the full width; it leans on entry/exit like weight transfer.
-  const carX = useTransform(p, [0, 1], ["-22%", "122%"]);
-  const carLean = useTransform(p, [0, 0.14, 0.86, 1], [2.5, 0, 0, -2.5]);
-  const wake = useTransform(p, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
-  const headlineOpacity = useTransform(p, [0.04, 0.22], [0, 1]);
-  const headlineY = useTransform(p, [0.04, 0.22], [26, 0]);
+  const p = useSpring(scrollYProgress, { stiffness: 110, damping: 30, mass: 0.4 });
 
   return (
-    <section ref={ref} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        {/* horizon heat glow */}
-        <div className="pointer-events-none absolute bottom-[20%] left-1/2 h-72 w-[min(1000px,110vw)] -translate-x-1/2 rounded-[50%] bg-red-600/15 blur-[110px]" />
+    <section ref={ref} className="relative h-[420vh]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
+        {/* Starts fully opaque: the in-window opens before 0 so the first frame
+            is already on screen at rest, instead of fading up from black. */}
+        <RaceFrame p={p} src={raceVeryFar} win={[-0.1, 0, 0.22, 0.29]} reduce={reduce} />
+        <RaceFrame p={p} src={raceUpClose} win={[0.22, 0.29, 0.46, 0.53]} reduce={reduce} />
+        <RaceFrame p={p} src={raceMirror} win={[0.46, 0.53, 0.7, 0.77]} reduce={reduce} />
+        <RaceFrame p={p} src={racePedal} win={[0.7, 0.77, 1.01, 1.02]} reduce={reduce} />
 
-        <motion.p
-          style={{ opacity: reduce ? 1 : headlineOpacity, y: reduce ? 0 : headlineY }}
-          className="relative z-10 -mt-24 max-w-3xl px-4 text-center font-display text-3xl font-bold leading-tight sm:text-5xl"
-        >
+        {/* legibility scrim */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/35" />
+        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_60px_rgba(0,0,0,0.75)]" />
+
+        <RaceBeat p={p} win={[-0.05, 0, 0.2, 0.26]}>
           Every great pitch starts{" "}
-          <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,55%)] to-red-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,58%)] to-red-500 bg-clip-text text-transparent">
             on the grid.
           </span>
-        </motion.p>
+        </RaceBeat>
 
-        {/* ---- track surface ---- */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-[24%]">
-          <div className="h-px w-full bg-white/[0.14]" />
-          <div className="gpx-road mt-[7px] h-[3px] w-full opacity-45" />
-          <div className="mt-6 h-24 w-full bg-gradient-to-b from-white/[0.03] to-transparent" />
-        </div>
+        <RaceBeat p={p} win={[0.26, 0.32, 0.44, 0.5]}>
+          But the grid is only where it starts.
+        </RaceBeat>
 
-        {/* ---- car ---- */}
-        <motion.div
-          aria-hidden
-          style={{ left: reduce ? "50%" : carX, x: "-50%", rotate: reduce ? 0 : carLean }}
-          className="pointer-events-none absolute bottom-[24%] z-0 will-change-transform"
-        >
-          {/* speed wake trailing the car */}
-          <motion.div style={{ opacity: reduce ? 0 : wake }} className="absolute right-[88%] top-0 h-full w-56">
-            {[28, 46, 62, 76].map((topPct, i) => (
-              <span
-                key={topPct}
-                className="absolute right-0 block h-px bg-gradient-to-l from-white/45 to-transparent"
-                style={{ top: `${topPct}%`, width: `${100 - i * 16}%` }}
-              />
-            ))}
-          </motion.div>
+        <RaceBeat p={p} win={[0.5, 0.56, 0.68, 0.74]}>
+          We're looking for the person in the mirror.
+        </RaceBeat>
 
-          <div className="gpx-bob">
-            <F1Car className="h-20 w-56 drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] sm:h-28 sm:w-80" />
-          </div>
+        <RaceBeat p={p} win={[0.74, 0.8, 0.99, 1.0]}>
+          Let's keep the{" "}
+          <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,58%)] to-red-500 bg-clip-text text-transparent">
+            foot on the pedal.
+          </span>
+        </RaceBeat>
 
-          {/* contact shadow */}
-          <div className="mx-auto h-2 w-[78%] -translate-y-1 rounded-[50%] bg-black/60 blur-[6px]" />
-        </motion.div>
+        <ScrollCue p={p} />
       </div>
     </section>
   );
@@ -355,7 +318,9 @@ export default function GrandPrixHackathon() {
   return (
     <SEO
       title="Wayzyy Grand Prix Hackathon — Pitch, Win, Get Hired"
-      description="Wayzyy Grand Prix Hackathon participants: pitch how you'd make Wayzyy better than Airbnb for a sponsored Goa villa trip, Wayzyy credits, or a $1,000/month hire."
+      description="Grand Prix Hackathon participants: pitch how you'd make Wayzyy better than Airbnb. ₹500 in Wayzyy credits for every offline team, and a $1,000/month build-with-us opportunity for the strongest pitch."
+      ogImage="/og-grand-prix.jpg"
+      path="/grand-prix"
     >
       <div className="relative min-h-screen bg-[#0a0a0a] text-white">
         <CheckeredMarquee />
@@ -369,6 +334,8 @@ export default function GrandPrixHackathon() {
           </Link>
           <ThemeToggle />
         </header>
+
+        <RaceSequence />
 
         {/* Hero */}
         <section className="relative overflow-hidden px-4 pb-16 pt-10 sm:px-8 sm:pt-16">
@@ -434,7 +401,61 @@ export default function GrandPrixHackathon() {
           </div>
         </section>
 
-        <RaceStrip />
+        {/* What Wayzyy is */}
+        <section className="px-4 pb-16 sm:px-8">
+          <div className="mx-auto max-w-4xl">
+            <Reveal>
+              <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
+                First, what Wayzyy actually is
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-white/70 sm:text-base">
+                We're an India-native homestay and villa rental marketplace, built for Goa first.
+                Hosts pay a flat prepaid subscription instead of a commission on every booking, so
+                they keep close to all of what they earn. Guests see the real total up front, no
+                cleaning fee that appears at checkout, no service fee stacked on top. Both sides
+                get verified through Aadhaar and DigiLocker, and payments run on UPI, because
+                that's how India actually pays.
+              </p>
+            </Reveal>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {[
+                { stat: "~2%", label: "Effective host fee", sub: "against roughly 15-17% on the global platforms" },
+                { stat: "50+", label: "Hosts onboarded", sub: "with 500+ properties, all before we've launched" },
+                { stat: "100%", label: "Verified both ways", sub: "hosts and guests, through Aadhaar and DigiLocker" },
+              ].map((s) => (
+                <Reveal key={s.label} delay={0.04}>
+                  <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
+                    <p className="font-display text-3xl font-bold text-[hsl(25,100%,55%)]">{s.stat}</p>
+                    <p className="mt-1 font-display text-sm font-semibold text-white">{s.label}</p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-white/55">{s.sub}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal delay={0.06}>
+              <p className="mx-auto mt-8 max-w-2xl text-center font-display text-lg leading-snug text-white sm:text-xl">
+                So what we're looking for is simple. We want to be better than Airbnb,{" "}
+                <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,58%)] to-red-500 bg-clip-text text-transparent">
+                  in almost every way possible.
+                </span>
+              </p>
+              <p className="mx-auto mt-4 max-w-xl text-center text-sm text-white/60">
+                Want the fuller picture before you pitch? Read up on{" "}
+                <Link to="/" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-white">
+                  what we're building
+                </Link>{" "}
+                or dig through{" "}
+                <Link to="/blog" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-white">
+                  our blog
+                </Link>
+                , where we write about pricing, hosting, and the Indian short-stay market in
+                detail.
+              </p>
+            </Reveal>
+          </div>
+        </section>
 
         {/* Where Airbnb falls short */}
         <section className="px-4 pb-16 sm:px-8">
@@ -692,33 +713,6 @@ export default function GrandPrixHackathon() {
             25% { transform: perspective(200px) rotateY(-8deg) skewY(-2deg); }
             50% { transform: perspective(200px) rotateY(0deg) skewY(1deg); }
             75% { transform: perspective(200px) rotateY(8deg) skewY(-1deg); }
-          }
-
-          /* Wheel spin. transform-box:fill-box lets us rotate about the wheel's
-             own centre without recomputing an SVG user-space origin. */
-          @keyframes gpx-spin { to { transform: rotate(360deg); } }
-          .gpx-wheel {
-            transform-box: fill-box;
-            transform-origin: center;
-            animation: gpx-spin 0.28s linear infinite;
-          }
-
-          /* Suspension chatter over the track surface. */
-          @keyframes gpx-bob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-1.5px); }
-          }
-          .gpx-bob { animation: gpx-bob 0.32s ease-in-out infinite; }
-
-          /* Scrolling centre-line dashes, sells speed under the car. */
-          @keyframes gpx-road { to { background-position-x: -160px; } }
-          .gpx-road {
-            background-image: repeating-linear-gradient(90deg, #fff 0 26px, transparent 26px 80px);
-            animation: gpx-road 0.55s linear infinite;
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            .gpx-wheel, .gpx-bob, .gpx-road { animation: none; }
           }
         `}</style>
       </div>
