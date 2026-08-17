@@ -193,13 +193,13 @@ export default function Links() {
       description="Every Wayzyy link in one place: our socials, how to reach a real person, and the app."
       path="/links"
     >
-      <div className="relative min-h-screen overflow-hidden bg-[#0b0b0d] text-white">
+      <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-ember/20 blur-[130px]" />
 
         <header className="relative mx-auto flex max-w-5xl items-center justify-between px-5 py-5">
           <Link
             to="/"
-            className="flex items-center gap-1.5 rounded-full border border-white/15 bg-black/50 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-md transition-colors hover:text-white"
+            className="flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-md transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Wayzyy home
           </Link>
@@ -213,7 +213,7 @@ export default function Links() {
               <Sparkles className="h-3 w-3" /> Wayzyy
             </span>
             <h1 className="mt-4 font-display text-3xl font-bold sm:text-4xl">Everything, one place.</h1>
-            <p className="mx-auto mt-2 max-w-sm text-sm text-white/60">
+            <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
               Swipe through, or tap a card to bring it forward.
             </p>
           </div>
@@ -263,13 +263,13 @@ export default function Links() {
                 aria-label={`Show ${card.spine}`}
                 aria-current={i === active}
                 className={`h-2 rounded-full transition-all ${
-                  i === active ? "w-7 bg-ember" : "w-2 bg-white/25 hover:bg-white/45"
+                  i === active ? "w-7 bg-ember" : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
                 }`}
               />
             ))}
           </div>
 
-          <p className="mt-10 text-center text-xs text-white/35">
+          <p className="mt-10 text-center text-xs text-muted-foreground">
             wayzyy.com · stays without the small print
           </p>
         </main>

@@ -68,7 +68,7 @@ function SpeedLines() {
       {[0, 1, 2, 3].map((i) => (
         <motion.div
           key={i}
-          className="absolute h-px w-[55%] bg-gradient-to-r from-transparent via-white to-transparent"
+          className="absolute h-px w-[55%] bg-gradient-to-r from-transparent via-foreground to-transparent"
           style={{ top: `${10 + i * 24}%`, left: i % 2 === 0 ? "-60%" : "auto", right: i % 2 === 0 ? "auto" : "-60%" }}
           animate={{ x: i % 2 === 0 ? ["0%", "220%"] : ["0%", "-220%"] }}
           transition={{ duration: 2.4 + i * 0.5, repeat: Infinity, ease: "easeIn", repeatDelay: 0.6 }}
@@ -326,13 +326,13 @@ export default function GrandPrixHackathon() {
       ogImage="/og-grand-prix.jpg"
       path="/grand-prix"
     >
-      <div className="relative min-h-screen bg-[#0a0a0a] text-white">
+      <div className="relative min-h-screen bg-background text-foreground">
         <CheckeredMarquee />
 
         <header className="sticky top-2 z-40 mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-8">
           <Link
             to="/"
-            className="flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-md transition-colors hover:text-white"
+            className="flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-md transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Wayzyy home
           </Link>
@@ -367,7 +367,7 @@ export default function GrandPrixHackathon() {
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mx-auto mt-5 max-w-2xl text-base text-white/70 sm:text-lg">
+              <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
                 One lap, one question: what does Airbnb get wrong, and how would you fix it for
                 Wayzyy? Pitch us, take home Wayzyy credits, or land the $1,000/month
                 build-with-us opportunity.
@@ -387,7 +387,7 @@ export default function GrandPrixHackathon() {
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 { icon: Users, title: "Offline participants", body: "Every team that competed in-person gets ₹500 in Wayzyy credits, guaranteed, no pitch required.", accent: "border-red-500/40 bg-red-500/10" },
-                { icon: Rocket, title: "Registered, no finals", body: "Didn't make the cut? You can still pitch for the $1,000/month opportunity, and it's highly preferred.", accent: "border-white/20 bg-white/5" },
+                { icon: Rocket, title: "Registered, no finals", body: "Didn't make the cut? You can still pitch for the $1,000/month opportunity, and it's highly preferred.", accent: "border-border bg-card" },
               ].map((card) => (
                 <Reveal key={card.title} delay={0.05}>
                   <motion.div
@@ -395,9 +395,9 @@ export default function GrandPrixHackathon() {
                     whileHover={{ y: -6, scale: 1.02, boxShadow: "0 0 32px rgba(255,107,0,0.25)" }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    <card.icon className="h-6 w-6 text-white" />
+                    <card.icon className="h-6 w-6 text-foreground" />
                     <h3 className="mt-3 font-display text-lg font-semibold">{card.title}</h3>
-                    <p className="mt-2 text-sm text-white/70">{card.body}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{card.body}</p>
                   </motion.div>
                 </Reveal>
               ))}
@@ -412,7 +412,7 @@ export default function GrandPrixHackathon() {
               <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
                 First, what Wayzyy actually is
               </h2>
-              <div className="mx-auto mt-5 max-w-2xl space-y-4 text-center text-sm leading-relaxed text-white/70 sm:text-base">
+              <div className="mx-auto mt-5 max-w-2xl space-y-4 text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
                 <p>
                   We're an India-native homestay and villa rental marketplace, built for Goa
                   first.
@@ -439,29 +439,29 @@ export default function GrandPrixHackathon() {
                 { stat: "100%", label: "Verified both ways", sub: "hosts and guests, through Aadhaar and DigiLocker" },
               ].map((s) => (
                 <Reveal key={s.label} delay={0.04}>
-                  <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
+                  <div className="h-full rounded-2xl border border-border bg-card p-5 text-center">
                     <p className="font-display text-3xl font-bold text-[hsl(25,100%,55%)]">{s.stat}</p>
-                    <p className="mt-1 font-display text-sm font-semibold text-white">{s.label}</p>
-                    <p className="mt-1.5 text-xs leading-relaxed text-white/55">{s.sub}</p>
+                    <p className="mt-1 font-display text-sm font-semibold text-foreground">{s.label}</p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{s.sub}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
 
             <Reveal delay={0.06}>
-              <p className="mx-auto mt-8 max-w-2xl text-center font-display text-lg leading-snug text-white sm:text-xl">
+              <p className="mx-auto mt-8 max-w-2xl text-center font-display text-lg leading-snug text-foreground sm:text-xl">
                 So what we're looking for is simple. We want to be better than Airbnb,{" "}
                 <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,58%)] to-red-500 bg-clip-text text-transparent">
                   in almost every way possible.
                 </span>
               </p>
-              <p className="mx-auto mt-4 max-w-xl text-center text-sm text-white/60">
+              <p className="mx-auto mt-4 max-w-xl text-center text-sm text-muted-foreground">
                 Want the fuller picture before you pitch? Read up on{" "}
-                <Link to="/" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-white">
+                <Link to="/" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-foreground">
                   what we're building
                 </Link>{" "}
                 or dig through{" "}
-                <Link to="/blog" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-white">
+                <Link to="/blog" className="font-medium text-[hsl(25,100%,58%)] underline underline-offset-4 hover:text-foreground">
                   our blog
                 </Link>
                 , where we write about pricing, hosting, and the Indian short-stay market in
@@ -478,7 +478,7 @@ export default function GrandPrixHackathon() {
               <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
                 Where Airbnb falls short
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-white/60 sm:text-base">
+              <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-muted-foreground sm:text-base">
                 Pick one problem below, or bring your own. Tell us your approach to solving it,
                 and walk us through it in your pitch deck.
               </p>
@@ -513,12 +513,12 @@ export default function GrandPrixHackathon() {
               ].map((problem) => (
                 <Reveal key={problem.title} delay={0.03}>
                   <motion.div
-                    className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                    className="h-full rounded-2xl border border-border bg-card p-5"
                     whileHover={{ y: -4, borderColor: "rgba(255,107,0,0.4)" }}
                     transition={{ type: "spring", stiffness: 300, damping: 22 }}
                   >
-                    <h3 className="font-display text-base font-semibold text-white">{problem.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-white/65">{problem.body}</p>
+                    <h3 className="font-display text-base font-semibold text-foreground">{problem.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{problem.body}</p>
                   </motion.div>
                 </Reveal>
               ))}
@@ -531,7 +531,7 @@ export default function GrandPrixHackathon() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">What we're looking for</h2>
-              <p className="mx-auto mt-3 max-w-xl text-center text-sm text-white/60 sm:text-base">
+              <p className="mx-auto mt-3 max-w-xl text-center text-sm text-muted-foreground sm:text-base">
                 50+ hosts and 500+ properties are already on Wayzyy, pre-launch. Here's how to
                 make your pitch count.
               </p>
@@ -539,27 +539,27 @@ export default function GrandPrixHackathon() {
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <Reveal delay={0.03}>
-                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                  <h3 className="font-display text-base font-semibold text-white">Pick one problem</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65">
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <h3 className="font-display text-base font-semibold text-foreground">Pick one problem</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     From the list above, or one you've spotted yourself. Solve it for Wayzyy
                     specifically, not for Airbnb in the abstract.
                   </p>
                 </div>
               </Reveal>
               <Reveal delay={0.06}>
-                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                  <h3 className="font-display text-base font-semibold text-white">Features are optional</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65">
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <h3 className="font-display text-base font-semibold text-foreground">Features are optional</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Market research, pricing strategy, or a growth angle that gets Wayzyy more
                     real users and hosts counts just as much as a technical fix.
                   </p>
                 </div>
               </Reveal>
               <Reveal delay={0.03}>
-                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:col-span-2">
-                  <h3 className="font-display text-base font-semibold text-white">Put it in the deck</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65">
+                <div className="h-full rounded-2xl border border-border bg-card p-5 sm:col-span-2">
+                  <h3 className="font-display text-base font-semibold text-foreground">Put it in the deck</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Your reasoning, your approach, and any evidence behind it belongs in the pitch
                     deck, that's what we'll actually read.
                   </p>
@@ -572,8 +572,8 @@ export default function GrandPrixHackathon() {
                 <span className="mt-0.5 shrink-0 rounded-full bg-[hsl(25,100%,50%)] px-2 py-0.5 text-xs font-bold text-black">
                   $1,000/mo
                 </span>
-                <p className="text-sm text-white/80">
-                  The strongest pitch gets the build-with-us opportunity: <strong className="text-white">$1,000/month</strong>{" "}
+                <p className="text-sm text-foreground/80">
+                  The strongest pitch gets the build-with-us opportunity: <strong className="text-foreground">$1,000/month</strong>{" "}
                   working directly with us as we build Wayzyy. This is the same opportunity we've
                   marketed everywhere, and it's live for Grand Prix pitches too.
                 </p>
@@ -585,7 +585,7 @@ export default function GrandPrixHackathon() {
         {/* Keep it simple */}
         <section className="px-4 pb-16 sm:px-8">
           <Reveal>
-            <p className="mx-auto max-w-2xl text-center font-display text-xl italic text-white/80 sm:text-2xl">
+            <p className="mx-auto max-w-2xl text-center font-display text-xl italic text-foreground/80 sm:text-2xl">
               A flat-fee subscription, not a cut of every booking. We like to keep things simple
               and flat, the same way we'll handle your hiring application.
             </p>
@@ -594,12 +594,12 @@ export default function GrandPrixHackathon() {
 
         {/* Form */}
         <section id="apply" className="px-4 pb-24 sm:px-8">
-          <div className="mx-auto max-w-2xl rounded-3xl border-2 border-red-500/30 bg-white/[0.03] p-6 sm:p-10">
+          <div className="mx-auto max-w-2xl rounded-3xl border-2 border-red-500/30 bg-card p-6 sm:p-10">
             {submitted ? (
               <div className="flex flex-col items-center gap-3 py-10 text-center">
                 <CheckCircle2 className="h-10 w-10 text-[hsl(25,100%,50%)]" />
                 <h3 className="font-display text-xl font-semibold">You're on the grid.</h3>
-                <p className="max-w-sm text-sm text-white/70">
+                <p className="max-w-sm text-sm text-muted-foreground">
                   We've got your pitch. Check your inbox for confirmation, we'll follow up within
                   48-72 hours.
                 </p>
@@ -608,7 +608,7 @@ export default function GrandPrixHackathon() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <h2 className="font-display text-2xl font-bold">Submit your pitch</h2>
-                  <p className="mt-1 text-sm text-white/60">Every field marked * is required.</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Every field marked * is required.</p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -650,7 +650,7 @@ export default function GrandPrixHackathon() {
                         className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-colors ${
                           form.hackathonTrack === t.value
                             ? "border-[hsl(25,100%,50%)] bg-[hsl(25,100%,50%)]/10"
-                            : "border-white/15 hover:border-white/30"
+                            : "border-border hover:border-border"
                         }`}
                       >
                         <input
@@ -661,8 +661,8 @@ export default function GrandPrixHackathon() {
                           onChange={() => update("hackathonTrack", t.value)}
                         />
                         <span>
-                          <span className="block text-sm font-medium text-white">{t.label}</span>
-                          <span className="block text-xs text-white/60">{t.desc}</span>
+                          <span className="block text-sm font-medium text-foreground">{t.label}</span>
+                          <span className="block text-xs text-muted-foreground">{t.desc}</span>
                         </span>
                       </label>
                     ))}
@@ -714,13 +714,13 @@ export default function GrandPrixHackathon() {
           .gpx-input {
             width: 100%;
             border-radius: 0.75rem;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.04);
+            border: 1px solid hsl(var(--border));
+            background: hsl(var(--background));
             padding: 0.6rem 0.85rem;
             font-size: 0.875rem;
-            color: white;
+            color: hsl(var(--foreground));
           }
-          .gpx-input::placeholder { color: rgba(255,255,255,0.35); }
+          .gpx-input::placeholder { color: hsl(var(--muted-foreground)); }
           .gpx-input:focus { outline: none; border-color: hsl(25,100%,50%); }
           @keyframes gpx-flag-wave {
             0%, 100% { transform: perspective(200px) rotateY(0deg) skewY(0deg); }
@@ -737,7 +737,7 @@ export default function GrandPrixHackathon() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-white/50">{label}</span>
+      <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</span>
       {children}
     </label>
   );
