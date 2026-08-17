@@ -89,6 +89,7 @@ import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
 
 import GigChallenge from "./pages/GigChallenge";
+import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 import ExperienceGoa from "./pages/ExperienceGoa";
 import WaitlistChooser from "./pages/WaitlistChooser";
@@ -118,6 +119,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
               <Route path="/build-with-us" element={<GigChallenge />} />
+              <Route path="/grand-prix" element={<GrandPrixHackathon />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
