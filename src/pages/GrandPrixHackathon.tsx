@@ -220,7 +220,11 @@ function RaceSequence() {
         </RaceBeat>
 
         <RaceBeat p={p} win={[0.26, 0.32, 0.44, 0.5]}>
-          But the grid is only where it starts.
+          Be the{" "}
+          <span className="bg-gradient-to-r from-red-500 via-[hsl(25,100%,58%)] to-red-500 bg-clip-text text-transparent">
+            P1
+          </span>{" "}
+          here.
         </RaceBeat>
 
         <RaceBeat p={p} win={[0.5, 0.56, 0.68, 0.74]}>
