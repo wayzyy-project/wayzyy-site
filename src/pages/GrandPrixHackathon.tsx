@@ -408,14 +408,24 @@ export default function GrandPrixHackathon() {
               <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
                 First, what Wayzyy actually is
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-white/70 sm:text-base">
-                We're an India-native homestay and villa rental marketplace, built for Goa first.
-                Hosts pay a flat prepaid subscription instead of a commission on every booking, so
-                they keep close to all of what they earn. Guests see the real total up front, no
-                cleaning fee that appears at checkout, no service fee stacked on top. Both sides
-                get verified through Aadhaar and DigiLocker, and payments run on UPI, because
-                that's how India actually pays.
-              </p>
+              <div className="mx-auto mt-5 max-w-2xl space-y-4 text-center text-sm leading-relaxed text-white/70 sm:text-base">
+                <p>
+                  We're an India-native homestay and villa rental marketplace, built for Goa
+                  first.
+                </p>
+                <p>
+                  Hosts pay a flat prepaid subscription instead of a commission on every booking,
+                  so they keep close to all of what they earn.
+                </p>
+                <p>
+                  Guests see the real total up front. No cleaning fee that appears at checkout, no
+                  service fee stacked on top.
+                </p>
+                <p>
+                  Both sides get verified through Aadhaar and DigiLocker, and payments run on UPI,
+                  because that's how India actually pays.
+                </p>
+              </div>
             </Reveal>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
