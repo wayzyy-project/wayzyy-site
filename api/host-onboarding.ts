@@ -117,7 +117,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p style="font-size: 15px; color: #444; line-height: 1.6;">
           Want to check where things stand? Head to
           <a href="https://wayzyy.com/host-onboarding/status" style="color: #1a1a1a; font-weight: bold;">wayzyy.com/host-onboarding/status</a>
-          and sign in with this email, no password needed.
+          and enter this email.
         </p>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;" />
         <p style="font-size: 12px; color: #aaa; margin: 0;">Wayzyy — stays without the small print.</p>

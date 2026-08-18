@@ -1,11 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, CheckCircle2, Clock, Loader2, Mail, Rocket, Send, ShieldCheck, Sparkles, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, Loader2, Send, ShieldCheck, Sparkles, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+
+type Submission = {
+  id: string;
+  created_at: string;
+  full_name: string;
+  status: string | null;
+  property_count: number;
+};
+
+const STATUS_META: Record<string, { label: string; icon: typeof Clock; className: string }> = {
+  received: { label: "Received", icon: Clock, className: "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30" },
+  verifying: { label: "Being verified", icon: Clock, className: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30" },
+  published: { label: "Live on Wayzyy", icon: CheckCircle2, className: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" },
+  rejected: { label: "Needs attention", icon: XCircle, className: "bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30" },
+};
 
 const PROGRESS_STEPS = [
   { key: "received", label: "Submitted", icon: Send },
@@ -45,9 +58,7 @@ function ProgressFlow({ status }: { status: string | null }) {
                 {step.label}
               </span>
             </div>
-            {!isLast && (
-              <div className={`mx-1 mb-4 h-px flex-1 ${i < currentIndex ? "bg-ember" : "bg-border"}`} />
-            )}
+            {!isLast && <div className={`mx-1 mb-4 h-px flex-1 ${i < currentIndex ? "bg-ember" : "bg-border"}`} />}
           </React.Fragment>
         );
       })}
@@ -55,63 +66,29 @@ function ProgressFlow({ status }: { status: string | null }) {
   );
 }
 
-type Submission = {
-  id: string;
-  created_at: string;
-  full_name: string;
-  status: string | null;
-  property_urls: string[] | null;
-  airbnb_profile_url: string | null;
-};
-
-const STATUS_META: Record<string, { label: string; icon: typeof Clock; className: string }> = {
-  received: { label: "Received", icon: Clock, className: "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30" },
-  verifying: { label: "Being verified", icon: Clock, className: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30" },
-  published: { label: "Live on Wayzyy", icon: CheckCircle2, className: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" },
-  rejected: { label: "Needs attention", icon: XCircle, className: "bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30" },
-};
-
 export default function HostOnboardingStatus() {
-  const { user, loading: authLoading, signOut } = useAuth();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [linkSent, setLinkSent] = useState(false);
-  const [sending, setSending] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState<string | null>(null);
   const [submissions, setSubmissions] = useState<Submission[] | null>(null);
-  const [fetching, setFetching] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const sendLink = async (e: React.FormEvent) => {
+  const checkStatus = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.includes("@")) return;
-    setSending(true);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: true,
-        emailRedirectTo: `${window.location.origin}/host-onboarding/status`,
-      },
-    });
-    setSending(false);
-    if (error) {
-      toast({ title: "Couldn't send the link", description: error.message, variant: "destructive" });
-      return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/host-onboarding-status?email=${encodeURIComponent(email)}`);
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Couldn't check status");
+      setSubmissions(body.submissions ?? []);
+      setCheckedEmail(email);
+    } catch (err: any) {
+      toast({ title: "Couldn't check status", description: err?.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
     }
-    setLinkSent(true);
   };
-
-  useEffect(() => {
-    if (!user?.email) return;
-    setFetching(true);
-    supabase
-      .from("host_onboarding_submissions")
-      .select("id, created_at, full_name, status, property_urls, airbnb_profile_url")
-      .eq("email", user.email)
-      .order("created_at", { ascending: false })
-      .then(({ data, error }) => {
-        setFetching(false);
-        if (!error) setSubmissions(data as Submission[]);
-      });
-  }, [user?.email]);
 
   return (
     <SEO
@@ -129,34 +106,28 @@ export default function HostOnboardingStatus() {
         <main className="mx-auto max-w-md px-5 pb-24">
           <h1 className="font-display text-2xl font-bold">Check your status</h1>
           <p className="mt-1.5 text-sm text-muted-foreground">
-            Enter the email you submitted your properties with, and we'll send you a secure sign-in link. No password needed.
+            Enter the email you submitted your properties with.
           </p>
 
-          {authLoading || fetching ? (
-            <div className="mt-10 flex justify-center">
-              <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-            </div>
-          ) : user ? (
-            <div className="mt-6 space-y-4">
-              {/* You're already signed in somewhere else on the site (same shared
-                  auth as the rest of Wayzyy) - make whose status this is, and how
-                  to switch, obvious rather than silently showing "no submission"
-                  for an email the visitor didn't actually type in here. */}
-              <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-xs">
-                <span className="text-muted-foreground">
-                  Checking status for <span className="font-medium text-foreground">{user.email}</span>
-                </span>
-                <button
-                  onClick={() => signOut()}
-                  className="shrink-0 font-medium text-ember hover:underline"
-                >
-                  Not you?
-                </button>
-              </div>
+          <form onSubmit={checkStatus} className="mt-6 flex gap-2">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm"
+            />
+            <Button type="submit" variant="cta" disabled={loading} className="shrink-0">
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Check"}
+            </Button>
+          </form>
 
+          {checkedEmail && (
+            <div className="mt-6 space-y-4">
               {!submissions || submissions.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
-                  We don't have a submission on file for {user.email} yet.{" "}
+                  We don't have a submission on file for {checkedEmail} yet.{" "}
                   <Link to="/host-onboarding" className="font-medium text-ember hover:underline">
                     Submit your properties
                   </Link>
@@ -165,7 +136,6 @@ export default function HostOnboardingStatus() {
               ) : (
                 submissions.map((s) => {
                   const meta = STATUS_META[s.status ?? "received"] ?? STATUS_META.received;
-                  const urlCount = (s.property_urls?.length ?? 0) + (s.airbnb_profile_url ? 1 : 0);
                   return (
                     <div key={s.id} className="rounded-2xl border border-border bg-card p-5">
                       <div className="flex items-center justify-between gap-3">
@@ -176,7 +146,7 @@ export default function HostOnboardingStatus() {
                       </div>
                       <p className="mt-2 text-xs text-muted-foreground">
                         Submitted {new Date(s.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                        {urlCount > 0 && ` · ${urlCount} propert${urlCount === 1 ? "y" : "ies"} shared`}
+                        {s.property_count > 0 && ` · ${s.property_count} propert${s.property_count === 1 ? "y" : "ies"} shared`}
                       </p>
                       <ProgressFlow status={s.status} />
                     </div>
@@ -185,35 +155,13 @@ export default function HostOnboardingStatus() {
               )}
 
               <div className="rounded-2xl border border-border bg-muted/30 p-4 text-center text-xs text-muted-foreground">
-                Curious how the host section looks day to day? You can{" "}
+                Want to see how the host section looks? You can{" "}
                 <Link to="/host" className="font-medium text-ember hover:underline">
                   create your account at wayzyy.com/host
                 </Link>{" "}
                 any time, separately from this submission.
               </div>
             </div>
-          ) : linkSent ? (
-            <div className="mt-8 flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center">
-              <Mail className="h-6 w-6 text-ember" />
-              <p className="text-sm font-medium">Check your inbox</p>
-              <p className="text-xs text-muted-foreground">
-                We sent a sign-in link to {email}. Open it on this device to see your status.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={sendLink} className="mt-6 space-y-3">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm"
-              />
-              <Button type="submit" variant="cta" size="pill-lg" disabled={sending} className="w-full">
-                {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Send me a sign-in link"}
-              </Button>
-            </form>
           )}
         </main>
       </div>

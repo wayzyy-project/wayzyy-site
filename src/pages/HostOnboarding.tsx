@@ -170,7 +170,7 @@ export default function HostOnboarding() {
                   <Link to="/host-onboarding/status" className="font-medium text-ember hover:underline">
                     wayzyy.com/host-onboarding/status
                   </Link>{" "}
-                  and sign in with the email you used here, no password needed.
+                  and enter the email you used here.
                 </p>
               </div>
             ) : (
