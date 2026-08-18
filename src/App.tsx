@@ -93,6 +93,7 @@ import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import Links from "./pages/Links";
 import HostOnboarding from "./pages/HostOnboarding";
 import HostOnboardingStatus from "./pages/HostOnboardingStatus";
+import AdminHostOnboarding from "./pages/AdminHostOnboarding";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 import ExperienceGoa from "./pages/ExperienceGoa";
 import WaitlistChooser from "./pages/WaitlistChooser";
@@ -142,6 +143,7 @@ const App = () => (
               <Route path="/adminn/airroi-import" element={<AdminAirroiImport />} />
               <Route path="/adminn/import-airbnb" element={<AdminAirroiImport />} />
               <Route path="/admin-wayzyy-lol" element={<AdminGigChallenge />} />
+              <Route path="/admin-wayzyy-lol/hosts" element={<AdminHostOnboarding />} />
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />

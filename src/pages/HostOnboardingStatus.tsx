@@ -1,11 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, CheckCircle2, Clock, Loader2, Mail, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, Loader2, Mail, Rocket, Send, ShieldCheck, Sparkles, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+
+const PROGRESS_STEPS = [
+  { key: "received", label: "Submitted", icon: Send },
+  { key: "verifying", label: "Being verified", icon: ShieldCheck },
+  { key: "published", label: "Live on Wayzyy", icon: Sparkles },
+] as const;
+
+/** Horizontal progress flowchart for one submission - mirrors the flowchart
+ *  on /host-onboarding itself, but filled in against this host's actual status. */
+function ProgressFlow({ status }: { status: string | null }) {
+  const currentIndex = status === "rejected" ? -1 : PROGRESS_STEPS.findIndex((s) => s.key === (status ?? "received"));
+
+  if (status === "rejected") {
+    return (
+      <div className="mt-3 flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-600 dark:text-red-400">
+        <XCircle className="h-3.5 w-3.5 shrink-0" /> This submission needs attention, we'll reach out by email or phone.
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-4 flex items-center">
+      {PROGRESS_STEPS.map((step, i) => {
+        const done = i <= currentIndex;
+        const isLast = i === PROGRESS_STEPS.length - 1;
+        return (
+          <React.Fragment key={step.key}>
+            <div className="flex flex-col items-center gap-1">
+              <div
+                className={`flex h-8 w-8 items-center justify-center rounded-full border ${
+                  done ? "border-ember bg-ember/15 text-ember" : "border-border bg-muted/30 text-muted-foreground/50"
+                }`}
+              >
+                <step.icon className="h-3.5 w-3.5" />
+              </div>
+              <span className={`text-center text-[10px] leading-tight ${done ? "font-medium text-foreground" : "text-muted-foreground/60"}`}>
+                {step.label}
+              </span>
+            </div>
+            {!isLast && (
+              <div className={`mx-1 mb-4 h-px flex-1 ${i < currentIndex ? "bg-ember" : "bg-border"}`} />
+            )}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+}
 
 type Submission = {
   id: string;
@@ -114,10 +162,19 @@ export default function HostOnboardingStatus() {
                         Submitted {new Date(s.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                         {urlCount > 0 && ` · ${urlCount} propert${urlCount === 1 ? "y" : "ies"} shared`}
                       </p>
+                      <ProgressFlow status={s.status} />
                     </div>
                   );
                 })
               )}
+
+              <div className="rounded-2xl border border-border bg-muted/30 p-4 text-center text-xs text-muted-foreground">
+                Curious how the host section looks day to day? You can{" "}
+                <Link to="/host" className="font-medium text-ember hover:underline">
+                  create your account at wayzyy.com/host
+                </Link>{" "}
+                any time, separately from this submission.
+              </div>
             </div>
           ) : linkSent ? (
             <div className="mt-8 flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center">
