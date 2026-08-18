@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  ArrowDown,
   ArrowRight,
   CheckCircle2,
   Gift,
@@ -128,19 +129,41 @@ export default function HostOnboarding() {
         <section className="px-5 pb-16 sm:px-8">
           <div className="mx-auto max-w-4xl">
             <Reveal>
-              <div className="relative grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 sm:gap-x-4">
-                {/* connecting line, desktop only */}
-                <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-6 hidden h-px bg-border sm:block" />
+              {/* Mobile: single column, top-to-bottom, down arrows between
+                  steps. Desktop: horizontal row with a connecting line -
+                  the old layout used a 2x2 grid with right-arrows, which
+                  broke on the wrap (the arrow after step 2 pointed right
+                  when the real next step was below it, not beside it). */}
+              <div className="flex flex-col items-stretch gap-2 sm:hidden">
                 {STEPS.map((step, i) => (
+                  <div key={step.title}>
+                    <div className="flex items-center gap-4 rounded-2xl border border-border bg-card/40 p-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-card">
+                        <step.icon className="h-5 w-5 text-ember" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold">{step.title}</p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">{step.body}</p>
+                      </div>
+                    </div>
+                    {i < STEPS.length - 1 && (
+                      <div className="flex justify-center py-1.5">
+                        <ArrowDown className="h-3.5 w-3.5 text-muted-foreground/50" />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="relative hidden sm:grid sm:grid-cols-4 sm:gap-x-4">
+                <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-6 h-px bg-border" />
+                {STEPS.map((step) => (
                   <div key={step.title} className="relative flex flex-col items-center text-center">
                     <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
                       <step.icon className="h-5 w-5 text-ember" />
                     </div>
                     <p className="mt-3 text-sm font-semibold">{step.title}</p>
                     <p className="mt-1 text-xs text-muted-foreground">{step.body}</p>
-                    {i < STEPS.length - 1 && (
-                      <ArrowRight className="mt-2 h-3.5 w-3.5 text-muted-foreground/50 sm:hidden" />
-                    )}
                   </div>
                 ))}
               </div>
