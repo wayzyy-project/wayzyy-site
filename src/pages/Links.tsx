@@ -58,7 +58,7 @@ const CARDS: Card[] = [
     image: cardContact,
     rows: [
       { icon: Mail, label: "General", sub: "hello@wayzyy.com", href: "mailto:hello@wayzyy.com" },
-      { icon: Briefcase, label: "Hosts and partnerships", sub: "hello@wayzyy.com", href: "mailto:hello@wayzyy.com?subject=Hosting%20with%20Wayzyy" },
+      { icon: Briefcase, label: "Hosts and partnerships", sub: "akshaykumar.sharma@wayzyy.com", href: "mailto:akshaykumar.sharma@wayzyy.com?subject=Hosting%20with%20Wayzyy" },
       { icon: AtSign, label: "Press", sub: "hello@wayzyy.com", href: "mailto:hello@wayzyy.com?subject=Press" },
     ],
     cta: { label: "Email us", href: "mailto:hello@wayzyy.com" },
