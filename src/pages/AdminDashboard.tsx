@@ -11,6 +11,7 @@ import {
   LogOut,
   ShieldCheck,
   Sparkles,
+  Users,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -89,20 +90,23 @@ function DashboardContent() {
   const [pendingProperties, setPendingProperties] = useState<number>(0);
   const [pendingVerifications, setPendingVerifications] = useState<number>(0);
   const [totalListings, setTotalListings] = useState<number>(0);
+  const [pendingOnboarding, setPendingOnboarding] = useState<number>(0);
   const [loadingStats, setLoadingStats] = useState(true);
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const [pendingPropRes, totalPropRes, pendingVerifRes] = await Promise.all([
+        const [pendingPropRes, totalPropRes, pendingVerifRes, pendingOnboardingRes] = await Promise.all([
           supabase.from("properties").select("id", { count: "exact", head: true }).eq("status", "pending_review"),
           supabase.from("properties").select("id", { count: "exact", head: true }),
           supabase.from("identity_verifications").select("id", { count: "exact", head: true }).eq("status", "submitted"),
+          supabase.from("host_onboarding_submissions").select("id", { count: "exact", head: true }).eq("status", "received"),
         ]);
 
         setPendingProperties(pendingPropRes.count ?? 0);
         setTotalListings(totalPropRes.count ?? 0);
         setPendingVerifications(pendingVerifRes.count ?? 0);
+        setPendingOnboarding(pendingOnboardingRes.count ?? 0);
       } catch (err) {
         console.error("Failed to load admin stats:", err);
       } finally {
@@ -174,7 +178,7 @@ function DashboardContent() {
       <div className="space-y-4">
         <h2 className="font-display text-xl">Admin Workflows</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: AirROI Import */}
           <div
             onClick={() => navigate("/adminn/import-airbnb")}
@@ -229,6 +233,25 @@ function DashboardContent() {
             </p>
             <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-blue-500">
               View Verifications ({pendingVerifications}) →
+            </div>
+          </div>
+
+          {/* Card 4: Onboarding Hosts */}
+          <div
+            onClick={() => navigate("/adminn/onboarding-hosts")}
+            className="group relative cursor-pointer rounded-2xl border border-border bg-card p-6 transition-all hover:border-ember hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 transition-colors group-hover:bg-emerald-500 group-hover:text-white">
+              <Users className="h-6 w-6" />
+            </div>
+            <h3 className="font-display text-lg mt-4 group-hover:text-emerald-500 transition-colors">
+              Onboarding Hosts
+            </h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Review the properties hosts have submitted, mark them as verifying or published, updates reflect on their status page.
+            </p>
+            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
+              Review Submissions ({pendingOnboarding}) →
             </div>
           </div>
         </div>

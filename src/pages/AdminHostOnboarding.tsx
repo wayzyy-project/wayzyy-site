@@ -250,7 +250,7 @@ function HostOnboardingQueue() {
 
 export default function AdminHostOnboarding() {
   return (
-    <SEO title="Host Onboarding Submissions - Wayzyy Admin" description="Internal admin tool." path="/admin-wayzyy-lol/hosts" noindex>
+    <SEO title="Host Onboarding Submissions - Wayzyy Admin" description="Internal admin tool." path="/adminn/onboarding-hosts" noindex>
       <div className="min-h-screen bg-background text-foreground">
         <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
           <div className="container flex h-14 items-center justify-between">

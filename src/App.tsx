@@ -143,6 +143,7 @@ const App = () => (
               <Route path="/adminn/airroi-import" element={<AdminAirroiImport />} />
               <Route path="/adminn/import-airbnb" element={<AdminAirroiImport />} />
               <Route path="/admin-wayzyy-lol" element={<AdminGigChallenge />} />
+              <Route path="/adminn/onboarding-hosts" element={<AdminHostOnboarding />} />
               <Route path="/admin-wayzyy-lol/hosts" element={<AdminHostOnboarding />} />
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
