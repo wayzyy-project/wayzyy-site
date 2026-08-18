@@ -4,6 +4,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Gift,
+  Home,
   Loader2,
   Rocket,
   Send,
@@ -105,7 +106,7 @@ export default function HostOnboarding() {
           <div className="mx-auto max-w-2xl text-center">
             <Reveal>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-ember">
-                <Sparkles className="h-3 w-3" /> Now onboarding Goa hosts
+                <Home className="h-3 w-3" /> Now onboarding Goa hosts
               </span>
             </Reveal>
             <Reveal delay={0.05}>
