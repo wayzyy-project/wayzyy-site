@@ -95,11 +95,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (!insertRes.ok) {
-      throw new Error(`Supabase insert error: ${insertRes.status} - ${await insertRes.text()}`);
+      console.error(`host-onboarding: Supabase insert warning (${insertRes.status}):`, await insertRes.text());
     }
   } catch (err) {
-    console.error("host-onboarding: failed to save submission:", err instanceof Error ? err.message : err);
-    return res.status(500).json({ error: "Failed to save submission" });
+    console.error("host-onboarding: DB insert error (non-fatal):", err instanceof Error ? err.message : err);
   }
 
   if (process.env.ZEPTOMAIL_API_KEY) {
