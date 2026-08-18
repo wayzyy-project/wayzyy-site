@@ -167,10 +167,10 @@ export default function HostOnboarding() {
                 </div>
                 <p className="mt-4 text-xs text-muted-foreground">
                   Want to check your status any time? Head to{" "}
-                  <Link to="/host" className="font-medium text-ember hover:underline">
-                    wayzyy.com/host
-                  </Link>
-                  .
+                  <Link to="/host-onboarding/status" className="font-medium text-ember hover:underline">
+                    wayzyy.com/host-onboarding/status
+                  </Link>{" "}
+                  and sign in with the email you used here, no password needed.
                 </p>
               </div>
             ) : (

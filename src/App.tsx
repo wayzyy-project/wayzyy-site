@@ -92,6 +92,7 @@ import GigChallenge from "./pages/GigChallenge";
 import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import Links from "./pages/Links";
 import HostOnboarding from "./pages/HostOnboarding";
+import HostOnboardingStatus from "./pages/HostOnboardingStatus";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 import ExperienceGoa from "./pages/ExperienceGoa";
 import WaitlistChooser from "./pages/WaitlistChooser";
@@ -124,6 +125,7 @@ const App = () => (
               <Route path="/grand-prix" element={<GrandPrixHackathon />} />
               <Route path="/links" element={<Links />} />
               <Route path="/host-onboarding" element={<HostOnboarding />} />
+              <Route path="/host-onboarding/status" element={<HostOnboardingStatus />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
