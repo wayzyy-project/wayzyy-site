@@ -41,6 +41,51 @@ const templateHtml = fs.readFileSync(indexHtmlPath, 'utf8');
 // 3. Define routes and their specific metadata
 const routes = [
   {
+    path: '/gig-challenge',
+    title: 'Wayzyy $1,000 Solo Developer Challenge',
+    description: "Build a real chat-moderation feature for Wayzyy and get considered for a $1,000/month build-with-us role. Open to solo developers, submissions reviewed on a rolling basis.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Wayzyy $1,000 Solo Developer Challenge",
+      "url": "https://wayzyy.com/gig-challenge",
+      "description": "Build a real chat-moderation feature for Wayzyy and get considered for a $1,000/month build-with-us role.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/build-with-us',
+    title: 'Wayzyy $1,000 Solo Developer Challenge',
+    description: "Build a real chat-moderation feature for Wayzyy and get considered for a $1,000/month build-with-us role. Open to solo developers, submissions reviewed on a rolling basis.",
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Wayzyy $1,000 Solo Developer Challenge",
+      "url": "https://wayzyy.com/build-with-us",
+      "description": "Build a real chat-moderation feature for Wayzyy and get considered for a $1,000/month build-with-us role.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/host-onboarding',
+    title: 'Welcome, Goa hosts — bring your properties to Wayzyy',
+    description: 'Submit your properties in one simple form. Our team verifies them, and they go live on Wayzyy the moment we launch.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Wayzyy Host Onboarding",
+      "url": "https://wayzyy.com/host-onboarding",
+      "description": "Submit your properties in one simple form. Our team verifies them, and they go live on Wayzyy the moment we launch.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/grand-prix',
     title: 'Wayzyy Grand Prix Hackathon — Pitch, Win, Get Hired',
     description: "Grand Prix Hackathon participants: pitch how you'd make Wayzyy better than Airbnb. ₹500 in Wayzyy credits for every offline team, and a $1,000/month build-with-us opportunity for the strongest pitch.",
