@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
 import { ChallengeTopBanner } from "@/components/gig-challenge/ChallengeTopBanner";
-import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent } from "lucide-react";
+import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent, Flag } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,6 +46,102 @@ const hostLinks: { to: string; label: string; description: string; icon: typeof 
     icon: Percent,
   },
 ];
+
+/** The two live build-with-us challenges, surfaced in the "Challenge" nav dropdown. */
+const challengeLinks: { to: string; label: string; description: string; icon: typeof Home }[] = [
+  {
+    to: "/gig-challenge",
+    label: "$1,000 Challenge",
+    description: "Solo devs: build a real feature, get hired",
+    icon: Swords,
+  },
+  {
+    to: "/grand-prix",
+    label: "Grand Prix Challenge",
+    description: "Hackathon exclusive: pitch, win a Goa trip, get hired",
+    icon: Flag,
+  },
+];
+
+/**
+ * Accessible hover/focus dropdown for the "Challenge" nav item, mirrors
+ * HostNavMenu below rather than sharing it, since the two menus' item
+ * shapes (icon/label/description/to) happen to match but are conceptually
+ * unrelated lists that should be free to diverge.
+ */
+function ChallengeNavMenu({ variant }: { variant: "floating" | "solid" }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  const openNow = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const closeSoon = () => {
+    closeTimer.current = window.setTimeout(() => setOpen(false), 150);
+  };
+
+  const triggerClass =
+    variant === "floating"
+      ? "group liquid-glass flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold text-white outline-none transition-all hover:bg-white hover:text-ink data-[state=open]:bg-white data-[state=open]:text-ink"
+      : "group flex items-center gap-1.5 rounded-full border border-[#FF6B00]/40 bg-[#FF6B00]/10 px-3.5 py-1 text-xs font-bold text-[#FF6B00] outline-none transition-all hover:bg-[#FF6B00] hover:text-white data-[state=open]:bg-[#FF6B00] data-[state=open]:text-white shadow-sm shadow-[#FF6B00]/10";
+
+  const contentClass =
+    variant === "floating"
+      ? "liquid-glass z-50 w-80 rounded-2xl border border-white/15 bg-black/60 p-2 text-white shadow-2xl"
+      : "z-50 w-80 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-2xl";
+
+  const itemClass =
+    variant === "floating"
+      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 cursor-pointer";
+
+  const iconWrapClass =
+    variant === "floating"
+      ? "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80"
+      : "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted/40 text-foreground/80";
+
+  const descriptionClass = variant === "floating" ? "text-xs text-white/60" : "text-xs text-muted-foreground";
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <div onMouseEnter={openNow} onMouseLeave={closeSoon}>
+        <DropdownMenuTrigger className={triggerClass}>
+          <Swords className={variant === "floating" ? "h-3.5 w-3.5 text-white group-hover:text-ink transition-colors" : "h-3.5 w-3.5 text-[#FF6B00] dark:text-white group-hover:text-white transition-colors"} />
+          <span>Challenge</span>
+          <ChevronDown className="h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="end"
+          sideOffset={12}
+          className={contentClass}
+          onMouseEnter={openNow}
+          onMouseLeave={closeSoon}
+        >
+          {challengeLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <DropdownMenuItem key={link.to} asChild className={itemClass}>
+                <Link to={link.to}>
+                  <span className={iconWrapClass}>
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
+                    <span className="flex items-center gap-1.5 font-semibold">
+                      {link.label}
+                      <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0 opacity-40" />
+                    </span>
+                    <span className={descriptionClass}>{link.description}</span>
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
+        </DropdownMenuContent>
+      </div>
+    </DropdownMenu>
+  );
+}
 
 /**
  * Accessible hover/focus dropdown for the "Hosting" nav item, built on
@@ -169,13 +265,7 @@ export function SiteNav({ floating = false }: SiteNavProps) {
                 Blog
               </Link>
               <HostNavMenu variant="floating" />
-              <Link
-                className="group liquid-glass flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold text-white transition-all hover:bg-white hover:text-ink"
-                to="/gig-challenge"
-              >
-                <Swords className="h-3.5 w-3.5 text-white group-hover:text-ink transition-colors" />
-                <span>$1,000 Challenge</span>
-              </Link>
+              <ChallengeNavMenu variant="floating" />
             </nav>
             <div className="flex items-center gap-2">
               <ThemeToggle />
@@ -238,13 +328,7 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             Blog
           </Link>
           <HostNavMenu variant="solid" />
-          <Link
-            className="group flex items-center gap-1.5 rounded-full border border-[#FF6B00]/40 bg-[#FF6B00]/10 px-3.5 py-1 text-xs font-bold text-[#FF6B00] transition-all hover:bg-[#FF6B00] hover:text-white shadow-sm shadow-[#FF6B00]/10"
-            to="/gig-challenge"
-          >
-            <Swords className="h-3.5 w-3.5 text-[#FF6B00] dark:text-white group-hover:text-white transition-colors" />
-            <span>$1,000 Challenge</span>
-          </Link>
+          <ChallengeNavMenu variant="solid" />
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
