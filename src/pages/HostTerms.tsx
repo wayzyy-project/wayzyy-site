@@ -39,7 +39,7 @@ export default function HostTerms() {
         <li>Have a valid Indian bank account for receiving payouts</li>
       </ul>
 
-      <h2>3. Account Registration and Verification</h2>
+      <h2 id="account-registration" className="scroll-mt-24">3. Account Registration and Verification</h2>
       <h3>3.1 Host Account</h3>
       <p>You must create a Wayzyy Host account to list your property. You agree to provide accurate, complete, and current information during registration. Each person may hold only one Host account.</p>
       <h3>3.2 Aadhaar Verification</h3>

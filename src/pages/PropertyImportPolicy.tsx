@@ -50,7 +50,7 @@ export default function PropertyImportPolicy() {
         </div>
 
         {/* Section 1: Review Integrity */}
-        <div className="rounded-2xl border border-border bg-card p-6 space-y-3">
+        <div id="review-policy" className="rounded-2xl border border-border bg-card p-6 space-y-3 scroll-mt-24">
           <div className="flex items-center gap-2 text-foreground font-semibold text-base font-display">
             <CheckCircle2 className="h-5 w-5 text-primary" />
             1. Prohibition of Third-Party Review & Rating Scraping
@@ -81,7 +81,7 @@ export default function PropertyImportPolicy() {
         </div>
 
         {/* Section 3: Manual Verification */}
-        <div className="rounded-2xl border border-border bg-card p-6 space-y-3">
+        <div id="verification-workflow" className="rounded-2xl border border-border bg-card p-6 space-y-3 scroll-mt-24">
           <div className="flex items-center gap-2 text-foreground font-semibold text-base font-display">
             <FileText className="h-5 w-5 text-primary" />
             3. Mandatory Manual Verification & Approval Workflow

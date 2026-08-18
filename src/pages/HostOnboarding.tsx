@@ -243,18 +243,22 @@ export default function HostOnboarding() {
                   />
                   <span className="text-xs leading-relaxed text-muted-foreground">
                     I agree to Wayzyy's{" "}
-                    <Link to="/host-terms" target="_blank" className="font-medium text-ember hover:underline">
+                    <Link to="/host-terms#account-registration" target="_blank" className="font-medium text-ember hover:underline">
                       Host Terms
                     </Link>
                     ,{" "}
                     <Link to="/privacy" target="_blank" className="font-medium text-ember hover:underline">
                       Privacy Policy
                     </Link>
-                    , and{" "}
-                    <Link to="/policies/property-import-policy" target="_blank" className="font-medium text-ember hover:underline">
-                      Property Import Policy
+                    , and how Wayzyy{" "}
+                    <Link to="/policies/property-import-policy#verification-workflow" target="_blank" className="font-medium text-ember hover:underline">
+                      imports and verifies my listings
                     </Link>
-                    , including how Wayzyy uses the property URLs I share to import my listings.
+                    {" "}from the URLs I share, including that Wayzyy{" "}
+                    <Link to="/policies/property-import-policy#review-policy" target="_blank" className="font-medium text-ember hover:underline">
+                      does not import reviews or ratings
+                    </Link>{" "}
+                    from other platforms.
                   </span>
                 </label>
 
