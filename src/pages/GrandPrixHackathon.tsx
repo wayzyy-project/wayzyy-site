@@ -373,6 +373,11 @@ export default function GrandPrixHackathon() {
                 build-with-us opportunity.
               </p>
             </Reveal>
+            <Reveal delay={0.14}>
+              <p className="mx-auto mt-6 inline-flex items-center gap-2 rounded-full border border-[hsl(25,100%,50%)]/40 bg-[hsl(25,100%,50%)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[hsl(25,100%,55%)] sm:text-sm">
+                Submissions close 22 August — final round announced that day
+              </p>
+            </Reveal>
           </div>
         </section>
 
@@ -609,6 +614,9 @@ export default function GrandPrixHackathon() {
                 <div>
                   <h2 className="font-display text-2xl font-bold">Submit your pitch</h2>
                   <p className="mt-1 text-sm text-muted-foreground">Every field marked * is required.</p>
+                  <p className="mt-1 text-sm font-medium text-[hsl(25,100%,50%)]">
+                    Submissions close 22 August, the day we announce the final round.
+                  </p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">

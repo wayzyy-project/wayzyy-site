@@ -117,7 +117,7 @@ export default function PaymentRefundPolicy() {
 
       <h2>9. Taxes</h2>
       <h3>9.1 Guest-Side Taxes</h3>
-      <p>GST and any other applicable taxes are included in the total price displayed at checkout. Wayzyy collects and remits these taxes as required by applicable Indian tax law.</p>
+      <p>GST and any other applicable taxes are included in the total price displayed at checkout. Wayzyy collects and remits these taxes as required by applicable Indian tax law. Wayzyy Technologies Private Limited's GSTIN is 09AAECW5169M1ZL.</p>
       <h3>9.2 Host-Side Taxes</h3>
       <p>Hosts are solely responsible for declaring and paying all applicable taxes on income earned through Wayzyy. Wayzyy will provide booking summaries and transaction records to assist with your tax filings but does not provide tax advice.</p>
 

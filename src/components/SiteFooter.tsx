@@ -77,7 +77,7 @@ export function SiteFooter() {
 
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col gap-2 border-t border-border pt-4 sm:mt-10 sm:pt-6 sm:flex-row sm:items-center sm:justify-between text-[11px] sm:text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Wayzyy Technologies Private Limited. Built honest.</span>
+          <span>© {new Date().getFullYear()} Wayzyy Technologies Private Limited. GSTIN: 09AAECW5169M1ZL. Built honest.</span>
           <div className="flex items-center gap-3">
             <a href="https://www.instagram.com/staywayzyy/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
             <span>·</span>
