@@ -161,7 +161,7 @@ function RaceBeat({
   return (
     <motion.p
       style={{ opacity, y }}
-      className="absolute inset-x-0 bottom-[14%] mx-auto max-w-3xl px-6 text-center font-display text-2xl font-bold leading-tight drop-shadow-[0_2px_18px_rgba(0,0,0,0.85)] sm:text-4xl"
+      className="absolute inset-x-0 bottom-[14%] mx-auto max-w-3xl px-6 text-center font-display text-2xl font-bold leading-tight text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.85)] sm:text-4xl"
     >
       {children}
     </motion.p>
