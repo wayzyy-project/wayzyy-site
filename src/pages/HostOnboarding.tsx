@@ -147,8 +147,8 @@ export default function HostOnboarding() {
           </div>
         </section>
 
-        {/* Form */}
-        <section className="px-5 pb-16 sm:px-8">
+        {/* Form. Extra bottom padding clears the global fixed MobileTabBar. */}
+        <section className="px-5 pb-28 sm:px-8 sm:pb-16">
           <div className="liquid-glass mx-auto max-w-xl rounded-3xl border border-border p-6 sm:p-10">
             {submitted ? (
               <div className="flex flex-col items-center gap-3 py-8 text-center">

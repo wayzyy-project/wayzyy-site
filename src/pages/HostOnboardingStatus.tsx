@@ -72,7 +72,7 @@ const STATUS_META: Record<string, { label: string; icon: typeof Clock; className
 };
 
 export default function HostOnboardingStatus() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [linkSent, setLinkSent] = useState(false);
@@ -138,6 +138,22 @@ export default function HostOnboardingStatus() {
             </div>
           ) : user ? (
             <div className="mt-6 space-y-4">
+              {/* You're already signed in somewhere else on the site (same shared
+                  auth as the rest of Wayzyy) - make whose status this is, and how
+                  to switch, obvious rather than silently showing "no submission"
+                  for an email the visitor didn't actually type in here. */}
+              <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-xs">
+                <span className="text-muted-foreground">
+                  Checking status for <span className="font-medium text-foreground">{user.email}</span>
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  className="shrink-0 font-medium text-ember hover:underline"
+                >
+                  Not you?
+                </button>
+              </div>
+
               {!submissions || submissions.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
                   We don't have a submission on file for {user.email} yet.{" "}
