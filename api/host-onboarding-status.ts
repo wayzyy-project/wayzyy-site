@@ -34,7 +34,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (error) {
     console.error("host-onboarding-status: lookup failed:", error.message);
-    return res.status(500).json({ error: "Failed to look up status" });
+    // TEMPORARY: surfacing the real Supabase/Postgres error text to the
+    // client to diagnose a live 500 that isn't reproducible in dev and
+    // whose Vercel function logs haven't been reachable. Revert to a
+    // generic message once root-caused - this can leak schema details.
+    return res.status(500).json({ error: "Failed to look up status", detail: error.message, code: (error as any).code });
   }
 
   const submissions = (data ?? []).map((s) => ({
