@@ -295,7 +295,10 @@ function HeadlineBeat({
  */
 function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
-  const opacity = useTransform(progress, [0, 0.04], [1, 0]);
+  // Stays visible across the whole cinematic (all the way through the
+  // bazaar/story3 close), only fading out right at the very end as the
+  // sticky stage hands off to the rest of the page.
+  const opacity = useTransform(progress, [0, T.bazaar.out[0], T.bazaar.out[1]], [1, 1, 0]);
 
   return (
     <motion.div
@@ -304,7 +307,7 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
       className="pointer-events-none absolute inset-y-0 right-4 z-20 flex items-center sm:right-6"
     >
       <div className="flex flex-col items-center gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70 [writing-mode:vertical-rl]">
+        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 [writing-mode:vertical-rl] sm:text-base lg:text-lg">
           Scroll
         </span>
         <motion.span
@@ -312,7 +315,7 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="text-white/60"
         >
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5" />
         </motion.span>
       </div>
     </motion.div>
