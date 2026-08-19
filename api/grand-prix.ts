@@ -44,7 +44,8 @@ type GrandPrixPayload = {
   fullName: string;
   email: string;
   hackathonTrack: string;
-  pitchDeckLink: string;
+  submissionType: string;
+  pitchDeckLink?: string;
   videoLink?: string;
   pitch: string;
 };
@@ -56,7 +57,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const body = req.body as GrandPrixPayload;
 
-  if (!body.fullName || !body.email || !body.email.includes("@") || !body.pitchDeckLink || !body.pitch || !body.hackathonTrack) {
+  const hasDeck = !!body.pitchDeckLink?.trim();
+  const hasVideo = !!body.videoLink?.trim();
+
+  if (
+    !body.fullName ||
+    !body.email ||
+    !body.email.includes("@") ||
+    !body.pitch ||
+    !body.hackathonTrack ||
+    !body.submissionType ||
+    (!hasDeck && !hasVideo)
+  ) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -83,8 +95,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         full_name: body.fullName,
         email: body.email,
         hackathon_track: body.hackathonTrack,
-        pitch_deck_link: body.pitchDeckLink,
-        video_link: body.videoLink,
+        submission_type: body.submissionType,
+        pitch_deck_link: body.pitchDeckLink || null,
+        video_link: body.videoLink || null,
         pitch: body.pitch,
       }),
     });

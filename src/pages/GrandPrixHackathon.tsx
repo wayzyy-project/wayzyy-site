@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { ArrowLeft, ChevronDown, Flag, Users, Rocket, Loader2, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ChevronDown, Flag, Users, Rocket, Loader2, CheckCircle2, Linkedin, Mail, Megaphone, Smartphone, Wrench } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Reveal } from "@/components/Reveal";
@@ -266,6 +266,7 @@ type FormState = {
   fullName: string;
   email: string;
   hackathonTrack: "participant" | "registered_no_finals" | "";
+  submissionType: "product" | "marketing" | "";
   pitchDeckLink: string;
   videoLink: string;
   pitch: string;
@@ -276,6 +277,7 @@ const INITIAL_FORM: FormState = {
   fullName: "",
   email: "",
   hackathonTrack: "",
+  submissionType: "",
   pitchDeckLink: "",
   videoLink: "",
   pitch: "",
@@ -284,6 +286,11 @@ const INITIAL_FORM: FormState = {
 const TRACKS: { value: FormState["hackathonTrack"]; label: string; desc: string }[] = [
   { value: "participant", label: "We competed offline", desc: "₹500 Wayzyy credit guaranteed, pitch still counts for the $1,000/month track." },
   { value: "registered_no_finals", label: "Registered, didn't make the finals", desc: "Still eligible to pitch for the $1,000/month opportunity — highly preferred." },
+];
+
+const SUBMISSION_TYPES: { value: FormState["submissionType"]; label: string; desc: string }[] = [
+  { value: "product", label: "Product / feature idea", desc: "An issue you found, and how you'd build the fix." },
+  { value: "marketing", label: "Marketing idea", desc: "How you'd get Wayzyy in front of the right people in Goa." },
 ];
 
 export default function GrandPrixHackathon() {
@@ -297,8 +304,12 @@ export default function GrandPrixHackathon() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.fullName || !form.email || !form.hackathonTrack || !form.pitchDeckLink || !form.pitch) {
+    if (!form.fullName || !form.email || !form.hackathonTrack || !form.submissionType || !form.pitch) {
       toast({ title: "A few fields are still empty", description: "Fill in the required fields to submit.", variant: "destructive" });
+      return;
+    }
+    if (!form.pitchDeckLink.trim() && !form.videoLink.trim()) {
+      toast({ title: "Share a deck or a video", description: "At least one is required, either works, both is great.", variant: "destructive" });
       return;
     }
     setSubmitting(true);
@@ -531,6 +542,56 @@ export default function GrandPrixHackathon() {
           </div>
         </section>
 
+        {/* What you'd be building with */}
+        <section className="px-4 pb-16 sm:px-8">
+          <div className="mx-auto max-w-4xl">
+            <Reveal>
+              <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
+                What you'd actually be building with
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-muted-foreground sm:text-base">
+                So a technical pitch is grounded in something real, not guesswork.
+              </p>
+            </Reveal>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <Reveal delay={0.03}>
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <Smartphone className="h-5 w-5 text-[hsl(25,100%,50%)]" />
+                  <h3 className="mt-3 font-display text-base font-semibold text-foreground">React Native</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    The Wayzyy app is built on React Native. If your pitch touches the app itself,
+                    that's the stack to design around.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.06}>
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <Wrench className="h-5 w-5 text-[hsl(25,100%,50%)]" />
+                  <h3 className="mt-3 font-display text-base font-semibold text-foreground">Any public API is fair game</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Use whatever public APIs or data your idea genuinely needs. We're not scoring
+                    you down for reaching outside our stack.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.08}>
+              <div className="mt-4 rounded-2xl border border-[hsl(25,100%,50%)]/30 bg-[hsl(25,100%,50%)]/[0.06] p-5">
+                <h3 className="font-display text-base font-semibold text-foreground">Need a place to start?</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  One idea worth building on: something that makes it easier for hosts already
+                  listed on Airbnb to migrate their existing properties onto Wayzyy, pulling in
+                  their listing details automatically instead of manual re-entry. That's a real,
+                  open problem, not a hint at the "right" answer. If you've got a different angle,
+                  technical or not, bring that instead.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* What to pitch */}
         <section className="px-4 pb-16 sm:px-8">
           <div className="mx-auto max-w-3xl">
@@ -594,6 +655,84 @@ export default function GrandPrixHackathon() {
               A flat-fee subscription, not a cut of every booking. We like to keep things simple
               and flat, the same way we'll handle your hiring application.
             </p>
+          </Reveal>
+        </section>
+
+        {/* How we judge */}
+        <section className="px-4 pb-16 sm:px-8">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">How we judge it</h2>
+            </Reveal>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <Reveal delay={0.03}>
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <Wrench className="h-5 w-5 text-[hsl(25,100%,50%)]" />
+                  <h3 className="mt-3 font-display text-base font-semibold text-foreground">Product / feature pitches</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Judged on how good the idea or fix actually is, and how confidently you walk us
+                    through it. A sharp, well-argued idea in a short video beats a long deck that
+                    hedges.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.06}>
+                <div className="h-full rounded-2xl border border-border bg-card p-5">
+                  <Megaphone className="h-5 w-5 text-[hsl(25,100%,50%)]" />
+                  <h3 className="mt-3 font-display text-base font-semibold text-foreground">Marketing pitches</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Judged on how well your idea could actually grow Wayzyy's community and reach
+                    the right people in Goa, same weight as a technical pitch, not a lesser track.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.09}>
+              <div className="mt-4 space-y-3 rounded-2xl border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground">
+                <p>
+                  <span className="font-semibold text-foreground">Deck, video, or both.</span>{" "}
+                  Neither format is preferred over the other, submit whichever makes your pitch
+                  land best.
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">On 22 August</span>, we'll welcome
+                  a few pitches live during the hackathon and award one team the win on the spot.
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">Submitted independently, not part of the hackathon?</span>{" "}
+                  If your pitch genuinely stands out, we'll still announce you as a winner
+                  separately, during that same hackathon track.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Questions */}
+        <section className="px-4 pb-16 sm:px-8">
+          <Reveal>
+            <div className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-2xl border border-border bg-card p-6 text-center">
+              <h3 className="font-display text-base font-semibold text-foreground">Any questions?</h3>
+              <p className="text-sm text-muted-foreground">Send them over, happy to help before you submit.</p>
+              <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+                <a
+                  href="mailto:hello@wayzyy.com"
+                  className="inline-flex items-center gap-1.5 font-medium text-[hsl(25,100%,50%)] hover:underline"
+                >
+                  <Mail className="h-4 w-4" /> hello@wayzyy.com
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/wayzyy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-medium text-[hsl(25,100%,50%)] hover:underline"
+                >
+                  <Linkedin className="h-4 w-4" /> Wayzyy on LinkedIn
+                </a>
+              </div>
+            </div>
           </Reveal>
         </section>
 
@@ -677,23 +816,53 @@ export default function GrandPrixHackathon() {
                   </div>
                 </Field>
 
-                <Field label="Pitch deck link *">
+                <Field label="What kind of pitch is this? *">
+                  <div className="space-y-2">
+                    {SUBMISSION_TYPES.map((t) => (
+                      <label
+                        key={t.value}
+                        className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-colors ${
+                          form.submissionType === t.value
+                            ? "border-[hsl(25,100%,50%)] bg-[hsl(25,100%,50%)]/10"
+                            : "border-border hover:border-border"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="submissionType"
+                          className="mt-1"
+                          checked={form.submissionType === t.value}
+                          onChange={() => update("submissionType", t.value)}
+                        />
+                        <span>
+                          <span className="block text-sm font-medium text-foreground">{t.label}</span>
+                          <span className="block text-xs text-muted-foreground">{t.desc}</span>
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </Field>
+
+                <Field label="Pitch deck link">
                   <input
                     className="gpx-input"
-                    required
                     value={form.pitchDeckLink}
                     onChange={(e) => update("pitchDeckLink", e.target.value)}
                     placeholder="Google Slides / Drive / PDF link"
                   />
                 </Field>
 
-                <Field label="Video link (optional)">
+                <Field label="Video link">
                   <input
                     className="gpx-input"
                     value={form.videoLink}
                     onChange={(e) => update("videoLink", e.target.value)}
-                    placeholder="Walkthrough or demo video"
+                    placeholder="Walkthrough or pitch video"
                   />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Share at least one, deck or video, either works, both is great. The more
+                    confident the pitch, the better.
+                  </p>
                 </Field>
 
                 <Field label="Your pitch — what does Airbnb miss, and how do you fix it for Wayzyy? *">
