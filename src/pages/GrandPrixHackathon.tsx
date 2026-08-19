@@ -284,8 +284,8 @@ const INITIAL_FORM: FormState = {
 };
 
 const TRACKS: { value: FormState["hackathonTrack"]; label: string; desc: string }[] = [
-  { value: "participant", label: "We competed offline", desc: "₹500 Wayzyy credit guaranteed, pitch still counts for the $1,000/month track." },
-  { value: "registered_no_finals", label: "Registered, didn't make the finals", desc: "Still eligible to pitch for the $1,000/month opportunity — highly preferred." },
+  { value: "participant", label: "I was announced a hackathon finalist", desc: "₹500 credit guaranteed, plus a shot at the Goa trip and the $1,000/month hiring opportunity." },
+  { value: "registered_no_finals", label: "I'm not part of the hackathon", desc: "Still fully eligible for the $1,000/month hiring opportunity, just not the Goa trip." },
 ];
 
 const SUBMISSION_TYPES: { value: FormState["submissionType"]; label: string; desc: string }[] = [
@@ -396,14 +396,19 @@ export default function GrandPrixHackathon() {
         <section className="px-4 pb-16 sm:px-8">
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <h2 className="mb-6 text-center font-display text-2xl font-bold sm:text-3xl">
+              <h2 className="mb-3 text-center font-display text-2xl font-bold sm:text-3xl">
                 Two ways onto the podium
               </h2>
+              <p className="mx-auto mb-6 max-w-2xl text-center text-sm text-muted-foreground sm:text-base">
+                Announced a finalist in the hackathon's offline round? Pick the first. Not part of
+                the hackathon at all? Pick the second. Both are fully eligible for the $1,000/month
+                hiring opportunity, the Goa trip is the one thing exclusive to hackathon finalists.
+              </p>
             </Reveal>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { icon: Users, title: "Offline participants", body: "Every team that competed in-person gets ₹500 in Wayzyy credits, guaranteed, no pitch required.", accent: "border-red-500/40 bg-red-500/10" },
-                { icon: Rocket, title: "Registered, no finals", body: "Didn't make the cut? You can still pitch for the $1,000/month opportunity, and it's highly preferred.", accent: "border-border bg-card" },
+                { icon: Users, title: "Offline participants", body: "Announced a finalist at the hackathon? Every finalist team gets ₹500 in Wayzyy credits guaranteed, plus a shot at the Goa trip and the $1,000/month hiring opportunity, awarded on stage on 22 August.", accent: "border-red-500/40 bg-red-500/10" },
+                { icon: Rocket, title: "Not part of the hackathon", body: "Pitch on your own, no hackathon needed. A standout pitch gets the $1,000/month hiring opportunity directly, announced the same day, 22 August, just not on stage. The Goa trip is reserved for hackathon finalists.", accent: "border-border bg-card" },
               ].map((card) => (
                 <Reveal key={card.title} delay={0.05}>
                   <motion.div
@@ -692,18 +697,31 @@ export default function GrandPrixHackathon() {
             <Reveal delay={0.09}>
               <div className="mt-4 space-y-3 rounded-2xl border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground">
                 <p>
+                  <span className="font-semibold text-foreground">Yes, it's a real job opportunity.</span>{" "}
+                  $1,000/month, working directly with us as we build Wayzyy, not a stipend or a
+                  certificate.
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">How many rounds?</span> One, right
+                  now, we review everything and announce results directly. If we get a strong
+                  volume of great submissions, we may open a second round too, the same way we did
+                  recently for our $1,000 Solo Developer Challenge.
+                </p>
+                <p>
                   <span className="font-semibold text-foreground">Deck, video, or both.</span>{" "}
                   Neither format is preferred over the other, submit whichever makes your pitch
                   land best.
                 </p>
                 <p>
                   <span className="font-semibold text-foreground">On 22 August</span>, we'll welcome
-                  a few pitches live during the hackathon and award one team the win on the spot.
+                  a few pitches live during the hackathon and award one team the win, with a Goa
+                  trip, on stage.
                 </p>
                 <p>
-                  <span className="font-semibold text-foreground">Submitted independently, not part of the hackathon?</span>{" "}
-                  If your pitch genuinely stands out, we'll still announce you as a winner
-                  separately, during that same hackathon track.
+                  <span className="font-semibold text-foreground">Not part of the hackathon?</span>{" "}
+                  If your pitch genuinely stands out, we'll still announce and award you the
+                  $1,000/month opportunity that same day, just not on stage. The Goa trip stays
+                  reserved for hackathon finalists.
                 </p>
               </div>
             </Reveal>
