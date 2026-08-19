@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { ArrowLeft, ChevronDown, Flag, Users, Rocket, Loader2, CheckCircle2, Linkedin, Mail, Megaphone, Smartphone, Wrench } from "lucide-react";
+import { ArrowLeft, ChevronDown, ExternalLink, Flag, Users, Rocket, Loader2, CheckCircle2, Linkedin, Mail, Megaphone, Smartphone, Video, Wrench } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Reveal } from "@/components/Reveal";
@@ -723,6 +723,11 @@ export default function GrandPrixHackathon() {
                   $1,000/month opportunity that same day, just not on stage. The Goa trip stays
                   reserved for hackathon finalists.
                 </p>
+                <p>
+                  <span className="font-semibold text-foreground">Solo or team?</span> Either.
+                  Pitching alone is fine, add your team name in the form if you're submitting as a
+                  group.
+                </p>
               </div>
             </Reveal>
           </div>
@@ -752,6 +757,62 @@ export default function GrandPrixHackathon() {
               </div>
             </div>
           </Reveal>
+        </section>
+
+        {/* We've done this before */}
+        <section className="px-4 pb-16 sm:px-8">
+          <div className="mx-auto max-w-4xl">
+            <Reveal>
+              <div className="mb-6 text-center">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[hsl(25,100%,50%)]">
+                  <Video className="h-4 w-4" />
+                  <span>We've done this before</span>
+                </div>
+                <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
+                  We recently ran the $1,000 Solo Developer Challenge, it's live too
+                </h2>
+                <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
+                  Same idea, different problem to solve. Worth a look if you want a feel for how we
+                  run these, and what a strong submission actually looks like.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <div className="overflow-hidden rounded-3xl border-2 border-border bg-card p-4 shadow-xl sm:p-6">
+                <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border/80 bg-black/90">
+                  <iframe
+                    src="https://www.youtube.com/embed/oeGDZ72ECAk"
+                    title="Wayzyy Gig Challenge Video Walkthrough"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="h-full w-full border-0"
+                  />
+                </div>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                  <span className="text-xs text-muted-foreground">Having trouble viewing? Watch directly on YouTube:</span>
+                  <a
+                    href="https://youtu.be/oeGDZ72ECAk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[hsl(25,100%,50%)] hover:underline"
+                  >
+                    <span>Open on YouTube</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.09}>
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                Check it out:{" "}
+                <Link to="/gig-challenge" className="font-medium text-[hsl(25,100%,50%)] hover:underline">
+                  wayzyy.com/gig-challenge
+                </Link>
+              </p>
+            </Reveal>
+          </div>
         </section>
 
         {/* Form */}
