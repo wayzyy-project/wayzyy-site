@@ -87,7 +87,7 @@ export default function HostOnboarding() {
       description="Submit your properties in one simple form. Our team verifies them, and they go live on Wayzyy the moment we launch."
       path="/host-onboarding"
     >
-      <div className="relative min-h-screen bg-background text-foreground">
+      <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-ember/15 blur-[130px]" />
 
         <header className="relative mx-auto flex max-w-5xl items-center justify-between px-5 py-6">
