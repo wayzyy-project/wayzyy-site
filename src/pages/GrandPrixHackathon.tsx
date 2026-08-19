@@ -653,6 +653,56 @@ export default function GrandPrixHackathon() {
           </div>
         </section>
 
+        {/* Deck structure */}
+        <section className="px-4 pb-16 sm:px-8">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
+                What your pitch should actually cover
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-center text-sm text-muted-foreground sm:text-base">
+                Pitch it like you're building this with us, not applying to a company you've never
+                talked to.
+              </p>
+            </Reveal>
+
+            <div className="mt-8 space-y-4">
+              {[
+                {
+                  n: "01",
+                  title: "One thing",
+                  body: "A single feature, fix, or growth idea. Not five ideas half-explained, one, thought through properly.",
+                },
+                {
+                  n: "02",
+                  title: "How you'd actually build it",
+                  body: "If it's a feature: your approach and the tech stack you'd use. If it's marketing: the channel, the audience, and how you'd execute it for real, not just the concept.",
+                },
+                {
+                  n: "03",
+                  title: "Why it makes us better than Airbnb",
+                  body: "Tie it back to a real gap, growth, trust, cost, whatever it is. Be specific about the impact, not just that there is one.",
+                },
+                {
+                  n: "04",
+                  title: "A confident video",
+                  body: "Even a short one. Walk us through it like you're pitching a co-founder, not reading off a script. Confidence counts as much as the idea.",
+                },
+              ].map((step) => (
+                <Reveal key={step.n} delay={0.04}>
+                  <div className="flex gap-4 rounded-2xl border border-border bg-card p-5">
+                    <span className="font-display text-2xl font-bold text-[hsl(25,100%,50%)]/40">{step.n}</span>
+                    <div>
+                      <h3 className="font-display text-base font-semibold text-foreground">{step.title}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Keep it simple */}
         <section className="px-4 pb-16 sm:px-8">
           <Reveal>
