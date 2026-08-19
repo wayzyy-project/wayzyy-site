@@ -686,7 +686,7 @@ export default function GrandPrixHackathon() {
                 {
                   n: "04",
                   title: "A confident video",
-                  body: "Even a short one. Walk us through it like you're pitching a co-founder, not reading off a script. Confidence counts as much as the idea.",
+                  body: "At least 2 minutes (no strict max, we've got the attention span for a proper walkthrough). Walk us through it like you're pitching a co-founder, not reading off a script. Confidence counts as much as the idea.",
                 },
               ].map((step) => (
                 <Reveal key={step.n} delay={0.04}>
@@ -989,8 +989,9 @@ export default function GrandPrixHackathon() {
                     placeholder="Walkthrough or pitch video"
                   />
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Share at least one, deck or video, either works, both is great. The more
-                    confident the pitch, the better.
+                    Share at least one, deck or video, either works, both is great. If you're
+                    recording a video, at least 2 minutes (no strict max). The more confident the
+                    pitch, the better.
                   </p>
                 </Field>
 
