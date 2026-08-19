@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   MotionValue,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { FanCardDeck } from "@/components/FanCardDeck";
 
@@ -286,6 +286,39 @@ function HeadlineBeat({
   );
 }
 
+/**
+ * Small "scroll to continue" nudge, pinned to the right edge. Only relevant
+ * for the first instant someone lands on the hero, before they've scrolled
+ * or the choreography has done anything visible yet - so it fades out over
+ * the first sliver of scroll progress rather than sitting on screen through
+ * the whole cinematic.
+ */
+function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
+  const reduce = useReducedMotion();
+  const opacity = useTransform(progress, [0, 0.04], [1, 0]);
+
+  return (
+    <motion.div
+      aria-hidden
+      style={{ opacity }}
+      className="pointer-events-none absolute inset-y-0 right-4 z-20 flex items-center sm:right-6"
+    >
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70 [writing-mode:vertical-rl]">
+          Scroll
+        </span>
+        <motion.span
+          animate={reduce ? undefined : { y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="text-white/60"
+        >
+          <ChevronDown className="h-4 w-4" />
+        </motion.span>
+      </div>
+    </motion.div>
+  );
+}
+
 function StoryPanelStatic({
   image,
   headline,
@@ -532,6 +565,8 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
         >
+          <RightScrollCue progress={progress} />
+
           {/* ---------------- Scene 1: opening parallax ---------------- */}
           {scene1Mounted && (
             <motion.div aria-hidden={false} className="absolute inset-0">
