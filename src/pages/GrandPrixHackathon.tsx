@@ -680,8 +680,8 @@ export default function GrandPrixHackathon() {
                 },
                 {
                   n: "03",
-                  title: "Why it makes us better than Airbnb",
-                  body: "Tie it back to a real gap, growth, trust, cost, whatever it is. Be specific about the impact, not just that there is one.",
+                  title: "The impact, in real terms",
+                  body: "If it's marketing: how it actually grows the number of people checking out Wayzyy, not just \"more visibility.\" If it's engineering: how it improves things enough that people stick around and come back. Either way, tie it to a real gap, and be specific, a number or a mechanism beats a vibe.",
                 },
                 {
                   n: "04",
@@ -700,6 +700,13 @@ export default function GrandPrixHackathon() {
                 </Reveal>
               ))}
             </div>
+
+            <Reveal delay={0.14}>
+              <p className="mx-auto mt-6 max-w-xl text-center text-sm text-muted-foreground">
+                You don't need to nail every detail. We want to see how you think, and that you're
+                genuinely excited to build this with us, not a flawless spec.
+              </p>
+            </Reveal>
           </div>
         </section>
 
