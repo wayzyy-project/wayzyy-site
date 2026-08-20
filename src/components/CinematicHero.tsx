@@ -395,6 +395,22 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const springY = useSpring(mouseY, { stiffness: 120, damping: 18, mass: 0.6 });
   const fgMouseX = useTransform(springX, [0, 1], ["-2.5%", "2.5%"]);
   const fgMouseY = useTransform(springY, [0, 1], ["-2%", "2%"]);
+  // Same cursor-drift, extended to the rest of the stage's scenes so the
+  // whole cinematic feels responsive to the cursor, not just scene 1. Each
+  // scene gets its own (smaller) amplitude - the push-in zoom scenes are
+  // already "closer" to camera so a full-strength drift reads as shaky,
+  // and the busier bazaar/pool images read best with the subtlest touch.
+  const zoomMouseX = useTransform(springX, [0, 1], ["-1.4%", "1.4%"]);
+  const zoomMouseY = useTransform(springY, [0, 1], ["-1.1%", "1.1%"]);
+  const poolMouseX = useTransform(springX, [0, 1], ["-1%", "1%"]);
+  const poolMouseY = useTransform(springY, [0, 1], ["-0.8%", "0.8%"]);
+  const bazaarMouseX = useTransform(springX, [0, 1], ["-0.8%", "0.8%"]);
+  const bazaarMouseY = useTransform(springY, [0, 1], ["-0.6%", "0.6%"]);
+  // Scene 1's midground gets a faint drift too, opposite direction and
+  // lower amplitude than the foreground, so the two layers separate in
+  // depth as the cursor moves instead of moving as one flat sheet.
+  const midMouseX = useTransform(springX, [0, 1], ["1%", "-1%"]);
+  const midMouseY = useTransform(springY, [0, 1], ["0.8%", "-0.8%"]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     if (reduce) return;
@@ -585,7 +601,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 alt="A lantern-lit hillside village above the Goan coast at night"
                 loading="lazy"
                 className="absolute -inset-y-[18%] inset-x-0 h-[136%] w-full object-cover"
-                style={{ y: midY, scale: midScale, opacity: midOpacity }}
+                style={{ y: midY, scale: midScale, x: midMouseX, translateY: midMouseY, opacity: midOpacity }}
               />
               <motion.img
                 src={heroForeground}
@@ -617,21 +633,21 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 alt="A wide dusk view of a Goan villa on a coastal headland, seen from far above the beach"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: zoomWideOpacity, scale: zoomWideScale }}
+                style={{ opacity: zoomWideOpacity, scale: zoomWideScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
               <motion.img
                 src={zoomCloser}
                 alt="A closer dusk view of the same Goan villa, lantern-lit windows glowing above the coastline"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: zoomCloserOpacity, scale: zoomCloserScale }}
+                style={{ opacity: zoomCloserOpacity, scale: zoomCloserScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
               <motion.img
                 src={doorOpen}
                 alt="The villa's carved wooden front door standing open at dusk, lit by hanging lanterns"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: doorOpenOpacity, scale: doorOpenScale }}
+                style={{ opacity: doorOpenOpacity, scale: doorOpenScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
               <motion.div
                 style={{ opacity: story2Opacity }}
@@ -690,7 +706,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 alt="A villa infinity pool at dusk under a starry sky"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: poolDeckOpacity, scale: poolDeckScale }}
+                style={{ opacity: poolDeckOpacity, scale: poolDeckScale, x: poolMouseX, translateY: poolMouseY }}
               />
               <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
                 <div className="relative h-[3.4em] w-full max-w-4xl sm:h-[1.6em]">
@@ -710,7 +726,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 alt="A Goan spice-market street at golden hour with lanterns and shopfronts"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: bazaarOpacity, scale: bazaarScale }}
+                style={{ opacity: bazaarOpacity, scale: bazaarScale, x: bazaarMouseX, translateY: bazaarMouseY }}
               />
               <motion.div
                 style={{ opacity: story3Opacity }}
