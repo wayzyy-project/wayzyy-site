@@ -15,6 +15,7 @@ const VALID_CODES: Record<string, string> = {
   wayzyycoconut2: "coconut",
   wayzyybeach3: "beach",
   wayzyyvilla4: "villa",
+  wayzyycrazyy1: "crazyy",
 };
 
 const STORAGE_KEY = "wayzyy_final_coconut_session";
@@ -109,7 +110,7 @@ function PasswordGate({ onUnlock }: { onUnlock: (session: Session) => void }) {
           </div>
         </div>
         <p className="mb-5 text-sm leading-relaxed text-white/60">
-          This page is curated for the four finalists of the Wayzyy Gig Challenge. Enter your access
+          This page is curated for the finalists of the Wayzyy Gig Challenge. Enter your access
           code to begin.
         </p>
         <input
@@ -306,7 +307,7 @@ function Challenge({ session }: { session: Session }) {
           <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
             <Coins className="mt-0.5 h-5 w-5 shrink-0 text-ember" />
             <div>
-              <div className="text-sm font-bold text-white">Guaranteed for all four finalists</div>
+              <div className="text-sm font-bold text-white">Guaranteed for every finalist</div>
               <div className="text-xs text-white/60">1,000 Wayzyy credits each, the moment we go live.</div>
             </div>
           </div>
