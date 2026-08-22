@@ -89,6 +89,7 @@ import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
 
 import GigChallenge from "./pages/GigChallenge";
+import FinalCoconut from "./pages/FinalCoconut";
 import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import Links from "./pages/Links";
 import HostOnboarding from "./pages/HostOnboarding";
@@ -122,6 +123,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
+              <Route path="/final-coconut" element={<FinalCoconut />} />
               <Route path="/build-with-us" element={<GigChallenge />} />
               <Route path="/grand-prix" element={<GrandPrixHackathon />} />
               <Route path="/links" element={<Links />} />

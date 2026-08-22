@@ -18,5 +18,7 @@ create table if not exists public.grand_prix_applications (
 
 alter table public.grand_prix_applications enable row level security;
 
+grant select, insert, update, delete on public.grand_prix_applications to service_role;
+
 create index if not exists grand_prix_applications_created_at_idx
   on public.grand_prix_applications (created_at desc);
