@@ -99,25 +99,51 @@ const T = {
 
 /**
  * Small invitation line under the intro tagline, only ever seen at scroll
- * position 0 (fades out with the rest of that headline beat). Tells the
- * visitor this hero is scroll-driven before they've done anything, so the
- * SCROLL cue on the right edge doesn't have to explain itself alone.
+ * position 0. Tells the visitor this hero is scroll-driven before they've
+ * done anything - and once they start scrolling, the word "scroll" itself
+ * detaches from the sentence and flies out to the right edge, timed to
+ * land right as RightScrollCue grows in there, so the two read as one
+ * continuous gesture ("this word - the one right there - is what you keep
+ * doing") rather than two unrelated hints.
  */
-function IntroScrollHint() {
+function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
+  // Flies right and fades over the same sliver of scroll RightScrollCue
+  // grows in over, then both settle into their held state together.
+  const wordX = useTransform(progress, [0, 0.06], [0, 340]);
+  const wordOpacity = useTransform(progress, [0, 0.05], [1, 0]);
+  const wordColor = useTransform(progress, [0, 0.05], ["rgba(255,138,61,1)", "hsl(var(--ember))"]);
+
   return (
-    <motion.span
-      animate={reduce ? undefined : { opacity: [0.55, 1, 0.55] }}
-      transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-      className="mt-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs lg:text-sm"
-    >
-      Every scene here moves — scroll to breathe it all in
-      <ChevronDown className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-    </motion.span>
+    <span className="mt-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs lg:text-sm">
+      <motion.span
+        animate={reduce ? undefined : { opacity: [0.85, 1, 0.85] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        Every scene here says something —
+      </motion.span>
+      <motion.span
+        style={{ x: reduce ? 0 : wordX, opacity: reduce ? undefined : wordOpacity, color: wordColor }}
+        className="font-bold"
+      >
+        scroll
+      </motion.span>
+      <motion.span
+        animate={reduce ? undefined : { opacity: [0.85, 1, 0.85] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        style={{ opacity: reduce ? undefined : wordOpacity }}
+      >
+        to breathe it all in
+      </motion.span>
+      <motion.span style={{ opacity: reduce ? undefined : wordOpacity }}>
+        <ChevronDown className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+      </motion.span>
+    </span>
   );
 }
 
-const headlinePhrases: { text: ReactNode; ember: boolean }[] = [
+function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode; ember: boolean }[] {
+  return [
   {
     text: (
       <div className="flex flex-col items-center justify-center gap-1.5 text-center sm:gap-2.5">
@@ -130,7 +156,7 @@ const headlinePhrases: { text: ReactNode; ember: boolean }[] = [
         <span className="text-xs font-semibold uppercase tracking-[0.22em] text-ember sm:text-base lg:text-lg">
           Starting with Goa
         </span>
-        <IntroScrollHint />
+        <IntroScrollHint progress={progress} />
       </div>
     ),
     ember: false,
