@@ -80,7 +80,12 @@ function segmentInOut(
 const T = {
   scene1End: 0.2909,
   headline: [
-    { in: [0.0, 0.0182], out: [0.0636, 0.0818] },
+    // First phrase's "in" window collapses to a single point at 0 - same
+    // technique as scene1Windows.sky below - so it's already at full
+    // opacity the instant the page loads, instead of fading in from
+    // nothing over the first sliver of scroll (which read as a blank hero
+    // on first paint before any scrolling happened).
+    { in: [0.0, 0.0], out: [0.0636, 0.0818] },
     { in: [0.1, 0.1182], out: [0.1636, 0.1818] },
     { in: [0.2, 0.2182], out: [0.2727, 0.2909] },
   ],
