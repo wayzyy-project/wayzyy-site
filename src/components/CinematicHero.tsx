@@ -108,11 +108,13 @@ const T = {
  */
 function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
-  // Flies right and fades over the same sliver of scroll RightScrollCue
-  // grows in over, then both settle into their held state together.
+  // Flies right first, staying fully visible for the first stretch of the
+  // trip, then dissolves right as it reaches the edge - so it reads as
+  // "traveled over there and merged in" rather than vanishing mid-flight.
+  // The fade window (0.035-0.06) lines up with RightScrollCue's own grow
+  // window ([0, 0.035]) finishing, so the two land together.
   const wordX = useTransform(progress, [0, 0.06], [0, 340]);
-  const wordOpacity = useTransform(progress, [0, 0.05], [1, 0]);
-  const wordColor = useTransform(progress, [0, 0.05], ["rgba(255,138,61,1)", "hsl(var(--ember))"]);
+  const wordOpacity = useTransform(progress, [0, 0.035, 0.06], [1, 1, 0]);
 
   return (
     <span className="mt-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs lg:text-sm">
@@ -123,8 +125,8 @@ function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
         Every scene here says something —
       </motion.span>
       <motion.span
-        style={{ x: reduce ? 0 : wordX, opacity: reduce ? undefined : wordOpacity, color: wordColor }}
-        className="font-bold"
+        style={{ x: reduce ? 0 : wordX, opacity: reduce ? undefined : wordOpacity }}
+        className="font-bold text-ember"
       >
         scroll
       </motion.span>
@@ -172,7 +174,8 @@ function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode;
     ),
     ember: false,
   },
-];
+  ];
+}
 
 const sights = [
   {
@@ -698,7 +701,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               {/* flowing headline - one phrase visible at a time */}
               <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
                 <div className="relative min-h-[7em] w-full max-w-4xl sm:min-h-[4em]">
-                  {headlinePhrases.map((p, i) => (
+                  {buildHeadlinePhrases(progress).map((p, i) => (
                     <HeadlineBeat key={i} progress={progress} window={T.headline[i]} ember={p.ember}>
                       {p.text}
                     </HeadlineBeat>
