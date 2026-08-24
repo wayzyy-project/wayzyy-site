@@ -80,14 +80,12 @@ function segmentInOut(
 const T = {
   scene1End: 0.2909,
   headline: [
-    // First phrase's "in" window collapses to a single point at 0 - same
-    // technique as scene1Windows.sky below - so it's already at full
-    // opacity the instant the page loads, instead of fading in from
-    // nothing over the first sliver of scroll (which read as a blank hero
-    // on first paint before any scrolling happened).
-    { in: [0.0, 0.0], out: [0.0636, 0.0818] },
-    { in: [0.1, 0.1182], out: [0.1636, 0.1818] },
-    { in: [0.2, 0.2182], out: [0.2727, 0.2909] },
+    // Opening tagline phrase visible on landing at scroll 0, fading as scroll begins
+    { in: [0.0, 0.0], out: [0.05, 0.07] },
+    // Goa headline beats triggered on scroll
+    { in: [0.08, 0.098], out: [0.14, 0.158] },
+    { in: [0.165, 0.183], out: [0.22, 0.238] },
+    { in: [0.245, 0.263], out: [0.2909, 0.31] },
   ],
   layersFadeOut: [0.2364, 0.2909],
   zoomWide: { in: [0.2909, 0.3273], out: [0.3818, 0.4182] },
@@ -99,7 +97,44 @@ const T = {
   story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
 };
 
+/**
+ * Small invitation line under the intro tagline, only ever seen at scroll
+ * position 0 (fades out with the rest of that headline beat). Tells the
+ * visitor this hero is scroll-driven before they've done anything, so the
+ * SCROLL cue on the right edge doesn't have to explain itself alone.
+ */
+function IntroScrollHint() {
+  const reduce = useReducedMotion();
+  return (
+    <motion.span
+      animate={reduce ? undefined : { opacity: [0.55, 1, 0.55] }}
+      transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      className="mt-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs lg:text-sm"
+    >
+      Every scene here moves — scroll to breathe it all in
+      <ChevronDown className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+    </motion.span>
+  );
+}
+
 const headlinePhrases: { text: ReactNode; ember: boolean }[] = [
+  {
+    text: (
+      <div className="flex flex-col items-center justify-center gap-1.5 text-center sm:gap-2.5">
+        <span className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Wayzyy — short term rentals
+        </span>
+        <span className="font-display text-sm font-medium text-white/90 sm:text-2xl lg:text-3xl">
+          Built around hosts and users, not as a marketplace.
+        </span>
+        <span className="text-xs font-semibold uppercase tracking-[0.22em] text-ember sm:text-base lg:text-lg">
+          Starting with Goa
+        </span>
+        <IntroScrollHint />
+      </div>
+    ),
+    ember: false,
+  },
   { text: "Goa has beaches.", ember: false },
   { text: "Goa has waterfalls.", ember: false },
   {
@@ -279,15 +314,15 @@ function HeadlineBeat({
   const y = useTransform(opacity, [0, 1], [16, 0]);
 
   return (
-    <motion.span
+    <motion.div
       style={{ opacity, y }}
       className={
-        "absolute inset-x-0 text-balance text-center font-display text-4xl font-bold leading-[1.1] sm:text-6xl lg:text-7xl " +
+        "absolute inset-x-0 text-balance text-center font-display text-3xl font-bold leading-[1.1] sm:text-6xl lg:text-7xl " +
         (ember ? "text-ember" : "text-white")
       }
     >
       {children}
-    </motion.span>
+    </motion.div>
   );
 }
 
@@ -304,17 +339,28 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
   // bazaar/story3 close), only fading out right at the very end as the
   // sticky stage hands off to the rest of the page.
   const opacity = useTransform(progress, [0, T.bazaar.out[0], T.bazaar.out[1]], [1, 1, 0]);
+  // Grows over the first sliver of scroll and then holds at that size
+  // ("fixates") for the rest of the cinematic - a visible confirmation,
+  // the instant someone starts scrolling, that they've triggered the
+  // motion-graphic sequence and should keep going. useTransform clamps to
+  // the output range past the input range by default, so it settles at
+  // 1.3x and stays there until the same fade-out window as opacity above.
+  const grow = useTransform(progress, [0, 0.035], [1, 1.3]);
+  const labelColor = useTransform(progress, [0, 0.035], ["rgba(255,255,255,0.7)", "hsl(var(--ember))"]);
 
   return (
     <motion.div
       aria-hidden
-      style={{ opacity }}
-      className="pointer-events-none absolute inset-y-0 right-4 z-20 flex items-center sm:right-6"
+      style={{ opacity, scale: grow }}
+      className="pointer-events-none absolute inset-y-0 right-4 z-20 flex origin-right items-center sm:right-6"
     >
       <div className="flex flex-col items-center gap-2">
-        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 [writing-mode:vertical-rl] sm:text-base lg:text-lg">
+        <motion.span
+          style={{ color: labelColor }}
+          className="text-[10px] font-bold uppercase tracking-[0.25em] [writing-mode:vertical-rl] sm:text-base lg:text-lg"
+        >
           Scroll
-        </span>
+        </motion.span>
         <motion.span
           animate={reduce ? undefined : { y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -474,13 +520,19 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // topmost one (foreground) - sky and midground would never be visible at
   // any scroll position. Sequenced as a crossfade instead, same technique
   // as the Scene 2 door sequence below, just three beats instead of two.
+  // Re-synced to the headline schedule in `T.headline` above: the intro
+  // tagline and "Goa has beaches." both hold over the plain sky photo (so
+  // "beaches" never appears mid-crossfade on top of the village shot), the
+  // sky->midground crossfade lands right as "Goa has waterfalls." fades in,
+  // and midground->foreground lands right as the "colors span..." phrase
+  // fades in - each headline beat gets one settled photo behind it instead
+  // of the photo changing under a phrase that's still fully visible.
   const scene1Windows = {
     // sky's "in" window collapses to a single point at 0 so it's already at
-    // full opacity the instant the page loads, before any scrolling - the
-    // other two layers still crossfade in on their own schedule below.
-    sky: { in: [0, 0], out: [0.09, 0.12] },
-    mid: { in: [0.09, 0.12], out: [0.19, 0.22] },
-    fg: { in: [0.19, 0.22], out: [0.3, 0.32] },
+    // full opacity the instant the page loads, before any scrolling.
+    sky: { in: [0, 0], out: [0.16, 0.19] },
+    mid: { in: [0.16, 0.19], out: [0.24, 0.27] },
+    fg: { in: [0.24, 0.27], out: [0.3, 0.32] },
   } as const;
   const skyOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...scene1Windows.sky.in, ...scene1Windows.sky.out),
@@ -619,7 +671,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
               {/* flowing headline - one phrase visible at a time */}
               <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
-                <div className="relative h-[5em] w-full max-w-4xl sm:h-[2.8em]">
+                <div className="relative min-h-[7em] w-full max-w-4xl sm:min-h-[4em]">
                   {headlinePhrases.map((p, i) => (
                     <HeadlineBeat key={i} progress={progress} window={T.headline[i]} ember={p.ember}>
                       {p.text}
