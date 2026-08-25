@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 const lines = [
   ["Flat-fee subscription,", "not a booking tax."],
   ["Aadhaar-verified", "hosts & guests."],
-  ["24/7 support - ", "real agents, not bots."],
+  ["24/7 support —", "real agents, not bots."],
   ["Bad guests", "get blacklisted."],
   ["New listings", "reviewed by staff."],
   ["No algorithm", "punishing hosts."],

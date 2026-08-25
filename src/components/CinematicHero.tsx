@@ -79,13 +79,23 @@ function segmentInOut(
  */
 const T = {
   scene1End: 0.2909,
+  // 3 beats, not 4: an /impeccable critique flagged the previous 4-beat
+  // sequence as spending ~23% of total hero scroll on pure atmosphere
+  // ("Goa has beaches." / "Goa has waterfalls." / a coy #ff6b00 hex-code
+  // line) with zero product information - a first-time visitor could
+  // scroll the whole hero and never learn this is a rental platform, let
+  // alone an Airbnb alternative with a flat fee instead of a commission.
+  // Beat 2 now combines the two Goa lines (keeps some atmosphere, per
+  // product decision) and beat 3 replaces the hex-code wink with an actual
+  // claim, paired with the same imagery rather than replacing it.
   headline: [
     // Opening tagline phrase visible on landing at scroll 0, fading as scroll begins
     { in: [0.0, 0.0], out: [0.05, 0.07] },
-    // Goa headline beats triggered on scroll
-    { in: [0.08, 0.098], out: [0.14, 0.158] },
-    { in: [0.165, 0.183], out: [0.22, 0.238] },
-    { in: [0.245, 0.263], out: [0.2909, 0.31] },
+    // Combined Goa beat - held a bit longer than a single-sentence beat
+    // would need, since it's now two sentences worth reading.
+    { in: [0.08, 0.098], out: [0.17, 0.19] },
+    // The factual beat that replaces the old hex-code line.
+    { in: [0.22, 0.238], out: [0.2909, 0.31] },
   ],
   layersFadeOut: [0.2364, 0.2909],
   zoomWide: { in: [0.2909, 0.3273], out: [0.3818, 0.4182] },
@@ -163,13 +173,12 @@ function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode;
     ),
     ember: false,
   },
-  { text: "Goa has beaches.", ember: false },
-  { text: "Goa has waterfalls.", ember: false },
+  { text: "Goa has beaches. Goa has waterfalls.", ember: false },
   {
     text: (
       <>
-        Colors span to green, blue and our favourite{" "}
-        <span className="text-ember">#ff6b00</span> one
+        Real villas. Real hosts.{" "}
+        <span className="text-ember">No hidden markup.</span>
       </>
     ),
     ember: false,
@@ -375,7 +384,11 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
   // the output range past the input range by default, so it settles at
   // 1.3x and stays there until the same fade-out window as opacity above.
   const grow = useTransform(progress, [0, 0.035], [1, 1.3]);
-  const labelColor = useTransform(progress, [0, 0.035], ["rgba(255,255,255,0.7)", "hsl(var(--ember))"]);
+  // Literal color values, not `hsl(var(--ember))` - framer-motion's color
+  // interpolator needs concrete values on both ends of the range, it can't
+  // resolve a CSS custom property, so a var() reference here silently fails
+  // to animate (and throws a console warning every frame it's evaluated).
+  const labelColor = useTransform(progress, [0, 0.035], ["rgba(255,255,255,0.7)", "hsl(25, 100%, 50%)"]);
 
   return (
     <motion.div
@@ -549,19 +562,19 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // topmost one (foreground) - sky and midground would never be visible at
   // any scroll position. Sequenced as a crossfade instead, same technique
   // as the Scene 2 door sequence below, just three beats instead of two.
-  // Re-synced to the headline schedule in `T.headline` above: the intro
-  // tagline and "Goa has beaches." both hold over the plain sky photo (so
-  // "beaches" never appears mid-crossfade on top of the village shot), the
-  // sky->midground crossfade lands right as "Goa has waterfalls." fades in,
-  // and midground->foreground lands right as the "colors span..." phrase
-  // fades in - each headline beat gets one settled photo behind it instead
-  // of the photo changing under a phrase that's still fully visible.
+  // Re-synced to the (now 3-beat) headline schedule in `T.headline` above:
+  // the intro tagline and the combined "beaches/waterfalls" beat both hold
+  // over the plain sky photo, the sky->midground crossfade lands right
+  // after that combined beat's out-window finishes, and midground
+  // ->foreground lands right as the new factual beat ("Real villas. Real
+  // hosts. No hidden markup.") fades in - so the strongest claim in the
+  // hero gets the fullest, most settled image behind it.
   const scene1Windows = {
     // sky's "in" window collapses to a single point at 0 so it's already at
     // full opacity the instant the page loads, before any scrolling.
-    sky: { in: [0, 0], out: [0.16, 0.19] },
-    mid: { in: [0.16, 0.19], out: [0.24, 0.27] },
-    fg: { in: [0.24, 0.27], out: [0.3, 0.32] },
+    sky: { in: [0, 0], out: [0.19, 0.22] },
+    mid: { in: [0.19, 0.22], out: [0.25, 0.28] },
+    fg: { in: [0.25, 0.28], out: [0.3, 0.32] },
   } as const;
   const skyOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...scene1Windows.sky.in, ...scene1Windows.sky.out),
@@ -625,8 +638,8 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
           <div className="absolute inset-0 bg-black/45" />
           <div className="relative z-10 max-w-2xl">
             <h1 className="text-balance font-display text-4xl font-bold leading-tight text-white sm:text-6xl">
-              Goa has beaches. Goa has waterfalls. Colors span to green, blue
-              and our favourite <span className="text-ember">#ff6b00</span> one.
+              Goa has beaches. Goa has waterfalls. Real villas, real hosts,{" "}
+              <span className="text-ember">no hidden markup.</span>
             </h1>
           </div>
         </section>
@@ -717,7 +730,15 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <motion.img
                 src={zoomWide}
                 alt="A wide dusk view of a Goan villa on a coastal headland, seen from far above the beach"
-                loading="lazy"
+                // Eager, not lazy - this is the first frame of the scene 1.5
+                // crossfade, mounted right as scene 1's foreground layer is
+                // still fading out. A live-evidence pass flagged black
+                // frames at exactly this kind of scene-boundary transition;
+                // an un-decoded lazy image at the moment its parent mounts
+                // is the most likely cause, so the lead image of each later
+                // scene (this one, poolDeck, bazaar below) goes eager while
+                // the rest of each scene's images stay lazy.
+                loading="eager"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: zoomWideOpacity, scale: zoomWideScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
@@ -771,7 +792,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                   },
                   {
                     heading: "We took the lock off.",
-                    body: "A flat recharge, not a percentage. You see what the host sees.",
+                    body: "A flat recharge, not a percentage — Airbnb takes ~18%, Wayzyy takes ~2%.",
                     tint: "bg-sky-200/15",
                   },
                   {
@@ -790,7 +811,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <motion.img
                 src={poolDeck}
                 alt="A villa infinity pool at dusk under a starry sky"
-                loading="lazy"
+                loading="eager"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: poolDeckOpacity, scale: poolDeckScale, x: poolMouseX, translateY: poolMouseY }}
               />
@@ -810,7 +831,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <motion.img
                 src={bazaar}
                 alt="A Goan spice-market street at golden hour with lanterns and shopfronts"
-                loading="lazy"
+                loading="eager"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: bazaarOpacity, scale: bazaarScale, x: bazaarMouseX, translateY: bazaarMouseY }}
               />

@@ -242,7 +242,13 @@ export function SiteNav({ floating = false }: SiteNavProps) {
 
   if (floating) {
     return (
-      <header className="absolute inset-x-0 top-0 z-50">
+      // `fixed`, not `absolute` - this nav is meant to stay pinned to the
+      // viewport as the page scrolls. `absolute` positioned it once
+      // relative to the hero's container and then let it scroll away with
+      // the rest of the page, so the entire navbar (including "Get early
+      // access") vanished after ~340px of scroll with nothing replacing it
+      // for the rest of the homepage - found via a design critique pass.
+      <header className="fixed inset-x-0 top-0 z-50">
         <div className="w-full px-[clamp(1rem,5vw,4rem)] pt-[clamp(1rem,3vw,2rem)]">
           <div className="liquid-glass mx-auto flex h-16 max-w-5xl items-center justify-between rounded-full px-4 sm:px-6">
             <a href="#top" className="group flex items-center">

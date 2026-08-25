@@ -44,7 +44,7 @@ export function WhySection() {
           <h2 className="max-w-4xl font-display text-4xl leading-[1.04] text-foreground sm:text-6xl text-balance">
             Hosts are walking away.{" "}
             <span className="text-muted-foreground">
-              Not because they got tired - 
+              Not because they got tired —
             </span>{" "}
             because the platform stopped having their back.
           </h2>
@@ -86,10 +86,10 @@ export function WhySection() {
           <div className="mt-14 rounded-2xl border border-ember/30 bg-ember/5 p-6 sm:p-10">
             <p className="font-display text-2xl leading-snug text-foreground sm:text-3xl text-balance">
               "I didn't lose money I can't recover. What I lost is trust in the
-              platform. After ten years of hosting - I'm out."
+              platform. After ten years of hosting — I'm out."
             </p>
             <p className="mt-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
-             - every host eventually
+              — every host, eventually
             </p>
           </div>
         </Reveal>

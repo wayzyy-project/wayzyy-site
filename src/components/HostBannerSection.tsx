@@ -23,7 +23,7 @@ export function HostBannerSection() {
 
             <Reveal delay={0.08}>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim - list your property directly with Wayzyy.
+                Whether you manage a private villa in Assagao, a beachside cottage in Palolem, or a modern apartment in Panjim — list your property directly with Wayzyy.
               </p>
             </Reveal>
 
@@ -47,7 +47,7 @@ export function HostBannerSection() {
             <div className="pt-4">
               <Button asChild variant="cta" size="pill-lg" className="gap-2 shadow-lg shadow-ember/20">
                 <Link to="/host">
-                  Host With Us - List Your Property
+                  Host With Us — List Your Property
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -58,7 +58,7 @@ export function HostBannerSection() {
             <h3 className="font-display text-lg font-bold">Why Hosts Choose Wayzyy</h3>
             <div className="text-xs text-muted-foreground leading-relaxed sm:space-y-3">
               <div className="pb-3 sm:rounded-xl sm:border sm:border-border sm:bg-card/50 sm:p-3 sm:pb-3">
-                <span className="font-semibold text-foreground block mb-0.5">Zero Percentage Take Rates</span>
+                <span className="font-semibold text-foreground block mb-0.5">No Per-Booking Percentage</span>
                 Stop losing 15-20% on every single reservation to global platforms.
               </div>
               <div className="border-t border-border/60 py-3 sm:rounded-xl sm:border sm:border-border sm:bg-card/50 sm:p-3 sm:py-3">

@@ -68,13 +68,13 @@ export function EconomicsSection() {
                 Every other platform is a toll booth. We built a top-up meter instead.
               </h3>
               <p className="mt-5 text-pretty text-base text-muted-foreground sm:text-lg">
-                Airbnb, Booking.com, Vrbo - they all work the same way underneath: every
+                Airbnb, Booking.com, Vrbo — they all work the same way underneath: every
                 booking gets skimmed. The better your villa does, the more they take. It's
                 a fee that grows exactly when you'd expect it to shrink.
               </p>
               <p className="mt-4 text-pretty text-base text-muted-foreground sm:text-lg">
-                Wayzyy flips that. You buy a credit pack up front - think of it like
-                recharging a SIM card - and it unlocks a set amount of booking value. No
+                Wayzyy flips that. You buy a credit pack up front — think of it like
+                recharging a SIM card — and it unlocks a set amount of booking value. No
                 deduction from individual payouts, no surprise line-item on your payout
                 statement. You already know what you paid, because you paid it yourself,
                 on your terms, before a single guest checked in.
@@ -97,7 +97,7 @@ export function EconomicsSection() {
                 </div>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground sm:mt-3 sm:text-base">
                   Skimmed per booking, most Goa villa hosts see this. It scales with your
-                  success - the busier you are, the more you hand over.
+                  success — the busier you are, the more you hand over.
                 </p>
               </div>
               <div className="sm:border-l sm:border-ember/20 sm:pl-6">
@@ -109,7 +109,7 @@ export function EconomicsSection() {
                   ~2%
                 </div>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground sm:mt-3 sm:text-base">
-                  A flat, prepaid credit pack. It doesn't creep up as you grow - past
+                  A flat, prepaid credit pack. It doesn't creep up as you grow — past
                   ₹5,00,000 a year, it flattens into a Custom plan, still 2.0%.
                 </p>
               </div>
@@ -122,7 +122,7 @@ export function EconomicsSection() {
                 On Wayzyy, that's a ₹2,200 credit pack.
               </p>
               <p className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground sm:mt-3 sm:text-sm sm:tracking-[0.2em]">
-                That's over ₹15,000 you keep - on that volume alone.
+                That's over ₹15,000 you keep — on that volume alone.
               </p>
             </div>
           </div>
@@ -133,7 +133,7 @@ export function EconomicsSection() {
           <Reveal className="lg:order-1">
             <div>
               <h3 className="font-display text-3xl text-foreground sm:text-4xl text-balance">
-                This is what real hosting in Goa looks like - and it's who we built this for.
+                This is what real hosting in Goa looks like — and it's who we built this for.
               </h3>
               <p className="mt-5 text-pretty text-base text-muted-foreground sm:text-lg">
                 Not a hypothetical. Real villas, real pools, real hosts who spent years
