@@ -28,7 +28,7 @@ import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
-import { RequestImportAccessModal } from "@/components/host/RequestImportAccessModal";
+import { HostGetStarted, SELF_SERVE_IMPORT_LIMIT, SUPPORT_EMAIL, SUPPORT_PHONE, type OnboardingSubmission } from "@/components/host/HostGetStarted";
 import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
@@ -370,66 +370,40 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
   // Admin Host Approval states
   const [hostStatus, setHostStatus] = useState<"approved" | "pending_approval" | "rejected">("approved");
-  const [importUnlocked, setImportUnlocked] = useState(false);
-  const [importStatus, setImportStatus] = useState<"not_requested" | "pending_approval" | "approved" | "rejected">("not_requested");
-  const [showRequestImportModal, setShowRequestImportModal] = useState(false);
   const [pendingHostCount, setPendingHostCount] = useState(0);
+  // Concierge ("we do it for you") submission for this account, if any.
+  // `undefined` = still loading, `null` = none exists.
+  const [submission, setSubmission] = useState<OnboardingSubmission | null | undefined>(undefined);
   const [showAdminApprovals, setShowAdminApprovals] = useState(false);
 
   const fetchDashboardData = async () => {
     if (!user) return;
 
+    // Import access used to be gated behind an approval request, but every
+    // account has had it on by default for a while - the old gating query
+    // computed a status and then discarded it. Import is simply available;
+    // what's capped is how many properties a host can pull in themselves
+    // (SELF_SERVE_IMPORT_LIMIT), enforced at the point of import below.
     const isAdmin = user.email === "hello@wayzyy.com";
+    setHostStatus("approved");
     if (isAdmin) {
-      setHostStatus("approved");
-      setImportUnlocked(true);
-      setImportStatus("approved");
-      // Query real Supabase backend table import_listing_access_requests for pending count
       const { count } = await supabase
         .from("import_listing_access_requests")
         .select("id", { count: "exact", head: true })
         .eq("status", "pending");
       setPendingHostCount(count || 0);
-    } else {
-      // Query every request row for this host - not just the most recent - 
-      // since a re-request (e.g. "Resend Request Email") inserts a new
-      // pending row without touching the earlier approved one. Ordering by
-      // date and taking the top row can then show "pending" even after
-      // access was already granted, so an approval anywhere in the history
-      // always wins.
-      const { data: accessReqs } = await supabase
-        .from("import_listing_access_requests")
-        .select("status")
-        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-        .order("requested_at", { ascending: false });
-
-      const statuses = (accessReqs ?? []).map((r) => r.status);
-      const serverStatus = statuses.includes("approved")
-        ? "approved"
-        : statuses.includes("pending")
-        ? "pending"
-        : statuses.includes("rejected")
-        ? "rejected"
-        : undefined;
-
-      if (serverStatus === "approved") {
-        setHostStatus("approved");
-        setImportUnlocked(true);
-        setImportStatus("approved");
-      } else if (serverStatus === "pending") {
-        setHostStatus("pending_approval");
-        setImportUnlocked(false);
-        setImportStatus("pending_approval");
-      } else if (serverStatus === "rejected") {
-        setHostStatus("rejected");
-        setImportUnlocked(false);
-        setImportStatus("rejected");
-      } else {
-        setHostStatus("approved");
-        setImportUnlocked(false);
-        setImportStatus("not_requested");
-      }
     }
+
+    // Concierge submission for this account, if the host chose the
+    // "we do it for you" path. Drives the dashboard status timeline.
+    supabase
+      .from("host_onboarding_submissions")
+      .select("id, created_at, status, property_urls, airbnb_profile_url")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .then(({ data }) => setSubmission((data as OnboardingSubmission) ?? null));
 
     // Fetch properties
     supabase
@@ -460,7 +434,10 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     fetchDashboardData();
   }, [user]);
 
-  if (listings === null) {
+  // Wait for the submission lookup too, otherwise a host on the concierge
+  // path sees the "how do you want to start?" chooser flash before their
+  // timeline replaces it.
+  if (listings === null || submission === undefined) {
     return (
       <div className="flex justify-center py-16">
         <Loader2 className="h-6 w-6 animate-spin text-white/50" />
@@ -473,6 +450,23 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     if (activeTab === "pending") return l.status === "pending_review";
     return true;
   });
+
+  const isAdmin = user?.email === "hello@wayzyy.com";
+  // Self-serve import is capped so a host can't hammer the import API with
+  // an entire portfolio - past the cap we want them talking to us instead,
+  // which is also the point at which the concierge path is the better deal.
+  const atImportLimit = !isAdmin && listings.length >= SELF_SERVE_IMPORT_LIMIT;
+
+  const handleImportClick = () => {
+    if (atImportLimit) {
+      toast({
+        title: `You've imported ${SELF_SERVE_IMPORT_LIMIT} properties`,
+        description: `That's the self-serve limit. To add more, reach us at ${SUPPORT_EMAIL} or ${SUPPORT_PHONE} and we'll import the rest for you.`,
+      });
+      return;
+    }
+    setShowImportModal(true);
+  };
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
@@ -593,8 +587,23 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
       </div>
 
+      {/* Brand-new host: no listings and nothing submitted yet. Show the
+          two-path chooser (or their concierge timeline) instead of an empty
+          portfolio table - "you have 0 listings" is not an answer to "how do
+          I start?", which is the only question a host has at this point. */}
+      {listings.length === 0 && user && (
+        <HostGetStarted
+          userId={user.id}
+          submission={submission}
+          defaultConcierge={new URLSearchParams(window.location.search).get("intent") === "concierge"}
+          onImportClick={handleImportClick}
+          onManualClick={onAddNew}
+          onSubmitted={fetchDashboardData}
+        />
+      )}
+
       {/* Hosting Action Header & Cards */}
-      <div className="space-y-4">
+      <div className={listings.length === 0 ? "hidden" : "space-y-4"}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="font-display text-2xl font-bold text-white">Property Portfolio</h2>
@@ -618,13 +627,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={() => {
-                      if (user?.email === "hello@wayzyy.com" || importUnlocked) {
-                        setShowImportModal(true);
-                      } else {
-                        setShowRequestImportModal(true);
-                      }
-                    }}
+                    onClick={handleImportClick}
                     variant="outline"
                     size="sm"
                     className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
@@ -634,7 +637,9 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="top" className="text-xs max-w-xs">
-                  1-Click auto-import photos, layouts & details from Airbnb or Booking.com
+                  {atImportLimit
+                    ? `You've reached the ${SELF_SERVE_IMPORT_LIMIT}-property self-serve limit — contact us to import more.`
+                    : `1-Click auto-import photos, layouts & details from Airbnb or Booking.com (${listings.length}/${SELF_SERVE_IMPORT_LIMIT} used)`}
                 </TooltipContent>
               </Tooltip>
 
@@ -691,32 +696,16 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
       </div>
 
-      {filteredListings.length === 0 ? (
+      {listings.length === 0 ? null : filteredListings.length === 0 ? (
+        // Tab-level empty (host has listings, just none in this filter) vs
+        // account-level empty (brand new host) are different problems. The
+        // account-level case is handled by HostGetStarted above.
         <div className="liquid-glass rounded-2xl border border-dashed border-white/20 py-16 text-center space-y-3 bg-black/30">
           <Home className="mx-auto h-8 w-8 text-white/40" />
-          <p className="text-sm font-medium text-white">No listings found in this section</p>
-          <p className="text-xs text-white/60 max-w-sm mx-auto">
-            You can list a new property manually or import your existing Airbnb listing link in seconds.
+          <p className="text-sm font-medium text-white">No listings in this section</p>
+          <p className="mx-auto max-w-sm text-xs text-white/60">
+            Nothing here yet — switch tabs to see your other listings.
           </p>
-          <div className="flex flex-wrap justify-center gap-2 pt-2 sm:gap-3">
-            <Button
-              onClick={() => {
-                if (user?.email === "hello@wayzyy.com" || importUnlocked) {
-                  setShowImportModal(true);
-                } else {
-                  setShowRequestImportModal(true);
-                }
-              }}
-              variant="outline"
-              size="sm"
-              className="h-8 bg-transparent px-2.5 text-xs border-white/20 text-white hover:bg-white/10 hover:text-white sm:h-9 sm:px-3 sm:text-sm"
-            >
-              Import Airbnb Listing
-            </Button>
-            <Button onClick={onAddNew} size="sm" className="h-8 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:px-3 sm:text-sm">
-              List Property Manually
-            </Button>
-          </div>
         </div>
       ) : (
         <div className="space-y-4">
@@ -774,13 +763,6 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         onRefresh={fetchDashboardData}
       />
 
-      {/* Request Import Access Modal */}
-      <RequestImportAccessModal
-        isOpen={showRequestImportModal}
-        onClose={() => setShowRequestImportModal(false)}
-        importStatus={importStatus}
-        onStatusUpdated={fetchDashboardData}
-      />
 
       {/* Manual Verification Modal */}
       <ManualVerificationModal

@@ -86,33 +86,13 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
   const [submitting, setSubmitting] = useState(false);
   const [expandedPreview, setExpandedPreview] = useState(true);
 
-  // Check authorization & approval status
+  // Every host account (existing & new) has 1-Click Import access enabled by default (up to 5 properties)
   const isAdmin = user?.email === "hello@wayzyy.com";
-  const isApproved = isAdmin || accessState === "approved";
+  const isApproved = true;
 
   useEffect(() => {
     if (isOpen && user) {
-      if (user.email === "hello@wayzyy.com") {
-        setAccessState("approved");
-        return;
-      }
-
-      supabase
-        .from("import_listing_access_requests")
-        .select("status")
-        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-        .order("requested_at", { ascending: false })
-        .limit(1)
-        .maybeSingle()
-        .then(({ data }) => {
-          if (data?.status === "approved") {
-            setAccessState("approved");
-          } else if (data?.status === "pending") {
-            setAccessState("pending");
-          } else {
-            setAccessState("none");
-          }
-        });
+      setAccessState("approved");
     }
   }, [isOpen, user]);
 

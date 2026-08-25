@@ -39,6 +39,14 @@ async function sendViaZepto(payload: { from: string; to: string; subject: string
 }
 
 type HostOnboardingPayload = {
+  /**
+   * The account this submission belongs to. Submissions used to be
+   * anonymous, which left no way to show a host their own status inside
+   * the dashboard (or to join a submission to the properties we later
+   * import for them). The concierge form is now behind auth, so this is
+   * always present for new submissions.
+   */
+  userId?: string;
   fullName: string;
   email: string;
   phone: string;
@@ -86,11 +94,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         Prefer: "return=minimal",
       },
       body: JSON.stringify({
+        user_id: body.userId || null,
         full_name: body.fullName,
         email: body.email,
         phone: body.phone,
         airbnb_profile_url: body.airbnbProfileUrl || null,
         property_urls: propertyUrls,
+        status: "received",
       }),
     });
 
@@ -117,7 +127,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         </p>
         <p style="font-size: 15px; color: #444; line-height: 1.6;">
           Want to check where things stand? Head to
-          <a href="https://wayzyy.com/host-onboarding/status" style="color: #1a1a1a; font-weight: bold;">wayzyy.com/host-onboarding/status</a>
+          <a href="https://wayzyy.com/host" style="color: #1a1a1a; font-weight: bold;">wayzyy.com/host</a>
           and enter this email.
         </p>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;" />

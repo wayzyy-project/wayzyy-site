@@ -92,8 +92,7 @@ import GigChallenge from "./pages/GigChallenge";
 import FinalCoconut from "./pages/FinalCoconut";
 import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import Links from "./pages/Links";
-import HostOnboarding from "./pages/HostOnboarding";
-import HostOnboardingStatus from "./pages/HostOnboardingStatus";
+import { HostOnboardingRedirect } from "./components/host/HostOnboardingRedirect";
 import AdminHostOnboarding from "./pages/AdminHostOnboarding";
 import AppLaunchSoon from "./pages/AppLaunchSoon";
 import ExperienceGoa from "./pages/ExperienceGoa";
@@ -127,8 +126,10 @@ const App = () => (
               <Route path="/build-with-us" element={<GigChallenge />} />
               <Route path="/grand-prix" element={<GrandPrixHackathon />} />
               <Route path="/links" element={<Links />} />
-              <Route path="/host-onboarding" element={<HostOnboarding />} />
-              <Route path="/host-onboarding/status" element={<HostOnboardingStatus />} />
+              {/* Folded into the authenticated /host dashboard - these two
+                  routes now only catch links already shared with hosts. */}
+              <Route path="/host-onboarding" element={<HostOnboardingRedirect />} />
+              <Route path="/host-onboarding/status" element={<HostOnboardingRedirect />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />

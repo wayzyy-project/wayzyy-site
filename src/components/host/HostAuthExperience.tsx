@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, ArrowLeft, BookOpen
+  Mail, Lock, User, Phone, Eye, EyeOff, Loader2, ArrowRight, ArrowLeft, BookOpen
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,6 +32,7 @@ export function HostAuthExperience() {
 
   // Form states
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -80,6 +81,7 @@ export function HostAuthExperience() {
               id: newUser.id,
               full_name: name,
               email: email,
+              phone: phone,
               updated_at: new Date().toISOString(),
             });
           } catch (err) {
@@ -226,6 +228,32 @@ export function HostAuthExperience() {
                             className="w-full h-12 rounded-2xl bg-white/10 pl-11 pr-4 text-sm font-medium text-white placeholder:text-white/40 shadow-sm shadow-black/5 focus:outline-none focus:bg-white/15 focus:ring-2 focus:ring-ember/25 transition-all"
                           />
                         </div>
+                      </div>
+                    )}
+
+                    {/* Phone - signup only. The concierge onboarding path is
+                        phone-first (our team calls the host to walk through
+                        their imports), so this is captured up front rather
+                        than asked for again later in a separate form. */}
+                    {view === "signup" && (
+                      <div className="relative text-left">
+                        <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">
+                          Phone
+                        </label>
+                        <div className="relative flex items-center">
+                          <Phone className="absolute left-4 h-4 w-4 text-white/50 pointer-events-none" />
+                          <input
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            required
+                            placeholder="+91 98765 43210"
+                            className="w-full h-12 rounded-2xl bg-white/10 pl-11 pr-4 text-sm font-medium text-white placeholder:text-white/40 shadow-sm shadow-black/5 focus:outline-none focus:bg-white/15 focus:ring-2 focus:ring-ember/25 transition-all"
+                          />
+                        </div>
+                        <p className="mt-1.5 text-[11px] text-white/50">
+                          So our team can reach you about your listings.
+                        </p>
                       </div>
                     )}
 
