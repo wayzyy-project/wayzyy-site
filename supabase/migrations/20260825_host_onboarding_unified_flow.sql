@@ -65,3 +65,10 @@ create policy "hosts create own onboarding submissions"
   with check (auth.uid() = user_id);
 
 grant select, insert on public.host_onboarding_submissions to authenticated;
+
+-- 6. The API writes these rows with the service role key. This table was
+--    created without an explicit service_role grant - the same omission
+--    that silently broke every grand_prix_applications insert with a
+--    42501 "permission denied" until it was caught by hand. Granting it
+--    here is idempotent and closes that failure mode for good.
+grant select, insert, update, delete on public.host_onboarding_submissions to service_role;
