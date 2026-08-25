@@ -8,6 +8,7 @@ import {
   Mail,
   MessageCircle,
   Phone,
+  IndianRupee,
   Sparkles,
   Upload,
   UserCheck,
@@ -275,11 +276,31 @@ function ConciergeTimeline({
     <div className="liquid-glass space-y-6 rounded-3xl border border-white/20 bg-black/40 p-5 sm:p-7">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ember">
-            <Sparkles className="h-3 w-3" /> We're on it
+          {/* The header has to track whose court the ball is in. Saying
+              "we're on it" while the host is the one who needs to act
+              reads as "sit tight" at exactly the wrong moment. */}
+          <div
+            className={
+              "mb-2 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wide " +
+              (awaitingPricing
+                ? "border-ember bg-ember text-white"
+                : "border-ember/30 bg-ember/10 text-ember")
+            }
+          >
+            {awaitingPricing ? (
+              <><IndianRupee className="h-3 w-3" /> Your turn</>
+            ) : submission.status === "submitted_for_review" ? (
+              <><Sparkles className="h-3 w-3" /> In final review</>
+            ) : (
+              <><Sparkles className="h-3 w-3" /> We're on it</>
+            )}
           </div>
           <h3 className="font-display text-xl font-bold text-white sm:text-2xl">
-            Your properties are with our team
+            {awaitingPricing
+              ? "Set your rates, and we'll publish"
+              : submission.status === "submitted_for_review"
+              ? "Back with us for final review"
+              : "Your properties are with our team"}
           </h3>
           <p className="mt-1 text-sm text-white/60">
             Submitted {new Date(submission.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
