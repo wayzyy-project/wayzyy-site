@@ -229,10 +229,47 @@ function ConciergeForm({
 /* Status timeline (concierge path, post-submission)                   */
 /* ------------------------------------------------------------------ */
 
-function ConciergeTimeline({ submission }: { submission: OnboardingSubmission }) {
+function ConciergeTimeline({
+  submission,
+  onConfirmPricing,
+}: {
+  submission: OnboardingSubmission;
+  onConfirmPricing: () => void;
+}) {
   const activeIndex = stepIndexForStatus(submission.status);
   const count =
     (submission.property_urls?.length ?? 0) + (submission.airbnb_profile_url ? 1 : 0);
+  const [confirming, setConfirming] = useState(false);
+  const { toast } = useToast();
+
+  // The one point in the concierge path where the ball is in the host's
+  // court: we've imported their listings, they set their rates, and this
+  // hands it back to us for final review.
+  const awaitingPricing = submission.status === "ready_for_pricing";
+
+  const handleConfirm = async () => {
+    setConfirming(true);
+    try {
+      const { error } = await supabase
+        .from("host_onboarding_submissions")
+        .update({ status: "submitted_for_review" })
+        .eq("id", submission.id);
+      if (error) throw error;
+      toast({
+        title: "Sent for final review",
+        description: "We'll check everything over and publish your listings.",
+      });
+      onConfirmPricing();
+    } catch (err: any) {
+      toast({
+        title: "Couldn't submit",
+        description: err?.message ?? "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setConfirming(false);
+    }
+  };
 
   return (
     <div className="liquid-glass space-y-6 rounded-3xl border border-white/20 bg-black/40 p-5 sm:p-7">
@@ -284,6 +321,23 @@ function ConciergeTimeline({ submission }: { submission: OnboardingSubmission })
           );
         })}
       </ol>
+
+      {awaitingPricing && (
+        <div className="rounded-2xl border border-ember/40 bg-ember/10 p-4 sm:p-5">
+          <p className="text-sm font-semibold text-white">Your listings are ready for pricing</p>
+          <p className="mt-1 text-xs leading-relaxed text-white/70">
+            We've imported everything. Set your nightly rates on each listing below, then send them
+            back to us and we'll publish.
+          </p>
+          <Button
+            onClick={handleConfirm}
+            disabled={confirming}
+            className="mt-4 w-full gap-2 bg-ember py-5 font-bold text-white hover:bg-ember/90 sm:w-auto"
+          >
+            {confirming ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Pricing looks good — submit <ArrowRight className="h-4 w-4" /></>}
+          </Button>
+        </div>
+      )}
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
         <SupportLine prefix="Need to add more properties or change something?" />
@@ -392,7 +446,7 @@ export function HostGetStarted({
 
   // Once a concierge submission exists, the timeline replaces the chooser -
   // the host's question changes from "how do I start" to "where is it".
-  if (submission) return <ConciergeTimeline submission={submission} />;
+  if (submission) return <ConciergeTimeline submission={submission} onConfirmPricing={onSubmitted} />;
 
   if (mode === "concierge") {
     return <ConciergeForm userId={userId} onBack={() => setMode("choose")} onSubmitted={onSubmitted} />;

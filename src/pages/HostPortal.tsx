@@ -452,6 +452,11 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   });
 
   const isAdmin = user?.email === "hello@wayzyy.com";
+  // A submission still moving through the concierge flow. Once it's
+  // published or rejected there's nothing left to track, so the timeline
+  // steps aside and the normal portfolio view takes over.
+  const activeSubmission =
+    submission && submission.status !== "published" && submission.status !== "rejected";
   // Self-serve import is capped so a host can't hammer the import API with
   // an entire portfolio - past the cap we want them talking to us instead,
   // which is also the point at which the concierge path is the better deal.
@@ -587,11 +592,16 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </div>
       </div>
 
-      {/* Brand-new host: no listings and nothing submitted yet. Show the
-          two-path chooser (or their concierge timeline) instead of an empty
-          portfolio table - "you have 0 listings" is not an answer to "how do
-          I start?", which is the only question a host has at this point. */}
-      {listings.length === 0 && user && (
+      {/* Two cases share this component:
+            - brand-new host (no listings, no submission) -> the two-path
+              chooser, since "you have 0 listings" is not an answer to "how
+              do I start?", which is their only question at this point;
+            - concierge host with a submission still in flight -> the status
+              timeline. This must keep showing *after* we import their
+              properties (listings.length stops being 0 at that moment) -
+              'ready_for_pricing' is precisely when they need it, since
+              that's the step where they act. */}
+      {user && (listings.length === 0 || activeSubmission) && (
         <HostGetStarted
           userId={user.id}
           submission={submission}

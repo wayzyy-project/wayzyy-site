@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Download, Search, Loader2, CheckCircle2, ShieldCheck, IndianRupee, X, ChevronDown, ChevronUp, AlertCircle, Sparkles, Mail
+  Download, Search, Loader2, CheckCircle2, ShieldCheck, IndianRupee, X, ChevronDown, ChevronUp, AlertCircle, Sparkles, Mail, UserCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,11 +13,25 @@ import { useAuth } from "@/hooks/useAuth";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
 import { AMENITIES, matchKnownAmenities } from "@/lib/amenities";
 
+/**
+ * When set, the imported listing is filed under this host instead of the
+ * signed-in user. Used by the admin onboarding queue to import properties
+ * on behalf of a host who chose the "we do it for you" path - they sent us
+ * their listing links and expect the finished listings to appear in their
+ * own dashboard, not ours.
+ */
+export type ImportTargetHost = {
+  id: string;
+  email: string;
+  name: string;
+};
+
 interface ImportListingModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess?: () => void;
   accessToken?: string | null;
+  targetHost?: ImportTargetHost | null;
 }
 
 interface LookupResult {
@@ -66,7 +80,7 @@ function cleanupImportedDescription(text: string | null | undefined): string {
     .trim();
 }
 
-export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: propAccessToken }: ImportListingModalProps) {
+export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: propAccessToken, targetHost }: ImportListingModalProps) {
   const { user, session } = useAuth();
   const { toast } = useToast();
 
@@ -336,9 +350,12 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
             checkInTime: "3:00 PM",
             checkOutTime: "11:00 AM",
           },
-          hostEmail: user.email ?? "",
-          hostName: user.user_metadata?.full_name || listingData.hostName || "Host",
-          hostId: user.id,
+          // Files the listing under the target host when an admin is
+          // importing on someone's behalf, otherwise under the signed-in
+          // user as normal.
+          hostEmail: targetHost?.email ?? user.email ?? "",
+          hostName: targetHost?.name || user.user_metadata?.full_name || listingData.hostName || "Host",
+          hostId: targetHost?.id ?? user.id,
         },
       });
 
@@ -357,25 +374,32 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       // Also save locally so it immediately shows up on dashboard - this is
       // only an optimistic supplement now; the edge function call above is
       // the source of truth and its errors are surfaced to the user.
-      const localKey = `wayzyy_user_listings_${user.id}`;
-      const existingRaw = localStorage.getItem(localKey);
-      const existingList = existingRaw ? JSON.parse(existingRaw) : [];
-      existingList.unshift({
-        id: `prop_${Date.now()}`,
-        title: finalTitle,
-        description: finalDescription,
-        price: numPrice,
-        weekend_price: numWeekendPrice,
-        status: "pending_review",
-        city,
-        cover_image: coverPhoto,
-        created_at: new Date().toISOString(),
-      });
-      localStorage.setItem(localKey, JSON.stringify(existingList));
+      // Skipped entirely when importing on someone else's behalf: the
+      // listing belongs in their dashboard, and writing it to the admin's
+      // local cache would show it as the admin's own property.
+      if (!targetHost) {
+        const localKey = `wayzyy_user_listings_${user.id}`;
+        const existingRaw = localStorage.getItem(localKey);
+        const existingList = existingRaw ? JSON.parse(existingRaw) : [];
+        existingList.unshift({
+          id: `prop_${Date.now()}`,
+          title: finalTitle,
+          description: finalDescription,
+          price: numPrice,
+          weekend_price: numWeekendPrice,
+          status: "pending_review",
+          city,
+          cover_image: coverPhoto,
+          created_at: new Date().toISOString(),
+        });
+        localStorage.setItem(localKey, JSON.stringify(existingList));
+      }
 
       toast({
-        title: "Submitted for Approval! 🚀",
-        description: `"${finalTitle}" is now pending review by our team.`,
+        title: targetHost ? "Imported for host" : "Submitted for Approval! 🚀",
+        description: targetHost
+          ? `"${finalTitle}" now sits in ${targetHost.name || targetHost.email}'s dashboard.`
+          : `"${finalTitle}" is now pending review by our team.`,
       });
 
       if (onSuccess) onSuccess();
@@ -406,8 +430,14 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                   <Download className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-display text-lg font-semibold text-foreground">Import Airbnb Listing</h2>
-                  <p className="text-xs text-muted-foreground">Import property details & images - set your direct rates</p>
+                  <h2 className="font-display text-lg font-semibold text-foreground">
+                    {targetHost ? "Import for host" : "Import Airbnb Listing"}
+                  </h2>
+                  <p className="text-xs text-muted-foreground">
+                    {targetHost
+                      ? "This listing will be filed under their account, not yours"
+                      : "Import property details & images - set your direct rates"}
+                  </p>
                 </div>
               </div>
               <button
@@ -417,6 +447,20 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                 <X className="h-5 w-5" />
               </button>
             </div>
+
+            {/* Whose account this lands in. Deliberately loud - importing
+                into the wrong host's dashboard is quiet and annoying to undo. */}
+            {targetHost && (
+              <div className="flex items-start gap-2.5 rounded-2xl border border-ember/40 bg-ember/10 p-3.5">
+                <UserCheck className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
+                <div className="text-xs">
+                  <p className="font-semibold text-foreground">
+                    Importing into {targetHost.name || targetHost.email}'s account
+                  </p>
+                  <p className="mt-0.5 text-muted-foreground">{targetHost.email}</p>
+                </div>
+              </div>
+            )}
 
             {/* Authorization Enforcement: If not admin hello@wayzyy.com and not approved */}
             {!isApproved ? (
