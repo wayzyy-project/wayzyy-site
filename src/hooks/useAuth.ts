@@ -26,8 +26,19 @@ export const useAuth = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const getAuthRedirectUrl = () => {
+    if (typeof window !== "undefined") {
+      const origin = window.location.origin;
+      if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
+        return "https://wayzyy.com/host";
+      }
+      return `${origin}/host`;
+    }
+    return "https://wayzyy.com/host";
+  };
+
   const signUp = async (email: string, password: string, name: string) => {
-    const redirectUrl = `${window.location.origin}/host`;
+    const redirectUrl = getAuthRedirectUrl();
     return supabase.auth.signUp({
       email,
       password,
@@ -43,7 +54,7 @@ export const useAuth = () => {
   };
 
   const signInWithGoogle = async () => {
-    const redirectTo = `${window.location.origin}/host`;
+    const redirectTo = getAuthRedirectUrl();
     return supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
