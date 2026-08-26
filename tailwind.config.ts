@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+				sans: ['"Raleway"', "ui-sans-serif", "system-ui", "sans-serif"],
 				display: ['"Raleway"', "sans-serif"],
 			},
 			colors: {
