@@ -98,37 +98,31 @@ function DeckCard({
   );
 }
 
-/**
- * Mobile equivalent - 2x2 grid for small viewports so all 4 cards fit cleanly.
- */
+/** One card of the mobile 2x2 grid - clean liquid-glass styling. */
 function MobileDeckCard({
   card,
   index,
-  progress,
-  windowIn,
-  windowOut,
 }: {
   card: FanCard;
   index: number;
-  progress: MotionValue<number>;
-  windowIn: [number, number];
-  windowOut: [number, number];
 }) {
-  const stagger = index * 0.02;
-  const inStart = windowIn[0] + stagger;
-  const inEnd = Math.min(windowIn[1] + stagger, windowOut[0]);
-  const t = useTransform(progress, (p) => segmentInOut(p, inStart, inEnd, windowOut[0], windowOut[1]));
-  const opacity = t;
-  const y = useTransform(t, [0, 1], [16, 0]);
-
   return (
-    <motion.div
-      style={{ opacity, y }}
-      className={"liquid-glass rounded-2xl p-4 shadow-xl border border-white/20 " + card.tint}
+    <div
+      className={
+        "liquid-glass flex flex-col justify-between w-full rounded-2xl p-3 sm:p-4 shadow-xl backdrop-blur-xl border border-white/20 text-left bg-black/40 " +
+        card.tint
+      }
     >
-      <h3 className="font-display text-sm font-bold leading-tight text-white">{card.heading}</h3>
-      <p className="mt-1.5 text-xs font-normal leading-snug text-white/80">{card.body}</p>
-    </motion.div>
+      <div>
+        <div className="flex items-center gap-1.5 mb-1 text-left">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ember text-[10px] font-bold text-white shadow-xs">
+            {index + 1}
+          </span>
+          <h3 className="font-display text-xs font-bold leading-snug text-white text-left line-clamp-2">{card.heading}</h3>
+        </div>
+        <p className="pl-6 text-[11px] font-normal leading-relaxed text-white/85 text-left line-clamp-3">{card.body}</p>
+      </div>
+    </div>
   );
 }
 
@@ -138,10 +132,18 @@ function MobileDeckCard({
  * then fade/scale down together across `windowOut`.
  */
 export function FanCardDeck({ cards, progress, windowIn, windowOut, cardWindows }: FanCardDeckProps) {
+  // Synchronized enter/exit fade over windowIn / windowOut for the entire deck
+  const t = useTransform(progress, (p) =>
+    segmentInOut(p, windowIn[0], windowIn[1], windowOut[0], windowOut[1]),
+  );
+  const opacity = t;
+  const y = useTransform(t, [0, 1], [30, 0]);
+  const scale = useTransform(t, [0, 1], [0.94, 1]);
+
   return (
     <>
       {/* Desktop & Tablet: Side-by-side 4-column grid centered in viewport with zero clipping */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[10%] hidden justify-center px-4 sm:px-6 md:px-8 sm:flex sm:items-center">
+      <div className="pointer-events-none absolute inset-x-0 bottom-[10%] hidden justify-center px-4 sm:px-6 md:px-8 sm:flex sm:items-center z-20">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-4 gap-3 md:gap-4 lg:gap-6">
           {cards.map((card, i) => (
             <DeckCard
@@ -158,22 +160,15 @@ export function FanCardDeck({ cards, progress, windowIn, windowOut, cardWindows 
         </div>
       </div>
 
-      {/* Mobile: static 2x2 grid, centered in the viewport - all 4 cards
-          shown together regardless of cardWindows, since the mobile layout
-          doesn't have per-image screen real estate to spare for staged
-          reveals; it just fades the whole deck in over windowIn/windowOut. */}
-      <div className="pointer-events-none absolute inset-0 grid grid-cols-2 content-center items-center gap-3 px-4 sm:hidden">
+      {/* Mobile: 2x2 grid centered on screen, displaying all 4 cards together as a clean unified set */}
+      <motion.div
+        style={{ opacity, y, scale }}
+        className="pointer-events-none absolute inset-x-3 top-1/2 -translate-y-1/2 z-20 grid grid-cols-2 gap-2.5 max-w-md mx-auto sm:hidden"
+      >
         {cards.map((card, i) => (
-          <MobileDeckCard
-            key={card.heading}
-            card={card}
-            index={i}
-            progress={progress}
-            windowIn={windowIn}
-            windowOut={windowOut}
-          />
+          <MobileDeckCard key={card.heading} card={card} index={i} />
         ))}
-      </div>
+      </motion.div>
     </>
   );
 }

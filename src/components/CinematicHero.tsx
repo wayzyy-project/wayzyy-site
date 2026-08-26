@@ -79,60 +79,33 @@ function segmentInOut(
  */
 const T = {
   scene1End: 0.2909,
-  // 3 beats, not 4: an /impeccable critique flagged the previous 4-beat
-  // sequence as spending ~23% of total hero scroll on pure atmosphere
-  // ("Goa has beaches." / "Goa has waterfalls." / a coy #ff6b00 hex-code
-  // line) with zero product information - a first-time visitor could
-  // scroll the whole hero and never learn this is a rental platform, let
-  // alone an Airbnb alternative with a flat fee instead of a commission.
-  // Beat 2 now combines the two Goa lines (keeps some atmosphere, per
-  // product decision) and beat 3 replaces the hex-code wink with an actual
-  // claim, paired with the same imagery rather than replacing it.
   headline: [
-    // Opening tagline phrase visible on landing at scroll 0, fading as scroll begins
     { in: [0.0, 0.0], out: [0.05, 0.07] },
-    // Combined Goa beat - held a bit longer than a single-sentence beat
-    // would need, since it's now two sentences worth reading.
     { in: [0.08, 0.098], out: [0.17, 0.19] },
-    // The factual beat that replaces the old hex-code line.
     { in: [0.22, 0.238], out: [0.2909, 0.31] },
   ],
   layersFadeOut: [0.2364, 0.2909],
   zoomWide: { in: [0.2909, 0.3273], out: [0.3818, 0.4182] },
   zoomCloser: { in: [0.3818, 0.4182], out: [0.4727, 0.5091] },
-  doorOpen: { in: [0.4727, 0.5091], out: [0.5636, 0.6] },
-  poolDeck: { in: [0.5636, 0.6], out: [0.6545, 0.6909] },
-  story2: { in: [0.2909, 0.3273], out: [0.5636, 0.6] },
+  doorOpen: { in: [0.2909, 0.33], out: [0.55, 0.58] },
+  poolDeck: { in: [0.60, 0.64], out: [0.76, 0.80] },
+  story2: { in: [0.2909, 0.33], out: [0.55, 0.58] },
   bazaar: { in: [0.6909, 0.7273], out: [0.9455, 1.0] },
   story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
 };
 
-/**
- * Small invitation line under the intro tagline, only ever seen at scroll
- * position 0. Tells the visitor this hero is scroll-driven before they've
- * done anything - and once they start scrolling, the word "scroll" itself
- * detaches from the sentence and flies out to the right edge, timed to
- * land right as RightScrollCue grows in there, so the two read as one
- * continuous gesture ("this word - the one right there - is what you keep
- * doing") rather than two unrelated hints.
- */
 function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
-  // Flies right first, staying fully visible for the first stretch of the
-  // trip, then dissolves right as it reaches the edge - so it reads as
-  // "traveled over there and merged in" rather than vanishing mid-flight.
-  // The fade window (0.035-0.06) lines up with RightScrollCue's own grow
-  // window ([0, 0.035]) finishing, so the two land together.
   const wordX = useTransform(progress, [0, 0.06], [0, 340]);
   const wordOpacity = useTransform(progress, [0, 0.035, 0.06], [1, 1, 0]);
 
   return (
-    <span className="mt-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs lg:text-sm">
+    <span className="mt-1 flex items-center gap-1.5 text-left text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs sm:text-center lg:text-sm">
       <motion.span
         animate={reduce ? undefined : { opacity: [0.85, 1, 0.85] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        Every scene here says something —
+        Every scene here says something.
       </motion.span>
       <motion.span
         style={{ x: reduce ? 0 : wordX, opacity: reduce ? undefined : wordOpacity }}
@@ -156,33 +129,43 @@ function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
 
 function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode; ember: boolean }[] {
   return [
-  {
-    text: (
-      <div className="flex flex-col items-center justify-center gap-1.5 text-center sm:gap-2.5">
-        <span className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Wayzyy — short term rentals
-        </span>
-        <span className="font-display text-sm font-medium text-white/90 sm:text-2xl lg:text-3xl">
-          Built around hosts and users, not as a marketplace.
-        </span>
-        <span className="text-xs font-semibold uppercase tracking-[0.22em] text-ember sm:text-base lg:text-lg">
-          Starting with Goa
-        </span>
-        <IntroScrollHint progress={progress} />
-      </div>
-    ),
-    ember: false,
-  },
-  { text: "Goa has beaches. Goa has waterfalls.", ember: false },
-  {
-    text: (
-      <>
-        Real villas. Real hosts.{" "}
-        <span className="text-ember">No hidden markup.</span>
-      </>
-    ),
-    ember: false,
-  },
+    {
+      text: (
+        <div className="flex flex-col items-start justify-center gap-1.5 text-left sm:gap-2.5">
+          <span className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Wayzyy. Short term rentals.
+          </span>
+          <span className="font-display text-xs font-medium text-white/90 sm:text-xl lg:text-2xl">
+            Built around hosts and users, not as a marketplace.
+          </span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ember sm:text-base lg:text-lg">
+            Starting with Goa
+          </span>
+          <IntroScrollHint progress={progress} />
+        </div>
+      ),
+      ember: false,
+    },
+    {
+      text: (
+        <>
+          <span className="block font-extrabold text-ember">Goa.</span>
+          <span className="block mt-1 text-white sm:mt-2">A land of beaches, waterfalls, and a getaway from metro cities.</span>
+        </>
+      ),
+      ember: false,
+    },
+    {
+      text: (
+        <>
+          <span className="block font-extrabold text-white">Wayzyy is here to step it up.</span>
+          <span className="block mt-1 sm:mt-2 text-white/90">
+            Real villas, real hosts, <span className="text-ember font-bold">and no hidden markup.</span>
+          </span>
+        </>
+      ),
+      ember: false,
+    },
   ];
 }
 
@@ -355,7 +338,7 @@ function HeadlineBeat({
     <motion.div
       style={{ opacity, y }}
       className={
-        "absolute inset-x-0 text-balance text-center font-display text-3xl font-bold leading-[1.1] sm:text-6xl lg:text-7xl " +
+        "absolute inset-x-0 text-left font-display text-2xl font-bold leading-[1.15] sm:text-5xl md:text-6xl lg:text-7xl " +
         (ember ? "text-ember" : "text-white")
       }
     >
@@ -394,7 +377,7 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
     <motion.div
       aria-hidden
       style={{ opacity, scale: grow }}
-      className="pointer-events-none absolute inset-y-0 right-4 z-20 flex origin-right items-center sm:right-6"
+      className="pointer-events-none absolute inset-y-0 right-4 z-20 hidden origin-right items-center sm:flex sm:right-6"
     >
       <div className="flex flex-col items-center gap-2">
         <motion.span
@@ -528,10 +511,10 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const [scenePoolMounted, setScenePoolMounted] = useState(false);
   const [scene3Mounted, setScene3Mounted] = useState(false);
   useMotionValueEvent(progress, "change", (p) => {
-    setScene1Mounted(p < T.scene1End + 0.06);
-    setSceneZoomMounted(p > T.zoomWide.in[0] - 0.04 && p < T.doorOpen.out[1] + 0.06);
-    setScenePoolMounted(p > T.poolDeck.in[0] - 0.04 && p < T.poolDeck.out[1] + 0.06);
-    setScene3Mounted(p > T.bazaar.in[0] - 0.06);
+    setScene1Mounted(p < T.scene1End + 0.04);
+    setSceneZoomMounted(p > T.zoomWide.in[0] - 0.04 && p < 0.59);
+    setScenePoolMounted(p >= 0.60 && p < T.poolDeck.out[1] + 0.04);
+    setScene3Mounted(p > T.bazaar.in[0] - 0.04);
   });
 
   // Subtle ocean-waves audio, playing only while the pool-deck scene is on
@@ -605,9 +588,9 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const doorOpenOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.doorOpen.in as [number, number]), ...(T.doorOpen.out as [number, number])),
   );
-  const zoomWideScale = useTransform(progress, [T.zoomWide.in[0], T.zoomWide.out[1]], [1, 1.1]);
-  const zoomCloserScale = useTransform(progress, [T.zoomCloser.in[0], T.zoomCloser.out[1]], [1, 1.1]);
-  const doorOpenScale = useTransform(progress, [T.doorOpen.in[0], T.doorOpen.out[1]], [1, 1.1]);
+  const zoomWideScale = useTransform(progress, [T.zoomWide.in[0], T.zoomWide.out[1]], [1.0, 1.25]);
+  const zoomCloserScale = useTransform(progress, [T.zoomCloser.in[0], T.zoomCloser.out[1]], [1.05, 1.3]);
+  const doorOpenScale = useTransform(progress, [T.doorOpen.in[0], T.doorOpen.out[1]], [1.1, 1.35]);
   const story2Opacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.story2.in as [number, number]), ...(T.story2.out as [number, number])),
   );
@@ -712,7 +695,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30" />
 
               {/* flowing headline - one phrase visible at a time */}
-              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
+              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-start px-6 sm:px-12 max-w-5xl mx-auto">
                 <div className="relative min-h-[7em] w-full max-w-4xl sm:min-h-[4em]">
                   {buildHeadlinePhrases(progress).map((p, i) => (
                     <HeadlineBeat key={i} progress={progress} window={T.headline[i]} ember={p.ember}>
@@ -774,30 +757,30 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 windowIn={T.doorOpen.in as [number, number]}
                 windowOut={T.doorOpen.out as [number, number]}
                 cardWindows={[
-                  { in: T.zoomWide.in as [number, number], out: T.doorOpen.out as [number, number] },
-                  { in: T.zoomCloser.in as [number, number], out: T.doorOpen.out as [number, number] },
+                  { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
+                  { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
                   { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
                   { in: T.doorOpen.in as [number, number], out: T.doorOpen.out as [number, number] },
                 ]}
                 cards={[
                   {
-                    heading: "Every stay starts with an open door.",
-                    body: "No wait, no queue, no \"request to book,\" just a host who's already expecting you.",
+                    heading: "A beachside villa sounds expensive...",
+                    body: "...until you remove middleman fees. Every stay starts with an open door.",
                     tint: "bg-violet-200/15",
                   },
                   {
                     heading: "There's usually a lock between that door and you.",
-                    body: "A markup you never see, quietly added on top of what the host actually charges.",
+                    body: "A hidden markup quietly added on top of what the host actually charges.",
                     tint: "bg-orange-200/15",
                   },
                   {
-                    heading: "We took the lock off.",
-                    body: "A flat recharge, not a percentage — Airbnb takes ~18%, Wayzyy takes ~2%.",
+                    heading: "Wayzyy is here to step it up.",
+                    body: "0% booking commission, 100% direct host connection. Real villas, real hosts.",
                     tint: "bg-sky-200/15",
                   },
                   {
                     heading: "Community, not just a marketplace.",
-                    body: "Hosts are heard, disputes are resolved by people, not an algorithm.",
+                    body: "Connecting 100,000+ developers & travelers with verified Goa homestays.",
                     tint: "bg-amber-200/15",
                   },
                 ]}
@@ -815,7 +798,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: poolDeckOpacity, scale: poolDeckScale, x: poolMouseX, translateY: poolMouseY }}
               />
-              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center px-6">
+              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-start px-6 sm:px-12 max-w-5xl mx-auto">
                 <div className="relative h-[3.4em] w-full max-w-4xl sm:h-[1.6em]">
                   <HeadlineBeat progress={progress} window={T.poolDeck} ember={false}>
                     Breathe out, the waves are getting near.

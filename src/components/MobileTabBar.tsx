@@ -39,7 +39,7 @@ export function MobileTabBar() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur-lg [padding-bottom:env(safe-area-inset-bottom)] sm:hidden"
       aria-label="Site sections"
     >
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 items-center px-1">
         {tabs.map((tab) => {
           const isActive = tab.matchPrefix
             ? path.startsWith(tab.matchPrefix)
@@ -47,6 +47,25 @@ export function MobileTabBar() {
               ? path === "/" && location.hash === "#why"
               : path === "/" && tab.href === "/" && location.hash !== "#why";
           const Icon = tab.icon;
+          const isHost = tab.label === "Host";
+
+          if (isHost) {
+            return (
+              <Link
+                key={tab.label}
+                to={tab.href}
+                className={`flex flex-col items-center justify-center gap-0.5 py-1 px-2 rounded-xl text-[11px] font-bold transition-all active:scale-95 border ${
+                  isActive
+                    ? "border-ember bg-ember text-white shadow-md shadow-ember/30"
+                    : "border-ember/60 bg-ember/15 text-ember shadow-xs shadow-ember/20"
+                }`}
+              >
+                <Icon className="h-4.5 w-4.5" strokeWidth={2.4} />
+                <span>Host ↗</span>
+              </Link>
+            );
+          }
+
           return (
             <Link
               key={tab.label}
