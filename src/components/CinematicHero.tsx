@@ -78,20 +78,20 @@ function segmentInOut(
  * ~562.8vh mid-build version, since two full segments were cut).
  */
 const T = {
-  scene1End: 0.2909,
+  scene1End: 0.25,
   headline: [
     { in: [0.0, 0.0], out: [0.05, 0.07] },
-    { in: [0.08, 0.098], out: [0.16, 0.18] },
-    { in: [0.19, 0.21], out: [0.25, 0.27] },
+    { in: [0.08, 0.098], out: [0.15, 0.17] },
+    { in: [0.18, 0.20], out: [0.23, 0.25] },
   ],
-  layersFadeOut: [0.22, 0.27],
-  zoomWide: { in: [0.25, 0.28], out: [0.42, 0.45] },
-  zoomCloser: { in: [0.25, 0.28], out: [0.42, 0.45] },
-  doorOpen: { in: [0.42, 0.45], out: [0.55, 0.58] },
-  poolDeck: { in: [0.60, 0.64], out: [0.76, 0.80] },
-  story2: { in: [0.25, 0.28], out: [0.55, 0.58] },
-  bazaar: { in: [0.6909, 0.7273], out: [0.9455, 1.0] },
-  story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
+  layersFadeOut: [0.20, 0.25],
+  zoomWide: { in: [0.25, 0.28], out: [0.41, 0.44] },
+  zoomCloser: { in: [0.25, 0.28], out: [0.41, 0.44] },
+  doorOpen: { in: [0.44, 0.47], out: [0.60, 0.63] },
+  poolDeck: { in: [0.65, 0.68], out: [0.78, 0.81] },
+  story2: { in: [0.44, 0.47], out: [0.60, 0.63] },
+  bazaar: { in: [0.81, 0.84], out: [0.96, 1.0] },
+  story3: { in: [0.84, 0.87], out: [0.95, 0.98] },
 };
 
 function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
@@ -565,6 +565,9 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // the camera continuously pushing toward the villa rather than a series
   // of independent stills. The FanCardDeck caption cards (`story2Opacity`
   // below) ride on top of this whole sequence.
+  const houseHeadlineOpacity = useTransform(progress, (p) =>
+    segmentInOut(p, 0.25, 0.28, 0.40, 0.43),
+  );
   const zoomWideOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.zoomWide.in as [number, number]), ...(T.zoomWide.out as [number, number])),
   );
@@ -703,6 +706,20 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: zoomCloserOpacity, scale: zoomCloserScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
+              <motion.div
+                style={{ opacity: houseHeadlineOpacity }}
+                className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center justify-center px-4 max-w-4xl mx-auto text-center z-20 space-y-2"
+              >
+                <span className="font-display text-2.5xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
+                  Same properties, same villas, same vibes.
+                </span>
+                <span className="font-display text-base sm:text-2.5xl lg:text-3xl font-medium text-white/95 drop-shadow-md">
+                  And definitely with the same people.
+                </span>
+                <span className="font-display text-xl sm:text-4xl lg:text-5xl font-extrabold text-ember pt-1.5 drop-shadow-lg">
+                  Here's how we fix it.
+                </span>
+              </motion.div>
               <motion.img
                 src={doorOpen}
                 alt="The villa's carved wooden front door standing open at dusk, lit by hanging lanterns"
