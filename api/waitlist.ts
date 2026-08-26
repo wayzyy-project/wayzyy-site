@@ -49,7 +49,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email, audience } = req.body as { email: string; audience: string };
+  const { email, audience, city, phone } = req.body as {
+    email: string;
+    audience: string;
+    city?: string;
+    phone?: string;
+  };
 
   if (!email || !email.includes("@")) {
     return res.status(400).json({ error: "Invalid email" });
@@ -70,7 +75,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           "Content-Type": "application/json",
           Prefer: "resolution=ignore-duplicates",
         },
-        body: JSON.stringify({ email, audience }),
+        body: JSON.stringify({ email, audience, city, phone }),
       }).catch((e) => console.error("waitlist_signups insert failed (non-fatal):", e));
     }
 
@@ -85,6 +90,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <td style="padding: 8px 0; color: #888; font-size: 14px; width: 120px;">Email</td>
             <td style="padding: 8px 0; color: #1a1a1a; font-size: 14px; font-weight: bold;">${escapeHtml(email)}</td>
           </tr>
+          ${city ? `<tr><td style="padding: 8px 0; color: #888; font-size: 14px;">City / Region</td><td style="padding: 8px 0; color: #1a1a1a; font-size: 14px; font-weight: bold;">${escapeHtml(city)}</td></tr>` : ""}
+          ${phone ? `<tr><td style="padding: 8px 0; color: #888; font-size: 14px;">Phone / WhatsApp</td><td style="padding: 8px 0; color: #1a1a1a; font-size: 14px; font-weight: bold;">${escapeHtml(phone)}</td></tr>` : ""}
           <tr>
             <td style="padding: 8px 0; color: #888; font-size: 14px;">Signed up as</td>
             <td style="padding: 8px 0; color: #e05c2e; font-size: 14px; font-weight: bold;">${audience === "host" ? "Host" : "Traveler"}</td>

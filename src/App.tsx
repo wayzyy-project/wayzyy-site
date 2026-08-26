@@ -123,9 +123,6 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/onboarding" element={<HostOnboardingDoc />} />
-              <Route path="/founding-hosts" element={<HostOnboardingDoc />} />
-              <Route path="/onboarding-doc" element={<HostOnboardingDoc />} />
-              <Route path="/deck" element={<HostOnboardingDoc />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
               <Route path="/final-coconut" element={<FinalCoconut />} />
               <Route path="/build-with-us" element={<GigChallenge />} />
