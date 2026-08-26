@@ -85,11 +85,11 @@ const T = {
     { in: [0.19, 0.21], out: [0.25, 0.27] },
   ],
   layersFadeOut: [0.22, 0.27],
-  zoomWide: { in: [0.27, 0.30], out: [0.36, 0.39] },
-  zoomCloser: { in: [0.36, 0.39], out: [0.45, 0.48] },
-  doorOpen: { in: [0.45, 0.48], out: [0.55, 0.58] },
+  zoomWide: { in: [0.25, 0.28], out: [0.42, 0.45] },
+  zoomCloser: { in: [0.25, 0.28], out: [0.42, 0.45] },
+  doorOpen: { in: [0.42, 0.45], out: [0.55, 0.58] },
   poolDeck: { in: [0.60, 0.64], out: [0.76, 0.80] },
-  story2: { in: [0.27, 0.30], out: [0.55, 0.58] },
+  story2: { in: [0.25, 0.28], out: [0.55, 0.58] },
   bazaar: { in: [0.6909, 0.7273], out: [0.9455, 1.0] },
   story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
 };
@@ -697,24 +697,9 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
           {sceneZoomMounted && (
             <>
               <motion.img
-                src={zoomWide}
-                alt="A wide dusk view of a Goan villa on a coastal headland, seen from far above the beach"
-                // Eager, not lazy - this is the first frame of the scene 1.5
-                // crossfade, mounted right as scene 1's foreground layer is
-                // still fading out. A live-evidence pass flagged black
-                // frames at exactly this kind of scene-boundary transition;
-                // an un-decoded lazy image at the moment its parent mounts
-                // is the most likely cause, so the lead image of each later
-                // scene (this one, poolDeck, bazaar below) goes eager while
-                // the rest of each scene's images stay lazy.
-                loading="eager"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: zoomWideOpacity, scale: zoomWideScale, x: zoomMouseX, translateY: zoomMouseY }}
-              />
-              <motion.img
                 src={zoomCloser}
-                alt="A closer dusk view of the same Goan villa, lantern-lit windows glowing above the coastline"
-                loading="lazy"
+                alt="A dusk view of a lantern-lit Goan villa glowing above the coastline"
+                loading="eager"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ opacity: zoomCloserOpacity, scale: zoomCloserScale, x: zoomMouseX, translateY: zoomMouseY }}
               />
