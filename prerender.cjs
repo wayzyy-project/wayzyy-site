@@ -71,6 +71,36 @@ const routes = [
     }
   },
   {
+    path: '/onboarding',
+    title: 'Founding Hosts Onboarding Deck (Goa 2026) | Wayzyy',
+    description: 'Official Wayzyy Founding Hosts Onboarding Presentation for Goa villa and homestay owners. Explore 0% host commission, real market data, credit packs, and direct host protection.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Founding Hosts Onboarding Deck (Goa 2026) | Wayzyy",
+      "url": "https://wayzyy.com/onboarding",
+      "description": "Official Wayzyy Founding Hosts Onboarding Presentation for Goa villa and homestay owners.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
+    path: '/founding-hosts',
+    title: 'Founding Hosts Onboarding Deck (Goa 2026) | Wayzyy',
+    description: 'Official Wayzyy Founding Hosts Onboarding Presentation for Goa villa and homestay owners. Explore 0% host commission, real market data, credit packs, and direct host protection.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Founding Hosts Onboarding Deck (Goa 2026) | Wayzyy",
+      "url": "https://wayzyy.com/founding-hosts",
+      "description": "Official Wayzyy Founding Hosts Onboarding Presentation for Goa villa and homestay owners.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/host-onboarding',
     title: 'Welcome, Goa hosts — bring your properties to Wayzyy',
     description: 'Submit your properties in one simple form. Our team verifies them, and they go live on Wayzyy the moment we launch.',

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
 import { ChallengeTopBanner } from "@/components/gig-challenge/ChallengeTopBanner";
-import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent, Flag } from "lucide-react";
+import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent, Flag, FileText } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +15,12 @@ import {
 /** Real host-relevant links surfaced in the "Hosting" nav dropdown - pulled
  *  from actual host-focused posts in src/lib/blogPosts.ts, not placeholders. */
 const hostLinks: { to: string; label: string; description: string; icon: typeof Home }[] = [
+  {
+    to: "/onboarding",
+    label: "Founding Hosts Deck",
+    description: "Official 11-page invitation & roadmap for Goa hosts",
+    icon: FileText,
+  },
   {
     to: "/host",
     label: "Host portal",

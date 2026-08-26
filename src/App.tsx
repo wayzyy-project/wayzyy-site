@@ -98,6 +98,7 @@ import AppLaunchSoon from "./pages/AppLaunchSoon";
 import ExperienceGoa from "./pages/ExperienceGoa";
 import WaitlistChooser from "./pages/WaitlistChooser";
 import WaitlistTravelers from "./pages/WaitlistTravelers";
+import HostOnboardingDoc from "./pages/HostOnboardingDoc";
 
 const queryClient = new QueryClient();
 
@@ -121,6 +122,10 @@ const App = () => (
             <div className="pb-24 sm:pb-0">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/onboarding" element={<HostOnboardingDoc />} />
+              <Route path="/founding-hosts" element={<HostOnboardingDoc />} />
+              <Route path="/onboarding-doc" element={<HostOnboardingDoc />} />
+              <Route path="/deck" element={<HostOnboardingDoc />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
               <Route path="/final-coconut" element={<FinalCoconut />} />
               <Route path="/build-with-us" element={<GigChallenge />} />
