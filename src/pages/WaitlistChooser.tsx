@@ -1,97 +1,93 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Home, Plane } from "lucide-react";
+import { ArrowUpRight, Home, Plane, ArrowRight, BookOpen, ShieldCheck } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SEO } from "@/components/SEO";
 import { Reveal } from "@/components/Reveal";
+import { Waitlist } from "@/components/Waitlist";
 
-/**
- * /waitlist - a chooser, not a form. Hosts already have a real, live
- * portal at /host (list a property, manage bookings - no waiting around),
- * so this page's only job is to split visitors into the path that's
- * actually right for them: straight into the host portal, or onto the
- * traveler waitlist at /waitlist/travelers for the booking side, which
- * isn't live yet.
- */
 export default function WaitlistChooser() {
   return (
     <>
       <SEO
-        title="Join Wayzyy - Waitlist"
-        description="Hosting is live on Wayzyy today. Travelers - booking opens soon. Pick your path and get in."
-        path="/waitlist"
+        title="Join Wayzyy - Founding Hosts & Travelers Waitlist"
+        description="Join the Founding Hosts list across Goa, Bangalore, Jaipur & beyond. 0% host commission, verified homestays, and direct bookings."
+        canonicalUrl="https://wayzyy.com/waitlist"
       />
-      <div className="relative min-h-screen bg-background text-foreground">
+      <div className="relative min-h-screen bg-background text-foreground flex flex-col justify-between">
         <SiteNav />
-        <main className="relative pt-32 pb-24 sm:pt-40 sm:pb-32">
+        <main className="relative pt-28 pb-20 sm:pt-36 sm:pb-28">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,hsl(var(--ember)/0.14),transparent_60%),radial-gradient(circle_at_80%_100%,hsl(var(--ember)/0.08),transparent_55%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,hsl(var(--ember)/0.15),transparent_60%),radial-gradient(circle_at_80%_100%,hsl(var(--ember)/0.08),transparent_55%)]"
           />
-          <div className="container relative">
+          <div className="container relative max-w-5xl mx-auto px-4 sm:px-6">
             <Reveal>
-              <div className="mx-auto max-w-2xl text-center">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-                  Which one's you?
+              <div className="mx-auto max-w-3xl text-center space-y-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-ember animate-pulse" />
+                  Founding Hosts & Travelers Waitlist
                 </div>
-                <h1 className="font-display text-4xl leading-[1.05] text-foreground sm:text-5xl text-balance">
-                  Two sides. One door.
+                <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-foreground tracking-tight">
+                  Be the first to walk through <span className="text-ember">the door.</span>
                 </h1>
-                <p className="mt-4 text-pretty text-base text-muted-foreground sm:text-lg">
-                  Hosting is live right now. Booking opens soon. Tell us which
-                  one you are and we'll get you to the right place.
+                <p className="mt-3 text-pretty text-xs sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  Join our founding hosts across Goa, Bangalore, Jaipur, and beyond. Submit your city and contact details below — upon submitting, you'll be directed to our 11-page Onboarding Document and guided into the Host Portal.
                 </p>
               </div>
             </Reveal>
 
-            <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
-              <Reveal delay={0.05}>
+            {/* Main Form Container */}
+            <div className="mx-auto mt-10 max-w-2xl">
+              <Reveal delay={0.1}>
+                <div className="rounded-3xl border border-border/70 bg-card/80 p-5 sm:p-8 backdrop-blur-xl shadow-2xl">
+                  <Waitlist defaultAudience="host" />
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Fast Track Cards */}
+            <div className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
+              <Reveal delay={0.15}>
                 <Link
-                  to="/host"
-                  className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:border-ember/40 hover:shadow-md"
+                  to="/onboarding"
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-border/70 bg-card/50 p-6 backdrop-blur-md transition-all hover:-translate-y-1 hover:border-ember/40 hover:shadow-lg"
                 >
                   <div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ember/10 text-ember">
-                      <Home className="h-6 w-6" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ember/10 text-ember mb-3">
+                      <BookOpen className="h-5 w-5" />
                     </div>
-                    <h2 className="mt-5 font-display text-2xl text-foreground">
-                      For Hosts
-                    </h2>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Live today - no waiting list. List your Goa property,
-                      set your own price, and keep what you earn with a flat
-                      subscription instead of a per-booking cut.
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      Read Onboarding Document
+                    </h3>
+                    <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                      Explore the official 11-page pitch deck with real Goa market data, 0% commission math, and transparent credit packs.
                     </p>
                   </div>
-                  <span className="mt-6 inline-flex items-center gap-1.5 font-semibold text-foreground group-hover:text-ember transition-colors">
-                    Go to the Host Portal
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ember group-hover:underline">
+                    View 11-Page Deck <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </Link>
               </Reveal>
 
-              <Reveal delay={0.1}>
+              <Reveal delay={0.2}>
                 <Link
-                  to="/waitlist/travelers"
-                  className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:border-ember/40 hover:shadow-md"
+                  to="/host"
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-border/70 bg-card/50 p-6 backdrop-blur-md transition-all hover:-translate-y-1 hover:border-ember/40 hover:shadow-lg"
                 >
                   <div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ember/10 text-ember">
-                      <Plane className="h-6 w-6" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ember/10 text-ember mb-3">
+                      <Home className="h-5 w-5" />
                     </div>
-                    <h2 className="mt-5 font-display text-2xl text-foreground">
-                      For Travelers
-                    </h2>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Almost ready. We're not taking bookings yet, but the
-                      waitlist gets you in first - plus referral discounts
-                      for the first wave.
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      Direct Host Portal
+                    </h3>
+                    <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                      Already familiar with Wayzyy? Skip straight into the portal to log in, get Aadhaar verified, and list your property.
                     </p>
                   </div>
-                  <span className="mt-6 inline-flex items-center gap-1.5 font-semibold text-foreground group-hover:text-ember transition-colors">
-                    Join the traveler waitlist
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-ember group-hover:underline">
+                    Go to Host Portal <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </Link>
               </Reveal>

@@ -10,10 +10,10 @@ import { mp } from "@/lib/mixpanel";
 type Audience = "host" | "traveler";
 
 const POPULAR_CITIES = [
-  { id: "Goa", label: "Goa 🏖️" },
-  { id: "Bangalore", label: "Bangalore 🌆" },
-  { id: "Jaipur", label: "Jaipur 🏰" },
-  { id: "other", label: "Other City 📍" },
+  { id: "Goa", label: "Goa" },
+  { id: "Bangalore", label: "Bangalore" },
+  { id: "Jaipur", label: "Jaipur" },
+  { id: "other", label: "Other City" },
 ];
 
 export function Waitlist({ defaultAudience = "host" as Audience }) {
@@ -97,7 +97,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
               />
             )}
             <span className="relative flex items-center justify-center gap-1.5">
-              {a === "host" ? "🏠 I'm Hosting / Property Owner" : "✈️ I'm a Traveler / Guest"}
+              {a === "host" ? "I'm Hosting (Property Owner)" : "I'm Travelling (Guest)"}
             </span>
           </button>
         ))}
@@ -253,8 +253,8 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
 
       <p className="text-[11px] text-muted-foreground text-center sm:text-left leading-relaxed">
         {audience === "host"
-          ? "✨ 0% per-booking commission. 100% direct guest connection with Aadhaar digital verification."
-          : "✨ No hidden booking markups. Transparent, verified homestays across Goa, Bangalore, Jaipur & beyond."}
+          ? "0% per-booking commission. 100% direct guest connection with Aadhaar digital verification."
+          : "No hidden booking markups. Transparent, verified homestays across Goa, Bangalore, Jaipur & beyond."}
       </p>
     </div>
   );
