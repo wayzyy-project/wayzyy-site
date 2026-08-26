@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, MapPin, Phone, Mail, Sparkles, Building2 } from "lucide-react";
+import { ArrowRight, Check, MapPin, Phone, Mail, Building2 } from "lucide-react";
 import { mp } from "@/lib/mixpanel";
 
 type Audience = "host" | "traveler";
@@ -16,6 +17,7 @@ const POPULAR_CITIES = [
 ];
 
 export function Waitlist({ defaultAudience = "host" as Audience }) {
+  const navigate = useNavigate();
   const [audience, setAudience] = useState<Audience>(defaultAudience);
   const [selectedCity, setSelectedCity] = useState<string>("Goa");
   const [customCity, setCustomCity] = useState<string>("");
@@ -55,11 +57,15 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
 
       mp.waitlistSignup(audience, email);
       setSent(true);
-      toast.success(
-        audience === "host"
-          ? `Welcome to the ${effectiveCity} Founding Hosts List! Our team will reach out on WhatsApp/Email.`
-          : `You're in! We'll notify you as stays unlock in ${effectiveCity}.`
-      );
+
+      if (audience === "host") {
+        toast.success(`Welcome to the ${effectiveCity} Founding Hosts List! Opening your onboarding document...`);
+        setTimeout(() => {
+          navigate(`/onboarding?city=${encodeURIComponent(effectiveCity)}&from=waitlist`);
+        }, 1000);
+      } else {
+        toast.success(`You're in! We'll notify you as stays unlock in ${effectiveCity}.`);
+      }
     } catch {
       toast.error("Something went wrong. Please check your connection and try again.");
     } finally {
