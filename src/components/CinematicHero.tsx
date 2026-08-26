@@ -708,15 +708,15 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               />
               <motion.div
                 style={{ opacity: houseHeadlineOpacity }}
-                className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center justify-center px-4 max-w-4xl mx-auto text-center z-20 space-y-2"
+                className="pointer-events-none absolute inset-x-3 top-1/2 flex -translate-y-1/2 flex-col items-center justify-center p-6 sm:p-8 max-w-4xl mx-auto text-center z-20 space-y-2.5 rounded-3xl bg-black/40 backdrop-blur-sm border border-white/10 shadow-2xl"
               >
-                <span className="font-display text-2.5xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
+                <span className="font-display text-2.5xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-md">
                   Same properties, same villas, same vibes.
                 </span>
-                <span className="font-display text-base sm:text-2.5xl lg:text-3xl font-medium text-white/95 drop-shadow-md">
+                <span className="font-display text-base sm:text-2.5xl lg:text-3xl font-medium text-white/90 drop-shadow-sm">
                   And definitely with the same people.
                 </span>
-                <span className="font-display text-xl sm:text-4xl lg:text-5xl font-extrabold text-ember pt-1.5 drop-shadow-lg">
+                <span className="font-display text-xl sm:text-4xl lg:text-5xl font-extrabold text-white pt-1 drop-shadow-md">
                   Here's how we fix it.
                 </span>
               </motion.div>
