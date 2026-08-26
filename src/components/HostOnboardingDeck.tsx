@@ -307,12 +307,12 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
             </div>
 
             {/* Slide Navigation Bar Below Frame */}
-            <div className="mt-4 flex w-full items-center justify-between gap-4 px-2">
+            <div className="mt-4 flex w-full items-center justify-between gap-4 px-1">
               <Button
                 variant="outline"
                 onClick={goToPrev}
                 disabled={currentPage === 1}
-                className="rounded-xl font-bold text-xs sm:text-sm gap-2 h-10 px-4 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
+                className="rounded-full font-bold text-xs sm:text-sm gap-2 h-10 px-5 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
               >
                 <ChevronLeft className="h-4 w-4" /> Previous
               </Button>
@@ -337,7 +337,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
                 variant="outline"
                 onClick={goToNext}
                 disabled={currentPage === totalPages}
-                className="rounded-xl font-bold text-xs sm:text-sm gap-2 h-10 px-4 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
+                className="rounded-full font-bold text-xs sm:text-sm gap-2 h-10 px-5 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
               >
                 Next <ChevronRight className="h-4 w-4" />
               </Button>
@@ -349,15 +349,15 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
             <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
               <FileText className="h-3.5 w-3.5 text-ember" /> Quick Page Jump
             </div>
-            <div className="flex gap-3 overflow-x-auto pb-3 pt-1 scrollbar-thin">
+            <div className="flex gap-3 overflow-x-auto pb-4 pt-2 px-3 -mx-2 sm:-mx-0 sm:px-1 scrollbar-thin scroll-smooth">
               {ONBOARDING_PAGES.map((p) => (
                 <button
                   key={p.page}
                   onClick={() => jumpToPage(p.page)}
-                  className={`group relative shrink-0 overflow-hidden rounded-xl border transition-all text-left w-32 sm:w-36 ${
+                  className={`group relative shrink-0 overflow-hidden rounded-2xl border transition-all text-left w-32 sm:w-36 ${
                     currentPage === p.page
-                      ? "border-ember ring-2 ring-ember/40 shadow-lg scale-[1.02]"
-                      : "border-border/60 opacity-70 hover:opacity-100 hover:border-border"
+                      ? "border-ember ring-2 ring-ember/50 shadow-md bg-ember/5"
+                      : "border-border/60 opacity-70 hover:opacity-100 hover:border-border bg-card/60"
                   }`}
                 >
                   <img
@@ -366,7 +366,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
                     className="h-20 w-full object-cover"
                     loading="lazy"
                   />
-                  <div className="p-2 bg-card/90">
+                  <div className="p-2.5 bg-card/90">
                     <span className="text-[10px] font-extrabold text-ember block">
                       Page {p.page}
                     </span>
