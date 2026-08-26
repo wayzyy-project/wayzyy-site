@@ -284,7 +284,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
               </span>
             </div>
 
-            {/* Slide Frame with Shadow & Aspect Ratio */}
+            {/* Slide Frame with Shadow & Clean Presentation */}
             <div className="relative w-full overflow-hidden rounded-2xl border border-border/70 bg-black/5 dark:bg-black/40 shadow-2xl backdrop-blur-md">
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
@@ -304,34 +304,15 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
                   />
                 </motion.div>
               </AnimatePresence>
-
-              {/* Prev / Next Overlay Click Triggers */}
-              <button
-                onClick={goToPrev}
-                disabled={currentPage === 1}
-                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 active:scale-95 disabled:opacity-0 disabled:pointer-events-none shadow-xl border border-white/20"
-                aria-label="Previous Page"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                onClick={goToNext}
-                disabled={currentPage === totalPages}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 active:scale-95 disabled:opacity-0 disabled:pointer-events-none shadow-xl border border-white/20"
-                aria-label="Next Page"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
             </div>
 
-            {/* Slide Navigation Bar */}
+            {/* Slide Navigation Bar Below Frame */}
             <div className="mt-4 flex w-full items-center justify-between gap-4 px-2">
               <Button
                 variant="outline"
-                size="sm"
                 onClick={goToPrev}
                 disabled={currentPage === 1}
-                className="rounded-xl font-bold text-xs gap-1.5"
+                className="rounded-xl font-bold text-xs sm:text-sm gap-2 h-10 px-4 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
               >
                 <ChevronLeft className="h-4 w-4" /> Previous
               </Button>
@@ -342,9 +323,9 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
                   <button
                     key={p.page}
                     onClick={() => jumpToPage(p.page)}
-                    className={`h-2.5 rounded-full transition-all ${
+                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
                       currentPage === p.page
-                        ? "w-8 bg-ember"
+                        ? "w-8 bg-ember shadow-sm"
                         : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
                     }`}
                     title={`Jump to Page ${p.page}: ${p.title}`}
@@ -354,10 +335,9 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
 
               <Button
                 variant="outline"
-                size="sm"
                 onClick={goToNext}
                 disabled={currentPage === totalPages}
-                className="rounded-xl font-bold text-xs gap-1.5"
+                className="rounded-xl font-bold text-xs sm:text-sm gap-2 h-10 px-4 hover:bg-ember/10 hover:text-ember hover:border-ember/40 transition-all cursor-pointer disabled:opacity-35"
               >
                 Next <ChevronRight className="h-4 w-4" />
               </Button>
