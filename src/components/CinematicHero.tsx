@@ -96,34 +96,16 @@ const T = {
 
 function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
-  const wordX = useTransform(progress, [0, 0.06], [0, 340]);
-  const wordOpacity = useTransform(progress, [0, 0.035, 0.06], [1, 1, 0]);
+  const opacity = useTransform(progress, [0, 0.04], [1, 0]);
 
   return (
-    <span className="mt-1 flex items-center gap-1.5 text-left text-[10px] font-medium uppercase tracking-[0.15em] text-white/60 sm:text-xs sm:text-center lg:text-sm">
-      <motion.span
-        animate={reduce ? undefined : { opacity: [0.85, 1, 0.85] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-      >
-        Every scene here says something.
-      </motion.span>
-      <motion.span
-        style={{ x: reduce ? 0 : wordX, opacity: reduce ? undefined : wordOpacity }}
-        className="font-bold text-ember"
-      >
-        scroll
-      </motion.span>
-      <motion.span
-        animate={reduce ? undefined : { opacity: [0.85, 1, 0.85] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        style={{ opacity: reduce ? undefined : wordOpacity }}
-      >
-        to breathe it all in
-      </motion.span>
-      <motion.span style={{ opacity: reduce ? undefined : wordOpacity }}>
-        <ChevronDown className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-      </motion.span>
-    </span>
+    <motion.div
+      style={{ opacity }}
+      className="mt-2 flex items-center justify-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white/70 sm:text-xs"
+    >
+      <span>Every scene here says something. Scroll to breathe it all in</span>
+      <ChevronDown className="h-3.5 w-3.5 animate-bounce text-ember" />
+    </motion.div>
   );
 }
 
@@ -131,8 +113,8 @@ function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode;
   return [
     {
       text: (
-        <div className="flex flex-col items-start justify-center gap-1.5 text-left sm:gap-2.5">
-          <span className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <div className="flex flex-col items-center justify-center gap-2 text-center">
+          <span className="font-display text-2.5xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Wayzyy. Short term rentals.
           </span>
           <span className="font-display text-xs font-medium text-white/90 sm:text-xl lg:text-2xl">
@@ -148,21 +130,25 @@ function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode;
     },
     {
       text: (
-        <>
-          <span className="block font-extrabold text-ember">Goa.</span>
-          <span className="block mt-1 text-white sm:mt-2">A land of beaches, waterfalls, and a getaway from metro cities.</span>
-        </>
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="block font-extrabold text-ember text-3xl sm:text-6xl lg:text-7xl">Goa.</span>
+          <span className="block mt-2 text-white text-xl sm:text-4xl lg:text-5xl max-w-3xl">
+            A land of beaches, waterfalls, and a getaway from metro cities.
+          </span>
+        </div>
       ),
       ember: false,
     },
     {
       text: (
-        <>
-          <span className="block font-extrabold text-white">Wayzyy is here to step it up.</span>
-          <span className="block mt-1 sm:mt-2 text-white/90">
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="block font-extrabold text-white text-2.5xl sm:text-5xl lg:text-6xl">
+            Wayzyy is here to step it up.
+          </span>
+          <span className="block mt-2 text-white/90 text-lg sm:text-3xl lg:text-4xl max-w-3xl">
             Real villas, real hosts, <span className="text-ember font-bold">and no hidden markup.</span>
           </span>
-        </>
+        </div>
       ),
       ember: false,
     },
@@ -338,7 +324,7 @@ function HeadlineBeat({
     <motion.div
       style={{ opacity, y }}
       className={
-        "absolute inset-x-0 text-left font-display text-2xl font-bold leading-[1.15] sm:text-5xl md:text-6xl lg:text-7xl " +
+        "absolute inset-x-0 text-center flex justify-center items-center font-display text-2xl font-bold leading-[1.15] sm:text-5xl md:text-6xl lg:text-7xl " +
         (ember ? "text-ember" : "text-white")
       }
     >
@@ -695,7 +681,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30" />
 
               {/* flowing headline - one phrase visible at a time */}
-              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-start px-6 sm:px-12 max-w-5xl mx-auto">
+              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center justify-center px-4 sm:px-8 max-w-5xl mx-auto">
                 <div className="relative min-h-[7em] w-full max-w-4xl sm:min-h-[4em]">
                   {buildHeadlinePhrases(progress).map((p, i) => (
                     <HeadlineBeat key={i} progress={progress} window={T.headline[i]} ember={p.ember}>
