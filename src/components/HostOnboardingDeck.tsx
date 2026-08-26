@@ -192,8 +192,8 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
       {/* Top Header Bar */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-border/50">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-ember">
-            <Sparkles className="h-3.5 w-3.5" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-ember animate-pulse" />
             Official Onboarding Document · 2026
           </div>
           <h2 className="mt-2 font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight">
