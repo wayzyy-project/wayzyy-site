@@ -85,11 +85,11 @@ const T = {
     { in: [0.22, 0.238], out: [0.2909, 0.31] },
   ],
   layersFadeOut: [0.2364, 0.2909],
-  zoomWide: { in: [0.2909, 0.3273], out: [0.3818, 0.4182] },
-  zoomCloser: { in: [0.3818, 0.4182], out: [0.4727, 0.5091] },
-  doorOpen: { in: [0.2909, 0.33], out: [0.55, 0.58] },
+  zoomWide: { in: [0.2909, 0.32], out: [0.37, 0.40] },
+  zoomCloser: { in: [0.37, 0.40], out: [0.45, 0.48] },
+  doorOpen: { in: [0.45, 0.48], out: [0.55, 0.58] },
   poolDeck: { in: [0.60, 0.64], out: [0.76, 0.80] },
-  story2: { in: [0.2909, 0.33], out: [0.55, 0.58] },
+  story2: { in: [0.2909, 0.32], out: [0.55, 0.58] },
   bazaar: { in: [0.6909, 0.7273], out: [0.9455, 1.0] },
   story3: { in: [0.7273, 0.7636], out: [0.9091, 0.9455] },
 };
@@ -363,7 +363,7 @@ function RightScrollCue({ progress }: { progress: MotionValue<number> }) {
     <motion.div
       aria-hidden
       style={{ opacity, scale: grow }}
-      className="pointer-events-none absolute inset-y-0 right-4 z-20 hidden origin-right items-center sm:flex sm:right-6"
+      className="pointer-events-none absolute inset-y-0 right-2.5 z-20 flex origin-right items-center sm:right-6"
     >
       <div className="flex flex-col items-center gap-2">
         <motion.span
