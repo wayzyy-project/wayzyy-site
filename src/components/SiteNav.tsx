@@ -276,7 +276,6 @@ export function SiteNav({ floating = false }: SiteNavProps) {
                 Blog
               </Link>
               <HostNavMenu variant="floating" />
-              <ChallengeNavMenu variant="floating" />
             </nav>
             <div className="flex items-center gap-2">
               <ThemeToggle />
@@ -338,7 +337,6 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             Blog
           </Link>
           <HostNavMenu variant="solid" />
-          <ChallengeNavMenu variant="solid" />
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
