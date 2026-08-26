@@ -126,7 +126,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                     key={c.id}
                     type="button"
                     onClick={() => setSelectedCity(c.id)}
-                    className={`h-10 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center text-center ${
+                    className={`h-10 px-3 rounded-full border text-xs font-bold transition-all flex items-center justify-center text-center cursor-pointer ${
                       selectedCity === c.id
                         ? "border-ember bg-ember/15 text-ember ring-1 ring-ember/40 shadow-sm"
                         : "border-border/60 bg-muted/30 text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -149,7 +149,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                     placeholder="Enter your city name (e.g. Mumbai, Delhi, Manali, Pondicherry)"
                     value={customCity}
                     onChange={(e) => setCustomCity(e.target.value)}
-                    className="h-11 rounded-xl bg-background/80 px-4 text-xs sm:text-sm"
+                    className="h-11 rounded-full bg-background/80 px-5 text-xs sm:text-sm"
                   />
                 </motion.div>
               )}
@@ -171,7 +171,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                 }
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-11 rounded-xl bg-background/80 px-4 text-xs sm:text-sm placeholder:text-muted-foreground/60"
+                className="h-11 rounded-full bg-background/80 px-5 text-xs sm:text-sm placeholder:text-muted-foreground/60"
               />
             </div>
 
@@ -193,7 +193,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                 placeholder="+91 98765 43210"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="h-11 rounded-xl bg-background/80 px-4 text-xs sm:text-sm placeholder:text-muted-foreground/60"
+                className="h-11 rounded-full bg-background/80 px-5 text-xs sm:text-sm placeholder:text-muted-foreground/60"
               />
             </div>
 
@@ -202,7 +202,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
               type="submit"
               variant="cta"
               disabled={loading}
-              className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider gap-2 shadow-lg shadow-ember/20 cursor-pointer"
+              className="w-full h-12 rounded-full text-xs font-bold uppercase tracking-wider gap-2 shadow-lg shadow-ember/20 cursor-pointer"
             >
               {loading ? (
                 "Submitting…"
@@ -242,7 +242,7 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                   setEmail("");
                   setPhone("");
                 }}
-                className="rounded-xl text-xs font-semibold"
+                className="rounded-full text-xs font-semibold px-5"
               >
                 Add another property or email
               </Button>

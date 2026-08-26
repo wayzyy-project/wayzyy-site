@@ -80,7 +80,7 @@ export function HomeCalculatorSection() {
                   <Calculator className="h-3.5 w-3.5 text-ember" />
                   Total yearly bookings
                 </label>
-                <div className="flex items-center rounded-lg border border-border bg-card px-2.5 py-1">
+                <div className="flex items-center rounded-full border border-border bg-card px-3 py-1">
                   <span className="text-xs font-semibold text-muted-foreground mr-1">₹</span>
                   <Input
                     id="home-booking-value"
@@ -110,7 +110,7 @@ export function HomeCalculatorSection() {
                     key={p.label}
                     type="button"
                     onClick={() => setBookingValue(p.value)}
-                    className={`px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-medium transition-all ${
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium transition-all cursor-pointer ${
                       bookingValue === p.value
                         ? "bg-ember text-white font-bold shadow-xs"
                         : "bg-card/70 hover:bg-card border border-border/60 text-muted-foreground hover:text-foreground"

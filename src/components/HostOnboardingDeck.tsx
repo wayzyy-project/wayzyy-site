@@ -207,10 +207,10 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-2">
           {/* View Mode Toggle */}
-          <div className="flex items-center rounded-xl bg-muted/60 p-1 border border-border/40">
+          <div className="flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
             <button
               onClick={() => setViewMode("slides")}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
                 viewMode === "slides" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
               }`}
               title="Slide By Slide Mode"
@@ -220,7 +220,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
             </button>
             <button
               onClick={() => setViewMode("scroll")}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
                 viewMode === "scroll" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
               }`}
               title="Continuous Scroll Mode"
@@ -233,7 +233,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
           {/* Fullscreen Toggle */}
           <button
             onClick={toggleFullscreen}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-border/60 bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
           >
             {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
@@ -243,7 +243,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
           <a
             href={PDF_DOWNLOAD}
             download="Wayzyy-Host-Onboarding-Goa-2026.pdf"
-            className="flex items-center gap-1.5 h-9 px-3 rounded-xl border border-border/60 bg-muted/40 hover:bg-muted text-xs font-bold text-foreground transition-colors"
+            className="flex items-center gap-1.5 h-9 px-4 rounded-full border border-border/60 bg-muted/40 hover:bg-muted text-xs font-bold text-foreground transition-colors"
             title="Download Original PDF"
           >
             <Download className="h-3.5 w-3.5 text-ember" />
@@ -255,7 +255,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
             href={DRIVE_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 h-9 px-3 rounded-xl border border-border/60 bg-muted/40 hover:bg-muted text-xs font-bold text-foreground transition-colors"
+            className="flex items-center gap-1.5 h-9 px-4 rounded-full border border-border/60 bg-muted/40 hover:bg-muted text-xs font-bold text-foreground transition-colors"
             title="Open in Google Drive"
           >
             <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
@@ -429,7 +429,7 @@ export function HostOnboardingDeck({ embedded = false, onJoinWaitlist }: HostOnb
           <a
             href={onJoinWaitlist ? "#waitlist" : "/host"}
             onClick={onJoinWaitlist}
-            className="w-full sm:w-auto h-11 px-6 rounded-xl bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+            className="w-full sm:w-auto h-11 px-7 rounded-full bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
           >
             Join Goa Host Portal <ArrowRight className="h-4 w-4" />
           </a>

@@ -70,7 +70,7 @@ export default function HostOnboardingDoc() {
 
               <Link
                 to="/host"
-                className="shrink-0 h-11 px-6 rounded-xl bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2"
+                className="shrink-0 h-11 px-7 rounded-full bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2"
               >
                 Go to Host Portal <ArrowRight className="h-4 w-4" />
               </Link>
@@ -158,7 +158,7 @@ export default function HostOnboardingDoc() {
               </p>
               <Link
                 to="/host"
-                className="w-full sm:w-auto h-12 px-8 rounded-xl bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2 shrink-0"
+                className="w-full sm:w-auto h-12 px-8 rounded-full bg-ember hover:bg-ember/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-ember/25 transition-all flex items-center justify-center gap-2 shrink-0"
               >
                 Go to Host Portal & Log In <ArrowRight className="h-4 w-4" />
               </Link>
