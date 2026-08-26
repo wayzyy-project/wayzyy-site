@@ -61,22 +61,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Persist the signup so the app can auto-grant a wallet credit the moment
-    // this email registers an account. Best-effort — never blocks the waitlist
-    // confirmation the visitor sees, even if this insert fails.
+    // Persist the signup to Supabase waitlist_signups table
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (supabaseUrl && supabaseServiceKey) {
-      fetch(`${supabaseUrl}/rest/v1/waitlist_signups`, {
-        method: "POST",
-        headers: {
-          apikey: supabaseServiceKey,
-          Authorization: `Bearer ${supabaseServiceKey}`,
-          "Content-Type": "application/json",
-          Prefer: "resolution=ignore-duplicates",
-        },
-        body: JSON.stringify({ email, audience, city, phone }),
-      }).catch((e) => console.error("waitlist_signups insert failed (non-fatal):", e));
+      try {
+        const dbRes = await fetch(`${supabaseUrl}/rest/v1/waitlist_signups`, {
+          method: "POST",
+          headers: {
+            apikey: supabaseServiceKey,
+            Authorization: `Bearer ${supabaseServiceKey}`,
+            "Content-Type": "application/json",
+            Prefer: "return=representation",
+          },
+          body: JSON.stringify({ email, audience, city, phone }),
+        });
+        if (!dbRes.ok) {
+          console.error("Supabase waitlist_signups insert returned non-200:", dbRes.status, await dbRes.text());
+        }
+      } catch (e) {
+        console.error("Supabase waitlist_signups insert error:", e);
+      }
     }
 
     const emailHtml = `
