@@ -27,13 +27,10 @@ export const useAuth = () => {
   }, []);
 
   const getAuthRedirectUrl = () => {
-    if (typeof window !== "undefined") {
-      const origin = window.location.origin;
-      if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
-        return "https://wayzyy.com/host";
-      }
-      return `${origin}/host`;
-    }
+    // Always redirect OAuth callbacks to the live production domain.
+    // Using localhost here causes mobile browsers and OAuth providers to
+    // fail with "can't connect to server" since localhost is not reachable
+    // from outside the dev machine.
     return "https://wayzyy.com/host";
   };
 
