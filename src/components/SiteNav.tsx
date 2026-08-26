@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { KeyJuggler } from "@/components/KeyJuggler";
-import { ChallengeTopBanner } from "@/components/gig-challenge/ChallengeTopBanner";
 import { Swords, ChevronDown, Calculator, ArrowUpRight, Home, TrendingUp, ShieldAlert, Percent, Flag, FileText } from "lucide-react";
 import {
   DropdownMenu,
@@ -296,7 +295,6 @@ export function SiteNav({ floating = false }: SiteNavProps) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <ChallengeTopBanner />
       {/* Scroll-driven background: the outer motion.div owns the
           fade-in opacity (absolute positioning must live here, not on the
           liquid-glass element - liquid-glass sets `position: relative`,
