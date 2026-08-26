@@ -42,9 +42,23 @@ export const useAuth = () => {
     return supabase.auth.signInWithPassword({ email, password });
   };
 
+  const signInWithGoogle = async () => {
+    const redirectTo = `${window.location.origin}/host`;
+    return supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo,
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
+  };
+
   const signOut = async () => {
     return supabase.auth.signOut();
   };
 
-  return { session, user: session?.user ?? null, loading, signUp, signIn, signOut };
+  return { session, user: session?.user ?? null, loading, signUp, signIn, signInWithGoogle, signOut };
 };
