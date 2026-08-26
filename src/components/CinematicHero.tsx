@@ -87,9 +87,9 @@ const T = {
   layersFadeOut: [0.20, 0.25],
   zoomWide: { in: [0.25, 0.28], out: [0.41, 0.44] },
   zoomCloser: { in: [0.25, 0.28], out: [0.41, 0.44] },
-  doorOpen: { in: [0.44, 0.47], out: [0.60, 0.63] },
-  poolDeck: { in: [0.65, 0.68], out: [0.78, 0.81] },
-  story2: { in: [0.44, 0.47], out: [0.60, 0.63] },
+  doorOpen: { in: [0.44, 0.47], out: [0.60, 0.64] },
+  poolDeck: { in: [0.62, 0.65], out: [0.78, 0.81] },
+  story2: { in: [0.44, 0.47], out: [0.60, 0.64] },
   bazaar: { in: [0.81, 0.84], out: [0.96, 1.0] },
   story3: { in: [0.84, 0.87], out: [0.95, 0.98] },
 };
@@ -498,8 +498,8 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const [scene3Mounted, setScene3Mounted] = useState(false);
   useMotionValueEvent(progress, "change", (p) => {
     setScene1Mounted(p < 0.28);
-    setSceneZoomMounted(p > 0.24 && p < 0.59);
-    setScenePoolMounted(p >= 0.60 && p < T.poolDeck.out[1] + 0.04);
+    setSceneZoomMounted(p > 0.24 && p < 0.65);
+    setScenePoolMounted(p >= 0.61 && p < T.poolDeck.out[1] + 0.04);
     setScene3Mounted(p > T.bazaar.in[0] - 0.04);
   });
 

@@ -82,15 +82,21 @@ function DeckCard({
     <motion.div
       style={{ opacity, scale, rotate, y }}
       className={
-        "liquid-glass flex flex-col justify-between w-full rounded-2xl p-4 shadow-xl sm:p-5 md:p-6 lg:p-7 backdrop-blur-xl border border-white/20 " +
+        "liquid-glass flex flex-col justify-between w-full min-h-[250px] sm:min-h-[280px] md:min-h-[300px] lg:min-h-[320px] rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-2xl backdrop-blur-2xl border border-white/25 bg-black/40 hover:bg-black/50 transition-all " +
         card.tint
       }
     >
       <div>
-        <h3 className="font-display text-sm font-bold leading-snug text-white sm:text-base md:text-lg lg:text-xl">
+        <div className="mb-3 flex items-center justify-between">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ember text-xs font-extrabold text-white shadow-md shadow-ember/30">
+            {index + 1}
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">Wayzyy Advantage</span>
+        </div>
+        <h3 className="font-display text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold leading-tight text-white tracking-tight drop-shadow-md">
           {card.heading}
         </h3>
-        <p className="mt-2 text-xs font-normal leading-relaxed text-white/80 sm:text-sm lg:text-base">
+        <p className="mt-3 text-xs sm:text-sm lg:text-base font-semibold leading-relaxed text-white/90 drop-shadow-xs">
           {card.body}
         </p>
       </div>
