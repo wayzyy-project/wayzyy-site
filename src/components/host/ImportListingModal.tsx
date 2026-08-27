@@ -310,7 +310,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       const photos = listingData.photoUrls || [];
       const coverPhoto = listingData.coverPhotoUrl || photos[0] || "";
       const city = listingData.city || listingData.location?.locality || "Goa";
-      const state = listingData.state || listingData.location?.region || "Goa";
+      // No "Goa" fallback here - this platform now imports from outside
+      // Goa too (this exact listing is in Rishikesh), and silently
+      // mislabeling an unknown state as Goa is worse than leaving it blank
+      // for the host/admin to notice and fill in.
+      const state = listingData.state || listingData.location?.region || "";
       const bedrooms = listingData.details?.bedrooms || 1;
       const finalTitle = title || listingData.name || "Imported Airbnb Property";
       const finalDescription = description || listingData.description || "";
@@ -413,7 +417,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
         title: targetHost ? "Imported for host" : "Submitted for Approval! 🚀",
         description: targetHost
           ? `"${finalTitle}" now sits in ${targetHost.name || targetHost.email}'s dashboard.`
-          : `"${finalTitle}" is now pending review by our team.`,
+          : `"${finalTitle}" is now pending review by our team. Check your email for confirmation, or visit your listings page shortly.`,
       });
 
       if (onSuccess) onSuccess();
@@ -567,6 +571,19 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     </Button>
                   </div>
                 </div>
+                {lookingUp && (
+                  <div className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card/40 p-5 text-center">
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    <p className="text-sm font-medium text-foreground">Fetching your listing…</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      This can take a few minutes. You can check out our{" "}
+                      <Link to="/privacy" target="_blank" className="text-primary underline">Privacy Policy</Link>{" "}
+                      or our{" "}
+                      <Link to="/host-terms" target="_blank" className="text-primary underline">Host Policy</Link>{" "}
+                      while you wait, or just leave this open — it'll keep going in the background.
+                    </p>
+                  </div>
+                )}
               </>
             )}
 
@@ -725,8 +742,12 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                       here so a host who has it can add it in one pass, with
                       an explicit out for the (common) case of not having it
                       yet - our team follows up, and it stays editable from
-                      the listing's Details tab afterward either way. */}
-                  {(listingData?.state ?? "Goa").trim().toLowerCase() === "goa" && (
+                      the listing's Details tab afterward either way.
+                      Was defaulting to "Goa" whenever AirROI didn't return a
+                      state at all, which showed this field on non-Goa
+                      imports (e.g. Rishikesh) - only show it when the
+                      listing is actually confirmed Goa. */}
+                  {(listingData?.state ?? "").trim().toLowerCase() === "goa" && (
                     <div className="space-y-2 border-t border-border pt-3">
                       <Label className="text-xs font-semibold">Goa Tourism Registration Number</Label>
                       <Input
