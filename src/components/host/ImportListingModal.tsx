@@ -99,6 +99,12 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
   const [amenities, setAmenities] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [expandedPreview, setExpandedPreview] = useState(true);
+  // Goa listings legally need this to operate, but it's never available at
+  // import time from Airbnb/AirROI, so it's offered here rather than
+  // required - fill it in if you have it, or come back to it later from
+  // the listing's Details tab once it's imported.
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [dontHaveRegistration, setDontHaveRegistration] = useState(false);
 
   // Every host account (existing & new) has 1-Click Import access enabled by default (up to 5 properties)
   const isAdmin = user?.email === "hello@wayzyy.com";
@@ -330,7 +336,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
             city,
             state,
             pincode: "",
-            registrationNumber: "",
+            registrationNumber: registrationNumber.trim(),
             latitude: listingData.latitude ?? null,
             longitude: listingData.longitude ?? null,
             maxGuests: listingData.details?.guests || 2,
@@ -713,6 +719,37 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                       />
                     </div>
                   </div>
+
+                  {/* Only Goa currently requires this, and only to actually
+                      operate - never to import, review, or publish. Offered
+                      here so a host who has it can add it in one pass, with
+                      an explicit out for the (common) case of not having it
+                      yet - our team follows up, and it stays editable from
+                      the listing's Details tab afterward either way. */}
+                  {(listingData?.state ?? "Goa").trim().toLowerCase() === "goa" && (
+                    <div className="space-y-2 border-t border-border pt-3">
+                      <Label className="text-xs font-semibold">Goa Tourism Registration Number</Label>
+                      <Input
+                        placeholder="e.g. GT/SDE/123/2026"
+                        value={registrationNumber}
+                        disabled={dontHaveRegistration}
+                        onChange={(e) => setRegistrationNumber(e.target.value)}
+                        className="text-xs disabled:opacity-50"
+                      />
+                      <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          checked={dontHaveRegistration}
+                          onChange={(e) => {
+                            setDontHaveRegistration(e.target.checked);
+                            if (e.target.checked) setRegistrationNumber("");
+                          }}
+                          className="h-3.5 w-3.5 rounded border-border"
+                        />
+                        I don't have this yet — our team will help me sort it out
+                      </label>
+                    </div>
+                  )}
 
                   <div className="pt-2">
                     <Button

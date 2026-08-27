@@ -16,12 +16,15 @@ interface Props {
   propertyId: string;
   propertyTitle: string;
   onBack: () => void;
+  /** Opens directly on a given tab - used to jump straight to "details"
+   * from the missing-registration nudge on the listing card. */
+  defaultTab?: string;
 }
 
 // The website's equivalent of the app's ConnectCalendarScreen + HostDiscountsScreen +
 // cancellation-policy cards - same tables and edge functions as mobile, so a
 // change made here shows up in the app instantly and vice versa.
-export function ListingManagePanel({ propertyId, propertyTitle, onBack }: Props) {
+export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultTab }: Props) {
   return (
     <div className="mx-auto max-w-2xl">
       <button
@@ -34,13 +37,14 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack }: Props)
       </button>
 
       <h2 className="font-display text-2xl text-white">{propertyTitle}</h2>
-      <p className="mb-6 text-sm text-white/60">Manage calendar sync, discounts, and cancellation policy.</p>
+      <p className="mb-6 text-sm text-white/60">Manage calendar sync, discounts, cancellation policy, and listing details.</p>
 
-      <Tabs defaultValue="calendar">
+      <Tabs defaultValue={defaultTab ?? "calendar"}>
         <TabsList className="mb-6 bg-white/10 text-white/60">
           <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
+          <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar">
           <CalendarSection propertyId={propertyId} propertyTitle={propertyTitle} />
@@ -51,7 +55,89 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack }: Props)
         <TabsContent value="cancellation">
           <CancellationSection propertyId={propertyId} />
         </TabsContent>
+        <TabsContent value="details">
+          <DetailsSection propertyId={propertyId} />
+        </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+// ── Listing details (registration number today; room for more later) ───────
+
+function DetailsSection({ propertyId }: { propertyId: string }) {
+  const { toast } = useToast();
+  const [state, setState] = useState<string | null>(null);
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    supabase
+      .from("properties")
+      .select("state, registration_number")
+      .eq("id", propertyId)
+      .single()
+      .then(({ data }) => {
+        setState(data?.state ?? null);
+        setRegistrationNumber(data?.registration_number ?? "");
+        setLoading(false);
+      });
+  }, [propertyId]);
+
+  const isGoa = state?.trim().toLowerCase() === "goa";
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const { error } = await supabase
+        .from("properties")
+        .update({ registration_number: registrationNumber.trim() || null })
+        .eq("id", propertyId);
+      if (error) throw error;
+      toast({ title: "Saved", description: "Registration number updated." });
+    } catch (err: any) {
+      toast({ title: "Couldn't save", description: err?.message ?? "Please try again.", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return <p className="text-sm text-white/50">Loading...</p>;
+  }
+
+  if (!isGoa) {
+    return (
+      <p className="text-sm text-white/50">
+        No location-specific requirements for this listing right now.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-4">
+      <div>
+        <Label className="text-xs font-semibold text-white/80">Goa Tourism Registration Number</Label>
+        <p className="mt-0.5 text-xs text-white/50">
+          Required to actually operate in Goa - doesn't block reviews or publishing, but add it
+          when you have it.
+        </p>
+      </div>
+      <Input
+        placeholder="e.g. GT/SDE/123/2026"
+        value={registrationNumber}
+        onChange={(e) => setRegistrationNumber(e.target.value)}
+        className="border-white/15 bg-white/10 text-sm text-white placeholder:text-white/40"
+      />
+      <Button
+        onClick={handleSave}
+        disabled={saving}
+        size="sm"
+        className="gap-1.5 bg-ember text-white hover:bg-ember/90"
+      >
+        {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
+      </Button>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
@@ -342,6 +342,15 @@ interface HostListing {
   price_per_night: number;
   images: string[];
   status: string;
+  registration_number: string | null;
+}
+
+/** Goa listings legally need a Tourism Registration Number before they can
+ * actually operate - but a host shouldn't be blocked from importing or
+ * getting published without one, so this is a soft nudge (a badge + an
+ * editable field), never a gate. */
+function needsGoaRegistration(listing: HostListing) {
+  return listing.state?.trim().toLowerCase() === "goa" && !listing.registration_number?.trim();
 }
 
 function statusMeta(status: string) {
@@ -354,7 +363,7 @@ function statusMeta(status: string) {
 // The website's equivalent of the app's Host section listings screen - same
 // `properties` table, same host_id, so a listing made on either platform
 // shows up here identically.
-function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string) => void }) {
+function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage: (id: string, title: string, defaultTab?: string) => void }) {
   const { user, session } = useAuth();
   const { toast } = useToast();
   const [listings, setListings] = useState<HostListing[] | null>(null);
@@ -408,7 +417,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     // Fetch properties
     supabase
       .from("properties")
-      .select("id, title, city, state, price_per_night, images, status")
+      .select("id, title, city, state, price_per_night, images, status, registration_number")
       .eq("host_id", user.id)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
@@ -724,6 +733,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         <div className="space-y-4">
           {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
+            const missingRegistration = needsGoaRegistration(p);
             return (
               <div key={p.id} className="liquid-glass rounded-2xl border border-white/15 bg-black/30 p-4 transition-all hover:border-white/25">
                 <div className="flex gap-4">
@@ -749,6 +759,22 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     </p>
                   </div>
                 </div>
+
+                {/* Soft nudge, never a gate - a Goa listing can import,
+                    review, and even publish with this missing, but it still
+                    needs it to legally operate, so it stays visible on the
+                    card until filled in. */}
+                {missingRegistration && (
+                  <button
+                    onClick={() => onManage(p.id, p.title || "Untitled listing", "details")}
+                    className="mt-3 flex w-full items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left text-xs text-amber-600 transition-colors hover:bg-amber-500/15 dark:text-amber-400"
+                  >
+                    <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                    <span className="flex-1">Add your Goa Tourism Registration Number</span>
+                    <span className="shrink-0 font-semibold underline">Add now</span>
+                  </button>
+                )}
+
                 <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
                   <Button
                     variant="outline"
@@ -1607,7 +1633,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
 export default function HostPortal() {
   const { user, loading } = useAuth();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
-  const [managing, setManaging] = useState<{ id: string; title: string } | null>(null);
+  const [managing, setManaging] = useState<{ id: string; title: string; defaultTab?: string } | null>(null);
 
   // While auth is loading, show a clean full-screen spinner
   if (loading) {
@@ -1680,8 +1706,8 @@ export default function HostPortal() {
           {view === "dashboard" ? (
             <HostDashboard
               onAddNew={() => setView("wizard")}
-              onManage={(id, title) => {
-                setManaging({ id, title });
+              onManage={(id, title, defaultTab) => {
+                setManaging({ id, title, defaultTab });
                 setView("manage");
               }}
             />
@@ -1689,6 +1715,7 @@ export default function HostPortal() {
             <ListingManagePanel
               propertyId={managing.id}
               propertyTitle={managing.title}
+              defaultTab={managing.defaultTab}
               onBack={() => setView("dashboard")}
             />
           ) : (
