@@ -28,7 +28,7 @@ import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
-import { HostGetStarted, SELF_SERVE_IMPORT_LIMIT, SUPPORT_EMAIL, SUPPORT_PHONE, type OnboardingSubmission } from "@/components/host/HostGetStarted";
+import { HostGetStarted, importLimitFor, SUPPORT_EMAIL, SUPPORT_PHONE, type OnboardingSubmission } from "@/components/host/HostGetStarted";
 import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
@@ -460,12 +460,15 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   // Self-serve import is capped so a host can't hammer the import API with
   // an entire portfolio - past the cap we want them talking to us instead,
   // which is also the point at which the concierge path is the better deal.
-  const atImportLimit = !isAdmin && listings.length >= SELF_SERVE_IMPORT_LIMIT;
+  // Some accounts (demo/showcase) get a per-account override above the
+  // default - see importLimitFor in HostGetStarted.tsx.
+  const importLimit = importLimitFor(user?.email);
+  const atImportLimit = !isAdmin && listings.length >= importLimit;
 
   const handleImportClick = () => {
     if (atImportLimit) {
       toast({
-        title: `You've imported ${SELF_SERVE_IMPORT_LIMIT} properties`,
+        title: `You've imported ${importLimit} properties`,
         description: `That's the self-serve limit. To add more, reach us at ${SUPPORT_EMAIL} or ${SUPPORT_PHONE} and we'll import the rest for you.`,
       });
       return;
@@ -648,8 +651,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                 </TooltipTrigger>
                 <TooltipContent side="top" className="text-xs max-w-xs">
                   {atImportLimit
-                    ? `You've reached the ${SELF_SERVE_IMPORT_LIMIT}-property self-serve limit — contact us to import more.`
-                    : `1-Click auto-import photos, layouts & details from Airbnb or Booking.com (${listings.length}/${SELF_SERVE_IMPORT_LIMIT} used)`}
+                    ? `You've reached the ${importLimit}-property self-serve limit — contact us to import more.`
+                    : `1-Click auto-import photos, layouts & details from Airbnb or Booking.com (${listings.length}/${importLimit} used)`}
                 </TooltipContent>
               </Tooltip>
 

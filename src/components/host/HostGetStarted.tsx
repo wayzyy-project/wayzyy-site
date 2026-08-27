@@ -24,6 +24,22 @@ const SUPPORT_PHONE_HREF = "+918796895934";
 /** Max properties a host can pull in themselves before talking to us. */
 export const SELF_SERVE_IMPORT_LIMIT = 5;
 
+/**
+ * Per-account overrides above the default cap - for demo/showcase accounts
+ * that need to import more than a real early host would, without loosening
+ * the limit (which exists to stop API abuse) for everyone else. Keyed by
+ * lowercased email.
+ */
+const IMPORT_LIMIT_OVERRIDES: Record<string, number> = {
+  "akshayne912@gmail.com": 25,
+};
+
+/** The effective self-serve import cap for a given account. */
+export function importLimitFor(email: string | null | undefined): number {
+  if (!email) return SELF_SERVE_IMPORT_LIMIT;
+  return IMPORT_LIMIT_OVERRIDES[email.toLowerCase()] ?? SELF_SERVE_IMPORT_LIMIT;
+}
+
 export type OnboardingSubmission = {
   id: string;
   created_at: string;
