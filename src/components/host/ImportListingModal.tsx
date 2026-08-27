@@ -356,6 +356,14 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
           hostEmail: targetHost?.email ?? user.email ?? "",
           hostName: targetHost?.name || user.user_metadata?.full_name || listingData.hostName || "Host",
           hostId: targetHost?.id ?? user.id,
+          // Tells submit-listing to skip the Goa Tourism Registration
+          // Number requirement. That number is never actually available at
+          // import time (registrationNumber is always "" above - it isn't
+          // something Airbnb/AirROI exposes), so the check was hard-failing
+          // every single Goa import. The listing still lands as
+          // pending_review either way; registration can be collected before
+          // it's actually published rather than blocking the import itself.
+          isImport: true,
         },
       });
 
