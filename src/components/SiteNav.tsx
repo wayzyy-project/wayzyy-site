@@ -256,14 +256,14 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="w-full px-[clamp(1rem,5vw,4rem)] pt-[clamp(1rem,3vw,2rem)]">
           <div className="liquid-glass mx-auto flex h-16 max-w-5xl items-center justify-between rounded-full px-4 sm:px-6">
-            <a href="#top" className="group flex items-center">
+            <a href="/#top" className="group flex items-center">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm text-white/90 sm:flex">
-              <a className="hover:text-white" href="#why">
+              <a className="hover:text-white" href="/#why">
                 Why
               </a>
-              <a className="hover:text-white" href="#two-sides">
+              <a className="hover:text-white" href="/#two-sides">
                 Two sides
               </a>
               <Link className="hover:text-white" to="/waitlist">
@@ -317,14 +317,14 @@ export function SiteNav({ floating = false }: SiteNavProps) {
         className="absolute inset-x-0 bottom-0 h-[1px] bg-border"
       />
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
-        <a href="#top" className="group flex items-center">
+        <a href="/#top" className="group flex items-center">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-          <a className="hover:text-foreground" href="#why">
+          <a className="hover:text-foreground" href="/#why">
             Why
           </a>
-          <a className="hover:text-foreground" href="#two-sides">
+          <a className="hover:text-foreground" href="/#two-sides">
             Two sides
           </a>
           <Link className="hover:text-foreground" to="/waitlist">

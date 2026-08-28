@@ -12,23 +12,53 @@ export function ScrollToTop() {
     // top-of-page reset used for every other navigation.
     if (hash) {
       const id = hash.slice(1);
-      // The target section may not be mounted yet on the first render of a
-      // fresh route change, so give it a tick before giving up.
+      // A single scrollTo call here isn't trustworthy on a fresh full-page
+      // load: this site's hero is a huge, image-heavy scroll-driven
+      // section, so the page's total scrollable height is still growing as
+      // assets load in. Calling lenisRef.current.scrollTo(el, {immediate})
+      // the moment Lenis exists can land before Lenis has measured the
+      // real (final) document height, which silently clamps the jump to
+      // whatever height it saw at that instant - short of the target, with
+      // nothing forcing a second attempt once the real height is known.
+      // Landing on "/#why" via a plain <a> tag (a full reload, not a
+      // client-side route change) hit exactly this: the element existed
+      // immediately, an early scrollTo fired, and the page never actually
+      // reached it. Verifying the result and retrying - not just retrying
+      // until Lenis exists - is what actually closes the gap.
+      let attempts = 0;
+      const MAX_ATTEMPTS = 20;
+      let timeout: ReturnType<typeof setTimeout> | undefined;
+
+      // Anchor targets carry `scroll-smooth-anchor` (scroll-margin-top: 6rem,
+      // see index.css) so they land with breathing room below the fixed
+      // nav instead of flush against it - the correct landing spot is
+      // ~96px, not 0, so "close enough" has to be judged against that
+      // computed value, not a bare zero.
+      const closeEnough = (el: Element) => {
+        const target = parseFloat(getComputedStyle(el).scrollMarginTop || "0");
+        return Math.abs(el.getBoundingClientRect().top - target) < 8;
+      };
+
       const scrollToHash = () => {
         const el = document.getElementById(id);
-        if (!el) return false;
+        if (!el) {
+          attempts++;
+          if (attempts < MAX_ATTEMPTS) timeout = setTimeout(scrollToHash, 80);
+          return;
+        }
+        if (closeEnough(el)) return;
         if (lenisRef.current) {
           lenisRef.current.scrollTo(el, { immediate: true });
         } else {
+          // Lenis isn't up yet - jump natively so there's no flash of the
+          // wrong content while waiting for it.
           el.scrollIntoView({ behavior: "auto", block: "start" });
         }
-        return true;
+        attempts++;
+        if (attempts < MAX_ATTEMPTS) timeout = setTimeout(scrollToHash, 80);
       };
-      if (!scrollToHash()) {
-        const timeout = setTimeout(scrollToHash, 50);
-        return () => clearTimeout(timeout);
-      }
-      return;
+      scrollToHash();
+      return () => clearTimeout(timeout);
     }
 
     // Lenis keeps its own internal scroll target - a plain window.scrollTo()

@@ -30,9 +30,9 @@ export function SiteFooter() {
             {/* Nav */}
             <div className="flex flex-col gap-1.5">
               <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Navigate</p>
-              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#why">Why Wayzyy</a>
+              <a className="text-muted-foreground hover:text-foreground transition-colors" href="/#why">Why Wayzyy</a>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/onboarding">Founding Hosts Deck</Link>
-              <a className="text-muted-foreground hover:text-foreground transition-colors" href="#two-sides">For Hosts & Guests</a>
+              <a className="text-muted-foreground hover:text-foreground transition-colors" href="/#two-sides">For Hosts & Guests</a>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/waitlist">Join Waitlist</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host">List your property</Link>
             </div>
