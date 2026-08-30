@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { CheckCircle2, Eye, IndianRupee, Loader2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BedDouble, CheckCircle2, Droplet, IndianRupee, Loader2, MapPin, Users, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,14 @@ export interface DraftProperty {
   city: string;
   state: string;
   images: string[];
+}
+
+interface FullDetails {
+  description: string | null;
+  amenities: string[] | null;
+  max_guests: number | null;
+  bedrooms: number | null;
+  bathrooms: number | null;
 }
 
 interface Props {
@@ -29,6 +37,17 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
   const [price, setPrice] = useState("");
   const [weekendPrice, setWeekendPrice] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [details, setDetails] = useState<FullDetails | null>(null);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    supabase
+      .from("properties")
+      .select("description, amenities, max_guests, bedrooms, bathrooms")
+      .eq("id", property.id)
+      .maybeSingle()
+      .then(({ data }) => setDetails(data as FullDetails));
+  }, [property.id]);
 
   const handleApprove = async () => {
     const numPrice = Number(price);
@@ -60,6 +79,9 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
     }
   };
 
+  const photos = property.images ?? [];
+  const location = [property.city, property.state].filter(Boolean).join(", ");
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
       <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl border border-border bg-background shadow-2xl">
@@ -73,27 +95,89 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
           </button>
         </div>
 
-        <div className="p-4 space-y-4">
-          {/* Compact preview - same rounded-phone visual language as the
-              listing wizard's PhonePreview, but built off the saved
-              property row rather than in-progress form state. */}
-          <div className="mx-auto max-w-[220px] rounded-[2rem] border-4 border-foreground/10 bg-background p-1.5 shadow-lg">
-            <div className="flex items-center justify-center gap-1 pb-1">
-              <Eye className="h-3 w-3 text-ember" />
-              <span className="text-[9px] font-semibold uppercase tracking-wide text-ember">How it'll look</span>
-            </div>
-            <div className="overflow-hidden rounded-[1.5rem] border border-border">
-              {property.images?.[0] ? (
-                <img src={property.images[0]} alt="" className="aspect-[4/3] w-full object-cover" />
+        <div className="p-4 space-y-5">
+          {/* A real listing card, at real size - not a shrunken mockup.
+              This is what a guest actually sees, so it needs to look like
+              it, not like a wireframe: a proper photo, room to read the
+              title, and the same stats/amenities a live listing shows. */}
+          <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
+            <div className="relative aspect-[16/10] w-full bg-muted">
+              {photos.length > 0 ? (
+                <img src={photos[photoIndex]} alt={property.title} className="h-full w-full object-cover" />
               ) : (
-                <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted text-[10px] text-muted-foreground">No photos</div>
+                <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">No photos imported</div>
               )}
-              <div className="space-y-1 p-2">
-                <p className="truncate text-xs font-semibold text-foreground">{property.title || "Untitled listing"}</p>
-                <p className="text-[10px] text-muted-foreground">{[property.city, property.state].filter(Boolean).join(", ")}</p>
-                <p className="text-xs font-bold text-foreground">
-                  {price ? `₹${Number(price).toLocaleString("en-IN")}` : "₹—"} <span className="text-[10px] font-normal text-muted-foreground">/ night</span>
+              {photos.length > 1 && (
+                <>
+                  <div className="absolute bottom-2.5 right-2.5 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
+                    {photoIndex + 1} / {photos.length}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setPhotoIndex((i) => (i - 1 + photos.length) % photos.length)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70"
+                    aria-label="Previous photo"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPhotoIndex((i) => (i + 1) % photos.length)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70"
+                    aria-label="Next photo"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className="space-y-3 p-4">
+              <div>
+                <h4 className="font-display text-base font-semibold leading-snug text-foreground">{property.title || "Untitled listing"}</h4>
+                {location && (
+                  <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
+                    <MapPin className="h-3.5 w-3.5" /> {location}
+                  </p>
+                )}
+              </div>
+
+              {details && (details.max_guests || details.bedrooms || details.bathrooms) && (
+                <div className="flex items-center gap-4 border-t border-border pt-3 text-sm text-muted-foreground">
+                  {details.max_guests ? (
+                    <span className="flex items-center gap-1.5"><Users className="h-4 w-4" /> {details.max_guests} guests</span>
+                  ) : null}
+                  {details.bedrooms ? (
+                    <span className="flex items-center gap-1.5"><BedDouble className="h-4 w-4" /> {details.bedrooms} bed{details.bedrooms !== 1 ? "s" : ""}</span>
+                  ) : null}
+                  {details.bathrooms ? (
+                    <span className="flex items-center gap-1.5"><Droplet className="h-4 w-4" /> {details.bathrooms} bath</span>
+                  ) : null}
+                </div>
+              )}
+
+              {details?.description && (
+                <p className="whitespace-pre-line text-sm text-muted-foreground line-clamp-3 border-t border-border pt-3">
+                  {details.description}
                 </p>
+              )}
+
+              {details?.amenities && details.amenities.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 border-t border-border pt-3">
+                  {details.amenities.slice(0, 8).map((a) => (
+                    <span key={a} className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">{a}</span>
+                  ))}
+                  {details.amenities.length > 8 && (
+                    <span className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">+{details.amenities.length - 8} more</span>
+                  )}
+                </div>
+              )}
+
+              <div className="border-t border-border pt-3">
+                <span className="text-lg font-bold text-foreground">
+                  {price ? `₹${Number(price).toLocaleString("en-IN")}` : "₹— "}
+                </span>
+                <span className="text-sm text-muted-foreground"> / night</span>
               </div>
             </div>
           </div>
