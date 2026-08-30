@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Download, Search, Loader2, CheckCircle2, ShieldCheck, IndianRupee, X, ChevronDown, ChevronUp, AlertCircle, Sparkles, Mail, UserCheck
+  Download, Search, Loader2, CheckCircle2, ShieldCheck, IndianRupee, X, ChevronDown, ChevronUp, AlertCircle, Sparkles, Mail, UserCheck, Eye, Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,6 +74,14 @@ function mapAirroiAmenities(raw: unknown): string[] {
 function cleanupImportedDescription(text: string | null | undefined): string {
   if (!text) return "";
   return text
+    // AirROI/scraped descriptions sometimes arrive as raw HTML fragments
+    // (house rules in particular come through with literal "<br />" tags) -
+    // convert those to real line breaks and strip anything else that looks
+    // like a tag before it ever reaches the editable textarea, otherwise
+    // "<br />" shows up verbatim as text in the admin preview and in the
+    // property that actually gets saved.
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/?[a-z][^>]*>/gi, "")
     .replace(/\s*◆\s*/g, "\n◆ ")
     .replace(/([a-z])([A-Z])/g, "$1\n$2")
     .replace(/\n{2,}/g, "\n")
@@ -636,6 +644,54 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                   >
                     {expandedPreview ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                   </button>
+                </div>
+
+                {/* How it'll actually look - not the raw editable fields
+                    below, but a real preview: photos in order, title,
+                    location, and the description as guests would actually
+                    read it (post-cleanup, no stray HTML). This is what was
+                    missing before an admin clicked import - the raw field
+                    editor doesn't tell you if a description still has
+                    "<br />" sitting in it or if the wrong photo got picked
+                    as the cover. */}
+                <div className="mx-auto max-w-[240px] rounded-[2rem] border-4 border-foreground/10 bg-background p-1.5 shadow-lg">
+                  <div className="flex items-center justify-center gap-1 pb-1">
+                    <Eye className="h-3 w-3 text-primary" />
+                    <span className="text-[9px] font-semibold uppercase tracking-wide text-primary">How it'll look</span>
+                  </div>
+                  <div className="max-h-[420px] overflow-y-auto rounded-[1.5rem] border border-border">
+                    {(listingData.photoUrls?.length ?? 0) > 0 ? (
+                      <img src={listingData.photoUrls[0]} alt="" className="aspect-[4/3] w-full object-cover" />
+                    ) : (
+                      <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted text-[10px] text-muted-foreground">
+                        <Home className="h-5 w-5" />
+                      </div>
+                    )}
+                    <div className="space-y-2 p-2.5">
+                      <div>
+                        <p className="text-xs font-semibold text-foreground leading-tight">{title || listingData.name || "Untitled listing"}</p>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">
+                          {[listingData.city || listingData.location?.locality, listingData.state || listingData.location?.region].filter(Boolean).join(", ") || "Location not set"}
+                        </p>
+                      </div>
+                      {description && (
+                        <p className="text-[10px] text-muted-foreground whitespace-pre-line line-clamp-6 border-t border-border pt-2">
+                          {description}
+                        </p>
+                      )}
+                      {amenities.length > 0 && (
+                        <div className="flex flex-wrap gap-1 border-t border-border pt-2">
+                          {amenities.slice(0, 6).map((a) => (
+                            <span key={a} className="rounded-full bg-muted px-1.5 py-0.5 text-[9px] text-muted-foreground">{a}</span>
+                          ))}
+                          {amenities.length > 6 && <span className="text-[9px] text-muted-foreground">+{amenities.length - 6} more</span>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {(listingData.photoUrls?.length ?? 0) > 1 && (
+                    <p className="pt-1 text-center text-[9px] text-muted-foreground">+{listingData.photoUrls.length - 1} more photos imported</p>
+                  )}
                 </div>
 
                 {expandedPreview && (
