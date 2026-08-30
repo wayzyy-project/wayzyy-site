@@ -103,12 +103,30 @@ function signalsFor(h: HostRow): HostSignals {
  *  to do something" state, not a status rename. */
 type FilterKey = "all" | "to_import" | "awaiting_pricing" | "to_approve" | "live";
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: "all", label: "Everyone" },
-  { key: "to_import", label: "Links to import" },
-  { key: "awaiting_pricing", label: "With the host" },
-  { key: "to_approve", label: "Ready to approve" },
-  { key: "live", label: "Live" },
+/** Labels name whose move it is, because that's the only thing being
+ *  scanned for. "With the host" tested badly - it didn't say whether the
+ *  listing was on its way out or on its way back, and it sits *before*
+ *  any approval, not after. Each entry also carries the sentence shown
+ *  under the row explaining the state in full, since a two-word pill
+ *  can't carry that on its own and a tooltip nobody hovers can't either. */
+const FILTERS: { key: FilterKey; label: string; explain: string }[] = [
+  { key: "all", label: "Everyone", explain: "Every registered account, whatever stage they're at." },
+  {
+    key: "to_import",
+    label: "You: import links",
+    explain: "They sent us Airbnb links through the form and we haven't imported them yet. Open a host and import from the links on their card.",
+  },
+  {
+    key: "awaiting_pricing",
+    label: "Host: set pricing",
+    explain: "We've imported these into the host's dashboard with no price on them. Nothing is approved yet — we're waiting on the host to set their nightly rate and approve. Use Notify to nudge them.",
+  },
+  {
+    key: "to_approve",
+    label: "You: final approve",
+    explain: "The host has set their pricing and approved. These are waiting on your final approve before they go live.",
+  },
+  { key: "live", label: "Live", explain: "Approved by you and bookable on Wayzyy right now." },
 ];
 
 function matchesFilter(h: HostRow, f: FilterKey): boolean {
@@ -127,7 +145,7 @@ function matchesFilter(h: HostRow, f: FilterKey): boolean {
 const EMPTY_COPY: Record<FilterKey, { title: string; body: string }> = {
   all: { title: "No hosts yet", body: "Registered accounts appear here as people sign up." },
   to_import: { title: "Nothing waiting to import", body: "Every link hosts have sent is already in their account." },
-  awaiting_pricing: { title: "Nothing with hosts right now", body: "Properties you import land here until the host sets their rates." },
+  awaiting_pricing: { title: "Nothing waiting on a host", body: "Properties you import land here until the host sets their price and approves." },
   to_approve: { title: "Nothing to approve", body: "Listings appear here once a host has priced and approved them." },
   live: { title: "Nothing live yet", body: "Approved listings show up here once they're bookable." },
 };
@@ -302,7 +320,7 @@ function HostDirectory() {
         <ThemeToggle />
       </div>
 
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -335,6 +353,18 @@ function HostDirectory() {
           })}
         </div>
       </div>
+
+      {/* What the selected stage actually means, spelled out. The counts on
+          the pills are hosts, not listings, which is worth saying once
+          rather than letting "Live 6" be read as six listings. */}
+      <p className="mb-5 text-xs leading-relaxed text-muted-foreground">
+        {FILTERS.find((f) => f.key === filter)?.explain}
+        {filter !== "all" && (
+          <span className="text-muted-foreground/70">
+            {" "}Counts are hosts, not listings.
+          </span>
+        )}
+      </p>
 
       {loading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -467,7 +497,7 @@ function HostCard({
 
   // Everything else, stated quietly - it's status, not a task.
   const status: string[] = [];
-  if (c.draft) status.push(`${c.draft} with host`);
+  if (c.draft) status.push(`${c.draft} awaiting their price`);
   if (c.active) status.push(`${c.active} live`);
   if (!actions.length && !status.length) status.push("No properties yet");
 
@@ -533,7 +563,7 @@ function HostCard({
 /* ------------------------------------------------------------------ */
 
 const PROP_STATE: Record<string, { label: string; className: string }> = {
-  draft: { label: "With host", className: "bg-muted text-muted-foreground" },
+  draft: { label: "Needs their price", className: "bg-muted text-muted-foreground" },
   pending_review: { label: "Approve", className: "bg-ember/10 text-ember" },
   active: { label: "Live", className: "bg-green-500/10 text-green-600 dark:text-green-400" },
   rejected: { label: "Rejected", className: "bg-red-500/10 text-red-600 dark:text-red-400" },
