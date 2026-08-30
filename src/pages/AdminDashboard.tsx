@@ -254,6 +254,25 @@ function DashboardContent() {
               Review Submissions ({pendingOnboarding}) →
             </div>
           </div>
+
+          {/* Card 5: Registered Hosts directory */}
+          <div
+            onClick={() => navigate("/adminn/hosts")}
+            className="group relative cursor-pointer rounded-2xl border border-border bg-card p-6 transition-all hover:border-ember hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10 text-violet-500 transition-colors group-hover:bg-violet-500 group-hover:text-white">
+              <Users className="h-6 w-6" />
+            </div>
+            <h3 className="font-display text-lg mt-4 group-hover:text-violet-500 transition-colors">
+              Registered Hosts
+            </h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Every registered account. Find a host, import properties straight into their account, then notify them once you're done.
+            </p>
+            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-violet-500">
+              Browse Hosts →
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -297,13 +297,18 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     }
     if (!listingData) return;
 
-    const numPrice = Number(price);
-    if (isNaN(numPrice) || numPrice <= 0) {
-      toast({ title: "Pricing required", description: "Please enter a valid nightly rate for this property.", variant: "destructive" });
-      return;
+    // Admin importing on a host's behalf skips pricing entirely - it's a
+    // draft until the host prices and approves it themselves.
+    if (!targetHost) {
+      const numPrice = Number(price);
+      if (isNaN(numPrice) || numPrice <= 0) {
+        toast({ title: "Pricing required", description: "Please enter a valid nightly rate for this property.", variant: "destructive" });
+        return;
+      }
     }
 
-    const numWeekendPrice = weekendPrice ? Number(weekendPrice) : numPrice;
+    const numPrice = targetHost ? 0 : Number(price);
+    const numWeekendPrice = targetHost ? 0 : (weekendPrice ? Number(weekendPrice) : numPrice);
 
     setSubmitting(true);
     try {
@@ -374,6 +379,10 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
           // pending_review either way; registration can be collected before
           // it's actually published rather than blocking the import itself.
           isImport: true,
+          // Only takes effect when the caller is actually the admin - the
+          // function re-derives that from the JWT, this is just the signal
+          // that this particular import should skip pricing.
+          isDraftImport: Boolean(targetHost),
         },
       });
 
@@ -702,7 +711,13 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                   </div>
                 )}
 
-                {/* Direct Host Pricing Step */}
+                {/* Direct Host Pricing Step - skipped entirely for an admin
+                    import-for-host. Pricing is the host's own call, not
+                    admin's to guess at on their behalf - the property lands
+                    as a draft, and the host sets nightly + weekend rate
+                    themselves from their dashboard before it moves to
+                    review. */}
+                {!targetHost && (
                 <div className="rounded-2xl border border-primary/30 bg-background p-4 space-y-3 shadow-xs">
                   <div className="flex items-center gap-2">
                     <IndianRupee className="h-4 w-4 text-primary" />
@@ -786,6 +801,33 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     </Button>
                   </div>
                 </div>
+                )}
+
+                {/* Admin import-for-host: no pricing step here at all - the
+                    listing lands as a draft in the host's dashboard, and
+                    they set nightly + weekend pricing and approve it
+                    themselves before it goes to review. */}
+                {targetHost && (
+                  <div className="rounded-2xl border border-primary/30 bg-background p-4 space-y-3 shadow-xs">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      This imports as a draft in <strong className="text-foreground">{targetHost.name || targetHost.email}</strong>'s dashboard.
+                      They'll set their own pricing and approve it before it goes to review — nothing to fill in here.
+                    </p>
+                    <div className="pt-1">
+                      <Button
+                        onClick={handleMoveForApproval}
+                        disabled={submitting}
+                        className="w-full gap-2 py-5 bg-primary text-primary-foreground font-bold text-xs uppercase tracking-wider"
+                      >
+                        {submitting ? (
+                          <><Loader2 className="h-4 w-4 animate-spin" /> Importing...</>
+                        ) : (
+                          <><CheckCircle2 className="h-4 w-4" /> Import as Draft for Host</>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase";
 import { geocodePincode, reverseGeocode } from "@/lib/geocode";
 import { LocationMap } from "@/components/host/LocationMap";
 import { ListingManagePanel } from "@/components/host/ListingManagePanel";
+import { DraftPricingModal } from "@/components/host/DraftPricingModal";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -236,7 +237,7 @@ function HostIntro({ onGetStarted }: { onGetStarted: () => void }) {
         </div>
         <div className="grid gap-3 sm:grid-cols-4">
           {[
-            { price: "Free", cap: "₹1,00,000", note: "your first listing starter pack" },
+            { price: "Free", cap: "₹50,000", note: "your first listing starter pack" },
             { price: "₹600", cap: "₹20,000", note: "3.0% effective cost" },
             { price: "₹2,200", cap: "₹1,00,000", note: "2.2% effective cost" },
             { price: "₹10,000", cap: "₹5,00,000", note: "~2.0% effective cost" },
@@ -345,6 +346,13 @@ interface HostListing {
   registration_number: string | null;
 }
 
+/** A property admin imported on this host's behalf, waiting on the host to
+ * set their own pricing and give the final approve. Distinct from
+ * "pending_review" (already priced, waiting on Wayzyy's review). */
+function isDraft(listing: HostListing) {
+  return listing.status === "draft";
+}
+
 /** Goa listings legally need a Tourism Registration Number before they can
  * actually operate - but a host shouldn't be blocked from importing or
  * getting published without one, so this is a soft nudge (a badge + an
@@ -356,6 +364,7 @@ function needsGoaRegistration(listing: HostListing) {
 function statusMeta(status: string) {
   if (status === "active") return { label: "Live", className: "bg-green-500/10 text-green-600 dark:text-green-400" };
   if (status === "pending_review") return { label: "Pending review", className: "bg-amber-500/10 text-amber-600 dark:text-amber-400" };
+  if (status === "draft") return { label: "Needs your pricing", className: "bg-primary/10 text-primary" };
   if (status === "rejected") return { label: "Rejected", className: "bg-red-500/10 text-red-600 dark:text-red-400" };
   return { label: status, className: "bg-muted text-muted-foreground" };
 }
@@ -367,7 +376,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const { user, session } = useAuth();
   const { toast } = useToast();
   const [listings, setListings] = useState<HostListing[] | null>(null);
-  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending" | "draft">("all");
 
   // Verification & Modal states
   const [isVerified, setIsVerified] = useState(false);
@@ -376,6 +385,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const [showImportModal, setShowImportModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showTour, setShowTour] = useState(false);
+  const [pricingDraft, setPricingDraft] = useState<HostListing | null>(null);
 
   // Admin Host Approval states
   const [hostStatus, setHostStatus] = useState<"approved" | "pending_approval" | "rejected">("approved");
@@ -457,6 +467,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const filteredListings = listings.filter((l) => {
     if (activeTab === "active") return l.status === "active";
     if (activeTab === "pending") return l.status === "pending_review";
+    if (activeTab === "draft") return l.status === "draft";
     return true;
   });
 
@@ -707,6 +718,16 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             >
               Pending Review ({listings.filter((l) => l.status === "pending_review").length})
             </button>
+            {listings.some((l) => l.status === "draft") && (
+              <button
+                onClick={() => setActiveTab("draft")}
+                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                  activeTab === "draft" ? "bg-white/10 font-semibold text-white shadow-sm" : "text-primary hover:text-white"
+                }`}
+              >
+                Needs Pricing ({listings.filter((l) => l.status === "draft").length})
+              </button>
+            )}
           </div>
 
           <button
@@ -776,15 +797,26 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                 )}
 
                 <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onManage(p.id, p.title || "Untitled listing")}
-                    className="inline-flex w-auto justify-start gap-1.5 rounded-full border-ember/40 text-ember hover:bg-ember/10 hover:text-ember text-xs"
-                  >
-                    <SlidersHorizontal className="h-3.5 w-3.5" />
-                    Manage Calendar & Pricing
-                  </Button>
+                  {isDraft(p) ? (
+                    <Button
+                      size="sm"
+                      onClick={() => setPricingDraft(p)}
+                      className="inline-flex w-auto justify-start gap-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold"
+                    >
+                      <IndianRupee className="h-3.5 w-3.5" />
+                      Set Pricing & Approve
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onManage(p.id, p.title || "Untitled listing")}
+                      className="inline-flex w-auto justify-start gap-1.5 rounded-full border-ember/40 text-ember hover:bg-ember/10 hover:text-ember text-xs"
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                      Manage Calendar & Pricing
+                    </Button>
+                  )}
                   <Link to="/policies/property-import-policy" target="_blank" className="text-[11px] text-white/60 hover:text-white">
                     Import Policy
                   </Link>
@@ -793,6 +825,17 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             );
           })}
         </div>
+      )}
+
+      {pricingDraft && (
+        <DraftPricingModal
+          property={pricingDraft}
+          onClose={() => setPricingDraft(null)}
+          onApproved={() => {
+            setPricingDraft(null);
+            fetchDashboardData();
+          }}
+        />
       )}
 
       {/* Admin Host Approvals Modal */}
