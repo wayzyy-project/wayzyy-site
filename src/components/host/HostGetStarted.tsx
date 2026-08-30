@@ -134,7 +134,7 @@ function ConciergeForm({
       // the duplicated-form problem this flow replaced.
       const { data: profile } = await supabase
         .from("profiles")
-        .select("full_name, email, phone")
+        .select("name, email, phone")
         .eq("id", userId)
         .maybeSingle();
 
@@ -146,7 +146,7 @@ function ConciergeForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId,
-          fullName: profile?.full_name ?? "",
+          fullName: profile?.name ?? "",
           email: profile?.email ?? "",
           phone: profile?.phone ?? "",
           airbnbProfileUrl: airbnbProfileUrl.trim(),

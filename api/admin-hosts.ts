@@ -67,7 +67,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === "GET") {
     const [{ data: profiles, error: profilesErr }, { data: properties, error: propsErr }] = await Promise.all([
-      admin.from("profiles").select("id, full_name, email, phone, created_at").order("created_at", { ascending: false }),
+      // profiles' name column is "name", not "full_name" - aliased here so
+      // the rest of this file and the frontend can keep using full_name.
+      admin.from("profiles").select("id, full_name:name, email, phone, created_at").order("created_at", { ascending: false }),
       admin.from("properties").select("host_id, status"),
     ]);
 
