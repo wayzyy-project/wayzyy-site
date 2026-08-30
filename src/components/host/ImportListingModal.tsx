@@ -723,8 +723,8 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     {listingData.photoUrls.length > 0 && (
                       <div>
                         <p className="font-medium text-muted-foreground mb-1.5">Imported Photos ({listingData.photoUrls.length})</p>
-                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                          {listingData.photoUrls.slice(0, 4).map((p, idx) => (
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[280px] overflow-y-auto pr-1">
+                          {listingData.photoUrls.map((p, idx) => (
                             <img
                               key={idx}
                               src={p}
