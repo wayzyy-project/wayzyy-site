@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { geocodePincode, reverseGeocode } from "@/lib/geocode";
@@ -1724,7 +1723,16 @@ export default function HostPortal() {
       description="Manage your listings and list new properties on Wayzyy directly from the web - the same platform, database, and review process as the app."
       path="/host"
     >
-      <div className="min-h-screen relative text-foreground overflow-x-hidden bg-slate-950">
+      {/* The host portal is a permanently dark surface - hardcoded
+          bg-slate-950 under a dark villa photo and black gradients - but
+          its content was styled with theme tokens (text-foreground,
+          text-muted-foreground, border-border...). In light mode those
+          resolve to near-black on that near-black backdrop, which is why
+          the whole listing wizard was invisible. Scoping `dark` here
+          pins every token inside the portal to the dark palette, so this
+          is fixed for all 70-odd token usages at once (and for anything
+          added later) rather than one hand-patched class at a time. */}
+      <div className="dark min-h-screen relative text-foreground overflow-x-hidden bg-slate-950">
         {/* Full-bleed twilight Goa villa background artwork */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           <img
@@ -1746,9 +1754,12 @@ export default function HostPortal() {
               <span className="text-white/20">·</span>
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </div>
+            {/* No theme toggle here: the portal is pinned to the dark
+                palette (see the `dark` class on the wrapper below), so a
+                toggle would flip the global theme while nothing on this
+                page visibly changed. */}
             <div className="flex items-center gap-2">
               <NotificationBell />
-              <ThemeToggle />
             </div>
           </div>
         </header>
