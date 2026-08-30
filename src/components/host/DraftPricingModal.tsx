@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BedDouble, CheckCircle2, Droplet, Eye, IndianRupee, Loader2, MapPin, Users, X } from "lucide-react";
+import { BatteryFull, BedDouble, CheckCircle2, Droplet, Eye, IndianRupee, Loader2, MapPin, Signal, Users, Wifi, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +26,88 @@ interface Props {
   property: DraftProperty;
   onClose: () => void;
   onApproved: () => void;
+}
+
+// A real phone mockup - bezel, notch, status bar - with its own fixed
+// pixel height so it scrolls on its own regardless of whatever height the
+// surrounding modal ends up with. Relying on the modal's height to cascade
+// down through a flex row was the bug: max-height + flex-stretch doesn't
+// reliably resolve to a concrete number in every layout context, and when
+// it doesn't, the "scrollable" panel silently has nothing to scroll
+// within. A fixed height sidesteps that entirely.
+function PhonePreview({ photos, title, location, details }: { photos: string[]; title: string; location: string; details: FullDetails | null }) {
+  return (
+    <div className="mx-auto" style={{ width: 300 }}>
+      <div
+        className="relative overflow-hidden rounded-[2.75rem] border-[10px] border-neutral-900 bg-neutral-900 shadow-2xl"
+        style={{ height: 620 }}
+      >
+        <div className="absolute left-1/2 top-0 z-20 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-neutral-900" />
+        <div className="h-full w-full overflow-y-auto overscroll-contain rounded-[2rem] bg-white">
+          <div className="sticky top-0 z-10 flex items-center justify-between bg-white/90 px-5 pb-1 pt-2.5 text-[11px] font-semibold text-neutral-900 backdrop-blur-sm">
+            <span>9:41</span>
+            <div className="flex items-center gap-1">
+              <Signal className="h-3 w-3" />
+              <Wifi className="h-3 w-3" />
+              <BatteryFull className="h-3.5 w-3.5" />
+            </div>
+          </div>
+
+          {photos.length > 0 ? (
+            photos.map((src, idx) => (
+              <div key={idx} className="relative">
+                <img src={src} alt={`Photo ${idx + 1}`} className="w-full object-cover" style={{ aspectRatio: "4 / 3" }} />
+                {idx === 0 && (
+                  <div className="absolute bottom-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white">
+                    1 / {photos.length}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="flex h-40 items-center justify-center text-sm text-neutral-400">No photos imported</div>
+          )}
+
+          <div className="space-y-3 rounded-t-2xl bg-white px-4 pb-8 pt-4">
+            <div>
+              <h4 className="text-base font-semibold leading-snug text-neutral-900">{title || "Untitled listing"}</h4>
+              {location && (
+                <p className="mt-1 flex items-center gap-1 text-xs text-neutral-500">
+                  <MapPin className="h-3 w-3" /> {location}
+                </p>
+              )}
+              {details && (details.max_guests || details.bedrooms || details.bathrooms) && (
+                <p className="mt-1 text-xs text-neutral-500">
+                  {[
+                    details.max_guests ? `${details.max_guests} guests` : null,
+                    details.bedrooms ? `${details.bedrooms} bedroom${details.bedrooms !== 1 ? "s" : ""}` : null,
+                    details.bathrooms ? `${details.bathrooms} bath` : null,
+                  ].filter(Boolean).join(" · ")}
+                </p>
+              )}
+            </div>
+
+            {details?.description && (
+              <div className="border-t border-neutral-100 pt-3">
+                <p className="whitespace-pre-line text-xs leading-relaxed text-neutral-700">{details.description}</p>
+              </div>
+            )}
+
+            {details?.amenities && details.amenities.length > 0 && (
+              <div className="border-t border-neutral-100 pt-3">
+                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">What this place offers</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {details.amenities.map((a) => (
+                    <span key={a} className="rounded-full bg-neutral-100 px-2 py-1 text-[11px] text-neutral-600">{a}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // Shown when a host opens one of their admin-imported "draft" properties.
@@ -83,10 +165,10 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
   const location = [property.city, property.state].filter(Boolean).join(", ");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-      <div className={`w-full ${showFullPreview ? "max-w-4xl" : "max-w-lg"} max-h-[90vh] overflow-hidden rounded-3xl border border-border bg-background shadow-2xl transition-[max-width] flex flex-col md:flex-row`}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
+      <div className={`w-full ${showFullPreview ? "max-w-3xl" : "max-w-lg"} my-auto flex flex-col md:flex-row rounded-3xl border border-border bg-background shadow-2xl`}>
         {/* Left: pricing side - always here, never hidden behind the preview. */}
-        <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+        <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex items-center justify-between border-b border-border p-4">
             <div>
               <h3 className="font-display text-lg font-bold text-foreground">Set pricing & approve</h3>
@@ -97,12 +179,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
             </button>
           </div>
 
-          <div className="p-4 space-y-5">
-            {/* Compact card - a snapshot, not the whole listing. "See full
-                preview" opens the real thing (every photo, full
-                description, full amenities) in a scrollable panel on the
-                side, so pricing stays visible the whole time instead of
-                being replaced by the preview. */}
+          <div className="p-4 space-y-5 max-h-[75vh] overflow-y-auto">
             <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
               <div className="relative aspect-[16/10] w-full bg-muted">
                 {photos.length > 0 ? (
@@ -181,70 +258,13 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
           </div>
         </div>
 
-        {/* Right: the real, full, scrollable preview - every photo stacked
-            top to bottom (like scrolling a listing on a phone), then the
-            complete untruncated description and the full amenities list.
-            Only mounted once requested, so it isn't fetched/rendered for
-            hosts who never open it. */}
+        {/* Right: the actual phone mockup, only mounted once requested. */}
         {showFullPreview && (
-          <div className="w-full md:w-[340px] shrink-0 border-t md:border-t-0 md:border-l border-border overflow-y-auto bg-muted/20">
-            <div className="sticky top-0 z-10 flex items-center gap-1.5 border-b border-border bg-background/95 backdrop-blur-sm px-4 py-2.5">
-              <Eye className="h-3.5 w-3.5 text-primary" />
-              <span className="text-xs font-semibold uppercase tracking-wide text-primary">Full listing preview</span>
-            </div>
-
-            <div className="divide-y divide-border">
-              {photos.length > 0 ? (
-                photos.map((src, idx) => (
-                  <img key={idx} src={src} alt={`Photo ${idx + 1}`} className="w-full object-cover" />
-                ))
-              ) : (
-                <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">No photos imported</div>
-              )}
-            </div>
-
-            <div className="space-y-4 p-4">
-              <div>
-                <h4 className="font-display text-base font-semibold leading-snug text-foreground">{property.title || "Untitled listing"}</h4>
-                {location && (
-                  <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
-                    <MapPin className="h-3.5 w-3.5" /> {location}
-                  </p>
-                )}
-              </div>
-
-              {details && (details.max_guests || details.bedrooms || details.bathrooms) && (
-                <div className="flex items-center gap-4 border-t border-border pt-4 text-sm text-muted-foreground">
-                  {details.max_guests ? (
-                    <span className="flex items-center gap-1.5"><Users className="h-4 w-4" /> {details.max_guests} guests</span>
-                  ) : null}
-                  {details.bedrooms ? (
-                    <span className="flex items-center gap-1.5"><BedDouble className="h-4 w-4" /> {details.bedrooms} bed{details.bedrooms !== 1 ? "s" : ""}</span>
-                  ) : null}
-                  {details.bathrooms ? (
-                    <span className="flex items-center gap-1.5"><Droplet className="h-4 w-4" /> {details.bathrooms} bath</span>
-                  ) : null}
-                </div>
-              )}
-
-              {details?.description && (
-                <div className="border-t border-border pt-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1.5">About this place</p>
-                  <p className="whitespace-pre-line text-sm text-foreground/90">{details.description}</p>
-                </div>
-              )}
-
-              {details?.amenities && details.amenities.length > 0 && (
-                <div className="border-t border-border pt-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">What this place offers</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {details.amenities.map((a) => (
-                      <span key={a} className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">{a}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+          <div className="w-full md:w-[340px] shrink-0 border-t md:border-t-0 md:border-l border-border bg-muted/20 p-4 flex flex-col items-center justify-center gap-2">
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
+              <Eye className="h-3.5 w-3.5" /> How it'll look
+            </p>
+            <PhonePreview photos={photos} title={property.title} location={location} details={details} />
           </div>
         )}
       </div>
