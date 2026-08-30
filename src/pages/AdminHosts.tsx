@@ -19,6 +19,15 @@ interface HostRow {
   created_at: string;
   propertyCounts: { draft: number; pending_review: number; active: number; rejected: number; total: number };
   properties: HostProperty[];
+  submission: HostSubmission | null;
+}
+
+interface HostSubmission {
+  id: string;
+  status: string | null;
+  propertyUrls: string[];
+  airbnbProfileUrl: string | null;
+  createdAt: string;
 }
 
 interface HostProperty {
@@ -27,6 +36,31 @@ interface HostProperty {
   status: string;
   price_per_night: number | null;
   imported_by_admin: boolean;
+  source_url: string | null;
+}
+
+/** The stages an admin actually works through, in order. Each is a real
+ *  "someone has to do something" state, not just a status rename. */
+type FilterKey = "all" | "form" | "needs_import" | "awaiting_pricing" | "to_approve" | "live";
+
+const FILTERS: { key: FilterKey; label: string; hint: string }[] = [
+  { key: "all", label: "All hosts", hint: "Every registered account" },
+  { key: "form", label: "Sent us links", hint: "Filled the concierge form" },
+  { key: "needs_import", label: "Needs import", hint: "Sent links, nothing imported yet" },
+  { key: "awaiting_pricing", label: "Awaiting host pricing", hint: "We imported, host hasn't priced" },
+  { key: "to_approve", label: "Ready to approve", hint: "Host priced it — your turn" },
+  { key: "live", label: "Live", hint: "Published and bookable" },
+];
+
+function matchesFilter(h: HostRow, f: FilterKey): boolean {
+  const c = h.propertyCounts;
+  if (f === "all") return true;
+  if (f === "form") return !!h.submission;
+  if (f === "needs_import") return !!h.submission && c.total === 0;
+  if (f === "awaiting_pricing") return c.draft > 0;
+  if (f === "to_approve") return c.pending_review > 0;
+  if (f === "live") return c.active > 0;
+  return true;
 }
 
 interface WaitlistLead {
@@ -101,6 +135,7 @@ function HostDirectory() {
   const [importTarget, setImportTarget] = useState<ImportTargetHost | null>(null);
   const [notifyingId, setNotifyingId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterKey>("all");
 
   const fetchHosts = async () => {
     if (!session?.access_token) return;
@@ -126,14 +161,15 @@ function HostDirectory() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return hosts;
-    return hosts.filter(
+    const byStage = hosts.filter((h) => matchesFilter(h, filter));
+    if (!q) return byStage;
+    return byStage.filter(
       (h) =>
         (h.full_name || "").toLowerCase().includes(q) ||
         (h.email || "").toLowerCase().includes(q) ||
         (h.phone || "").toLowerCase().includes(q)
     );
-  }, [hosts, query]);
+  }, [hosts, query, filter]);
 
   // A waitlist lead is "converted" once the same email shows up as a real
   // registered account - no point showing them twice in two lists.
@@ -193,7 +229,7 @@ function HostDirectory() {
         <ThemeToggle />
       </div>
 
-      <div className="relative mb-6">
+      <div className="relative mb-4">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search by name, email, or phone..."
@@ -201,6 +237,33 @@ function HostDirectory() {
           onChange={(e) => setQuery(e.target.value)}
           className="pl-9"
         />
+      </div>
+
+      {/* Stage filters - each one answers "who needs something from me
+          right now?", which is the actual question when working this
+          queue. Counts come from the same host list so an empty stage is
+          visibly empty rather than requiring a click to find out. */}
+      <div className="mb-6 flex flex-wrap gap-2">
+        {FILTERS.map((f) => {
+          const count = hosts.filter((h) => matchesFilter(h, f.key)).length;
+          const isActive = filter === f.key;
+          return (
+            <button
+              key={f.key}
+              type="button"
+              title={f.hint}
+              onClick={() => setFilter(f.key)}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                isActive
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+              }`}
+            >
+              {f.label}
+              <span className={`ml-1.5 ${isActive ? "opacity-80" : "opacity-60"}`}>{count}</span>
+            </button>
+          );
+        })}
       </div>
 
       {loading ? (
@@ -219,7 +282,14 @@ function HostDirectory() {
               <div key={h.id} className="rounded-2xl border border-border bg-card p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0">
-                    <p className="font-semibold text-foreground truncate">{h.full_name || "Unnamed host"}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-foreground truncate">{h.full_name || "Unnamed host"}</p>
+                      {h.submission && (
+                        <span className="shrink-0 rounded-full bg-violet-500/10 px-2 py-0.5 text-[10px] font-semibold text-violet-600 dark:text-violet-400">
+                          Sent us links
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-muted-foreground truncate">{h.email}{h.phone ? ` · ${h.phone}` : ""}</p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
                       Joined {new Date(h.created_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}
@@ -264,6 +334,58 @@ function HostDirectory() {
                     specific property needs which kind of attention. */}
                 {expandedId === h.id && (
                   <div className="mt-3 space-y-1.5 border-t border-border pt-3">
+                    {/* What they actually sent us through the concierge
+                        form. Kept right next to the import button so the
+                        links don't have to be hunted down in a separate
+                        queue before importing them. */}
+                    {h.submission && (h.submission.propertyUrls.length > 0 || h.submission.airbnbProfileUrl) && (
+                      <div className="mb-3 rounded-lg border border-violet-500/20 bg-violet-500/5 p-3">
+                        <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-violet-600 dark:text-violet-400">
+                          Links they sent us ({h.submission.propertyUrls.length})
+                        </p>
+                        {h.submission.airbnbProfileUrl && (
+                          <a
+                            href={h.submission.airbnbProfileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mb-1.5 block truncate text-[11px] text-muted-foreground hover:text-foreground hover:underline"
+                          >
+                            Host profile: {h.submission.airbnbProfileUrl}
+                          </a>
+                        )}
+                        <div className="space-y-1">
+                          {h.submission.propertyUrls.map((url, i) => {
+                            const alreadyImported = h.properties.some((p) => p.source_url && url.includes(p.source_url.split("/rooms/")[1] ?? " "));
+                            return (
+                              <div key={i} className="flex items-center gap-2">
+                                <a
+                                  href={url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="min-w-0 flex-1 truncate text-[11px] text-primary hover:underline"
+                                >
+                                  {url}
+                                </a>
+                                {alreadyImported && (
+                                  <span className="shrink-0 text-[10px] font-semibold text-green-600 dark:text-green-400">imported</span>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(url);
+                                    toast({ title: "Link copied", description: "Paste it into the import box." });
+                                  }}
+                                  className="shrink-0 text-muted-foreground hover:text-foreground"
+                                >
+                                  <Copy className="h-3 w-3" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
                     {h.properties.map((prop) => (
                       <div key={prop.id} className="flex items-center justify-between gap-2 rounded-lg bg-muted/40 px-3 py-2 text-xs">
                         <div className="min-w-0 flex-1">

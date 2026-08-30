@@ -84,15 +84,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       page += 1;
     }
 
-    const [{ data: profiles, error: profilesErr }, { data: properties, error: propsErr }] = await Promise.all([
+    const [
+      { data: profiles, error: profilesErr },
+      { data: properties, error: propsErr },
+      { data: submissions, error: subsErr },
+    ] = await Promise.all([
       // profiles' name column is "name", not "full_name" - aliased here so
       // the rest of this file and the frontend can keep using full_name.
       admin.from("profiles").select("id, full_name:name, phone, created_at"),
-      admin.from("properties").select("id, host_id, title, status, price_per_night, imported_by_admin").order("created_at", { ascending: false }),
+      admin.from("properties").select("id, host_id, title, status, price_per_night, imported_by_admin, source_url").order("created_at", { ascending: false }),
+      // The concierge "we do it for you" form. A host who came in this way
+      // already handed us their listing links - the admin directory should
+      // surface those links inline so they can be imported without
+      // digging through a separate queue.
+      admin.from("host_onboarding_submissions")
+        .select("id, user_id, email, status, property_urls, airbnb_profile_url, created_at")
+        .order("created_at", { ascending: false }),
     ]);
 
     if (profilesErr) return res.status(500).json({ error: profilesErr.message });
     if (propsErr) return res.status(500).json({ error: propsErr.message });
+    if (subsErr) return res.status(500).json({ error: subsErr.message });
+
+    // Submissions link by user_id when the host was signed in, but older
+    // rows predate that column - fall back to matching on email.
+    const submissionByUserId: Record<string, any> = {};
+    const submissionByEmail: Record<string, any> = {};
+    for (const s of submissions ?? []) {
+      if ((s as any).user_id && !submissionByUserId[(s as any).user_id]) submissionByUserId[(s as any).user_id] = s;
+      const em = ((s as any).email || "").toLowerCase();
+      if (em && !submissionByEmail[em]) submissionByEmail[em] = s;
+    }
 
     const counts: Record<string, { draft: number; pending_review: number; active: number; rejected: number; total: number }> = {};
     const propertiesByHost: Record<string, any[]> = {};
@@ -115,13 +137,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // the admin directory can show, per host, exactly which properties
     // are waiting on the host's pricing vs. waiting on the admin's final
     // approve, rather than just an opaque count.
-    const hosts = (profiles ?? []).map((p: any) => ({
-      ...p,
-      email: authUsersById[p.id]?.email ?? null,
-      created_at: p.created_at ?? authUsersById[p.id]?.created_at ?? null,
-      propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
-      properties: propertiesByHost[p.id] ?? [],
-    })).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
+    const hosts = (profiles ?? []).map((p: any) => {
+      const email = authUsersById[p.id]?.email ?? null;
+      const submission = submissionByUserId[p.id] ?? (email ? submissionByEmail[email.toLowerCase()] : null) ?? null;
+      return {
+        ...p,
+        email,
+        created_at: p.created_at ?? authUsersById[p.id]?.created_at ?? null,
+        propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
+        properties: propertiesByHost[p.id] ?? [],
+        // How this host reached us: the concierge form (they sent links,
+        // we import) vs. signing up and doing it themselves.
+        submission: submission
+          ? {
+              id: submission.id,
+              status: submission.status,
+              propertyUrls: submission.property_urls ?? [],
+              airbnbProfileUrl: submission.airbnb_profile_url ?? null,
+              createdAt: submission.created_at,
+            }
+          : null,
+      };
+    }).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 
     // Waitlist leads - people who filled the pre-launch "join the waitlist"
     // form on the marketing site. This never creates an account (no

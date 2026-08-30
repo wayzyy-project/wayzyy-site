@@ -457,6 +457,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       onWheel={(e) => e.stopPropagation()}
     >
       <div
+        data-lenis-prevent
         className="absolute inset-0 overflow-y-auto"
         onWheel={(e) => e.stopPropagation()}
       >
@@ -663,7 +664,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     <Eye className="h-3 w-3 text-primary" />
                     <span className="text-[9px] font-semibold uppercase tracking-wide text-primary">How it'll look</span>
                   </div>
-                  <div className="max-h-[420px] overflow-y-auto rounded-[1.5rem] border border-border">
+                  <div data-lenis-prevent className="max-h-[420px] overflow-y-auto rounded-[1.5rem] border border-border">
                     {(listingData.photoUrls?.length ?? 0) > 0 ? (
                       <img src={listingData.photoUrls[0]} alt="" className="aspect-[4/3] w-full object-cover" />
                     ) : (
@@ -727,7 +728,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     {listingData.photoUrls.length > 0 && (
                       <div>
                         <p className="font-medium text-muted-foreground mb-1.5">Imported Photos ({listingData.photoUrls.length})</p>
-                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[280px] overflow-y-auto pr-1">
+                        <div data-lenis-prevent className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[280px] overflow-y-auto pr-1">
                           {listingData.photoUrls.map((p, idx) => (
                             <img
                               key={idx}

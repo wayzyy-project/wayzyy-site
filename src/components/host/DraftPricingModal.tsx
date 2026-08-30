@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, ExternalLink, IndianRupee, Loader2, MapPin, Users, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,18 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
   const [weekendPrice, setWeekendPrice] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  // Lenis runs globally with smoothWheel, which hijacks wheel events for
+  // the whole document - including ones aimed at a scrollable element
+  // inside a modal, which is why this panel wouldn't scroll at all.
+  // data-lenis-prevent (below, on the scroll container) is Lenis's opt-out;
+  // locking body overflow stops the page behind from moving as well.
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   const handleApprove = async () => {
     const numPrice = Number(price);
     if (!Number.isFinite(numPrice) || numPrice < 100) {
@@ -42,16 +54,25 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
 
     setSubmitting(true);
     try {
-      const { error } = await supabase
-        .from("properties")
-        .update({
-          price_per_night: numPrice,
-          weekend_price: numWeekendPrice,
-          status: "pending_review",
-        })
-        .eq("id", property.id);
-
-      if (error) throw error;
+      // Routed through the API rather than updating the row directly so
+      // our team actually gets told this is ready for final approval -
+      // a client-side update silently left the listing sitting in the
+      // review queue with nobody aware it had arrived.
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch("/api/host-approve-pricing", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.access_token ?? ""}`,
+        },
+        body: JSON.stringify({
+          propertyId: property.id,
+          price: numPrice,
+          weekendPrice: numWeekendPrice,
+        }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Could not save pricing");
 
       toast({ title: "Sent for review! 🚀", description: `"${property.title}" now has your pricing and is in our review queue.` });
       onApproved();
@@ -66,7 +87,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
   const location = [property.city, property.state].filter(Boolean).join(", ");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
+    <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
       <div className="w-full max-w-lg my-auto rounded-3xl border border-border bg-background shadow-2xl">
         <div className="flex items-center justify-between border-b border-border p-4">
           <div>
@@ -78,7 +99,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
           </button>
         </div>
 
-        <div className="p-4 space-y-5 max-h-[75vh] overflow-y-auto">
+        <div data-lenis-prevent className="p-4 space-y-5 max-h-[75vh] overflow-y-auto">
           {/* Kept deliberately minimal - photo, guest count, price. This
               is a quick "is this the right listing?" glance before
               pricing, not a full listing preview. */}
