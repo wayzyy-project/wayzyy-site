@@ -66,10 +66,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === "GET") {
+    // profiles has no email column at all (schema: id, name, phone,
+    // avatar_url, is_host, created_at, updated_at) - email only exists on
+    // auth.users, so it has to be pulled separately via the admin API and
+    // merged in by id. listUsers() is paginated (50/page by default), so
+    // page through it rather than assuming everyone fits on page 1.
+    const authUsersById: Record<string, { email: string | null; created_at: string }> = {};
+    let page = 1;
+    const perPage = 200;
+    while (true) {
+      const { data: pageData, error: listErr } = await admin.auth.admin.listUsers({ page, perPage });
+      if (listErr) return res.status(500).json({ error: listErr.message });
+      for (const u of pageData.users) {
+        authUsersById[u.id] = { email: u.email ?? null, created_at: u.created_at };
+      }
+      if (pageData.users.length < perPage) break;
+      page += 1;
+    }
+
     const [{ data: profiles, error: profilesErr }, { data: properties, error: propsErr }] = await Promise.all([
       // profiles' name column is "name", not "full_name" - aliased here so
       // the rest of this file and the frontend can keep using full_name.
-      admin.from("profiles").select("id, full_name:name, email, phone, created_at").order("created_at", { ascending: false }),
+      admin.from("profiles").select("id, full_name:name, phone, created_at"),
       admin.from("properties").select("host_id, status"),
     ]);
 
@@ -88,10 +106,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       counts[hostId].total += 1;
     }
 
+    // profiles is the base list (every account gets a row via the signup
+    // trigger) - auth.users fills in the email that profiles doesn't have.
     const hosts = (profiles ?? []).map((p: any) => ({
       ...p,
+      email: authUsersById[p.id]?.email ?? null,
+      created_at: p.created_at ?? authUsersById[p.id]?.created_at ?? null,
       propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
-    }));
+    })).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 
     return res.status(200).json({ hosts });
   }

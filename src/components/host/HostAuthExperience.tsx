@@ -95,10 +95,14 @@ export function HostAuthExperience() {
         const newUser = data?.user;
         if (newUser) {
           try {
+            // profiles has no full_name or email column (schema: id, name,
+            // phone, avatar_url, is_host, created_at, updated_at) - this
+            // upsert was silently failing on every signup (caught below)
+            // and leaving every new host's name blank in profiles. Email
+            // isn't stored here at all; it already lives on auth.users.
             await supabase.from("profiles").upsert({
               id: newUser.id,
-              full_name: name,
-              email: email,
+              name: name,
               phone: phone,
               updated_at: new Date().toISOString(),
             });

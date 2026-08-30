@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 export const SUPPORT_EMAIL = "hello@wayzyy.com";
 export const SUPPORT_PHONE = "+91 87968 95934";
@@ -112,6 +113,7 @@ function ConciergeForm({
   onSubmitted: () => void;
 }) {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [airbnbProfileUrl, setAirbnbProfileUrl] = useState("");
   const [propertyUrls, setPropertyUrls] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -129,12 +131,14 @@ function ConciergeForm({
 
     setSubmitting(true);
     try {
-      // Name/email/phone come from the account rather than being re-typed -
-      // the profile row is the source of truth, and asking again is exactly
-      // the duplicated-form problem this flow replaced.
+      // Name/phone come from the account rather than being re-typed - the
+      // profile row is the source of truth, and asking again is exactly the
+      // duplicated-form problem this flow replaced. profiles has no email
+      // column at all (that only lives on auth.users), so email comes from
+      // the signed-in session instead.
       const { data: profile } = await supabase
         .from("profiles")
-        .select("name, email, phone")
+        .select("name, phone")
         .eq("id", userId)
         .maybeSingle();
 
@@ -147,7 +151,7 @@ function ConciergeForm({
         body: JSON.stringify({
           userId,
           fullName: profile?.name ?? "",
-          email: profile?.email ?? "",
+          email: user?.email ?? "",
           phone: profile?.phone ?? "",
           airbnbProfileUrl: airbnbProfileUrl.trim(),
           propertyUrls: propertyUrls
