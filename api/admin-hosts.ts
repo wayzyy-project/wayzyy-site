@@ -115,7 +115,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
     })).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 
-    return res.status(200).json({ hosts });
+    // Waitlist leads - people who filled the pre-launch "join the waitlist"
+    // form on the marketing site. This never creates an account (no
+    // auth.users row, no password), so these people are invisible to the
+    // hosts list above even though they've already expressed interest and
+    // may have sent property links over WhatsApp before ever signing up.
+    // select("*") rather than a fixed column list since this table's shape
+    // has grown past its original migration (e.g. a "name" column added
+    // directly in the dashboard, not tracked in supabase/migrations).
+    const { data: waitlistLeads, error: waitlistErr } = await admin
+      .from("waitlist_signups")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (waitlistErr) return res.status(500).json({ error: waitlistErr.message });
+
+    return res.status(200).json({ hosts, waitlistLeads: waitlistLeads ?? [] });
   }
 
   if (req.method === "POST") {

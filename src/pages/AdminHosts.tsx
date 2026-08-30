@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Loader2, Mail, Search, Upload, Users } from "lucide-react";
+import { ArrowLeft, Copy, Loader2, Mail, Search, UserPlus, Upload, Users } from "lucide-react";
 import { ImportListingModal, type ImportTargetHost } from "@/components/host/ImportListingModal";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -18,6 +18,17 @@ interface HostRow {
   phone: string | null;
   created_at: string;
   propertyCounts: { draft: number; pending_review: number; active: number; rejected: number; total: number };
+}
+
+interface WaitlistLead {
+  id: string;
+  created_at: string;
+  email: string;
+  audience?: string | null;
+  city?: string | null;
+  phone?: string | null;
+  notes?: string | null;
+  name?: string | null;
 }
 
 function AuthGate({ children }: { children: React.ReactNode }) {
@@ -75,6 +86,7 @@ function HostDirectory() {
   const { session } = useAuth();
   const { toast } = useToast();
   const [hosts, setHosts] = useState<HostRow[]>([]);
+  const [waitlistLeads, setWaitlistLeads] = useState<WaitlistLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [importTarget, setImportTarget] = useState<ImportTargetHost | null>(null);
@@ -90,6 +102,7 @@ function HostDirectory() {
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error || "Failed to load hosts");
       setHosts(body.hosts ?? []);
+      setWaitlistLeads(body.waitlistLeads ?? []);
     } catch (err: any) {
       toast({ title: "Couldn't load hosts", description: err?.message, variant: "destructive" });
     } finally {
@@ -111,6 +124,27 @@ function HostDirectory() {
         (h.phone || "").toLowerCase().includes(q)
     );
   }, [hosts, query]);
+
+  // A waitlist lead is "converted" once the same email shows up as a real
+  // registered account - no point showing them twice in two lists.
+  const registeredEmails = useMemo(
+    () => new Set(hosts.map((h) => (h.email || "").toLowerCase()).filter(Boolean)),
+    [hosts]
+  );
+
+  const filteredLeads = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return waitlistLeads
+      .filter((l) => !registeredEmails.has((l.email || "").toLowerCase()))
+      .filter((l) => {
+        if (!q) return true;
+        return (
+          (l.name || "").toLowerCase().includes(q) ||
+          (l.email || "").toLowerCase().includes(q) ||
+          (l.phone || "").toLowerCase().includes(q)
+        );
+      });
+  }, [waitlistLeads, registeredEmails, query]);
 
   const handleNotify = async (host: HostRow) => {
     if (!session?.access_token || !host.email) return;
@@ -229,6 +263,58 @@ function HostDirectory() {
           })}
         </div>
       )}
+
+      {/* People who filled the pre-launch waitlist form but never actually
+          created an account - no auth.users row exists for them, so
+          there's no account to import a property into yet. This is the
+          gap between "expressed interest / sent us their links on
+          WhatsApp" and "shows up in the list above" - shown here so
+          nobody gets lost in between, not as an import target. */}
+      <div className="mt-10">
+        <h2 className="font-display text-lg font-bold flex items-center gap-2">
+          <UserPlus className="h-5 w-5 text-muted-foreground" /> Waitlist Leads
+          <span className="text-xs font-normal text-muted-foreground">({filteredLeads.length} not registered yet)</span>
+        </h2>
+        <p className="text-xs text-muted-foreground mt-1 mb-4">
+          Filled the waitlist form but haven't created a Wayzyy account. Reach out and get them signed up before you can import for them.
+        </p>
+
+        {loading ? null : filteredLeads.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border py-8 text-center text-sm text-muted-foreground">
+            No unconverted waitlist leads{query ? ` match "${query}"` : ""}.
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {filteredLeads.map((l) => (
+              <div key={l.id} className="rounded-xl border border-border bg-card p-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-foreground truncate">{l.name || l.email}</p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {l.email}{l.phone ? ` · ${l.phone}` : ""}{l.city ? ` · ${l.city}` : ""}
+                  </p>
+                  {l.notes && <p className="text-[11px] text-muted-foreground mt-0.5 truncate">"{l.notes}"</p>}
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[11px] text-muted-foreground">
+                    {new Date(l.created_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="gap-1.5 text-xs"
+                    onClick={() => {
+                      navigator.clipboard.writeText(l.email);
+                      toast({ title: "Copied", description: l.email });
+                    }}
+                  >
+                    <Copy className="h-3.5 w-3.5" /> Copy email
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <ImportListingModal
         isOpen={!!importTarget}
