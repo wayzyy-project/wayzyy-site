@@ -201,6 +201,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: "Could not send email" });
     }
 
+    // In-app notification to back up the email - a host might not check
+    // their inbox, but the dashboard bell is right there next time they
+    // log in.
+    const { error: notifErr } = await admin.from("host_notifications").insert({
+      user_id: hostId,
+      title: `${drafts.length} propert${drafts.length === 1 ? "y" : "ies"} imported for you`,
+      body: `Set your pricing and approve to send ${drafts.length === 1 ? "it" : "them"} for review.`,
+      link: "/host?tab=draft",
+    });
+    if (notifErr) console.error("admin-hosts: notification insert failed", notifErr.message);
+
     return res.status(200).json({ ok: true, notified: drafts.length });
   }
 

@@ -16,6 +16,7 @@ import { geocodePincode, reverseGeocode } from "@/lib/geocode";
 import { LocationMap } from "@/components/host/LocationMap";
 import { ListingManagePanel } from "@/components/host/ListingManagePanel";
 import { DraftPricingModal } from "@/components/host/DraftPricingModal";
+import { NotificationBell } from "@/components/host/NotificationBell";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -344,6 +345,7 @@ interface HostListing {
   images: string[];
   status: string;
   registration_number: string | null;
+  imported_by_admin: boolean;
 }
 
 /** A property admin imported on this host's behalf, waiting on the host to
@@ -376,7 +378,10 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const { user, session } = useAuth();
   const { toast } = useToast();
   const [listings, setListings] = useState<HostListing[] | null>(null);
-  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending" | "draft">("all");
+  const initialTab = new URLSearchParams(window.location.search).get("tab");
+  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending" | "draft">(
+    initialTab === "draft" ? "draft" : "all"
+  );
 
   // Verification & Modal states
   const [isVerified, setIsVerified] = useState(false);
@@ -427,7 +432,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     // Fetch properties
     supabase
       .from("properties")
-      .select("id, title, city, state, price_per_night, images, status, registration_number")
+      .select("id, title, city, state, price_per_night, images, status, registration_number, imported_by_admin")
       .eq("host_id", user.id)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
@@ -778,6 +783,16 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     <p className="mt-1.5 text-xs font-semibold text-white">
                       {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
                     </p>
+                    {/* Permanent provenance marker - unlike the status
+                        badge, this stays true for the listing's whole
+                        lifecycle (draft -> pending_review -> active), so a
+                        host can always tell which listings our team set up
+                        for them vs. ones they imported/built themselves. */}
+                    {p.imported_by_admin && (
+                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/70">
+                        <UserCheck className="h-2.5 w-2.5" /> Imported by our team
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -1729,7 +1744,10 @@ export default function HostPortal() {
               <span className="text-white/20">·</span>
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </div>
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <NotificationBell />
+              <ThemeToggle />
+            </div>
           </div>
         </header>
 
