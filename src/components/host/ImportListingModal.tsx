@@ -354,6 +354,10 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
             state,
             pincode: "",
             registrationNumber: registrationNumber.trim(),
+            // The original Airbnb room ID this was looked up from, so the
+            // saved property can link back to the source listing - not
+            // set for a manual draft (listingData.isManualDraft).
+            sourceAirbnbId: listingData.isManualDraft ? null : listingData.listingId,
             latitude: listingData.latitude ?? null,
             longitude: listingData.longitude ?? null,
             maxGuests: listingData.details?.guests || 2,

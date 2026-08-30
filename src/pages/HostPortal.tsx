@@ -346,6 +346,8 @@ interface HostListing {
   status: string;
   registration_number: string | null;
   imported_by_admin: boolean;
+  source_url: string | null;
+  max_guests: number | null;
 }
 
 /** A property admin imported on this host's behalf, waiting on the host to
@@ -432,7 +434,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     // Fetch properties
     supabase
       .from("properties")
-      .select("id, title, city, state, price_per_night, images, status, registration_number, imported_by_admin")
+      .select("id, title, city, state, price_per_night, images, status, registration_number, imported_by_admin, source_url, max_guests")
       .eq("host_id", user.id)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
