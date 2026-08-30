@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Copy, Loader2, Mail, Search, UserPlus, Upload, Users } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronUp, Copy, Loader2, Mail, Search, UserPlus, Upload, Users } from "lucide-react";
 import { ImportListingModal, type ImportTargetHost } from "@/components/host/ImportListingModal";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -18,6 +18,15 @@ interface HostRow {
   phone: string | null;
   created_at: string;
   propertyCounts: { draft: number; pending_review: number; active: number; rejected: number; total: number };
+  properties: HostProperty[];
+}
+
+interface HostProperty {
+  id: string;
+  title: string | null;
+  status: string;
+  price_per_night: number | null;
+  imported_by_admin: boolean;
 }
 
 interface WaitlistLead {
@@ -91,6 +100,7 @@ function HostDirectory() {
   const [query, setQuery] = useState("");
   const [importTarget, setImportTarget] = useState<ImportTargetHost | null>(null);
   const [notifyingId, setNotifyingId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const fetchHosts = async () => {
     if (!session?.access_token) return;
@@ -234,8 +244,58 @@ function HostDirectory() {
                     {c.total === 0 && (
                       <span className="rounded-full bg-muted px-2.5 py-1 text-[11px] text-muted-foreground">No properties yet</span>
                     )}
+                    {c.total > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(expandedId === h.id ? null : h.id)}
+                        className="flex items-center gap-0.5 rounded-full px-1.5 py-1 text-[11px] text-muted-foreground hover:text-foreground"
+                      >
+                        {expandedId === h.id ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                      </button>
+                    )}
                   </div>
                 </div>
+
+                {/* Per-property breakdown - the two admin-facing stages
+                    (imported, waiting on the host's own pricing) vs
+                    (host has priced + approved, waiting on our final
+                    go/no-go) need to be visible per host, not just as an
+                    aggregate count, otherwise there's no way to tell which
+                    specific property needs which kind of attention. */}
+                {expandedId === h.id && (
+                  <div className="mt-3 space-y-1.5 border-t border-border pt-3">
+                    {h.properties.map((prop) => (
+                      <div key={prop.id} className="flex items-center justify-between gap-2 rounded-lg bg-muted/40 px-3 py-2 text-xs">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate font-medium text-foreground">{prop.title || "Untitled listing"}</p>
+                          <p className="text-[11px] text-muted-foreground">
+                            {prop.price_per_night ? `₹${prop.price_per_night.toLocaleString("en-IN")}/night` : "No price set"}
+                            {prop.imported_by_admin ? " · imported by our team" : ""}
+                          </p>
+                        </div>
+                        {prop.status === "draft" && (
+                          <span className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                            Waiting on host pricing
+                          </span>
+                        )}
+                        {prop.status === "pending_review" && (
+                          <Link
+                            to={`/adminn/review/${prop.id}`}
+                            className="shrink-0 rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-semibold text-amber-600 hover:bg-amber-500/25 dark:text-amber-400"
+                          >
+                            Ready for final approve →
+                          </Link>
+                        )}
+                        {prop.status === "active" && (
+                          <span className="shrink-0 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-semibold text-green-600 dark:text-green-400">Live</span>
+                        )}
+                        {prop.status === "rejected" && (
+                          <span className="shrink-0 rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold text-red-600 dark:text-red-400">Rejected</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border pt-3">
                   <Button

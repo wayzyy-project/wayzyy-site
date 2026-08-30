@@ -88,13 +88,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // profiles' name column is "name", not "full_name" - aliased here so
       // the rest of this file and the frontend can keep using full_name.
       admin.from("profiles").select("id, full_name:name, phone, created_at"),
-      admin.from("properties").select("host_id, status"),
+      admin.from("properties").select("id, host_id, title, status, price_per_night, imported_by_admin").order("created_at", { ascending: false }),
     ]);
 
     if (profilesErr) return res.status(500).json({ error: profilesErr.message });
     if (propsErr) return res.status(500).json({ error: propsErr.message });
 
     const counts: Record<string, { draft: number; pending_review: number; active: number; rejected: number; total: number }> = {};
+    const propertiesByHost: Record<string, any[]> = {};
     for (const p of properties ?? []) {
       const hostId = (p as any).host_id;
       if (!hostId) continue;
@@ -104,15 +105,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         counts[hostId][status] += 1;
       }
       counts[hostId].total += 1;
+      propertiesByHost[hostId] ??= [];
+      propertiesByHost[hostId].push(p);
     }
 
     // profiles is the base list (every account gets a row via the signup
     // trigger) - auth.users fills in the email that profiles doesn't have.
+    // Each host also carries its own property list (not just counts) so
+    // the admin directory can show, per host, exactly which properties
+    // are waiting on the host's pricing vs. waiting on the admin's final
+    // approve, rather than just an opaque count.
     const hosts = (profiles ?? []).map((p: any) => ({
       ...p,
       email: authUsersById[p.id]?.email ?? null,
       created_at: p.created_at ?? authUsersById[p.id]?.created_at ?? null,
       propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
+      properties: propertiesByHost[p.id] ?? [],
     })).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 
     // Waitlist leads - people who filled the pre-launch "join the waitlist"

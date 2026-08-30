@@ -34,6 +34,7 @@ interface Listing {
   host_email: string;
   status: string;
   created_at: string;
+  imported_by_admin: boolean;
 }
 
 function AuthGate({ children }: { children: React.ReactNode }) {
@@ -97,7 +98,7 @@ function ListingQueue() {
     setListings(null);
     let query = supabase
       .from("properties")
-      .select("id, title, city, state, price_per_night, images, host_email, status, created_at")
+      .select("id, title, city, state, price_per_night, images, host_email, status, created_at, imported_by_admin")
       .order("created_at", { ascending: false });
     if (tab === "pending") query = query.eq("status", "pending_review");
 
@@ -176,6 +177,7 @@ function ListingQueue() {
                 <p className="text-sm text-muted-foreground">{[l.city, l.state].filter(Boolean).join(", ")} · {l.host_email}</p>
                 <p className="mt-0.5 text-sm font-medium">
                   {l.price_per_night ? `₹${l.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
+                  {l.imported_by_admin && <span className="ml-2 text-xs font-normal text-muted-foreground">· imported by our team, host-priced</span>}
                 </p>
               </div>
             </button>
