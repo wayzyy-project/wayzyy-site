@@ -204,31 +204,112 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const safeName = escapeHtml(hostName || "there");
-    const listItems = drafts.map((d: any) => `<li style="margin:0 0 6px;">${escapeHtml(d.title || "Untitled listing")}</li>`).join("");
+    const count = drafts.length;
+    const plural = count === 1 ? "property" : "properties";
+
+    // Email HTML is table-based and inline-styled on purpose: Gmail and
+    // Outlook strip <style> blocks and don't support flex/grid. SVG is
+    // stripped too, so the logo is the PNG mark.
+    const listRows = drafts
+      .map(
+        (d: any) => `
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #EFEDE9;font-size:14px;color:#14161A;">
+                  ${escapeHtml(d.title || "Untitled listing")}
+                </td>
+              </tr>`
+      )
+      .join("");
+
+    // Where the host is in the process, drawn at the bottom so the
+    // instructions come first. Step 2 is the live one - theirs to do.
+    const step = (n: string, title: string, body: string, state: "done" | "now" | "next") => {
+      const bg = state === "done" ? "#14704A" : state === "now" ? "#FF6B00" : "#FFFFFF";
+      const fg = state === "next" ? "#9AA0A8" : "#FFFFFF";
+      const border = state === "next" ? "1px solid #D8D3CB" : "none";
+      const titleColor = state === "next" ? "#9AA0A8" : "#14161A";
+      return `
+              <tr>
+                <td width="34" valign="top" style="padding:0 12px 18px 0;">
+                  <table cellpadding="0" cellspacing="0" border="0"><tr>
+                    <td align="center" valign="middle" width="26" height="26" style="width:26px;height:26px;background:${bg};border:${border};border-radius:13px;color:${fg};font-size:12px;font-weight:700;line-height:26px;">${n}</td>
+                  </tr></table>
+                </td>
+                <td valign="top" style="padding:0 0 18px;">
+                  <div style="font-size:13px;font-weight:700;color:${titleColor};line-height:1.4;">${title}</div>
+                  <div style="font-size:12px;color:#6B7280;line-height:1.5;margin-top:2px;">${body}</div>
+                </td>
+              </tr>`;
+    };
 
     const html = `
 <!DOCTYPE html>
 <html>
-<body style="margin:0;padding:0;background:#f6f6f6;font-family:-apple-system,Segoe UI,Roboto,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f6f6f6;padding:32px 0;">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head>
+<body style="margin:0;padding:0;background:#F5F3EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F3EF;padding:32px 12px;">
     <tr><td align="center">
-      <table width="100%" style="max-width:520px;background:#fff;border-radius:16px;overflow:hidden;">
-        <tr><td style="padding:32px;">
-          <h2 style="margin:0 0 12px;color:#111;">Hi ${safeName}, your properties are ready 🎉</h2>
-          <p style="margin:0 0 16px;font-size:14px;color:#555;line-height:1.6;">
-            Our team has imported and reviewed ${drafts.length} propert${drafts.length === 1 ? "y" : "ies"} for you:
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;background:#FFFFFF;border-radius:14px;overflow:hidden;border:1px solid #E7E3DC;">
+
+        <tr><td style="padding:28px 32px 0;">
+          <img src="https://wayzyy.com/icon-192.png" width="36" height="36" alt="Wayzyy" style="display:block;border:0;border-radius:9px;" />
+        </td></tr>
+
+        <tr><td style="padding:20px 32px 0;">
+          <h1 style="margin:0;font-size:21px;line-height:1.3;color:#14161A;font-weight:700;">
+            Hi ${safeName}, your ${plural} ${count === 1 ? "is" : "are"} ready for pricing
+          </h1>
+          <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:#5A6068;">
+            Our team has imported ${count} ${plural} into your Wayzyy account and set ${count === 1 ? "it" : "them"} up for you.
+            The only thing left is your pricing.
           </p>
-          <ul style="margin:0 0 20px;padding-left:20px;font-size:14px;color:#333;">${listItems}</ul>
-          <p style="margin:0 0 24px;font-size:14px;color:#555;line-height:1.6;">
-            Log in to your host portal to see how each one looks, set your nightly and weekend pricing, and approve it to send it to us for final review.
-          </p>
-          <div style="text-align:center;">
-            <a href="https://wayzyy.com/host" style="display:inline-block;background:#ff6b00;color:#fff;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:50px;">
-              Go to Host Portal →
-            </a>
+        </td></tr>
+
+        <tr><td style="padding:22px 32px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">${listRows}</table>
+        </td></tr>
+
+        <tr><td style="padding:22px 32px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FBF9F6;border:1px solid #EFEDE9;border-radius:10px;">
+            <tr><td style="padding:16px 18px;">
+              <div style="font-size:13px;font-weight:700;color:#14161A;">What you need to do</div>
+              <div style="font-size:13px;line-height:1.65;color:#5A6068;margin-top:6px;">
+                Open each listing and set your <strong style="color:#14161A;">base nightly rate</strong> and, if you want one,
+                a separate <strong style="color:#14161A;">weekend rate</strong>. You can also block dates or set a different
+                price for specific nights from the calendar on each property, any time.
+              </div>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <tr><td align="center" style="padding:24px 32px 0;">
+          <a href="https://wayzyy.com/host?tab=draft" style="display:inline-block;background:#FF6B00;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:13px 30px;border-radius:8px;">
+            Add your pricing
+          </a>
+        </td></tr>
+
+        <tr><td style="padding:28px 32px 0;">
+          <div style="border-top:1px solid #EFEDE9;padding-top:20px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#9AA0A8;padding-bottom:16px;">
+              How it works
+            </div>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              ${step("1", "We import your listing", "Done — photos, details and layout are already in.", "done")}
+              ${step("2", "You add your pricing", "Set your base and weekend rates, then approve.", "now")}
+              ${step("3", "We review and publish", "Our team gives the final approval and your listing goes live.", "next")}
+            </table>
           </div>
         </td></tr>
+
+        <tr><td style="padding:8px 32px 28px;">
+          <p style="margin:0;font-size:12px;line-height:1.6;color:#9AA0A8;">
+            Questions? Reply to this email or reach us at
+            <a href="mailto:hello@wayzyy.com" style="color:#FF6B00;text-decoration:none;">hello@wayzyy.com</a>.
+          </p>
+        </td></tr>
+
       </table>
+      <p style="margin:16px 0 0;font-size:11px;color:#A9AEB5;">Wayzyy — stays without the small print.</p>
     </td></tr>
   </table>
 </body>
@@ -238,7 +319,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       await sendViaZepto({
         from: "Wayzyy Listings <noreply@wayzyy.com>",
         to: hostEmail,
-        subject: `Your ${drafts.length} propert${drafts.length === 1 ? "y is" : "ies are"} ready — set your pricing`,
+        subject: `Your ${count} ${plural} ${count === 1 ? "is" : "are"} ready — add your pricing`,
         html,
       });
     } catch (err: any) {
