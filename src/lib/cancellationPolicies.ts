@@ -4,6 +4,15 @@ export type LongTermPolicyId = "Moderate" | "Limited" | "Firm";
 
 export const LONG_TERM_NIGHTS_THRESHOLD = 28;
 
+/**
+ * What every listing starts on until the host picks something else.
+ * These are written at import/creation time, so a host opening the
+ * cancellation tab for the first time sees them already selected without
+ * ever having chosen them - the UI labels them as ours for that reason.
+ */
+export const DEFAULT_SHORT_TERM_POLICY: ShortTermPolicyId = "Flexible";
+export const DEFAULT_LONG_TERM_POLICY: LongTermPolicyId = "Firm";
+
 interface ShortTermPolicyDef {
   id: ShortTermPolicyId;
   label: string;

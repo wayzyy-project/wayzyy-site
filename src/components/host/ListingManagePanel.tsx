@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCalendar } from "@/components/host/PropertyCalendar";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
-import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
+import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
 
 const SUPABASE_URL = "https://eitpwcnsoshweoqzusdk.supabase.co";
 
@@ -497,8 +497,8 @@ function DiscountsSection({ propertyId }: { propertyId: string }) {
 
 function CancellationSection({ propertyId }: { propertyId: string }) {
   const { toast } = useToast();
-  const [shortTerm, setShortTerm] = useState<ShortTermPolicyId>("Flexible");
-  const [longTerm, setLongTerm] = useState<LongTermPolicyId>("Firm");
+  const [shortTerm, setShortTerm] = useState<ShortTermPolicyId>(DEFAULT_SHORT_TERM_POLICY);
+  const [longTerm, setLongTerm] = useState<LongTermPolicyId>(DEFAULT_LONG_TERM_POLICY);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -507,8 +507,8 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
     (async () => {
       const { data } = await supabase.from("properties").select("cancel_policy, cancel_policy_long_term").eq("id", propertyId).single();
       if (!cancelled) {
-        setShortTerm((data?.cancel_policy as ShortTermPolicyId) ?? "Flexible");
-        setLongTerm((data?.cancel_policy_long_term as LongTermPolicyId) ?? "Firm");
+        setShortTerm((data?.cancel_policy as ShortTermPolicyId) ?? DEFAULT_SHORT_TERM_POLICY);
+        setLongTerm((data?.cancel_policy_long_term as LongTermPolicyId) ?? DEFAULT_LONG_TERM_POLICY);
         setLoading(false);
       }
     })();
@@ -544,7 +544,10 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-3 text-sm font-semibold text-white">Under 28 nights</p>
+        <p className="text-sm font-semibold text-white">Under 28 nights</p>
+        <p className="mb-3 mt-0.5 text-xs text-white/50">
+          Every listing starts on our default. Pick a different one whenever you like — guests see this before they book.
+        </p>
         <div className="space-y-3">
           {SHORT_TERM_POLICIES.map((policy) => (
             <button
@@ -556,7 +559,14 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
               }`}
             >
               <div>
-                <p className={`text-sm font-medium ${shortTerm === policy.id ? "text-ember" : "text-white"}`}>{policy.label}</p>
+                <p className={`flex flex-wrap items-center gap-2 text-sm font-medium ${shortTerm === policy.id ? "text-ember" : "text-white"}`}>
+                  {policy.label}
+                  {policy.id === DEFAULT_SHORT_TERM_POLICY && (
+                    <span className="rounded-full border border-white/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+                      Our default
+                    </span>
+                  )}
+                </p>
                 {policy.rules.map((rule) => (
                   <p key={rule} className="mt-1 text-xs text-white/60">{rule}</p>
                 ))}
@@ -567,7 +577,10 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-semibold text-white">28+ nights</p>
+        <p className="text-sm font-semibold text-white">28+ nights</p>
+        <p className="mb-3 mt-0.5 text-xs text-white/50">
+          Applies to stays of {LONG_TERM_NIGHTS_THRESHOLD} nights or more, which cancel differently to a short break.
+        </p>
         <div className="space-y-3">
           {LONG_TERM_POLICIES.map((policy) => (
             <button
@@ -579,7 +592,14 @@ function CancellationSection({ propertyId }: { propertyId: string }) {
               }`}
             >
               <div>
-                <p className={`text-sm font-medium ${longTerm === policy.id ? "text-ember" : "text-white"}`}>{policy.label}</p>
+                <p className={`flex flex-wrap items-center gap-2 text-sm font-medium ${longTerm === policy.id ? "text-ember" : "text-white"}`}>
+                  {policy.label}
+                  {policy.id === DEFAULT_LONG_TERM_POLICY && (
+                    <span className="rounded-full border border-white/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+                      Our default
+                    </span>
+                  )}
+                </p>
                 {policy.rules.map((rule) => (
                   <p key={rule} className="mt-1 text-xs text-white/60">{rule}</p>
                 ))}
