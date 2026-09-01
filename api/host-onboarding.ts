@@ -62,8 +62,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const body = req.body as HostOnboardingPayload;
 
-  if (!body.fullName || !body.email || !body.email.includes("@") || !body.phone || !body.agreedToTerms) {
-    return res.status(400).json({ error: "Missing required fields" });
+  // Naming the missing field matters: this form pulls name and phone from
+  // the host's profile, so "Missing required fields" pointed at inputs the
+  // host couldn't see and had no way to fix.
+  const missing: string[] = [];
+  if (!body.fullName) missing.push("your name");
+  if (!body.email || !body.email.includes("@")) missing.push("a valid email");
+  if (!body.phone) missing.push("a phone number");
+  if (missing.length) {
+    return res.status(400).json({
+      error: `We still need ${missing.join(" and ")} before we can take these properties.`,
+    });
+  }
+  if (!body.agreedToTerms) {
+    return res.status(400).json({ error: "Please accept the host terms to continue." });
   }
 
   const hasAirbnb = !!body.airbnbProfileUrl?.trim();
@@ -144,6 +156,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     } catch (err) {
       console.error("host-onboarding: confirmation email failed (non-fatal):", err instanceof Error ? err.message : err);
+    }
+
+    // Tell our team as well. Only the host was being emailed, so a
+    // submission could sit in the queue with nobody aware it had arrived -
+    // the whole point of the concierge path is that we act on it.
+    const linkList = propertyUrls.length
+      ? `<ul style="margin:0 0 16px;padding-left:20px;font-size:13px;color:#333;">${propertyUrls
+          .map((u) => `<li style="margin:0 0 6px;word-break:break-all;">${escapeHtml(u)}</li>`)
+          .join("")}</ul>`
+      : `<p style="margin:0 0 16px;font-size:13px;color:#888;">No individual links — host profile only.</p>`;
+
+    const adminHtml = `
+      <div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:0 auto;padding:24px;">
+        <h2 style="margin:0 0 4px;color:#111;">${escapeHtml(body.fullName)} sent their properties</h2>
+        <p style="margin:0 0 16px;font-size:13px;color:#666;">
+          ${escapeHtml(body.email)}${body.phone ? ` · ${escapeHtml(body.phone)}` : ""}
+        </p>
+        ${body.airbnbProfileUrl ? `<p style="margin:0 0 12px;font-size:13px;"><strong>Host profile:</strong><br/><span style="word-break:break-all;">${escapeHtml(body.airbnbProfileUrl)}</span></p>` : ""}
+        <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#111;">${propertyUrls.length} propert${propertyUrls.length === 1 ? "y" : "ies"}</p>
+        ${linkList}
+        <div style="text-align:center;margin-top:8px;">
+          <a href="https://wayzyy.com/adminn/hosts" style="display:inline-block;background:#ff6b00;color:#fff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:50px;">
+            Open in admin →
+          </a>
+        </div>
+      </div>
+    `;
+
+    try {
+      await sendViaZepto({
+        from: "Wayzyy <hello@wayzyy.com>",
+        to: "hello@wayzyy.com",
+        subject: `[New properties] ${body.fullName} sent ${propertyUrls.length || "their"} link${propertyUrls.length === 1 ? "" : "s"}`,
+        html: adminHtml,
+      });
+    } catch (err) {
+      console.error("host-onboarding: admin notification failed (non-fatal):", err instanceof Error ? err.message : err);
     }
   } else {
     console.error("host-onboarding: ZEPTOMAIL_API_KEY is not configured, skipping confirmation email");

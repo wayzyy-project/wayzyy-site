@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -117,6 +117,28 @@ function ConciergeForm({
   const [airbnbProfileUrl, setAirbnbProfileUrl] = useState("");
   const [propertyUrls, setPropertyUrls] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  // Name and phone normally come from the profile. They can legitimately be
+  // missing - the signup upsert wrote to columns that didn't exist, so every
+  // account created before that was fixed has a blank profile - and the form
+  // used to hand those blanks to the API, which rejected the whole
+  // submission as "missing required fields" while pointing at nothing the
+  // host could see. Load them, and ask only for what's actually absent.
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  useEffect(() => {
+    supabase
+      .from("profiles")
+      .select("name, phone")
+      .eq("id", userId)
+      .maybeSingle()
+      .then(({ data }) => {
+        setName(data?.name ?? "");
+        setPhone(data?.phone ?? "");
+        setProfileLoaded(true);
+      });
+  }, [userId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -129,18 +151,25 @@ function ConciergeForm({
       return;
     }
 
+    if (!name.trim() || !phone.trim()) {
+      toast({
+        title: name.trim() ? "Add your phone number" : "Add your name",
+        description: "We need it to reach you about these properties.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSubmitting(true);
     try {
-      // Name/phone come from the account rather than being re-typed - the
-      // profile row is the source of truth, and asking again is exactly the
-      // duplicated-form problem this flow replaced. profiles has no email
-      // column at all (that only lives on auth.users), so email comes from
-      // the signed-in session instead.
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("name, phone")
-        .eq("id", userId)
-        .maybeSingle();
+      // Write back what they typed so the account stops being blank and no
+      // later flow has to ask again.
+      await supabase.from("profiles").upsert({
+        id: userId,
+        name: name.trim(),
+        phone: phone.trim(),
+        updated_at: new Date().toISOString(),
+      });
 
       // Routed through the API rather than inserting client-side so the
       // host still gets their "we've received your properties" confirmation
@@ -150,9 +179,9 @@ function ConciergeForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId,
-          fullName: profile?.name ?? "",
+          fullName: name.trim(),
           email: user?.email ?? "",
-          phone: profile?.phone ?? "",
+          phone: phone.trim(),
           airbnbProfileUrl: airbnbProfileUrl.trim(),
           propertyUrls: propertyUrls
             .split(/[\n,]/)
@@ -200,6 +229,35 @@ function ConciergeForm({
           Just the links. We'll import everything, set them up, and hand them back for you to price.
         </p>
       </div>
+
+      {/* Only shown when the account is actually missing them, so a host
+          with a filled-in profile still never re-types anything. */}
+      {profileLoaded && (!name.trim() || !phone.trim()) && (
+        <div className="grid gap-3 rounded-2xl border border-white/15 bg-white/[0.03] p-4 sm:grid-cols-2">
+          <p className="text-xs text-white/60 sm:col-span-2">
+            We don't have these on your account yet — we'll need them to reach you about these properties.
+          </p>
+          <label className="block">
+            <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">Your name</span>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Akshay Sharma"
+              className="w-full rounded-xl border border-white/20 bg-black/30 px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-ember focus:outline-none"
+            />
+          </label>
+          <label className="block">
+            <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">Phone</span>
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="+91 98765 43210"
+              inputMode="tel"
+              className="w-full rounded-xl border border-white/20 bg-black/30 px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-ember focus:outline-none"
+            />
+          </label>
+        </div>
+      )}
 
       <label className="block">
         <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-white/70">
