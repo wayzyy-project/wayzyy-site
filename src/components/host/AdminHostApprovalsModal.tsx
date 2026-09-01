@@ -158,7 +158,7 @@ export function AdminHostApprovalsModal({ isOpen, onClose, onRefresh }: AdminHos
             </p>
           </div>
         ) : (
-          <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
+          <div data-lenis-prevent className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
             {pendingHosts.map((host) => (
               <div
                 key={host.requestId}

@@ -218,7 +218,7 @@ export function ManualVerificationModal({ isOpen, onClose, onSuccess }: ManualVe
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+      <div data-lenis-prevent className="relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
         {/* Hidden Canvas for Webcam Snapshot */}
         <canvas ref={canvasRef} className="hidden" />
 

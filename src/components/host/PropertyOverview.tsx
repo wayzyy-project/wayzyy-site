@@ -212,9 +212,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            rows={7}
+            rows={14}
             placeholder="What makes this place worth staying in?"
-            className="mt-1.5 leading-relaxed"
+            className="mt-1.5 max-h-[60vh] leading-relaxed"
           />
           <p className="mt-1 text-[11px] text-white/40">{description.length} characters</p>
         </div>
