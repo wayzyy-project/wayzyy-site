@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { AMENITIES } from "@/lib/amenities";
+import { AmenityPicker } from "@/components/host/AmenityPicker";
 
 interface PropertyRow {
   title: string | null;
@@ -259,24 +259,10 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
       {/* Amenities ----------------------------------------------------- */}
       <section>
         <p className="text-sm font-semibold text-white">Amenities</p>
-        <p className="mt-0.5 mb-3 text-xs text-white/50">{amenities.length} selected — tap to add or remove.</p>
-        <div className="flex flex-wrap gap-2">
-          {AMENITIES.map((a) => {
-            const on = amenities.includes(a);
-            return (
-              <button
-                key={a}
-                type="button"
-                onClick={() => setAmenities((prev) => (on ? prev.filter((x) => x !== a) : [...prev, a]))}
-                className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                  on ? "border-ember bg-ember/15 text-ember" : "border-white/20 text-white/60 hover:border-white/40 hover:text-white"
-                }`}
-              >
-                {a}
-              </button>
-            );
-          })}
-        </div>
+        <p className="mb-3 mt-0.5 text-xs text-white/50">
+          What guests get. Remove anything that doesn't apply, and search to add what's missing.
+        </p>
+        <AmenityPicker value={amenities} onChange={setAmenities} />
       </section>
 
       {row.source_url && (

@@ -4,14 +4,91 @@
  * used across the website, mobile app, and backend database.
  */
 
-// Canonical amenity checklist shown in the manual listing wizard (HostPortal.tsx)
-// and the Airbnb import review flow (ImportListingModal.tsx) - kept as a single
-// shared list so both paths stay in sync.
-export const AMENITIES = [
-  "WiFi", "Kitchen", "Washer", "AC", "Heating", "Hot Water", "TV", "Pool",
-  "Parking", "Breakfast", "Garden", "Beach Access", "Pet-friendly", "BBQ",
-  "Workspace", "Gym", "EV Charger",
+/**
+ * The amenity catalogue, grouped the way a host thinks about their place.
+ *
+ * This was 17 items, which caused two problems: a host had almost nothing
+ * to choose from, and matchKnownAmenities() filters imported amenities down
+ * to this list - so anything Airbnb sent that wasn't one of the 17 was
+ * silently dropped on import, including things the alias table already knew
+ * how to resolve (Sea View, Balcony, Self check-in, Smoke alarm...).
+ *
+ * Weighted towards what actually matters for Goa and India - backup power,
+ * mosquito nets, water purifiers, caretakers - rather than a generic list.
+ */
+export const AMENITY_GROUPS: { group: string; items: string[] }[] = [
+  {
+    group: "Essentials",
+    items: [
+      "WiFi", "Fast WiFi", "AC", "Heating", "Ceiling fan", "Hot Water", "Geyser",
+      "TV", "Washer", "Dryer", "Iron", "Hair dryer", "Towels & linens", "Hangers",
+      "Wardrobe", "Backup power / Inverter", "Generator",
+    ],
+  },
+  {
+    group: "Kitchen & dining",
+    items: [
+      "Kitchen", "Refrigerator", "Microwave", "Stove", "Oven", "Dishwasher",
+      "Cooking basics", "Dishes & silverware", "Coffee maker", "Kettle",
+      "Toaster", "Water purifier", "Dining table", "BBQ",
+    ],
+  },
+  {
+    group: "Bathroom",
+    items: ["Shampoo", "Conditioner", "Body soap", "Bathtub", "Bidet", "Toiletries"],
+  },
+  {
+    group: "Bedroom",
+    items: [
+      "Extra pillows & blankets", "Room-darkening blinds", "Mosquito net",
+      "Safe", "Crib", "Extra mattress",
+    ],
+  },
+  {
+    group: "Outdoor",
+    items: [
+      "Pool", "Private pool", "Shared pool", "Jacuzzi", "Garden", "Balcony",
+      "Terrace", "Rooftop", "Outdoor furniture", "Outdoor dining", "Fire pit",
+      "Hammock", "Beach Access", "Beach essentials", "Courtyard",
+    ],
+  },
+  {
+    group: "Views",
+    items: ["Sea View", "Ocean view", "Garden View", "Mountain View", "Pool view", "River view", "City view"],
+  },
+  {
+    group: "Parking & facilities",
+    items: ["Parking", "Free parking", "Paid parking", "EV Charger", "Gym", "Elevator", "Single-level home", "Scooter rental"],
+  },
+  {
+    group: "Family",
+    items: ["High chair", "Baby bath", "Children's books & toys", "Board games", "Baby safety gates"],
+  },
+  {
+    group: "Safety",
+    items: [
+      "Smoke alarm", "Carbon monoxide alarm", "Fire extinguisher", "First aid kit",
+      "Exterior security cameras", "Gated property", "Caretaker on site", "Security guard",
+    ],
+  },
+  {
+    group: "Services & policies",
+    items: [
+      "Breakfast", "Self check-in", "Housekeeping", "Laundry service", "Chef available",
+      "Airport shuttle", "Luggage drop-off", "Workspace", "Long term stays allowed",
+      "Pet-friendly", "Smoking allowed", "Events allowed",
+    ],
+  },
 ];
+
+// Flat list - kept as the same shape and name so the wizard, the import
+// review flow and matchKnownAmenities() all keep working unchanged.
+export const AMENITIES = AMENITY_GROUPS.flatMap((g) => g.items);
+
+/** Which group an amenity belongs to, for grouping search results. */
+export function amenityGroupOf(amenity: string): string | null {
+  return AMENITY_GROUPS.find((g) => g.items.includes(amenity))?.group ?? null;
+}
 
 export const AMENITY_ALIASES: Record<string, string[]> = {
   // WiFi
