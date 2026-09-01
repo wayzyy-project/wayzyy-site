@@ -25,7 +25,24 @@ interface Props {
 // The website's equivalent of the app's ConnectCalendarScreen + HostDiscountsScreen +
 // cancellation-policy cards - same tables and edge functions as mobile, so a
 // change made here shows up in the app instantly and vice versa.
+/** What each tab is for, in the host's terms. A single fixed subtitle
+ *  described the whole panel and so described none of the tabs; someone
+ *  landing on Discounts got a sentence about calendars. */
+const TAB_BLURB: Record<string, string> = {
+  calendar:
+    "Set what you charge and when you're free. Click a night to select it, click another to take everything in between, then set a rate for those nights or block them off.",
+  sync:
+    "Keep Airbnb, Booking.com and anywhere else you list in step with Wayzyy so the same night can't be booked twice. Paste the calendar link from each platform once and it stays in sync on its own.",
+  discounts:
+    "The same weekly and monthly discounts you'd set on any other platform, just clearer about what a guest actually pays. Choose how much comes off, see the effect before you commit, and save.",
+  cancellation:
+    "How much a guest gets back if they cancel, and how late they can do it. Pick one policy for short stays and one for long ones — guests see this before they book.",
+  details:
+    "Licensing and registration details for this property. Needed to operate legally, and never a blocker to getting listed.",
+};
+
 export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultTab }: Props) {
+  const [tab, setTab] = useState(defaultTab ?? "calendar");
   return (
     <div className="mx-auto max-w-2xl">
       <button
@@ -38,14 +55,14 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
       </button>
 
       <h2 className="font-display text-2xl text-white">{propertyTitle}</h2>
-      <p className="mb-6 text-sm text-white/60">Manage availability and nightly rates, sync other channels, and edit listing details.</p>
+      <p className="mb-6 max-w-xl text-sm leading-relaxed text-white/60">{TAB_BLURB[tab] ?? TAB_BLURB.calendar}</p>
 
       {/* Calendar and channel sync are separate concerns and used at
           different moments: the calendar is day-to-day pricing and
           availability, iCal is a one-time plumbing job to keep other
           platforms from double-booking. They were sharing one tab, which
           buried the calendar behind a URL field. */}
-      <Tabs defaultValue={defaultTab ?? "calendar"}>
+      <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="mb-6 bg-white/10 text-white/60">
           <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
           <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>

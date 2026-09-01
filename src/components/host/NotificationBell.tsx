@@ -89,12 +89,12 @@ export function NotificationBell() {
               className="flex flex-col items-start gap-0.5 whitespace-normal py-2.5"
             >
               <div className="flex w-full items-start gap-2">
-                {!n.read && <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />}
-                {n.read && <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                {!n.read && <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-current" />}
+                {n.read && <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-60" />}
                 <div className="min-w-0 flex-1">
-                  <p className={`text-xs ${n.read ? "text-muted-foreground" : "font-semibold text-foreground"}`}>{n.title}</p>
-                  {n.body && <p className="text-[11px] text-muted-foreground mt-0.5">{n.body}</p>}
-                  <p className="text-[10px] text-muted-foreground/70 mt-1">
+                  <p className={`text-xs ${n.read ? "opacity-60" : "font-semibold"}`}>{n.title}</p>
+                  {n.body && <p className="mt-0.5 text-[11px] opacity-75">{n.body}</p>}
+                  <p className="mt-1 text-[10px] opacity-50">
                     {new Date(n.created_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}
                   </p>
                 </div>
