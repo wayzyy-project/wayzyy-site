@@ -113,6 +113,9 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
   // the listing's Details tab once it's imported.
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [dontHaveRegistration, setDontHaveRegistration] = useState(false);
+  // How many we've filed for this host in this sitting, so the batch
+  // workflow shows progress instead of silently resetting.
+  const [importedCount, setImportedCount] = useState(0);
 
   // Every host account (existing & new) has 1-Click Import access enabled by default (up to 5 properties)
   const isAdmin = user?.email === "hello@wayzyy.com";
@@ -122,7 +125,8 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     if (isOpen && user) {
       setAccessState("approved");
     }
-  }, [isOpen, user]);
+    if (isOpen) setImportedCount(0);
+  }, [isOpen, user, targetHost?.id]);
 
   // Prevent background scroll while modal open
   useEffect(() => {
@@ -442,7 +446,25 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       });
 
       if (onSuccess) onSuccess();
-      onClose();
+
+      // A host typically sends several links at once, so closing the modal
+      // after each one meant reopening it per link. When importing on a
+      // host's behalf, stay open and reset for the next link instead -
+      // the self-serve path still closes, since a host importing their own
+      // listing is done after one.
+      if (targetHost) {
+        setImportedCount((n) => n + 1);
+        setUrlOrId("");
+        setListingData(null);
+        setLookupNotice(null);
+        setTitle("");
+        setDescription("");
+        setAmenities([]);
+        setRegistrationNumber("");
+        setDontHaveRegistration(false);
+      } else {
+        onClose();
+      }
     } catch (err: any) {
       console.error("Import submit error:", err);
       toast({ title: "Submission failed", description: err?.message || "Could not submit listing for approval.", variant: "destructive" });
@@ -498,6 +520,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                     Importing into {targetHost.name || targetHost.email}'s account
                   </p>
                   <p className="mt-0.5 text-muted-foreground">{targetHost.email}</p>
+                  {importedCount > 0 && (
+                    <p className="mt-1.5 font-semibold text-ember">
+                      {importedCount} imported so far — paste the next link, or close when you're done.
+                    </p>
+                  )}
                 </div>
               </div>
             )}
