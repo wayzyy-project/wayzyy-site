@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
@@ -379,10 +379,19 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const { user, session } = useAuth();
   const { toast } = useToast();
   const [listings, setListings] = useState<HostListing[] | null>(null);
-  const initialTab = new URLSearchParams(window.location.search).get("tab");
-  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending" | "draft">(
-    initialTab === "draft" ? "draft" : "all"
-  );
+  // ?tab=draft is how the "N properties imported for you" notification lands
+  // a host straight on what needs pricing. Reading it once in a useState
+  // initializer only worked on a cold load: a host already sitting on /host
+  // who clicked the bell got a URL change but no tab change, because this
+  // component never remounts. Tracking the location keeps them in sync.
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<"all" | "active" | "pending" | "draft">("all");
+  useEffect(() => {
+    const tab = new URLSearchParams(location.search).get("tab");
+    if (tab === "draft" || tab === "active" || tab === "pending" || tab === "all") {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
 
   // Verification & Modal states
   const [isVerified, setIsVerified] = useState(false);

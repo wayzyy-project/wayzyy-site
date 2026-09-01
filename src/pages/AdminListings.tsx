@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 const ADMIN_EMAIL = "hello@wayzyy.com";
 
 const STATUS_LABEL: Record<string, string> = {
+  draft: "With host — unpriced",
   pending_review: "Pending review",
   active: "Approved",
   rejected: "Rejected",
@@ -18,6 +19,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_CLASS: Record<string, string> = {
+  draft: "bg-muted text-muted-foreground",
   pending_review: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   active: "bg-green-500/10 text-green-600 dark:text-green-400",
   rejected: "bg-red-500/10 text-red-600 dark:text-red-400",

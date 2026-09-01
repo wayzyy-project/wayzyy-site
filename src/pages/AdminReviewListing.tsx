@@ -190,6 +190,19 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
       toast({ title: "Rate first", description: "Please rate at least one criterion before approving.", variant: "destructive" });
       return;
     }
+    // A draft is a listing we imported that the host hasn't priced yet, so it
+    // still carries price_per_night = 0. The "All" tab on /adminn/listings has
+    // no status filter, so drafts are reachable from here - approving one
+    // would publish it bookable at zero and skip the host's pricing step
+    // entirely. It has to go back to them first.
+    if (newStatus === "active" && (property.status === "draft" || !property.price_per_night)) {
+      toast({
+        title: "No price on this listing yet",
+        description: "It's still with the host to set their rate. It'll come back here for approval once they've priced it.",
+        variant: "destructive",
+      });
+      return;
+    }
     setSaving(true);
     try {
       const updates: Record<string, unknown> = {
