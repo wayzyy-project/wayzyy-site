@@ -218,14 +218,20 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       console.log("🆔 Listing ID:", extractedId);
 
       // 2. Attempt AirROI Edge Function lookup via import-listing-for-host
+      let lookupStatus: number | undefined;
       try {
         const functionName = user?.email === "hello@wayzyy.com" ? "airroi-listing-lookup" : "import-listing-for-host";
         const { data, error } = await supabase.functions.invoke(functionName, {
           body: { listingId: extractedId },
         });
 
+        // Keep the HTTP status: "AirROI has never heard of this listing" and
+        // "your request was rejected" are completely different problems, and
+        // only the first one should ever fall through to a manual draft.
+        lookupStatus = (error as any)?.context?.status;
+
         console.log("📦 Function Data:", data);
-        console.log("⚠️ Function Error:", error);
+        console.log("⚠️ Function Error:", error, lookupStatus ? `(HTTP ${lookupStatus})` : "");
 
         // The edge function nests the actual listing fields under
         // `data.preview` (e.g. { success: true, preview: { title, ... } })
@@ -263,20 +269,40 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
         console.groupEnd();
       }
 
-      // 2. Seamless Fallback: Pre-populate property submission draft with Listing ID
+      // An auth failure is not a missing listing. Falling through to the
+      // manual draft here would bury a 401/403 behind a placeholder that
+      // looks like a real (but wrong) property, which is how a fabricated
+      // listing ends up filed into a host's account.
+      if (!fetchedResult && (lookupStatus === 401 || lookupStatus === 403)) {
+        setLookingUp(false);
+        toast({
+          title: "Your session was rejected",
+          description:
+            "The lookup returned \"not authorized\" even though you're signed in — usually an expired login. Sign out and back in as hello@wayzyy.com, then try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // 2. Fallback for a listing AirROI genuinely doesn't have: a blank
+      //    draft carrying only what we actually know (the room id). It
+      //    deliberately invents nothing - the previous version wrote a
+      //    description claiming air conditioning, wi-fi and a kitchen, and
+      //    hardcoded the location to Goa, for a property nobody had looked
+      //    at yet. Better an empty form than confident wrong details.
       if (!fetchedResult) {
         setLookupNotice(
-          "Automated AirROI details lookup was unavailable. Property pre-filled with your Airbnb Room ID below - please review title & set your direct rates."
+          "We couldn't pull this listing's details automatically. Nothing below is pre-filled from Airbnb — add the title, description and photos yourself before importing."
         );
         fetchedResult = {
           listingId: extractedId,
-          name: `Airbnb Imported Property (#${extractedId.slice(-6)})`,
-          description: `Imported Airbnb listing (Room ID: ${extractedId}). Property located in Goa, India. Features air conditioning, high-speed Wi-Fi, kitchen, and dedicated host support.`,
+          name: "",
+          description: "",
           photoUrls: [],
           coverPhotoUrl: null,
-          hostName: user?.user_metadata?.full_name || "Property Host",
-          location: { locality: "Goa", region: "Goa", country: "India" },
-          details: { guests: 4, bedrooms: 2, beds: 2, baths: 2 },
+          hostName: targetHost?.name || user?.user_metadata?.full_name || "Host",
+          location: null,
+          details: { guests: 2, bedrooms: 1, beds: 1, baths: 1 },
           isManualDraft: true,
         };
       }
@@ -286,10 +312,18 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       setDescription(cleanupImportedDescription(fetchedResult.description));
       setAmenities(mapAirroiAmenities(fetchedResult.amenities));
 
-      toast({
-        title: "Listing Ready for Review",
-        description: "Review property details below, set your direct host pricing, and move for approval.",
-      });
+      toast(
+        fetchedResult.isManualDraft
+          ? {
+              title: "Nothing came back for this listing",
+              description: "Fill in the details below by hand, or check the Airbnb link is right and try again.",
+              variant: "destructive",
+            }
+          : {
+              title: "Listing pulled in",
+              description: "Check the details below before importing.",
+            }
+      );
     } catch (err: any) {
       console.error("Lookup error:", err);
       toast({
