@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { PropertyCalendar } from "@/components/host/PropertyCalendar";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId } from "@/lib/cancellationPolicies";
 
@@ -37,16 +38,25 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
       </button>
 
       <h2 className="font-display text-2xl text-white">{propertyTitle}</h2>
-      <p className="mb-6 text-sm text-white/60">Manage calendar sync, discounts, cancellation policy, and listing details.</p>
+      <p className="mb-6 text-sm text-white/60">Manage availability and nightly rates, sync other channels, and edit listing details.</p>
 
+      {/* Calendar and channel sync are separate concerns and used at
+          different moments: the calendar is day-to-day pricing and
+          availability, iCal is a one-time plumbing job to keep other
+          platforms from double-booking. They were sharing one tab, which
+          buried the calendar behind a URL field. */}
       <Tabs defaultValue={defaultTab ?? "calendar"}>
         <TabsList className="mb-6 bg-white/10 text-white/60">
           <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
+          <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
           <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar">
+          <CalendarTab propertyId={propertyId} />
+        </TabsContent>
+        <TabsContent value="sync">
           <CalendarSection propertyId={propertyId} propertyTitle={propertyTitle} />
         </TabsContent>
         <TabsContent value="discounts">
@@ -59,6 +69,53 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           <DetailsSection propertyId={propertyId} />
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+// ── Calendar: availability + per-night pricing ─────────────────────────────
+
+function CalendarTab({ propertyId }: { propertyId: string }) {
+  const [rates, setRates] = useState<{ price_per_night: number | null; weekend_price: number | null } | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from("properties")
+      .select("price_per_night, weekend_price")
+      .eq("id", propertyId)
+      .maybeSingle()
+      .then(({ data }) => setRates(data as any));
+  }, [propertyId]);
+
+  if (!rates) {
+    return (
+      <div className="flex justify-center py-16">
+        <Loader2 className="h-5 w-5 animate-spin text-white/50" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-4">
+        <p className="text-xs text-white/60">
+          Your standard rate is{" "}
+          <span className="font-semibold text-white">
+            {rates.price_per_night ? `₹${rates.price_per_night.toLocaleString("en-IN")}` : "not set"}
+          </span>
+          {rates.weekend_price ? (
+            <> a night, <span className="font-semibold text-white">₹{rates.weekend_price.toLocaleString("en-IN")}</span> at weekends</>
+          ) : (
+            " a night"
+          )}
+          . Anything you set below overrides it for those dates only.
+        </p>
+      </div>
+      <PropertyCalendar
+        propertyId={propertyId}
+        basePrice={rates.price_per_night}
+        weekendPrice={rates.weekend_price}
+      />
     </div>
   );
 }
