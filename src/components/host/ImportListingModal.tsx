@@ -234,9 +234,15 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       // 2. Attempt AirROI Edge Function lookup via import-listing-for-host
       let lookupStatus: number | undefined;
       try {
-        const functionName = user?.email === "hello@wayzyy.com" ? "airroi-listing-lookup" : "import-listing-for-host";
-        const { data, error } = await supabase.functions.invoke(functionName, {
-          body: { listingId: extractedId },
+        // One import path for everybody. This used to branch to a
+        // separate admin-only function, and the two drifted: the admin one
+        // never returned amenities and never re-hosted photos, so an
+        // admin import silently produced a listing with no amenities and
+        // images hotlinked from Airbnb's CDN. Importing a property is the
+        // same job whoever runs it - the only difference is whose account
+        // it lands in, which is what targetHostId carries.
+        const { data, error } = await supabase.functions.invoke("import-listing-for-host", {
+          body: { listingId: extractedId, targetHostId: targetHost?.id ?? null },
         });
 
         // Keep the HTTP status: "AirROI has never heard of this listing" and
