@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, CheckCircle2, Loader2, Star, XCircle } from "lucide-react";
+import { ArrowLeft, BadgeCheck, CheckCircle2, Loader2, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
@@ -18,30 +18,6 @@ import { Textarea } from "@/components/ui/textarea";
 // the account's password (never shipped to the client) plus the server-side
 // checks, which is what actually stops someone acting as admin.
 const ADMIN_EMAIL = "hello@wayzyy.com";
-
-const CRITERIA = [
-  { key: "photo_quality", label: "Photo quality", weight: 0.25, desc: "Are the photos clear, well-lit, and plentiful?" },
-  { key: "listing_completeness", label: "Listing completeness", weight: 0.2, desc: "Is the title, description, and all details filled out?" },
-  { key: "location_desirability", label: "Location desirability", weight: 0.2, desc: "Is the location attractive or in demand for travellers?" },
-  { key: "price_reasonableness", label: "Price reasonableness", weight: 0.2, desc: "Is the price competitive and fair for the market?" },
-  { key: "host_profile", label: "Host profile", weight: 0.15, desc: "Does the host have a good profile and communication?" },
-] as const;
-
-type CriterionKey = (typeof CRITERIA)[number]["key"];
-
-function computeOverall(ratings: Record<CriterionKey, number>): number | null {
-  let sum = 0;
-  let totalWeight = 0;
-  for (const c of CRITERIA) {
-    const r = ratings[c.key];
-    if (r > 0) {
-      sum += r * c.weight;
-      totalWeight += c.weight;
-    }
-  }
-  if (totalWeight === 0) return null;
-  return Math.round((sum / totalWeight) * 10) / 10;
-}
 
 interface Property {
   id: string;
@@ -66,6 +42,7 @@ interface Property {
   status: string;
   cancel_policy: string;
   instant_book: boolean;
+  wayzyy_verified: boolean | null;
   admin_photo_quality: number | null;
   admin_listing_completeness: number | null;
   admin_location_desirability: number | null;
@@ -125,18 +102,6 @@ function AuthGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-function StarPicker({ value, onChange }: { value: number; onChange: (v: number) => void }) {
-  return (
-    <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map((n) => (
-        <button key={n} type="button" onClick={() => onChange(n)} className="p-0.5">
-          <Star className={`h-5 w-5 ${n <= value ? "fill-ember text-ember" : "text-border"}`} />
-        </button>
-      ))}
-    </div>
-  );
-}
-
 function ReviewListing({ propertyId }: { propertyId: string }) {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -145,16 +110,8 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [decided, setDecided] = useState<"active" | "rejected" | null>(null);
-  const [ratings, setRatings] = useState<Record<CriterionKey, number>>({
-    photo_quality: 0,
-    listing_completeness: 0,
-    location_desirability: 0,
-    price_reasonableness: 0,
-    host_profile: 0,
-  });
+  const [verified, setVerified] = useState(false);
   const [notes, setNotes] = useState("");
-
-  const overall = useMemo(() => computeOverall(ratings), [ratings]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -167,15 +124,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
     const p = data as Property;
     setProperty(p);
     setDecided(p.status === "active" || p.status === "rejected" ? (p.status as "active" | "rejected") : null);
-    if (p.admin_photo_quality != null) {
-      setRatings({
-        photo_quality: p.admin_photo_quality ?? 0,
-        listing_completeness: p.admin_listing_completeness ?? 0,
-        location_desirability: p.admin_location_desirability ?? 0,
-        price_reasonableness: p.admin_price_reasonableness ?? 0,
-        host_profile: p.admin_host_profile ?? 0,
-      });
-    }
+    setVerified(p.wayzyy_verified === true);
     if (p.admin_notes) setNotes(p.admin_notes);
     setLoading(false);
   }, [propertyId, toast]);
@@ -186,10 +135,6 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
 
   const handleDecision = async (newStatus: "active" | "rejected") => {
     if (!property) return;
-    if (newStatus === "active" && overall == null) {
-      toast({ title: "Rate first", description: "Please rate at least one criterion before approving.", variant: "destructive" });
-      return;
-    }
     // A draft is a listing we imported that the host hasn't priced yet, so it
     // still carries price_per_night = 0. The "All" tab on /adminn/listings has
     // no status filter, so drafts are reachable from here - approving one
@@ -206,24 +151,20 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
     setSaving(true);
     try {
       const updates: Record<string, unknown> = {
-        admin_photo_quality: ratings.photo_quality || null,
-        admin_listing_completeness: ratings.listing_completeness || null,
-        admin_location_desirability: ratings.location_desirability || null,
-        admin_price_reasonableness: ratings.price_reasonableness || null,
-        admin_host_profile: ratings.host_profile || null,
-        admin_overall_rating: overall,
+        wayzyy_verified: verified,
         admin_notes: notes || null,
         status: newStatus,
         reviewed_at: new Date().toISOString(),
         reviewed_by: user?.email ?? "admin",
       };
-      if (newStatus === "active" && overall != null) updates.rating = overall;
+      // properties.rating stays untouched: it's the guest-facing star
+      // rating and belongs to real reviews, not to us.
 
       const { error } = await supabase.from("properties").update(updates).eq("id", propertyId);
       if (error) throw error;
 
       if (newStatus === "active") {
-        supabase.functions.invoke("approve-listing", { body: { propertyId, adminRating: overall } }).catch(() => {});
+        supabase.functions.invoke("approve-listing", { body: { propertyId } }).catch(() => {});
       } else {
         supabase.functions.invoke("reject-listing", { body: { propertyId, adminNotes: notes } }).catch(() => {});
       }
@@ -255,7 +196,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
       {decided && (
         <div className={`flex items-center gap-2 rounded-xl border p-4 text-sm ${decided === "active" ? "border-green-500/30 bg-green-500/10 text-green-600" : "border-red-500/30 bg-red-500/10 text-red-600"}`}>
           {decided === "active" ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-          This listing is currently {decided === "active" ? "live" : "rejected"}. You can still update the ratings/notes below and re-decide.
+          This listing is currently {decided === "active" ? "live" : "rejected"}. You can still update the badge or notes below and re-decide.
         </div>
       )}
 
@@ -306,22 +247,46 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
         </div>
       )}
 
+      {/* A listing is either checked by our team or it isn't. The old
+          1-5 scoring across five criteria produced a number that was
+          written into properties.rating - the guest-facing star rating -
+          so a listing with no stays showed travellers an admin's opinion
+          dressed up as reviews. */}
       <div>
-        <p className="mb-3 text-sm font-semibold">Quality rating</p>
-        <div className="space-y-3">
-          {CRITERIA.map((c) => (
-            <div key={c.key} className="flex items-center justify-between gap-4 rounded-xl border border-border p-3">
-              <div>
-                <p className="text-sm font-medium">{c.label}</p>
-                <p className="text-xs text-muted-foreground">{c.desc}</p>
-              </div>
-              <StarPicker value={ratings[c.key]} onChange={(v) => setRatings((prev) => ({ ...prev, [c.key]: v }))} />
-            </div>
-          ))}
-        </div>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Overall: <span className="font-medium text-foreground">{overall != null ? `${overall.toFixed(1)} ★` : "Not rated yet"}</span>
-        </p>
+        <p className="mb-3 text-sm font-semibold">Wayzyy Verified</p>
+        <button
+          type="button"
+          onClick={() => setVerified((v) => !v)}
+          aria-pressed={verified}
+          className={`flex w-full items-center gap-3 rounded-xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember ${
+            verified ? "border-ember bg-ember/5" : "border-border hover:border-foreground/30"
+          }`}
+        >
+          <span
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors ${
+              verified ? "bg-ember text-white" : "bg-muted text-muted-foreground"
+            }`}
+          >
+            <BadgeCheck className="h-5 w-5" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-medium">
+              {verified ? "Marked as Wayzyy Verified" : "Mark as Wayzyy Verified"}
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Our team has checked the photos, details and location. Shows as a badge to guests and in the app.
+            </span>
+          </span>
+          <span
+            className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${verified ? "bg-ember" : "bg-muted"}`}
+          >
+            <span
+              className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+                verified ? "left-[1.375rem]" : "left-0.5"
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
       <div>

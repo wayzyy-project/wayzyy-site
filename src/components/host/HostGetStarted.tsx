@@ -439,7 +439,11 @@ function PathCard({
       <h3 className="mt-4 font-display text-lg font-bold text-white sm:text-xl">{title}</h3>
       <p className="mt-1.5 text-sm leading-relaxed text-white/60">{body}</p>
 
-      <ul className="mt-4 space-y-2">
+      {/* flex-1 so the list absorbs the height difference between the two
+          cards - otherwise the button sits directly under whichever
+          description is shorter and the two CTAs land at different
+          heights next to each other. */}
+      <ul className="mt-4 flex-1 space-y-2">
         {points.map((p) => (
           <li key={p} className="flex items-start gap-2 text-xs text-white/70">
             <Check className={"mt-0.5 h-3.5 w-3.5 shrink-0 " + (featured ? "text-ember" : "text-white/40")} />
@@ -451,10 +455,13 @@ function PathCard({
       <Button
         onClick={onClick}
         className={
-          "mt-6 w-full gap-2 py-5 font-bold " +
+          // border-transparent on the featured variant so both buttons are
+          // the same height: the outlined one carries a 1px border, and
+          // without a matching border here they end up 2px apart.
+          "mt-6 w-full gap-2 border py-5 font-bold " +
           (featured
-            ? "bg-ember text-white hover:bg-ember/90"
-            : "border border-white/20 bg-white/10 text-white hover:bg-white/20")
+            ? "border-transparent bg-ember text-white hover:bg-ember/90"
+            : "border-white/20 bg-white/10 text-white hover:bg-white/20")
         }
       >
         {cta} <ArrowRight className="h-4 w-4" />
