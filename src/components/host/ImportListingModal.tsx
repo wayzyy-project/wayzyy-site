@@ -54,15 +54,29 @@ interface LookupResult {
 }
 
 // AirROI's amenity strings are free-text and won't exactly match our
-// canonical AMENITIES list - reuse the app's existing, more thorough
-// alias-based normalizer (already relied on by AdminAirroiImport.tsx)
-// rather than a second, weaker matcher, then narrow to the checkbox list.
-// Anything that doesn't match a known amenity is dropped - hosts can still
-// add it manually via the toggle chips.
+// canonical AMENITIES list, so run them through the app's alias-based
+// normalizer first and keep whatever it couldn't place as-is.
 function mapAirroiAmenities(raw: unknown): string[] {
   if (!Array.isArray(raw)) return [];
   const strings = raw.filter((entry): entry is string => typeof entry === "string");
-  return matchKnownAmenities(strings);
+
+  // Canonical matches first, then anything that didn't map to our
+  // catalogue. This used to return only the canonical matches, so a real
+  // amenity Airbnb sent that we had no label for was thrown away. The
+  // amenity field accepts free text now, so there's no reason to lose it -
+  // the host can delete anything that reads badly.
+  const canonical = matchKnownAmenities(strings);
+  const seen = new Set(canonical.map((a) => a.toLowerCase()));
+  const extras: string[] = [];
+  for (const raw of strings) {
+    const clean = raw.trim().replace(/\s+/g, " ");
+    if (clean.length < 2 || clean.length > 40) continue;
+    const key = clean.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    extras.push(clean.charAt(0).toUpperCase() + clean.slice(1));
+  }
+  return [...canonical, ...extras].slice(0, 60);
 }
 
 // AirROI descriptions arrive as an unbroken wall of text with "◆" section
