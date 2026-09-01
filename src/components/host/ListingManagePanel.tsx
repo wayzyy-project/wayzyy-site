@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCalendar } from "@/components/host/PropertyCalendar";
+import { PropertyOverview } from "@/components/host/PropertyOverview";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
 
@@ -29,6 +30,8 @@ interface Props {
  *  described the whole panel and so described none of the tabs; someone
  *  landing on Discounts got a sentence about calendars. */
 const TAB_BLURB: Record<string, string> = {
+  listing:
+    "Everything a guest sees: your photos, title, description, what the place sleeps, and your standard rates. Change any of it and hit save.",
   calendar:
     "Set what you charge and when you're free. Click a night to select it, click another to take everything in between, then set a rate for those nights or block them off.",
   sync:
@@ -42,7 +45,7 @@ const TAB_BLURB: Record<string, string> = {
 };
 
 export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultTab }: Props) {
-  const [tab, setTab] = useState(defaultTab ?? "calendar");
+  const [tab, setTab] = useState(defaultTab ?? "listing");
   return (
     <div className="mx-auto max-w-2xl">
       <button
@@ -55,7 +58,7 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
       </button>
 
       <h2 className="font-display text-2xl text-white">{propertyTitle}</h2>
-      <p className="mb-6 max-w-xl text-sm leading-relaxed text-white/60">{TAB_BLURB[tab] ?? TAB_BLURB.calendar}</p>
+      <p className="mb-6 max-w-xl text-sm leading-relaxed text-white/60">{TAB_BLURB[tab] ?? TAB_BLURB.listing}</p>
 
       {/* Calendar and channel sync are separate concerns and used at
           different moments: the calendar is day-to-day pricing and
@@ -63,13 +66,17 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           platforms from double-booking. They were sharing one tab, which
           buried the calendar behind a URL field. */}
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="mb-6 bg-white/10 text-white/60">
+        <TabsList className="mb-6 flex w-full justify-start overflow-x-auto bg-white/10 text-white/60">
+          <TabsTrigger value="listing" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Listing</TabsTrigger>
           <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
           <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
           <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
         </TabsList>
+        <TabsContent value="listing">
+          <PropertyOverview propertyId={propertyId} />
+        </TabsContent>
         <TabsContent value="calendar">
           <CalendarTab propertyId={propertyId} />
         </TabsContent>

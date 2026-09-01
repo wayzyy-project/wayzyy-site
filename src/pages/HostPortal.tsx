@@ -766,85 +766,108 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           </p>
         </div>
       ) : (
-        <div className="space-y-4">
+        // A grid of property cards rather than full-width bands: each
+        // listing reads as its own thing, and the whole card opens it.
+        <div className="grid gap-4 sm:grid-cols-2">
           {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
             const missingRegistration = needsGoaRegistration(p);
+            const open = () => onManage(p.id, p.title || "Untitled listing");
             return (
-              <div key={p.id} className="liquid-glass rounded-2xl border border-white/15 bg-black/30 p-4 transition-all hover:border-white/25">
-                <div className="flex gap-4">
-                  <div className="h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-white/5 border border-white/15">
+              <div
+                key={p.id}
+                className="group liquid-glass flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/30 transition-all hover:border-white/30"
+              >
+                <button
+                  type="button"
+                  onClick={open}
+                  className="flex-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-inset"
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-white/5">
                     {p.images?.[0] ? (
-                      <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
+                      <img
+                        src={p.images[0]}
+                        alt=""
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">
-                        <Home className="h-5 w-5 text-white/40" />
+                        <Home className="h-6 w-6 text-white/40" />
                       </div>
                     )}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="truncate font-semibold text-white text-sm">{p.title || "Untitled listing"}</p>
-                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${meta.className}`}>
-                        {meta.label}
+                    <span className={`absolute right-2.5 top-2.5 rounded-full px-2.5 py-0.5 text-[11px] font-semibold backdrop-blur-sm ${meta.className}`}>
+                      {meta.label}
+                    </span>
+                    {p.images && p.images.length > 1 && (
+                      <span className="absolute bottom-2.5 right-2.5 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+                        {p.images.length} photos
                       </span>
-                    </div>
-                    <p className="text-xs text-white/60 mt-0.5">{[p.city, p.state].filter(Boolean).join(", ")}</p>
-                    <p className="mt-1.5 text-xs font-semibold text-white">
+                    )}
+                  </div>
+
+                  <div className="space-y-1 p-4">
+                    <p className="truncate text-sm font-semibold text-white">{p.title || "Untitled listing"}</p>
+                    <p className="truncate text-xs text-white/60">{[p.city, p.state].filter(Boolean).join(", ")}</p>
+                    <p className="pt-0.5 text-xs font-semibold text-white">
                       {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")} / night` : "Price not set"}
                     </p>
                     {/* Permanent provenance marker - unlike the status
                         badge, this stays true for the listing's whole
-                        lifecycle (draft -> pending_review -> active), so a
-                        host can always tell which listings our team set up
-                        for them vs. ones they imported/built themselves. */}
+                        lifecycle (draft -> pending_review -> active). */}
                     {p.imported_by_admin && (
-                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/70">
+                      <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/70">
                         <UserCheck className="h-2.5 w-2.5" /> Imported by our team
                       </span>
                     )}
                   </div>
-                </div>
+                </button>
 
                 {/* Soft nudge, never a gate - a Goa listing can import,
-                    review, and even publish with this missing, but it still
-                    needs it to legally operate, so it stays visible on the
-                    card until filled in. */}
+                    review, and even publish with this missing. */}
                 {missingRegistration && (
                   <button
                     onClick={() => onManage(p.id, p.title || "Untitled listing", "details")}
-                    className="mt-3 flex w-full items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left text-xs text-amber-600 transition-colors hover:bg-amber-500/15 dark:text-amber-400"
+                    className="mx-4 mb-3 flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left text-xs text-amber-600 transition-colors hover:bg-amber-500/15 dark:text-amber-400"
                   >
                     <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
                     <span className="flex-1">Add your Goa Tourism Registration Number</span>
-                    <span className="shrink-0 font-semibold underline">Add now</span>
+                    <span className="shrink-0 font-semibold underline">Add</span>
                   </button>
                 )}
 
-                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2 border-t border-white/10 px-4 py-3">
                   {isDraft(p) ? (
                     <Button
                       size="sm"
                       onClick={() => setPricingDraft(p)}
-                      className="inline-flex w-auto justify-start gap-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold"
+                      className="h-8 flex-1 gap-1.5 rounded-full bg-primary text-xs font-semibold text-primary-foreground hover:bg-primary/90"
                     >
                       <IndianRupee className="h-3.5 w-3.5" />
-                      Set Pricing & Approve
+                      Set pricing & approve
                     </Button>
                   ) : (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onManage(p.id, p.title || "Untitled listing")}
-                      className="inline-flex w-auto justify-start gap-1.5 rounded-full border-ember/40 text-ember hover:bg-ember/10 hover:text-ember text-xs"
-                    >
-                      <SlidersHorizontal className="h-3.5 w-3.5" />
-                      Manage Calendar & Pricing
-                    </Button>
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={open}
+                        className="h-8 flex-1 gap-1.5 rounded-full border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember"
+                      >
+                        <SlidersHorizontal className="h-3.5 w-3.5" />
+                        Manage listing
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onManage(p.id, p.title || "Untitled listing", "calendar")}
+                        className="h-8 gap-1.5 rounded-full px-3 text-xs text-white/70 hover:bg-white/10 hover:text-white"
+                      >
+                        <CalendarSync className="h-3.5 w-3.5" />
+                        Calendar
+                      </Button>
+                    </>
                   )}
-                  <Link to="/policies/property-import-policy" target="_blank" className="text-[11px] text-white/60 hover:text-white">
-                    Import Policy
-                  </Link>
                 </div>
               </div>
             );
