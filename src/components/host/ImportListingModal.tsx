@@ -11,7 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
-import { AMENITIES, matchKnownAmenities } from "@/lib/amenities";
+import { matchKnownAmenities } from "@/lib/amenities";
+import { AmenityPicker } from "@/components/host/AmenityPicker";
 
 /**
  * When set, the imported listing is filed under this host instead of the
@@ -822,33 +823,15 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                       </div>
                     )}
 
-                    {/* Amenities - pre-checked from AirROI's best-effort match, but
-                        always host-editable since this is a review step, not a locked import. */}
+                    {/* Amenities detected on the listing, editable before
+                        import. Same picker the host gets afterwards, so
+                        what's on the listing and what's merely available
+                        never look the same - the old toggle grid rendered
+                        the whole catalogue, leaving "why are some orange?"
+                        as the only way to tell them apart. */}
                     <div>
                       <p className="font-medium text-muted-foreground mb-1.5">Amenities</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {AMENITIES.map((a) => {
-                          const active = amenities.includes(a);
-                          return (
-                            <button
-                              key={a}
-                              type="button"
-                              onClick={() =>
-                                setAmenities((prev) =>
-                                  prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]
-                                )
-                              }
-                              className={`rounded-full border px-2.5 py-1 text-[11px] transition-colors cursor-pointer ${
-                                active
-                                  ? "border-ember bg-ember/10 text-ember"
-                                  : "border-border text-muted-foreground hover:border-foreground/30"
-                              }`}
-                            >
-                              {a}
-                            </button>
-                          );
-                        })}
-                      </div>
+                      <AmenityPicker value={amenities} onChange={setAmenities} />
                     </div>
                   </div>
                 )}
