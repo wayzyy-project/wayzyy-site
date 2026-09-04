@@ -26,10 +26,8 @@ function asset(name: string) {
 const heroSky = asset("hero-sky.webp");
 const heroMidground = asset("hero-midground.webp");
 const heroForeground = asset("hero-foreground.webp");
-const zoomWide = asset("zoom-wide.webp");
 const zoomCloser = asset("zoom-closer.webp");
 const doorOpen = asset("door-open.webp");
-const poolDeck = asset("pool-deck.webp");
 const bazaar = asset("bazaar.webp");
 const iconLantern = asset("icon-lantern.webp");
 const iconLeaf = asset("icon-leaf.webp");
@@ -68,30 +66,35 @@ function segmentInOut(
 /**
  * Scroll-progress thresholds for the whole sticky stage (0 = stage enters,
  * 1 = stage releases). Door-lantern and door-pool were removed entirely - 
- * the new push-in zoom scene (zoomWide -> zoomCloser -> doorOpen) replaces
+ * the push-in zoom scene (zoomCloser -> doorOpen) replaces
  * them, with the FanCardDeck caption cards (`story2`) now riding directly
  * on top of that zoom scene instead: the deck's stagger means card 1 lands
- * roughly with zoomWide, card 2 with zoomCloser, and cards 3-4 together
+ * roughly with zoomCloser, and cards 3-4 together
  * with doorOpen, fading out as pool-deck crossfades in right after the
  * door. Every segment reuses the same 42vh-dwell/16.8vh-crossfade cycle
  * used throughout this file. Stage total is now ~462vh (down from the
  * ~562.8vh mid-build version, since two full segments were cut).
  */
 const T = {
-  scene1End: 0.25,
+  scene1End: 0.20,
+  // Two beats, not three. The middle one ("Goa. A land of beaches,
+  // waterfalls...") was scene-setting that didn't advance the argument -
+  // a visitor already knows Goa is nice. Beat 1 states what Wayzyy is,
+  // beat 2 states why it's different, and each now gets a longer window
+  // so it can be read without scrolling to finish the sentence.
   headline: [
-    { in: [0.0, 0.0], out: [0.05, 0.07] },
-    { in: [0.08, 0.098], out: [0.15, 0.17] },
-    { in: [0.18, 0.20], out: [0.23, 0.25] },
+    { in: [0.0, 0.0], out: [0.08, 0.11] },
+    { in: [0.12, 0.145], out: [0.185, 0.20] },
   ],
-  layersFadeOut: [0.20, 0.25],
-  zoomWide: { in: [0.25, 0.28], out: [0.41, 0.44] },
-  zoomCloser: { in: [0.25, 0.28], out: [0.41, 0.44] },
-  doorOpen: { in: [0.44, 0.47], out: [0.60, 0.64] },
-  poolDeck: { in: [0.62, 0.65], out: [0.78, 0.81] },
-  story2: { in: [0.44, 0.47], out: [0.60, 0.64] },
-  bazaar: { in: [0.81, 0.84], out: [0.96, 1.0] },
-  story3: { in: [0.84, 0.87], out: [0.95, 0.98] },
+  // Each scene fades IN before the previous finishes fading OUT. Butting
+  // them end-to-end leaves a frame where nothing is above 0 opacity, which
+  // reads as a blink against the ink background at every handoff.
+  layersFadeOut: [0.16, 0.21],
+  zoomCloser: { in: [0.17, 0.22], out: [0.38, 0.44] },
+  doorOpen: { in: [0.41, 0.46], out: [0.64, 0.70] },
+  story2: { in: [0.43, 0.47], out: [0.63, 0.67] },
+  bazaar: { in: [0.67, 0.72], out: [0.96, 1.0] },
+  story3: { in: [0.72, 0.76], out: [0.95, 0.98] },
 };
 
 function IntroScrollHint({ progress }: { progress: MotionValue<number> }) {
@@ -124,17 +127,6 @@ function buildHeadlinePhrases(progress: MotionValue<number>): { text: ReactNode;
             Starting with Goa
           </span>
           <IntroScrollHint progress={progress} />
-        </div>
-      ),
-      ember: false,
-    },
-    {
-      text: (
-        <div className="flex flex-col items-center justify-center text-center">
-          <span className="block font-extrabold text-ember text-3xl sm:text-6xl lg:text-7xl">Goa.</span>
-          <span className="block mt-2 text-white text-xl sm:text-4xl lg:text-5xl max-w-3xl">
-            A land of beaches, waterfalls, and a getaway from metro cities.
-          </span>
         </div>
       ),
       ember: false,
@@ -464,8 +456,6 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // and the busier bazaar/pool images read best with the subtlest touch.
   const zoomMouseX = useTransform(springX, [0, 1], ["-1.4%", "1.4%"]);
   const zoomMouseY = useTransform(springY, [0, 1], ["-1.1%", "1.1%"]);
-  const poolMouseX = useTransform(springX, [0, 1], ["-1%", "1%"]);
-  const poolMouseY = useTransform(springY, [0, 1], ["-0.8%", "0.8%"]);
   const bazaarMouseX = useTransform(springX, [0, 1], ["-0.8%", "0.8%"]);
   const bazaarMouseY = useTransform(springY, [0, 1], ["-0.6%", "0.6%"]);
   // Scene 1's midground gets a faint drift too, opposite direction and
@@ -494,36 +484,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   // re-renders per frame.
   const [scene1Mounted, setScene1Mounted] = useState(true);
   const [sceneZoomMounted, setSceneZoomMounted] = useState(false);
-  const [scenePoolMounted, setScenePoolMounted] = useState(false);
   const [scene3Mounted, setScene3Mounted] = useState(false);
   useMotionValueEvent(progress, "change", (p) => {
-    setScene1Mounted(p < 0.28);
-    setSceneZoomMounted(p > 0.24 && p < 0.65);
-    setScenePoolMounted(p >= 0.61 && p < T.poolDeck.out[1] + 0.04);
+    setScene1Mounted(p < 0.24);
+    setSceneZoomMounted(p > 0.18 && p < 0.72);
     setScene3Mounted(p > T.bazaar.in[0] - 0.04);
   });
-
-  // Subtle ocean-waves audio, playing only while the pool-deck scene is on
-  // screen - fades in/out with the scene's own opacity window rather than
-  // hard-cutting, and stays muted for prefers-reduced-motion users (who get
-  // the static fallback below instead of this scroll rig entirely, but the
-  // guard is kept here too in case that ever changes).
-  const waveAudioRef = useRef<HTMLAudioElement | null>(null);
-  useEffect(() => {
-    const audio = waveAudioRef.current;
-    if (!audio || reduce) return;
-    if (scenePoolMounted) {
-      audio.volume = 0.22;
-      audio.currentTime = 0;
-      audio.play().catch(() => {
-        // Autoplay can still be blocked in some browsers even after
-        // scroll interaction - failing silently is correct here, this
-        // is ambience, not required content.
-      });
-    } else {
-      audio.pause();
-    }
-  }, [scenePoolMounted, reduce]);
 
   // Scene 1 - sky, midground, and foreground are three separate, fully
   // opaque photographs (not transparent-cutout depth layers), so stacking
@@ -568,16 +534,12 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   const houseHeadlineOpacity = useTransform(progress, (p) =>
     segmentInOut(p, 0.25, 0.28, 0.40, 0.43),
   );
-  const zoomWideOpacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.zoomWide.in as [number, number]), ...(T.zoomWide.out as [number, number])),
-  );
   const zoomCloserOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.zoomCloser.in as [number, number]), ...(T.zoomCloser.out as [number, number])),
   );
   const doorOpenOpacity = useTransform(progress, (p) =>
     segmentInOut(p, ...(T.doorOpen.in as [number, number]), ...(T.doorOpen.out as [number, number])),
   );
-  const zoomWideScale = useTransform(progress, [T.zoomWide.in[0], T.zoomWide.out[1]], [1.0, 1.25]);
   const zoomCloserScale = useTransform(progress, [T.zoomCloser.in[0], T.zoomCloser.out[1]], [1.05, 1.3]);
   const doorOpenScale = useTransform(progress, [T.doorOpen.in[0], T.doorOpen.out[1]], [1.1, 1.35]);
   const story2Opacity = useTransform(progress, (p) =>
@@ -585,10 +547,6 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
   );
 
   // Scene 2 - pool deck, picking up right where the door-open scene ends.
-  const poolDeckOpacity = useTransform(progress, (p) =>
-    segmentInOut(p, ...(T.poolDeck.in as [number, number]), ...(T.poolDeck.out as [number, number])),
-  );
-  const poolDeckScale = useTransform(progress, [T.poolDeck.in[0], T.poolDeck.out[1]], [1.06, 1]);
 
   // Scene 3 - bazaar.
   const bazaarOpacity = useTransform(progress, (p) =>
@@ -649,8 +607,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
 
       {/* the tall scroll driver - its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
-      <div ref={stageRef} className="relative h-[462vh] w-full">
-        <audio ref={waveAudioRef} src="/audio/ocean-waves.mp3" preload="none" loop />
+      <div ref={stageRef} className="relative h-[260vh] w-full">
         <div
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
@@ -737,7 +694,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                 // explicit per-card cardWindows below) - these two values
                 // now only drive the mobile 2x2 grid, which shows all 4
                 // cards at once rather than staged per-image. Timed to
-                // doorOpen's own window (not the full zoomWide-to-doorOpen
+                // doorOpen's own window (not the full zoom-to-doorOpen
                 // span) so the deck doesn't appear while still showing the
                 // wide/closer shots, when "We took the lock off" and
                 // "Community, not just a marketplace" would read as wrong
@@ -773,26 +730,6 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
                   },
                 ]}
               />
-            </>
-          )}
-
-          {/* ---------------- Scene 2: pool deck ---------------- */}
-          {scenePoolMounted && (
-            <>
-              <motion.img
-                src={poolDeck}
-                alt="A villa infinity pool at dusk under a starry sky"
-                loading="eager"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: poolDeckOpacity, scale: poolDeckScale, x: poolMouseX, translateY: poolMouseY }}
-              />
-              <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-start px-6 sm:px-12 max-w-5xl mx-auto">
-                <div className="relative h-[3.4em] w-full max-w-4xl sm:h-[1.6em]">
-                  <HeadlineBeat progress={progress} window={T.poolDeck} ember={false}>
-                    Breathe out, the waves are getting near.
-                  </HeadlineBeat>
-                </div>
-              </div>
             </>
           )}
 
