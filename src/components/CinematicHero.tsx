@@ -491,6 +491,43 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
     setScene3Mounted(p > T.bazaar.in[0] - 0.04);
   });
 
+  // Ocean ambience for the whole hero, not one scene. It used to be tied
+  // to the pool-deck scene, which meant it snapped on and off mid-scroll;
+  // now it eases in as the hero starts and out as the last scene clears,
+  // so it reads as the section's own atmosphere rather than a cue.
+  //
+  // Volume is driven straight off scroll progress instead of React state -
+  // this fires every frame, and re-rendering the whole hero to change a
+  // volume would be wasteful. Muted entirely under prefers-reduced-motion,
+  // which gets the static fallback rather than this rig.
+  const waveAudioRef = useRef<HTMLAudioElement | null>(null);
+  const wavePlayingRef = useRef(false);
+  useMotionValueEvent(progress, "change", (p) => {
+    const audio = waveAudioRef.current;
+    if (!audio || reduce) return;
+
+    const PEAK = 0.22;
+    const level =
+      p < 0.02 ? 0
+      : p < 0.08 ? (p - 0.02) / 0.06          // ease in as the hero opens
+      : p < 0.86 ? 1                           // hold through the scenes
+      : Math.max(0, 1 - (p - 0.86) / 0.14);    // ease out as the hero clears
+    audio.volume = PEAK * level;
+
+    if (level > 0 && !wavePlayingRef.current) {
+      wavePlayingRef.current = true;
+      // Autoplay can still be refused despite the scroll gesture. Ambience
+      // is not required content, so failing quietly is correct - but reset
+      // the flag so a later scroll can try again.
+      audio.play().catch(() => {
+        wavePlayingRef.current = false;
+      });
+    } else if (level === 0 && wavePlayingRef.current) {
+      wavePlayingRef.current = false;
+      audio.pause();
+    }
+  });
+
   // Scene 1 - sky, midground, and foreground are three separate, fully
   // opaque photographs (not transparent-cutout depth layers), so stacking
   // them and only varying a shared opacity would always show just the
@@ -608,6 +645,7 @@ export function CinematicHero({ renderNav = true, showSightsSlider = true }: Cin
       {/* the tall scroll driver - its height is the entire runway for the
           sticky stage below; scrollYProgress walks 0→1 across it */}
       <div ref={stageRef} className="relative h-[260vh] w-full">
+        <audio ref={waveAudioRef} src="/audio/ocean-waves.mp3" preload="none" loop />
         <div
           onMouseMove={handleMouseMove}
           className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
