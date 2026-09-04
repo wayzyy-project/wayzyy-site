@@ -151,10 +151,19 @@ function ConciergeForm({
       return;
     }
 
-    if (!name.trim() || !phone.trim()) {
+    // "9" got saved as a real phone number, because the only check was
+    // that the field wasn't empty. A number we can't call is the same as
+    // no number - this is the one way we reach a host about their
+    // properties.
+    const phoneDigits = phone.replace(/\D/g, "");
+    if (!name.trim()) {
+      toast({ title: "Add your name", description: "So we know who we're speaking to.", variant: "destructive" });
+      return;
+    }
+    if (phoneDigits.length < 10) {
       toast({
-        title: name.trim() ? "Add your phone number" : "Add your name",
-        description: "We need it to reach you about these properties.",
+        title: "Check your phone number",
+        description: "Please enter a full number we can reach you on — it's how we'll follow up about these properties.",
         variant: "destructive",
       });
       return;
