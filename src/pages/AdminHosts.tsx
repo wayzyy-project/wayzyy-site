@@ -73,6 +73,11 @@ function roomIdOf(url: string | null | undefined): string | null {
 interface HostSignals {
   /** Links this host sent that we haven't imported yet. */
   pendingLinks: string[];
+  /** They sent a host profile URL instead of individual links, and we
+   *  haven't imported anything for them yet. The form offers this as the
+   *  "fastest option", so it's a real submission that still needs work -
+   *  it just can't be counted in links. */
+  profileOnlyPending: boolean;
   /** Room ids we've already imported, for per-link markers in the detail view. */
   importedRoomIds: Set<string>;
   /** True when no property carries a source_url, so import state can't be
@@ -96,7 +101,13 @@ function signalsFor(h: HostRow): HostSignals {
         const id = roomIdOf(url);
         return id ? !importedRoomIds.has(id) : true;
       });
-  return { pendingLinks, importedRoomIds, matchUnavailable };
+  // A profile-URL submission carries no individual links, so pendingLinks
+  // is 0 and the host would drop out of the import queue entirely despite
+  // having asked us to import their whole portfolio.
+  const profileOnlyPending =
+    !!h.submission?.airbnbProfileUrl && submitted.length === 0 && h.properties.length === 0;
+
+  return { pendingLinks, importedRoomIds, matchUnavailable, profileOnlyPending };
 }
 
 /** The stages an admin actually works through. Each is a real "someone has
@@ -114,7 +125,7 @@ const FILTERS: { key: FilterKey; label: string; explain: string }[] = [
   {
     key: "to_import",
     label: "You: import links",
-    explain: "They sent us Airbnb links through the form and we haven't imported them yet. Open a host and import from the links on their card.",
+    explain: "They sent us their listings through the form — either individual links or their whole Airbnb host profile — and we haven't imported anything yet. Open a host to see exactly what they sent.",
   },
   {
     key: "awaiting_pricing",
@@ -135,7 +146,10 @@ function matchesFilter(h: HostRow, f: FilterKey): boolean {
   // Counts un-imported links rather than "has zero properties", so a host
   // whose links were only partly imported still surfaces here instead of
   // silently dropping out of the queue.
-  if (f === "to_import") return signalsFor(h).pendingLinks.length > 0;
+  if (f === "to_import") {
+    const sig = signalsFor(h);
+    return sig.pendingLinks.length > 0 || sig.profileOnlyPending;
+  }
   if (f === "awaiting_pricing") return c.draft > 0;
   if (f === "to_approve") return c.pending_review > 0;
   if (f === "live") return c.active > 0;
@@ -144,7 +158,7 @@ function matchesFilter(h: HostRow, f: FilterKey): boolean {
 
 const EMPTY_COPY: Record<FilterKey, { title: string; body: string }> = {
   all: { title: "No hosts yet", body: "Registered accounts appear here as people sign up." },
-  to_import: { title: "Nothing waiting to import", body: "Every link hosts have sent is already in their account." },
+  to_import: { title: "Nothing waiting to import", body: "Everything hosts have sent us is already in their account." },
   awaiting_pricing: { title: "Nothing waiting on a host", body: "Properties you import land here until the host sets their price and approves." },
   to_approve: { title: "Nothing to approve", body: "Listings appear here once a host has priced and approved them." },
   live: { title: "Nothing live yet", body: "Approved listings show up here once they're bookable." },
@@ -488,11 +502,12 @@ function HostCard({
   onNotify: () => void;
 }) {
   const c = host.propertyCounts;
-  const { pendingLinks } = signalsFor(host);
+  const { pendingLinks, profileOnlyPending } = signalsFor(host);
 
   // Anything that needs the admin specifically, stated as the thing to do.
   const actions: string[] = [];
   if (pendingLinks.length) actions.push(`${pendingLinks.length} link${pendingLinks.length === 1 ? "" : "s"} to import`);
+  else if (profileOnlyPending) actions.push("Sent their Airbnb profile");
   if (c.pending_review) actions.push(`${c.pending_review} ready to approve`);
 
   // Everything else, stated quietly - it's status, not a task.
