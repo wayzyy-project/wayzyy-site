@@ -126,6 +126,14 @@ function ConciergeForm({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [profileLoaded, setProfileLoaded] = useState(false);
+  // Whether to ask for contact details is decided ONCE, from what the
+  // profile already had. It used to be derived from the live input
+  // values, so the block was mounted on `!name || !phone` - meaning the
+  // moment a host with a name typed the first digit of their phone, the
+  // condition flipped false and the whole field unmounted under them.
+  // They could never enter more than one character, and that single
+  // character got submitted. Reported by a real host mid-onboarding.
+  const [needsContact, setNeedsContact] = useState(false);
 
   useEffect(() => {
     supabase
@@ -134,8 +142,11 @@ function ConciergeForm({
       .eq("id", userId)
       .maybeSingle()
       .then(({ data }) => {
-        setName(data?.name ?? "");
-        setPhone(data?.phone ?? "");
+        const storedName = data?.name ?? "";
+        const storedPhone = data?.phone ?? "";
+        setName(storedName);
+        setPhone(storedPhone);
+        setNeedsContact(!storedName.trim() || storedPhone.replace(/\D/g, "").length < 10);
         setProfileLoaded(true);
       });
   }, [userId]);
@@ -241,7 +252,7 @@ function ConciergeForm({
 
       {/* Only shown when the account is actually missing them, so a host
           with a filled-in profile still never re-types anything. */}
-      {profileLoaded && (!name.trim() || !phone.trim()) && (
+      {profileLoaded && needsContact && (
         <div className="grid gap-3 rounded-2xl border border-white/15 bg-white/[0.03] p-4 sm:grid-cols-2">
           <p className="text-xs text-white/60 sm:col-span-2">
             We don't have these on your account yet — we'll need them to reach you about these properties.
