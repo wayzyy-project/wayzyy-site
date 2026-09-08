@@ -209,12 +209,23 @@ export default function SarvamStartupProgram() {
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-zinc-900">Document Digitization & Property Verification</h3>
-                      <p className="text-xs text-zinc-500">Automated OCR and document intelligence for host verification</p>
+                      <p className="text-xs text-zinc-500">OCR + Document Intelligence</p>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    When a host submits documents (such as state tourism registration certificates, property tax receipts, electricity bills, or ownership deeds), Sarvam's document intelligence models will automatically extract, digitize, and validate the relevant property data. The system cross-references extracted details with the listing specifications to ensure every property on Wayzyy is 100% verified and legitimate before approval.
-                  </p>
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">What we're building</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        When a host submits verification documents (e.g., state tourism registration certificates, electricity bills, property tax receipts, or ownership deeds), Sarvam's document intelligence APIs automatically extract, digitize, and validate the relevant property data.
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Impact</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        The system cross-references extracted details against the host's listing parameters in the background to ensure every property listed on Wayzyy is 100% verified, compliant, and authentic before going live.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Use Case 2 */}
@@ -228,9 +239,20 @@ export default function SarvamStartupProgram() {
                       <p className="text-xs text-zinc-500">Proactive screening of host-guest messaging</p>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    We are deploying Indic language moderation models to automatically screen host-guest communications in real time. This detects unsafe interactions, blocks fraudulent off-platform transaction attempts, protects sensitive personal credentials, and ensures a respectful, trusted environment for our community.
-                  </p>
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">What we're building</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        Deploying Indic moderation models to screen host-guest messaging in real time.
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Impact</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        Proactively detects and prevents unsafe interactions, off-platform payment attempts, spam, and fraudulent behavior, maintaining a trusted community standard across the platform.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Use Case 3 */}
@@ -241,12 +263,23 @@ export default function SarvamStartupProgram() {
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-zinc-900">Native Indic Text Translation</h3>
-                      <p className="text-xs text-zinc-500">Eliminating language friction across 22 Indian languages</p>
+                      <p className="text-xs text-zinc-500">22 Indian languages</p>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    Homestay hosts in destinations like Goa, Rajasthan, and Himachal Pradesh often prefer communicating in their local vernaculars (Hindi, Konkani, Marathi, Gujarati, etc.). Sarvam's high-accuracy Indic translation models bridge the gap, translating inquiries, house rules, and check-in instructions seamlessly between hosts and guests.
-                  </p>
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">What we're building</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        High-accuracy bidirectional translation for guest inquiries, property descriptions, house rules, and check-in instructions.
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Impact</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        Homestay hosts in regional destinations (such as Goa, Rajasthan, and Himachal Pradesh) who prefer communicating in their native languages (Hindi, Konkani, Marathi, Gujarati, etc.) can converse seamlessly with travelers from anywhere in India without language barriers.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Use Case 4 */}
@@ -260,9 +293,20 @@ export default function SarvamStartupProgram() {
                       <p className="text-xs text-zinc-500">Instant conversational triage for hosts and travelers</p>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    When a host or guest initiates a support request with our team, Sarvam-powered chat completions will manage the opening interaction. The AI provides instant first responses, gathers context, troubleshoots common FAQs (pricing adjustments, calendar sync, policy clarifications), and smoothly routes complex escalations directly to a human support specialist with full background context.
-                  </p>
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">What we're building</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        An intelligent conversational agent for initial host-to-team and guest-to-support triage.
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Impact</p>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        Handles opening queries, troubleshoots routine FAQs (calendar sync, pricing adjustments, booking status), collects context, and seamlessly hands off complex inquiries directly to a human support agent.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
