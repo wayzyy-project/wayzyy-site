@@ -20,7 +20,7 @@ export default function SarvamStartupProgram() {
       "@type": "NewsArticle",
       "headline": "Wayzyy selected for the Sarvam AI Startup Program",
       "description": "Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure.",
-      "image": "https://wayzyy.com/sarvam-logo.png",
+      "image": "https://wayzyy.com/og-sarvam.png",
       "datePublished": "2026-08-15",
       "author": {
         "@type": "Organization",
@@ -41,6 +41,7 @@ export default function SarvamStartupProgram() {
     <SEO
       title="Wayzyy selected for the Sarvam AI Startup Program - News"
       description="Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure."
+      ogImage="/og-sarvam.png"
       jsonLd={schemas}
       path="/news/sarvam-startup-program"
     >

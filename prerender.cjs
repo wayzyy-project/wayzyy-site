@@ -45,7 +45,7 @@ const routes = [
     title: 'Wayzyy selected for the Sarvam AI Startup Program',
     description: "Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure.",
     ogType: 'article',
-    ogImage: '/og-image.png',
+    ogImage: '/og-sarvam.png',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
