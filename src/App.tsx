@@ -100,6 +100,7 @@ import ExperienceGoa from "./pages/ExperienceGoa";
 import WaitlistChooser from "./pages/WaitlistChooser";
 import WaitlistTravelers from "./pages/WaitlistTravelers";
 import HostOnboardingDoc from "./pages/HostOnboardingDoc";
+import SarvamStartupProgram from "./pages/SarvamStartupProgram";
 
 const queryClient = new QueryClient();
 
@@ -123,6 +124,10 @@ const App = () => (
             <div className="pb-24 sm:pb-0">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/news/sarvam-startup-program" element={<SarvamStartupProgram />} />
+              <Route path="/news/sarvam-ai-startup-program" element={<SarvamStartupProgram />} />
+              <Route path="/blog/sarvam-startup-program" element={<SarvamStartupProgram />} />
+              <Route path="/blog/wayzyy-selected-for-sarvam-ai-startup-program" element={<SarvamStartupProgram />} />
               <Route path="/onboarding" element={<HostOnboardingDoc />} />
               <Route path="/gig-challenge" element={<GigChallenge />} />
               <Route path="/final-coconut" element={<FinalCoconut />} />

@@ -41,6 +41,21 @@ const templateHtml = fs.readFileSync(indexHtmlPath, 'utf8');
 // 3. Define routes and their specific metadata
 const routes = [
   {
+    path: '/news/sarvam-startup-program',
+    title: 'Wayzyy selected for the Sarvam AI Startup Program',
+    description: "Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure.",
+    ogType: 'article',
+    ogImage: '/og-image.png',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Wayzyy selected for the Sarvam AI Startup Program",
+      "url": "https://wayzyy.com/news/sarvam-startup-program",
+      "description": "Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure.",
+      "publisher": { "@type": "Organization", "name": "Wayzyy" }
+    }
+  },
+  {
     path: '/gig-challenge',
     title: 'Wayzyy $1,000 Solo Developer Challenge',
     description: "Build a real chat-moderation feature for Wayzyy and get considered for a $1,000/month build-with-us role. Open to solo developers, submissions reviewed on a rolling basis.",
