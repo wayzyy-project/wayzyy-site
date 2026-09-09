@@ -217,6 +217,53 @@ function AdvantageCards() {
   );
 }
 
+function ChurchFeature() {
+  const churchCards = [
+    {
+      heading: "The best mornings start in a market.",
+      body: "Not a tourist trap, a real Goan spice street, the kind locals actually shop at.",
+      tint: "from-violet-300/15",
+    },
+    {
+      heading: "Explore without worrying about the price tag.",
+      body: "Never a hidden markup baked into what you see.",
+      tint: "from-orange-300/15",
+    },
+    {
+      heading: "You get the right money's worth.",
+      body: "And hosts get paid what they actually charge, no cut skimmed off either side.",
+      tint: "from-sky-300/15",
+    },
+    {
+      heading: "A community built on harmony.",
+      body: "Between hosts and travelers, not platform fees pulling them apart.",
+      tint: "from-amber-300/15",
+    },
+  ] as const;
+
+  return (
+    <section className="relative min-h-[70svh] overflow-hidden bg-ink py-12 sm:py-16">
+      <img
+        src="/blog/goa-siolim-church.webp"
+        alt="A historic Goan church surrounded by tropical greenery"
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+      />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/25" />
+      <div className="relative z-10 mx-auto flex min-h-[58svh] max-w-7xl flex-col justify-center px-4 sm:px-6">
+        <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-ember sm:text-xs">
+          The Wayzyy advantage
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {churchCards.map((card, i) => (
+            <AdvantageCard key={card.heading} card={card} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function HeroTriptych() {
   const reduce = useReducedMotion() ?? false;
 
@@ -244,6 +291,7 @@ export function HeroTriptych() {
       </div>
 
       <AdvantageCards />
+      <ChurchFeature />
     </>
   );
 }
