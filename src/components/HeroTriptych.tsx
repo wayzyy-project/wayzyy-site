@@ -94,14 +94,18 @@ function HeroBand({ band, index }: { band: Band; index: number }) {
           not enough to read as a zoom effect. */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-cover transition-transform duration-[1200ms] ease-out motion-safe:group-hover:scale-[1.04]"
+        // brightness lift: the source photos are shot dark (measured average
+        // luma 35-69 of 255), and the scrim below then took the middle of
+        // band 1 down to ~21, which read as near-black on most screens.
+        className="absolute inset-0 bg-cover brightness-[1.3] transition-transform duration-[1200ms] ease-out motion-safe:group-hover:scale-[1.04]"
         style={{ backgroundImage: `url(${band.image})`, backgroundPosition: band.focus }}
       />
-      {/* Scrim. Heavier in the middle where the type sits, so the photo
-          keeps its edges while the words stay readable over any crop. */}
+      {/* Scrim. Still heavier at the edges than the middle, so the type has a
+          calm centre to sit on, but ~30% lighter than it was - the photos
+          were doing no work at the old values. */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,12,18,0.82)_0%,rgba(10,12,18,0.55)_45%,rgba(10,12,18,0.78)_100%)] transition-opacity duration-700 motion-safe:group-hover:opacity-85"
+        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,12,18,0.58)_0%,rgba(10,12,18,0.26)_45%,rgba(10,12,18,0.54)_100%)] transition-opacity duration-700 motion-safe:group-hover:opacity-85"
       />
       {/* Hairline between bands, matching the divider in the sketch. */}
       {index > 0 && <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-white/15" />}
@@ -109,11 +113,11 @@ function HeroBand({ band, index }: { band: Band; index: number }) {
       <img src={band.image} alt={band.alt} className="sr-only" aria-hidden="false" />
 
       <div className="relative z-10 max-w-4xl px-6 text-center">
-        <h2 className="font-display text-xl font-extrabold leading-tight tracking-tight text-white text-balance sm:text-3xl lg:text-5xl">
+        <h2 className="font-display text-xl font-extrabold leading-tight tracking-tight text-white text-balance [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] sm:text-3xl lg:text-5xl">
           {band.title}
         </h2>
         {band.sub && (
-          <p className="mx-auto mt-1.5 max-w-2xl text-xs font-medium text-white/85 text-balance sm:mt-3 sm:text-base lg:text-xl">
+          <p className="mx-auto mt-1.5 max-w-2xl text-xs font-medium text-white/90 text-balance [text-shadow:0_1px_12px_rgba(0,0,0,0.6)] sm:mt-3 sm:text-base lg:text-xl">
             {band.sub}
           </p>
         )}
@@ -199,8 +203,8 @@ function AdvantageCards() {
         style={{ y: reduce ? 0 : bgY }}
         className="absolute inset-x-0 -inset-y-[8%] bg-cover bg-center"
       >
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bandVilla})` }} />
-        <div className="absolute inset-0 bg-[rgba(8,10,15,0.62)]" />
+        <div className="absolute inset-0 bg-cover bg-center brightness-[1.3]" style={{ backgroundImage: `url(${bandVilla})` }} />
+        <div className="absolute inset-0 bg-[rgba(8,10,15,0.46)]" />
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
@@ -246,10 +250,10 @@ function ChurchFeature() {
       <img
         src="/blog/goa-siolim-church.webp"
         alt="A historic Goan church surrounded by tropical greenery"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover brightness-[1.22]"
         loading="lazy"
       />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/25" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/32 to-black/16" />
       <div className="relative z-10 mx-auto flex min-h-[58svh] max-w-7xl flex-col justify-center px-4 sm:px-6">
         <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-ember sm:text-xs">
           The Wayzyy advantage
