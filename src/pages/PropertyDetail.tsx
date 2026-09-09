@@ -98,11 +98,6 @@ export default function PropertyDetail() {
   const [guestCount, setGuestCount] = useState(1);
   // Null for mock listings; populated for real ones after the Supabase fetch.
   const [pricingInputs, setPricingInputs] = useState<PricingInputs | null>(null);
-  // Advisory shown alongside the extra-guest surcharge. The surcharge itself
-  // IS charged online (see quoteStay); this note covers the separate case of
-  // a guest turning up with more people than they booked for, which is a
-  // conversation with the host and not something the platform settles.
-  const [extraGuestNote, setExtraGuestNote] = useState<string | null>(null);
   const [isGuestDropdownOpen, setIsGuestDropdownOpen] = useState(false);
 
   // Fetch property data
@@ -244,12 +239,6 @@ export default function PropertyDetail() {
               dateOverrides[String(row.date).slice(0, 10)] = Number(row.price);
             }
           }
-
-          setExtraGuestNote(
-            typeof data.extra_guest_note === "string" && data.extra_guest_note.trim()
-              ? data.extra_guest_note.trim()
-              : null,
-          );
 
           setPricingInputs({
             hostPricePerNight: price,
@@ -757,22 +746,6 @@ export default function PropertyDetail() {
                           Applied automatically if you add more guests.
                         </span>
                       )}
-                    </p>
-                  </div>
-                )}
-
-                {/* Separate from the surcharge above: what happens if more
-                    people actually turn up than were booked. That is settled
-                    between guest and host, so the copy must not imply Wayzyy
-                    guarantees or mediates it. */}
-                {extraGuestNote && (
-                  <div className="flex items-start gap-2 rounded-2xl border border-border bg-muted/40 p-3">
-                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                    <p className="text-xs leading-relaxed text-muted-foreground">
-                      {extraGuestNote}{" "}
-                      <Link to="/guest-terms" className="font-semibold text-foreground underline">
-                        See terms
-                      </Link>
                     </p>
                   </div>
                 )}
