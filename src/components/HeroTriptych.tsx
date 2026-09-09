@@ -269,11 +269,14 @@ export function HeroTriptych() {
 
   return (
     <>
-      <div className="relative isolate h-[100svh] w-full overflow-hidden bg-ink">
-        <div className="absolute inset-x-0 top-0 z-30">
-          <SiteNav />
-        </div>
+      {/* Rendered OUTSIDE the hero on purpose. SiteNav is `fixed z-50`, but
+          the hero below is an `isolate` stacking context - nesting the nav
+          inside it capped its z-index at the hero's own level, so every
+          section further down the page (case-study cards, marquee) painted
+          straight over the navbar once you scrolled past the hero. */}
+      <SiteNav />
 
+      <div className="relative isolate h-[100svh] w-full overflow-hidden bg-ink">
         {/* The three bands. flex-col + flex-1 gives an exact third each,
             and survives the mobile URL bar resizing the viewport (svh). */}
         <div className="flex h-full w-full flex-col">
