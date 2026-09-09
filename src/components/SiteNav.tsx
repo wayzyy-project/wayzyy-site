@@ -260,6 +260,9 @@ export function SiteNav({ floating = false }: SiteNavProps) {
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm text-white/90 sm:flex">
+              <Link className="hover:text-white font-bold text-[#FF6B00]" to="/stays">
+                Explore Stays
+              </Link>
               <a className="hover:text-white" href="/#why">
                 Why
               </a>
@@ -280,10 +283,10 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <Link
-                to="/waitlist"
-                className="hidden rounded-full bg-white px-4 py-1.5 text-sm text-ink transition-colors hover:bg-white/90 sm:inline-block"
+                to="/stays"
+                className="hidden rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] px-4 py-1.5 text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 hover:opacity-90 sm:inline-block"
               >
-                Get early access
+                Book a Stay
               </Link>
             </div>
           </div>
@@ -294,18 +297,6 @@ export function SiteNav({ floating = false }: SiteNavProps) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Scroll-driven background: the outer motion.div owns the
-          fade-in opacity (absolute positioning must live here, not on the
-          liquid-glass element - liquid-glass sets `position: relative`,
-          which would stomp an `absolute` utility applied to the same
-          node). The inner div carries the actual liquid-glass treatment
-          plus an explicit inline background-color: liquid-glass's own
-          `background` is a near-transparent 1% white, fine for a photo
-          hero but unreadable once real page content is scrolling behind
-          an opaque nav - the inline style (highest-specificity, always
-          wins over any class) restores the solid backdrop this nav needs
-          for legibility while still keeping liquid-glass's blur, inset
-          highlight, and gradient-edge border. */}
       <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0">
         <div
           className="liquid-glass h-full w-full"
@@ -321,6 +312,9 @@ export function SiteNav({ floating = false }: SiteNavProps) {
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
+          <Link className="text-[#FF6B00] font-bold hover:underline" to="/stays">
+            Explore Stays
+          </Link>
           <a className="hover:text-foreground" href="/#why">
             Why
           </a>
@@ -341,10 +335,10 @@ export function SiteNav({ floating = false }: SiteNavProps) {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
-            to="/waitlist"
-            className="hidden rounded-full bg-foreground px-4 py-1.5 text-sm text-background transition-colors hover:bg-foreground/90 sm:inline-block"
+            to="/stays"
+            className="hidden rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] px-4 py-1.5 text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 hover:opacity-90 sm:inline-block"
           >
-            Get early access
+            Book a Stay
           </Link>
         </div>
       </div>

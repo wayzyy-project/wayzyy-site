@@ -42,6 +42,11 @@ interface Property {
   status: string;
   cancel_policy: string;
   instant_book: boolean;
+  per_person_pricing_enabled: boolean | null;
+  extra_guest_threshold: number | null;
+  extra_guest_fee: number | null;
+  extra_guest_note: string | null;
+  pet_fee: number | null;
   wayzyy_verified: boolean | null;
   admin_photo_quality: number | null;
   admin_listing_completeness: number | null;
@@ -112,6 +117,12 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
   const [decided, setDecided] = useState<"active" | "rejected" | null>(null);
   const [verified, setVerified] = useState(false);
   const [notes, setNotes] = useState("");
+  // Guest-count tiers and per-night date overrides live in their own tables,
+  // so nothing about them shows up in `properties.*`. Without these two an
+  // admin approves a listing without ever seeing a negotiated per-guest rate
+  // or a host's New-Year's-Eve price.
+  const [tiers, setTiers] = useState<{ min_guests: number; price_per_night: number }[]>([]);
+  const [datePrices, setDatePrices] = useState<{ date: string; price: number }[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -123,6 +134,22 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
     }
     const p = data as Property;
     setProperty(p);
+
+    const [tierRes, dateRes] = await Promise.all([
+      supabase
+        .from("property_guest_pricing_tiers")
+        .select("min_guests, price_per_night")
+        .eq("property_id", propertyId)
+        .order("min_guests"),
+      supabase
+        .from("date_prices")
+        .select("date, price")
+        .eq("property_id", propertyId)
+        .gte("date", new Date().toISOString().slice(0, 10))
+        .order("date"),
+    ]);
+    setTiers(tierRes.data ?? []);
+    setDatePrices(dateRes.data ?? []);
     setDecided(p.status === "active" || p.status === "rejected" ? (p.status as "active" | "rejected") : null);
     setVerified(p.wayzyy_verified === true);
     if (p.admin_notes) setNotes(p.admin_notes);
@@ -228,6 +255,99 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
         <div><p className="text-muted-foreground">Instant book</p><p className="font-medium">{property.instant_book ? "Yes" : "No"}</p></div>
         <div><p className="text-muted-foreground">Status</p><p className="font-medium">{property.status}</p></div>
       </div>
+
+      {/* Everything that changes what a guest actually pays, gathered in one
+          place. Previously none of this was visible here: weekday/weekend
+          were shown above, but guest-count tiers, the host's per-person rule,
+          per-night date overrides and the pay-at-property note all live
+          outside `properties.*` or were simply never rendered - so a listing
+          could be approved without the reviewer ever seeing them. */}
+      {(tiers.length > 0 ||
+        property.per_person_pricing_enabled ||
+        property.extra_guest_note ||
+        property.pet_fee != null ||
+        datePrices.length > 0) && (
+        <div className="space-y-3 rounded-xl border border-ember/40 bg-ember/5 p-4">
+          <p className="text-sm font-semibold">Guest-dependent pricing</p>
+
+          {tiers.length > 0 && (
+            <div className="text-sm">
+              <p className="text-muted-foreground">Negotiated guest-count tiers (online, overrides the base rate)</p>
+              <ul className="mt-1 space-y-0.5">
+                {tiers.map((t) => (
+                  <li key={t.min_guests} className="font-medium">
+                    {t.min_guests}+ guests → ₹{Number(t.price_per_night).toLocaleString("en-IN")}/night
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {property.per_person_pricing_enabled && (
+            <div className="text-sm">
+              <p className="text-muted-foreground">Host per-person rule (online)</p>
+              <p className="font-medium">
+                Above {property.extra_guest_threshold ?? "?"} guests, +₹
+                {property.extra_guest_fee != null
+                  ? Number(property.extra_guest_fee).toLocaleString("en-IN")
+                  : "?"}{" "}
+                per extra guest per night
+              </p>
+              {tiers.length > 0 && (
+                <p className="text-xs text-muted-foreground">
+                  Ignored while the tiers above exist - the curated path wins.
+                </p>
+              )}
+            </div>
+          )}
+
+          {property.extra_guest_note && (
+            <div className="text-sm">
+              <p className="text-muted-foreground">Pay-at-property note (shown on the listing, not charged online)</p>
+              <p className="font-medium">{property.extra_guest_note}</p>
+            </div>
+          )}
+
+          {property.pet_fee != null && (
+            <div className="text-sm">
+              <p className="text-muted-foreground">Pet fee</p>
+              <p className="font-medium">₹{Number(property.pet_fee).toLocaleString("en-IN")} one-time</p>
+            </div>
+          )}
+
+          {datePrices.length > 0 && (
+            <div className="text-sm">
+              <p className="text-muted-foreground">
+                Upcoming date overrides set by the host ({datePrices.length})
+              </p>
+              <ul className="mt-1 flex flex-wrap gap-1.5">
+                {datePrices.slice(0, 12).map((d) => {
+                  // Flag anything wildly off the base rate - that is where an
+                  // unreasonable number hides, and it is the one price the
+                  // reviewer cannot otherwise see before approving.
+                  const steep = property.price_per_night > 0 && d.price >= property.price_per_night * 3;
+                  return (
+                    <li
+                      key={d.date}
+                      className={`rounded-full border px-2 py-0.5 text-xs ${
+                        steep ? "border-destructive/50 bg-destructive/10 font-semibold text-destructive" : "border-border"
+                      }`}
+                    >
+                      {d.date} · ₹{Number(d.price).toLocaleString("en-IN")}
+                      {steep ? " ⚠" : ""}
+                    </li>
+                  );
+                })}
+                {datePrices.length > 12 && (
+                  <li className="px-2 py-0.5 text-xs text-muted-foreground">
+                    +{datePrices.length - 12} more
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
 
       <div>
         <p className="mb-1 text-sm font-semibold">Description</p>

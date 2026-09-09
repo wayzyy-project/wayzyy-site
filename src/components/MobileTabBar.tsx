@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Sparkles, Calculator, BookOpen, KeyRound } from "lucide-react";
+import { Home, Sparkles, Compass, Luggage, KeyRound } from "lucide-react";
 
 interface Tab {
   label: string;
@@ -10,10 +10,10 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
+  { label: "Stays", icon: Compass, href: "/stays", matchPrefix: "/stays" },
   { label: "Home", icon: Home, href: "/" },
+  { label: "Trips", icon: Luggage, href: "/trips", matchPrefix: "/trips" },
   { label: "Why", icon: Sparkles, href: "/#why" },
-  { label: "Calculator", icon: Calculator, href: "/earnings-calculator", matchPrefix: "/earnings-calculator" },
-  { label: "Blog", icon: BookOpen, href: "/blog", matchPrefix: "/blog" },
   { label: "Host", icon: KeyRound, href: "/host", matchPrefix: "/host" },
 ];
 
@@ -42,7 +42,7 @@ export function MobileTabBar() {
       <div className="grid grid-cols-5 items-center px-1">
         {tabs.map((tab) => {
           const isActive = tab.matchPrefix
-            ? path.startsWith(tab.matchPrefix)
+            ? path.startsWith(tab.matchPrefix) || (tab.href === "/stays" && path.startsWith("/property/"))
             : tab.href === "/#why"
               ? path === "/" && location.hash === "#why"
               : path === "/" && tab.href === "/" && location.hash !== "#why";
@@ -71,7 +71,7 @@ export function MobileTabBar() {
               key={tab.label}
               to={tab.href}
               className={`flex flex-col items-center justify-center gap-1 py-2.5 text-[11px] font-medium transition-colors active:scale-95 ${
-                isActive ? "text-ember" : "text-muted-foreground"
+                isActive ? "text-[#FF385C] font-bold" : "text-muted-foreground"
               }`}
             >
               <Icon className="h-5 w-5" strokeWidth={isActive ? 2.4 : 2} />
