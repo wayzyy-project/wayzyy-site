@@ -1,16 +1,14 @@
 import React from "react";
 import { useScroll, useSpring, motion } from "framer-motion";
-import { CinematicHero } from "@/components/CinematicHero";
+import { HeroTriptych } from "@/components/HeroTriptych";
 import { Marquee } from "@/components/Marquee";
 import { WhySection } from "@/components/WhySection";
 import { TwoSides } from "@/components/TwoSides";
 import { EconomicsSection } from "@/components/EconomicsSection";
 import { Principles } from "@/components/Principles";
-import { CalculatorTeaser } from "@/components/CalculatorTeaser";
 import { BlogSection } from "@/components/BlogSection";
 import { HousePartiesSection } from "@/components/HousePartiesSection";
 import { HostBannerSection } from "@/components/HostBannerSection";
-import { GigChallengeTeaser } from "@/components/gig-challenge/GigChallengeTeaser";
 import { HomeCalculatorSection } from "@/components/HomeCalculatorSection";
 import { OnboardingDocSection } from "@/components/OnboardingDocSection";
 import { WaitlistSection } from "@/components/WaitlistSection";
@@ -127,7 +125,7 @@ const Index = () => {
         />
 
         <main>
-          <CinematicHero showSightsSlider={false} />
+          <HeroTriptych />
 
           <Marquee
             items={[
@@ -143,7 +141,6 @@ const Index = () => {
           <div ref={whyRef as React.RefObject<HTMLDivElement>}><WhySection /></div>
           <div ref={twoSidesRef as React.RefObject<HTMLDivElement>}><TwoSides /></div>
           <EconomicsSection />
-          <GigChallengeTeaser />
           <Principles />
           <div ref={housePartiesRef as React.RefObject<HTMLDivElement>}><HousePartiesSection /></div>
           <BlogSection />
