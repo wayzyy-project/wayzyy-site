@@ -23,10 +23,10 @@ export function BlogSection() {
   ];
 
   return (
-    <section id="blog" className="relative scroll-smooth-anchor py-24 sm:py-32">
+    <section id="blog" className="relative scroll-smooth-anchor py-12 sm:py-24 border-t border-border/40">
       <div className="container max-w-6xl mx-auto px-4">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
           <Reveal>
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1 text-xs uppercase tracking-[0.25em] text-ember">

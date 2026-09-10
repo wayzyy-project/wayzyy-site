@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 
 export function HostBannerSection() {
   return (
-    <section className="relative scroll-smooth-anchor bg-gradient-to-b from-background via-ember/[0.05] to-background py-28 dark:via-ember/[0.07] dark:to-background sm:py-40">
+    <section className="relative scroll-smooth-anchor bg-gradient-to-b from-background via-ember/[0.05] to-background py-12 dark:via-ember/[0.07] dark:to-background sm:py-24">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <div className="lg:col-span-7 space-y-5">

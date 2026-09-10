@@ -177,6 +177,38 @@ serve(async (req) => {
       }
     }
 
+    // 5. For imports specifically, also let the host know it went through -
+    //    the import can take a little while (AirROI fetch + photo re-host),
+    //    so this is the "your property has been imported" confirmation.
+    if (zeptomailKey && isImport && hostEmail) {
+      try {
+        const hostEmailHtml = `
+          <div style="font-family: Georgia, serif; max-width: 560px; margin: 0 auto; padding: 32px; background: #faf9f7; border-radius: 12px;">
+            <h2 style="font-size: 22px; color: #1a1a1a; margin-bottom: 8px;">🎉 Your property has been imported!</h2>
+            <p style="color: #666; font-size: 14px; line-height: 1.6;">
+              "${listingData.title}" has been imported and is now pending review. We'll email you again once it's approved and live.
+            </p>
+          </div>
+        `;
+        await fetch(zeptomailUrl, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Zoho-enczapikey ${zeptomailKey}`,
+          },
+          body: JSON.stringify({
+            from: { address: "hello@wayzyy.com", name: "Wayzyy" },
+            to: [{ email_address: { address: hostEmail } }],
+            subject: `Your property "${listingData.title}" has been imported`,
+            htmlbody: hostEmailHtml,
+          }),
+        });
+      } catch (mailErr) {
+        console.warn("Host import-confirmation email failed (non-fatal):", mailErr);
+      }
+    }
+
     return new Response(
       JSON.stringify({ success: true, property: propData }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }

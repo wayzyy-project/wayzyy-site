@@ -20,9 +20,9 @@ export function Principles() {
   const x = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden py-28 sm:py-40">
+    <section ref={ref} className="relative overflow-hidden py-12 sm:py-24">
       <Reveal>
-        <div className="container mb-12">
+        <div className="container mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-ember" />
             What we promise

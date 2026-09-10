@@ -34,7 +34,7 @@ const hostStories = [
 
 export function WhySection() {
   return (
-    <section id="why" className="relative scroll-smooth-anchor py-24 sm:py-36 border-t border-border/40">
+    <section id="why" className="relative scroll-smooth-anchor py-12 sm:py-24 border-t border-border/40">
       <div className="container">
         <Reveal>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">

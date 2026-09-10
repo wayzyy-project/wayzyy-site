@@ -84,6 +84,12 @@ function ImportTool() {
   const [results, setResults] = useState<LookupResult[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [hostEmail, setHostEmail] = useState("");
+  // Prefilled from AirROI's scraped Airbnb host name once a lookup returns,
+  // but stays fully editable - this is the display name that actually gets
+  // saved to the host's Wayzyy profile, so it needs to be the *Wayzyy*
+  // host's real name, not necessarily whatever Airbnb had on file.
+  const [hostName, setHostName] = useState("");
+  const [hostNameTouched, setHostNameTouched] = useState(false);
   const [consentNote, setConsentNote] = useState("");
   const [importing, setImporting] = useState(false);
   const [importedResults, setImportedResults] = useState<{ id: string; listingId: string }[]>([]);
@@ -139,6 +145,14 @@ function ImportTool() {
         throw new Error("Could not find listing details from AirROI. Please verify the listing IDs/URLs.");
       }
 
+      // Best-effort suggestion only, never overwrites a name the admin
+      // already typed for this session - AirROI's scraped Airbnb host name
+      // is a starting point, not a source of truth for the Wayzyy account.
+      if (!hostNameTouched) {
+        const suggested = list.find((item) => item.hostName)?.hostName;
+        if (suggested) setHostName(suggested);
+      }
+
       setResults(list);
       setSelectedIds(list.map((item) => item.listingId));
       toast({ title: `Found ${list.length} listing(s)`, description: "Select the listings you wish to import below." });
@@ -171,7 +185,7 @@ function ImportTool() {
     for (const id of selectedIds) {
       try {
         const { data, error } = await supabase.functions.invoke("airroi-import-listing", {
-          body: { listingId: id, hostEmail: hostEmail.trim(), consentNote: consentNote.trim() },
+          body: { listingId: id, hostEmail: hostEmail.trim(), consentNote: consentNote.trim(), hostName: hostName.trim() || undefined },
         });
         if (error || data?.error) throw new Error(data?.error ?? error?.message ?? "Import failed");
         newlyImported.push({ id: data.propertyId, listingId: id });
@@ -300,6 +314,19 @@ function ImportTool() {
               <Label htmlFor="hostEmail">Host's Wayzyy account email</Label>
               <Input id="hostEmail" value={hostEmail} onChange={(e) => setHostEmail(e.target.value)} placeholder="host@example.com" />
               <p className="mt-1 text-xs text-muted-foreground">The account email of the host being onboarded.</p>
+            </div>
+            <div>
+              <Label htmlFor="hostName">Host display name</Label>
+              <Input
+                id="hostName"
+                value={hostName}
+                onChange={(e) => { setHostName(e.target.value); setHostNameTouched(true); }}
+                placeholder="e.g. Kriti Sharma"
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                Shown to guests as "Hosted by ...". Suggested from the Airbnb listing above once found - check it's
+                actually this Wayzyy host's real name before importing, not just whatever Airbnb had on file.
+              </p>
             </div>
             <div>
               <Label htmlFor="consentNote">How did the host approve this?</Label>

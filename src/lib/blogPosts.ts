@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "sarvam-startup-program",
+    title: "Wayzyy selected for the Sarvam AI Startup Program",
+    description:
+      "We're excited to announce that Wayzyy has been selected for the Sarvam AI Startup Program to build next-generation multilingual AI hospitality tools on India's sovereign AI infrastructure.",
+    metaTitle: "Wayzyy selected for Sarvam AI Startup Program",
+    metaDescription:
+      "Wayzyy partners with Sarvam AI to bring sovereign Indic multilingual AI and voice concierge tools to homestays across India.",
+    heroImage: "/logo.svg",
+    publishedDate: "2026-08-15",
+    readTime: "4 Min Read",
+  },
+  {
     slug: "best-airbnb-alternatives-goa",
     title: "5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)",
     description:

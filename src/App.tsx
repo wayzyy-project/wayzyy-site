@@ -104,6 +104,8 @@ import ExploreStays from "./pages/ExploreStays";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyTrips from "./pages/MyTrips";
 import Wishlists from "./pages/Wishlists";
+import Inbox from "./pages/Inbox";
+import MessageThread from "./pages/MessageThread";
 import SarvamStartupProgram from "./pages/SarvamStartupProgram";
 
 const queryClient = new QueryClient();
@@ -134,6 +136,8 @@ const App = () => (
               <Route path="/rooms/:propertyId" element={<PropertyDetail />} />
               <Route path="/trips" element={<MyTrips />} />
               <Route path="/my-bookings" element={<MyTrips />} />
+              <Route path="/inbox" element={<Inbox />} />
+              <Route path="/inbox/:threadId" element={<MessageThread />} />
               <Route path="/wishlists" element={<Wishlists />} />
               <Route path="/saved" element={<Wishlists />} />
               <Route path="/news/sarvam-startup-program" element={<SarvamStartupProgram />} />

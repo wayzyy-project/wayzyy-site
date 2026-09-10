@@ -136,38 +136,40 @@ export default function EarningsCalculator() {
           </div>
         </div>
 
-        <div className="border-b border-border bg-card/40 py-12 sm:py-16">
-          <div className="container max-w-3xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              <TrendingUp className="h-3.5 w-3.5 text-ember" />
-              Calculator
+        <div className="border-b border-border bg-card/40 py-8 sm:py-12">
+          <div className="container max-w-3xl px-4 sm:px-6">
+            <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-ember">
+              <TrendingUp className="h-3.5 w-3.5" />
+              Host Earnings Calculator
             </div>
-            <h1 className="font-display text-3xl sm:text-5xl text-foreground mt-2 leading-tight">
-              Airbnb vs Wayzyy - Host Earnings Calculator
+            <h1 className="font-display text-2xl sm:text-4xl text-foreground mt-1 leading-tight font-extrabold">
+              Airbnb vs Wayzyy Calculator
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Enter what your villa actually books for in a year and see exactly how much of that Airbnb's
-              commission eats up - versus what you'd keep on Wayzyy's flat prepaid credit model.
+            <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl">
+              Enter your annual booking value and see how much Airbnb takes in commission versus what you keep on Wayzyy.
             </p>
           </div>
         </div>
 
-        <div className="container max-w-3xl py-12 sm:py-16">
-          <div className="rounded-2xl border border-border bg-card/40 p-6 sm:p-8">
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-3">
-                <label htmlFor="booking-value" className="text-sm font-semibold text-foreground">
+        <div className="container max-w-3xl py-8 sm:py-12 px-4 sm:px-6">
+          <div className="rounded-2xl sm:rounded-3xl border border-border/80 bg-card/40 p-4 sm:p-7 shadow-lg backdrop-blur-sm">
+            <div className="mb-4 sm:mb-5">
+              <div className="flex items-center justify-between mb-2">
+                <label htmlFor="booking-value" className="text-xs sm:text-sm font-semibold text-foreground">
                   Total booking value (per year)
                 </label>
-                <Input
-                  id="booking-value"
-                  type="number"
-                  min={1000}
-                  step={1000}
-                  value={bookingValue}
-                  onChange={(e) => setBookingValue(Math.max(1000, Number(e.target.value) || 0))}
-                  className="w-36 text-right"
-                />
+                <div className="flex items-center rounded-lg border border-border bg-background px-2.5 py-1">
+                  <span className="text-xs font-semibold text-muted-foreground mr-1">₹</span>
+                  <Input
+                    id="booking-value"
+                    type="number"
+                    min={10000}
+                    step={5000}
+                    value={bookingValue}
+                    onChange={(e) => setBookingValue(Math.max(10000, Number(e.target.value) || 0))}
+                    className="h-5 w-24 text-right border-0 bg-transparent p-0 text-xs sm:text-sm font-bold text-foreground focus-visible:ring-0"
+                  />
+                </div>
               </div>
               <Slider
                 value={[bookingValue]}
@@ -175,18 +177,23 @@ export default function EarningsCalculator() {
                 min={20000}
                 max={2000000}
                 step={5000}
+                className="py-1.5"
               />
-              <p className="mt-2 text-xs text-muted-foreground">
-                Not sure? Multiply your typical nightly rate × nights booked per year, across all your properties.
-              </p>
+              <div className="flex justify-between text-[10px] sm:text-xs text-muted-foreground mt-1.5">
+                <span>₹20K</span>
+                <span>₹5L (Goa Villa Avg)</span>
+                <span>₹20L</span>
+              </div>
             </div>
 
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-3">
-                <label htmlFor="airbnb-rate" className="text-sm font-semibold text-foreground">
-                  Airbnb host commission
+            <div className="mb-4 sm:mb-5 pt-3 border-t border-border/40">
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="airbnb-rate" className="text-xs sm:text-sm font-semibold text-foreground">
+                  Airbnb commission rate
                 </label>
-                <span className="text-sm font-semibold text-foreground">{airbnbRate}%</span>
+                <span className="rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-[11px] font-bold text-red-500">
+                  {airbnbRate}%
+                </span>
               </div>
               <Slider
                 value={[airbnbRate]}
@@ -194,38 +201,50 @@ export default function EarningsCalculator() {
                 min={16}
                 max={24}
                 step={0.5}
+                className="py-1.5"
               />
-              <p className="mt-2 text-xs text-muted-foreground">
-                Airbnb's host-only fee typically ranges 16–24% depending on your cancellation policy and location.
-                Default is 18%, a realistic average for Goa villa listings - adjust to match your own.
-              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-xl border border-border bg-background p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Airbnb</p>
-                <p className="text-2xl font-display text-foreground">{formatINR(result.airbnbTakeHome)}</p>
-                <p className="mt-1 text-xs text-muted-foreground">you take home</p>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  −{formatINR(result.airbnbFee)} commission ({airbnbRate}%)
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+              <div className="rounded-xl border border-border bg-background p-3 sm:p-4 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">Airbnb</span>
+                    <span className="text-[9px] sm:text-[11px] font-semibold text-red-500 bg-red-500/10 px-1.5 py-0.5 rounded">
+                      -{airbnbRate}%
+                    </span>
+                  </div>
+                  <p className="text-lg sm:text-2xl font-display font-bold text-foreground">{formatINR(result.airbnbTakeHome)}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Net take-home</p>
+                </div>
+                <p className="mt-2 pt-2 border-t border-border/40 text-[10px] sm:text-xs text-muted-foreground">
+                  −{formatINR(result.airbnbFee)} fee
                 </p>
               </div>
-              <div className="rounded-xl border border-ember/40 bg-ember/5 p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Wayzyy</p>
-                <p className="text-2xl font-display text-ember">{formatINR(result.wayzyyTakeHome)}</p>
-                <p className="mt-1 text-xs text-muted-foreground">you take home</p>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  −{formatINR(result.wayzyy.cost)} prepaid credit ({result.wayzyyEffectiveRate.toFixed(1)}% effective, {result.wayzyy.label})
+
+              <div className="rounded-xl border border-ember/40 bg-ember/5 p-3 sm:p-4 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-ember">Wayzyy</span>
+                    <span className="text-[9px] sm:text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                      ~{result.wayzyyEffectiveRate.toFixed(1)}%
+                    </span>
+                  </div>
+                  <p className="text-lg sm:text-2xl font-display font-bold text-ember">{formatINR(result.wayzyyTakeHome)}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Net take-home</p>
+                </div>
+                <p className="mt-2 pt-2 border-t border-ember/20 text-[10px] sm:text-xs text-muted-foreground">
+                  −{formatINR(result.wayzyy.cost)} ({result.wayzyy.label})
                 </p>
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-ember/30 bg-ember/5 p-5 text-center">
-              <p className="text-sm text-muted-foreground">You'd keep</p>
-              <p className="font-display text-3xl text-ember mt-1">
-                {formatINR(Math.max(0, result.savings))} more
+            <div className="mt-4 rounded-xl border border-ember/30 bg-ember/10 p-3 sm:p-4 text-center">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">You keep</p>
+              <p className="font-display text-2xl sm:text-3xl font-extrabold text-ember my-0.5">
+                +{formatINR(Math.max(0, result.savings))} more
               </p>
-              <p className="text-sm text-muted-foreground mt-1">on Wayzyy for the same bookings</p>
+              <p className="text-[11px] sm:text-xs text-muted-foreground">on Wayzyy for the exact same bookings</p>
             </div>
           </div>
 

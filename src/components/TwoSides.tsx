@@ -92,7 +92,7 @@ export function TwoSides() {
   return (
     <section
       id="two-sides"
-      className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-card/40 via-card/40 to-background py-28 sm:py-40"
+      className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-card/40 via-card/40 to-background py-12 sm:py-24"
     >
       {/* Same ember glow treatment EconomicsSection uses just below this
           section - carried up here so the two read as one continuous

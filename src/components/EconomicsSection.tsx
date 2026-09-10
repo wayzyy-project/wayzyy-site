@@ -29,7 +29,7 @@ export function EconomicsSection() {
   return (
     <section
       id="economics"
-      className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-background via-ember/[0.05] to-background py-28 dark:via-ember/[0.07] dark:to-background sm:py-40"
+      className="relative scroll-smooth-anchor overflow-hidden bg-gradient-to-b from-background via-ember/[0.05] to-background py-12 dark:via-ember/[0.07] dark:to-background sm:py-24"
     >
       <div className="container">
         <Reveal>
@@ -46,7 +46,7 @@ export function EconomicsSection() {
         </Reveal>
 
         {/* Block A: image left, text right */}
-        <div className="mt-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-10 sm:mt-16 grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div
               ref={imgRef}

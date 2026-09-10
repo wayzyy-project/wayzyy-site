@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, Copy, Loader2, Trash2 } from "lucide-react";
+import { ArrowLeft, Copy, Loader2, Trash2, Minus, Plus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ const TAB_BLURB: Record<string, string> = {
   cancellation:
     "How much a guest gets back if they cancel, and how late they can do it. Pick one policy for short stays and one for long ones — guests see this before they book.",
   details:
-    "Licensing and registration details for this property. Needed to operate legally, and never a blocker to getting listed.",
+    "Your minimum-stay requirement, plus licensing and registration details for this property. Licensing is never a blocker to getting listed.",
 };
 
 export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultTab }: Props) {
@@ -150,18 +150,21 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
   const { toast } = useToast();
   const [state, setState] = useState<string | null>(null);
   const [registrationNumber, setRegistrationNumber] = useState("");
+  const [minNights, setMinNights] = useState(1);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [savingMinNights, setSavingMinNights] = useState(false);
 
   useEffect(() => {
     supabase
       .from("properties")
-      .select("state, registration_number")
+      .select("state, registration_number, min_nights")
       .eq("id", propertyId)
       .single()
       .then(({ data }) => {
         setState(data?.state ?? null);
         setRegistrationNumber(data?.registration_number ?? "");
+        setMinNights(data?.min_nights ?? 1);
         setLoading(false);
       });
   }, [propertyId]);
@@ -184,41 +187,88 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
     }
   };
 
+  const saveMinNights = async (value: number) => {
+    const clamped = Math.min(90, Math.max(1, value));
+    setMinNights(clamped);
+    setSavingMinNights(true);
+    try {
+      const { error } = await supabase
+        .from("properties")
+        .update({ min_nights: clamped })
+        .eq("id", propertyId);
+      if (error) throw error;
+    } catch (err: any) {
+      toast({ title: "Couldn't save minimum stay", description: err?.message ?? "Please try again.", variant: "destructive" });
+    } finally {
+      setSavingMinNights(false);
+    }
+  };
+
   if (loading) {
     return <p className="text-sm text-white/50">Loading...</p>;
   }
 
-  if (!isGoa) {
-    return (
-      <p className="text-sm text-white/50">
-        No location-specific requirements for this listing right now.
-      </p>
-    );
-  }
-
   return (
-    <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-4">
-      <div>
-        <Label className="text-xs font-semibold text-white/80">Goa Tourism Registration Number</Label>
-        <p className="mt-0.5 text-xs text-white/50">
-          Required to actually operate in Goa - doesn't block reviews or publishing, but add it
-          when you have it.
-        </p>
+    <div className="space-y-4">
+      {/* Minimum stay - not location-specific, always shown. Enforced
+          server-side in create-booking, not just here. */}
+      <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/5 p-4">
+        <div>
+          <Label className="text-xs font-semibold text-white/80">Minimum nights</Label>
+          <p className="mt-0.5 text-xs text-white/50">
+            Guests must book at least this many nights - enforced at checkout, not just a suggestion.
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={() => saveMinNights(minNights - 1)}
+            disabled={savingMinNights || minNights <= 1}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white disabled:opacity-30"
+          >
+            <Minus className="h-3.5 w-3.5" />
+          </button>
+          <span className="w-6 text-center text-sm font-bold text-white">
+            {savingMinNights ? <Loader2 className="mx-auto h-3.5 w-3.5 animate-spin" /> : minNights}
+          </span>
+          <button
+            type="button"
+            onClick={() => saveMinNights(minNights + 1)}
+            disabled={savingMinNights || minNights >= 90}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white disabled:opacity-30"
+          >
+            <Plus className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
-      <Input
-        placeholder="e.g. GT/SDE/123/2026"
-        value={registrationNumber}
-        onChange={(e) => setRegistrationNumber(e.target.value)}
-        className="border-white/15 bg-white/10 text-sm text-white placeholder:text-white/40"
-      />
-      <Button
-        onClick={handleSave}
-        disabled={saving}
-        size="sm"
-        className="gap-1.5 bg-ember text-white hover:bg-ember/90"
-      >
-        {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
-      </Button>
+
+      {isGoa ? (
+        <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-4">
+          <div>
+            <Label className="text-xs font-semibold text-white/80">Goa Tourism Registration Number</Label>
+            <p className="mt-0.5 text-xs text-white/50">
+              Required to actually operate in Goa - doesn't block reviews or publishing, but add it
+              when you have it.
+            </p>
+          </div>
+          <Input
+            placeholder="e.g. GT/SDE/123/2026"
+            value={registrationNumber}
+            onChange={(e) => setRegistrationNumber(e.target.value)}
+            className="border-white/15 bg-white/10 text-sm text-white placeholder:text-white/40"
+          />
+          <Button
+            onClick={handleSave}
+            disabled={saving}
+            size="sm"
+            className="gap-1.5 bg-ember text-white hover:bg-ember/90"
+          >
+            {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
+          </Button>
+        </div>
+      ) : (
+        <p className="text-sm text-white/50">No other location-specific requirements for this listing right now.</p>
+      )}
     </div>
   );
 }

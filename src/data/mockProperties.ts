@@ -34,7 +34,17 @@ export interface PropertyListing {
   beds: number;
   bathrooms: number;
   amenities: string[];
+  // Nights a guest must book at minimum. Undefined/1 on mock listings (no
+  // restriction) - real listings carry the host's own setting from
+  // properties.min_nights.
+  minNights?: number;
   host: {
+    // Only set for real (non-mock) listings - lets the detail page look up
+    // the host's actual profile and their other live listings.
+    id?: string | null;
+    // Only set for real listings, only ever used to build a mailto: link -
+    // never rendered directly.
+    email?: string | null;
     name: string;
     avatar: string;
     isSuperhost: boolean;

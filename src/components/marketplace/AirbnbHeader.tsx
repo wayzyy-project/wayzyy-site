@@ -18,9 +18,11 @@ import {
   Sun,
   Key,
   Building,
-  Castle
+  Castle,
+  MessageCircle
 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { MessagesLink } from "@/components/messaging/MessagesLink";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -212,6 +214,8 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               {theme === "dark" ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-slate-700" />}
             </button>
 
+            <MessagesLink />
+
             {/* Profile Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -227,6 +231,12 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   <Link to="/trips" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer">
                     <Luggage className="h-4 w-4 text-[#FF6B00]" />
                     My Bookings & Trips
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/inbox" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer">
+                    <MessageCircle className="h-4 w-4 text-[#FF6B00]" />
+                    Messages
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

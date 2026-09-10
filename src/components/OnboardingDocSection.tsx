@@ -5,7 +5,7 @@ import { Sparkles, ArrowRight, ExternalLink } from "lucide-react";
 
 export function OnboardingDocSection() {
   return (
-    <section id="onboarding-doc" className="relative scroll-smooth-anchor py-24 sm:py-32 border-t border-border/40 bg-muted/20">
+    <section id="onboarding-doc" className="relative scroll-smooth-anchor py-12 sm:py-24 border-t border-border/40 bg-muted/20">
       <div className="container max-w-6xl mx-auto px-4 sm:px-6">
         <Reveal>
           <div className="mb-10 text-center max-w-3xl mx-auto space-y-3">

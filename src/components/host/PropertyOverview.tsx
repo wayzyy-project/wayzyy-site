@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { Images, Loader2, MapPin, Save, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Images, Loader2, MapPin, Plus, Save, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AmenityPicker } from "@/components/host/AmenityPicker";
+
+const MIN_PHOTOS = 5;
+const MAX_PHOTOS = 10;
 
 interface PropertyRow {
   title: string | null;
@@ -29,9 +33,11 @@ const PREVIEW_COUNT = 5;
 
 export function PropertyOverview({ propertyId }: { propertyId: string }) {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [row, setRow] = useState<PropertyRow | null>(null);
   const [saving, setSaving] = useState(false);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Editable copies. Kept separate from `row` so "Save changes" only
   // enables once something actually differs.
@@ -44,6 +50,12 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
   const [bedrooms, setBedrooms] = useState("");
   const [beds, setBeds] = useState("");
   const [bathrooms, setBathrooms] = useState("");
+
+  // Photos - mix of already-saved URLs and pending local File uploads not
+  // yet in Storage. `photos` always reflects final desired order/contents.
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [pendingFiles, setPendingFiles] = useState<Record<string, File>>({});
+  const [photosToDelete, setPhotosToDelete] = useState<string[]>([]);
 
   useEffect(() => {
     supabase
@@ -63,6 +75,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         setBedrooms(p?.bedrooms != null ? String(p.bedrooms) : "");
         setBeds(p?.beds != null ? String(p.beds) : "");
         setBathrooms(p?.bathrooms != null ? String(p.bathrooms) : "");
+        setPhotos(p?.images ?? []);
       });
   }, [propertyId]);
 
@@ -74,7 +87,6 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
     );
   }
 
-  const photos = row.images ?? [];
   const numOr = (v: string) => (v.trim() === "" ? null : Number(v));
 
   const dirty =
@@ -86,7 +98,56 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
     numOr(bedrooms) !== (row.bedrooms ?? null) ||
     numOr(beds) !== (row.beds ?? null) ||
     numOr(bathrooms) !== (row.bathrooms ?? null) ||
-    JSON.stringify([...amenities].sort()) !== JSON.stringify([...(row.amenities ?? [])].sort());
+    JSON.stringify([...amenities].sort()) !== JSON.stringify([...(row.amenities ?? [])].sort()) ||
+    JSON.stringify(photos) !== JSON.stringify(row.images ?? []);
+
+  const handleAddPhotos = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const remaining = MAX_PHOTOS - photos.length;
+    if (remaining <= 0) {
+      toast({ title: "Photo limit reached", description: `A listing can have up to ${MAX_PHOTOS} photos.`, variant: "destructive" });
+      return;
+    }
+    const picked = Array.from(files).slice(0, remaining);
+    const newEntries: Record<string, File> = {};
+    const newUrls: string[] = [];
+    for (const file of picked) {
+      const blobUrl = URL.createObjectURL(file);
+      newEntries[blobUrl] = file;
+      newUrls.push(blobUrl);
+    }
+    setPendingFiles((prev) => ({ ...prev, ...newEntries }));
+    setPhotos((prev) => [...prev, ...newUrls].slice(0, MAX_PHOTOS));
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleRemovePhoto = (idx: number) => {
+    if (photos.length <= MIN_PHOTOS) {
+      toast({ title: "Minimum photos required", description: `A listing needs at least ${MIN_PHOTOS} photos.`, variant: "destructive" });
+      return;
+    }
+    const target = photos[idx];
+    setPhotos((prev) => prev.filter((_, i) => i !== idx));
+    if (target.startsWith("http")) {
+      setPhotosToDelete((prev) => [...prev, target]);
+    } else {
+      setPendingFiles((prev) => {
+        const next = { ...prev };
+        delete next[target];
+        return next;
+      });
+    }
+  };
+
+  const handleMovePhoto = (idx: number, direction: -1 | 1) => {
+    const swapIdx = idx + direction;
+    if (swapIdx < 0 || swapIdx >= photos.length) return;
+    setPhotos((prev) => {
+      const next = [...prev];
+      [next[idx], next[swapIdx]] = [next[swapIdx], next[idx]];
+      return next;
+    });
+  };
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -100,9 +161,39 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
       toast({ title: "Nightly rate is required", description: "Enter ₹100 or more.", variant: "destructive" });
       return;
     }
+    if (photos.length < MIN_PHOTOS) {
+      toast({ title: "More photos needed", description: `Please have at least ${MIN_PHOTOS} photos before saving.`, variant: "destructive" });
+      return;
+    }
 
     setSaving(true);
     try {
+      // Upload any newly-added local files first, splicing the resulting
+      // public URLs back into their original position.
+      let finalPhotos = photos;
+      const localIndices = photos.map((p, i) => (p.startsWith("http") ? -1 : i)).filter((i) => i !== -1);
+      if (localIndices.length > 0 && user) {
+        const uploadedUrls: string[] = [];
+        for (const idx of localIndices) {
+          const blobUrl = photos[idx];
+          const file = pendingFiles[blobUrl];
+          if (!file) continue;
+          const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+          const path = `${user.id}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+          const { error: uploadError } = await supabase.storage.from("property-images").upload(path, file, {
+            contentType: file.type || "image/jpeg",
+            upsert: false,
+          });
+          if (uploadError) throw uploadError;
+          const { data: urlData } = supabase.storage.from("property-images").getPublicUrl(path);
+          uploadedUrls.push(urlData.publicUrl);
+        }
+        finalPhotos = [...photos];
+        localIndices.forEach((idx, k) => { finalPhotos[idx] = uploadedUrls[k]; });
+        setPhotos(finalPhotos);
+        setPendingFiles({});
+      }
+
       // status is deliberately not in this update - publishing stays with
       // the review flow, not the edit form.
       const { error } = await supabase
@@ -117,9 +208,22 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
           bedrooms: numOr(bedrooms),
           beds: numOr(beds),
           bathrooms: numOr(bathrooms),
+          images: finalPhotos,
         })
         .eq("id", propertyId);
       if (error) throw error;
+
+      // Only remove the now-unused originals from Storage after the DB
+      // update succeeded - if it failed, the photo is still "in use".
+      if (photosToDelete.length > 0) {
+        const { data: prefixData } = supabase.storage.from("property-images").getPublicUrl("");
+        const prefix = prefixData.publicUrl;
+        const paths = photosToDelete.filter((url) => url.startsWith(prefix)).map((url) => url.slice(prefix.length));
+        if (paths.length > 0) {
+          await supabase.storage.from("property-images").remove(paths).catch(() => {});
+        }
+        setPhotosToDelete([]);
+      }
 
       setRow({
         ...row,
@@ -132,6 +236,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         bedrooms: numOr(bedrooms),
         beds: numOr(beds),
         bathrooms: numOr(bathrooms),
+        images: finalPhotos,
       });
       toast({ title: "Saved", description: "Your listing has been updated." });
     } catch (err: any) {
@@ -147,46 +252,84 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
       <section>
         <div className="mb-2 flex items-center justify-between">
           <p className="text-sm font-semibold text-white">Photos</p>
-          {photos.length > 0 && <span className="text-xs text-white/50">{photos.length} imported</span>}
+          <span className="text-xs text-white/50">{photos.length} / {MAX_PHOTOS}</span>
         </div>
 
-        {photos.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-white/20 py-10 text-center text-xs text-white/50">
-            No photos on this listing yet.
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {photos.slice(0, PREVIEW_COUNT).map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt={`Photo ${i + 1}`}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full rounded-lg border border-white/10 object-cover"
-                />
-              ))}
-              {photos.length > PREVIEW_COUNT && (
-                <button
-                  type="button"
-                  onClick={() => setShowAllPhotos(true)}
-                  className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-1 rounded-lg border border-white/20 bg-white/5 text-xs font-medium text-white transition-colors hover:bg-white/10"
-                >
-                  <Images className="h-4 w-4" />
-                  +{photos.length - PREVIEW_COUNT} more
-                </button>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {photos.map((src, i) => (
+            <div key={src + i} className="group relative aspect-[4/3] w-full">
+              <img
+                src={src}
+                alt={`Photo ${i + 1}`}
+                loading="lazy"
+                className="h-full w-full rounded-lg border border-white/10 object-cover"
+              />
+              {i === 0 && (
+                <span className="absolute bottom-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                  Cover
+                </span>
               )}
-            </div>
-            {photos.length > PREVIEW_COUNT && (
               <button
                 type="button"
-                onClick={() => setShowAllPhotos(true)}
-                className="mt-2 text-xs font-medium text-ember hover:underline"
+                onClick={() => handleRemovePhoto(i)}
+                className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow"
+                aria-label="Remove photo"
               >
-                See all {photos.length} photos
+                <X className="h-3 w-3" />
               </button>
-            )}
-          </>
+              <div className="absolute bottom-1.5 right-1.5 flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => handleMovePhoto(i, -1)}
+                  disabled={i === 0}
+                  className="flex h-5 w-5 items-center justify-center rounded-full bg-white/90 text-black disabled:opacity-40"
+                  aria-label="Move earlier"
+                >
+                  <ChevronLeft className="h-3 w-3" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMovePhoto(i, 1)}
+                  disabled={i === photos.length - 1}
+                  className="flex h-5 w-5 items-center justify-center rounded-full bg-white/90 text-black disabled:opacity-40"
+                  aria-label="Move later"
+                >
+                  <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {photos.length < MAX_PHOTOS && (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-white/20 bg-white/5 text-xs font-medium text-white transition-colors hover:bg-white/10"
+            >
+              <Plus className="h-4 w-4" />
+              Add photos
+            </button>
+          )}
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(e) => handleAddPhotos(e.target.files)}
+        />
+        <p className="mt-2 text-[11px] text-white/40">
+          The first photo is your cover. Use the arrows to reorder - at least {MIN_PHOTOS} photos required.
+        </p>
+        {photos.length > PREVIEW_COUNT && (
+          <button
+            type="button"
+            onClick={() => setShowAllPhotos(true)}
+            className="mt-2 flex items-center gap-1 text-xs font-medium text-ember hover:underline"
+          >
+            <Images className="h-3.5 w-3.5" /> View all {photos.length} photos
+          </button>
         )}
       </section>
 
