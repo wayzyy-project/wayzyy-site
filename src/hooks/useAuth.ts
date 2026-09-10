@@ -34,13 +34,17 @@ export const useAuth = () => {
     return "https://wayzyy.com/host";
   };
 
-  const signUp = async (email: string, password: string, name: string) => {
+  // `phone` rides along in the signup metadata rather than being written to
+  // `profiles` afterwards: right after signUp the email is still unconfirmed,
+  // so there is no session and RLS rejects that write. The handle_new_user
+  // trigger reads this metadata SECURITY DEFINER and persists the number.
+  const signUp = async (email: string, password: string, name: string, phone?: string) => {
     const redirectUrl = getAuthRedirectUrl();
     return supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { name },
+        data: phone?.trim() ? { name, phone: phone.trim() } : { name },
         emailRedirectTo: redirectUrl,
       },
     });

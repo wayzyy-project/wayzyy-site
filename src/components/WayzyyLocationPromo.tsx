@@ -7,6 +7,7 @@ import { mp } from "@/lib/mixpanel";
 
 export function WayzyyLocationPromo() {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -16,12 +17,20 @@ export function WayzyyLocationPromo() {
       toast.error("That doesn't look like a real email.");
       return;
     }
+    // Phone is required on every waitlist entry point, not just the main
+    // form - the API rejects a signup without one, so a form that cannot
+    // collect it would fail on submit with nothing the visitor can fix.
+    const phoneDigits = phone.replace(/\D/g, "");
+    if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+      toast.error("Please add your phone number so we can reach you.");
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, audience: "traveler" }),
+        body: JSON.stringify({ email, audience: "traveler", phone: phone.trim() }),
       });
       if (!res.ok) throw new Error("Failed");
       mp.waitlistSignup("traveler", email);
@@ -55,13 +64,21 @@ export function WayzyyLocationPromo() {
 
         <div className="pt-2">
           {!sent ? (
-            <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md">
+            <form onSubmit={onSubmit} className="flex flex-col gap-2 max-w-md">
               <Input
                 type="email"
                 required
                 placeholder="Enter your email to get early access"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="h-11 border-border bg-background text-sm"
+              />
+              <Input
+                type="tel"
+                required
+                placeholder="Phone / WhatsApp - +91 98765 43210"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="h-11 border-border bg-background text-sm"
               />
               <Button

@@ -73,6 +73,21 @@ export function HostAuthExperience() {
       return;
     }
 
+    // `required` on the input only guarantees non-empty - it accepts "1".
+    // Count actual digits so a real reachable number is captured, since the
+    // whole concierge onboarding flow is a phone call to this host.
+    if (view === "signup") {
+      const phoneDigits = phone.replace(/\D/g, "");
+      if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+        toast({
+          title: "Phone number needed",
+          description: "Please enter a valid phone / WhatsApp number so our team can reach you about your listings.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
     setSubmitting(true);
     console.group("🔑 [WAYZYY DIAGNOSTIC] Host Authentication");
     console.log("Action:", view);
@@ -81,7 +96,7 @@ export function HostAuthExperience() {
     try {
       const { data, error } =
         view === "signup"
-          ? await signUp(email, password, name)
+          ? await signUp(email, password, name, phone)
           : await signIn(email, password);
 
       if (error) {
