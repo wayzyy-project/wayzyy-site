@@ -37,6 +37,18 @@ import { quoteStay, type PricingInputs, type GuestPricingTier } from "@/lib/pric
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
+import { resolveHostDisplayName } from "@/lib/hostDisplayName";
+import { useAuth } from "@/hooks/useAuth";
+import { getOrCreateThread } from "@/lib/messaging";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -70,8 +82,13 @@ export default function PropertyDetail() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, signIn } = useAuth();
 
   const [property, setProperty] = useState<PropertyListing | null>(null);
+  const [showMessageSignIn, setShowMessageSignIn] = useState(false);
+  const [messageAuthEmail, setMessageAuthEmail] = useState("");
+  const [messageAuthPassword, setMessageAuthPassword] = useState("");
+  const [startingThread, setStartingThread] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -79,6 +96,61 @@ export default function PropertyDetail() {
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+  const [otherHostListings, setOtherHostListings] = useState<
+    { id: string; title: string; image: string | null; pricePerNight: number }[]
+  >([]);
+
+  // Real host profile (name + avatar) and their other live listings - only
+  // for real (non-mock) properties, which carry a real host.id. Kept as a
+  // separate effect from the main property fetch so a slow/failed profile
+  // lookup never blocks the listing itself from rendering.
+  useEffect(() => {
+    const hostId = property?.host.id;
+    if (!hostId) return;
+    let cancelled = false;
+
+    supabase
+      .from("profiles")
+      .select("name, avatar_url")
+      .eq("id", hostId)
+      .maybeSingle()
+      .then(({ data: profile }) => {
+        if (cancelled || !profile) return;
+        setProperty((prev) => {
+          if (!prev) return prev;
+          const resolvedName = resolveHostDisplayName(profile.name, prev.host.email);
+          return {
+            ...prev,
+            host: {
+              ...prev.host,
+              name: resolvedName,
+              avatar: profile.avatar_url || prev.host.avatar,
+            },
+          };
+        });
+      });
+
+    supabase
+      .from("properties")
+      .select("id, title, images, price_per_night")
+      .eq("host_id", hostId)
+      .eq("status", "active")
+      .neq("id", propertyId)
+      .limit(6)
+      .then(({ data }) => {
+        if (cancelled || !data) return;
+        setOtherHostListings(
+          data.map((p: any) => ({
+            id: p.id,
+            title: p.title,
+            image: Array.isArray(p.images) ? p.images[0] ?? null : null,
+            pricePerNight: Number(p.price_per_night) || 0,
+          })),
+        );
+      });
+
+    return () => { cancelled = true; };
+  }, [property?.host.id, propertyId]);
 
   // Sync wishlist status
   useEffect(() => {
@@ -175,8 +247,13 @@ export default function PropertyDetail() {
               "Free high-speed covered parking on premises",
               "24/7 Security with CCTV & Smart Door Lock"
             ],
+            minNights: Number(data.min_nights) || 1,
             host: {
-              name: data.host_email ? data.host_email.split("@")[0] : "Wayzyy Host",
+              // host_id present -> the real profile (name + avatar) is
+              // fetched right after this and overwrites these placeholders.
+              id: data.host_id ?? null,
+              email: data.host_email ?? null,
+              name: data.host_email ? resolveHostDisplayName(null, data.host_email) : "Wayzyy Host",
               avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
               isSuperhost: true,
               isNewHost: true,
@@ -272,6 +349,7 @@ export default function PropertyDetail() {
   }
 
   const nights = Math.max(1, differenceInDays(checkOutDate, checkInDate));
+  const minNights = property.minNights ?? 1;
 
   // Real listings are priced through the shared rules in @/lib/pricing, which
   // mirror the app and the create-booking edge function: guest-count tiers or
@@ -281,18 +359,6 @@ export default function PropertyDetail() {
   const quote = pricingInputs
     ? quoteStay(pricingInputs, guestCount, checkInDate, checkOutDate, nights)
     : null;
-  // Display-only view of the host's per-person rule. The money itself is
-  // already inside `quote`; this just lets the UI say why the price moved.
-  const perGuestSurcharge =
-    pricingInputs?.perPersonEnabled &&
-    pricingInputs.extraGuestThreshold != null &&
-    pricingInputs.extraGuestFee != null
-      ? {
-          threshold: pricingInputs.extraGuestThreshold,
-          fee: pricingInputs.extraGuestFee,
-          extraGuests: Math.max(0, guestCount - pricingInputs.extraGuestThreshold),
-        }
-      : null;
   const stayTotal = quote ? quote.accommodation : property.pricePerNight * nights;
   const nightlyRate = quote ? quote.perNight : property.pricePerNight;
   const originalStayTotal = property.originalPrice ? property.originalPrice * nights / 2 : stayTotal * 2;
@@ -313,7 +379,52 @@ export default function PropertyDetail() {
     }
   };
 
-  const images = property.images && property.images.length >= 5 
+  // Opens (or creates) the exact same thread the mobile app uses - same
+  // `threads` table, same row, so whatever's sent here shows up in the
+  // host's app inbox and vice versa.
+  const startThreadAndNavigate = async (guestId: string, guestName: string) => {
+    if (!property.host.id) return;
+    setStartingThread(true);
+    try {
+      const threadId = await getOrCreateThread({
+        propertyId: property.id,
+        propertyTitle: property.title,
+        guestId,
+        hostId: property.host.id,
+        guestName,
+        hostName: property.host.name,
+      });
+      if (threadId) navigate(`/inbox/${threadId}`);
+    } catch (e) {
+      toast({ title: "Couldn't start conversation", description: e instanceof Error ? e.message : "Please try again.", variant: "destructive" });
+    } finally {
+      setStartingThread(false);
+    }
+  };
+
+  const handleMessageHost = () => {
+    if (!property.host.id) return; // mock/demo listing - nothing real to message
+    if (user) {
+      startThreadAndNavigate(user.id, resolveHostDisplayName(user.user_metadata?.name as string | undefined, user.email));
+    } else {
+      setShowMessageSignIn(true);
+    }
+  };
+
+  const handleMessageSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStartingThread(true);
+    const { data, error } = await signIn(messageAuthEmail, messageAuthPassword);
+    if (error || !data.user) {
+      setStartingThread(false);
+      toast({ title: "Couldn't sign in", description: error?.message ?? "Check your email and password.", variant: "destructive" });
+      return;
+    }
+    setShowMessageSignIn(false);
+    await startThreadAndNavigate(data.user.id, resolveHostDisplayName(data.user.user_metadata?.name as string | undefined, data.user.email));
+  };
+
+  const images = property.images && property.images.length >= 5
     ? property.images 
     : [
         ...property.images,
@@ -463,7 +574,7 @@ export default function PropertyDetail() {
                   alt={property.host.name}
                   className="h-14 w-14 rounded-full object-cover border-2 border-border shadow-xs"
                 />
-                <div>
+                <div className="flex-1">
                   <h3 className="text-base font-bold text-foreground">
                     Hosted by {property.host.name}
                   </h3>
@@ -471,7 +582,50 @@ export default function PropertyDetail() {
                     {property.host.isNewHost ? "New Host" : "Superhost"} · Response time: {property.host.responseTime}
                   </p>
                 </div>
+                {property.host.id && (
+                  <button
+                    onClick={handleMessageHost}
+                    disabled={startingThread}
+                    className="shrink-0 rounded-full border border-border px-4 py-2 text-xs font-bold text-foreground hover:bg-muted/60 transition-colors disabled:opacity-50"
+                  >
+                    {startingThread ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Message host"}
+                  </button>
+                )}
               </div>
+
+              {/* Other properties from this host - same idea as Airbnb's
+                  host-profile listing grid, just inline here rather than a
+                  separate host-profile page. */}
+              {otherHostListings.length > 0 && (
+                <div className="pt-6">
+                  <h3 className="text-sm font-bold text-foreground mb-3">
+                    More from {property.host.name}
+                  </h3>
+                  <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
+                    {otherHostListings.map((listing) => (
+                      <Link
+                        key={listing.id}
+                        to={`/property/${listing.id}`}
+                        className="shrink-0 w-40 group"
+                      >
+                        <div className="aspect-square w-40 overflow-hidden rounded-xl bg-muted">
+                          {listing.image && (
+                            <img
+                              src={listing.image}
+                              alt={listing.title}
+                              className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          )}
+                        </div>
+                        <p className="mt-1.5 text-xs font-semibold text-foreground truncate">{listing.title}</p>
+                        <p className="text-[11px] text-muted-foreground">
+                          ₹{listing.pricePerNight.toLocaleString("en-IN")} / night
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Highlights List Matching Screenshot 3 */}
               <div className="pt-6 space-y-5">
@@ -546,7 +700,13 @@ export default function PropertyDetail() {
                         const d = new Date(e.target.value);
                         if (!isNaN(d.getTime())) {
                           setCheckInDate(d);
-                          if (d >= checkOutDate) setCheckOutDate(addDays(d, 1));
+                          // Push checkout out far enough to satisfy the
+                          // host's minimum stay, not just +1 day - a 3-night
+                          // minimum shouldn't collapse to 1 the moment
+                          // check-in moves.
+                          if (differenceInDays(checkOutDate, d) < minNights) {
+                            setCheckOutDate(addDays(d, minNights));
+                          }
                         }
                       }}
                       className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
@@ -559,14 +719,23 @@ export default function PropertyDetail() {
                       value={format(checkOutDate, "yyyy-MM-dd")}
                       onChange={(e) => {
                         const d = new Date(e.target.value);
-                        if (!isNaN(d.getTime()) && d > checkInDate) {
+                        if (!isNaN(d.getTime()) && differenceInDays(d, checkInDate) >= minNights) {
                           setCheckOutDate(d);
+                        } else if (!isNaN(d.getTime())) {
+                          toast({
+                            title: "Minimum stay required",
+                            description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
+                            variant: "destructive",
+                          });
                         }
                       }}
                       className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
                     />
                   </div>
                 </div>
+                {minNights > 1 && (
+                  <p className="text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
+                )}
               </div>
 
               {/* Reviews Section */}
@@ -722,33 +891,10 @@ export default function PropertyDetail() {
                   </div>
                 </div>
 
-                {/* Extra-guest surcharge, charged online. Sits directly under the
-                    guest picker because that is where the decision is made - a
-                    guest raising the party size needs to see the consequence at
-                    that moment, not buried in the description. Pricing it online
-                    rather than as a pay-at-property note is deliberate: it
-                    removes the incentive to under-declare the party size at
-                    booking and settle up quietly at the door. */}
-                {perGuestSurcharge && (
-                  <div className="flex items-start gap-2 rounded-2xl border border-[#FF6B00]/30 bg-[#FF6B00]/10 p-3">
-                    <Users className="mt-0.5 h-4 w-4 shrink-0 text-[#FF6B00]" />
-                    <p className="text-xs font-semibold leading-relaxed text-foreground">
-                      Above {perGuestSurcharge.threshold} guests, {property.currency}
-                      {perGuestSurcharge.fee.toLocaleString("en-IN")} per extra guest per night.
-                      {perGuestSurcharge.extraGuests > 0 ? (
-                        <span className="mt-1 block font-medium text-muted-foreground">
-                          {perGuestSurcharge.extraGuests} extra{" "}
-                          {perGuestSurcharge.extraGuests === 1 ? "guest" : "guests"} × {nights}{" "}
-                          {nights === 1 ? "night" : "nights"} is already included in the total below.
-                        </span>
-                      ) : (
-                        <span className="mt-1 block font-medium text-muted-foreground">
-                          Applied automatically if you add more guests.
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                )}
+                {/* Nothing is rendered about guest-count pricing. The price
+                    moves with the party size and that is the whole disclosure;
+                    the platform does not add copy on top of it. A host who
+                    wants to explain their rate does so in their description. */}
 
                 {/* Free cancellation note */}
                 <div className="rounded-2xl bg-muted/40 p-3 text-center text-xs font-semibold text-muted-foreground">
@@ -757,7 +903,21 @@ export default function PropertyDetail() {
 
                 {/* Reserve Button (Vibrant #FF6B00 Ember Gradient) */}
                 <button
-                  onClick={() => setIsBookingModalOpen(true)}
+                  onClick={() => {
+                    // The date inputs already stop a shorter range from
+                    // being entered, but this is the real gate on this
+                    // page - and create-booking re-checks it server-side
+                    // regardless, since the client is never trusted alone.
+                    if (nights < minNights) {
+                      toast({
+                        title: "Minimum stay required",
+                        description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
+                        variant: "destructive",
+                      });
+                      return;
+                    }
+                    setIsBookingModalOpen(true);
+                  }}
                   className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   Reserve
@@ -875,6 +1035,34 @@ export default function PropertyDetail() {
           guestCount={guestCount}
           totalAmount={stayTotal}
         />
+
+        {/* Sign in to message the host - same account used everywhere else
+            on Wayzyy, since this opens the same threads table the app reads. */}
+        <Dialog open={showMessageSignIn} onOpenChange={setShowMessageSignIn}>
+          <DialogContent className="sm:max-w-sm">
+            <DialogHeader>
+              <DialogTitle>Sign in to message the host</DialogTitle>
+              <DialogDescription>Use your Wayzyy account - the same one you use in the app.</DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleMessageSignIn} className="space-y-3">
+              <div>
+                <Label htmlFor="msgAuthEmail">Email</Label>
+                <Input id="msgAuthEmail" type="email" value={messageAuthEmail} onChange={(e) => setMessageAuthEmail(e.target.value)} required />
+              </div>
+              <div>
+                <Label htmlFor="msgAuthPassword">Password</Label>
+                <Input id="msgAuthPassword" type="password" value={messageAuthPassword} onChange={(e) => setMessageAuthPassword(e.target.value)} required />
+              </div>
+              <button
+                type="submit"
+                disabled={startingThread}
+                className="w-full rounded-full bg-[#FF6B00] py-2.5 text-sm font-bold text-white hover:bg-[#FF6B00]/90 disabled:opacity-50 flex items-center justify-center"
+              >
+                {startingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sign in & message"}
+              </button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     </SEO>
   );
