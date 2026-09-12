@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft, ArrowUpRight, Check, Copy, Loader2, Mail, Phone, Search, Upload,
+  ArrowLeft, ArrowUpRight, Check, Copy, Loader2, Mail, Phone, Search, Trash2, Upload,
 } from "lucide-react";
 import { ImportListingModal, type ImportTargetHost } from "@/components/host/ImportListingModal";
 import { SEO } from "@/components/SEO";
@@ -341,6 +341,42 @@ function HostDirectory() {
     }
   };
 
+  const [deletingPropertyId, setDeletingPropertyId] = useState<string | null>(null);
+
+  // Deletes one property. Used from the host detail sheet for a draft you
+  // just imported and got wrong - re-imported by mistake, wrong listing
+  // entirely, host asked you to drop it before it ever reaches them. Not a
+  // bulk "clear this host's imports" action: one row, deliberately picked.
+  //
+  // The database still refuses this for anything with a booking attached
+  // (guard_property_deletion), so the only real guard needed here is asking
+  // the admin to confirm - a draft or pending_review row has no bookings by
+  // definition, since nothing is bookable until it's active.
+  const handleDeleteProperty = async (property: HostProperty) => {
+    if (!session?.access_token) return;
+    const ok = window.confirm(
+      `Delete "${property.title || "this listing"}"? This removes the import - it cannot be undone.`,
+    );
+    if (!ok) return;
+
+    setDeletingPropertyId(property.id);
+    try {
+      const res = await fetch("/api/admin-hosts", {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ propertyId: property.id }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Failed to delete");
+      toast({ title: "Import deleted", description: `"${property.title || "Listing"}" was removed.` });
+      await fetchHosts();
+    } catch (err: any) {
+      toast({ title: "Couldn't delete", description: err?.message, variant: "destructive" });
+    } finally {
+      setDeletingPropertyId(null);
+    }
+  };
+
   const handleNotify = async (host: HostRow) => {
     if (!session?.access_token || !host.email) return;
     setNotifyingId(host.id);
@@ -558,6 +594,8 @@ function HostDirectory() {
         onImport={(h) => setImportTarget({ id: h.id, email: h.email || "", name: h.full_name || "" })}
         onNotify={handleNotify}
         notifying={!!detailHost && notifyingId === detailHost.id}
+        onDeleteProperty={handleDeleteProperty}
+        deletingPropertyId={deletingPropertyId}
       />
 
       <ImportListingModal
@@ -697,12 +735,14 @@ const PROP_STATE: Record<string, { label: string; className: string }> = {
 };
 
 function HostDetailSheet({
-  host, onClose, onImport, onNotify, notifying,
+  host, onClose, onImport, onNotify, notifying, onDeleteProperty, deletingPropertyId,
 }: {
   host: HostRow | null;
   onClose: () => void;
   onImport: (h: HostRow) => void;
   onNotify: (h: HostRow) => void;
+  onDeleteProperty: (p: HostProperty) => void;
+  deletingPropertyId: string | null;
   notifying: boolean;
   savingStage: boolean;
   onStageChange: (stage: StageKey) => void;
@@ -850,6 +890,27 @@ function HostDetailSheet({
                         <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
                           {state.label}
                         </span>
+                      )}
+                      {/* Only offered for draft / pending_review - a listing
+                          that's gone active is a host's own to remove, from
+                          the portal, where the booking guard applies. This
+                          is for the "imported it twice by mistake" case,
+                          before the host is ever notified. */}
+                      {(p.status === "draft" || p.status === "pending_review") && (
+                        <button
+                          type="button"
+                          onClick={() => onDeleteProperty(p)}
+                          disabled={deletingPropertyId === p.id}
+                          title="Delete this import"
+                          aria-label={`Delete ${p.title || "this import"}`}
+                          className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-50"
+                        >
+                          {deletingPropertyId === p.id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-3.5 w-3.5" />
+                          )}
+                        </button>
                       )}
                     </li>
                   );

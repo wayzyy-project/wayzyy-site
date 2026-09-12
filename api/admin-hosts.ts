@@ -213,6 +213,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ ok: true, hostId, stage });
   }
 
+  if (req.method === "DELETE") {
+    // Delete one imported property. Scoped to draft / pending_review only -
+    // an admin should not be able to delete a listing that is already
+    // active and bookable from this same endpoint; that path goes through
+    // the host's own delete (which the database's guard_property_deletion
+    // trigger blocks the moment a booking exists anyway).
+    const { propertyId } = (req.body ?? {}) as { propertyId?: string };
+    if (!propertyId) return res.status(400).json({ error: "propertyId is required" });
+
+    const { data: existing, error: fetchErr } = await admin
+      .from("properties")
+      .select("id, status, title")
+      .eq("id", propertyId)
+      .maybeSingle();
+    if (fetchErr) return res.status(500).json({ error: fetchErr.message });
+    if (!existing) return res.status(404).json({ error: "Listing not found" });
+    if (existing.status !== "draft" && existing.status !== "pending_review") {
+      return res.status(400).json({
+        error: `This listing is ${existing.status}, not a pending import - use the host portal to remove a live listing.`,
+      });
+    }
+
+    const { error: deleteErr } = await admin.from("properties").delete().eq("id", propertyId);
+    if (deleteErr) return res.status(500).json({ error: deleteErr.message });
+
+    return res.status(200).json({ ok: true, propertyId, title: existing.title });
+  }
+
   if (req.method === "POST") {
     // Batched "your properties are ready" email - sent once after an admin
     // has finished importing one or more properties for a host, rather
