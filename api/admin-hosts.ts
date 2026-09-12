@@ -88,6 +88,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { data: profiles, error: profilesErr },
       { data: properties, error: propsErr },
       { data: submissions, error: subsErr },
+      { data: pipeline, error: pipelineErr },
     ] = await Promise.all([
       // profiles' name column is "name", not "full_name" - aliased here so
       // the rest of this file and the frontend can keep using full_name.
@@ -100,11 +101,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       admin.from("host_onboarding_submissions")
         .select("id, user_id, email, status, property_urls, airbnb_profile_url, created_at")
         .order("created_at", { ascending: false }),
+      // Manual pipeline stage, set by hand from the directory. Admin-only:
+      // host_pipeline has RLS on with no policies, so this read only works
+      // because `admin` holds the service role.
+      admin.from("host_pipeline").select("host_id, stage, updated_at"),
     ]);
 
     if (profilesErr) return res.status(500).json({ error: profilesErr.message });
     if (propsErr) return res.status(500).json({ error: propsErr.message });
     if (subsErr) return res.status(500).json({ error: subsErr.message });
+    if (pipelineErr) return res.status(500).json({ error: pipelineErr.message });
+
+    const stageByHost: Record<string, string> = {};
+    for (const row of pipeline ?? []) stageByHost[(row as any).host_id] = (row as any).stage;
 
     // Submissions link by user_id when the host was signed in, but older
     // rows predate that column - fall back to matching on email.
@@ -145,6 +154,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         email,
         created_at: p.created_at ?? authUsersById[p.id]?.created_at ?? null,
         propertyCounts: counts[p.id] ?? { draft: 0, pending_review: 0, active: 0, rejected: 0, total: 0 },
+        // Manual stage. Defaults to "new" for hosts nobody has triaged yet,
+        // so the filter never has an unlabelled bucket.
+        stage: stageByHost[p.id] ?? "new",
         properties: propertiesByHost[p.id] ?? [],
         // How this host reached us: the concierge form (they sent links,
         // we import) vs. signing up and doing it themselves.
@@ -176,6 +188,57 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (waitlistErr) return res.status(500).json({ error: waitlistErr.message });
 
     return res.status(200).json({ hosts, waitlistLeads: waitlistLeads ?? [] });
+  }
+
+  if (req.method === "PATCH") {
+    // Set a host's manual pipeline stage. Validated against the same list as
+    // the table's CHECK constraint so a bad value fails here with a clear
+    // message rather than as a constraint violation.
+    const STAGES = ["new", "commercials", "reviewing", "final_stage", "live"];
+    const { hostId, stage } = (req.body ?? {}) as { hostId?: string; stage?: string };
+
+    if (!hostId) return res.status(400).json({ error: "hostId is required" });
+    if (!stage || !STAGES.includes(stage)) {
+      return res.status(400).json({ error: `stage must be one of: ${STAGES.join(", ")}` });
+    }
+
+    const { error: upsertErr } = await admin
+      .from("host_pipeline")
+      .upsert(
+        { host_id: hostId, stage, updated_at: new Date().toISOString(), updated_by: user.id },
+        { onConflict: "host_id" },
+      );
+
+    if (upsertErr) return res.status(500).json({ error: upsertErr.message });
+    return res.status(200).json({ ok: true, hostId, stage });
+  }
+
+  if (req.method === "DELETE") {
+    // Delete one imported property. Scoped to draft / pending_review only -
+    // an admin should not be able to delete a listing that is already
+    // active and bookable from this same endpoint; that path goes through
+    // the host's own delete (which the database's guard_property_deletion
+    // trigger blocks the moment a booking exists anyway).
+    const { propertyId } = (req.body ?? {}) as { propertyId?: string };
+    if (!propertyId) return res.status(400).json({ error: "propertyId is required" });
+
+    const { data: existing, error: fetchErr } = await admin
+      .from("properties")
+      .select("id, status, title")
+      .eq("id", propertyId)
+      .maybeSingle();
+    if (fetchErr) return res.status(500).json({ error: fetchErr.message });
+    if (!existing) return res.status(404).json({ error: "Listing not found" });
+    if (existing.status !== "draft" && existing.status !== "pending_review") {
+      return res.status(400).json({
+        error: `This listing is ${existing.status}, not a pending import - use the host portal to remove a live listing.`,
+      });
+    }
+
+    const { error: deleteErr } = await admin.from("properties").delete().eq("id", propertyId);
+    if (deleteErr) return res.status(500).json({ error: deleteErr.message });
+
+    return res.status(200).json({ ok: true, propertyId, title: existing.title });
   }
 
   if (req.method === "POST") {

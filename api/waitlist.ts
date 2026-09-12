@@ -60,6 +60,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: "Invalid email" });
   }
 
+  // Phone is mandatory for hosts and travellers alike. Enforced here as well
+  // as in the forms because the forms are only a courtesy - anything can POST
+  // to this endpoint, and a waitlist row with no way to reach the person is
+  // the one thing this table exists to avoid.
+  const phoneDigits = (phone ?? "").replace(/\D/g, "");
+  if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+    return res.status(400).json({ error: "A valid phone number is required" });
+  }
+
   try {
     // Persist the signup to Supabase waitlist_signups table
     const supabaseUrl = process.env.SUPABASE_URL;

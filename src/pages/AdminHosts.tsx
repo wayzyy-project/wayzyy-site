@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft, ArrowUpRight, Check, Copy, Loader2, Mail, Phone, Search, Upload,
+  ArrowLeft, ArrowUpRight, Check, Copy, Loader2, Mail, Phone, Search, Trash2, Upload,
 } from "lucide-react";
 import { ImportListingModal, type ImportTargetHost } from "@/components/host/ImportListingModal";
 import { SEO } from "@/components/SEO";
@@ -24,6 +24,8 @@ interface HostRow {
   propertyCounts: { draft: number; pending_review: number; active: number; rejected: number; total: number };
   properties: HostProperty[];
   submission: HostSubmission | null;
+  /** Manual pipeline stage set from this page. Never inferred. */
+  stage: StageKey;
 }
 
 interface HostSubmission {
@@ -113,6 +115,25 @@ function signalsFor(h: HostRow): HostSignals {
 /** The stages an admin actually works through. Each is a real "someone has
  *  to do something" state, not a status rename. */
 type FilterKey = "all" | "to_import" | "awaiting_pricing" | "to_approve" | "live";
+
+/** The manual pipeline. Deliberately separate from FILTERS above: those are
+ *  derived from the data and answer "whose move is it right now", this is
+ *  set by hand and answers "where is this relationship". A host can be
+ *  "commercials" here and still be sitting in "You: import links" there -
+ *  both are true, and collapsing them into one axis would hide one of them. */
+export type StageKey = "new" | "commercials" | "reviewing" | "final_stage" | "live";
+
+const STAGES: { key: StageKey; label: string; className: string }[] = [
+  { key: "new",         label: "New",         className: "bg-muted text-muted-foreground" },
+  { key: "commercials", label: "Commercials", className: "bg-amber-500/10 text-amber-600 dark:text-amber-400" },
+  { key: "reviewing",   label: "Reviewing",   className: "bg-sky-500/10 text-sky-600 dark:text-sky-400" },
+  { key: "final_stage", label: "Final stage", className: "bg-ember/10 text-ember" },
+  { key: "live",        label: "Live",        className: "bg-green-500/10 text-green-600 dark:text-green-400" },
+];
+
+const STAGE_BY_KEY: Record<StageKey, { label: string; className: string }> = Object.fromEntries(
+  STAGES.map((s) => [s.key, { label: s.label, className: s.className }]),
+) as Record<StageKey, { label: string; className: string }>;
 
 /** Labels name whose move it is, because that's the only thing being
  *  scanned for. "With the host" tested badly - it didn't say whether the
@@ -235,6 +256,8 @@ function HostDirectory() {
   const [importTarget, setImportTarget] = useState<ImportTargetHost | null>(null);
   const [notifyingId, setNotifyingId] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterKey>("all");
+  const [stageFilter, setStageFilter] = useState<StageKey | "any">("any");
+  const [savingStage, setSavingStage] = useState<string | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
   const [showLeads, setShowLeads] = useState(false);
 
@@ -262,7 +285,9 @@ function HostDirectory() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const byStage = hosts.filter((h) => matchesFilter(h, filter));
+    const byStage = hosts
+      .filter((h) => matchesFilter(h, filter))
+      .filter((h) => stageFilter === "any" || h.stage === stageFilter);
     if (!q) return byStage;
     return byStage.filter(
       (h) =>
@@ -292,6 +317,65 @@ function HostDirectory() {
         );
       });
   }, [waitlistLeads, registeredEmails, query]);
+
+  const handleStageChange = async (host: HostRow, stage: StageKey) => {
+    if (!session?.access_token) return;
+    const previous = host.stage;
+    // Optimistic: the dropdown should feel instant. Rolled back below if the
+    // write fails, so the badge never claims a stage the server rejected.
+    setHosts((prev) => prev.map((h) => (h.id === host.id ? { ...h, stage } : h)));
+    setSavingStage(host.id);
+    try {
+      const res = await fetch("/api/admin-hosts", {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ hostId: host.id, stage }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Failed to update stage");
+    } catch (err: any) {
+      setHosts((prev) => prev.map((h) => (h.id === host.id ? { ...h, stage: previous } : h)));
+      toast({ title: "Couldn't update stage", description: err?.message, variant: "destructive" });
+    } finally {
+      setSavingStage(null);
+    }
+  };
+
+  const [deletingPropertyId, setDeletingPropertyId] = useState<string | null>(null);
+
+  // Deletes one property. Used from the host detail sheet for a draft you
+  // just imported and got wrong - re-imported by mistake, wrong listing
+  // entirely, host asked you to drop it before it ever reaches them. Not a
+  // bulk "clear this host's imports" action: one row, deliberately picked.
+  //
+  // The database still refuses this for anything with a booking attached
+  // (guard_property_deletion), so the only real guard needed here is asking
+  // the admin to confirm - a draft or pending_review row has no bookings by
+  // definition, since nothing is bookable until it's active.
+  const handleDeleteProperty = async (property: HostProperty) => {
+    if (!session?.access_token) return;
+    const ok = window.confirm(
+      `Delete "${property.title || "this listing"}"? This removes the import - it cannot be undone.`,
+    );
+    if (!ok) return;
+
+    setDeletingPropertyId(property.id);
+    try {
+      const res = await fetch("/api/admin-hosts", {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ propertyId: property.id }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Failed to delete");
+      toast({ title: "Import deleted", description: `"${property.title || "Listing"}" was removed.` });
+      await fetchHosts();
+    } catch (err: any) {
+      toast({ title: "Couldn't delete", description: err?.message, variant: "destructive" });
+    } finally {
+      setDeletingPropertyId(null);
+    }
+  };
 
   const handleNotify = async (host: HostRow) => {
     if (!session?.access_token || !host.email) return;
@@ -366,6 +450,36 @@ function HostDirectory() {
             );
           })}
         </div>
+
+        {/* Manual pipeline. Separate row from the derived filters above: one
+            says whose move it is, the other says where the relationship is,
+            and they combine rather than replace each other. */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="mr-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            Stage
+          </span>
+          {(["any", ...STAGES.map((st) => st.key)] as (StageKey | "any")[]).map((key) => {
+            const meta = key === "any" ? { label: "Any" } : STAGE_BY_KEY[key];
+            const count = key === "any" ? hosts.length : hosts.filter((h) => h.stage === key).length;
+            const isActive = stageFilter === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setStageFilter(key)}
+                aria-pressed={isActive}
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                  isActive
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
+                }`}
+              >
+                {meta.label}
+                {count > 0 && <span className="ml-1.5 opacity-60">{count}</span>}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* What the selected stage actually means, spelled out. The counts on
@@ -417,6 +531,8 @@ function HostDirectory() {
               key={h.id}
               host={h}
               notifying={notifyingId === h.id}
+              savingStage={savingStage === h.id}
+              onStageChange={(stage) => handleStageChange(h, stage)}
               onOpen={() => setDetailId(h.id)}
               onImport={() => setImportTarget({ id: h.id, email: h.email || "", name: h.full_name || "" })}
               onNotify={() => handleNotify(h)}
@@ -478,6 +594,8 @@ function HostDirectory() {
         onImport={(h) => setImportTarget({ id: h.id, email: h.email || "", name: h.full_name || "" })}
         onNotify={handleNotify}
         notifying={!!detailHost && notifyingId === detailHost.id}
+        onDeleteProperty={handleDeleteProperty}
+        deletingPropertyId={deletingPropertyId}
       />
 
       <ImportListingModal
@@ -493,10 +611,12 @@ function HostDirectory() {
 /* ------------------------------------------------------------------ */
 
 function HostCard({
-  host, notifying, onOpen, onImport, onNotify,
+  host, notifying, savingStage, onStageChange, onOpen, onImport, onNotify,
 }: {
   host: HostRow;
   notifying: boolean;
+  savingStage: boolean;
+  onStageChange: (stage: StageKey) => void;
   onOpen: () => void;
   onImport: () => void;
   onNotify: () => void;
@@ -532,7 +652,14 @@ function HostCard({
             {initialsOf(host.full_name, host.email)}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate font-medium leading-tight">{host.full_name || "Unnamed host"}</p>
+            <div className="flex items-center gap-2">
+              <p className="truncate font-medium leading-tight">{host.full_name || "Unnamed host"}</p>
+              <span
+                className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${STAGE_BY_KEY[host.stage].className}`}
+              >
+                {STAGE_BY_KEY[host.stage].label}
+              </span>
+            </div>
             <p className="truncate text-xs text-muted-foreground">{host.email}</p>
           </div>
           <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
@@ -556,7 +683,30 @@ function HostCard({
         )}
       </button>
 
-      <div className="mt-4 flex items-center gap-2 border-t border-border px-4 py-3">
+      {/* Stage picker. A native <select> on purpose: it is one of five values,
+          it sits inside a card whose body is itself a button, and a custom
+          popover here would fight that click target on touch. */}
+      <div className="border-t border-border px-4 pt-3">
+        <label className="sr-only" htmlFor={`stage-${host.id}`}>
+          Pipeline stage for {host.full_name || host.email || "this host"}
+        </label>
+        <select
+          id={`stage-${host.id}`}
+          value={host.stage}
+          disabled={savingStage}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) => onStageChange(e.target.value as StageKey)}
+          className="h-8 w-full rounded-md border border-border bg-background px-2 text-xs font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+        >
+          {STAGES.map((st) => (
+            <option key={st.key} value={st.key}>
+              {st.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mt-3 flex items-center gap-2 px-4 pb-3">
         <Button size="sm" variant="outline" onClick={onImport} className="h-8 flex-1 gap-1.5 text-xs">
           <Upload className="h-3.5 w-3.5" /> Import
         </Button>
@@ -585,13 +735,17 @@ const PROP_STATE: Record<string, { label: string; className: string }> = {
 };
 
 function HostDetailSheet({
-  host, onClose, onImport, onNotify, notifying,
+  host, onClose, onImport, onNotify, notifying, onDeleteProperty, deletingPropertyId,
 }: {
   host: HostRow | null;
   onClose: () => void;
   onImport: (h: HostRow) => void;
   onNotify: (h: HostRow) => void;
+  onDeleteProperty: (p: HostProperty) => void;
+  deletingPropertyId: string | null;
   notifying: boolean;
+  savingStage: boolean;
+  onStageChange: (stage: StageKey) => void;
 }) {
   const { toast } = useToast();
   if (!host) return null;
@@ -736,6 +890,27 @@ function HostDetailSheet({
                         <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
                           {state.label}
                         </span>
+                      )}
+                      {/* Only offered for draft / pending_review - a listing
+                          that's gone active is a host's own to remove, from
+                          the portal, where the booking guard applies. This
+                          is for the "imported it twice by mistake" case,
+                          before the host is ever notified. */}
+                      {(p.status === "draft" || p.status === "pending_review") && (
+                        <button
+                          type="button"
+                          onClick={() => onDeleteProperty(p)}
+                          disabled={deletingPropertyId === p.id}
+                          title="Delete this import"
+                          aria-label={`Delete ${p.title || "this import"}`}
+                          className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-50"
+                        >
+                          {deletingPropertyId === p.id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-3.5 w-3.5" />
+                          )}
+                        </button>
                       )}
                     </li>
                   );

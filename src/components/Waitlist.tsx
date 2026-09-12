@@ -35,8 +35,16 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
       return;
     }
 
-    if (audience === "host" && (!phone || phone.trim().length < 8)) {
-      toast.error("Please provide your contact number / WhatsApp so our onboarding team can reach you.");
+    // Digits only: "+91 " and spacing meant a raw length check passed on as
+    // few as 4 real digits. Indian mobile numbers are 10, optionally with a
+    // country code in front, so accept 10-15 digits.
+    const phoneDigits = phone.replace(/\D/g, "");
+    if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+      toast.error(
+        audience === "host"
+          ? "Please add your phone / WhatsApp number so our onboarding team can reach you."
+          : "Please add your phone number so we can tell you when stays open up.",
+      );
       return;
     }
 
@@ -181,15 +189,15 @@ export function Waitlist({ defaultAudience = "host" as Audience }) {
                 <span className="flex items-center gap-1.5">
                   <Phone className="h-3.5 w-3.5 text-ember" />
                   Phone Number / WhatsApp
-                  {audience === "host" && <span className="text-ember">*</span>}
+                  <span className="text-ember">*</span>
                 </span>
                 <span className="text-[10px] text-muted-foreground font-normal">
-                  {audience === "host" ? "For early onboarding & direct host pass" : "Optional"}
+                  {audience === "host" ? "For early onboarding & direct host pass" : "So we can reach you when stays open"}
                 </span>
               </label>
               <Input
                 type="tel"
-                required={audience === "host"}
+                required
                 placeholder="+91 98765 43210"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}

@@ -28,6 +28,7 @@ import { ManualVerificationModal } from "@/components/host/ManualVerificationMod
 import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
+import { HostPhoneGate } from "@/components/host/HostPhoneGate";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
 import { HostGetStarted, importLimitFor, SUPPORT_EMAIL, SUPPORT_PHONE, type OnboardingSubmission } from "@/components/host/HostGetStarted";
 import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
@@ -1725,6 +1726,15 @@ export default function HostPortal() {
   const { user, loading } = useAuth();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
   const [managing, setManaging] = useState<{ id: string; title: string; defaultTab?: string } | null>(null);
+  // Cleared per session once HostPhoneGate confirms a number is on file -
+  // either because one already was, or because they just entered it. Reset
+  // when the signed-in user changes so a second account on the same browser
+  // is not waved through on the first account's answer.
+  const [phoneConfirmed, setPhoneConfirmed] = useState(false);
+
+  useEffect(() => {
+    setPhoneConfirmed(false);
+  }, [user?.id]);
 
   // While auth is loading, show a clean full-screen spinner
   if (loading) {
@@ -1746,6 +1756,15 @@ export default function HostPortal() {
         <HostAuthExperience />
       </SEO>
     );
+  }
+
+  // Signed in but we have no phone for them. Google sign-in returns an email
+  // and a name and nothing else, so OAuth accounts land here with none - and
+  // the whole concierge onboarding path is a phone call. Asked once, then
+  // never again: the gate clears itself the moment a valid number is stored,
+  // so returning hosts go straight through.
+  if (!phoneConfirmed) {
+    return <HostPhoneGate userId={user.id} onDone={() => setPhoneConfirmed(true)} />;
   }
 
   // Logged in → normal host portal dashboard
