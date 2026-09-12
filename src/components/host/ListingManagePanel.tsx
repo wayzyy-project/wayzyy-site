@@ -93,6 +93,99 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           <DetailsSection propertyId={propertyId} />
         </TabsContent>
       </Tabs>
+
+      <DeleteListing propertyId={propertyId} propertyTitle={propertyTitle} onDeleted={onBack} />
+    </div>
+  );
+}
+
+/**
+ * Deleting a listing, kept out of the tab strip on purpose - tabs are for
+ * things you move between while working, and this is not that.
+ *
+ * The real safety net is a database trigger (guard_property_deletion), not
+ * this dialog: bookings.property_id is `on delete set null`, so deleting a
+ * booked listing leaves the guest's paid reservation pointing at nothing and
+ * the delete still reports success. The trigger refuses those and returns a
+ * sentence meant to be read, which is surfaced verbatim below rather than
+ * replaced with a generic failure message.
+ */
+function DeleteListing({
+  propertyId,
+  propertyTitle,
+  onDeleted,
+}: {
+  propertyId: string;
+  propertyTitle: string;
+  onDeleted: () => void;
+}) {
+  const { toast } = useToast();
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const remove = async () => {
+    setDeleting(true);
+    const { error } = await supabase.from("properties").delete().eq("id", propertyId);
+    setDeleting(false);
+
+    if (error) {
+      // The guard's messages already explain what to do; anything else is a
+      // genuine failure and its own message is more useful than ours.
+      toast({ title: "Can't delete this listing", description: error.message, variant: "destructive" });
+      setConfirming(false);
+      return;
+    }
+
+    toast({ title: "Listing deleted", description: `"${propertyTitle}" has been removed.` });
+    onDeleted();
+  };
+
+  return (
+    <div className="mt-12 rounded-2xl border border-red-500/25 bg-red-500/[0.04] p-5">
+      {!confirming ? (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-white">Delete this listing</p>
+            <p className="mt-0.5 text-xs text-white/50">
+              Removes it from Wayzyy for good. Imported twice by mistake? Delete the copy here.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setConfirming(true)}
+            className="shrink-0 rounded-lg border border-red-500/40 px-3 py-1.5 text-xs font-semibold text-red-300 transition-colors hover:bg-red-500/10"
+          >
+            Delete listing
+          </button>
+        </div>
+      ) : (
+        <div>
+          <p className="text-sm font-semibold text-white">Delete "{propertyTitle}"?</p>
+          <p className="mt-1 text-xs leading-relaxed text-white/60">
+            This cannot be undone. Your photos, pricing, calendar and availability for this listing
+            are removed with it. Listings with bookings against them can't be deleted here.
+          </p>
+          <div className="mt-4 flex gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirming(false)}
+              disabled={deleting}
+              className="rounded-lg border border-white/15 px-3 py-1.5 text-xs font-semibold text-white/70 transition-colors hover:bg-white/5 disabled:opacity-50"
+            >
+              Keep it
+            </button>
+            <button
+              type="button"
+              onClick={remove}
+              disabled={deleting}
+              className="flex items-center gap-1.5 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+            >
+              {deleting && <Loader2 className="h-3 w-3 animate-spin" />}
+              Yes, delete permanently
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
