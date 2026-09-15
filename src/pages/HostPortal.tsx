@@ -30,6 +30,7 @@ import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
+import { SetNewPasswordGate } from "@/components/host/SetNewPasswordGate";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
 import { HostGetStarted, importLimitFor, SUPPORT_EMAIL, SUPPORT_PHONE, type OnboardingSubmission } from "@/components/host/HostGetStarted";
 import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
@@ -1732,10 +1733,23 @@ export default function HostPortal() {
   // when the signed-in user changes so a second account on the same browser
   // is not waved through on the first account's answer.
   const [phoneConfirmed, setPhoneConfirmed] = useState(false);
+  // True only for the one tab that just followed a password-reset email
+  // link - Supabase hands that tab a session indistinguishable from a
+  // normal login except for this event, so without it a recovery visit
+  // would silently skip straight to the dashboard with the old password
+  // still active.
+  const [inPasswordRecovery, setInPasswordRecovery] = useState(false);
 
   useEffect(() => {
     setPhoneConfirmed(false);
   }, [user?.id]);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") setInPasswordRecovery(true);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // While auth is loading, show a clean full-screen spinner
   if (loading) {
@@ -1764,6 +1778,10 @@ export default function HostPortal() {
   // the whole concierge onboarding path is a phone call. Asked once, then
   // never again: the gate clears itself the moment a valid number is stored,
   // so returning hosts go straight through.
+  if (inPasswordRecovery) {
+    return <SetNewPasswordGate onDone={() => setInPasswordRecovery(false)} />;
+  }
+
   if (!phoneConfirmed) {
     return <HostPhoneGate userId={user.id} onDone={() => setPhoneConfirmed(true)} />;
   }

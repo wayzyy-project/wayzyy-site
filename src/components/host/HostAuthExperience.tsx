@@ -25,7 +25,7 @@ const hostFocusedPost =
   blogPosts.find((p) => p.slug === "how-much-can-you-earn-vacation-rental-goa") ?? blogPosts[0];
 
 export function HostAuthExperience() {
-  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const { signIn, signUp, signInWithGoogle, resetPassword } = useAuth();
   const { toast } = useToast();
 
   const [view, setView] = useState<ViewState>("landing");
@@ -56,6 +56,7 @@ export function HostAuthExperience() {
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [resettingPassword, setResettingPassword] = useState(false);
 
   const switchView = (targetView: ViewState) => {
     if (targetView === view) return;
@@ -342,9 +343,31 @@ export function HostAuthExperience() {
                       <div className="flex justify-end pr-1">
                         <button
                           type="button"
-                          className="text-xs font-semibold text-white/70 hover:text-ember transition-colors cursor-pointer"
+                          disabled={resettingPassword}
+                          onClick={async () => {
+                            if (!email || !email.includes("@")) {
+                              toast({
+                                title: "Enter your email first",
+                                description: "Type your email above, then tap this again to get a reset link.",
+                                variant: "destructive",
+                              });
+                              return;
+                            }
+                            setResettingPassword(true);
+                            const { error } = await resetPassword(email);
+                            setResettingPassword(false);
+                            if (error) {
+                              toast({ title: "Couldn't send reset link", description: error.message, variant: "destructive" });
+                              return;
+                            }
+                            toast({
+                              title: "Check your email",
+                              description: `We sent a password reset link to ${email}.`,
+                            });
+                          }}
+                          className="text-xs font-semibold text-white/70 hover:text-ember transition-colors cursor-pointer disabled:opacity-60"
                         >
-                          Forgot your password?
+                          {resettingPassword ? "Sending..." : "Forgot your password?"}
                         </button>
                       </div>
                     )}
