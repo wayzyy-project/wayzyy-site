@@ -68,9 +68,23 @@ export const useAuth = () => {
     });
   };
 
+  // Emails a recovery link. Supabase redirects back here with a one-time
+  // recovery session and fires a PASSWORD_RECOVERY auth event - HostPortal
+  // listens for that and shows a "set new password" screen rather than
+  // dropping the visitor straight into the dashboard mid-recovery.
+  const resetPassword = async (email: string) => {
+    return supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: getAuthRedirectUrl(),
+    });
+  };
+
+  const updatePassword = async (password: string) => {
+    return supabase.auth.updateUser({ password });
+  };
+
   const signOut = async () => {
     return supabase.auth.signOut();
   };
 
-  return { session, user: session?.user ?? null, loading, signUp, signIn, signInWithGoogle, signOut };
+  return { session, user: session?.user ?? null, loading, signUp, signIn, signInWithGoogle, signOut, resetPassword, updatePassword };
 };
