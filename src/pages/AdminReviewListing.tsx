@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, BadgeCheck, CheckCircle2, Loader2, XCircle } from "lucide-react";
+import { ArrowLeft, BadgeCheck, CheckCircle2, ExternalLink, Loader2, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,6 +28,7 @@ interface Property {
   street: string | null;
   pincode: string | null;
   registration_number: string | null;
+  source_url: string | null;
   price_per_night: number;
   weekend_price: number | null;
   images: string[];
@@ -232,6 +233,22 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
         <p className="text-sm text-muted-foreground">
           {[property.street, property.city, property.state, property.pincode].filter(Boolean).join(", ")}
         </p>
+        {/* The original Airbnb listing this was imported from, so the reviewer
+            can open both side by side before approving - photos, description
+            and price are all worth spot-checking against the source rather
+            than trusting the import blindly. Manual/wizard listings have no
+            source_url, so nothing renders for those. */}
+        {property.source_url && (
+          <a
+            href={property.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-medium text-ember hover:underline"
+          >
+            View original Airbnb listing
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        )}
       </div>
 
       {property.images?.length > 0 && (
