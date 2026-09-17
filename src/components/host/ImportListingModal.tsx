@@ -414,9 +414,16 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
             pincode: "",
             registrationNumber: registrationNumber.trim(),
             // The original Airbnb room ID this was looked up from, so the
-            // saved property can link back to the source listing - not
-            // set for a manual draft (listingData.isManualDraft).
-            sourceAirbnbId: listingData.isManualDraft ? null : listingData.listingId,
+            // saved property can link back to the source listing. This is
+            // NOT gated on isManualDraft: that flag only means AirROI
+            // couldn't pull the listing's content (photos/description), not
+            // that we don't know which listing it is - extractedId came
+            // straight from the pasted URL either way. Nulling it out here
+            // used to mean a manual-draft import's source_url never matched
+            // its own submitted link, so the admin's "links to import" badge
+            // stayed stuck showing it as pending forever, even after it was
+            // actually imported.
+            sourceAirbnbId: listingData.listingId,
             latitude: listingData.latitude ?? null,
             longitude: listingData.longitude ?? null,
             maxGuests: listingData.details?.guests || 2,

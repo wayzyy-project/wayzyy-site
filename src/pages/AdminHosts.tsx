@@ -428,7 +428,15 @@ function HostDirectory() {
             className="pl-9"
           />
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        {/* One filter bar, not two. The derived filters (whose move it is)
+            and the manual stage (where the relationship is) are still two
+            independent pieces of state that combine rather than replace
+            each other - that logic didn't change - but they used to render
+            as two visually separate clusters with a "Stage" text label
+            breaking the row, which read as two different features bolted
+            together. A single thin divider keeps the two groups
+            distinguishable without a second row or a label. */}
+        <div className="flex flex-wrap items-center gap-1.5">
           {FILTERS.map((f) => {
             const count = hosts.filter((h) => matchesFilter(h, f.key)).length;
             const isActive = filter === f.key;
@@ -449,17 +457,11 @@ function HostDirectory() {
               </button>
             );
           })}
-        </div>
 
-        {/* Manual pipeline. Separate row from the derived filters above: one
-            says whose move it is, the other says where the relationship is,
-            and they combine rather than replace each other. */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="mr-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Stage
-          </span>
+          <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-border" />
+
           {(["any", ...STAGES.map((st) => st.key)] as (StageKey | "any")[]).map((key) => {
-            const meta = key === "any" ? { label: "Any" } : STAGE_BY_KEY[key];
+            const meta = key === "any" ? { label: "Any stage" } : STAGE_BY_KEY[key];
             const count = key === "any" ? hosts.length : hosts.filter((h) => h.stage === key).length;
             const isActive = stageFilter === key;
             return (
