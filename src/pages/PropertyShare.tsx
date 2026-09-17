@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Loader2, MapPin, Users, BedDouble, Bath, Home } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-import { toGuestPrice } from "@/lib/pricing";
+import { Loader2, MapPin, Users, BedDouble, Bath, Home, Clock } from "lucide-react";
 import { SEO } from "@/components/SEO";
 
 interface ShareProperty {
@@ -12,8 +10,6 @@ interface ShareProperty {
   city: string;
   state: string;
   images: string[];
-  price_per_night: number;
-  weekend_price: number | null;
   max_guests: number;
   bedrooms: number;
   beds: number;
@@ -22,11 +18,14 @@ interface ShareProperty {
 }
 
 /**
- * Read-only public listing preview - title, photos, description, price.
- * No booking, payment, wishlist, or messaging: this is the URL the mobile
- * app's native Share button already generates for every property, and it
- * has to resolve to something on wayzyy.com even before the web app's full
- * booking flow ships.
+ * Read-only public listing preview - title, photos, description, amenities.
+ * No price, no booking, payment, wishlist, or messaging: Wayzyy is
+ * pre-launch, so this exists purely for a host or the team to send someone
+ * a look at a property. Pricing and booking are handled in conversation by
+ * the team, not on this page. Fetches through /api/property-preview (a
+ * service-role-backed endpoint) rather than the anon Supabase client
+ * because draft / pending_review listings aren't readable under RLS -
+ * a property being shown here doesn't require it to be "active" yet.
  */
 export default function PropertyShare() {
   const { propertyId } = useParams();
@@ -37,22 +36,22 @@ export default function PropertyShare() {
   useEffect(() => {
     if (!propertyId) return;
     let cancelled = false;
-    supabase
-      .from("properties")
-      .select(
-        "id, title, description, city, state, images, price_per_night, weekend_price, max_guests, bedrooms, beds, bathrooms, amenities"
-      )
-      .eq("id", propertyId)
-      .eq("status", "active")
-      .maybeSingle()
-      .then(({ data }) => {
+    fetch(`/api/property-preview?id=${encodeURIComponent(propertyId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((body) => {
         if (cancelled) return;
-        if (!data) {
+        if (!body?.property) {
           setNotFound(true);
         } else {
-          setProperty(data as ShareProperty);
+          setProperty(body.property as ShareProperty);
         }
         setLoading(false);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setNotFound(true);
+          setLoading(false);
+        }
       });
     return () => {
       cancelled = true;
@@ -81,15 +80,13 @@ export default function PropertyShare() {
     );
   }
 
-  const weekday = toGuestPrice(property.price_per_night);
-  const weekend = property.weekend_price ? toGuestPrice(property.weekend_price) : null;
   const location = [property.city, property.state].filter(Boolean).join(", ") || "Goa, India";
 
   return (
     <div className="min-h-screen bg-white">
       <SEO
         title={`${property.title} - Wayzyy`}
-        description={property.description?.slice(0, 155) || `${property.title} in ${location} - view photos and pricing on Wayzyy.`}
+        description={property.description?.slice(0, 155) || `${property.title} in ${location} - view photos on Wayzyy.`}
       />
 
       <header className="flex items-center gap-2.5 px-5 py-4 sm:px-8">
@@ -141,19 +138,10 @@ export default function PropertyShare() {
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border border-slate-200 p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Price per night</p>
-          <p className="mt-1 font-display text-2xl font-bold text-slate-900">
-            ₹{weekday.toLocaleString("en-IN")}
-            <span className="ml-1 text-sm font-normal text-slate-500">weekday</span>
-          </p>
-          {weekend && weekend !== weekday && (
-            <p className="mt-0.5 text-sm text-slate-600">
-              ₹{weekend.toLocaleString("en-IN")} <span className="text-slate-400">weekend</span>
-            </p>
-          )}
-          <p className="mt-3 text-xs text-slate-400">
-            Final price may vary by dates and number of guests. Contact Wayzyy to book.
+        <div className="mt-8 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <Clock className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
+          <p className="text-sm text-slate-600">
+            Wayzyy is pre-launch - this page is for viewing only. Pricing and booking are handled directly by our team.
           </p>
         </div>
       </main>
