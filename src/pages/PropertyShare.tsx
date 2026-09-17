@@ -1,185 +1,162 @@
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Loader2, MapPin, Users, BedDouble, Bath, Home } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { toGuestPrice } from "@/lib/pricing";
 import { SEO } from "@/components/SEO";
 
-export default function PropertyShare() {
-  const { propertyId } = useParams<{ propertyId: string }>();
-  const [appMissing, setAppMissing] = useState(false);
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const attempted = useRef(false);
+interface ShareProperty {
+  id: string;
+  title: string;
+  description: string;
+  city: string;
+  state: string;
+  images: string[];
+  price_per_night: number;
+  weekend_price: number | null;
+  max_guests: number;
+  bedrooms: number;
+  beds: number;
+  bathrooms: number;
+  amenities: string[];
+}
 
-  const deepLink = `wayzyy://property/${propertyId}`;
-  const playStoreUrl = "https://play.google.com/store/apps/details?id=com.wayzyy.app";
-  const appStoreUrl  = "https://apps.apple.com/app/wayzyy/id000000000";
+/**
+ * Read-only public listing preview - title, photos, description, price.
+ * No booking, payment, wishlist, or messaging: this is the URL the mobile
+ * app's native Share button already generates for every property, and it
+ * has to resolve to something on wayzyy.com even before the web app's full
+ * booking flow ships.
+ */
+export default function PropertyShare() {
+  const { propertyId } = useParams();
+  const [property, setProperty] = useState<ShareProperty | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (!isMobile || attempted.current) return;
-    attempted.current = true;
-
-    // Try to open the app
-    const openTime = Date.now();
-    window.location.href = deepLink;
-
-    // If still here after 2.5s the app isn't installed - show download buttons
-    const timer = setTimeout(() => {
-      if (Date.now() - openTime < 3500) {
-        setAppMissing(true);
-      }
-    }, 2500);
-
-    // If page was hidden the app opened - cancel the fallback
-    const onVisibilityChange = () => {
-      if (document.hidden) clearTimeout(timer);
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange);
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [deepLink, isMobile]);
-
-  const handleOpenApp = () => {
-    window.location.href = deepLink;
-    setTimeout(() => setAppMissing(true), 2000);
-  };
-
-  const schemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "LodgingBusiness",
-      "name": `Wayzyy Homestay Listing #${propertyId}`,
-      "description": "Premium vacation lodging shared on the Wayzyy platform.",
-      "url": `https://wayzyy.com/property/${propertyId}`,
-      "image": "https://wayzyy.com/og-image.png",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://wayzyy.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Property Share",
-          "item": `https://wayzyy.com/property/${propertyId}`
+    if (!propertyId) return;
+    let cancelled = false;
+    supabase
+      .from("properties")
+      .select(
+        "id, title, description, city, state, images, price_per_night, weekend_price, max_guests, bedrooms, beds, bathrooms, amenities"
+      )
+      .eq("id", propertyId)
+      .eq("status", "active")
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled) return;
+        if (!data) {
+          setNotFound(true);
+        } else {
+          setProperty(data as ShareProperty);
         }
-      ]
-    }
-  ];
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [propertyId]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <Loader2 className="h-6 w-6 animate-spin text-ember" />
+      </div>
+    );
+  }
+
+  if (notFound || !property) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-white px-6 text-center">
+        <h1 className="font-display text-xl font-bold text-slate-900">Listing not available</h1>
+        <p className="max-w-sm text-sm text-slate-500">
+          This property is no longer listed, or the link is incorrect.
+        </p>
+        <Link to="/" className="mt-2 text-sm font-semibold text-ember">
+          Go to wayzyy.com
+        </Link>
+      </div>
+    );
+  }
+
+  const weekday = toGuestPrice(property.price_per_night);
+  const weekend = property.weekend_price ? toGuestPrice(property.weekend_price) : null;
+  const location = [property.city, property.state].filter(Boolean).join(", ") || "Goa, India";
 
   return (
-    <SEO
-      title={`Property Share #${propertyId} - Wayzyy`}
-      description="Check out this homestay share on Wayzyy. India's favorite getaway platform offering flat-free subscriptions."
-      jsonLd={schemas}
-      path={`/property/${propertyId}`}
-    >
+    <div className="min-h-screen bg-white">
+      <SEO
+        title={`${property.title} - Wayzyy`}
+        description={property.description?.slice(0, 155) || `${property.title} in ${location} - view photos and pricing on Wayzyy.`}
+      />
 
-    <div className="min-h-screen bg-paper flex flex-col items-center justify-center px-6 py-12">
-      {/* Logo */}
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="mb-10 text-center"
-      >
-        <span className="text-4xl font-black tracking-tight text-ember">
-          Wayzyy
-        </span>
-        <p className="text-sm text-muted-foreground mt-1">
-          India's favourite getaway platform
+      <header className="flex items-center gap-2.5 px-5 py-4 sm:px-8">
+        <img src="/favicon.svg" alt="Wayzyy" className="h-7 w-7 rounded-full object-cover" />
+        <span className="font-display text-base font-bold tracking-tight text-slate-900">wayzyy</span>
+      </header>
+
+      <main className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
+        {property.images?.length > 0 && (
+          <div className="mb-6 grid grid-cols-4 grid-rows-2 gap-1.5 overflow-hidden rounded-2xl" style={{ aspectRatio: "16 / 9" }}>
+            <img
+              src={property.images[0]}
+              alt={property.title}
+              className="col-span-4 row-span-2 h-full w-full object-cover sm:col-span-2"
+            />
+            {property.images.slice(1, 5).map((src, i) => (
+              <img key={i} src={src} alt="" className="hidden h-full w-full object-cover sm:block" />
+            ))}
+          </div>
+        )}
+
+        <h1 className="font-display text-2xl font-bold text-slate-900 sm:text-3xl">{property.title}</h1>
+        <p className="mt-1.5 flex items-center gap-1.5 text-sm text-slate-500">
+          <MapPin className="h-4 w-4" />
+          {location}
         </p>
-      </motion.div>
 
-      {/* Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, delay: 0.1 }}
-        className="w-full max-w-sm bg-background rounded-3xl shadow-xl border border-border p-8 text-center"
-      >
-        {/* Property icon */}
-        <div className="w-16 h-16 rounded-2xl bg-ember/10 flex items-center justify-center mx-auto mb-5 text-3xl">
-          🏡
+        <div className="mt-5 flex flex-wrap gap-4 border-y border-slate-100 py-4 text-sm text-slate-700">
+          <span className="flex items-center gap-1.5"><Users className="h-4 w-4 text-slate-400" /> {property.max_guests} guests</span>
+          <span className="flex items-center gap-1.5"><Home className="h-4 w-4 text-slate-400" /> {property.bedrooms} bedrooms</span>
+          <span className="flex items-center gap-1.5"><BedDouble className="h-4 w-4 text-slate-400" /> {property.beds} beds</span>
+          <span className="flex items-center gap-1.5"><Bath className="h-4 w-4 text-slate-400" /> {property.bathrooms} baths</span>
         </div>
 
-        <h1 className="text-xl font-bold text-foreground mb-2 leading-snug">
-          Someone shared a property with you
-        </h1>
-        <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
-          Open the Wayzyy app to see photos, pricing and book your stay.
-        </p>
-
-        {/* Primary CTA */}
-        <button
-          onClick={handleOpenApp}
-          className="w-full py-4 bg-ember text-white font-bold rounded-2xl text-[15px] hover:opacity-90 active:scale-[0.98] transition-all mb-3"
-        >
-          Open in Wayzyy App
-        </button>
-
-        {/* Download links - shown when app isn't installed or on desktop */}
-        {(appMissing || !isMobile) && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex gap-2 mt-1"
-          >
-            {(isAndroid || !isMobile) && (
-              <a
-                href={playStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-3 border border-border rounded-xl text-sm font-semibold text-foreground hover:bg-muted/50 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <span>🤖</span> Google Play
-              </a>
-            )}
-            {(isIOS || !isMobile) && (
-              <a
-                href={appStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-3 border border-border rounded-xl text-sm font-semibold text-foreground hover:bg-muted/50 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <span>🍎</span> App Store
-              </a>
-            )}
-          </motion.div>
+        {property.description && (
+          <p className="mt-5 whitespace-pre-line text-sm leading-relaxed text-slate-600">{property.description}</p>
         )}
 
-        {/* Status hint */}
-        {isMobile && !appMissing && (
-          <p className="text-xs text-muted-foreground mt-4">
-            {/* subtle pulse dot */}
-            <span className="inline-block w-2 h-2 rounded-full bg-ember animate-pulse mr-1.5 align-middle" />
-            Opening app…
+        {property.amenities?.length > 0 && (
+          <div className="mt-6">
+            <h2 className="mb-2 text-sm font-bold text-slate-900">Amenities</h2>
+            <div className="flex flex-wrap gap-2">
+              {property.amenities.map((a) => (
+                <span key={a} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                  {a}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-8 rounded-2xl border border-slate-200 p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Price per night</p>
+          <p className="mt-1 font-display text-2xl font-bold text-slate-900">
+            ₹{weekday.toLocaleString("en-IN")}
+            <span className="ml-1 text-sm font-normal text-slate-500">weekday</span>
           </p>
-        )}
-        {appMissing && (
-          <p className="text-xs text-muted-foreground mt-4">
-            App not installed? Download it above.
+          {weekend && weekend !== weekday && (
+            <p className="mt-0.5 text-sm text-slate-600">
+              ₹{weekend.toLocaleString("en-IN")} <span className="text-slate-400">weekend</span>
+            </p>
+          )}
+          <p className="mt-3 text-xs text-slate-400">
+            Final price may vary by dates and number of guests. Contact Wayzyy to book.
           </p>
-        )}
-      </motion.div>
-
-      <p className="text-xs text-muted-foreground mt-8">
-        © {new Date().getFullYear()} Wayzyy · All rights reserved
-      </p>
+        </div>
+      </main>
     </div>
-    </SEO>
   );
 }
