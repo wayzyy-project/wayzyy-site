@@ -10,7 +10,6 @@ import { MobileTabBar } from "@/components/MobileTabBar";
 import { mp } from "@/lib/mixpanel";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import PropertyShare from "./pages/PropertyShare";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
 import HostTerms from "./pages/HostTerms";
@@ -154,7 +153,6 @@ const App = () => (
                   routes now only catch links already shared with hosts. */}
               <Route path="/host-onboarding" element={<HostOnboardingRedirect />} />
               <Route path="/host-onboarding/status" element={<HostOnboardingRedirect />} />
-              <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
               <Route path="/host-terms" element={<HostTerms />} />

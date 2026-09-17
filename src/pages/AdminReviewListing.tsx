@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, BadgeCheck, CheckCircle2, ExternalLink, Loader2, XCircle } from "lucide-react";
+import { ArrowLeft, BadgeCheck, CheckCircle2, Copy, ExternalLink, Loader2, XCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
@@ -238,17 +238,37 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
             and price are all worth spot-checking against the source rather
             than trusting the import blindly. Manual/wizard listings have no
             source_url, so nothing renders for those. */}
-        {property.source_url && (
-          <a
-            href={property.source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-medium text-ember hover:underline"
-          >
-            View original Airbnb listing
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
-        )}
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          {property.source_url && (
+            <a
+              href={property.source_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ember hover:underline"
+            >
+              View original Airbnb listing
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
+          {/* Only offered once the listing is active: that's the only status
+              anon (an unauthenticated recipient) can actually read, per RLS.
+              A share link for a draft or pending_review property would open
+              to nothing for whoever received it - handing that out would be
+              worse than not offering a link at all. */}
+          {property.status === "active" && (
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(`https://wayzyy.com/property/${property.id}`);
+                toast({ title: "Link copied", description: "Anyone who opens it sees photos, description and price - no login needed." });
+              }}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+            >
+              <Copy className="h-3.5 w-3.5" />
+              Copy share link
+            </button>
+          )}
+        </div>
       </div>
 
       {property.images?.length > 0 && (

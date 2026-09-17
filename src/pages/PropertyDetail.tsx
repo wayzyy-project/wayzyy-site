@@ -78,6 +78,49 @@ const houseIcon = L.divIcon({
   iconAnchor: [21, 21],
 });
 
+/**
+ * A thin "open in the app" banner for mobile visitors, not a takeover page.
+ *
+ * The mobile app's own Share button builds exactly this URL
+ * (wayzyy.com/property/:id) expecting the recipient to land on something
+ * that offers to open the app. That used to be a separate page,
+ * PropertyShare, registered on this same route - so whichever of the two
+ * routes React Router matched first won outright, and the loser was dead
+ * code. Neither answer was right on its own: PropertyShare showed nothing
+ * about the property at all (just a store-download card), which breaks
+ * the actual point of sharing a listing with someone - open the link, see
+ * the place and the price - for anyone who doesn't have the app or is on
+ * desktop, which is most of the audience for a link sent to a prospective
+ * guest or client. Folding the attempt into a banner here means both are
+ * true: the app gets a chance to open for someone who has it, and the
+ * property is never hidden behind that attempt.
+ */
+function OpenInAppBanner({ propertyId }: { propertyId: string }) {
+  const [dismissed, setDismissed] = useState(false);
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (!isMobile || dismissed) return null;
+
+  return (
+    <div className="flex items-center justify-between gap-3 bg-ember/10 px-4 py-2 text-sm">
+      <span className="text-foreground/80">Have the Wayzyy app?</span>
+      <div className="flex items-center gap-3">
+        <a href={`wayzyy://property/${propertyId}`} className="font-semibold text-ember hover:underline">
+          Open in app
+        </a>
+        <button
+          type="button"
+          onClick={() => setDismissed(true)}
+          aria-label="Dismiss"
+          className="text-foreground/50 hover:text-foreground"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function PropertyDetail() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const navigate = useNavigate();
@@ -442,6 +485,7 @@ export default function PropertyDetail() {
     >
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <AirbnbHeader compact />
+        {propertyId && <OpenInAppBanner propertyId={propertyId} />}
 
         <main className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-6 space-y-8">
           {/* Header Title & Share/Save Actions (Matching Screenshot 2) */}
