@@ -121,6 +121,15 @@ function OpenInAppBanner({ propertyId }: { propertyId: string }) {
   );
 }
 
+// The guest-host messaging feature (threads/messages) has no migration
+// tracking those tables and hasn't been verified stable in production -
+// flagged during the chat-moderation handoff, not yet resolved. Rather
+// than maintain two forked copies of this page (one with messaging for
+// later, one without for today), the button is gated behind this one
+// constant. Flip it true in this single place once messaging is actually
+// ready; nothing else about the page needs to change.
+const MESSAGING_ENABLED = false;
+
 export default function PropertyDetail() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const navigate = useNavigate();
@@ -626,7 +635,7 @@ export default function PropertyDetail() {
                     {property.host.isNewHost ? "New Host" : "Superhost"} · Response time: {property.host.responseTime}
                   </p>
                 </div>
-                {property.host.id && (
+                {MESSAGING_ENABLED && property.host.id && (
                   <button
                     onClick={handleMessageHost}
                     disabled={startingThread}
