@@ -6,7 +6,9 @@ import { createClient } from "@supabase/supabase-js";
 // just "active"), and anon RLS only exposes active rows. This uses the
 // service role server-side to look up any non-rejected property by id and
 // hands back only what a pre-launch preview needs: no price, no host
-// contact info, nothing beyond what the share page renders.
+// contact info, nothing beyond what the share page renders. Deliberately
+// omits `street`/`pincode` - the exact address stays withheld pre-booking
+// (same convention as Airbnb), an approximate lat/lng is enough for a map.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -27,7 +29,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const admin = createClient(supabaseUrl, serviceKey);
   const { data, error } = await admin
     .from("properties")
-    .select("id, title, description, city, state, images, max_guests, bedrooms, beds, bathrooms, amenities, status")
+    .select(
+      "id, title, description, city, state, location, latitude, longitude, images, max_guests, bedrooms, beds, bathrooms, amenities, space_type, status"
+    )
     .eq("id", id)
     .maybeSingle();
 
