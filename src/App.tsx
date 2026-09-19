@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PropertyShare from "./pages/PropertyShare";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import DeleteAccount from "./pages/DeleteAccount";
 import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
 import HostTerms from "./pages/HostTerms";
 import GuestTerms from "./pages/GuestTerms";
@@ -140,6 +141,7 @@ const App = () => (
               <Route path="/host-onboarding/status" element={<HostOnboardingRedirect />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/delete-account" element={<DeleteAccount />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
               <Route path="/host-terms" element={<HostTerms />} />
               <Route path="/guest-terms" element={<GuestTerms />} />
