@@ -377,6 +377,31 @@ function HostDirectory() {
     }
   };
 
+  const [approvingPropertyId, setApprovingPropertyId] = useState<string | null>(null);
+
+  // One-click approve from the host detail panel, once a price is set -
+  // skips the trip to /adminn/review for the common case where the photos
+  // and description were already fine at import time.
+  const handleApproveProperty = async (property: HostProperty) => {
+    if (!session?.access_token) return;
+    setApprovingPropertyId(property.id);
+    try {
+      const res = await fetch("/api/admin-hosts", {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ propertyId: property.id }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Failed to approve");
+      toast({ title: "Listing approved", description: `"${property.title || "Listing"}" is live.` });
+      await fetchHosts();
+    } catch (err: any) {
+      toast({ title: "Couldn't approve", description: err?.message, variant: "destructive" });
+    } finally {
+      setApprovingPropertyId(null);
+    }
+  };
+
   const handleNotify = async (host: HostRow) => {
     if (!session?.access_token || !host.email) return;
     setNotifyingId(host.id);
@@ -598,6 +623,8 @@ function HostDirectory() {
         notifying={!!detailHost && notifyingId === detailHost.id}
         onDeleteProperty={handleDeleteProperty}
         deletingPropertyId={deletingPropertyId}
+        onApproveProperty={handleApproveProperty}
+        approvingPropertyId={approvingPropertyId}
       />
 
       <ImportListingModal
@@ -738,6 +765,7 @@ const PROP_STATE: Record<string, { label: string; className: string }> = {
 
 function HostDetailSheet({
   host, onClose, onImport, onNotify, notifying, onDeleteProperty, deletingPropertyId,
+  onApproveProperty, approvingPropertyId,
 }: {
   host: HostRow | null;
   onClose: () => void;
@@ -745,6 +773,8 @@ function HostDetailSheet({
   onNotify: (h: HostRow) => void;
   onDeleteProperty: (p: HostProperty) => void;
   deletingPropertyId: string | null;
+  onApproveProperty: (p: HostProperty) => void;
+  approvingPropertyId: string | null;
   notifying: boolean;
   savingStage: boolean;
   onStageChange: (stage: StageKey) => void;
@@ -882,12 +912,22 @@ function HostDetailSheet({
                         </p>
                       </div>
                       {p.status === "pending_review" ? (
-                        <Link
-                          to={`/adminn/review/${p.id}`}
-                          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-opacity hover:opacity-80 ${state.className}`}
-                        >
-                          {state.label} →
-                        </Link>
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => onApproveProperty(p)}
+                            disabled={approvingPropertyId === p.id}
+                            className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-opacity hover:opacity-80 disabled:opacity-50 ${state.className}`}
+                          >
+                            {approvingPropertyId === p.id ? "Approving…" : state.label}
+                          </button>
+                          <Link
+                            to={`/adminn/review/${p.id}`}
+                            className="shrink-0 text-[11px] font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                          >
+                            Review
+                          </Link>
+                        </>
                       ) : (
                         <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
                           {state.label}
