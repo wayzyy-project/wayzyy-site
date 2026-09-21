@@ -259,20 +259,20 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             <a href="/#top" className="group flex items-center">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
-            <nav className="hidden items-center gap-6 text-sm text-white/90 sm:flex">
-              <a className="hover:text-white" href="/#why">
+            <nav className="hidden items-center gap-6 text-sm font-semibold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.35)] sm:flex">
+              <a className="hover:text-white/80" href="/#why">
                 Why
               </a>
-              <a className="hover:text-white" href="/#two-sides">
+              <a className="hover:text-white/80" href="/#two-sides">
                 Two sides
               </a>
-              <Link className="hover:text-white" to="/waitlist">
+              <Link className="hover:text-white/80" to="/waitlist">
                 Waitlist
               </Link>
-              <Link className="hover:text-white" to="/earnings-calculator">
+              <Link className="hover:text-white/80" to="/earnings-calculator">
                 Calculator
               </Link>
-              <Link className="hover:text-white" to="/blog">
+              <Link className="hover:text-white/80" to="/blog">
                 Blog
               </Link>
               <HostNavMenu variant="floating" />
