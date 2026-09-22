@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee, Send,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
@@ -26,6 +26,7 @@ import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPol
 import { AMENITIES } from "@/lib/amenities";
 import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
 import { ImportListingModal } from "@/components/host/ImportListingModal";
+import { SendLinkToTeamModal } from "@/components/host/SendLinkToTeamModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
@@ -400,6 +401,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const [pendingVerification, setPendingVerification] = useState(false);
   const [showManualVerify, setShowManualVerify] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
+  const [showSendLinkModal, setShowSendLinkModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showTour, setShowTour] = useState(false);
   const [pricingDraft, setPricingDraft] = useState<HostListing | null>(null);
@@ -695,6 +697,23 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
               <Tooltip>
                 <TooltipTrigger asChild>
+                  <Button
+                    onClick={() => setShowSendLinkModal(true)}
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
+                  >
+                    <Send className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                    Send Link to Team
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  Would rather we import it for you? Send us the listing URL and we'll take it from there.
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
                   <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
                     <Home className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     List Property
@@ -909,6 +928,12 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         onClose={() => setShowImportModal(false)}
         onSuccess={fetchDashboardData}
         accessToken={session?.access_token}
+      />
+
+      {/* Send Link to Team Modal */}
+      <SendLinkToTeamModal
+        isOpen={showSendLinkModal}
+        onClose={() => setShowSendLinkModal(false)}
       />
 
       {/* Host Platform Guide Modal */}
