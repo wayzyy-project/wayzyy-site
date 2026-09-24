@@ -232,7 +232,9 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
       setBulkInput("");
       setBulkRows([]);
     }
-  }, [isOpen, user, targetHost?.id]);
+    // user?.id, not user: Supabase hands back a new user object on every
+    // token refresh (e.g. on window focus), which wiped the form mid-import.
+  }, [isOpen, user?.id, targetHost?.id]);
 
   // Prevent background scroll while modal open
   useEffect(() => {
