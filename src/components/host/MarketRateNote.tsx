@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AlertTriangle, BadgeCheck, TrendingUp } from "lucide-react";
+import { AlertTriangle, BadgeCheck, BookOpen, TrendingUp } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 export interface MarketRate {
@@ -25,6 +25,16 @@ export function useMarketRates(propertyIds: string[]) {
   return rates;
 }
 
+export const PRICING_GUIDE_URL = "/policies/host-pricing";
+
+export function PricingGuideLink({ children = "Read the pricing guide", className = "" }: { children?: React.ReactNode; className?: string }) {
+  return (
+    <a href={PRICING_GUIDE_URL} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-1 font-semibold text-ember hover:underline ${className}`}>
+      <BookOpen className="h-3.5 w-3.5" /> {children}
+    </a>
+  );
+}
+
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 const basisLabel = (b: MarketRate["rate_basis"]) => (b === "last_12_months" ? "avg. over the last 12 months" : "avg. over the last 90 days");
 
@@ -40,6 +50,7 @@ export function NoMarkupBanner({ compact = false }: { compact?: boolean }) {
         about 5% above it.
         {!compact && " Listings priced in line get more bookings and are the ones we feature in our marketing. A big jump above your usual rate makes guests less likely to book. You can fine-tune prices by date anytime once your listing is live."}
       </p>
+      <PricingGuideLink className="mt-2 text-xs" />
     </div>
   );
 }
@@ -88,7 +99,7 @@ export function PriceCaution({ rate, price, className = "" }: { rate: MarketRate
       <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
       <span>
         This property's price is {diff}% above your average rate on other booking platforms ({inr(rate.avg_nightly_rate)}). We don't mark up
-        your price, so matching it will help you get booked.
+        your price, so matching it will help you get booked. <PricingGuideLink>Learn more</PricingGuideLink>
       </span>
     </p>
   );

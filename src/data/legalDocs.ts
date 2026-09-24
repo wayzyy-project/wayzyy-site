@@ -17,6 +17,107 @@ export interface LegalDoc {
 export const EFFECTIVE_DATE = '25 June 2026';
 
 export const LEGAL_DOCS: Record<string, LegalDoc> = {
+  'host-pricing': {
+    id: 'host-pricing',
+    title: 'Host Pricing Guide',
+    subtitle: 'How pricing works on Wayzyy: no markup for hosts, weekend rates, custom dates, Advanced pricing and market insights',
+    sections: [
+      {
+        paragraphs: [
+          'This guide explains how your nightly price is set, what guests pay, and the tools and insights available in the Host Portal on the website and in the Wayzyy app.',
+        ],
+      },
+      {
+        heading: '1. No markup for hosts',
+        paragraphs: [
+          'Wayzyy does not take a cut from your price. You keep 100% of the nightly rate you set.',
+          '• Guests pay your nightly rate plus a 7% platform service fee and applicable GST, shown to them before they book.',
+          '• Because nothing is deducted from your side, there is no need to add extra to your price to cover fees.',
+          '• We recommend using the same base price you charge on other booking platforms, or at most about 5% above it. Listings priced in line get more bookings and are the ones we feature in our marketing.',
+        ],
+      },
+      {
+        heading: '2. Your price on other booking platforms',
+        paragraphs: [
+          'When a listing is imported from another booking platform, we record what that same listing has charged there: its average nightly rate over the last 90 days, or over the last 12 months when recent data is not available.',
+          '• This rate is visible only to you and the Wayzyy team. It is never shown to guests.',
+          '• You will see it when setting the price for an imported listing, on your listing cards, in the listing Calendar tab, in the app\'s listing editor, and at the top of Advanced pricing.',
+          '• For listings imported before this feature existed, the rate is looked up the first time you open your listings and saved from then on.',
+          '• If no pricing history is available for a listing, nothing is shown.',
+        ],
+      },
+      {
+        heading: '3. Price comparisons and cautions',
+        paragraphs: [
+          'When a rate from another platform is available, we compare it with the price you enter:',
+          '• Within 5% (or lower): marked as in line with your usual rate.',
+          '• 5% to 15% higher: a short note that staying within about 5% keeps you competitive.',
+          '• More than 15% higher: a caution that the price is likely to cost you bookings and keeps the listing out of our promotions.',
+          'These are guidance only. They never block you from saving or publishing your price.',
+        ],
+      },
+      {
+        heading: '4. Base and weekend rates',
+        paragraphs: [
+          '• Base rate: the standard price for every night.',
+          '• Weekend rate: applies to Friday and Saturday nights, the same definition hotels and other booking platforms use. It is applied automatically to those nights for the next 12 months and kept up to date if you change it.',
+          '• If you do not set a weekend rate, weekend nights use your base rate.',
+        ],
+      },
+      {
+        heading: '5. Custom rates for specific dates',
+        paragraphs: [
+          'In Manage Calendar, select a date, or tap a first and last date to select a range, then set a rate for those nights.',
+          '• A custom rate always takes priority over your base and weekend rates.',
+          '• "Use standard rate" removes the custom rate, so the night goes back to your base rate (or your weekend rate on a Friday or Saturday).',
+          '• You can also block dates you do not want booked. Booked nights cannot be changed, and guests who have already booked keep the price they paid.',
+        ],
+      },
+      {
+        heading: '6. Advanced pricing',
+        paragraphs: [
+          'Advanced pricing, found in Manage Calendar, prices a whole period in five steps:',
+          '• Market insights: how your price compares with similar stays (see section 7).',
+          '• Dates: a full month, the first half (1st to 15th), the second half (16th to month end), or the dates you selected on the calendar. You can choose several months at once.',
+          '• Weekday and weekend: a weekday rate, and a weekend rate as a fixed amount or a percentage above the weekday rate. You choose which nights count as weekend (Friday and Saturday by default).',
+          '• Monthly changes: raise or lower each month by a percentage on top of your weekday and weekend rates, for example +40% for December.',
+          '• Review: a month-by-month summary before anything is saved. You can choose to keep nights you have already priced by hand.',
+          'Advanced pricing writes custom rates for the chosen nights. Booked nights are skipped, and your discounts still apply on top.',
+        ],
+      },
+      {
+        heading: '7. Market insights',
+        paragraphs: [
+          'Insights help you choose a price. They are suggestions only, and you review every number before anything changes.',
+          '• Your listing on other booking platforms: your own average nightly rate there, when available. This is used as the suggested weekday rate.',
+          '• Typical price range: what similar stays (same area and number of bedrooms) charge per night, and where your price sits in that range.',
+          '• Occupancy: how booked similar listings are on other platforms, how booked nearby Wayzyy hosts are for the chosen dates, and how booked your own calendar is.',
+          '• Nearby host pricing: how much nearby Wayzyy hosts have raised or lowered their prices for the chosen dates.',
+          '• Seasonal demand: how prices in your area rise and fall month by month compared with the yearly average. This powers the suggested monthly percentage changes.',
+          '• Popular similar stays: a few well-reviewed comparable listings with their ratings and nightly prices.',
+          'Market data from other booking platforms comes from a third-party data provider and is refreshed about once a week. Wayzyy data comes from active listings and bookings on our platform. Individual guests and hosts are never identified.',
+        ],
+      },
+      {
+        heading: '8. Discounts',
+        paragraphs: [
+          'You can turn on discounts for each listing. They are applied automatically at booking time:',
+          '• Weekly: stays of 7 nights or more.',
+          '• Monthly: stays of 28 nights or more.',
+          '• Last-minute: bookings made 14 days or less before check-in.',
+          '• Early bird: bookings made 30 days or more before check-in.',
+          '• New listing: your first 3 bookings.',
+          'If more than one discount applies, only the largest one is used. Discounts are never combined.',
+        ],
+      },
+      {
+        heading: '9. Questions',
+        paragraphs: [
+          'If something about your pricing looks wrong, or you would like help setting it up, email hello@wayzyy.com and our team will help.',
+        ],
+      },
+    ],
+  },
   'cancellation': {
     id: 'cancellation',
     title: 'Cancellation Policy',
@@ -916,6 +1017,12 @@ export const POLICY_TOC: { heading: string; links: PolicyLink[] }[] = [
     links: [
       { title: 'Cancellation Policy', href: '/policies/cancellation' },
       { title: 'Payment & Refund Policy', href: '/payment-refund' },
+    ],
+  },
+  {
+    heading: 'Hosting Guides',
+    links: [
+      { title: 'Host Pricing Guide', href: '/policies/host-pricing' },
     ],
   },
   {

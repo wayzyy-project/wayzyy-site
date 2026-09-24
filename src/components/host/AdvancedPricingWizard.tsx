@@ -22,6 +22,7 @@ import {
   type PricingInsights,
   type PricingPlan,
 } from "@/lib/advancedPricing";
+import { PricingGuideLink } from "@/components/host/MarketRateNote";
 
 interface Props {
   propertyId: string;
@@ -445,7 +446,10 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
       <button type="button" onClick={onUse} className="flex w-full items-center justify-center gap-2 rounded-xl border border-ember/40 bg-ember/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-ember/20">
         <Sparkles className="h-4 w-4 text-ember" /> Start from market suggestions
       </button>
-      <p className="text-center text-[11px] text-white/40">Suggestions only. You'll review every number before anything changes.</p>
+      <p className="text-center text-[11px] text-white/40">
+        Suggestions only. You'll review every number before anything changes.{" "}
+        <PricingGuideLink className="text-[11px]">How these insights work</PricingGuideLink>
+      </p>
     </div>
   );
 }
