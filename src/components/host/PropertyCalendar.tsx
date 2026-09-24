@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, IndianRupee, Loader2, Lock, RotateCcw, Unlock } from "lucide-react";
+import { ChevronLeft, ChevronRight, IndianRupee, Loader2, Lock, RotateCcw, SlidersHorizontal, Unlock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AdvancedPricingWizard } from "@/components/host/AdvancedPricingWizard";
 
 /* ---------- date helpers (local-time safe) ---------- */
 // Everything keys off a YYYY-MM-DD string built from local parts. Using
@@ -42,6 +43,7 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   const [anchor, setAnchor] = useState<string | null>(null);
   const [head, setHead] = useState<string | null>(null);
   const [priceInput, setPriceInput] = useState("");
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const today = useMemo(() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }, []);
 
@@ -192,11 +194,18 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-lg font-semibold text-white">
           {month.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}
         </h3>
         <div className="flex items-center gap-1">
+          <Button
+            size="sm"
+            onClick={() => setShowAdvanced(true)}
+            className="mr-1 gap-1.5 bg-ember text-xs text-white hover:bg-ember/90"
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" /> Advanced pricing
+          </Button>
           <button
             type="button"
             onClick={() => setMonth(addMonths(month, -1))}
@@ -318,6 +327,19 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
             </div>
           )}
         </>
+      )}
+
+      {showAdvanced && (
+        <AdvancedPricingWizard
+          propertyId={propertyId}
+          basePrice={basePrice}
+          weekendPrice={weekendPrice}
+          selection={[...selected]}
+          existingOverrides={overrides}
+          booked={booked}
+          onClose={() => setShowAdvanced(false)}
+          onApplied={() => { setShowAdvanced(false); clearSelection(); load(); }}
+        />
       )}
     </div>
   );
