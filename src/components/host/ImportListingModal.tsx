@@ -103,6 +103,88 @@ function cleanupImportedDescription(text: string | null | undefined): string {
     .trim();
 }
 
+function extractListingId(input: string): string {
+  const room = input.match(/rooms\/(\d+)/i);
+  if (room?.[1]) return room[1];
+  return input.match(/\b(\d{8,20})\b/)?.[1] ?? "";
+}
+
+// import-listing-for-host nests the listing under `data.preview`.
+function lookupResultFrom(data: any, extractedId: string): LookupResult | null {
+  const listing = data?.preview ?? data;
+  if (!listing || data?.error || !(listing.name || listing.listingId || listing.title)) return null;
+  return {
+    listingId: listing.source_airbnb_id || listing.listingId || extractedId,
+    name: listing.title || listing.name,
+    description: listing.description,
+    photoUrls: listing.images || listing.photoUrls || [],
+    coverPhotoUrl: listing.images?.[0] || listing.cover_image || listing.coverPhotoUrl || null,
+    hostName: listing.host_name || listing.hostName,
+    location: listing.location || listing.location_info,
+    details: {
+      guests: listing.maxGuests,
+      bedrooms: listing.bedrooms,
+      beds: listing.beds,
+      baths: listing.bathrooms,
+      ...listing.details,
+    },
+    amenities: listing.amenities,
+    selfCheckIn: listing.selfCheckIn,
+    petsAllowed: listing.petsAllowed,
+    latitude: listing.latitude,
+    longitude: listing.longitude,
+    city: listing.city,
+    state: listing.state,
+  } as LookupResult;
+}
+
+// The listingData body submit-listing expects. Shared by the single and bulk
+// imports so both produce identical listings.
+function submitListingData(
+  listingData: LookupResult,
+  fields: { title: string; description: string; amenities: string[]; price: number; weekendPrice: number; registrationNumber: string },
+) {
+  const bedrooms = listingData.details?.bedrooms || 1;
+  return {
+    title: fields.title || listingData.name || "Imported Airbnb Property",
+    description: fields.description || listingData.description || "",
+    price: String(fields.price),
+    weekendPrice: String(fields.weekendPrice),
+    placeType: "villa",
+    spaceType: "entire",
+    street: listingData.location?.locality || "",
+    city: listingData.city || listingData.location?.locality || "Goa",
+    // No "Goa" fallback: imports come from outside Goa too, and a blank
+    // state is easier to notice and fix than a wrong one.
+    state: listingData.state || listingData.location?.region || "",
+    pincode: "",
+    registrationNumber: fields.registrationNumber.trim(),
+    // Kept even for manual drafts - the room id came from the pasted URL, and
+    // the admin "links to import" badge matches on it.
+    sourceAirbnbId: listingData.listingId,
+    latitude: listingData.latitude ?? null,
+    longitude: listingData.longitude ?? null,
+    maxGuests: listingData.details?.guests || 2,
+    bedrooms,
+    beds: listingData.details?.beds || 1,
+    bathrooms: listingData.details?.baths || 1,
+    sleepingArrangements: Array.from({ length: bedrooms }, (_, i) => ({
+      name: `Bedroom ${i + 1}`,
+      beds: [{ type: "Double bed", count: 1 }],
+    })),
+    cancelPolicy: "Flexible",
+    cancelPolicyLongTerm: "Firm",
+    amenities: fields.amenities,
+    photos: listingData.photoUrls || [],
+    instantBook: false,
+    selfCheckIn: listingData.selfCheckIn ?? false,
+    checkInTime: "3:00 PM",
+    checkOutTime: "11:00 AM",
+  };
+}
+
+type BulkRow = { id: string; state: "queued" | "working" | "done" | "failed"; title?: string; note?: string };
+
 export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: propAccessToken, targetHost }: ImportListingModalProps) {
   const { user, session } = useAuth();
   const { toast } = useToast();
@@ -131,6 +213,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
   // How many we've filed for this host in this sitting, so the batch
   // workflow shows progress instead of silently resetting.
   const [importedCount, setImportedCount] = useState(0);
+  // Bulk mode (admin importing for a host): paste many links, run the same
+  // lookup + submit-listing pipeline for each, one after another.
+  const [bulkInput, setBulkInput] = useState("");
+  const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
+  const [bulkRunning, setBulkRunning] = useState(false);
 
   // Every host account (existing & new) has 1-Click Import access enabled by default (up to 5 properties)
   const isAdmin = user?.email === "hello@wayzyy.com";
@@ -140,7 +227,11 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     if (isOpen && user) {
       setAccessState("approved");
     }
-    if (isOpen) setImportedCount(0);
+    if (isOpen) {
+      setImportedCount(0);
+      setBulkInput("");
+      setBulkRows([]);
+    }
   }, [isOpen, user, targetHost?.id]);
 
   // Prevent background scroll while modal open
@@ -201,18 +292,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     setLookupNotice(null);
 
     try {
-      const inputStr = urlOrId.trim();
-      let extractedId = "";
-
-      const roomMatch = inputStr.match(/rooms\/(\d+)/i);
-      if (roomMatch && roomMatch[1]) {
-        extractedId = roomMatch[1];
-      } else {
-        const numMatch = inputStr.match(/\b(\d{8,20})\b/);
-        if (numMatch && numMatch[1]) {
-          extractedId = numMatch[1];
-        }
-      }
+      const extractedId = extractListingId(urlOrId.trim());
 
       if (!extractedId) {
         toast({
@@ -254,36 +334,7 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
         console.log("📦 Function Data:", data);
         console.log("⚠️ Function Error:", error, lookupStatus ? `(HTTP ${lookupStatus})` : "");
 
-        // The edge function nests the actual listing fields under
-        // `data.preview` (e.g. { success: true, preview: { title, ... } })
-        // rather than returning them at the top level - read from there.
-        const listing = data?.preview ?? data;
-
-        if (!error && listing && !data?.error && (listing.name || listing.listingId || listing.title)) {
-          fetchedResult = {
-            listingId: listing.source_airbnb_id || listing.listingId || extractedId,
-            name: listing.title || listing.name,
-            description: listing.description,
-            photoUrls: listing.images || listing.photoUrls || [],
-            coverPhotoUrl: listing.images?.[0] || listing.cover_image || listing.coverPhotoUrl || null,
-            hostName: listing.host_name || listing.hostName,
-            location: listing.location || listing.location_info,
-            details: {
-              guests: listing.maxGuests,
-              bedrooms: listing.bedrooms,
-              beds: listing.beds,
-              baths: listing.bathrooms,
-              ...listing.details,
-            },
-            amenities: listing.amenities,
-            selfCheckIn: listing.selfCheckIn,
-            petsAllowed: listing.petsAllowed,
-            latitude: listing.latitude,
-            longitude: listing.longitude,
-            city: listing.city,
-            state: listing.state,
-          } as LookupResult;
-        }
+        if (!error) fetchedResult = lookupResultFrom(data, extractedId);
       } catch (invokeErr) {
         console.warn("AirROI Edge Function exception:", invokeErr);
       } finally {
@@ -357,6 +408,72 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
     }
   };
 
+  const bulkIds = [...new Set(bulkInput.split(/[\s,]+/).map(extractListingId).filter(Boolean))];
+
+  const runBulkImport = async () => {
+    if (!targetHost || !user || !bulkIds.length) return;
+    const ids = bulkIds;
+    setBulkRunning(true);
+    setBulkRows(ids.map((id) => ({ id, state: "queued" })));
+    const update = (id: string, patch: Partial<BulkRow>) =>
+      setBulkRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+
+    for (const id of ids) {
+      update(id, { state: "working" });
+      try {
+        const { data, error } = await supabase.functions.invoke("import-listing-for-host", {
+          body: { listingId: id, targetHostId: targetHost.id },
+        });
+        const status = (error as any)?.context?.status;
+        if (status === 401 || status === 403) {
+          update(id, { state: "failed", note: "Session rejected. Sign out and back in as the admin, then run the rest again." });
+          break;
+        }
+        const found = error ? null : lookupResultFrom(data, id);
+        if (!found) {
+          update(id, { state: "failed", note: "No details found. Import this one by hand." });
+          continue;
+        }
+        const body = submitListingData(found, {
+          title: found.name || "",
+          description: cleanupImportedDescription(found.description),
+          amenities: mapAirroiAmenities(found.amenities),
+          price: 0,
+          weekendPrice: 0,
+          registrationNumber: "",
+        });
+        const { data: result, error: fnError } = await supabase.functions.invoke("submit-listing", {
+          body: {
+            listingData: body,
+            hostEmail: targetHost.email,
+            hostName: targetHost.name || found.hostName || "Host",
+            hostId: targetHost.id,
+            isImport: true,
+            isDraftImport: true,
+          },
+        });
+        if (fnError || !result?.success) {
+          let message = result?.error ?? fnError?.message ?? "Import failed";
+          try {
+            const b = await (fnError as any)?.context?.json?.();
+            if (b?.error) message = b.error;
+          } catch {
+            // keep the generic message
+          }
+          update(id, { state: "failed", title: body.title, note: message });
+          continue;
+        }
+        update(id, { state: "done", title: body.title });
+        setImportedCount((n) => n + 1);
+      } catch (err: any) {
+        update(id, { state: "failed", note: err?.message || "Import failed" });
+      }
+    }
+
+    setBulkRunning(false);
+    onSuccess?.();
+  };
+
   const handleMoveForApproval = async () => {
     if (!user) {
       toast({ title: "Sign in required", description: "Please sign in to import your listing.", variant: "destructive" });
@@ -379,70 +496,20 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
 
     setSubmitting(true);
     try {
-      const photos = listingData.photoUrls || [];
+      const body = submitListingData(listingData, {
+        title, description, amenities, price: numPrice, weekendPrice: numWeekendPrice, registrationNumber,
+      });
+      const photos = body.photos;
       const coverPhoto = listingData.coverPhotoUrl || photos[0] || "";
-      const city = listingData.city || listingData.location?.locality || "Goa";
-      // No "Goa" fallback here - this platform now imports from outside
-      // Goa too (this exact listing is in Rishikesh), and silently
-      // mislabeling an unknown state as Goa is worse than leaving it blank
-      // for the host/admin to notice and fill in.
-      const state = listingData.state || listingData.location?.region || "";
-      const bedrooms = listingData.details?.bedrooms || 1;
-      const finalTitle = title || listingData.name || "Imported Airbnb Property";
-      const finalDescription = description || listingData.description || "";
+      const city = body.city;
+      const finalTitle = body.title;
+      const finalDescription = body.description;
 
-      // submit-listing is the canonical submission pipeline (same one the
-      // manual wizard uses in HostPortal.tsx) - it validates and writes the
-      // property row server-side. AirROI doesn't provide the wizard-only
-      // fields below (placeType, street, registration, etc.), so we fill in
-      // sensible defaults consistent with emptyForm in HostPortal.tsx.
-      // Pricing and reviews are deliberately never imported from AirROI - 
-      // price/weekendPrice stay host-entered, and no review data exists on
-      // the AirROI preview to import in the first place.
+      // submit-listing is the canonical pipeline (same one the manual wizard
+      // uses). Pricing is never imported - it stays host-entered.
       const { data: result, error: fnError } = await supabase.functions.invoke("submit-listing", {
         body: {
-          listingData: {
-            title: finalTitle,
-            description: finalDescription,
-            price: String(numPrice),
-            weekendPrice: String(numWeekendPrice),
-            placeType: "villa",
-            spaceType: "entire",
-            street: listingData.location?.locality || "",
-            city,
-            state,
-            pincode: "",
-            registrationNumber: registrationNumber.trim(),
-            // The original Airbnb room ID this was looked up from, so the
-            // saved property can link back to the source listing. This is
-            // NOT gated on isManualDraft: that flag only means AirROI
-            // couldn't pull the listing's content (photos/description), not
-            // that we don't know which listing it is - extractedId came
-            // straight from the pasted URL either way. Nulling it out here
-            // used to mean a manual-draft import's source_url never matched
-            // its own submitted link, so the admin's "links to import" badge
-            // stayed stuck showing it as pending forever, even after it was
-            // actually imported.
-            sourceAirbnbId: listingData.listingId,
-            latitude: listingData.latitude ?? null,
-            longitude: listingData.longitude ?? null,
-            maxGuests: listingData.details?.guests || 2,
-            bedrooms,
-            beds: listingData.details?.beds || 1,
-            bathrooms: listingData.details?.baths || 1,
-            sleepingArrangements: Array.from({ length: bedrooms }, (_, i) => ({
-              name: `Bedroom ${i + 1}`,
-              beds: [{ type: "Double bed", count: 1 }],
-            })),
-            cancelPolicy: "Flexible",
-            cancelPolicyLongTerm: "Firm",
-            amenities,
-            photos,
-            instantBook: false,
-            selfCheckIn: listingData.selfCheckIn ?? false,
-            checkInTime: "3:00 PM",
-            checkOutTime: "11:00 AM",
-          },
+          listingData: body,
           // Files the listing under the target host when an admin is
           // importing on someone's behalf, otherwise under the signed-in
           // user as normal.
@@ -589,6 +656,53 @@ export function ImportListingModal({ isOpen, onClose, onSuccess, accessToken: pr
                   )}
                 </div>
               </div>
+            )}
+
+            {targetHost && !listingData && (
+              <details className="rounded-2xl border border-border p-4" open={bulkRows.length > 0}>
+                <summary className="cursor-pointer text-sm font-semibold text-foreground">
+                  Bulk import several listings
+                </summary>
+                <div className="mt-3 space-y-3">
+                  <p className="text-xs text-muted-foreground">
+                    Paste listing links or room IDs, one per line. Each is imported as a draft in this host's
+                    dashboard, exactly like importing them one by one. The host sets pricing afterwards.
+                  </p>
+                  <Textarea
+                    value={bulkInput}
+                    onChange={(e) => setBulkInput(e.target.value)}
+                    disabled={bulkRunning}
+                    rows={5}
+                    placeholder={"https://www.airbnb.co.in/rooms/1234567890\nhttps://www.airbnb.co.in/rooms/9876543210"}
+                    className="font-mono text-xs"
+                  />
+                  <Button onClick={runBulkImport} disabled={bulkRunning || bulkIds.length === 0} className="w-full gap-2">
+                    {bulkRunning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                    {bulkRunning ? "Importing…" : `Import ${bulkIds.length} listing${bulkIds.length === 1 ? "" : "s"}`}
+                  </Button>
+                  {bulkRows.length > 0 && (
+                    <ul className="max-h-72 space-y-1 overflow-y-auto text-xs" aria-live="polite">
+                      {bulkRows.map((r) => (
+                        <li key={r.id} className="flex items-start gap-2 rounded-lg bg-muted/40 px-2.5 py-1.5">
+                          <span className="w-16 shrink-0 font-semibold">
+                            {r.state === "done" ? "Imported" : r.state === "failed" ? "Failed" : r.state === "working" ? "Working…" : "Queued"}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-foreground">{r.title || r.id}</span>
+                            {r.note && <span className="block text-muted-foreground">{r.note}</span>}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {!bulkRunning && bulkRows.length > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      {bulkRows.filter((r) => r.state === "done").length} imported,{" "}
+                      {bulkRows.filter((r) => r.state === "failed").length} failed.
+                    </p>
+                  )}
+                </div>
+              </details>
             )}
 
             {/* Authorization Enforcement: If not admin hello@wayzyy.com and not approved */}
