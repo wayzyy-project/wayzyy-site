@@ -259,18 +259,19 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             <a href="/#top" className="group flex items-center">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
-            <nav className="hidden items-center gap-6 text-sm font-semibold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.35)] sm:flex">
+            <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
               <a className="hover:text-white/80" href="/#why">
                 Why
               </a>
               <a className="hover:text-white/80" href="/#two-sides">
-                Two sides
+                User & Host
               </a>
               <Link className="hover:text-white/80" to="/waitlist">
                 Waitlist
               </Link>
-              <Link className="hover:text-white/80" to="/earnings-calculator">
-                Calculator
+              <Link className="inline-flex items-center gap-1.5 hover:text-white/80" to="/earnings-calculator">
+                <Calculator className="h-4 w-4" />
+                <span>Earn More</span>
               </Link>
               <Link className="hover:text-white/80" to="/blog">
                 Blog
@@ -281,7 +282,7 @@ export function SiteNav({ floating = false }: SiteNavProps) {
               <ThemeToggle />
               <Link
                 to="/waitlist"
-                className="hidden rounded-full bg-white px-4 py-1.5 text-sm text-ink transition-colors hover:bg-white/90 sm:inline-block"
+                className="hidden rounded-full bg-white px-4 py-1.5 text-sm font-bold text-ink transition-colors hover:bg-white/90 sm:inline-block"
               >
                 Get early access
               </Link>
@@ -320,18 +321,19 @@ export function SiteNav({ floating = false }: SiteNavProps) {
         <a href="/#top" className="group flex items-center">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
-        <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
+        <nav className="hidden items-center gap-6 text-sm font-bold text-foreground/90 sm:flex">
           <a className="hover:text-foreground" href="/#why">
             Why
           </a>
           <a className="hover:text-foreground" href="/#two-sides">
-            Two sides
+            User & Host
           </a>
           <Link className="hover:text-foreground" to="/waitlist">
             Waitlist
           </Link>
-          <Link className="hover:text-foreground" to="/earnings-calculator">
-            Calculator
+          <Link className="inline-flex items-center gap-1.5 hover:text-foreground" to="/earnings-calculator">
+            <Calculator className="h-4 w-4" />
+            <span>Earn More</span>
           </Link>
           <Link className="hover:text-foreground" to="/blog">
             Blog
@@ -342,7 +344,7 @@ export function SiteNav({ floating = false }: SiteNavProps) {
           <ThemeToggle />
           <Link
             to="/waitlist"
-            className="hidden rounded-full bg-foreground px-4 py-1.5 text-sm text-background transition-colors hover:bg-foreground/90 sm:inline-block"
+            className="hidden rounded-full bg-foreground px-4 py-1.5 text-sm font-bold text-background transition-colors hover:bg-foreground/90 sm:inline-block"
           >
             Get early access
           </Link>

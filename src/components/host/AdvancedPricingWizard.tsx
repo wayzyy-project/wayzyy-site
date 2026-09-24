@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Info, Loader2, Sparkles, Star, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -54,11 +54,28 @@ const STEP_HELP: string[] = [
 
 function StepInfo({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  const openNow = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+
+  const closeSoon = () => {
+    closeTimer.current = window.setTimeout(() => setOpen(false), 150);
+  };
+
   return (
-    <span className="relative inline-flex">
+    <span
+      className="relative inline-flex items-center"
+      onMouseEnter={openNow}
+      onMouseLeave={closeSoon}
+    >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
+        onFocus={openNow}
+        onBlur={closeSoon}
         aria-label="What this step does"
         aria-expanded={open}
         className="rounded-full p-1 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
@@ -67,8 +84,11 @@ function StepInfo({ text }: { text: string }) {
       </button>
       {open && (
         <>
-          <button type="button" aria-hidden className="fixed inset-0 z-10 cursor-default" onClick={() => setOpen(false)} tabIndex={-1} />
-          <span className="absolute left-0 top-8 z-20 w-64 max-w-[calc(100vw-3rem)] rounded-xl border border-white/15 bg-neutral-900 p-3 text-xs leading-relaxed text-white/85 shadow-xl">
+          <button type="button" aria-hidden className="fixed inset-0 z-10 cursor-default sm:hidden" onClick={() => setOpen(false)} tabIndex={-1} />
+          <span
+            role="tooltip"
+            className="pointer-events-none absolute left-0 top-8 z-20 w-64 max-w-[calc(100vw-3rem)] rounded-xl border border-white/15 bg-neutral-900/95 p-3 text-xs leading-relaxed text-white/90 shadow-xl backdrop-blur-md"
+          >
             {text}
           </span>
         </>
