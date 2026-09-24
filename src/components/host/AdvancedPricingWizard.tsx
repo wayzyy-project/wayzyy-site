@@ -357,8 +357,23 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
   const season = air?.seasonality ?? null;
   const maxAbs = season ? Math.max(10, ...season.map((s) => Math.abs(s.pct))) : 10;
 
+  const own = insights.you.otherPlatformRate;
+  const ownDiff = own && basePrice ? Math.round((basePrice / own - 1) * 100) : null;
+
   return (
     <div className="space-y-4">
+      {own && (
+        <section className="rounded-2xl border border-ember/30 bg-ember/10 p-4">
+          <p className="text-xs text-white/60">Your listing on other booking platforms</p>
+          <p className="mt-1 font-display text-2xl font-bold tabular-nums text-white">{formatINR(own)} <span className="text-sm font-normal text-white/60">/ night</span></p>
+          <p className="text-xs text-white/60">
+            Average over the {insights.you.otherPlatformBasis === "last_12_months" ? "last 12 months" : "last 90 days"}.
+            {ownDiff != null && ownDiff > 5 && ` Your Wayzyy rate is ${ownDiff}% higher. We don't mark up your price, so matching it helps you get booked.`}
+            {ownDiff != null && ownDiff <= 5 && " Your Wayzyy rate is in line with it."}
+          </p>
+        </section>
+      )}
+
       {ref && (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
           <p className="text-xs text-white/50">Similar {insights.property.bedrooms}-bedroom stays in {insights.property.locality} on {refName}</p>

@@ -14,7 +14,7 @@ import { supabase } from "@/lib/supabase";
 import { geocodePincode, reverseGeocode } from "@/lib/geocode";
 import { LocationMap } from "@/components/host/LocationMap";
 import { ListingManagePanel } from "@/components/host/ListingManagePanel";
-import { MarketRateCard, NoCommissionBanner, useMarketRates } from "@/components/host/MarketRateNote";
+import { MarketRateCard, NoMarkupBanner, PriceCaution, useMarketRates } from "@/components/host/MarketRateNote";
 import { DraftPricingModal } from "@/components/host/DraftPricingModal";
 import { NotificationBell } from "@/components/host/NotificationBell";
 import { useToast } from "@/hooks/use-toast";
@@ -473,7 +473,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
     fetchDashboardData();
   }, [user]);
 
-  const draftRates = useMarketRates((listings ?? []).filter((l) => l.status === "draft").map((l) => l.id));
+  const marketRates = useMarketRates((listings ?? []).map((l) => l.id));
 
   // Wait for the submission lookup too, otherwise a host on the concierge
   // path sees the "how do you want to start?" chooser flash before their
@@ -793,7 +793,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         // A grid of property cards rather than full-width bands: each
         // listing reads as its own thing, and the whole card opens it.
         <div className="space-y-4">
-        {filteredListings.some(isDraft) && <NoCommissionBanner />}
+        {filteredListings.some(isDraft) && <NoMarkupBanner />}
         <div className="grid gap-4 sm:grid-cols-2">
           {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
@@ -862,11 +862,12 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                   </button>
                 )}
 
-                {isDraft(p) && draftRates[p.id] && (
+                {isDraft(p) && marketRates[p.id] && (
                   <div className="mx-4 mb-3">
-                    <MarketRateCard rate={draftRates[p.id]} />
+                    <MarketRateCard rate={marketRates[p.id]} />
                   </div>
                 )}
+                {!isDraft(p) && <PriceCaution rate={marketRates[p.id]} price={p.price_per_night} className="mx-4 mb-3" />}
 
                 <div className="flex items-center gap-2 border-t border-white/10 px-4 py-3">
                   {isDraft(p) ? (

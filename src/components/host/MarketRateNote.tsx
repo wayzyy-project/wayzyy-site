@@ -28,15 +28,15 @@ export function useMarketRates(propertyIds: string[]) {
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 const basisLabel = (b: MarketRate["rate_basis"]) => (b === "last_12_months" ? "avg. over the last 12 months" : "avg. over the last 90 days");
 
-export function NoCommissionBanner({ compact = false }: { compact?: boolean }) {
+export function NoMarkupBanner({ compact = false }: { compact?: boolean }) {
   return (
     <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
       <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
         <BadgeCheck className="h-4 w-4 shrink-0 text-emerald-500" />
-        We take no commission, so you keep 100% of your nightly rate
+        No markup for hosts: you keep 100% of your nightly rate
       </p>
       <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-        There's no need to add extra to cover our fees. Use the same base price you charge on other booking platforms, or at most
+        We don't take a cut from your price, so there's no need to add extra to cover fees. Use the same base price you charge on other booking platforms, or at most
         about 5% above it.
         {!compact && " Listings priced in line get more bookings and are the ones we feature in our marketing. A big jump above your usual rate makes guests less likely to book. You can fine-tune prices by date anytime once your listing is live."}
       </p>
@@ -59,7 +59,7 @@ export function MarketRateCard({ rate, price }: { rate: MarketRate | undefined; 
       {diff != null && diff > 15 && (
         <p className="mt-1.5 flex items-start gap-1.5 text-xs text-amber-600 dark:text-amber-400">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-          Your price is {diff}% higher. Since we take no commission, this will likely cost you bookings and keeps your listing out of our promotions.
+          Your price is {diff}% higher. Since we don't mark up your price, this will likely cost you bookings and keeps your listing out of our promotions.
         </p>
       )}
       {diff != null && diff > 5 && diff <= 15 && (
@@ -75,5 +75,21 @@ export function MarketRateCard({ rate, price }: { rate: MarketRate | undefined; 
         </p>
       )}
     </div>
+  );
+}
+
+/** One-line caution for a listing that's already priced well above its rate elsewhere. */
+export function PriceCaution({ rate, price, className = "" }: { rate: MarketRate | undefined; price: number | null | undefined; className?: string }) {
+  if (!rate?.avg_nightly_rate || !price) return null;
+  const diff = Math.round((price / rate.avg_nightly_rate - 1) * 100);
+  if (diff <= 15) return null;
+  return (
+    <p className={`flex items-start gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-600 dark:text-amber-400 ${className}`}>
+      <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+      <span>
+        This property's price is {diff}% above your average rate on other booking platforms ({inr(rate.avg_nightly_rate)}). We don't mark up
+        your price, so matching it will help you get booked.
+      </span>
+    </p>
   );
 }

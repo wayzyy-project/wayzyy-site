@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
-import { MarketRateCard, NoCommissionBanner, useMarketRates } from "@/components/host/MarketRateNote";
+import { MarketRateCard, NoMarkupBanner, useMarketRates } from "@/components/host/MarketRateNote";
 
 export interface DraftProperty {
   id: string;
@@ -154,7 +154,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
             </div>
           </div>
 
-          <NoCommissionBanner compact />
+          <NoMarkupBanner compact />
 
           <div className="rounded-2xl border border-primary/30 bg-muted/30 p-4 space-y-3">
             <div className="flex items-center gap-2">

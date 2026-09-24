@@ -30,10 +30,11 @@ export interface PricingInsights {
       top: { name: string; bedrooms: number | null; rating: number | null; reviewCount: number; guestFavorite: boolean; rate: number; occupancy: number | null }[];
     };
   } | null;
-  you: { periodOccupancy: number; bookedNights: number };
+  you: { periodOccupancy: number; bookedNights: number; otherPlatformRate: number | null; otherPlatformBasis: "last_90_days" | "last_12_months" | null };
   position: { label: "below" | "within" | "above"; vsMedianPct: number; source: "airbnb" | "wayzyy" | null } | null;
   suggestions: {
     weekday: number | null;
+    weekdaySource: "your_listing" | "market" | "current";
     weekendPremiumPct: number;
     weekendPremiumSource: "wayzyy" | "default";
     monthlyPct: Record<string, number>;
