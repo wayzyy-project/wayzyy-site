@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
+import { MarketRateCard, NoCommissionBanner, useMarketRates } from "@/components/host/MarketRateNote";
 
 export interface DraftProperty {
   id: string;
@@ -31,6 +32,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
   const [price, setPrice] = useState("");
   const [weekendPrice, setWeekendPrice] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const marketRate = useMarketRates([property.id])[property.id];
 
   // Lenis runs globally with smoothWheel, which hijacks wheel events for
   // the whole document - including ones aimed at a scrollable element
@@ -146,11 +148,13 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
                 >
-                  <ExternalLink className="h-3.5 w-3.5" /> View original Airbnb listing
+                  <ExternalLink className="h-3.5 w-3.5" /> View your original listing
                 </a>
               )}
             </div>
           </div>
+
+          <NoCommissionBanner compact />
 
           <div className="rounded-2xl border border-primary/30 bg-muted/30 p-4 space-y-3">
             <div className="flex items-center gap-2">
@@ -167,6 +171,7 @@ export function DraftPricingModal({ property, onClose, onApproved }: Props) {
                 <Input type="number" placeholder="e.g. 4200" value={weekendPrice} onChange={(e) => setWeekendPrice(e.target.value)} className="mt-1 text-xs" />
               </div>
             </div>
+            <MarketRateCard rate={marketRate} price={price ? Number(price) : null} />
           </div>
 
           <Button onClick={handleApprove} disabled={submitting || !price} className="w-full gap-2 py-5 bg-primary text-primary-foreground font-bold text-xs uppercase tracking-wider">

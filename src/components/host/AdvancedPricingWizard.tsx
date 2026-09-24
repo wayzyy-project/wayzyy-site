@@ -352,7 +352,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
   }
 
   const ref = insights.position?.source === "airbnb" ? insights.airbnb?.comparables.stats : insights.wayzyy.stats;
-  const refName = insights.position?.source === "airbnb" ? "Airbnb" : "Wayzyy";
+  const refName = insights.position?.source === "airbnb" ? "other booking platforms" : "Wayzyy";
   const air = insights.airbnb;
   const season = air?.seasonality ?? null;
   const maxAbs = season ? Math.max(10, ...season.map((s) => Math.abs(s.pct))) : 10;
@@ -376,7 +376,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
       )}
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Stat label={`Airbnb occupancy, ${insights.property.locality}`} value={pctLabel(air?.comparables.avgOccupancy ?? air?.market?.avgOccupancy)} hint="Similar listings, last 12 months" />
+        <Stat label={`Occupancy on other platforms, ${insights.property.locality}`} value={pctLabel(air?.comparables.avgOccupancy ?? air?.market?.avgOccupancy)} hint="Similar listings, last 12 months" />
         <Stat label="Nearby Wayzyy hosts booked" value={pctLabel(insights.wayzyy.periodOccupancy)} hint={`Next ${insights.period.nights} nights`} />
         <Stat label="Your calendar booked" value={pctLabel(insights.you.periodOccupancy)} hint={`${insights.you.bookedNights} of ${insights.period.nights} nights`} />
       </div>
@@ -390,7 +390,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
       {season && (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
           <p className="text-sm font-semibold text-white">Seasonal demand in {insights.property.locality}</p>
-          <p className="text-[11px] text-white/50">Airbnb average nightly rate each month vs the yearly average</p>
+          <p className="text-[11px] text-white/50">Average nightly rate on booking platforms each month vs the yearly average</p>
           <div className="mt-3 overflow-x-auto">
             <div className="flex h-28 min-w-[420px] items-center gap-1">
               {season.map((s) => (
@@ -412,7 +412,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
 
       {air?.comparables.top?.length ? (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-sm font-semibold text-white">Popular Airbnb stays like yours</p>
+          <p className="text-sm font-semibold text-white">Popular stays like yours on other platforms</p>
           <ul className="mt-2 divide-y divide-white/10">
             {air.comparables.top.map((c, i) => (
               <li key={i} className="flex items-center justify-between gap-3 py-2 text-xs">
@@ -455,7 +455,7 @@ function MonthlyStep({ months, plan, setPlan, insights }: { months: string[]; pl
       <p className="text-xs text-white/60">Raise or lower each month on top of your weekday and weekend rates. Use 0% to keep them as they are.</p>
       {hasSuggestions && (
         <button type="button" onClick={() => setPlan({ ...plan, monthlyPct: { ...plan.monthlyPct, ...suggested } })} className="flex items-center gap-1.5 text-xs font-semibold text-ember hover:underline">
-          <Sparkles className="h-3.5 w-3.5" /> Use the {insights?.suggestions.monthlySource === "airbnb" ? "Airbnb" : "nearby hosts'"} seasonal pattern
+          <Sparkles className="h-3.5 w-3.5" /> Use the {insights?.suggestions.monthlySource === "airbnb" ? "market" : "nearby hosts'"} seasonal pattern
         </button>
       )}
       <ul className="space-y-2">
