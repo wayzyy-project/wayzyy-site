@@ -170,8 +170,8 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const triggerClass =
     variant === "floating"
-      ? "group liquid-glass flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold text-white outline-none transition-colors hover:bg-white hover:text-ink data-[state=open]:bg-white data-[state=open]:text-ink"
-      : "group flex items-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1 text-xs font-bold text-ember outline-none transition-colors hover:bg-ember hover:text-white data-[state=open]:bg-ember data-[state=open]:text-white";
+      ? "group liquid-glass inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-white outline-none transition-colors hover:bg-white hover:text-ink data-[state=open]:bg-white data-[state=open]:text-ink"
+      : "group inline-flex items-center justify-center gap-1.5 rounded-full border border-ember/30 bg-ember/10 px-3.5 py-1.5 text-xs font-bold text-ember outline-none transition-colors hover:bg-ember hover:text-white data-[state=open]:bg-ember data-[state=open]:text-white";
 
   const contentClass =
     variant === "floating"
@@ -192,11 +192,11 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <div onMouseEnter={openNow} onMouseLeave={closeSoon}>
+      <div onMouseEnter={openNow} onMouseLeave={closeSoon} className="inline-flex items-center">
         <DropdownMenuTrigger className={triggerClass}>
-          <KeyJuggler className={variant === "floating" ? "h-5 w-5 text-white group-hover:text-ink" : "h-5 w-5 text-ember group-hover:text-white"} />
-          Hosting
-          <ChevronDown className="h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
+          <KeyJuggler className={variant === "floating" ? "h-4 w-4 shrink-0 text-white group-hover:text-ink" : "h-4 w-4 shrink-0 text-ember group-hover:text-white"} />
+          <span>Hosting</span>
+          <ChevronDown className="h-3 w-3 shrink-0 transition-transform group-data-[state=open]:rotate-180" />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
@@ -256,33 +256,33 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="w-full px-[clamp(1rem,5vw,4rem)] pt-[clamp(1rem,3vw,2rem)]">
           <div className="liquid-glass mx-auto flex h-16 max-w-5xl items-center justify-between rounded-full px-4 sm:px-6">
-            <a href="/#top" className="group flex items-center">
+            <a href="/#top" className="group flex items-center shrink-0">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
-              <a className="hover:text-white/80" href="/#why">
+              <a className="hover:text-white/80 transition-colors" href="/#why">
                 Why
               </a>
-              <a className="hover:text-white/80" href="/#two-sides">
+              <a className="hover:text-white/80 transition-colors" href="/#two-sides">
                 User & Host
               </a>
-              <Link className="hover:text-white/80" to="/waitlist">
+              <Link className="hover:text-white/80 transition-colors" to="/waitlist">
                 Waitlist
               </Link>
-              <Link className="inline-flex items-center gap-1.5 hover:text-white/80" to="/earnings-calculator">
-                <Calculator className="h-4 w-4" />
+              <Link className="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors" to="/earnings-calculator">
+                <Calculator className="h-4 w-4 shrink-0" />
                 <span>Earn More</span>
               </Link>
-              <Link className="hover:text-white/80" to="/blog">
+              <Link className="hover:text-white/80 transition-colors" to="/blog">
                 Blog
               </Link>
               <HostNavMenu variant="floating" />
             </nav>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
               <ThemeToggle />
               <Link
                 to="/waitlist"
-                className="hidden rounded-full bg-white px-4 py-1.5 text-sm font-bold text-ink transition-colors hover:bg-white/90 sm:inline-block"
+                className="hidden h-9 px-4 rounded-full bg-white text-xs sm:text-sm font-bold text-ink shadow-sm transition-all hover:bg-white/90 hover:scale-[1.02] sm:inline-flex sm:items-center sm:justify-center"
               >
                 Get early access
               </Link>
@@ -318,33 +318,33 @@ export function SiteNav({ floating = false }: SiteNavProps) {
         className="absolute inset-x-0 bottom-0 h-[1px] bg-border"
       />
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
-        <a href="/#top" className="group flex items-center">
+        <a href="/#top" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
-        <nav className="hidden items-center gap-6 text-sm font-bold text-foreground/90 sm:flex">
-          <a className="hover:text-foreground" href="/#why">
+        <nav className="hidden items-center gap-6 text-sm font-bold text-foreground dark:text-white sm:flex">
+          <a className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" href="/#why">
             Why
           </a>
-          <a className="hover:text-foreground" href="/#two-sides">
+          <a className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" href="/#two-sides">
             User & Host
           </a>
-          <Link className="hover:text-foreground" to="/waitlist">
+          <Link className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/waitlist">
             Waitlist
           </Link>
-          <Link className="inline-flex items-center gap-1.5 hover:text-foreground" to="/earnings-calculator">
-            <Calculator className="h-4 w-4" />
+          <Link className="inline-flex items-center gap-1.5 hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/earnings-calculator">
+            <Calculator className="h-4 w-4 shrink-0" />
             <span>Earn More</span>
           </Link>
-          <Link className="hover:text-foreground" to="/blog">
+          <Link className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/blog">
             Blog
           </Link>
           <HostNavMenu variant="solid" />
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
           <Link
             to="/waitlist"
-            className="hidden rounded-full bg-foreground px-4 py-1.5 text-sm font-bold text-background transition-colors hover:bg-foreground/90 sm:inline-block"
+            className="hidden h-9 px-4 rounded-full bg-foreground text-background dark:bg-white dark:text-black text-xs sm:text-sm font-bold shadow-sm transition-all hover:opacity-90 hover:scale-[1.02] sm:inline-flex sm:items-center sm:justify-center"
           >
             Get early access
           </Link>
