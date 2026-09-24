@@ -174,17 +174,17 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
                         className={`rounded-xl border p-3 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${part === p.id ? "border-ember bg-ember/15" : "border-white/15 hover:border-white/30"}`}
                       >
                         <span className="block text-sm font-semibold text-white">{p.label}</span>
-                        <span className="block text-[11px] text-white/50">{p.hint}</span>
+                        <span className="block text-[11px] text-white/70">{p.hint}</span>
                       </button>
                     );
                   })}
                 </div>
-                {!selection.length && <p className="mt-2 text-[11px] text-white/40">To price specific dates, close this and select them on the calendar first.</p>}
+                {!selection.length && <p className="mt-2 text-[11px] text-white/70">To price specific dates, close this and select them on the calendar first.</p>}
               </div>
 
               {part !== "selection" && (
                 <div>
-                  <p className="mb-2 text-sm font-semibold text-white">Which months? <span className="font-normal text-white/50">Pick as many as you like</span></p>
+                  <p className="mb-2 text-sm font-semibold text-white">Which months? <span className="font-normal text-white/70">Pick as many as you like</span></p>
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                     {months.map((m) => {
                       const on = chosenMonths.includes(m);
@@ -214,7 +214,7 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
             <div className="space-y-5">
               <div>
                 <label htmlFor="ap-weekday" className="text-sm font-semibold text-white">Weekday rate</label>
-                <p className="text-[11px] text-white/50">Your base nightly price. Your current standard rate is {basePrice ? formatINR(basePrice) : "not set"}.</p>
+                <p className="text-[11px] text-white/70">Your base nightly price. Your current standard rate is {basePrice ? formatINR(basePrice) : "not set"}.</p>
                 <Input id="ap-weekday" type="number" inputMode="numeric" value={plan.weekdayRate || ""} onChange={(e) => setPlan({ ...plan, weekdayRate: Number(e.target.value) })} className="mt-2 max-w-xs text-sm" />
               </div>
 
@@ -236,7 +236,7 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
                   <Input type="number" value={plan.weekendRate || ""} onChange={(e) => setPlan({ ...plan, weekendRate: Number(e.target.value) })} className="mt-2 max-w-xs text-sm" aria-label="Weekend rate" />
                 )}
                 {insights && (
-                  <p className="mt-2 text-[11px] text-white/50">
+                  <p className="mt-2 text-[11px] text-white/70">
                     {insights.suggestions.weekendPremiumSource === "wayzyy"
                       ? `Similar Wayzyy stays charge about ${formatPct(insights.suggestions.weekendPremiumPct)} on weekends.`
                       : "Most Goa hosts charge 15–25% more on weekends."}
@@ -280,7 +280,7 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
             <div className="space-y-4">
               <div className="overflow-x-auto rounded-xl border border-white/10">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-white/5 text-white/50">
+                  <thead className="bg-white/5 text-white/70">
                     <tr><th className="px-3 py-2 font-medium">Month</th><th className="px-3 py-2 font-medium">Change</th><th className="px-3 py-2 font-medium">Weekday</th><th className="px-3 py-2 font-medium">Weekend</th><th className="px-3 py-2 text-right font-medium">Nights</th></tr>
                   </thead>
                   <tbody className="tabular-nums text-white">
@@ -300,7 +300,7 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
                 <input type="checkbox" checked={keepCustom} onChange={(e) => setKeepCustom(e.target.checked)} className="mt-0.5 accent-[#ff6b00]" />
                 Keep nights I've already priced by hand
               </label>
-              <p className="text-[11px] text-white/50">
+              <p className="text-[11px] text-white/70">
                 {targetDates.length} nights will be updated. Booked nights are skipped, and guests who already booked keep their price. Your discounts still apply on top of these rates.
               </p>
             </div>
@@ -346,7 +346,7 @@ function RangeBar({ min, max, p25, p75, median, you }: { min: number; max: numbe
 
 function InsightsStep({ insights, state, basePrice, onUse }: { insights: PricingInsights | null; state: "loading" | "ready" | "error"; basePrice: number | null; onUse: () => void }) {
   if (state === "loading") {
-    return <div className="flex flex-col items-center gap-2 py-16 text-xs text-white/50"><Loader2 className="h-5 w-5 animate-spin" /> Comparing you with similar stays…</div>;
+    return <div className="flex flex-col items-center gap-2 py-16 text-xs text-white/70"><Loader2 className="h-5 w-5 animate-spin" /> Comparing you with similar stays…</div>;
   }
   if (state === "error" || !insights) {
     return <p className="rounded-xl bg-white/5 p-4 text-sm text-white/70">Market data isn't available right now. You can still set up your pricing with "Set up pricing".</p>;
@@ -377,7 +377,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
 
       {ref && (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs text-white/50">Similar {insights.property.bedrooms}-bedroom stays in {insights.property.locality} on {refName}</p>
+          <p className="text-xs text-white/70">Similar {insights.property.bedrooms}-bedroom stays in {insights.property.locality} on {refName}</p>
           <p className="mt-1 font-display text-2xl font-bold tabular-nums text-white">{formatINR(ref.p25)} – {formatINR(ref.p75)}</p>
           <p className="text-xs text-white/60">Typical nightly range · median {formatINR(ref.median)} · {ref.count} listings</p>
           <RangeBar {...ref} you={basePrice} />
@@ -406,7 +406,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
       {season && (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
           <p className="text-sm font-semibold text-white">Seasonal demand in {insights.property.locality}</p>
-          <p className="text-[11px] text-white/50">Average nightly rate on booking platforms each month vs the yearly average</p>
+          <p className="text-[11px] text-white/70">Average nightly rate on booking platforms each month vs the yearly average</p>
           <div className="mt-3 overflow-x-auto">
             <div className="flex h-28 min-w-[420px] items-center gap-1">
               {season.map((s) => (
@@ -418,7 +418,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
                   <div className="flex h-1/2 w-full items-start justify-center">
                     {s.pct < 0 && <div className="w-3/4 rounded-b bg-white/30" style={{ height: `${(-s.pct / maxAbs) * 100}%` }} />}
                   </div>
-                  <span className="mt-1 text-[9px] text-white/50">{MONTH_NAMES[s.month - 1].slice(0, 3)}</span>
+                  <span className="mt-1 text-[9px] text-white/70">{MONTH_NAMES[s.month - 1].slice(0, 3)}</span>
                 </div>
               ))}
             </div>
@@ -446,7 +446,7 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
       <button type="button" onClick={onUse} className="flex w-full items-center justify-center gap-2 rounded-xl border border-ember/40 bg-ember/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-ember/20">
         <Sparkles className="h-4 w-4 text-ember" /> Start from market suggestions
       </button>
-      <p className="text-center text-[11px] text-white/40">
+      <p className="text-center text-[11px] text-white/70">
         Suggestions only. You'll review every number before anything changes.{" "}
         <PricingGuideLink className="text-[11px]">How these insights work</PricingGuideLink>
       </p>
@@ -457,9 +457,9 @@ function InsightsStep({ insights, state, basePrice, onUse }: { insights: Pricing
 function Stat({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-      <p className="text-[11px] text-white/50">{label}</p>
+      <p className="text-[11px] text-white/70">{label}</p>
       <p className="mt-0.5 font-display text-xl font-bold tabular-nums text-white">{value}</p>
-      <p className="text-[10px] text-white/40">{hint}</p>
+      <p className="text-[10px] text-white/70">{hint}</p>
     </div>
   );
 }
@@ -471,7 +471,7 @@ function MonthlyStep({ months, plan, setPlan, insights }: { months: string[]; pl
 
   return (
     <div className="space-y-4">
-      <p className="text-xs text-white/60">Raise or lower each month on top of your weekday and weekend rates. Use 0% to keep them as they are.</p>
+      <p className="text-xs text-white/80">Raise or lower each month on top of your weekday and weekend rates. Use 0% to keep them as they are.</p>
       {hasSuggestions && (
         <button type="button" onClick={() => setPlan({ ...plan, monthlyPct: { ...plan.monthlyPct, ...suggested } })} className="flex items-center gap-1.5 text-xs font-semibold text-ember hover:underline">
           <Sparkles className="h-3.5 w-3.5" /> Use the {insights?.suggestions.monthlySource === "airbnb" ? "market" : "nearby hosts'"} seasonal pattern
@@ -488,13 +488,13 @@ function MonthlyStep({ months, plan, setPlan, insights }: { months: string[]; pl
                 <button type="button" onClick={() => setPct(m, pct - 5)} className="h-7 w-7 rounded-md border border-white/15 text-white/70 hover:bg-white/10" aria-label={`Lower ${monthLabel(m)} by 5%`}>−</button>
                 <Input type="number" value={pct} onChange={(e) => setPct(m, Number(e.target.value))} className="h-7 w-16 text-center text-xs" aria-label={`${monthLabel(m)} percent change`} />
                 <button type="button" onClick={() => setPct(m, pct + 5)} className="h-7 w-7 rounded-md border border-white/15 text-white/70 hover:bg-white/10" aria-label={`Raise ${monthLabel(m)} by 5%`}>+</button>
-                <span className="text-xs text-white/50">%</span>
+                <span className="text-xs text-white/70">%</span>
               </div>
-              <span className="ml-auto text-[11px] tabular-nums text-white/60">
+              <span className="ml-auto text-[11px] tabular-nums text-white/80">
                 {formatINR(nightlyRate(probe, { ...plan, weekendDays: [] }))} weekday · {formatINR(nightlyRate(probe, { ...plan, weekendDays: [0, 1, 2, 3, 4, 5, 6] }))} weekend
               </span>
               {suggested[m] != null && suggested[m] !== pct && (
-                <span className="w-full text-[10px] text-white/40">Market suggests {formatPct(suggested[m])}</span>
+                <span className="w-full text-[10px] text-white/70">Market suggests {formatPct(suggested[m])}</span>
               )}
             </li>
           );
