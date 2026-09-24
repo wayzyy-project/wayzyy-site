@@ -113,7 +113,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (pipelineErr) return res.status(500).json({ error: pipelineErr.message });
 
     const stageByHost: Record<string, string> = {};
-    for (const row of pipeline ?? []) stageByHost[(row as any).host_id] = (row as any).stage;
+    // "live" was once a hand-set stage; live-ness now comes from listings, so
+    // any legacy "live" row reads as the last manual stage instead.
+    for (const row of pipeline ?? []) {
+      const stage = (row as any).stage;
+      stageByHost[(row as any).host_id] = stage === "live" ? "final_stage" : stage;
+    }
 
     // Submissions link by user_id when the host was signed in, but older
     // rows predate that column - fall back to matching on email.
@@ -232,7 +237,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Set a host's manual pipeline stage. Validated against the same list as
     // the table's CHECK constraint so a bad value fails here with a clear
     // message rather than as a constraint violation.
-    const STAGES = ["new", "commercials", "reviewing", "final_stage", "live"];
+    const STAGES = ["new", "commercials", "reviewing", "final_stage"];
 
     if (!hostId) return res.status(400).json({ error: "hostId is required" });
     if (!stage || !STAGES.includes(stage)) {
