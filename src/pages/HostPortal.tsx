@@ -666,10 +666,10 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           </div>
 
           <TooltipProvider>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-end">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
                     <User className="h-3.5 w-3.5 shrink-0 text-primary sm:h-4 sm:w-4" />
                     Host Profile
                   </Button>
@@ -685,7 +685,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     onClick={handleImportClick}
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
+                    className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto"
                   >
                     <Upload className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     Import Listing
@@ -704,7 +704,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     onClick={() => setShowSendLinkModal(true)}
                     variant="ghost"
                     size="sm"
-                    className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
+                    className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto"
                   >
                     <Send className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     Send Link to Team
@@ -717,7 +717,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                  <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
                     <Home className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     List Property
                   </Button>

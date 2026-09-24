@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, IndianRupee, Loader2, Lock, RotateCcw, SlidersHorizontal, Unlock } from "lucide-react";
+import { ChevronLeft, ChevronRight, IndianRupee, Info, Loader2, Lock, RotateCcw, SlidersHorizontal, Unlock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -230,9 +230,17 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
         </div>
       </div>
 
-      <p className="text-xs text-white/60">
+      <p className="text-xs text-white/70">
         Click a date to select it, then click another to select everything in between. Weekend rates apply to Friday and
         Saturday nights. <PricingGuideLink className="text-xs">Pricing guide</PricingGuideLink>
+      </p>
+
+      <p className="flex items-start gap-1.5 rounded-xl border border-ember/25 bg-ember/5 px-3 py-2 text-xs text-white/75">
+        <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ember" />
+        <span>
+          <span className="font-semibold text-white">Advanced pricing</span> sets weekday, weekend and month-by-month
+          rates for a whole period at once, with market insights to guide you. Use it instead of pricing dates one by one.
+        </span>
       </p>
 
       {loading ? (
