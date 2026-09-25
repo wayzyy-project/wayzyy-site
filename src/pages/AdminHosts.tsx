@@ -121,14 +121,15 @@ type FilterKey = "all" | "to_import" | "awaiting_pricing" | "to_approve" | "live
  *  set by hand and answers "where is this relationship". A host can be
  *  "commercials" here and still be sitting in "You: import links" there -
  *  both are true, and collapsing them into one axis would hide one of them. */
-export type StageKey = "new" | "commercials" | "reviewing" | "final_stage" | "live";
+// No "live" stage: whether a host is live is a fact about their listings,
+// shown by the Live filter, so a hand-set copy of it could only drift.
+export type StageKey = "new" | "commercials" | "reviewing" | "final_stage";
 
 const STAGES: { key: StageKey; label: string; className: string }[] = [
   { key: "new",         label: "New",         className: "bg-muted text-muted-foreground" },
   { key: "commercials", label: "Commercials", className: "bg-amber-500/10 text-amber-600 dark:text-amber-400" },
   { key: "reviewing",   label: "Reviewing",   className: "bg-sky-500/10 text-sky-600 dark:text-sky-400" },
   { key: "final_stage", label: "Final stage", className: "bg-ember/10 text-ember" },
-  { key: "live",        label: "Live",        className: "bg-green-500/10 text-green-600 dark:text-green-400" },
 ];
 
 const STAGE_BY_KEY: Record<StageKey, { label: string; className: string }> = Object.fromEntries(
@@ -160,6 +161,17 @@ const FILTERS: { key: FilterKey; label: string; explain: string }[] = [
   },
   { key: "live", label: "Live", explain: "Approved by you and bookable on Wayzyy right now." },
 ];
+
+/** Filters that are about listings count listings, not hosts - "Live 18"
+ *  should mean 18 bookable properties. */
+function listingCount(h: HostRow, f: FilterKey): number {
+  const c = h.propertyCounts;
+  if (f === "awaiting_pricing") return c.draft;
+  if (f === "to_approve") return c.pending_review;
+  if (f === "live") return c.active;
+  return 0;
+}
+const LISTING_FILTERS: FilterKey[] = ["awaiting_pricing", "to_approve", "live"];
 
 function matchesFilter(h: HostRow, f: FilterKey): boolean {
   const c = h.propertyCounts;
@@ -295,7 +307,7 @@ function HostDirectory() {
         (h.email || "").toLowerCase().includes(q) ||
         (h.phone || "").toLowerCase().includes(q)
     );
-  }, [hosts, query, filter]);
+  }, [hosts, query, filter, stageFilter]);
 
   // A waitlist lead is "converted" once the same email shows up as a real
   // registered account - no point showing them twice in two lists.
@@ -377,6 +389,31 @@ function HostDirectory() {
     }
   };
 
+  const [approvingPropertyId, setApprovingPropertyId] = useState<string | null>(null);
+
+  // One-click approve from the host detail panel, once a price is set -
+  // skips the trip to /adminn/review for the common case where the photos
+  // and description were already fine at import time.
+  const handleApproveProperty = async (property: HostProperty) => {
+    if (!session?.access_token) return;
+    setApprovingPropertyId(property.id);
+    try {
+      const res = await fetch("/api/admin-hosts", {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ propertyId: property.id }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || "Failed to approve");
+      toast({ title: "Listing approved", description: `"${property.title || "Listing"}" is live.` });
+      await fetchHosts();
+    } catch (err: any) {
+      toast({ title: "Couldn't approve", description: err?.message, variant: "destructive" });
+    } finally {
+      setApprovingPropertyId(null);
+    }
+  };
+
   const handleNotify = async (host: HostRow) => {
     if (!session?.access_token || !host.email) return;
     setNotifyingId(host.id);
@@ -438,7 +475,9 @@ function HostDirectory() {
             distinguishable without a second row or a label. */}
         <div className="flex flex-wrap items-center gap-1.5">
           {FILTERS.map((f) => {
-            const count = hosts.filter((h) => matchesFilter(h, f.key)).length;
+            const count = LISTING_FILTERS.includes(f.key)
+              ? hosts.reduce((sum, h) => sum + listingCount(h, f.key), 0)
+              : hosts.filter((h) => matchesFilter(h, f.key)).length;
             const isActive = filter === f.key;
             return (
               <button
@@ -484,16 +523,23 @@ function HostDirectory() {
         </div>
       </div>
 
-      {/* What the selected stage actually means, spelled out. The counts on
-          the pills are hosts, not listings, which is worth saying once
-          rather than letting "Live 6" be read as six listings. */}
+      {/* What the selected filter means, plus the host/listing split so a
+          listing count on the pill is never mistaken for a host count. */}
       <p className="mb-5 text-xs leading-relaxed text-muted-foreground">
         {FILTERS.find((f) => f.key === filter)?.explain}
-        {filter !== "all" && (
-          <span className="text-muted-foreground/70">
-            {" "}Counts are hosts, not listings.
-          </span>
-        )}
+        {filter !== "all" && !loading && (() => {
+          const matching = hosts.filter((h) => matchesFilter(h, filter));
+          const listings = matching.reduce((sum, h) => sum + listingCount(h, filter), 0);
+          const hostLabel = `${matching.length} host${matching.length === 1 ? "" : "s"}`;
+          return (
+            <span className="text-muted-foreground/70">
+              {" "}
+              {LISTING_FILTERS.includes(filter)
+                ? `${listings} listing${listings === 1 ? "" : "s"} across ${hostLabel}.`
+                : `${hostLabel}.`}
+            </span>
+          );
+        })()}
       </p>
 
       {loading ? (
@@ -598,6 +644,8 @@ function HostDirectory() {
         notifying={!!detailHost && notifyingId === detailHost.id}
         onDeleteProperty={handleDeleteProperty}
         deletingPropertyId={deletingPropertyId}
+        onApproveProperty={handleApproveProperty}
+        approvingPropertyId={approvingPropertyId}
       />
 
       <ImportListingModal
@@ -738,6 +786,7 @@ const PROP_STATE: Record<string, { label: string; className: string }> = {
 
 function HostDetailSheet({
   host, onClose, onImport, onNotify, notifying, onDeleteProperty, deletingPropertyId,
+  onApproveProperty, approvingPropertyId,
 }: {
   host: HostRow | null;
   onClose: () => void;
@@ -745,6 +794,8 @@ function HostDetailSheet({
   onNotify: (h: HostRow) => void;
   onDeleteProperty: (p: HostProperty) => void;
   deletingPropertyId: string | null;
+  onApproveProperty: (p: HostProperty) => void;
+  approvingPropertyId: string | null;
   notifying: boolean;
   savingStage: boolean;
   onStageChange: (stage: StageKey) => void;
@@ -882,12 +933,22 @@ function HostDetailSheet({
                         </p>
                       </div>
                       {p.status === "pending_review" ? (
-                        <Link
-                          to={`/adminn/review/${p.id}`}
-                          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-opacity hover:opacity-80 ${state.className}`}
-                        >
-                          {state.label} →
-                        </Link>
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => onApproveProperty(p)}
+                            disabled={approvingPropertyId === p.id}
+                            className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-opacity hover:opacity-80 disabled:opacity-50 ${state.className}`}
+                          >
+                            {approvingPropertyId === p.id ? "Approving…" : state.label}
+                          </button>
+                          <Link
+                            to={`/adminn/review/${p.id}`}
+                            className="shrink-0 text-[11px] font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                          >
+                            Review
+                          </Link>
+                        </>
                       ) : (
                         <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
                           {state.label}

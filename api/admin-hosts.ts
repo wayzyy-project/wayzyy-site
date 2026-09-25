@@ -113,7 +113,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (pipelineErr) return res.status(500).json({ error: pipelineErr.message });
 
     const stageByHost: Record<string, string> = {};
-    for (const row of pipeline ?? []) stageByHost[(row as any).host_id] = (row as any).stage;
+    // "live" was once a hand-set stage; live-ness now comes from listings, so
+    // any legacy "live" row reads as the last manual stage instead.
+    for (const row of pipeline ?? []) {
+      const stage = (row as any).stage;
+      stageByHost[(row as any).host_id] = stage === "live" ? "final_stage" : stage;
+    }
 
     // Submissions link by user_id when the host was signed in, but older
     // rows predate that column - fall back to matching on email.
@@ -191,11 +196,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === "PATCH") {
+    const { hostId, stage, propertyId } = (req.body ?? {}) as {
+      hostId?: string;
+      stage?: string;
+      propertyId?: string;
+    };
+
+    // One-click approve, called from the host detail panel once a listing
+    // has a real price set - same effect as the full /adminn/review page's
+    // "Approve" button (status, reviewed_at/by, approve-listing side
+    // effects), just without the photo-quality scoring fields, which stay
+    // null and can still be filled in later from that page if wanted.
+    if (propertyId) {
+      const { data: existing, error: fetchErr } = await admin
+        .from("properties")
+        .select("id, status, price_per_night, title")
+        .eq("id", propertyId)
+        .maybeSingle();
+      if (fetchErr) return res.status(500).json({ error: fetchErr.message });
+      if (!existing) return res.status(404).json({ error: "Listing not found" });
+      if (existing.status === "draft" || !existing.price_per_night) {
+        return res.status(400).json({ error: "This listing still needs its price set by the host before it can be approved." });
+      }
+
+      const { error: updateErr } = await admin
+        .from("properties")
+        .update({
+          status: "active",
+          reviewed_at: new Date().toISOString(),
+          reviewed_by: user.email ?? "admin",
+        })
+        .eq("id", propertyId);
+      if (updateErr) return res.status(500).json({ error: updateErr.message });
+
+      admin.functions.invoke("approve-listing", { body: { propertyId } }).catch(() => {});
+
+      return res.status(200).json({ ok: true, propertyId, title: existing.title });
+    }
+
     // Set a host's manual pipeline stage. Validated against the same list as
     // the table's CHECK constraint so a bad value fails here with a clear
     // message rather than as a constraint violation.
-    const STAGES = ["new", "commercials", "reviewing", "final_stage", "live"];
-    const { hostId, stage } = (req.body ?? {}) as { hostId?: string; stage?: string };
+    const STAGES = ["new", "commercials", "reviewing", "final_stage"];
 
     if (!hostId) return res.status(400).json({ error: "hostId is required" });
     if (!stage || !STAGES.includes(stage)) {

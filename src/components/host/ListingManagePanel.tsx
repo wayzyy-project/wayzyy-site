@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCalendar } from "@/components/host/PropertyCalendar";
+import { MarketRateCard, useMarketRates } from "@/components/host/MarketRateNote";
 import { PropertyOverview } from "@/components/host/PropertyOverview";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
@@ -194,6 +195,7 @@ function DeleteListing({
 
 function CalendarTab({ propertyId }: { propertyId: string }) {
   const [rates, setRates] = useState<{ price_per_night: number | null; weekend_price: number | null } | null>(null);
+  const marketRate = useMarketRates([propertyId])[propertyId];
 
   useEffect(() => {
     supabase
@@ -228,6 +230,7 @@ function CalendarTab({ propertyId }: { propertyId: string }) {
           . Anything you set below overrides it for those dates only.
         </p>
       </div>
+      <MarketRateCard rate={marketRate} price={rates.price_per_night} />
       <PropertyCalendar
         propertyId={propertyId}
         basePrice={rates.price_per_night}

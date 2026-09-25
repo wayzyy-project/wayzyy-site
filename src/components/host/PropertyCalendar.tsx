@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, IndianRupee, Loader2, Lock, RotateCcw, Unlock } from "lucide-react";
+import { ChevronLeft, ChevronRight, IndianRupee, Info, Loader2, Lock, RotateCcw, SlidersHorizontal, Unlock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AdvancedPricingWizard } from "@/components/host/AdvancedPricingWizard";
+import { PricingGuideLink } from "@/components/host/MarketRateNote";
 
 /* ---------- date helpers (local-time safe) ---------- */
 // Everything keys off a YYYY-MM-DD string built from local parts. Using
@@ -15,7 +17,6 @@ function key(d: Date) {
 function startOfMonth(d: Date) { return new Date(d.getFullYear(), d.getMonth(), 1); }
 function addMonths(d: Date, n: number) { return new Date(d.getFullYear(), d.getMonth() + n, 1); }
 function addDays(d: Date, n: number) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
-function isWeekend(d: Date) { const g = d.getDay(); return g === 0 || g === 6; }
 function sameDay(a: Date, b: Date) { return key(a) === key(b); }
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -33,6 +34,8 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   const [saving, setSaving] = useState(false);
 
   const [overrides, setOverrides] = useState<Record<string, number>>({});
+  // Friday/Saturday nights priced from the listing's weekend rate (written by the DB, not the host).
+  const [weekendRule, setWeekendRule] = useState<Record<string, number>>({});
   const [blocked, setBlocked] = useState<Set<string>>(new Set());
   const [booked, setBooked] = useState<Set<string>>(new Set());
 
@@ -42,22 +45,27 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   const [anchor, setAnchor] = useState<string | null>(null);
   const [head, setHead] = useState<string | null>(null);
   const [priceInput, setPriceInput] = useState("");
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const today = useMemo(() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }, []);
 
   const load = useCallback(async () => {
     setLoading(true);
     const [pricesRes, blockedRes, bookingsRes] = await Promise.all([
-      supabase.from("date_prices").select("date, price").eq("property_id", propertyId),
+      supabase.from("date_prices").select("date, price, source").eq("property_id", propertyId),
       supabase.from("blocked_dates").select("blocked_date").eq("property_id", propertyId),
       supabase.from("bookings").select("check_in, check_out, status").eq("property_id", propertyId).in("status", ["confirmed", "pending"]),
     ]);
 
     const nextPrices: Record<string, number> = {};
+    const nextRule: Record<string, number> = {};
     if (!pricesRes.error) {
-      for (const r of pricesRes.data ?? []) nextPrices[(r as any).date] = Number((r as any).price);
+      for (const r of (pricesRes.data ?? []) as { date: string; price: number; source: string }[]) {
+        (r.source === "weekend_rule" ? nextRule : nextPrices)[r.date] = Number(r.price);
+      }
     }
     setOverrides(nextPrices);
+    setWeekendRule(nextRule);
 
     const nextBlocked = new Set<string>();
     if (!blockedRes.error) {
@@ -107,9 +115,7 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   const priceFor = (d: Date) => {
     const k = key(d);
-    if (overrides[k] != null) return overrides[k];
-    if (isWeekend(d) && weekendPrice) return weekendPrice;
-    return basePrice ?? 0;
+    return overrides[k] ?? weekendRule[k] ?? basePrice ?? 0;
   };
 
   /* ---------- actions ---------- */
@@ -151,6 +157,7 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
     });
     toast({ title: "Back to your standard rate" });
     clearSelection();
+    load();
   };
 
   const setBlocking = async (block: boolean) => {
@@ -192,11 +199,18 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-lg font-semibold text-white">
           {month.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}
         </h3>
         <div className="flex items-center gap-1">
+          <Button
+            size="sm"
+            onClick={() => setShowAdvanced(true)}
+            className="mr-1 gap-1.5 bg-ember text-xs text-white hover:bg-ember/90"
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" /> Advanced pricing
+          </Button>
           <button
             type="button"
             onClick={() => setMonth(addMonths(month, -1))}
@@ -216,8 +230,17 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
         </div>
       </div>
 
-      <p className="text-xs text-white/60">
-        Click a date to select it, then click another to select everything in between.
+      <p className="text-xs text-white/70">
+        Click a date to select it, then click another to select everything in between. Weekend rates apply to Friday and
+        Saturday nights. <PricingGuideLink className="text-xs">Pricing guide</PricingGuideLink>
+      </p>
+
+      <p className="flex items-start gap-1.5 rounded-xl border border-ember/25 bg-ember/5 px-3 py-2 text-xs text-white/75">
+        <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ember" />
+        <span>
+          <span className="font-semibold text-white">Advanced pricing</span> sets weekday, weekend and month-by-month
+          rates for a whole period at once, with market insights to guide you. Use it instead of pricing dates one by one.
+        </span>
       </p>
 
       {loading ? (
@@ -318,6 +341,19 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
             </div>
           )}
         </>
+      )}
+
+      {showAdvanced && (
+        <AdvancedPricingWizard
+          propertyId={propertyId}
+          basePrice={basePrice}
+          weekendPrice={weekendPrice}
+          selection={[...selected]}
+          existingOverrides={overrides}
+          booked={booked}
+          onClose={() => setShowAdvanced(false)}
+          onApplied={() => { setShowAdvanced(false); clearSelection(); load(); }}
+        />
       )}
     </div>
   );

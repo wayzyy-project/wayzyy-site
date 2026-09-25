@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee, Send,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
@@ -14,6 +14,7 @@ import { supabase } from "@/lib/supabase";
 import { geocodePincode, reverseGeocode } from "@/lib/geocode";
 import { LocationMap } from "@/components/host/LocationMap";
 import { ListingManagePanel } from "@/components/host/ListingManagePanel";
+import { MarketRateCard, NoMarkupBanner, PriceCaution, useMarketRates } from "@/components/host/MarketRateNote";
 import { DraftPricingModal } from "@/components/host/DraftPricingModal";
 import { NotificationBell } from "@/components/host/NotificationBell";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
@@ -27,6 +28,7 @@ import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPol
 import { AMENITIES } from "@/lib/amenities";
 import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
 import { ImportListingModal } from "@/components/host/ImportListingModal";
+import { SendLinkToTeamModal } from "@/components/host/SendLinkToTeamModal";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
@@ -401,6 +403,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   const [pendingVerification, setPendingVerification] = useState(false);
   const [showManualVerify, setShowManualVerify] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
+  const [showSendLinkModal, setShowSendLinkModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showTour, setShowTour] = useState(false);
   const [pricingDraft, setPricingDraft] = useState<HostListing | null>(null);
@@ -470,6 +473,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
   useEffect(() => {
     fetchDashboardData();
   }, [user]);
+
+  const marketRates = useMarketRates((listings ?? []).map((l) => l.id));
 
   // Wait for the submission lookup too, otherwise a host on the concierge
   // path sees the "how do you want to start?" chooser flash before their
@@ -662,10 +667,10 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           </div>
 
           <TooltipProvider>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-end">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                  <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
                     <User className="h-3.5 w-3.5 shrink-0 text-primary sm:h-4 sm:w-4" />
                     Host Profile
                   </Button>
@@ -681,7 +686,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                     onClick={handleImportClick}
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm"
+                    className="h-8 gap-1 border-primary/30 px-2.5 text-xs text-primary hover:bg-primary/10 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto"
                   >
                     <Upload className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     Import Listing
@@ -696,7 +701,24 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm">
+                  <Button
+                    onClick={() => setShowSendLinkModal(true)}
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto"
+                  >
+                    <Send className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                    Send Link to Team
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  Would rather we import it for you? Send us the listing URL and we'll take it from there.
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button onClick={onAddNew} size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
                     <Home className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                     List Property
                   </Button>
@@ -771,6 +793,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
       ) : (
         // A grid of property cards rather than full-width bands: each
         // listing reads as its own thing, and the whole card opens it.
+        <div className="space-y-4">
+        {filteredListings.some(isDraft) && <NoMarkupBanner />}
         <div className="grid gap-4 sm:grid-cols-2">
           {filteredListings.map((p) => {
             const meta = statusMeta(p.status);
@@ -839,6 +863,13 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
                   </button>
                 )}
 
+                {isDraft(p) && marketRates[p.id] && (
+                  <div className="mx-4 mb-3">
+                    <MarketRateCard rate={marketRates[p.id]} />
+                  </div>
+                )}
+                {!isDraft(p) && <PriceCaution rate={marketRates[p.id]} price={p.price_per_night} className="mx-4 mb-3" />}
+
                 <div className="flex items-center gap-2 border-t border-white/10 px-4 py-3">
                   {isDraft(p) ? (
                     <Button
@@ -876,6 +907,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             );
           })}
         </div>
+        </div>
       )}
 
       {pricingDraft && (
@@ -910,6 +942,12 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         onClose={() => setShowImportModal(false)}
         onSuccess={fetchDashboardData}
         accessToken={session?.access_token}
+      />
+
+      {/* Send Link to Team Modal */}
+      <SendLinkToTeamModal
+        isOpen={showSendLinkModal}
+        onClose={() => setShowSendLinkModal(false)}
       />
 
       {/* Host Platform Guide Modal */}
