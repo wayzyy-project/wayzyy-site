@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Upload, X, Loader2, CheckCircle2, Star,
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
@@ -1765,6 +1765,31 @@ export default function HostPortal() {
   const { user, loading } = useAuth();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
   const [managing, setManaging] = useState<{ id: string; title: string; defaultTab?: string } | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Deep link from an email/notification: wayzyy.com/host?property=<id>
+  // opens straight to that listing's panel, so a host doesn't have to hunt
+  // for it in a long list. Only opens it if this host actually owns it -
+  // the read is scoped by properties_host_read RLS, so someone else's id
+  // in the URL just comes back empty and we fall through to the dashboard.
+  useEffect(() => {
+    const propertyId = searchParams.get("property");
+    if (!propertyId || !user) return;
+    let cancelled = false;
+    supabase
+      .from("properties")
+      .select("id, title")
+      .eq("id", propertyId)
+      .eq("host_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled || !data) return;
+        setManaging({ id: data.id, title: data.title || "Untitled listing" });
+        setView("manage");
+        setSearchParams((prev) => { prev.delete("property"); return prev; }, { replace: true });
+      });
+    return () => { cancelled = true; };
+  }, [searchParams, user, setSearchParams]);
   // Cleared per session once HostPhoneGate confirms a number is on file -
   // either because one already was, or because they just entered it. Reset
   // when the signed-in user changes so a second account on the same browser
