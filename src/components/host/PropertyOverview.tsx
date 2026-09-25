@@ -23,6 +23,7 @@ interface PropertyRow {
   state: string | null;
   status: string | null;
   source_url: string | null;
+  min_nights: number | null;
 }
 
 const PREVIEW_COUNT = 5;
@@ -44,11 +45,12 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
   const [bedrooms, setBedrooms] = useState("");
   const [beds, setBeds] = useState("");
   const [bathrooms, setBathrooms] = useState("");
+  const [minNights, setMinNights] = useState("1");
 
   useEffect(() => {
     supabase
       .from("properties")
-      .select("title, description, price_per_night, weekend_price, amenities, images, max_guests, bedrooms, beds, bathrooms, city, state, status, source_url")
+      .select("title, description, price_per_night, weekend_price, amenities, images, max_guests, bedrooms, beds, bathrooms, city, state, status, source_url, min_nights")
       .eq("id", propertyId)
       .maybeSingle()
       .then(({ data }) => {
@@ -63,6 +65,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         setBedrooms(p?.bedrooms != null ? String(p.bedrooms) : "");
         setBeds(p?.beds != null ? String(p.beds) : "");
         setBathrooms(p?.bathrooms != null ? String(p.bathrooms) : "");
+        setMinNights(p?.min_nights != null ? String(p.min_nights) : "1");
       });
   }, [propertyId]);
 
@@ -86,6 +89,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
     numOr(bedrooms) !== (row.bedrooms ?? null) ||
     numOr(beds) !== (row.beds ?? null) ||
     numOr(bathrooms) !== (row.bathrooms ?? null) ||
+    (Number(minNights) || 1) !== (row.min_nights ?? 1) ||
     JSON.stringify([...amenities].sort()) !== JSON.stringify([...(row.amenities ?? [])].sort());
 
   const handleSave = async () => {
@@ -117,6 +121,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
           bedrooms: numOr(bedrooms),
           beds: numOr(beds),
           bathrooms: numOr(bathrooms),
+          min_nights: Math.min(90, Math.max(1, Number(minNights) || 1)),
         })
         .eq("id", propertyId);
       if (error) throw error;
@@ -132,6 +137,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         bedrooms: numOr(bedrooms),
         beds: numOr(beds),
         bathrooms: numOr(bathrooms),
+        min_nights: Math.min(90, Math.max(1, Number(minNights) || 1)),
       });
       toast({ title: "Saved", description: "Your listing has been updated." });
     } catch (err: any) {
@@ -234,6 +240,29 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
           <div>
             <Label className="text-xs font-semibold text-white/80">Weekend rate (₹)</Label>
             <Input type="number" inputMode="numeric" value={weekendPrice} onChange={(e) => setWeekendPrice(e.target.value)} placeholder="Same as nightly" className="mt-1.5" />
+          </div>
+        </div>
+        <div className="mt-3">
+          <Label className="text-xs font-semibold text-white/80">Minimum nights</Label>
+          <p className="mt-0.5 text-[11px] text-white/50">Guests must book at least this many nights — enforced at checkout, not just a suggestion.</p>
+          <div className="mt-1.5 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMinNights(String(Math.max(1, (Number(minNights) || 1) - 1)))}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 text-white/80 transition-colors hover:bg-white/10"
+              aria-label="Decrease minimum nights"
+            >
+              −
+            </button>
+            <span className="w-8 text-center text-sm font-semibold text-white">{minNights || "1"}</span>
+            <button
+              type="button"
+              onClick={() => setMinNights(String(Math.min(90, (Number(minNights) || 1) + 1)))}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 text-white/80 transition-colors hover:bg-white/10"
+              aria-label="Increase minimum nights"
+            >
+              +
+            </button>
           </div>
         </div>
       </section>
