@@ -32,7 +32,7 @@ import {
 import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
-import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
+import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { quoteStay, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -266,6 +266,27 @@ export default function PropertyDetail() {
 
           const price = Number(data.price_per_night) || 3700;
 
+          // Real reviews for this listing - this used to be a single
+          // hardcoded fake review shown under every real property
+          // regardless of what guests actually wrote, same shape as the
+          // mobile app's fetch off the reviews table.
+          const { data: reviewRows } = await supabase
+            .from("reviews")
+            .select("id, reviewer_name, reviewer_avatar, rating, comment, created_at")
+            .eq("property_id", data.id)
+            .order("created_at", { ascending: false });
+          const realReviews: Review[] = (reviewRows ?? []).map((r: any) => ({
+            id: r.id,
+            authorName: r.reviewer_name ?? "Guest",
+            authorAvatar: r.reviewer_avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
+            rating: r.rating,
+            date: new Date(r.created_at).toLocaleDateString("en-IN", { month: "long", year: "numeric" }),
+            content: r.comment ?? "",
+          }));
+          const realRating = Number(data.rating) || (realReviews.length
+            ? realReviews.reduce((sum, r) => sum + r.rating, 0) / realReviews.length
+            : 0);
+
           const transformed: PropertyListing = {
             id: data.id,
             slug: data.title ? data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : data.id,
@@ -283,8 +304,8 @@ export default function PropertyDetail() {
             pricePerNight: price,
             originalPrice: price * 2,
             currency: "₹",
-            rating: 5.0,
-            reviewCount: 9,
+            rating: realRating,
+            reviewCount: realReviews.length,
             isGuestFavourite: true,
             isTopTenPercent: true,
             maxGuests: Number(data.max_guests) || 5,
@@ -319,16 +340,7 @@ export default function PropertyDetail() {
               { icon: "map-pin", title: "Unbeatable location", description: "100% of guests in the past year gave this location a 5-star rating." }
             ],
             ratingsBreakdown: { cleanliness: 5.0, accuracy: 5.0, communication: 5.0, location: 4.9, checkIn: 5.0, value: 5.0 },
-            reviews: [
-              {
-                id: "rev-1",
-                authorName: "Aman Verma",
-                authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-                rating: 5,
-                date: "August 2026",
-                content: "Outstanding place! The cleanliness blew us away. Everything mentioned was accurate, and the host was super responsive."
-              }
-            ],
+            reviews: realReviews,
             houseRules: {
               checkIn: "2:00 PM – 10:00 PM",
               checkOut: "11:00 AM",
@@ -830,12 +842,15 @@ export default function PropertyDetail() {
                         />
                         <div>
                           <p className="text-sm font-bold text-foreground">{rev.authorName}</p>
-                          <p className="text-[11px] text-muted-foreground">{rev.date} · {rev.timeOnWayzyy}</p>
+                          <p className="text-[11px] text-muted-foreground">{rev.date}{rev.timeOnWayzyy ? ` · ${rev.timeOnWayzyy}` : ""}</p>
                         </div>
                       </div>
                       <p className="text-xs text-muted-foreground leading-relaxed">{rev.content}</p>
                     </div>
                   ))}
+                  {property.reviews.length === 0 && (
+                    <p className="text-sm text-muted-foreground">No reviews yet.</p>
+                  )}
                 </div>
               </div>
 
