@@ -11,6 +11,7 @@ import { mp } from "@/lib/mixpanel";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PropertyShare from "./pages/PropertyShare";
+import HostPreview from "./pages/HostPreview";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeleteAccount from "./pages/DeleteAccount";
 import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
@@ -140,6 +141,7 @@ const App = () => (
               <Route path="/host-onboarding" element={<HostOnboardingRedirect />} />
               <Route path="/host-onboarding/status" element={<HostOnboardingRedirect />} />
               <Route path="/property/:propertyId" element={<PropertyShare />} />
+              <Route path="/host-preview/:hostId" element={<HostPreview />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/delete-account" element={<DeleteAccount />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
