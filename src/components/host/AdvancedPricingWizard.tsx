@@ -52,6 +52,46 @@ const STEP_HELP: string[] = [
   "A month-by-month summary of the final nightly rates before anything is saved. Booked nights are skipped, guests who already booked keep their price, and your discounts still apply on top.",
 ];
 
+function InlineInfo({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  const openNow = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const closeSoon = () => {
+    closeTimer.current = window.setTimeout(() => setOpen(false), 150);
+  };
+
+  return (
+    <span className="relative inline-flex items-center" onMouseEnter={openNow} onMouseLeave={closeSoon}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        onFocus={openNow}
+        onBlur={closeSoon}
+        aria-label="What this means"
+        aria-expanded={open}
+        className="rounded-full p-0.5 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+      >
+        <Info className="h-3.5 w-3.5" />
+      </button>
+      {open && (
+        <>
+          <button type="button" aria-hidden className="fixed inset-0 z-10 cursor-default sm:hidden" onClick={() => setOpen(false)} tabIndex={-1} />
+          <span
+            role="tooltip"
+            className="pointer-events-none absolute left-full top-1/2 z-20 ml-2 w-56 max-w-[calc(100vw-3rem)] -translate-y-1/2 rounded-xl border border-white/15 bg-neutral-900/95 p-2.5 text-xs leading-relaxed text-white/90 shadow-xl backdrop-blur-md"
+          >
+            {text}
+          </span>
+        </>
+      )}
+    </span>
+  );
+}
+
 function StepInfo({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<number | null>(null);
@@ -275,7 +315,10 @@ export function AdvancedPricingWizard({ propertyId, basePrice, weekendPrice, sel
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-white">Weekend rate</p>
+                <p className="flex items-center gap-1 text-sm font-semibold text-white">
+                  Weekend rate
+                  <InlineInfo text="Weekend nights are Friday and Saturday. This rate applies only to those two nights each week; every other night uses your weekday rate." />
+                </p>
                 <div className="mt-2 inline-flex rounded-lg border border-white/15 p-0.5 text-xs">
                   {(["percent", "flat"] as const).map((mode) => (
                     <button key={mode} type="button" onClick={() => setPlan({ ...plan, weekendMode: mode })} className={`rounded-md px-3 py-1.5 font-medium ${plan.weekendMode === mode ? "bg-ember text-white" : "text-white/60"}`}>
