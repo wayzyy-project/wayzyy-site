@@ -40,6 +40,7 @@ import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
 import { resolveHostDisplayName } from "@/lib/hostDisplayName";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
+import { SUPPORT_PHONE } from "@/components/host/HostGetStarted";
 import {
   Dialog,
   DialogContent,
@@ -129,6 +130,15 @@ function OpenInAppBanner({ propertyId }: { propertyId: string }) {
 // constant. Flip it true in this single place once messaging is actually
 // ready; nothing else about the page needs to change.
 const MESSAGING_ENABLED = false;
+
+// Same idea, same reasoning: booking (dates, guest count, Reserve, the
+// Razorpay flow) isn't ready to be live yet - this page currently doubles
+// as a public brochure link (sent via /goa-stays and the host-preview
+// pages) for people who don't have accounts and shouldn't be offered a
+// checkout that can't actually be fulfilled. Flip this one constant when
+// booking is ready; nothing else about the page needs to change.
+const BOOKING_ENABLED = false;
+const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
 export default function PropertyDetail() {
   const { propertyId } = useParams<{ propertyId: string }>();
@@ -360,7 +370,11 @@ export default function PropertyDetail() {
 
           // Pricing inputs, fetched alongside the listing. `price` above is
           // the raw host rate - the 7% guest fee is applied inside
-          // quoteStay(), not here, so it can't get double-counted.
+          // quoteStay(), not here, so it can't get double-counted. Only
+          // needed to quote a real stay total, which only the live booking
+          // rail does - skip it while BOOKING_ENABLED is off (the `finally`
+          // below still clears loading either way).
+          if (!BOOKING_ENABLED) return;
           const [tierRes, dateRes] = await Promise.all([
             supabase
               .from("property_guest_pricing_tiers")
@@ -750,62 +764,63 @@ export default function PropertyDetail() {
                 )}
               </div>
 
-              {/* Interactive Calendar Section */}
-              <div className="pt-6 space-y-4">
-                <h3 className="text-lg font-bold font-display text-foreground">
-                  {nights} nights in {property.city}
-                </h3>
-                <p className="text-xs text-muted-foreground font-medium">
-                  {format(checkInDate, "MMM d, yyyy")} – {format(checkOutDate, "MMM d, yyyy")}
-                </p>
+              {BOOKING_ENABLED && (
+                <div className="pt-6 space-y-4">
+                  <h3 className="text-lg font-bold font-display text-foreground">
+                    {nights} nights in {property.city}
+                  </h3>
+                  <p className="text-xs text-muted-foreground font-medium">
+                    {format(checkInDate, "MMM d, yyyy")} – {format(checkOutDate, "MMM d, yyyy")}
+                  </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-3xl border border-border bg-muted/10">
-                  <div>
-                    <label className="text-[11px] font-bold uppercase text-muted-foreground">Check-in Date</label>
-                    <input
-                      type="date"
-                      value={format(checkInDate, "yyyy-MM-dd")}
-                      onChange={(e) => {
-                        const d = new Date(e.target.value);
-                        if (!isNaN(d.getTime())) {
-                          setCheckInDate(d);
-                          // Push checkout out far enough to satisfy the
-                          // host's minimum stay, not just +1 day - a 3-night
-                          // minimum shouldn't collapse to 1 the moment
-                          // check-in moves.
-                          if (differenceInDays(checkOutDate, d) < minNights) {
-                            setCheckOutDate(addDays(d, minNights));
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-3xl border border-border bg-muted/10">
+                    <div>
+                      <label className="text-[11px] font-bold uppercase text-muted-foreground">Check-in Date</label>
+                      <input
+                        type="date"
+                        value={format(checkInDate, "yyyy-MM-dd")}
+                        onChange={(e) => {
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime())) {
+                            setCheckInDate(d);
+                            // Push checkout out far enough to satisfy the
+                            // host's minimum stay, not just +1 day - a 3-night
+                            // minimum shouldn't collapse to 1 the moment
+                            // check-in moves.
+                            if (differenceInDays(checkOutDate, d) < minNights) {
+                              setCheckOutDate(addDays(d, minNights));
+                            }
                           }
-                        }
-                      }}
-                      className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
-                    />
+                        }}
+                        className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] font-bold uppercase text-muted-foreground">Checkout Date</label>
+                      <input
+                        type="date"
+                        value={format(checkOutDate, "yyyy-MM-dd")}
+                        onChange={(e) => {
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime()) && differenceInDays(d, checkInDate) >= minNights) {
+                            setCheckOutDate(d);
+                          } else if (!isNaN(d.getTime())) {
+                            toast({
+                              title: "Minimum stay required",
+                              description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
+                              variant: "destructive",
+                            });
+                          }
+                        }}
+                        className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-[11px] font-bold uppercase text-muted-foreground">Checkout Date</label>
-                    <input
-                      type="date"
-                      value={format(checkOutDate, "yyyy-MM-dd")}
-                      onChange={(e) => {
-                        const d = new Date(e.target.value);
-                        if (!isNaN(d.getTime()) && differenceInDays(d, checkInDate) >= minNights) {
-                          setCheckOutDate(d);
-                        } else if (!isNaN(d.getTime())) {
-                          toast({
-                            title: "Minimum stay required",
-                            description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
-                            variant: "destructive",
-                          });
-                        }
-                      }}
-                      className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
-                    />
-                  </div>
+                  {minNights > 1 && (
+                    <p className="text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
+                  )}
                 </div>
-                {minNights > 1 && (
-                  <p className="text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
-                )}
-              </div>
+              )}
 
               {/* Reviews Section */}
               <div className="pt-6 space-y-6">
@@ -887,8 +902,10 @@ export default function PropertyDetail() {
               </div>
             </div>
 
-            {/* Right Sticky Floating Reservation Card (Matching Screenshot 2 & 3) */}
+            {/* Right Sticky Rail: full reservation card once booking is
+                live, a plain "get in touch" card while it isn't. */}
             <div className="lg:col-span-1">
+              {BOOKING_ENABLED ? (
               <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
                 {/* Price Display */}
                 <div className="flex items-baseline justify-between">
@@ -926,7 +943,7 @@ export default function PropertyDetail() {
 
                   {/* Guests Dropdown Trigger */}
                   <div className="p-3 relative">
-                    <div 
+                    <div
                       onClick={() => setIsGuestDropdownOpen(!isGuestDropdownOpen)}
                       className="cursor-pointer flex items-center justify-between"
                     >
@@ -1039,6 +1056,39 @@ export default function PropertyDetail() {
                   </button>
                 </div>
               </div>
+              ) : (
+              <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
+                <div>
+                  <span className="text-2xl font-black text-foreground">
+                    {property.currency}{property.pricePerNight.toLocaleString("en-IN")}
+                  </span>
+                  <span className="text-xs text-muted-foreground font-normal ml-1">/ night</span>
+                  {minNights > 1 && (
+                    <p className="mt-1 text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
+                  )}
+                </div>
+
+                <div className="rounded-2xl bg-muted/40 p-4 text-sm text-muted-foreground">
+                  Interested in this property? Get in touch and our team will help with dates, pricing and booking.
+                </div>
+
+                <a
+                  href={`tel:${SUPPORT_PHONE_HREF}`}
+                  className="block w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base text-center shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  Get in touch with us
+                </a>
+                <p className="text-center text-xs text-muted-foreground">{SUPPORT_PHONE}</p>
+
+                {/* Report Listing */}
+                <div className="pt-2 text-center">
+                  <button className="flex items-center justify-center gap-1.5 mx-auto text-xs text-muted-foreground hover:text-foreground underline">
+                    <Flag className="h-3.5 w-3.5" />
+                    <span>Report this listing</span>
+                  </button>
+                </div>
+              </div>
+              )}
             </div>
           </div>
         </main>
