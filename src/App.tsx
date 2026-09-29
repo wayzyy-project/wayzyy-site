@@ -10,6 +10,9 @@ import { MobileTabBar } from "@/components/MobileTabBar";
 import { mp } from "@/lib/mixpanel";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+// PropertyShare's route is superseded by PropertyDetail (below), which
+// already owns /property/:propertyId on this branch.
+import HostPreview from "./pages/HostPreview";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeleteAccount from "./pages/DeleteAccount";
 import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
@@ -159,6 +162,7 @@ const App = () => (
                   routes now only catch links already shared with hosts. */}
               <Route path="/host-onboarding" element={<HostOnboardingRedirect />} />
               <Route path="/host-onboarding/status" element={<HostOnboardingRedirect />} />
+              <Route path="/host-preview/:hostId" element={<HostPreview />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/delete-account" element={<DeleteAccount />} />
               <Route path="/payment-refund" element={<PaymentRefundPolicy />} />
