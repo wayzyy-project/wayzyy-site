@@ -660,6 +660,42 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-08-09",
     readTime: "12 Min Read",
   },
+  {
+    slug: "how-to-book-verified-stay-in-goa",
+    title: "How to Book a Verified Stay in Goa (Without Scams)",
+    description:
+      "Goa added more new rental listings than any other Indian market in 2025. Here's the honest guide to telling the real ones from the risky ones before you pay.",
+    metaTitle: "How to Book a Verified Stay in Goa (Without Scams)",
+    metaDescription:
+      "Goa added 2,300+ stays in 2025. Here is the honest guide to spotting fake listings, checking Aadhaar verification, blind reviews, and booking safely.",
+    heroImage: "/blog/how-to-book-verified-stay-in-goa.webp",
+    publishedDate: "2026-09-26",
+    readTime: "7 Min Read",
+  },
+  {
+    slug: "how-dispute-resolution-works-for-hosts",
+    title: "Guest Threatening a Bad Review? How Wayzyy Handles It",
+    description:
+      "\"Refund me or I'll feel obligated to mention this in my review.\" If you've hosted for a while, you've probably heard some version of it. Here's what's built to stop it working.",
+    metaTitle: "Guest Threatening a Bad Review? How Wayzyy Handles It",
+    metaDescription:
+      "Guest threatening a bad review for a refund? See how Wayzyy's three-level, evidence-first dispute process and double-blind reviews protect Goa hosts.",
+    heroImage: "/blog/how-dispute-resolution-works-for-hosts.webp",
+    publishedDate: "2026-09-26",
+    readTime: "8 Min Read",
+  },
+  {
+    slug: "fontainhas-goa-guide",
+    title: "Fontainhas Goa: The Honest Guide to Panjim's Latin Quarter",
+    description:
+      "Ochre, red, and blue houses on cobbled lanes, a UNESCO heritage tag since 1984, and a stretch of Panjim that barely feels like India. We visited in September and wrote down what the generic guides skip.",
+    metaTitle: "Fontainhas Goa: The Honest Guide to Panjim's Latin Quarter",
+    metaDescription:
+      "Planning a day in Fontainhas, Panjim? Our honest guide covers the heritage lanes, Joseph Bar, parking, photo rules and the best time to go.",
+    heroImage: "/blog/fontainhas-goa-guide.webp",
+    publishedDate: "2026-09-26",
+    readTime: "6 Min Read",
+  },
 ];
 
 
