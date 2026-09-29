@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Loader2, MapPin, Users, BedDouble } from "lucide-react";
+import { Loader2, MapPin, Users, BedDouble, Phone } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { supabase } from "@/lib/supabase";
+import { SUPPORT_PHONE } from "@/components/host/HostGetStarted";
+
+const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
 // Accounts whose listings are internal/demo data, never shown on a page we
 // hand to a real client. Same two accounts the seed migration
@@ -38,6 +41,8 @@ interface Listing {
   area: string;
   city: string;
   pricePerNight: number;
+  hasPricing: boolean;
+  isDraft: boolean;
   maxGuests: number;
   bedrooms: number;
   image: string;
@@ -69,7 +74,9 @@ export default function GoaStaysPublic() {
       const { data, error } = await supabase
         .from("properties")
         .select("id, title, city, area, street, images, price_per_night, max_guests, bedrooms, amenities, status, host_email")
-        .eq("status", "active")
+        // Live listings, plus drafts still being onboarded - a draft without
+        // pricing yet just gets a "call us" card instead of a price below.
+        .in("status", ["active", "draft"])
         .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
         .order("created_at", { ascending: false });
 
@@ -85,12 +92,15 @@ export default function GoaStaysPublic() {
               /* leave empty */
             }
           }
+          const price = Number(p.price_per_night) || 0;
           return {
             id: p.id,
             title: p.title || "Goa stay",
             area: p.area || p.street || "",
             city: p.city || "Goa",
-            pricePerNight: Number(p.price_per_night) || 0,
+            pricePerNight: price,
+            hasPricing: price > 0,
+            isDraft: p.status === "draft",
             maxGuests: Number(p.max_guests) || 0,
             bedrooms: Number(p.bedrooms) || 0,
             image: images[0] || "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80",
@@ -108,6 +118,9 @@ export default function GoaStaysPublic() {
   const filtered = useMemo(() => {
     return listings.filter((l) => {
       if (region !== "all" && l.region !== region) return false;
+      // No pricing set yet (draft) - a price filter has nothing to compare
+      // against, so it doesn't apply rather than hiding the listing.
+      if (!l.hasPricing) return true;
       if (l.pricePerNight < minPrice) return false;
       if (l.pricePerNight > maxPrice) return false;
       return true;
@@ -150,7 +163,7 @@ export default function GoaStaysPublic() {
         <main className="mx-auto max-w-6xl px-5 pb-20 pt-6 sm:px-8">
           <h1 className="font-display text-2xl font-bold text-slate-900 sm:text-3xl">Stays in Goa</h1>
           <p className="mt-1.5 text-sm text-slate-500">
-            {loading ? "Loading listings…" : `${filtered.length} live listing${filtered.length === 1 ? "" : "s"}`}
+            {loading ? "Loading listings…" : `${filtered.length} listing${filtered.length === 1 ? "" : "s"}`}
             {region !== "all" && <> in {region === "north" ? "North" : "South"} Goa</>}
             {hasPriceFilter && <> · ₹{minPrice.toLocaleString("en-IN")}–₹{maxPrice.toLocaleString("en-IN")} / night</>}
           </p>
@@ -219,53 +232,87 @@ export default function GoaStaysPublic() {
             </div>
           ) : (
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((l) => (
-                <Link
-                  key={l.id}
-                  to={`/property/${l.id}`}
-                  className="group overflow-hidden rounded-2xl border border-slate-200 transition-shadow hover:shadow-lg"
-                >
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100">
-                    <img
-                      src={l.image}
-                      alt={l.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="space-y-2 p-4">
-                    <p className="line-clamp-1 text-sm font-semibold text-slate-900">{l.title}</p>
-                    <p className="flex items-center gap-1 text-xs text-slate-500">
-                      <MapPin className="h-3.5 w-3.5" />
-                      {[l.area, l.city].filter(Boolean).join(", ")}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-slate-500">
-                      {l.bedrooms > 0 && (
-                        <span className="flex items-center gap-1">
-                          <BedDouble className="h-3.5 w-3.5" /> {l.bedrooms}
-                        </span>
+              {filtered.map((l) => {
+                // A draft without pricing isn't ready for a guest to click
+                // through into (there's little to see yet) - the card's job
+                // is to prompt a call, not a navigation, so it isn't wrapped
+                // in the property-detail Link the way a priced card is.
+                const cardBody = (
+                  <>
+                    <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={l.image}
+                        alt={l.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="space-y-2 p-4">
+                      <p className="line-clamp-1 text-sm font-semibold text-slate-900">{l.title}</p>
+                      <p className="flex items-center gap-1 text-xs text-slate-500">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {[l.area, l.city].filter(Boolean).join(", ")}
+                      </p>
+                      <div className="flex items-center gap-3 text-xs text-slate-500">
+                        {l.bedrooms > 0 && (
+                          <span className="flex items-center gap-1">
+                            <BedDouble className="h-3.5 w-3.5" /> {l.bedrooms}
+                          </span>
+                        )}
+                        {l.maxGuests > 0 && (
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3.5 w-3.5" /> {l.maxGuests}
+                          </span>
+                        )}
+                      </div>
+                      {l.amenities.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-0.5">
+                          {l.amenities.map((a) => (
+                            <span key={a} className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
+                              {a}
+                            </span>
+                          ))}
+                        </div>
                       )}
-                      {l.maxGuests > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Users className="h-3.5 w-3.5" /> {l.maxGuests}
-                        </span>
+                      {l.hasPricing ? (
+                        <p className="pt-1 text-sm font-bold text-slate-900">
+                          ₹{l.pricePerNight.toLocaleString("en-IN")} <span className="text-xs font-normal text-slate-500">/ night</span>
+                        </p>
+                      ) : (
+                        <div className="mt-1 rounded-xl bg-amber-50 p-2.5">
+                          <p className="text-xs font-semibold text-amber-800">
+                            Pricing isn't visible here yet - no worries, there's a reason. Interested? Give us a call.
+                          </p>
+                          <a
+                            href={`tel:${SUPPORT_PHONE_HREF}`}
+                            className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-bold text-ember hover:underline"
+                          >
+                            <Phone className="h-3.5 w-3.5" />
+                            {SUPPORT_PHONE}
+                          </a>
+                        </div>
                       )}
                     </div>
-                    {l.amenities.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-0.5">
-                        {l.amenities.map((a) => (
-                          <span key={a} className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
-                            {a}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    <p className="pt-1 text-sm font-bold text-slate-900">
-                      ₹{l.pricePerNight.toLocaleString("en-IN")} <span className="text-xs font-normal text-slate-500">/ night</span>
-                    </p>
+                  </>
+                );
+
+                return l.hasPricing ? (
+                  <Link
+                    key={l.id}
+                    to={`/property/${l.id}`}
+                    className="group overflow-hidden rounded-2xl border border-slate-200 transition-shadow hover:shadow-lg"
+                  >
+                    {cardBody}
+                  </Link>
+                ) : (
+                  <div
+                    key={l.id}
+                    className="overflow-hidden rounded-2xl border border-slate-200"
+                  >
+                    {cardBody}
                   </div>
-                </Link>
-              ))}
+                );
+              })}
             </div>
           )}
         </main>
