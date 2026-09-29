@@ -42,11 +42,15 @@ export default function Wishlists() {
             category: (p.category?.toLowerCase() || "apartments") as any,
             propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
             city: p.city || "Goa",
-            area: p.street || p.city || "North Goa",
+            // properties has 'location', not 'street'/'lat'/'lng' - those
+            // don't exist, so every real listing's map pin was landing on
+            // this same fallback point (Gautam Budh Nagar) instead of its
+            // real location.
+            area: p.location || p.city || "North Goa",
             state: p.state || "Goa",
             country: "India",
-            lat: p.lat || 28.6280,
-            lng: p.lng || 77.3820,
+            lat: Number(p.latitude) || 15.5898,
+            lng: Number(p.longitude) || 73.7749,
             images: p.images && p.images.length > 0 ? p.images : [
               "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=80"
             ],

@@ -7,10 +7,21 @@ import { SUPPORT_PHONE } from "@/components/host/HostGetStarted";
 
 const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
-// Accounts whose listings are internal/demo data, never shown on a page we
-// hand to a real client. Same two accounts the seed migration
-// (20260623130000_seed_goa_properties.sql) owns and deletes/reseeds by.
-const SEED_HOST_EMAILS = ["akshayne912@gmail.com", "hello@wayzyy.com"];
+// Accounts whose listings are internal/demo/test data, never shown on a
+// page we hand to a real client. akshayne912@gmail.com and hello@wayzyy.com
+// are the two the seed migration (20260623130000_seed_goa_properties.sql)
+// owns and reseeds by; the rest are internal team members' own test
+// accounts (confirmed live with junk-titled listings - "kjenfkjnwjfo",
+// "Untitled listing", "Villa Delhi" - as of this writing) that were also
+// excluded from the host outreach email list for the same reason.
+const SEED_HOST_EMAILS = [
+  "akshayne912@gmail.com",
+  "hello@wayzyy.com",
+  "akshaytrythis@gmail.com",
+  "anantsharma8055@gmail.com",
+  "raijagriti.work@gmail.com",
+  "priyanshubhardwaj0912@gmail.com",
+];
 
 // Same North/South Goa taluka split used in the site's own Goa guides
 // (src/pages/blog/NorthGoaVsSouthGoa.tsx), so "North Goa" here means the same

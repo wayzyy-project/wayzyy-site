@@ -295,11 +295,15 @@ export default function PropertyDetail() {
             category: (data.category?.toLowerCase() || "apartments") as any,
             propertyType: data.space_type ? `${data.space_type} in ${data.city || "India"}` : `Entire place in ${data.city || "India"}`,
             city: data.city || "Goa",
-            area: data.street || data.city || "Goa",
+            // properties has 'location', not 'street'/'lat'/'lng' - those
+            // columns don't exist, so this was reading undefined every time
+            // and falling back to a fixed Gautam Budh Nagar (Noida) point
+            // for literally every real listing's map pin.
+            area: data.location || data.city || "Goa",
             state: data.state || "Goa",
             country: "India",
-            lat: Number(data.lat) || 28.6280,
-            lng: Number(data.lng) || 77.3820,
+            lat: Number(data.latitude) || 15.5898,
+            lng: Number(data.longitude) || 73.7749,
             images: parsedImages,
             pricePerNight: price,
             originalPrice: price * 2,
