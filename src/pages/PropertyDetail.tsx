@@ -51,33 +51,34 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
+import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
 
-// Custom Leaflet House Marker
-const houseIcon = L.divIcon({
-  className: "custom-house-marker",
-  html: `<div style="
-    background-color: #FF6B00;
-    color: #ffffff;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(255,107,0,0.4);
-    border: 2.5px solid #ffffff;
-  ">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-      <polyline points="9 22 9 12 15 12 15 22"/>
-    </svg>
-  </div>`,
-  iconSize: [42, 42],
-  iconAnchor: [21, 21],
-});
+// Same house-pin look the old Leaflet marker used, as a plain DOM node for
+// AdvancedMarker's `content` prop instead of a Leaflet divIcon.
+function HousePin() {
+  return (
+    <div
+      style={{
+        backgroundColor: "#FF6B00",
+        color: "#ffffff",
+        width: 42,
+        height: 42,
+        borderRadius: "50%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "0 4px 16px rgba(255,107,0,0.4)",
+        border: "2.5px solid #ffffff",
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    </div>
+  );
+}
 
 /**
  * A thin "open in the app" banner for mobile visitors, not a takeover page.
@@ -158,6 +159,7 @@ export default function PropertyDetail() {
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+  const [showMapInfo, setShowMapInfo] = useState(false);
   const [otherHostListings, setOtherHostListings] = useState<
     { id: string; title: string; image: string | null; pricePerNight: number }[]
   >([]);
@@ -879,25 +881,40 @@ export default function PropertyDetail() {
                 <p className="text-xs text-muted-foreground font-medium">{property.area}, {property.city}, {property.state}, India</p>
 
                 <div className="h-72 sm:h-96 w-full rounded-3xl overflow-hidden border border-border shadow-sm">
-                  <MapContainer
-                    center={[property.lat, property.lng]}
-                    zoom={14}
-                    scrollWheelZoom={false}
-                    className="w-full h-full"
-                  >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={[property.lat, property.lng]} icon={houseIcon}>
-                      <Popup>
-                        <div className="text-xs font-bold p-1">
-                          {property.title}
-                          <p className="text-[10px] text-muted-foreground">{property.area}, {property.city}</p>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  </MapContainer>
+                  <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
+                    <GoogleMap
+                      // AdvancedMarker requires a Map ID to render at all.
+                      // DEMO_MAP_ID is Google's own always-valid placeholder
+                      // for exactly this - real cloud-based custom styling
+                      // needs a real one created under Map Management in
+                      // Cloud Console, but this renders correctly without it.
+                      mapId="DEMO_MAP_ID"
+                      defaultCenter={{ lat: property.lat, lng: property.lng }}
+                      defaultZoom={14}
+                      scrollwheel={false}
+                      disableDefaultUI
+                      zoomControl
+                      gestureHandling="cooperative"
+                    >
+                      <AdvancedMarker
+                        position={{ lat: property.lat, lng: property.lng }}
+                        onClick={() => setShowMapInfo(true)}
+                      >
+                        <HousePin />
+                      </AdvancedMarker>
+                      {showMapInfo && (
+                        <InfoWindow
+                          position={{ lat: property.lat, lng: property.lng }}
+                          onCloseClick={() => setShowMapInfo(false)}
+                        >
+                          <div className="text-xs font-bold p-1">
+                            {property.title}
+                            <p className="text-[10px] text-muted-foreground">{property.area}, {property.city}</p>
+                          </div>
+                        </InfoWindow>
+                      )}
+                    </GoogleMap>
+                  </APIProvider>
                 </div>
               </div>
             </div>
