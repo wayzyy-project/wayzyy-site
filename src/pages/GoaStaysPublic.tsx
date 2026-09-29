@@ -14,11 +14,13 @@ const SEED_HOST_EMAILS = ["akshayne912@gmail.com", "hello@wayzyy.com"];
 
 // Same North/South Goa taluka split used in the site's own Goa guides
 // (src/pages/blog/NorthGoaVsSouthGoa.tsx), so "North Goa" here means the same
-// thing it means everywhere else on wayzyy.com.
+// thing it means everywhere else on wayzyy.com. Extended with a few more
+// talukas/villages seen in real listing data (city and location columns)
+// that weren't in the blog's shorter list.
 const NORTH_GOA_AREAS = [
   "calangute", "baga", "anjuna", "vagator", "candolim", "arpora", "assagao",
   "morjim", "ashwem", "mandrem", "siolim", "sinquerim", "saligao", "porvorim",
-  "mapusa", "pilerne", "nerul", "reis magos", "panjim", "panaji",
+  "mapusa", "pilerne", "nerul", "reis magos", "panjim", "panaji", "chapora",
 ];
 const SOUTH_GOA_AREAS = [
   "margao", "colva", "benaulim", "palolem", "agonda", "patnem", "varca",
@@ -28,8 +30,10 @@ const SOUTH_GOA_AREAS = [
 
 type Region = "all" | "north" | "south";
 
-function classifyRegion(p: { city?: string | null; area?: string | null; street?: string | null }): Region {
-  const haystack = `${p.area ?? ""} ${p.city ?? ""} ${p.street ?? ""}`.toLowerCase();
+// properties.city/state/location are the real columns (there is no
+// area/street column - selecting one 400s the whole request, see below).
+function classifyRegion(p: { city?: string | null; location?: string | null }): Region {
+  const haystack = `${p.city ?? ""} ${p.location ?? ""}`.toLowerCase();
   if (NORTH_GOA_AREAS.some((a) => haystack.includes(a))) return "north";
   if (SOUTH_GOA_AREAS.some((a) => haystack.includes(a))) return "south";
   return "all"; // unclassified area - still shown, just excluded from a region-specific filter
@@ -38,7 +42,7 @@ function classifyRegion(p: { city?: string | null; area?: string | null; street?
 interface Listing {
   id: string;
   title: string;
-  area: string;
+  location: string;
   city: string;
   pricePerNight: number;
   hasPricing: boolean;
@@ -73,12 +77,20 @@ export default function GoaStaysPublic() {
       setLoading(true);
       const { data, error } = await supabase
         .from("properties")
-        .select("id, title, city, area, street, images, price_per_night, max_guests, bedrooms, amenities, status, host_email")
+        .select("id, title, city, state, location, images, price_per_night, max_guests, bedrooms, amenities, status, host_email")
         // Live listings, plus drafts still being onboarded - a draft without
         // pricing yet just gets a "call us" card instead of a price below.
         .in("status", ["active", "draft"])
+        // This page is specifically "Stays in Goa" - a handful of listings
+        // in the DB are in other states (Delhi, Rishikesh, etc.) and don't
+        // belong on it.
+        .ilike("state", "goa")
         .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
         .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("goa-stays: failed to load properties", error);
+      }
 
       if (!error && data) {
         const transformed: Listing[] = data.map((p: any) => {
@@ -96,7 +108,7 @@ export default function GoaStaysPublic() {
           return {
             id: p.id,
             title: p.title || "Goa stay",
-            area: p.area || p.street || "",
+            location: p.location || p.city || "",
             city: p.city || "Goa",
             pricePerNight: price,
             hasPricing: price > 0,
@@ -251,7 +263,7 @@ export default function GoaStaysPublic() {
                       <p className="line-clamp-1 text-sm font-semibold text-slate-900">{l.title}</p>
                       <p className="flex items-center gap-1 text-xs text-slate-500">
                         <MapPin className="h-3.5 w-3.5" />
-                        {[l.area, l.city].filter(Boolean).join(", ")}
+                        {l.location || l.city}
                       </p>
                       <div className="flex items-center gap-3 text-xs text-slate-500">
                         {l.bedrooms > 0 && (
