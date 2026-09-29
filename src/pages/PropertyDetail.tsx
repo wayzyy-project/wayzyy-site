@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { 
-  Star, 
-  Share2, 
+import {
+  Share2,
   Heart, 
   ChevronLeft, 
   ChevronRight, 
@@ -26,8 +25,7 @@ import {
   Clock, 
   AlertCircle,
   Flag,
-  Loader2,
-  Award
+  Loader2
 } from "lucide-react";
 import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
@@ -320,8 +318,10 @@ export default function PropertyDetail() {
             currency: "₹",
             rating: realRating,
             reviewCount: realReviews.length,
-            isGuestFavourite: true,
-            isTopTenPercent: true,
+            // Real reviews aren't accurate/complete yet - never claim
+            // "guest favourite" or "top 10%" until they are.
+            isGuestFavourite: false,
+            isTopTenPercent: false,
             maxGuests: Number(data.max_guests) || 5,
             bedrooms: Number(data.bedrooms) || 2,
             beds: Number(data.beds) || 2,
@@ -348,12 +348,19 @@ export default function PropertyDetail() {
               responseRate: "100%",
               responseTime: "within an hour"
             },
+            // The other two highlights here used to claim "highly ranked
+            // based on ratings, reviews" and "100% of guests... gave this
+            // location a 5-star rating" - fabricated on every listing
+            // regardless of whether any of that was true. Self check-in is
+            // the only one that isn't a review claim.
             highlights: [
-              { icon: "trophy", title: "Top 10% of homes", description: "This home is highly ranked based on ratings, reviews and reliability." },
               { icon: "door", title: "Self check-in", description: "You can check in with the building staff." },
-              { icon: "map-pin", title: "Unbeatable location", description: "100% of guests in the past year gave this location a 5-star rating." }
             ],
-            ratingsBreakdown: { cleanliness: 5.0, accuracy: 5.0, communication: 5.0, location: 4.9, checkIn: 5.0, value: 5.0 },
+            // Was a flat { cleanliness: 5.0, accuracy: 5.0, ... } on every
+            // listing regardless of real reviews - no longer rendered (see
+            // the removed Reviews section below), kept only because
+            // PropertyListing's type still requires the field.
+            ratingsBreakdown: { cleanliness: 0, accuracy: 0, communication: 0, location: 0, checkIn: 0, value: 0 },
             reviews: realReviews,
             houseRules: {
               checkIn: "2:00 PM – 10:00 PM",
@@ -519,7 +526,7 @@ export default function PropertyDetail() {
   return (
     <SEO
       title={`${property.title} - Wayzyy Stays`}
-      description={`${property.propertyType} with ${property.bedrooms} bedrooms, ${property.bathrooms} baths. Rated ${property.rating}★.`}
+      description={`${property.propertyType} with ${property.bedrooms} bedrooms, ${property.bathrooms} baths.`}
       image={images[0]}
     >
       <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -615,40 +622,6 @@ export default function PropertyDetail() {
                   {property.maxGuests} guests · {property.bedrooms} bedrooms · {property.beds} beds · {property.bathrooms} bathrooms
                 </p>
               </div>
-
-              {/* Guest Favourite Laurel Banner Matching Screenshot 2 & 3 */}
-              {property.isGuestFavourite && (
-                <div className="pt-6">
-                  <div className="flex items-center justify-between p-5 rounded-3xl border border-border bg-muted/20 shadow-xs">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-2xl bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00]">
-                        <Award className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <p className="text-base font-extrabold text-foreground">Guest favourite</p>
-                        <p className="text-xs text-muted-foreground">
-                          One of the most loved homes on Wayzyy, according to guests
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-6 divide-x divide-border pl-4">
-                      <div className="text-center">
-                        <p className="text-lg font-black text-foreground">{property.rating.toFixed(1)}</p>
-                        <div className="flex items-center gap-0.5 justify-center">
-                          {[1, 2, 3, 4, 5].map((i) => (
-                            <Star key={i} className="h-3 w-3 fill-amber-500 text-amber-500" />
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-center pl-6">
-                        <p className="text-lg font-black text-foreground">{property.reviewCount}</p>
-                        <p className="text-[11px] text-muted-foreground underline font-medium">Reviews</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {/* Host Summary Card Matching Screenshot 2 */}
               <div className="pt-6 flex items-center gap-4">
@@ -822,56 +795,9 @@ export default function PropertyDetail() {
                 </div>
               )}
 
-              {/* Reviews Section */}
-              <div className="pt-6 space-y-6">
-                <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 fill-amber-500 text-amber-500" />
-                  <h3 className="text-xl font-bold font-display text-foreground">
-                    {property.rating.toFixed(1)} · {property.reviewCount} Reviews
-                  </h3>
-                </div>
-
-                {/* Score Breakdown Bars */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {Object.entries(property.ratingsBreakdown).map(([key, score]) => (
-                    <div key={key} className="space-y-1">
-                      <div className="flex justify-between text-xs font-semibold capitalize">
-                        <span>{key}</span>
-                        <span>{score.toFixed(1)}</span>
-                      </div>
-                      <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="h-full bg-foreground rounded-full"
-                          style={{ width: `${(score / 5) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Guest Reviews Cards */}
-                <div className="space-y-4 pt-2">
-                  {property.reviews.map((rev) => (
-                    <div key={rev.id} className="p-5 rounded-3xl border border-border bg-card space-y-2.5">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={rev.authorAvatar}
-                          alt={rev.authorName}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                        <div>
-                          <p className="text-sm font-bold text-foreground">{rev.authorName}</p>
-                          <p className="text-[11px] text-muted-foreground">{rev.date}{rev.timeOnWayzyy ? ` · ${rev.timeOnWayzyy}` : ""}</p>
-                        </div>
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{rev.content}</p>
-                    </div>
-                  ))}
-                  {property.reviews.length === 0 && (
-                    <p className="text-sm text-muted-foreground">No reviews yet.</p>
-                  )}
-                </div>
-              </div>
+              {/* Reviews section removed - real reviews aren't accurate/
+                  complete yet, so no rating, star count or review list is
+                  shown anywhere on this page until they are. */}
 
               {/* Location Map ("Where you'll be" Matching Screenshot 4) */}
               <div className="pt-6 space-y-4">

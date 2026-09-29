@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Heart, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { PropertyListing } from "@/data/mockProperties";
 import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
 
@@ -66,13 +66,6 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           loading="lazy"
         />
 
-        {/* Guest Favourite Badge (Top Left matching screenshot 1) */}
-        {property.isGuestFavourite && (
-          <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-1.5 rounded-full bg-white/95 dark:bg-black/90 backdrop-blur-md px-3.5 py-1 shadow-md border border-black/5 dark:border-white/10">
-            <span className="text-[11px] font-extrabold tracking-tight text-foreground">Guest favourite</span>
-          </div>
-        )}
-
         {/* Favorite Heart Button (Top Right matching screenshot 1) */}
         <button
           type="button"
@@ -132,25 +125,15 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           {property.propertyType}
         </p>
 
-        {/* Pricing line & Star Rating */}
-        <div className="mt-1 flex items-center justify-between text-xs font-semibold">
-          <div className="flex items-baseline gap-1 text-foreground">
-            <span className="font-extrabold text-foreground">
-              {property.currency}{totalPrice.toLocaleString("en-IN")}
-            </span>
-            <span className="text-muted-foreground font-normal">
-              {nights > 1 ? `for ${nights} nights` : "night"}
-            </span>
-          </div>
-
-          {/* Rating */}
-          <div className="flex items-center gap-1 text-foreground">
-            <Star className="h-3.5 w-3.5 fill-foreground text-foreground" />
-            <span className="font-extrabold">{property.rating.toFixed(1)}</span>
-            {property.reviewCount > 0 && (
-              <span className="text-muted-foreground font-normal">({property.reviewCount})</span>
-            )}
-          </div>
+        {/* Pricing line - no star rating: real reviews aren't accurate/
+            complete yet, so nothing gets claimed here until they are. */}
+        <div className="mt-1 flex items-baseline gap-1 text-xs font-semibold text-foreground">
+          <span className="font-extrabold text-foreground">
+            {property.currency}{totalPrice.toLocaleString("en-IN")}
+          </span>
+          <span className="text-muted-foreground font-normal">
+            {nights > 1 ? `for ${nights} nights` : "night"}
+          </span>
         </div>
       </div>
     </Link>

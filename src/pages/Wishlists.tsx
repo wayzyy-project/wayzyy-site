@@ -57,9 +57,11 @@ export default function Wishlists() {
             pricePerNight: p.price_per_night || 3500,
             originalPrice: (p.price_per_night || 3500) * 2,
             currency: "₹",
-            rating: 5.0,
-            reviewCount: 9,
-            isGuestFavourite: true,
+            // Real reviews aren't accurate/complete yet - PropertyCard no
+            // longer renders any of these.
+            rating: 0,
+            reviewCount: 0,
+            isGuestFavourite: false,
             maxGuests: p.max_guests || 4,
             bedrooms: p.bedrooms || 2,
             beds: p.beds || 2,

@@ -117,10 +117,13 @@ export default function ExploreStays() {
               pricePerNight: price,
               originalPrice: price * 2,
               currency: "₹",
-              rating: 5.0,
-              reviewCount: 9,
-              isGuestFavourite: true,
-              isTopTenPercent: true,
+              // Real reviews aren't accurate/complete yet - PropertyCard no
+              // longer renders any of these, kept at 0/false rather than a
+              // flat "5.0 · 9 reviews · guest favourite" on every listing.
+              rating: 0,
+              reviewCount: 0,
+              isGuestFavourite: false,
+              isTopTenPercent: false,
               maxGuests: Number(p.max_guests) || 4,
               bedrooms: Number(p.bedrooms) || 2,
               beds: Number(p.beds) || 2,
