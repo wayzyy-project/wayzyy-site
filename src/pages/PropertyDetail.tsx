@@ -623,30 +623,19 @@ export default function PropertyDetail() {
                 </p>
               </div>
 
-              {/* Host Summary Card Matching Screenshot 2 */}
-              <div className="pt-6 flex items-center gap-4">
-                <img
-                  src={property.host.avatar}
-                  alt={property.host.name}
-                  className="h-14 w-14 rounded-full object-cover border-2 border-border shadow-xs"
-                />
-                <div className="flex-1">
-                  <h3 className="text-base font-bold text-foreground">
-                    Hosted by {property.host.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">
-                    {property.host.isNewHost ? "New Host" : "Superhost"} · Response time: {property.host.responseTime}
-                  </p>
-                </div>
-                {MESSAGING_ENABLED && property.host.id && (
-                  <button
-                    onClick={handleMessageHost}
-                    disabled={startingThread}
-                    className="shrink-0 rounded-full border border-border px-4 py-2 text-xs font-bold text-foreground hover:bg-muted/60 transition-colors disabled:opacity-50"
-                  >
-                    {startingThread ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Message host"}
-                  </button>
-                )}
+              {/* Was a "Hosted by X" card with a stock Unsplash photo (never
+                  the real host) and a hardcoded "New Host · Response time:
+                  within an hour" - fabricated the same way the reviews
+                  were. Just a plain contact prompt now, same number as the
+                  price rail's "Get in touch" button. */}
+              <div className="pt-6">
+                <p className="text-sm font-semibold text-foreground">
+                  Interested in this property?{" "}
+                  <a href={`tel:${SUPPORT_PHONE_HREF}`} className="text-[#FF6B00] underline">
+                    Get in touch with us
+                  </a>
+                  .
+                </p>
               </div>
 
               {/* Other properties from this host - same idea as Airbnb's
