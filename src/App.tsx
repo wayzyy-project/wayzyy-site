@@ -83,6 +83,9 @@ import GoaSpiritualTourismGuide from "./pages/blog/GoaSpiritualTourismGuide";
 import EkadashaTeerthaYatraGuide from "./pages/blog/EkadashaTeerthaYatraGuide";
 import SixNewGoaTourismProjectsGuide from "./pages/blog/SixNewGoaTourismProjectsGuide";
 import AguadaMonsoonHeritageGuide from "./pages/blog/AguadaMonsoonHeritageGuide";
+import HowToBookVerifiedStayGoa from "./pages/blog/HowToBookVerifiedStayGoa";
+import HowDisputeResolutionWorksForHosts from "./pages/blog/HowDisputeResolutionWorksForHosts";
+import FontainhasGoaGuide from "./pages/blog/FontainhasGoaGuide";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
@@ -217,6 +220,9 @@ const App = () => (
               <Route path="/blog/ekadasha-teertha-yatra-goa-guide" element={<EkadashaTeerthaYatraGuide />} />
               <Route path="/blog/six-new-goa-tourism-projects-guide-2026" element={<SixNewGoaTourismProjectsGuide />} />
               <Route path="/blog/aguada-port-jail-monsoon-heritage-tourism-guide" element={<AguadaMonsoonHeritageGuide />} />
+              <Route path="/blog/how-to-book-verified-stay-in-goa" element={<HowToBookVerifiedStayGoa />} />
+              <Route path="/blog/how-dispute-resolution-works-for-hosts" element={<HowDisputeResolutionWorksForHosts />} />
+              <Route path="/blog/fontainhas-goa-guide" element={<FontainhasGoaGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
               <Route path="/experience" element={<ExperienceGoa />} />
