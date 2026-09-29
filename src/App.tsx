@@ -101,6 +101,7 @@ import WaitlistChooser from "./pages/WaitlistChooser";
 import WaitlistTravelers from "./pages/WaitlistTravelers";
 import HostOnboardingDoc from "./pages/HostOnboardingDoc";
 import ExploreStays from "./pages/ExploreStays";
+import GoaStaysPublic from "./pages/GoaStaysPublic";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyTrips from "./pages/MyTrips";
 import Wishlists from "./pages/Wishlists";
@@ -132,6 +133,10 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/stays" element={<ExploreStays />} />
               <Route path="/explore" element={<ExploreStays />} />
+              {/* Public, no-login, live-data-only browse page for sending a
+                  clean link to a client - never mixes in MOCK_PROPERTIES or
+                  the two seed/demo host accounts the way /stays does. */}
+              <Route path="/goa-stays" element={<GoaStaysPublic />} />
               <Route path="/property/:propertyId" element={<PropertyDetail />} />
               <Route path="/rooms/:propertyId" element={<PropertyDetail />} />
               <Route path="/trips" element={<MyTrips />} />
