@@ -130,13 +130,15 @@ function OpenInAppBanner({ propertyId }: { propertyId: string }) {
 // ready; nothing else about the page needs to change.
 const MESSAGING_ENABLED = false;
 
-// Same idea, same reasoning: booking (dates, guest count, Reserve, the
-// Razorpay flow) isn't ready to be live yet - this page currently doubles
-// as a public brochure link (sent via /goa-stays and the host-preview
-// pages) for people who don't have accounts and shouldn't be offered a
-// checkout that can't actually be fulfilled. Flip this one constant when
-// booking is ready; nothing else about the page needs to change.
-const BOOKING_ENABLED = false;
+// Booking is real on this branch: BookingModal now actually calls Razorpay
+// and the real create-booking function (it used to fake a "confirmed"
+// booking with a direct, unauthenticated client-side insert and never
+// charge anyone - see BookingModal.tsx). Deliberately NOT flipped on main
+// yet - /goa-stays and the host-preview links still point people at a
+// brochure-only build there. Flip this same constant back to false if this
+// branch needs to revert to brochure mode for any reason; nothing else
+// about the page needs to change either way.
+const BOOKING_ENABLED = true;
 const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
 export default function PropertyDetail() {
@@ -1105,7 +1107,12 @@ export default function PropertyDetail() {
           checkInDate={checkInDate}
           checkOutDate={checkOutDate}
           guestCount={guestCount}
-          totalAmount={stayTotal}
+          // totalAmount is what actually gets charged via Razorpay - it must
+          // include GST, or every booking undercharges by the tax amount.
+          // baseAmount is the pre-tax accommodation figure create-booking
+          // validates server-side against the listing's own price.
+          totalAmount={quote ? quote.total : stayTotal}
+          baseAmount={stayTotal}
         />
 
         {/* Sign in to message the host - same account used everywhere else

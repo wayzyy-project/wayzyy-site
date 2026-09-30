@@ -109,6 +109,7 @@ import WaitlistTravelers from "./pages/WaitlistTravelers";
 import HostOnboardingDoc from "./pages/HostOnboardingDoc";
 import ExploreStays from "./pages/ExploreStays";
 import GoaStaysPublic from "./pages/GoaStaysPublic";
+import VerifyIdentity from "./pages/VerifyIdentity";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyTrips from "./pages/MyTrips";
 import Wishlists from "./pages/Wishlists";
@@ -144,6 +145,7 @@ const App = () => (
                   clean link to a client - never mixes in MOCK_PROPERTIES or
                   the two seed/demo host accounts the way /stays does. */}
               <Route path="/goa-stays" element={<GoaStaysPublic />} />
+              <Route path="/verify-identity" element={<VerifyIdentity />} />
               <Route path="/property/:propertyId" element={<PropertyDetail />} />
               <Route path="/rooms/:propertyId" element={<PropertyDetail />} />
               <Route path="/trips" element={<MyTrips />} />

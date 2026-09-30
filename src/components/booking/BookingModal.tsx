@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { 
-  X, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Sparkles, 
-  CreditCard, 
-  Smartphone, 
-  Calendar, 
-  Users, 
-  Loader2, 
-  Lock, 
+import {
+  X,
+  CheckCircle2,
+  ShieldCheck,
+  ShieldAlert,
+  CreditCard,
+  Smartphone,
+  Loader2,
+  Lock,
   ArrowRight,
   Download,
-  Share2
 } from "lucide-react";
 import { format, differenceInDays } from "date-fns";
 import { PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import confetti from "canvas-confetti";
 
 interface BookingModalProps {
@@ -28,7 +26,36 @@ interface BookingModalProps {
   checkInDate: Date;
   checkOutDate: Date;
   guestCount: number;
+  /** What actually gets charged via Razorpay - must include GST. */
   totalAmount: number;
+  /** Pre-tax accommodation figure create-booking validates against the listing's own price. */
+  baseAmount: number;
+}
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => { open: () => void };
+  }
+}
+
+let razorpayScriptPromise: Promise<void> | null = null;
+function loadRazorpayScript(): Promise<void> {
+  if (window.Razorpay) return Promise.resolve();
+  if (razorpayScriptPromise) return razorpayScriptPromise;
+  razorpayScriptPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Could not load Razorpay checkout"));
+    document.body.appendChild(script);
+  });
+  return razorpayScriptPromise;
+}
+
+interface RazorpaySuccess {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({
@@ -38,10 +65,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   checkInDate,
   checkOutDate,
   guestCount,
-  totalAmount
+  totalAmount,
+  baseAmount,
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, signIn } = useAuth();
 
   const [step, setStep] = useState<"details" | "payment" | "confirmed">("details");
   const [fullName, setFullName] = useState("");
@@ -51,10 +80,29 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [paymentMethod, setPaymentMethod] = useState<"razorpay_upi" | "razorpay_card">("razorpay_upi");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingId, setBookingId] = useState("");
+  const [needsVerification, setNeedsVerification] = useState(false);
+
+  // Sign-in, only asked for if there's no session yet - booking requires a
+  // real account (create-booking takes guestId from the JWT, never the body).
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+  const [signingIn, setSigningIn] = useState(false);
 
   if (!isOpen) return null;
 
   const nights = Math.max(1, differenceInDays(checkOutDate, checkInDate));
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSigningIn(true);
+    const { error } = await signIn(signInEmail, signInPassword);
+    setSigningIn(false);
+    if (error) {
+      toast({ title: "Couldn't sign in", description: error.message, variant: "destructive" });
+      return;
+    }
+    setEmail((prev) => prev || signInEmail);
+  };
 
   const handleProceedToPayment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,66 +118,106 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   };
 
   const handleExecutePayment = async () => {
+    if (!user) {
+      toast({ title: "Sign in required", description: "Please sign in above before paying.", variant: "destructive" });
+      return;
+    }
     setIsSubmitting(true);
-    const newBookingRef = `WY-${Date.now().toString().slice(-6)}`;
+
+    let paymentId: string;
+    let paymentOrderId: string;
+    let paymentSignature: string;
 
     try {
-      // 1. Try to persist into Supabase bookings table
-      const bookingPayload = {
-        property_id: property.id,
-        check_in: format(checkInDate, "yyyy-MM-dd"),
-        check_out: format(checkOutDate, "yyyy-MM-dd"),
-        guest_name: fullName,
-        guest_email: email,
-        guest_phone: phone,
-        total_price: totalAmount,
-        status: "confirmed",
-        special_requests: specialRequests,
-        created_at: new Date().toISOString()
-      };
-
-      try {
-        await supabase.from("bookings").insert([bookingPayload]);
-      } catch (err) {
-        console.warn("Supabase booking insert note (stored locally for demo):", err);
+      const { data: orderData, error: orderError } = await supabase.functions.invoke("create-booking-order", {
+        body: { amount: totalAmount, propertyId: property.id },
+      });
+      if (orderError || !orderData?.orderId) {
+        throw new Error(orderData?.error ?? orderError?.message ?? "Could not start payment");
       }
 
-      // 2. Also save to local storage so My Trips is always 100% updated immediately
-      const existingTrips = JSON.parse(localStorage.getItem("wayzyy_trips") || "[]");
-      const tripRecord = {
-        id: newBookingRef,
-        propertyId: property.id,
-        propertyTitle: property.title,
-        propertyImage: property.images[0],
-        propertyCity: property.city,
-        propertyArea: property.area,
-        checkIn: format(checkInDate, "yyyy-MM-dd"),
-        checkOut: format(checkOutDate, "yyyy-MM-dd"),
-        nights,
-        guestCount,
-        guestName: fullName,
-        guestPhone: phone,
-        guestEmail: email,
-        totalAmount,
-        status: "Confirmed",
-        bookedAt: new Date().toISOString()
-      };
-      localStorage.setItem("wayzyy_trips", JSON.stringify([tripRecord, ...existingTrips]));
+      await loadRazorpayScript();
+      if (!window.Razorpay) throw new Error("Razorpay checkout failed to load");
 
-      // 3. Trigger celebratory confetti
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 }
+      const result = await new Promise<RazorpaySuccess>((resolve, reject) => {
+        const rzp = new window.Razorpay!({
+          key: orderData.keyId,
+          order_id: orderData.orderId,
+          amount: orderData.amount,
+          currency: "INR",
+          name: "Wayzyy",
+          description: `${property.title} · ${nights} night${nights !== 1 ? "s" : ""}`,
+          image: property.images[0] ?? "",
+          prefill: { name: fullName, email, contact: phone },
+          notes: {
+            property_id: property.id,
+            guest_id: user.id,
+            check_in: format(checkInDate, "yyyy-MM-dd"),
+            check_out: format(checkOutDate, "yyyy-MM-dd"),
+            guests: String(guestCount),
+          },
+          theme: { color: "#FF6B00" },
+          handler: (response: RazorpaySuccess) => resolve(response),
+          modal: { ondismiss: () => reject(new Error("Payment cancelled")) },
+        });
+        rzp.open();
       });
 
-      setBookingId(newBookingRef);
-      setStep("confirmed");
-    } catch (error: any) {
+      paymentId = result.razorpay_payment_id;
+      paymentOrderId = result.razorpay_order_id;
+      paymentSignature = result.razorpay_signature;
+    } catch (err) {
+      setIsSubmitting(false);
       toast({
-        title: "Payment error",
-        description: error?.message || "Failed to process reservation.",
-        variant: "destructive"
+        title: "Payment not completed",
+        description: err instanceof Error ? err.message : "Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Payment has genuinely succeeded past this point - a failure creating
+    // the booking record must never be reported as "payment not completed".
+    try {
+      const { data: bookingData, error: bookingError } = await supabase.functions.invoke("create-booking", {
+        body: {
+          propertyId: property.id,
+          guestName: fullName,
+          guestEmail: email,
+          checkIn: format(checkInDate, "yyyy-MM-dd"),
+          checkOut: format(checkOutDate, "yyyy-MM-dd"),
+          guests: guestCount,
+          totalPrice: totalAmount,
+          baseAmount,
+          paymentId,
+          paymentOrderId,
+          paymentSignature,
+        },
+      });
+
+      if (bookingError || !bookingData?.bookingId) {
+        throw new Error(bookingData?.error ?? bookingError?.message ?? "Unknown error");
+      }
+
+      // create-booking withholds the confirmation email until the guest is
+      // Aadhaar-verified but never tells the client that in its response -
+      // the client checks the same profile field separately to know whether
+      // to show the verification prompt below.
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("aadhaar_verified")
+        .eq("id", user.id)
+        .maybeSingle();
+      setNeedsVerification(profile?.aadhaar_verified !== true);
+
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      setBookingId(bookingData.reference ?? bookingData.bookingId);
+      setStep("confirmed");
+    } catch (error) {
+      toast({
+        title: "Payment received, booking pending",
+        description: `Your payment went through (ref: ${paymentId}) but we couldn't finalize the booking automatically. Please contact hello@wayzyy.com with this reference and we'll sort it out.\n\n${error instanceof Error ? error.message : "Unknown error"}`,
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -160,7 +248,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Step 1: Guest Information */}
           {step === "details" && (
-            <form onSubmit={handleProceedToPayment} className="space-y-5">
+            <div className="space-y-5">
               {/* Mini Stay Summary Card */}
               <div className="flex items-center gap-4 p-4 rounded-3xl border border-border bg-muted/20">
                 <img
@@ -177,70 +265,104 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
               </div>
 
-              {/* Form Fields */}
-              <div className="space-y-4">
-                <div>
-                  <label className="text-xs font-bold text-foreground">Full Name (as per Aadhaar / ID)</label>
+              {!user ? (
+                <form onSubmit={handleSignIn} className="space-y-3 rounded-3xl border border-border p-4">
+                  <p className="text-xs font-bold text-foreground">Sign in to book</p>
+                  <p className="text-xs text-muted-foreground">
+                    Booking needs a Wayzyy account - the same one you use in the app.
+                  </p>
                   <input
-                    type="text"
+                    type="email"
                     required
-                    placeholder="e.g. Akshay Sharma"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
+                    placeholder="you@example.com"
+                    value={signInEmail}
+                    onChange={(e) => setSignInEmail(e.target.value)}
+                    className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-medium outline-none focus:border-[#FF6B00]"
                   />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-foreground">Phone Number</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+91 98765 43210"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-foreground">Email Address</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@example.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-foreground">Special Requests / Estimated Arrival (Optional)</label>
-                  <textarea
-                    rows={2}
-                    placeholder="e.g. Requesting early luggage drop-off at 12 PM"
-                    value={specialRequests}
-                    onChange={(e) => setSpecialRequests(e.target.value)}
-                    className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-xs font-medium outline-none focus:border-[#FF6B00]"
+                  <input
+                    type="password"
+                    required
+                    placeholder="Password"
+                    value={signInPassword}
+                    onChange={(e) => setSignInPassword(e.target.value)}
+                    className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-medium outline-none focus:border-[#FF6B00]"
                   />
-                </div>
-              </div>
+                  <button
+                    type="submit"
+                    disabled={signingIn}
+                    className="w-full rounded-2xl bg-foreground text-background py-2.5 text-xs font-bold disabled:opacity-50 flex items-center justify-center"
+                  >
+                    {signingIn ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sign in"}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleProceedToPayment} className="space-y-5">
+                  {/* Form Fields */}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-xs font-bold text-foreground">Full Name (as per Aadhaar / ID)</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Akshay Sharma"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
+                      />
+                    </div>
 
-              {/* Aadhaar Trust Notice */}
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-700 dark:text-emerald-300">
-                <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-500" />
-                <span>Protected by Wayzyy Verified Trust Layer & Zero Guest Platform Fees.</span>
-              </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-bold text-foreground">Phone Number</label>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="+91 98765 43210"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs font-bold text-foreground">Email Address</label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="you@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium outline-none focus:border-[#FF6B00]"
+                        />
+                      </div>
+                    </div>
 
-              <button
-                type="submit"
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all"
-              >
-                Proceed to Payment · ₹{totalAmount.toLocaleString("en-IN")}
-              </button>
-            </form>
+                    <div>
+                      <label className="text-xs font-bold text-foreground">Special Requests / Estimated Arrival (Optional)</label>
+                      <textarea
+                        rows={2}
+                        placeholder="e.g. Requesting early luggage drop-off at 12 PM"
+                        value={specialRequests}
+                        onChange={(e) => setSpecialRequests(e.target.value)}
+                        className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-xs font-medium outline-none focus:border-[#FF6B00]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Aadhaar Trust Notice */}
+                  <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-700 dark:text-emerald-300">
+                    <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-500" />
+                    <span>Protected by Wayzyy Verified Trust Layer & Zero Guest Platform Fees.</span>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                  >
+                    Proceed to Payment · ₹{totalAmount.toLocaleString("en-IN")}
+                  </button>
+                </form>
+              )}
+            </div>
           )}
 
           {/* Step 2: Razorpay Payment Gateway Selection */}
@@ -349,6 +471,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   Booking Confirmation ID: <strong className="text-[#FF6B00]">{bookingId}</strong>
                 </p>
               </div>
+
+              {needsVerification && (
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-left">
+                  <ShieldAlert className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold text-amber-800 dark:text-amber-300">One more step: verify your identity</p>
+                    <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">
+                      Your payment is confirmed, but your host's contact details and full booking confirmation are held until you verify via DigiLocker (Aadhaar).
+                    </p>
+                    <Link
+                      to={`/verify-identity?returnTo=/trips`}
+                      onClick={onClose}
+                      className="mt-2 inline-block text-xs font-bold text-amber-800 dark:text-amber-300 underline"
+                    >
+                      Verify now →
+                    </Link>
+                  </div>
+                </div>
+              )}
 
               {/* Receipt Summary */}
               <div className="rounded-3xl border border-border bg-muted/20 p-5 text-left space-y-3 text-xs">
