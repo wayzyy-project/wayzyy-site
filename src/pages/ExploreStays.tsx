@@ -34,6 +34,15 @@ function PricePin({ price, currency }: { price: number; currency: string }) {
   );
 }
 
+const SEED_HOST_EMAILS = [
+  "akshayne912@gmail.com",
+  "hello@wayzyy.com",
+  "akshaytrythis@gmail.com",
+  "anantsharma8055@gmail.com",
+  "raijagriti.work@gmail.com",
+  "priyanshubhardwaj0912@gmail.com",
+];
+
 export default function ExploreStays() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -79,7 +88,8 @@ export default function ExploreStays() {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .neq("status", "rejected")
+          .eq("status", "active")
+          .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
           .order("created_at", { ascending: false });
 
         if (data && data.length > 0) {
