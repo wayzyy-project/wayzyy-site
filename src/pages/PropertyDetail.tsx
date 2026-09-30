@@ -38,7 +38,7 @@ import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
 import { resolveHostDisplayName } from "@/lib/hostDisplayName";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
-import { SUPPORT_PHONE } from "@/components/host/HostGetStarted";
+import { SUPPORT_PHONE, SUPPORT_EMAIL } from "@/components/host/HostGetStarted";
 import {
   Dialog,
   DialogContent,
@@ -523,6 +523,16 @@ export default function PropertyDetail() {
         "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80"
       ];
 
+  // "Report this listing" was previously a dead button with no onClick -
+  // opens the guest's own mail client instead, pre-filled with exactly
+  // what support needs to find the right listing without asking a
+  // follow-up question first.
+  const reportListingHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
+    `Reporting a listing: ${property.title}`,
+  )}&body=${encodeURIComponent(
+    `Listing: ${property.title}\nLink: ${typeof window !== "undefined" ? window.location.href : `https://wayzyy.com/property/${property.id}`}\n\nWhat's wrong with this listing?\n`,
+  )}`;
+
   return (
     <SEO
       title={`${property.title} - Wayzyy Stays`}
@@ -963,12 +973,16 @@ export default function PropertyDetail() {
                   </div>
                 </div>
 
-                {/* Report Listing */}
+                {/* Report Listing - opens the guest's own mail client,
+                    pre-filled with the listing name and link. */}
                 <div className="pt-2 text-center">
-                  <button className="flex items-center justify-center gap-1.5 mx-auto text-xs text-muted-foreground hover:text-foreground underline">
+                  <a
+                    href={reportListingHref}
+                    className="flex items-center justify-center gap-1.5 mx-auto text-xs text-muted-foreground hover:text-foreground underline w-fit"
+                  >
                     <Flag className="h-3.5 w-3.5" />
                     <span>Report this listing</span>
-                  </button>
+                  </a>
                 </div>
               </div>
               ) : (
@@ -995,12 +1009,16 @@ export default function PropertyDetail() {
                 </a>
                 <p className="text-center text-xs text-muted-foreground">{SUPPORT_PHONE}</p>
 
-                {/* Report Listing */}
+                {/* Report Listing - opens the guest's own mail client,
+                    pre-filled with the listing name and link. */}
                 <div className="pt-2 text-center">
-                  <button className="flex items-center justify-center gap-1.5 mx-auto text-xs text-muted-foreground hover:text-foreground underline">
+                  <a
+                    href={reportListingHref}
+                    className="flex items-center justify-center gap-1.5 mx-auto text-xs text-muted-foreground hover:text-foreground underline w-fit"
+                  >
                     <Flag className="h-3.5 w-3.5" />
                     <span>Report this listing</span>
-                  </button>
+                  </a>
                 </div>
               </div>
               )}
