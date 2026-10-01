@@ -144,7 +144,15 @@ export default function BagaBeachGuide() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">Should families go to Baga?</h2>
         <p>
-          For the day, yes - the creek, the water sports, and Britto's for lunch all work fine for a family visit, and mornings here are genuinely calmer than the reputation suggests. For a base to actually stay, less so. The density and noise that build through the evening don't suit most families looking for an early night, and the walk back to a nearby stay can mean cutting straight through the thick of the nightlife crowd. Candolim or Calangute, both a short drive away, are the more common choice for families who still want to visit Baga without sleeping in the middle of it.
+          For the day, yes - the creek, the water sports, and Britto's for lunch all work fine for a family visit, and mornings here are genuinely calmer than the reputation suggests. For a base to actually stay, less so. The density and noise that build through the evening don't suit most families looking for an early night, and the walk back to a nearby stay can mean cutting straight through the thick of the nightlife crowd.{" "}
+          <Link to="/blog/candolim-goa-beach-guide" className="text-ember hover:underline">
+            Candolim
+          </Link>{" "}
+          or{" "}
+          <Link to="/blog/calangute-goa-beach-guide" className="text-ember hover:underline">
+            Calangute
+          </Link>
+          , both a short drive away, are the more common choice for families who still want to visit Baga without sleeping in the middle of it.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Practical bits</h2>
