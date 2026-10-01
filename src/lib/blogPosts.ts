@@ -684,6 +684,54 @@ export const blogPosts: BlogPostMeta[] = [
     publishedDate: "2026-09-26",
     readTime: "6 Min Read",
   },
+  {
+    slug: "goa-airbnb-registration-rules",
+    title: "Goa's Airbnb Registration Rules (2026): What Changed",
+    description:
+      "Since January 2026, Goa requires hosts to display their tourism registration number on their listing or risk being delisted. Here's what changed, what it actually costs to ignore, and a number nobody else has published.",
+    metaTitle: "Goa's Airbnb Registration Rules (2026): What Changed",
+    metaDescription:
+      "Since January 2026, Goa requires hosts to display their tourism registration number or risk delisting. Here's what changed, and what it costs to ignore.",
+    heroImage: "/blog/goa-airbnb-registration-rules.webp",
+    publishedDate: "2026-10-01",
+    readTime: "8 Min Read",
+  },
+  {
+    slug: "candolim-goa-beach-guide",
+    title: "Candolim Beach Goa (2026): The Honest Guide",
+    description:
+      "Sinquerim, Fort Aguada, and the honest truth about the shacks - what Candolim is actually like, based on a September visit.",
+    metaTitle: "Candolim Beach Goa (2026): The Honest Guide",
+    metaDescription:
+      "A firsthand guide to Candolim: Sinquerim and Fort Aguada, where to eat, the sea's September mood, and the parking rule nobody mentions.",
+    heroImage: "/blog/candolim-goa-beach-guide.webp",
+    publishedDate: "2026-10-01",
+    readTime: "9 Min Read",
+  },
+  {
+    slug: "calangute-goa-beach-guide",
+    title: "Calangute Beach Goa (2026): The Honest Guide",
+    description:
+      "The \"Queen of Beaches,\" and what that actually means - scale, crowds, and who it's genuinely right for.",
+    metaTitle: "Calangute Beach Goa (2026): The Honest Guide",
+    metaDescription:
+      "Calangute is Goa's busiest beach by far - 3 million visitors a year. Here's what the \"Queen of Beaches\" title actually gets you, and who it suits.",
+    heroImage: "/blog/calangute-goa-beach-guide.webp",
+    publishedDate: "2026-10-01",
+    readTime: "9 Min Read",
+  },
+  {
+    slug: "baga-goa-beach-guide",
+    title: "Baga Beach Goa (2026): The Honest Guide",
+    description:
+      "Tito's Lane after dark, and what to know before you go - the most crowded beach on this coast, and what it's actually good for.",
+    metaTitle: "Baga Beach Goa (2026): The Honest Guide",
+    metaDescription:
+      "Baga is Goa's loudest beach by reputation - Tito's Lane, late nights, the most crowded stretch on this coast. Here's what that's actually like.",
+    heroImage: "/blog/baga-goa-beach-guide.webp",
+    publishedDate: "2026-10-01",
+    readTime: "8 Min Read",
+  },
 ];
 
 
