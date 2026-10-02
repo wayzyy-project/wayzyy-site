@@ -21,7 +21,9 @@ import { useAuth } from "@/hooks/useAuth";
 export default function VerifyIdentity() {
   const { user, loading: authLoading } = useAuth();
   const [searchParams] = useSearchParams();
-  const returnTo = searchParams.get("returnTo") || "/trips";
+  // Internal paths only - never let ?returnTo= send someone off-site.
+  const rawReturnTo = searchParams.get("returnTo") ?? "";
+  const returnTo = rawReturnTo.startsWith("/") && !rawReturnTo.startsWith("//") ? rawReturnTo : "/trips";
 
   const [checking, setChecking] = useState(true);
   const [alreadyVerified, setAlreadyVerified] = useState(false);
@@ -40,16 +42,31 @@ export default function VerifyIdentity() {
       return;
     }
     let cancelled = false;
-    supabase
-      .from("profiles")
-      .select("aadhaar_verified")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (cancelled) return;
-        setAlreadyVerified(data?.aadhaar_verified === true);
+    (async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("aadhaar_verified, digilocker_request_id")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (cancelled) return;
+      if (data?.aadhaar_verified === true) {
+        setAlreadyVerified(true);
         setChecking(false);
-      });
+        return;
+      }
+      // A request started earlier (this tab timed out, or the guest finished
+      // from Digio's email link instead) - one status check picks that up,
+      // since nothing else marks the profile verified without polling.
+      if (data?.digilocker_request_id) {
+        requestIdRef.current = data.digilocker_request_id;
+        const { data: status } = await supabase.functions.invoke("digilocker-complete", {
+          body: { requestId: data.digilocker_request_id },
+        });
+        if (cancelled) return;
+        if (status?.verified) setAlreadyVerified(true);
+      }
+      setChecking(false);
+    })();
     return () => { cancelled = true; };
   }, [user]);
 
@@ -64,7 +81,9 @@ export default function VerifyIdentity() {
     setError(null);
     try {
       const { data, error: fnError } = await supabase.functions.invoke("digilocker-initiate", {
-        body: {},
+        body: {
+          redirectUrl: `${window.location.origin}/verify-identity?returnTo=${encodeURIComponent(returnTo)}`,
+        },
       });
       if (fnError || !data) {
         throw new Error(fnError?.message ?? "Could not start DigiLocker verification");
@@ -88,6 +107,7 @@ export default function VerifyIdentity() {
   }
 
   function beginPolling() {
+    if (pollTimer.current) clearInterval(pollTimer.current);
     setPolling(true);
     // Digio's flow completes asynchronously (the user finishes DigiLocker
     // consent in the tab that just opened, then Digio's webhook - or, as a
@@ -189,10 +209,19 @@ export default function VerifyIdentity() {
                   >
                     Open DigiLocker verification <ExternalLink className="h-3.5 w-3.5" />
                   </a>
-                  <p className="flex items-center justify-center gap-2 text-xs text-slate-500">
-                    {polling && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
-                    {polling ? "Waiting for you to finish in the other tab…" : "Didn't finish in time - reopen the link above once you have."}
-                  </p>
+                  {polling ? (
+                    <p className="flex items-center justify-center gap-2 text-xs text-slate-500">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      Waiting for you to finish in the other tab…
+                    </p>
+                  ) : (
+                    <button
+                      onClick={beginPolling}
+                      className="w-full rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700"
+                    >
+                      I've finished - check again
+                    </button>
+                  )}
                 </div>
               )}
             </>

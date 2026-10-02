@@ -12,6 +12,8 @@
  * service fee, every per-guest rule, and every host date override.
  */
 
+import { computeBestDiscount, applyDiscount, type DiscountType, type PropertyDiscount } from "@/lib/discounts";
+
 /**
  * The guest service fee, folded into every price a guest sees - never
  * itemized, never shown as "was X, now Y". Hosts set and receive exactly
@@ -110,6 +112,8 @@ export interface PricingInputs {
   extraGuestFee: number | null;
   /** 'YYYY-MM-DD' -> host price for that night. */
   dateOverrides: Record<string, number>;
+  discounts: PropertyDiscount[];
+  pastBookingsCount: number;
 }
 
 export interface QuoteResult {
@@ -121,15 +125,18 @@ export interface QuoteResult {
   total: number;
   /** True when guest count or date overrides moved the price off the base rate. */
   hasDynamicPricing: boolean;
+  /** The single best host discount applied, if any (never stacked). */
+  discount: { type: DiscountType; percentage: number; savings: number } | null;
 }
 
 /**
  * The full quote, composed in the same order as the app's BookingScreen and
  * the create-booking edge function:
  *   tiers (if any) -> else per-person rule -> per-night with date overrides
- *   -> guest markup -> GST.
+ *   -> guest markup -> best single host discount -> GST.
  *
- * GST follows the app: 18% above a ₹7,500 host rate, otherwise 12%.
+ * GST follows the app: 18% when the guest-facing nightly rate is above
+ * ₹7,500, otherwise 12%.
  */
 export function quoteStay(
   inputs: PricingInputs,
@@ -156,8 +163,23 @@ export function quoteStay(
     dateOverrides,
   );
 
-  const accommodation = toGuestPrice(hostNightlyTotal);
-  const gstRate = hostPricePerNight > 7500 ? 0.18 : 0.12;
+  // create-booking measures days-until-check-in from UTC midnight of the
+  // check-in date; doing the same here keeps last-minute/early-bird from
+  // flipping between client and server right at the 14/30-day boundary.
+  const daysUntilCheckIn = Math.floor(
+    (new Date(`${toDateStr(checkIn)}T00:00:00Z`).getTime() - Date.now()) / (1000 * 60 * 60 * 24),
+  );
+  const best = computeBestDiscount(inputs.discounts, {
+    nights,
+    daysUntilCheckIn,
+    pastBookingsCount: inputs.pastBookingsCount,
+  });
+
+  const accommodationFull = toGuestPrice(hostNightlyTotal);
+  const accommodation = best ? applyDiscount(accommodationFull, best.percentage) : accommodationFull;
+  // Same basis as the app's BookingScreen (guest-facing rate), so one stay
+  // costs the same on web and mobile.
+  const gstRate = toGuestPrice(hostPricePerNight) > 7500 ? 0.18 : 0.12;
   const taxes = Math.round(accommodation * gstRate);
 
   return {
@@ -167,5 +189,6 @@ export function quoteStay(
     total: accommodation + taxes,
     hasDynamicPricing:
       tiers.length > 0 || perPersonEnabled || Object.keys(dateOverrides).length > 0,
+    discount: best ? { ...best, savings: accommodationFull - accommodation } : null,
   };
 }

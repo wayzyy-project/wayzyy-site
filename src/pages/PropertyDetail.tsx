@@ -32,6 +32,7 @@ import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { quoteStay, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
@@ -386,7 +387,7 @@ export default function PropertyDetail() {
           // rail does - skip it while BOOKING_ENABLED is off (the `finally`
           // below still clears loading either way).
           if (!BOOKING_ENABLED) return;
-          const [tierRes, dateRes] = await Promise.all([
+          const [tierRes, dateRes, discountRes, pastBookingsRes] = await Promise.all([
             supabase
               .from("property_guest_pricing_tiers")
               .select("min_guests, price_per_night")
@@ -395,6 +396,19 @@ export default function PropertyDetail() {
               .from("date_prices")
               .select("date, price")
               .eq("property_id", data.id),
+            supabase
+              .from("property_discounts")
+              .select("discount_type, percentage, enabled")
+              .eq("property_id", data.id),
+            // Same query the app's BookingScreen runs. Bookings RLS only
+            // lets a guest see their own rows, so this undercounts for
+            // anyone but the host - only matters for the new-listing
+            // discount once a listing passes 3 bookings.
+            supabase
+              .from("bookings")
+              .select("id", { count: "exact", head: true })
+              .eq("property_id", data.id)
+              .in("status", ["confirmed", "completed"]),
           ]);
 
           const tiers: GuestPricingTier[] = (tierRes.data ?? []).map((t: any) => ({
@@ -418,6 +432,12 @@ export default function PropertyDetail() {
               data.extra_guest_threshold != null ? Number(data.extra_guest_threshold) : null,
             extraGuestFee: data.extra_guest_fee != null ? Number(data.extra_guest_fee) : null,
             dateOverrides,
+            discounts: (discountRes.data ?? []).map((d: any) => ({
+              discount_type: d.discount_type,
+              percentage: Number(d.percentage),
+              enabled: Boolean(d.enabled),
+            })),
+            pastBookingsCount: pastBookingsRes.count ?? 0,
           });
         } else {
           setProperty(MOCK_PROPERTIES[0]);
@@ -949,6 +969,17 @@ export default function PropertyDetail() {
                       });
                       return;
                     }
+                    // No real quote means this is the mock fallback (the
+                    // listing failed to load) - create-booking-order would
+                    // happily charge for it, then create-booking would reject.
+                    if (!quote) {
+                      toast({
+                        title: "Couldn't load live pricing",
+                        description: "Please refresh the page and try again.",
+                        variant: "destructive",
+                      });
+                      return;
+                    }
                     setIsBookingModalOpen(true);
                   }}
                   className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
@@ -966,6 +997,11 @@ export default function PropertyDetail() {
                     <span>{property.currency}{nightlyRate.toLocaleString("en-IN")} × {nights} nights</span>
                     <span>{property.currency}{stayTotal.toLocaleString("en-IN")}</span>
                   </div>
+                  {quote?.discount && (
+                    <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                      Includes {quote.discount.percentage}% {DISCOUNT_LABELS[quote.discount.type].label.toLowerCase()} discount - you save {property.currency}{quote.discount.savings.toLocaleString("en-IN")}
+                    </p>
+                  )}
                   <div className="flex justify-between text-muted-foreground">
                     <span>Cleaning fee</span>
                     <span className="text-emerald-500 font-bold">Free</span>
