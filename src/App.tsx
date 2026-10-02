@@ -88,6 +88,10 @@ import AguadaMonsoonHeritageGuide from "./pages/blog/AguadaMonsoonHeritageGuide"
 import HowToBookVerifiedStayGoa from "./pages/blog/HowToBookVerifiedStayGoa";
 import HowDisputeResolutionWorksForHosts from "./pages/blog/HowDisputeResolutionWorksForHosts";
 import FontainhasGoaGuide from "./pages/blog/FontainhasGoaGuide";
+import GoaAirbnbRegistrationRules from "./pages/blog/GoaAirbnbRegistrationRules";
+import CandolimBeachGuide from "./pages/blog/CandolimBeachGuide";
+import CalanguteBeachGuide from "./pages/blog/CalanguteBeachGuide";
+import BagaBeachGuide from "./pages/blog/BagaBeachGuide";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
@@ -248,6 +252,10 @@ const App = () => (
               <Route path="/blog/how-to-book-verified-stay-in-goa" element={<HowToBookVerifiedStayGoa />} />
               <Route path="/blog/how-dispute-resolution-works-for-hosts" element={<HowDisputeResolutionWorksForHosts />} />
               <Route path="/blog/fontainhas-goa-guide" element={<FontainhasGoaGuide />} />
+              <Route path="/blog/goa-airbnb-registration-rules" element={<GoaAirbnbRegistrationRules />} />
+              <Route path="/blog/candolim-goa-beach-guide" element={<CandolimBeachGuide />} />
+              <Route path="/blog/calangute-goa-beach-guide" element={<CalanguteBeachGuide />} />
+              <Route path="/blog/baga-goa-beach-guide" element={<BagaBeachGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
               <Route path="/experience" element={<ExperienceGoa />} />
