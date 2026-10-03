@@ -400,15 +400,10 @@ export default function PropertyDetail() {
               .from("property_discounts")
               .select("discount_type, percentage, enabled")
               .eq("property_id", data.id),
-            // Same query the app's BookingScreen runs. Bookings RLS only
-            // lets a guest see their own rows, so this undercounts for
-            // anyone but the host - only matters for the new-listing
-            // discount once a listing passes 3 bookings.
-            supabase
-              .from("bookings")
-              .select("id", { count: "exact", head: true })
-              .eq("property_id", data.id)
-              .in("status", ["confirmed", "completed"]),
+            // RPC rather than a bookings query: RLS hides other guests'
+            // rows. Same count create-booking uses for the new-listing
+            // discount (first 3 bookings, pending requests included).
+            supabase.rpc("property_booking_count", { p_property_id: data.id }),
           ]);
 
           const tiers: GuestPricingTier[] = (tierRes.data ?? []).map((t: any) => ({
@@ -437,7 +432,7 @@ export default function PropertyDetail() {
               percentage: Number(d.percentage),
               enabled: Boolean(d.enabled),
             })),
-            pastBookingsCount: pastBookingsRes.count ?? 0,
+            pastBookingsCount: Number(pastBookingsRes.data ?? 0),
           });
         } else {
           setProperty(MOCK_PROPERTIES[0]);
@@ -988,7 +983,7 @@ export default function PropertyDetail() {
                 </button>
 
                 <p className="text-center text-xs text-muted-foreground">
-                  You won't be charged yet
+                  The host confirms every request - fully refunded if they decline
                 </p>
 
                 {/* Price Breakdown */}

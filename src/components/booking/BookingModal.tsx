@@ -80,6 +80,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [paymentMethod, setPaymentMethod] = useState<"razorpay_upi" | "razorpay_card">("razorpay_upi");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingId, setBookingId] = useState("");
+  const [isRequest, setIsRequest] = useState(true);
   const [needsVerification, setNeedsVerification] = useState(false);
 
   // Sign-in, only asked for if there's no session yet - booking requires a
@@ -130,7 +131,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
     try {
       const { data: orderData, error: orderError } = await supabase.functions.invoke("create-booking-order", {
-        body: { amount: totalAmount, propertyId: property.id },
+        // Stay details let the server check price + availability before
+        // checkout opens, so unavailable dates can never be paid for.
+        body: {
+          amount: totalAmount,
+          propertyId: property.id,
+          checkIn: format(checkInDate, "yyyy-MM-dd"),
+          checkOut: format(checkOutDate, "yyyy-MM-dd"),
+          guests: guestCount,
+          baseAmount,
+        },
       });
       if (orderError || !orderData?.orderId) {
         throw new Error(orderData?.error ?? orderError?.message ?? "Could not start payment");
@@ -196,8 +206,24 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       });
 
       if (bookingError || !bookingData?.bookingId) {
-        throw new Error(bookingData?.error ?? bookingError?.message ?? "Unknown error");
+        // create-booking refunds automatically when it rejects a paid
+        // booking (dates taken in the meantime, price changed) - say so.
+        let serverError: { error?: string; refunded?: boolean } | null = bookingData ?? null;
+        const ctx = (bookingError as { context?: Response } | null)?.context;
+        if (!serverError && ctx && typeof ctx.json === "function") {
+          serverError = await ctx.json().catch(() => null);
+        }
+        if (serverError?.refunded) {
+          toast({
+            title: "Booking couldn't be completed",
+            description: serverError.error ?? "Your payment has been refunded in full.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw new Error(serverError?.error ?? bookingError?.message ?? "Unknown error");
       }
+      setIsRequest(bookingData.status !== "confirmed");
 
       // create-booking withholds the confirmation email until the guest is
       // Aadhaar-verified but never tells the client that in its response -
@@ -233,7 +259,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <span className="font-display font-black text-lg text-foreground">
               {step === "details" && "Guest Verification & Details"}
               {step === "payment" && "Razorpay Secure Checkout"}
-              {step === "confirmed" && "Reservation Confirmed"}
+              {step === "confirmed" && (isRequest ? "Request Sent" : "Reservation Confirmed")}
             </span>
           </div>
           <button
@@ -466,9 +492,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               <div>
-                <h3 className="text-2xl font-black font-display text-foreground">You're going to {property.city}!</h3>
+                <h3 className="text-2xl font-black font-display text-foreground">
+                  {isRequest ? "Request sent to your host" : `You're going to ${property.city}!`}
+                </h3>
+                {isRequest && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    They have 6 hours to accept. If they decline or don't respond, you're refunded in full automatically.
+                  </p>
+                )}
                 <p className="text-xs text-muted-foreground mt-1">
-                  Booking Confirmation ID: <strong className="text-[#FF6B00]">{bookingId}</strong>
+                  Booking reference: <strong className="text-[#FF6B00]">{bookingId}</strong>
                 </p>
               </div>
 
@@ -495,7 +528,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="rounded-3xl border border-border bg-muted/20 p-5 text-left space-y-3 text-xs">
                 <div className="flex items-center justify-between pb-2 border-b border-border font-bold">
                   <span>{property.title}</span>
-                  <span className="text-emerald-600 dark:text-emerald-400">Paid in Full</span>
+                  <span className="text-emerald-600 dark:text-emerald-400">{isRequest ? "Paid - awaiting host" : "Paid in Full"}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Dates:</span>
