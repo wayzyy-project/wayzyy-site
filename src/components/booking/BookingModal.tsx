@@ -26,10 +26,8 @@ interface BookingModalProps {
   checkInDate: Date;
   checkOutDate: Date;
   guestCount: number;
-  /** What actually gets charged via Razorpay - must include GST. */
+  /** What actually gets charged via Razorpay: stay + GST + Wayzyy fee + its GST. The server re-checks it. */
   totalAmount: number;
-  /** Pre-tax accommodation figure create-booking validates against the listing's own price. */
-  baseAmount: number;
 }
 
 declare global {
@@ -66,7 +64,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   checkOutDate,
   guestCount,
   totalAmount,
-  baseAmount,
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -139,7 +136,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           checkIn: format(checkInDate, "yyyy-MM-dd"),
           checkOut: format(checkOutDate, "yyyy-MM-dd"),
           guests: guestCount,
-          baseAmount,
         },
       });
       if (orderError || !orderData?.orderId) {
@@ -198,7 +194,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           checkOut: format(checkOutDate, "yyyy-MM-dd"),
           guests: guestCount,
           totalPrice: totalAmount,
-          baseAmount,
           paymentId,
           paymentOrderId,
           paymentSignature,
@@ -377,7 +372,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   {/* Aadhaar Trust Notice */}
                   <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-700 dark:text-emerald-300">
                     <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-500" />
-                    <span>Protected by Wayzyy Verified Trust Layer & Zero Guest Platform Fees.</span>
+                    <span>Protected by Wayzyy Verified Trust Layer. No hidden fees - every charge is itemized.</span>
                   </div>
 
                   <button
@@ -400,7 +395,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <span>Total Payable Amount</span>
                   <span className="text-base text-[#FF6B00] font-black">₹{totalAmount.toLocaleString("en-IN")}</span>
                 </div>
-                <p className="text-muted-foreground">Includes all accommodation taxes, cleaning fee, and 0% guest service fee.</p>
+                <p className="text-muted-foreground">Includes GST on the stay, Wayzyy's service fee and GST on that fee - itemized on the listing page.</p>
               </div>
 
               {/* Razorpay Gateway Options */}

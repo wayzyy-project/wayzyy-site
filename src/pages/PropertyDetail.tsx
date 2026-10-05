@@ -470,7 +470,10 @@ export default function PropertyDetail() {
   const stayTotal = quote ? quote.accommodation : property.pricePerNight * nights;
   const nightlyRate = quote ? quote.perNight : property.pricePerNight;
   const originalStayTotal = property.originalPrice ? property.originalPrice * nights / 2 : stayTotal * 2;
-  const airbnbFeeComparison = Math.round(stayTotal * 0.155);
+  const nightsSubtotal = quote ? quote.nightsSubtotal : property.pricePerNight * nights;
+  // Airbnb's guest fee runs ~15.5% of the stay; Wayzyy's is 7% (shown as its
+  // own line below), so the saving is the difference, not the whole 15.5%.
+  const airbnbFeeComparison = Math.max(0, Math.round(stayTotal * 0.155) - (quote ? quote.serviceFee : 0));
 
   const handleShare = () => {
     if (navigator.share) {
@@ -990,12 +993,13 @@ export default function PropertyDetail() {
                 <div className="space-y-2.5 pt-3 border-t border-border text-xs">
                   <div className="flex justify-between text-muted-foreground">
                     <span>{property.currency}{nightlyRate.toLocaleString("en-IN")} × {nights} nights</span>
-                    <span>{property.currency}{stayTotal.toLocaleString("en-IN")}</span>
+                    <span>{property.currency}{nightsSubtotal.toLocaleString("en-IN")}</span>
                   </div>
                   {quote?.discount && (
-                    <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                      Includes {quote.discount.percentage}% {DISCOUNT_LABELS[quote.discount.type].label.toLowerCase()} discount - you save {property.currency}{quote.discount.savings.toLocaleString("en-IN")}
-                    </p>
+                    <div className="flex justify-between font-semibold text-emerald-600 dark:text-emerald-400">
+                      <span>{DISCOUNT_LABELS[quote.discount.type].label} discount ({quote.discount.percentage}% off)</span>
+                      <span>−{property.currency}{quote.discount.savings.toLocaleString("en-IN")}</span>
+                    </div>
                   )}
                   <div className="flex justify-between text-muted-foreground">
                     <span>Cleaning fee</span>
@@ -1007,11 +1011,23 @@ export default function PropertyDetail() {
                     You save <strong>₹{airbnbFeeComparison.toLocaleString("en-IN")}</strong> in platform commissions on Wayzyy!
                   </div>
 
-                  {quote && (
+                  {quote && quote.stayGst > 0 && (
                     <div className="flex justify-between text-muted-foreground">
-                      <span>GST</span>
-                      <span>{property.currency}{quote.taxes.toLocaleString("en-IN")}</span>
+                      <span>GST on stay</span>
+                      <span>{property.currency}{quote.stayGst.toLocaleString("en-IN")}</span>
                     </div>
+                  )}
+                  {quote && (
+                    <>
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>Wayzyy service fee</span>
+                        <span>{property.currency}{quote.serviceFee.toLocaleString("en-IN")}</span>
+                      </div>
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>GST on service fee (18%)</span>
+                        <span>{property.currency}{quote.serviceFeeGst.toLocaleString("en-IN")}</span>
+                      </div>
+                    </>
                   )}
 
                   <div className="flex justify-between text-sm font-black text-foreground pt-2 border-t border-border">
@@ -1138,12 +1154,9 @@ export default function PropertyDetail() {
           checkInDate={checkInDate}
           checkOutDate={checkOutDate}
           guestCount={guestCount}
-          // totalAmount is what actually gets charged via Razorpay - it must
-          // include GST, or every booking undercharges by the tax amount.
-          // baseAmount is the pre-tax accommodation figure create-booking
-          // validates server-side against the listing's own price.
+          // The full quote (stay + GST + Wayzyy fee + its GST) - exactly what
+          // create-booking-order and create-booking recompute and check.
           totalAmount={quote ? quote.total : stayTotal}
-          baseAmount={stayTotal}
         />
 
         {/* Sign in to message the host - same account used everywhere else

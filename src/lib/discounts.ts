@@ -33,8 +33,7 @@ export function computeBestDiscount(
   return applicable.reduce((best, cur) => (cur.percentage > best.percentage ? cur : best));
 }
 
-export const applyDiscount = (amount: number, percentage: number): number =>
-  Math.round(amount * (1 - percentage / 100));
+
 
 export const DISCOUNT_TYPES: DiscountType[] = ["weekly", "monthly", "last_minute", "early_bird", "new_listing"];
 
