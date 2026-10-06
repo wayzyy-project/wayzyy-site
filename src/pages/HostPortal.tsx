@@ -670,6 +670,20 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
             <div className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-end">
               <Tooltip>
                 <TooltipTrigger asChild>
+                  <Button asChild size="sm" className="h-8 gap-1 bg-ember px-2.5 text-xs text-white hover:bg-ember/90 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
+                    <Link to="/host/pricing">
+                      <SlidersHorizontal className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                      Advanced pricing
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-xs">
+                  Insights for all your listings, and update prices for one or many at once
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
                   <Button onClick={() => setShowProfileModal(true)} variant="ghost" size="sm" className="h-8 gap-1 border border-white/20 px-2.5 text-xs text-white hover:bg-white/10 hover:text-white sm:h-9 sm:gap-1.5 sm:px-3 sm:text-sm w-full justify-center lg:w-auto">
                     <User className="h-3.5 w-3.5 shrink-0 text-primary sm:h-4 sm:w-4" />
                     Host Profile

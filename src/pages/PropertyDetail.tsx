@@ -142,6 +142,23 @@ const MESSAGING_ENABLED = false;
 const BOOKING_ENABLED = true;
 const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
+function logListingView(propertyId: string, hostId: string | null) {
+  const key = `wz_viewed_${propertyId}`;
+  try {
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+  } catch {
+    // Private browsing can block sessionStorage - still log the view.
+  }
+  supabase.auth.getUser().then(({ data: { user } }) => {
+    if (hostId && user?.id === hostId) return;
+    supabase
+      .from("property_views")
+      .insert({ property_id: propertyId, host_id: hostId, viewer_id: user?.id ?? null })
+      .then(({ error }) => { if (error) console.warn("property view log failed:", error.message); });
+  });
+}
+
 export default function PropertyDetail() {
   const { propertyId } = useParams<{ propertyId: string }>();
   const navigate = useNavigate();
@@ -379,6 +396,11 @@ export default function PropertyDetail() {
             instantBook: true
           };
           setProperty(transformed);
+
+          // Feeds the host's view counts in Advanced pricing (same table the
+          // app logs to). Once per listing per browser session, never the
+          // host looking at their own listing; a failed log is ignored.
+          logListingView(data.id, data.host_id ?? null);
 
           // Pricing inputs, fetched alongside the listing. `price` above is
           // the raw host rate - the 7% guest fee is applied inside

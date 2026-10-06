@@ -114,6 +114,7 @@ import HostOnboardingDoc from "./pages/HostOnboardingDoc";
 import ExploreStays from "./pages/ExploreStays";
 import GoaStaysPublic from "./pages/GoaStaysPublic";
 import VerifyIdentity from "./pages/VerifyIdentity";
+import HostPricing from "./pages/HostPricing";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyTrips from "./pages/MyTrips";
 import Wishlists from "./pages/Wishlists";
@@ -182,6 +183,7 @@ const App = () => (
               <Route path="/policies/property-import-policy" element={<PropertyImportPolicy />} />
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
               <Route path="/host" element={<HostPortal />} />
+              <Route path="/host/pricing" element={<HostPricing />} />
               <Route path="/adminn" element={<AdminDashboard />} />
               <Route path="/adminn/verifications" element={<AdminVerifications />} />
               <Route path="/adminn/review/:propertyId" element={<AdminReviewListing />} />

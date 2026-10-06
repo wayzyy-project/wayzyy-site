@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, IndianRupee, Info, Loader2, Lock, RotateCcw, SlidersHorizontal, Unlock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AdvancedPricingWizard } from "@/components/host/AdvancedPricingWizard";
 import { PricingGuideLink } from "@/components/host/MarketRateNote";
 
 /* ---------- date helpers (local-time safe) ---------- */
@@ -45,7 +45,6 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   const [anchor, setAnchor] = useState<string | null>(null);
   const [head, setHead] = useState<string | null>(null);
   const [priceInput, setPriceInput] = useState("");
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const today = useMemo(() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }, []);
 
@@ -204,12 +203,11 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
           {month.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}
         </h3>
         <div className="flex items-center gap-1">
-          <Button
-            size="sm"
-            onClick={() => setShowAdvanced(true)}
-            className="mr-1 gap-1.5 bg-ember text-xs text-white hover:bg-ember/90"
-          >
-            <SlidersHorizontal className="h-3.5 w-3.5" /> Advanced pricing
+          {/* Opens the all-listings pricing page with this listing preselected. */}
+          <Button asChild size="sm" className="mr-1 gap-1.5 bg-ember text-xs text-white hover:bg-ember/90">
+            <Link to={`/host/pricing?listing=${propertyId}`}>
+              <SlidersHorizontal className="h-3.5 w-3.5" /> Advanced pricing
+            </Link>
           </Button>
           <button
             type="button"
@@ -343,18 +341,6 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
         </>
       )}
 
-      {showAdvanced && (
-        <AdvancedPricingWizard
-          propertyId={propertyId}
-          basePrice={basePrice}
-          weekendPrice={weekendPrice}
-          selection={[...selected]}
-          existingOverrides={overrides}
-          booked={booked}
-          onClose={() => setShowAdvanced(false)}
-          onApplied={() => { setShowAdvanced(false); clearSelection(); load(); }}
-        />
-      )}
     </div>
   );
 }
