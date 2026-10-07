@@ -20,7 +20,7 @@ export const blogPosts: BlogPostMeta[] = [
     metaTitle: "Airbnb 15.5% Fee Update & Why Wayzyy Is Cheaper (2026)",
     metaDescription:
       "Airbnb's 15.5% fee update is pushing up villa and homestay prices. Here is how commissions inflate rates and why Wayzyy offers the exact same stays for less.",
-    heroImage: "/illustrations/economics-illustration.webp",
+    heroImage: "/illustrations/airbnb-pricing-update-cheapest-wayzyy.svg",
     publishedDate: "2026-10-08",
     readTime: "8 Min Read",
   },

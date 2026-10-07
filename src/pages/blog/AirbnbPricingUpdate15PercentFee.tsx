@@ -272,8 +272,21 @@ export default function AirbnbPricingUpdate15PercentFee() {
       </p>
 
       <p>
-        Here is the truth about how the math works, why other Online Travel Agencies (OTAs) like MakeMyTrip and Booking.com charge even higher markups, and how Wayzyy eliminates these middlemen fees so you get the guaranteed lowest price in the market.
+        Here is the truth about how the math works, why other Online Travel Agencies (OTAs) like MakeMyTrip and Booking.com charge even higher markups, and how Wayzyy eliminates these middlemen fees to consistently be the cheapest place in the market for booking the exact same villa or homestay.
       </p>
+
+      {/* Excalidraw Sketch Illustration */}
+      <div className="my-10 rounded-3xl border border-white/10 bg-white p-4 sm:p-6 shadow-2xl overflow-hidden">
+        <img
+          src="/illustrations/airbnb-pricing-update-cheapest-wayzyy.svg"
+          alt="Excalidraw diagram comparing Airbnb, Booking.com, and Wayzyy fee models showing why Wayzyy offers the cheapest prices"
+          className="w-full h-auto object-contain rounded-2xl"
+          loading="eager"
+        />
+        <p className="text-center text-xs text-slate-500 mt-3 font-mono">
+          Figure 1: How traditional OTA commission models inflate guest prices vs Wayzyy's direct host model.
+        </p>
+      </div>
 
       {/* Visual Architectural Sketch Card */}
       <div className="my-10 rounded-3xl border border-white/10 bg-card/60 p-6 sm:p-8 backdrop-blur-md">
