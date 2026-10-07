@@ -73,6 +73,7 @@ import GoaAirbnbRegistrationRules from "@/pages/blog/GoaAirbnbRegistrationRules"
 import CandolimBeachGuide from "@/pages/blog/CandolimBeachGuide";
 import CalanguteBeachGuide from "@/pages/blog/CalanguteBeachGuide";
 import BagaBeachGuide from "@/pages/blog/BagaBeachGuide";
+import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -97,6 +98,7 @@ const routes: Record<string, React.ComponentType> = {
   "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,
+  "/blog/airbnb-pricing-update-15-percent-fee-lowest-price": AirbnbPricingUpdate15PercentFee,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,
   "/blog/why-villas-goa-different-prices-platforms": WhyGoaVillasCostDifferent,
   "/blog/north-goa-vs-south-goa-guide": NorthGoaVsSouthGoa,

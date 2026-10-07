@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "airbnb-pricing-update-15-percent-fee-lowest-price",
+    title: "Airbnb Pricing Update (2026): What the 15.5% Fee Shift Means and Why Wayzyy Is Cheaper for the Same Stay",
+    description:
+      "Airbnb's 15.5% Simplified Pricing update is pushing up villa and homestay rates. Here is how commissions inflate prices and why Wayzyy guarantees the lowest market price for the exact same stay.",
+    metaTitle: "Airbnb 15.5% Fee Update & Why Wayzyy Is Cheaper (2026)",
+    metaDescription:
+      "Airbnb's 15.5% fee update is pushing up villa and homestay prices. Here is how commissions inflate rates and why Wayzyy offers the exact same stays for less.",
+    heroImage: "/illustrations/economics-illustration.webp",
+    publishedDate: "2026-10-08",
+    readTime: "8 Min Read",
+  },
+  {
     slug: "sarvam-startup-program",
     title: "Wayzyy selected for the Sarvam AI Startup Program",
     description:
@@ -28,7 +40,7 @@ export const blogPosts: BlogPostMeta[] = [
     slug: "best-airbnb-alternatives-goa",
     title: "5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)",
     description:
-      "Comparing Airbnb, Booking.com, MakeMyTrip, StayVista, SaffronStays, and Wayzyy - real fee data, what each platform actually costs you, and what's worth checking before you confirm.",
+      "Wayzyy is a Goa stays site. This post compares Airbnb alternatives in India and what you actually pay.",
     metaTitle: "5 Best Airbnb Alternatives in India for Goa Villas (2026)",
     metaDescription:
       "Airbnb charges hosts 15.5% per booking in Goa. Here are the platforms that don't - with real fee comparisons and final price breakdowns.",
@@ -230,7 +242,7 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "goa-work-cafes-guide",
-    title: "Goa Work Cafes Guide (2026): Best Cafes to Work in Goa",
+    title: "Best Cafes for Studying and Working in Goa (2026)",
     description:
       "Looking for a great cafe to work from in Goa? Read our complete, honest guide to the best work cafes in Assagao, Anjuna, and Siolim with fast WiFi.",
     metaTitle: "Goa Work Cafes Guide (2026) - Best Cafes to Work in Goa",

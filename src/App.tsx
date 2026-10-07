@@ -92,6 +92,7 @@ import GoaAirbnbRegistrationRules from "./pages/blog/GoaAirbnbRegistrationRules"
 import CandolimBeachGuide from "./pages/blog/CandolimBeachGuide";
 import CalanguteBeachGuide from "./pages/blog/CalanguteBeachGuide";
 import BagaBeachGuide from "./pages/blog/BagaBeachGuide";
+import AirbnbPricingUpdate15PercentFee from "./pages/blog/AirbnbPricingUpdate15PercentFee";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import WhatIsWayzyy from "./pages/WhatIsWayzyy";
 
@@ -193,6 +194,7 @@ const App = () => (
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />
+              <Route path="/blog/airbnb-pricing-update-15-percent-fee-lowest-price" element={<AirbnbPricingUpdate15PercentFee />} />
               <Route path="/blog/best-airbnb-alternatives-goa" element={<BestAirbnbAlternativesGoa />} />
               <Route path="/blog/why-villas-goa-different-prices-platforms" element={<WhyGoaVillasCostDifferent />} />
               <Route path="/blog/north-goa-vs-south-goa-guide" element={<NorthGoaVsSouthGoa />} />
