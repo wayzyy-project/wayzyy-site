@@ -1,44 +1,25 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
+# One group for every crawler. A crawler obeys only the single most specific
+# group that names it, so the private-path rules must live in the same group as
+# the named search and AI bots, or those bots would ignore them.
 User-agent: *
-Allow: /
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: CCBot
 Disallow: /adminn/
 Disallow: /admin/
-Disallow: /property/
+Disallow: /inbox
+Disallow: /trips
+Disallow: /my-bookings
+Disallow: /wishlists
+Disallow: /saved
 
 Sitemap: https://wayzyy.com/sitemap.xml
-
