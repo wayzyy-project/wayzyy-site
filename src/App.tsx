@@ -95,6 +95,7 @@ import BagaBeachGuide from "./pages/blog/BagaBeachGuide";
 import AirbnbPricingUpdate15PercentFee from "./pages/blog/AirbnbPricingUpdate15PercentFee";
 import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
 import WhatIsWayzyy from "./pages/WhatIsWayzyy";
+import About from "./pages/About";
 
 
 
@@ -258,6 +259,7 @@ const App = () => (
               <Route path="/blog/baga-goa-beach-guide" element={<BagaBeachGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
+              <Route path="/about" element={<About />} />
               <Route path="/experience" element={<ExperienceGoa />} />
               <Route path="/waitlist" element={<WaitlistChooser />} />
               <Route path="/waitlist/travelers" element={<WaitlistTravelers />} />

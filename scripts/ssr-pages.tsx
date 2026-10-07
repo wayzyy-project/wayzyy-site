@@ -14,6 +14,7 @@ import GuestTerms from "@/pages/GuestTerms";
 import Policies from "@/pages/Policies";
 import PolicyDocPage from "@/pages/PolicyDocPage";
 import EarningsCalculator from "@/pages/EarningsCalculator";
+import About from "@/pages/About";
 import GoaHostComplianceChecklist from "@/pages/GoaHostComplianceChecklist";
 
 import BlogIndex from "@/pages/blog/BlogIndex";
@@ -95,6 +96,7 @@ const routes: Record<string, React.ComponentType> = {
   "/policies/review-rating": PolicyDocPage,
   "/policies/trust-safety": PolicyDocPage,
   "/earnings-calculator": EarningsCalculator,
+  "/about": About,
   "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,

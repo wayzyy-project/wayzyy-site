@@ -457,6 +457,14 @@ const routes = [
     }
   },
   {
+    path: '/about',
+    title: 'Who is behind Wayzyy: the team and why we built it',
+    description: 'Wayzyy is built by Anant Sharma and Akshay Kumar Sharma. Why we started, how we make money, and how we find hosts and guests in Goa.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: require('./src/data/aboutSchema.json')
+  },
+  {
     path: '/what-is-wayzyy',
     title: 'What is Wayzyy? — Goa\'s Zero-Commission Villa & Stay Platform',
     description: 'What is Wayzyy? Wayzyy is Goa\'s zero-commission vacation rental and stay booking platform connecting travelers directly with verified local hosts.',
