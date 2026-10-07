@@ -59,8 +59,8 @@ export default function About() {
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed">
               Wayzyy is a short-term rental marketplace for India, built by Wayzyy Technologies Private Limited. We are
-              live in Goa. Every host and guest is verified, hosts pay no per-booking commission, and guests see the
-              full price before they book.
+              live in Goa. We are hosts ourselves, and we built the platform we wished we had: one where hosts keep
+              what they earn and guests see the full price before they book.
             </p>
           </div>
         </div>
@@ -103,95 +103,98 @@ export default function About() {
             </div>
           </section>
 
-          {/* Why */}
-          <section className="space-y-5" aria-labelledby="why-heading">
-            <h2 id="why-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
-              Why we built it
+          <section className="space-y-5" aria-labelledby="start-heading">
+            <h2 id="start-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
+              How we started
             </h2>
             <p>
-              Indian hosts rent out their homes on platforms that were not built for India. We kept hearing the same four
-              things.
+              We are hosts ourselves, so we know what it takes to run a property. There is the lease, the maintenance, the caretaker&apos;s pay and a dozen smaller things that never show up in a listing. On top of all that, a platform takes its cut of every booking.
+            </p>
+            <p>
+              So we did our homework. We read through Reddit threads, and we talked to people who have been hosting for eight to ten years. They watched the BNB space grow in India, and they watched it change as it moved from a mostly Western crowd to an Indian one. We heard about Goa and Udaipur, about Delhi NCR, and about the way travel to the northeast is growing.
+            </p>
+            <p>
+              The same things kept coming up.
             </p>
             <ul className="space-y-3 list-disc pl-6 marker:text-ember">
-              <li>
-                Foreign platforms commonly keep somewhere between 15% and 18% of every booking, and the cut grows as a
-                host gets better at hosting.
-              </li>
-              <li>Identities are mostly self-declared, so neither side really knows who they are dealing with.</li>
-              <li>
-                In a dispute, a staged photo can beat real proof, and refunds tend to default to the guest.
-              </li>
-              <li>Hosts who refuse to keep cutting their prices can lose visibility on the platform.</li>
+              <li>Many people still do not know what a BNB is, or do not think of it as a real choice.</li>
+              <li>Newer travellers often assume a BNB is an expensive way to travel with less hospitality than a hotel. Today the quality, the service and the price are often just as good, and people have not been told.</li>
+              <li>The commission keeps hurting hosts as they add more properties.</li>
+              <li>Marketing has to be top-notch now, and small hosts, especially people running studio apartments, struggle with it.</li>
             </ul>
             <p>
-              There is also a gap on the guest side. Many travellers in India still do not think of a homestay as an
-              alternative to a hotel. Part of our job is to change that.
+              We also saw one question come up again and again in WhatsApp and Facebook groups of hosts:
+            </p>
+            <blockquote className="border-l-2 border-ember pl-5 py-1 text-xl sm:text-2xl font-display text-foreground">
+              &ldquo;What if someone builds an Indian version of Airbnb?&rdquo;
+            </blockquote>
+            <p>
+              In our view, that is a sign that hosts want more choice, and that the biggest platform has been slow to change its policies for India. That question is where Wayzyy comes from.
             </p>
           </section>
 
-          {/* What we do differently */}
+          <section className="space-y-5" aria-labelledby="category-heading">
+            <h2 id="category-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
+              Category first, then the brand
+            </h2>
+            <p>
+              The BNB market in India is big, but it is not growing as fast as it should. Every millennial and every Gen Z traveller should know what a BNB is, and many still do not. We think this is where Airbnb fell short in India.
+            </p>
+            <p>
+              So our idea has always been to market the category first and the brand second. Every reel, every post and every partnership we do is aimed at Gen Z and millennials, and made to feel relatable.
+            </p>
+            <p>
+              And we do not only mean premium villas with swimming pools. Wayzyy is just as much for the studio apartment that someone manages near a college. That is where we want to grow.
+            </p>
+          </section>
+
+          <section className="space-y-5" aria-labelledby="model-heading">
+            <h2 id="model-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
+              Why we do not mark up bookings
+            </h2>
+            <p>
+              Most platforms work like a shopkeeper. Buy something for 10 rupees, sell it for 12, and keep the difference. That is a fine way to run a shop. We think it is a hard way to run a hosting business, because the markup keeps growing as a host grows.
+            </p>
+            <p>
+              We follow a simpler idea. We want every host to make money, and we want to give them ways to make more. A host buys a simple prepaid recharge pack instead of paying a cut on every booking, and keeps 100% of the nightly rate. Guests pay a flat 7% service fee, and they see it before they book. Nothing else is stacked on top.
+            </p>
+            <p>
+              That also takes away one headache for hosts who already have leases, maintenance and caretaker fees to manage.
+            </p>
+          </section>
+
           <section className="space-y-5" aria-labelledby="different-heading">
             <h2 id="different-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
-              What we do differently
+              What else we do about the problems
             </h2>
             <ul className="space-y-3 list-disc pl-6 marker:text-ember">
-              <li>
-                <strong>Verified from the start.</strong> Hosts and guests are checked through DigiLocker-based Aadhaar
-                verification.
-              </li>
-              <li>
-                <strong>No per-booking commission for hosts.</strong> A host buys a prepaid credit pack and keeps 100% of
-                the nightly rate.
-              </li>
-              <li>
-                <strong>A price guests can see.</strong> Guests pay the nightly rate plus a flat 7% service fee, shown
-                before they book.
-              </li>
-              <li>
-                <strong>A fairer dispute process.</strong> Evidence first, then a human review, then a resolution.
-              </li>
-              <li>
-                <strong>Easy to switch.</strong> Hosts can import an existing listing instead of starting from scratch.
-              </li>
+              <li><strong>Verification.</strong> Wayzyy uses Aadhaar through DigiLocker to verify hosts and guests, so people know who they are dealing with.</li>
+              <li><strong>Fairer disputes.</strong> Evidence first, then a human review, then a resolution.</li>
+              <li><strong>Easy to switch.</strong> Hosts can import an existing listing instead of starting from scratch.</li>
             </ul>
           </section>
 
-          {/* Money */}
-          <section className="space-y-5" aria-labelledby="money-heading">
-            <h2 id="money-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
-              How Wayzyy makes money
-            </h2>
-            <p>
-              Two ways. Guests pay a flat 7% service fee on top of the nightly rate, and hosts buy prepaid credit packs.
-              We do not take a commission out of the host&apos;s nightly rate. Both numbers are shown upfront.
-            </p>
-          </section>
-
-          {/* Demand */}
-          <section className="space-y-5" aria-labelledby="demand-heading">
-            <h2 id="demand-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
-              How we find guests
-            </h2>
-            <p>
-              Our first guests come from Geek Room, the developer community Akshay founded. It has more than 100,000
-              members and college chapters across India, and it runs hackathons and meetups where people travel in
-              groups. We promote Wayzyy at those events.
-            </p>
-            <p>
-              We also work with partner companies on offsites and event travel, and we plan residency programs for tech
-              and startup teams, with Wayzyy as their stay partner. Beyond that, we make short videos that explain
-              homestays to everyday travellers, and we meet people offline in cities.
-            </p>
-          </section>
-
-          {/* Supply */}
-          <section className="space-y-5" aria-labelledby="supply-heading">
-            <h2 id="supply-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
+          <section className="space-y-5" aria-labelledby="hosts-heading">
+            <h2 id="hosts-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
               How we find hosts
             </h2>
             <p>
-              We meet hosts in person. More than 50 Goa hosts joined in their first month with us, without any paid
-              advertising. Our founding hosts start with credits, and listing import means moving over takes minutes.
+              We meet hosts in person and run onboarding calls, because we want the right people on the platform, not just the most people. A lot of hosts also reach us through word of mouth and our social channels. More than 50 Goa hosts joined in their first month with us, without paid advertising.
+            </p>
+            <p>
+              Founding hosts start with credits, and listing import means switching takes minutes.
+            </p>
+          </section>
+
+          <section className="space-y-5" aria-labelledby="guests-heading">
+            <h2 id="guests-heading" className="font-display text-3xl text-foreground border-b border-border/60 pb-3">
+              How we find guests
+            </h2>
+            <p>
+              Our first guests come from Geek Room, the developer community Akshay founded. It has more than 100,000 members and college chapters across India, and it runs hackathons and meetups where people travel in groups. We promote Wayzyy at those events.
+            </p>
+            <p>
+              We also work with partner companies on offsites and event travel, and we plan residency programs for tech and startup teams, with Wayzyy as their stay partner. And we make short videos that explain BNBs to everyday travellers, because that is how we reach Gen Z and millennials.
             </p>
           </section>
 
