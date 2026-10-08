@@ -66,7 +66,7 @@ export default function WaitlistTravelers() {
         <div className="relative z-10 w-full max-w-7xl px-6 pt-40 sm:pt-48 md:pt-56 flex flex-col items-center text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full liquid-glass px-3 py-1 text-xs uppercase tracking-[0.25em] text-white/80">
             <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-            Travelers - coming soon
+            Travelers - Wayzyy is open in Goa. Hosts can list. Guests can book.
           </div>
           <h1 className="font-display text-4xl leading-[1.05] text-white sm:text-6xl md:text-7xl text-balance max-w-4xl">
             Be first when{" "}

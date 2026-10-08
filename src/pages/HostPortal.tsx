@@ -5,7 +5,7 @@ import {
   Home, Building2, TreePine, Wheat, Landmark, MoreHorizontal,
   BedDouble, Users, Navigation, SlidersHorizontal,
   ShieldCheck, MessageCircle, CalendarSync, Wallet, Camera, FileText,
-  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee, Send,
+  Percent, RefreshCw, Headset, Lock, Eye, Droplet, TrendingUp, Sparkles, User, Mail, UserCheck, BookOpen, AlertTriangle, IndianRupee, Send, Phone,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { TextEffect } from "@/components/core/text-effect";
@@ -38,6 +38,8 @@ import { HostGetStarted, importLimitFor, SUPPORT_EMAIL, SUPPORT_PHONE, type Onbo
 import { HostPlatformGuideModal } from "@/components/host/HostPlatformGuideModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { triggerHostApprovalEmail } from "@/lib/sendHostApprovalEmail";
+
+const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
 // Same value sets as mobile/src/screens/host/BecomeHostScreen.tsx - keeps
 // listings consistent regardless of which platform a host submits from.
@@ -657,6 +659,30 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           onSubmitted={fetchDashboardData}
         />
       )}
+
+      {/* Always-visible support line - HostGetStarted's WhatsApp prompt only
+          shows for brand-new/concierge hosts, so a returning host with live
+          listings had no on-screen phone number at all. */}
+      <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15">
+          <Phone className="h-4 w-4 text-primary" />
+        </span>
+        <span className="flex-1">
+          Any issues, or want to talk to someone? Call or WhatsApp us at{" "}
+          <a href={`tel:${SUPPORT_PHONE_HREF}`} className="font-semibold text-white underline underline-offset-2">
+            {SUPPORT_PHONE}
+          </a>
+          .
+        </span>
+        <a
+          href={`https://wa.me/${SUPPORT_PHONE_HREF}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10"
+        >
+          WhatsApp
+        </a>
+      </div>
 
       {/* Hosting Action Header & Cards */}
       <div className={listings.length === 0 ? "hidden" : "space-y-4"}>

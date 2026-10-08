@@ -115,7 +115,7 @@ const Index = () => {
   return (
     <SEO
       title="Wayzyy - cozy stays, crazy nights and fair hosting . That's wayzyy"
-      description="Honest pricing for travelers. Fair, evidence-respecting policies for hosts. Homestays with a flat fee subscription rate. Coming soon."
+      description="Honest pricing for travelers. Fair, evidence-respecting policies for hosts. Homestays with a flat fee subscription rate. Wayzyy is open in Goa. Hosts can list. Guests can book."
       jsonLd={schemas}
     >
       <div className="relative bg-background text-foreground">

@@ -197,9 +197,8 @@ export default function GoaStaysPublic() {
               <button
                 key={r}
                 onClick={() => setRegion(r)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
-                  region === r ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"
-                }`}
+                className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${region === r ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                  }`}
               >
                 {r === "all" ? "All Goa" : r === "north" ? "North Goa" : "South Goa"}
               </button>

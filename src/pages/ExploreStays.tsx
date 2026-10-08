@@ -8,40 +8,33 @@ import { FilterModal } from "@/components/marketplace/FilterModal";
 import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
-import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
-import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
-// Same price-pill look the old Leaflet divIcon had, as a real component now
-// that it's an AdvancedMarker's `content` rather than a static HTML string.
-function PricePin({ price, currency }: { price: number; currency: string }) {
-  return (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        color: "#000000",
-        fontWeight: 800,
-        fontSize: 11,
-        padding: "5px 10px",
-        borderRadius: 24,
-        boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
-        border: "1px solid #e2e8f0",
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-      }}
-    >
-      {currency}{price.toLocaleString("en-IN")}
-    </div>
-  );
-}
-
-const SEED_HOST_EMAILS = [
-  "akshayne912@gmail.com",
-  "hello@wayzyy.com",
-  "akshaytrythis@gmail.com",
-  "anantsharma8055@gmail.com",
-  "raijagriti.work@gmail.com",
-  "priyanshubhardwaj0912@gmail.com",
-];
+// Custom Leaflet Price Pin
+const createPriceIcon = (price: number, currency: string) => {
+  return L.divIcon({
+    className: "custom-price-pin",
+    html: `<div style="
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      border: 1px solid #e2e8f0;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    ">${currency}${price.toLocaleString("en-IN")}</div>`,
+    iconSize: [64, 26],
+    iconAnchor: [32, 13],
+  });
+};
 
 export default function ExploreStays() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,7 +44,6 @@ export default function ExploreStays() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [includeAllFees, setIncludeAllFees] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
-  const [openMapPinId, setOpenMapPinId] = useState<string | null>(null);
 
   // Search State
   const destinationQuery = searchParams.get("city") || "";
@@ -88,8 +80,7 @@ export default function ExploreStays() {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .eq("status", "active")
-          .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
+          .neq("status", "rejected")
           .order("created_at", { ascending: false });
 
         if (data && data.length > 0) {
@@ -101,7 +92,7 @@ export default function ExploreStays() {
               try {
                 const arr = JSON.parse(p.images);
                 if (Array.isArray(arr) && arr.length > 0) parsedImages = arr;
-              } catch (e) {}
+              } catch (e) { }
             }
 
             const price = Number(p.price_per_night) || 3500;
@@ -143,34 +134,34 @@ export default function ExploreStays() {
                 "Fully equipped modular kitchen",
                 "Dedicated workspace with ergonomic desk"
               ],
-            host: {
-              name: p.host_email ? p.host_email.split("@")[0] : "Verified Host",
-              avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-              isSuperhost: true,
-              joinedDate: "Joined in 2025",
-              responseRate: "100%",
-              responseTime: "within an hour"
-            },
-            highlights: [
-              { icon: "trophy", title: "Guest favourite", description: "One of the most loved homes on Wayzyy." },
-              { icon: "door", title: "Self check-in", description: "Easy digital check-in." }
-            ],
-            ratingsBreakdown: { cleanliness: 5.0, accuracy: 5.0, communication: 5.0, location: 4.9, checkIn: 5.0, value: 5.0 },
-            reviews: [],
-            houseRules: {
-              checkIn: "2:00 PM",
-              checkOut: "11:00 AM",
-              selfCheckIn: "Self check-in",
-              smoking: false,
-              pets: false,
-              parties: false
-            },
-            cancellationPolicy: "Free cancellation up to 48 hours before check-in.",
-            instantBook: true,
-            featuredSection: "north_goa"
-          };
-        });
-        setDbProperties(transformed);
+              host: {
+                name: p.host_email ? p.host_email.split("@")[0] : "Verified Host",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+                isSuperhost: true,
+                joinedDate: "Joined in 2025",
+                responseRate: "100%",
+                responseTime: "within an hour"
+              },
+              highlights: [
+                { icon: "trophy", title: "Guest favourite", description: "One of the most loved homes on Wayzyy." },
+                { icon: "door", title: "Self check-in", description: "Easy digital check-in." }
+              ],
+              ratingsBreakdown: { cleanliness: 5.0, accuracy: 5.0, communication: 5.0, location: 4.9, checkIn: 5.0, value: 5.0 },
+              reviews: [],
+              houseRules: {
+                checkIn: "2:00 PM",
+                checkOut: "11:00 AM",
+                selfCheckIn: "Self check-in",
+                smoking: false,
+                pets: false,
+                parties: false
+              },
+              cancellationPolicy: "Free cancellation up to 48 hours before check-in.",
+              instantBook: true,
+              featuredSection: "north_goa"
+            };
+          });
+          setDbProperties(transformed);
         }
       } catch (err) {
         console.error("Error loading properties from supabase:", err);
@@ -245,10 +236,10 @@ export default function ExploreStays() {
   }, [allProperties, searchState, selectedCategory, filters]);
 
   const northGoaProperties = useMemo(() => {
-    return filteredProperties.filter((p) => 
-      p.state?.toLowerCase().includes("goa") || 
-      p.city?.toLowerCase().includes("goa") || 
-      p.area?.toLowerCase().includes("assagao") || 
+    return filteredProperties.filter((p) =>
+      p.state?.toLowerCase().includes("goa") ||
+      p.city?.toLowerCase().includes("goa") ||
+      p.area?.toLowerCase().includes("assagao") ||
       p.area?.toLowerCase().includes("vagator") ||
       p.area?.toLowerCase().includes("candolim") ||
       p.area?.toLowerCase().includes("arpora")
@@ -414,57 +405,48 @@ export default function ExploreStays() {
           {viewMode === "map" && (
             <div className="fixed inset-0 top-[140px] z-30 bg-background flex flex-col">
               <div className="flex-1 w-full h-full relative">
-                <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
-                  <GoogleMap
-                    mapId="DEMO_MAP_ID"
-                    defaultCenter={{ lat: 20.5937, lng: 78.9629 }}
-                    defaultZoom={5}
-                    scrollwheel
-                    disableDefaultUI
-                    zoomControl
-                    style={{ width: "100%", height: "100%" }}
-                  >
-                    {filteredProperties.map((p) => (
-                      <AdvancedMarker
-                        key={p.id}
-                        position={{ lat: p.lat, lng: p.lng }}
-                        onClick={() => setOpenMapPinId(p.id)}
-                      >
-                        <PricePin price={p.pricePerNight * 2} currency={p.currency} />
-                      </AdvancedMarker>
-                    ))}
-                    {filteredProperties.map((p) =>
-                      openMapPinId === p.id ? (
-                        <InfoWindow
-                          key={p.id}
-                          position={{ lat: p.lat, lng: p.lng }}
-                          onCloseClick={() => setOpenMapPinId(null)}
-                        >
-                          <div className="w-56 p-1">
-                            <img
-                              src={p.images[0]}
-                              alt={p.title}
-                              className="w-full h-28 object-cover rounded-2xl mb-2"
-                            />
-                            <p className="text-xs font-bold text-foreground line-clamp-1">{p.title}</p>
-                            <p className="text-[11px] text-muted-foreground">{p.city}, {p.state}</p>
-                            <div className="mt-1.5 flex items-center justify-between">
-                              <span className="text-xs font-black text-foreground">
-                                {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
-                              </span>
-                              <Link
-                                to={`/property/${p.id}`}
-                                className="text-[11px] font-bold text-[#FF6B00] hover:underline"
-                              >
-                                View →
-                              </Link>
-                            </div>
+                <MapContainer
+                  center={[28.6280, 77.3820]}
+                  zoom={6}
+                  scrollWheelZoom={true}
+                  className="w-full h-full"
+                  style={{ minHeight: "100%", width: "100%" }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {filteredProperties.map((p) => (
+                    <Marker
+                      key={p.id}
+                      position={[p.lat, p.lng]}
+                      icon={createPriceIcon(p.pricePerNight * 2, p.currency)}
+                    >
+                      <Popup className="custom-map-popup">
+                        <div className="w-56 p-1">
+                          <img
+                            src={p.images[0]}
+                            alt={p.title}
+                            className="w-full h-28 object-cover rounded-2xl mb-2"
+                          />
+                          <p className="text-xs font-bold text-foreground line-clamp-1">{p.title}</p>
+                          <p className="text-[11px] text-muted-foreground">{p.city}, {p.state}</p>
+                          <div className="mt-1.5 flex items-center justify-between">
+                            <span className="text-xs font-black text-foreground">
+                              {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
+                            </span>
+                            <Link
+                              to={`/property/${p.id}`}
+                              className="text-[11px] font-bold text-[#FF6B00] hover:underline"
+                            >
+                              View →
+                            </Link>
                           </div>
-                        </InfoWindow>
-                      ) : null,
-                    )}
-                  </GoogleMap>
-                </APIProvider>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
               </div>
             </div>
           )}

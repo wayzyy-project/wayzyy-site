@@ -17,7 +17,7 @@ export function WaitlistSection() {
             <Reveal>
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-                Coming soon
+                Wayzyy is open in Goa. Hosts can list. Guests can book.
               </div>
             </Reveal>
             <Reveal delay={0.05}>
