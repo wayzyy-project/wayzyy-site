@@ -38,6 +38,8 @@ export interface PropertyListing {
   // restriction) - real listings carry the host's own setting from
   // properties.min_nights.
   minNights?: number;
+  // Set by the admin Wayzyy Verified review (approve-verification).
+  wayzyyVerified?: boolean;
   host: {
     // Only set for real (non-mock) listings - lets the detail page look up
     // the host's actual profile and their other live listings.

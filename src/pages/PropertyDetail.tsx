@@ -357,6 +357,7 @@ export default function PropertyDetail() {
               "24/7 Security with CCTV & Smart Door Lock"
             ],
             minNights: Number(data.min_nights) || 1,
+            wayzyyVerified: data.wayzyy_verified === true,
             host: {
               // host_id present -> the real profile (name + avatar) is
               // fetched right after this and overwrites these placeholders.
@@ -593,6 +594,12 @@ export default function PropertyDetail() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <h1 className="text-2xl sm:text-3xl font-extrabold font-display tracking-tight text-foreground">
                 {property.title}
+                {property.wayzyyVerified && (
+                  <span className="mt-2 flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600">
+                    <ShieldCheck className="h-3.5 w-3.5" />
+                    Wayzyy Verified · Host verified
+                  </span>
+                )}
               </h1>
 
               <div className="flex items-center gap-4 text-xs font-semibold text-foreground shrink-0">
