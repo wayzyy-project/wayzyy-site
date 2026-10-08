@@ -3,6 +3,7 @@ import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useScroll, useSpring, motion } from "framer-motion";
 import { SEO } from "./SEO";
 import { ThemeToggle } from "./theme-toggle";
+import { RelatedGuides } from "./RelatedGuides";
 
 import { BlogPostMeta } from "@/lib/blogPosts";
 
@@ -148,6 +149,8 @@ export function BlogLayout(props: BlogLayoutProps) {
 
         <div className="container max-w-3xl py-12 sm:py-16">
           <div className="policy-content">{children}</div>
+
+          <RelatedGuides currentSlug={path.replace(/^\/blog\//, "").replace(/\/$/, "")} />
 
           <div className="mt-16 rounded-2xl border border-border bg-card/40 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>

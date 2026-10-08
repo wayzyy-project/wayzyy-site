@@ -1,0 +1,64 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://wayzyy.com/about#page",
+      "url": "https://wayzyy.com/about",
+      "name": "Who is behind Wayzyy",
+      "about": {
+        "@id": "https://wayzyy.com/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://wayzyy.com/#organization",
+      "name": "Wayzyy",
+      "legalName": "Wayzyy Technologies Private Limited",
+      "url": "https://wayzyy.com",
+      "logo": "https://wayzyy.com/favicon.png",
+      "email": "hello@wayzyy.com",
+      "description": "Wayzyy is an India-first short-term rental marketplace, live in Goa, with verified hosts and guests and no per-booking commission for hosts.",
+      "areaServed": "Goa, India",
+      "founder": [
+        {
+          "@id": "https://wayzyy.com/about#anant"
+        },
+        {
+          "@id": "https://dev-voyager.space/#akshay"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/staywayzyy/",
+        "https://www.linkedin.com/company/wayzyy/",
+        "https://x.com/wayzyycom",
+        "https://www.crunchbase.com/organization/wayzyy"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://wayzyy.com/about#anant",
+      "name": "Anant Sharma",
+      "jobTitle": "Founder & CEO",
+      "image": "https://wayzyy.com/team/anant-sharma.webp",
+      "worksFor": {
+        "@id": "https://wayzyy.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dev-voyager.space/#akshay",
+      "name": "Akshay Kumar Sharma",
+      "jobTitle": "Co-founder & CTO",
+      "image": "https://wayzyy.com/team/akshay-kumar-sharma.webp",
+      "url": "https://dev-voyager.space",
+      "worksFor": {
+        "@id": "https://wayzyy.com/#organization"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/akshay-kumar-sharma-37aa55256/",
+        "https://dev-voyager.space"
+      ]
+    }
+  ]
+}
