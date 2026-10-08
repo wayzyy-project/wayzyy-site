@@ -43,8 +43,7 @@ export default function AirbnbAlternativeLanding() {
               Direct Booking Alternative
             </div>
             <h1 className="font-display text-4xl sm:text-6xl text-foreground font-bold tracking-tight mt-4 max-w-2xl mx-auto leading-[1.1]">
-              Airbnb Alternative: <br />
-              <span className="text-ember">Discover Wayzyy</span>
+              List your Goa villa without Airbnb's fee | Wayzyy
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto font-light">
               Wayzyy is a host-first short-term rental platform, built specifically for Goa. No per-booking commission for hosts. No inflated markup for guests.
