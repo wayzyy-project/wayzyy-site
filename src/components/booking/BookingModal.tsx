@@ -395,7 +395,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <span>Total Payable Amount</span>
                   <span className="text-base text-[#FF6B00] font-black">₹{totalAmount.toLocaleString("en-IN")}</span>
                 </div>
-                <p className="text-muted-foreground">Includes GST on the stay, Wayzyy's service fee and GST on that fee - itemized on the listing page.</p>
+                <p className="text-muted-foreground">Includes all taxes - the nightly price already includes Wayzyy's fee, and the GST is shown on the listing page.</p>
               </div>
 
               {/* Razorpay Gateway Options */}

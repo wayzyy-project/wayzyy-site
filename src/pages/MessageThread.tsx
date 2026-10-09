@@ -21,9 +21,18 @@ const formatTime = (iso: string) =>
 // Same booking-event parsing mobile's MessageThreadScreen does, so a
 // "Booking Confirmed" system message reads the same on web as in the app,
 // not as a wall of raw newline-joined text.
-type SystemKind = "request" | "confirmed" | "declined" | "other";
+type SystemKind = "request" | "confirmed" | "declined" | "verify" | "guestVerified" | "other";
 const parseSystemMessage = (content: string): { kind: SystemKind; lines: Record<string, string> } => {
   let kind: SystemKind = "other";
+  if (content.startsWith("Verification Needed") || content.startsWith("Booking Approved")) {
+    // The explanation sits between the heading and the Reference line.
+    const body = content.split("\n").slice(1).filter((l) => l.trim() && !l.trim().startsWith("Reference:")).join("\n").trim();
+    return { kind: "verify", lines: { Note: body, ...(content.startsWith("Booking Approved") ? { Approved: "yes" } : {}) } };
+  }
+  if (content.startsWith("Guest Verified")) {
+    const body = content.split("\n").slice(1).filter((l) => l.trim() && !l.trim().startsWith("Reference:")).join("\n").trim();
+    return { kind: "guestVerified", lines: { Note: body } };
+  }
   if (content.includes("Booking Request")) kind = "request";
   else if (content.includes("Booking Confirmed")) kind = "confirmed";
   else if (content.includes("Booking Declined")) kind = "declined";
@@ -34,7 +43,7 @@ const parseSystemMessage = (content: string): { kind: SystemKind; lines: Record<
   for (const raw of content.split("\n")) {
     const line = raw.trim();
     const [key, ...rest] = line.split(":");
-    if (rest.length > 0 && ["Property", "Guest", "Dates", "Guests", "Total Payout", "Total Price", "Reference"].includes(key)) {
+    if (rest.length > 0 && ["Property", "Guest", "Dates", "Guests", "Total Payout", "Total Price", "Guest Verification", "Reference"].includes(key)) {
       lines[key] = rest.join(":").trim();
     }
   }
@@ -45,15 +54,35 @@ const SYSTEM_LABEL: Record<SystemKind, string> = {
   request: "Booking Request",
   confirmed: "Booking Confirmed",
   declined: "Booking Declined",
+  verify: "Verification Needed",
+  guestVerified: "Guest Verified",
   other: "Update",
 };
 
-function SystemMessageCard({ content }: { content: string }) {
+function SystemMessageCard({ content, isHost }: { content: string; isHost: boolean }) {
   const { kind, lines } = parseSystemMessage(content);
   if (kind === "other" && Object.keys(lines).length === 0) {
     return (
       <div className="mx-auto max-w-sm rounded-xl bg-muted/60 px-4 py-3 text-center text-xs text-muted-foreground whitespace-pre-line">
         {content}
+      </div>
+    );
+  }
+  if (kind === "verify" || kind === "guestVerified") {
+    return (
+      <div className="mx-auto max-w-sm rounded-2xl border border-border bg-card p-4">
+        <p className="text-[11px] font-bold uppercase tracking-wide text-[#FF6B00]">
+          {kind === "verify" ? (lines.Approved ? "Booking Approved" : "Verification Needed") : "Guest Verified"}
+        </p>
+        <p className="mt-2 whitespace-pre-line text-sm text-foreground">{lines.Note}</p>
+        {kind === "verify" && !isHost && (
+          <Link
+            to="/verify-identity?returnTo=/trips"
+            className="mt-3 inline-flex rounded-full bg-[#FF6B00] px-4 py-2 text-xs font-bold text-white"
+          >
+            Verify now
+          </Link>
+        )}
       </div>
     );
   }
@@ -68,9 +97,24 @@ function SystemMessageCard({ content }: { content: string }) {
           </p>
         ))}
       </div>
+      {kind === "request" && isHost && lines["Guest Verification"] && lines["Guest Verification"] !== "Verified" && (
+        <p className="mt-3 text-xs text-muted-foreground">
+          This guest isn&apos;t verified yet. Once you accept, they&apos;ll be asked to verify before their confirmation is sent, so you don&apos;t need to chase them.
+        </p>
+      )}
     </div>
   );
 }
+
+// Same role filtering as the app: guest-only and host-only system messages
+// are not shown to the other side.
+const isVisibleSystemMessage = (content: string, isHost: boolean): boolean => {
+  if (content.includes("confirmed by the host") || content.includes("declined by the host")) return !isHost;
+  if (content.startsWith("Verification Needed") || content.startsWith("Booking Approved")) return !isHost;
+  if (content.startsWith("Guest Verified")) return isHost;
+  if (content.includes("Please confirm or decline")) return isHost;
+  return true;
+};
 
 export default function MessageThread() {
   const { threadId } = useParams<{ threadId: string }>();
@@ -162,7 +206,10 @@ export default function MessageThread() {
             {messages.map((m) => {
               const isSystem = m.sender_id === WAYZYY_SYSTEM_ACCOUNT_ID;
               const isOwn = m.sender_id === user.id;
-              if (isSystem) return <SystemMessageCard key={m.id} content={m.content} />;
+              if (isSystem) {
+                if (!isVisibleSystemMessage(m.content, isHostSide)) return null;
+                return <SystemMessageCard key={m.id} content={m.content} isHost={isHostSide} />;
+              }
               return (
                 <div key={m.id} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
                   <div

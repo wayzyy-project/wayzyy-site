@@ -24,6 +24,14 @@ import { computeBestDiscount, type DiscountType, type PropertyDiscount } from "@
 export const WAYZYY_FEE_RATE = 0.07;
 export const SERVICE_FEE_GST_RATE = 0.18;
 
+/**
+ * The nightly price a guest sees: the host's price with Wayzyy's 7% fee already
+ * included, so a card matches the stay subtotal at checkout (GST is added
+ * there). Display only, booking maths always starts from the host's own price.
+ */
+export const guestNightlyPrice = (hostPrice: number): number =>
+  Math.round(hostPrice * (1 + WAYZYY_FEE_RATE));
+
 /** GST on accommodation by that night's charge: nothing up to ₹1,000, 5% up to ₹7,500, 18% above. */
 export const stayGstRateFor = (nightlyCharge: number): number =>
   nightlyCharge <= 1000 ? 0 : nightlyCharge <= 7500 ? 0.05 : 0.18;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { guestNightlyPrice } from "@/lib/pricing";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { PropertyListing } from "@/data/mockProperties";
@@ -50,7 +51,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   };
 
   // Price calculations
-  const totalPrice = property.pricePerNight * nights;
+  const totalPrice = guestNightlyPrice(property.pricePerNight) * nights;
 
   return (
     <Link

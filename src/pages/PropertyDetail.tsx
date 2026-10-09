@@ -31,7 +31,7 @@ import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
-import { quoteStay, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { quoteStay, guestNightlyPrice, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -490,10 +490,14 @@ export default function PropertyDetail() {
   const quote = pricingInputs
     ? quoteStay(pricingInputs, guestCount, checkInDate, checkOutDate, nights)
     : null;
-  const stayTotal = quote ? quote.accommodation : property.pricePerNight * nights;
-  const nightlyRate = quote ? quote.perNight : property.pricePerNight;
+  // The 7% Wayzyy fee is folded into every line a guest sees; the server still
+  // prices and taxes the host's amount and the fee separately.
+  const fold = (n: number) => Math.round(n * (1 + WAYZYY_FEE_RATE));
+  const stayTotal = quote ? quote.accommodation + quote.serviceFee : property.pricePerNight * nights;
+  const nightlyRate = quote ? fold(quote.perNight) : property.pricePerNight;
   const originalStayTotal = property.originalPrice ? property.originalPrice * nights / 2 : stayTotal * 2;
-  const nightsSubtotal = quote ? quote.nightsSubtotal : property.pricePerNight * nights;
+  const foldedDiscount = quote?.discount ? fold(quote.discount.savings) : 0;
+  const nightsSubtotal = quote ? stayTotal + foldedDiscount : property.pricePerNight * nights;
   // Airbnb's guest fee runs ~15.5% of the stay; Wayzyy's is 7% (shown as its
   // own line below), so the saving is the difference, not the whole 15.5%.
   const airbnbFeeComparison = Math.max(0, Math.round(stayTotal * 0.155) - (quote ? quote.serviceFee : 0));
@@ -725,7 +729,7 @@ export default function PropertyDetail() {
                         </div>
                         <p className="mt-1.5 text-xs font-semibold text-foreground truncate">{listing.title}</p>
                         <p className="text-[11px] text-muted-foreground">
-                          ₹{listing.pricePerNight.toLocaleString("en-IN")} / night
+                          ₹{guestNightlyPrice(listing.pricePerNight).toLocaleString("en-IN")} / night
                         </p>
                       </Link>
                     ))}
@@ -1027,7 +1031,7 @@ export default function PropertyDetail() {
                   {quote?.discount && (
                     <div className="flex justify-between font-semibold text-emerald-600 dark:text-emerald-400">
                       <span>{DISCOUNT_LABELS[quote.discount.type].label} discount ({quote.discount.percentage}% off)</span>
-                      <span>−{property.currency}{quote.discount.savings.toLocaleString("en-IN")}</span>
+                      <span>−{property.currency}{foldedDiscount.toLocaleString("en-IN")}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-muted-foreground">
@@ -1040,23 +1044,11 @@ export default function PropertyDetail() {
                     You save <strong>₹{airbnbFeeComparison.toLocaleString("en-IN")}</strong> in platform commissions on Wayzyy!
                   </div>
 
-                  {quote && quote.stayGst > 0 && (
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>GST on stay</span>
-                      <span>{property.currency}{quote.stayGst.toLocaleString("en-IN")}</span>
-                    </div>
-                  )}
                   {quote && (
-                    <>
-                      <div className="flex justify-between text-muted-foreground">
-                        <span>Wayzyy service fee</span>
-                        <span>{property.currency}{quote.serviceFee.toLocaleString("en-IN")}</span>
-                      </div>
-                      <div className="flex justify-between text-muted-foreground">
-                        <span>GST on service fee (18%)</span>
-                        <span>{property.currency}{quote.serviceFeeGst.toLocaleString("en-IN")}</span>
-                      </div>
-                    </>
+                    <div className="flex justify-between text-muted-foreground">
+                      <span>Taxes (GST)</span>
+                      <span>{property.currency}{(quote.stayGst + quote.serviceFeeGst).toLocaleString("en-IN")}</span>
+                    </div>
                   )}
 
                   <div className="flex justify-between text-sm font-black text-foreground pt-2 border-t border-border">
