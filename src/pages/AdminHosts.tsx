@@ -950,9 +950,22 @@ function HostDetailSheet({
                           </Link>
                         </>
                       ) : (
-                        <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
-                          {state.label}
-                        </span>
+                        <>
+                          <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
+                            {state.label}
+                          </span>
+                          {/* Drafts open in the same review page (it has no
+                              status filter), to check how an import looks
+                              before the host is notified. */}
+                          {p.status === "draft" && (
+                            <Link
+                              to={`/adminn/review/${p.id}`}
+                              className="shrink-0 text-[11px] font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                            >
+                              Review
+                            </Link>
+                          )}
+                        </>
                       )}
                       {/* Only offered for draft / pending_review - a listing
                           that's gone active is a host's own to remove, from
