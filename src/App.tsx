@@ -106,6 +106,7 @@ import FinalCoconut from "./pages/FinalCoconut";
 import GrandPrixHackathon from "./pages/GrandPrixHackathon";
 import Links from "./pages/Links";
 import HostBookings from "./pages/HostBookings";
+import HostPayoutAccount from "./pages/HostPayoutAccount";
 import { HostOnboardingRedirect } from "./components/host/HostOnboardingRedirect";
 import AdminHostOnboarding from "./pages/AdminHostOnboarding";
 import AdminHosts from "./pages/AdminHosts";
@@ -187,6 +188,7 @@ const App = () => (
               <Route path="/policies/:docId" element={<PolicyDocPage />} />
               <Route path="/host" element={<HostPortal />} />
               <Route path="/host/bookings" element={<HostBookings />} />
+              <Route path="/host/payout" element={<HostPayoutAccount />} />
               <Route path="/host/pricing" element={<HostPricing />} />
               <Route path="/adminn" element={<AdminDashboard />} />
               <Route path="/adminn/verifications" element={<AdminVerifications />} />

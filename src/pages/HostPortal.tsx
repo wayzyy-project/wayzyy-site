@@ -1934,6 +1934,7 @@ export default function HostPortal() {
                 page visibly changed. */}
             <div className="flex items-center gap-2">
               <Link to="/host/bookings" className="rounded-md px-2 py-1 text-xs font-medium text-white/80 hover:text-white">Bookings</Link>
+              <Link to="/host/payout" className="rounded-md px-2 py-1 text-xs font-medium text-white/80 hover:text-white">Payouts</Link>
               <MessagesLink dark />
               <NotificationBell />
             </div>
