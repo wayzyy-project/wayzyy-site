@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PricingGuideLink } from "@/components/host/MarketRateNote";
+import { INDIA_FESTIVAL_PACKS, type FestivalPack } from "@/data/indiaFestivals";
 
 /* ---------- date helpers (local-time safe) ---------- */
 // Everything keys off a YYYY-MM-DD string built from local parts. Using
@@ -18,6 +19,25 @@ function startOfMonth(d: Date) { return new Date(d.getFullYear(), d.getMonth(), 
 function addMonths(d: Date, n: number) { return new Date(d.getFullYear(), d.getMonth() + n, 1); }
 function addDays(d: Date, n: number) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
 function sameDay(a: Date, b: Date) { return key(a) === key(b); }
+
+/* ---------- rate input ---------- */
+// The rate box takes a rupee amount ("6500") or a percentage change from each
+// night's current rate ("+20%", "-10%"; "15%" means +15%).
+type RateInput = { kind: "abs"; value: number } | { kind: "pct"; pct: number };
+function parseRateInput(raw: string): RateInput | null {
+  const t = raw.trim().replace(/[\s,]/g, "");
+  if (!t) return null;
+  const m = t.match(/^([+\-\u2212]?)(\d+(?:\.\d+)?)%$/);
+  if (m) {
+    const pct = Number(m[2]) * (m[1] === "-" || m[1] === "\u2212" ? -1 : 1);
+    if (!Number.isFinite(pct) || pct === 0 || pct < -90 || pct > 300) return null;
+    return { kind: "pct", pct };
+  }
+  const value = Number(t);
+  return Number.isFinite(value) ? { kind: "abs", value } : null;
+}
+const formatPct = (pct: number) => `${pct > 0 ? "+" : "\u2212"}${Math.abs(pct)}%`;
+const PCT_CHIPS = [10, 20, 30, -10];
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 // getDay() values for the "Select every ..." buttons, Monday first (Sunday is 0).
@@ -136,6 +156,30 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   const clearSelection = () => { setAnchor(null); setHead(null); setWeekdayPick(null); setPriceInput(""); };
 
+  const todayKey = key(new Date());
+  const upcomingFestivals = useMemo(
+    () => INDIA_FESTIVAL_PACKS.filter((f) => f.end >= todayKey).slice(0, 6),
+    [todayKey],
+  );
+  const selectFestival = (f: FestivalPack) => {
+    setWeekdayPick(null);
+    const first = f.start < todayKey ? todayKey : f.start;
+    setAnchor(first);
+    setHead(f.end);
+    setPriceInput(formatPct(f.suggestedPct));
+    setMonth(startOfMonth(new Date(first + "T00:00:00")));
+  };
+
+  const pctHint = useMemo(() => {
+    const parsed = parseRateInput(priceInput);
+    const firstSel = [...selected][0];
+    if (!parsed || parsed.kind !== "pct" || !firstSel) return null;
+    const cur = (overrides[firstSel] ?? weekendRule[firstSel] ?? basePrice ?? 0);
+    if (!cur) return null;
+    const next = Math.round(cur * (1 + parsed.pct / 100));
+    return `Each night changes by ${formatPct(parsed.pct)} from its current rate, for example ₹${cur.toLocaleString("en-IN")} → ₹${next.toLocaleString("en-IN")}.`;
+  }, [priceInput, selected, overrides, weekendRule, basePrice]);
+
   const selectEveryWeekday = (dow: number) => {
     if (weekdayPick === dow) { clearSelection(); return; }
     setAnchor(null);
@@ -151,25 +195,44 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   /* ---------- actions ---------- */
   const applyPrice = async () => {
-    const value = Number(priceInput);
-    if (!Number.isFinite(value) || value < 100) {
-      toast({ title: "Enter a valid rate", description: "₹100 or more.", variant: "destructive" });
+    const parsed = parseRateInput(priceInput);
+    if (!parsed || (parsed.kind === "abs" && parsed.value < 100)) {
+      toast({
+        title: "Enter a valid rate",
+        description: priceInput.includes("%") ? "Use a change between −90% and +300%, like +20%." : "₹100 or more, or a change like +20%.",
+        variant: "destructive",
+      });
+      return;
+    }
+    // A percentage is applied to what each night costs today (its own custom
+    // rate, the weekend rate, or the base rate).
+    const updates: Record<string, number> = {};
+    for (const date of selected) {
+      if (parsed.kind === "abs") { updates[date] = parsed.value; continue; }
+      const current = priceFor(new Date(date + "T00:00:00"));
+      if (!current) {
+        toast({ title: "Set a base price first", description: "A percentage change needs a current rate to start from.", variant: "destructive" });
+        return;
+      }
+      updates[date] = Math.round(current * (1 + parsed.pct / 100));
+    }
+    if (Object.values(updates).some((v) => v < 100)) {
+      toast({ title: "Rate too low", description: "That change would take some nights below ₹100.", variant: "destructive" });
       return;
     }
     setSaving(true);
-    const rows = [...selected].map((date) => ({ property_id: propertyId, date, price: value }));
+    const rows = Object.entries(updates).map(([date, price]) => ({ property_id: propertyId, date, price }));
     const { error } = await supabase.from("date_prices").upsert(rows, { onConflict: "property_id,date" });
     setSaving(false);
     if (error) {
       toast({ title: "Couldn't save pricing", description: error.message, variant: "destructive" });
       return;
     }
-    setOverrides((prev) => {
-      const next = { ...prev };
-      for (const d of selected) next[d] = value;
-      return next;
+    setOverrides((prev) => ({ ...prev, ...updates }));
+    toast({
+      title: `${rows.length} night${rows.length === 1 ? "" : "s"} updated`,
+      description: parsed.kind === "abs" ? `Now ₹${parsed.value.toLocaleString("en-IN")} a night.` : `Changed by ${formatPct(parsed.pct)}.`,
     });
-    toast({ title: `${selected.size} night${selected.size === 1 ? "" : "s"} updated`, description: `Now ₹${value.toLocaleString("en-IN")} a night.` });
     clearSelection();
   };
 
@@ -350,6 +413,35 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
             <p className="text-[11px] text-white/40">Pick a day name to select it for the next 12 months, then set a rate or block those nights.</p>
           </div>
 
+          {upcomingFestivals.length > 0 && (
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-white/60">Festivals &amp; long weekends</p>
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {upcomingFestivals.map((f) => {
+                  const from = new Date(f.start + "T00:00:00");
+                  const to = new Date(f.end + "T00:00:00");
+                  const mon = (d: Date) => d.toLocaleString("en-IN", { month: "short" });
+                  const range = from.getMonth() === to.getMonth()
+                    ? `${from.getDate()}–${to.getDate()} ${mon(to)}`
+                    : `${from.getDate()} ${mon(from)} – ${to.getDate()} ${mon(to)}`;
+                  return (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => selectFestival(f)}
+                      className="min-w-[150px] rounded-xl border border-white/15 p-3 text-left hover:border-white/40"
+                    >
+                      <span className="block text-xs font-bold text-white">{f.name}</span>
+                      <span className="mt-1 block text-[11px] text-white/60">{range}</span>
+                      <span className="mt-0.5 block text-[11px] font-semibold text-ember">Suggested {formatPct(f.suggestedPct)}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-[11px] text-white/40">Festival dates follow the lunar calendar and can shift by a day. Check before saving.</p>
+            </div>
+          )}
+
           {selected.size > 0 && (
             <div className="rounded-2xl border border-ember/30 bg-ember/5 p-4 space-y-3">
               <div className="flex items-center justify-between gap-2">
@@ -364,9 +456,9 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
                 <div className="relative flex-1">
                   <IndianRupee className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/40" />
                   <Input
-                    type="number"
-                    inputMode="numeric"
-                    placeholder="Rate for these nights"
+                    type="text"
+                    inputMode="text"
+                    placeholder="Rate (6500) or change (+20%)"
                     value={priceInput}
                     onChange={(e) => setPriceInput(e.target.value)}
                     className="pl-8 text-sm"
@@ -374,9 +466,24 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
                 </div>
                 <Button onClick={applyPrice} disabled={saving || !priceInput} className="gap-1.5 bg-ember text-white hover:bg-ember/90">
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-                  Set rate
+                  {parseRateInput(priceInput)?.kind === "pct" ? "Apply" : "Set rate"}
                 </Button>
               </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {PCT_CHIPS.map((p) => (
+                  <button
+                    key={p}
+                    type="button"
+                    onClick={() => setPriceInput(formatPct(p))}
+                    disabled={saving}
+                    className="rounded-full border border-white/15 px-3 py-1 text-xs font-semibold text-white/80 hover:border-white/40"
+                  >
+                    {formatPct(p)}
+                  </button>
+                ))}
+              </div>
+              {pctHint && <p className="text-xs text-white/60">{pctHint}</p>}
 
               <div className="flex flex-wrap gap-2 border-t border-white/10 pt-3">
                 <Button variant="outline" size="sm" onClick={resetPrice} disabled={saving} className="gap-1.5 border-white/20 text-xs text-white hover:bg-white/10">
