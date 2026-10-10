@@ -20,6 +20,9 @@ function addDays(d: Date, n: number) { const x = new Date(d); x.setDate(x.getDat
 function sameDay(a: Date, b: Date) { return key(a) === key(b); }
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+// getDay() values for the "Select every ..." buttons, Monday first (Sunday is 0).
+const EVERY_DOW = [1, 2, 3, 4, 5, 6, 0];
+const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 interface Props {
   propertyId: string;
@@ -44,6 +47,8 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   // range, so both interactions share one code path.
   const [anchor, setAnchor] = useState<string | null>(null);
   const [head, setHead] = useState<string | null>(null);
+  // "Select every Sunday" etc.: every upcoming night on that weekday, a year ahead.
+  const [weekdayPick, setWeekdayPick] = useState<number | null>(null);
   const [priceInput, setPriceInput] = useState("");
 
   const today = useMemo(() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }, []);
@@ -90,6 +95,17 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   /* ---------- selection ---------- */
   const selected = useMemo(() => {
+    if (weekdayPick != null) {
+      const out = new Set<string>();
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+      const last = new Date(start.getFullYear(), start.getMonth() + 12, 0);
+      for (let d = new Date(start); d <= last; d = addDays(d, 1)) {
+        // Booked nights cannot be changed here.
+        if (d.getDay() === weekdayPick && !booked.has(key(d))) out.add(key(d));
+      }
+      return out;
+    }
     if (!anchor) return new Set<string>();
     const a = new Date(anchor);
     const b = head ? new Date(head) : a;
@@ -97,10 +113,18 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
     const out = new Set<string>();
     for (let d = new Date(from); d <= to; d = addDays(d, 1)) out.add(key(d));
     return out;
-  }, [anchor, head]);
+  }, [anchor, head, weekdayPick, booked]);
 
   const onDayClick = (d: Date) => {
     const k = key(d);
+    if (weekdayPick != null) {
+      // Tapping a date leaves "every <weekday>" and starts a normal selection.
+      setWeekdayPick(null);
+      setAnchor(k);
+      setHead(null);
+      setPriceInput(overrides[k] != null ? String(overrides[k]) : "");
+      return;
+    }
     if (!anchor || head) {
       setAnchor(k);
       setHead(null);
@@ -110,7 +134,15 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
     }
   };
 
-  const clearSelection = () => { setAnchor(null); setHead(null); setPriceInput(""); };
+  const clearSelection = () => { setAnchor(null); setHead(null); setWeekdayPick(null); setPriceInput(""); };
+
+  const selectEveryWeekday = (dow: number) => {
+    if (weekdayPick === dow) { clearSelection(); return; }
+    setAnchor(null);
+    setHead(null);
+    setPriceInput("");
+    setWeekdayPick(dow);
+  };
 
   const priceFor = (d: Date) => {
     const k = key(d);
@@ -295,11 +327,35 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
             <span className="flex items-center gap-1.5"><span className="text-ember">₹</span> Custom rate</span>
           </div>
 
+          <div className="space-y-1.5">
+            <p className="text-xs font-semibold text-white/60">Select every</p>
+            <div className="flex flex-wrap gap-1.5">
+              {EVERY_DOW.map((dow, i) => (
+                <button
+                  key={dow}
+                  type="button"
+                  onClick={() => selectEveryWeekday(dow)}
+                  aria-pressed={weekdayPick === dow}
+                  aria-label={`Select every ${WEEKDAY_NAMES[dow]}`}
+                  className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
+                    weekdayPick === dow
+                      ? "border-ember bg-ember text-white"
+                      : "border-white/15 bg-transparent text-white/80 hover:border-white/40"
+                  }`}
+                >
+                  {WEEKDAYS[i]}
+                </button>
+              ))}
+            </div>
+            <p className="text-[11px] text-white/40">Pick a day name to select it for the next 12 months, then set a rate or block those nights.</p>
+          </div>
+
           {selected.size > 0 && (
             <div className="rounded-2xl border border-ember/30 bg-ember/5 p-4 space-y-3">
               <div className="flex items-center justify-between gap-2">
                 <p className="text-sm font-semibold text-white">
-                  {selected.size} night{selected.size === 1 ? "" : "s"} selected
+                  {weekdayPick != null ? `Every ${WEEKDAY_NAMES[weekdayPick]} · ` : ""}
+                  {selected.size} night{selected.size === 1 ? "" : "s"}{weekdayPick != null ? "" : " selected"}
                 </p>
                 <button type="button" onClick={clearSelection} className="text-xs text-white/60 hover:text-white">Clear</button>
               </div>
