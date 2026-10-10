@@ -44,6 +44,10 @@ const CATEGORIES = [
   { id: "goa", label: "Goa Getaways", icon: Palmtree },
   { id: "trending", label: "Trending", icon: Flame },
   { id: "nature", label: "Countryside", icon: TreePine },
+  { id: "beach", label: "Beach", icon: Palmtree },
+  { id: "heritage", label: "Heritage", icon: Castle },
+  { id: "farm", label: "Farm Stay", icon: TreePine },
+  { id: "clifftop", label: "Cliff Top", icon: Compass },
 ];
 
 export const CategoryBar: React.FC<CategoryBarProps> = ({

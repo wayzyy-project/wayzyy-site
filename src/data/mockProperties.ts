@@ -14,6 +14,7 @@ export interface PropertyListing {
   title: string;
   description: string;
   category: "homes" | "villas" | "apartments" | "rooms" | "beachfront" | "luxury" | "pools";
+  vibe?: string | null;
   propertyType: string; // e.g. "Entire rental unit", "Villa", "Apartment", "Room"
   city: string;
   area: string;

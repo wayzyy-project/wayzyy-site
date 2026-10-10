@@ -81,7 +81,8 @@ export default function HostBookings() {
         <Link to="/host" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:underline">
           <ArrowLeft className="h-4 w-4" /> Back to host dashboard
         </Link>
-        <h1 className="font-display text-3xl mb-6">Bookings</h1>
+        <h1 className="font-display text-3xl mb-2">Bookings</h1>
+        <p className="mb-6 text-xs text-muted-foreground">WhatsApp booking alerts and booking videos are managed in the Wayzyy app.</p>
         {authLoading ? (
           <Loader2 className="mx-auto h-6 w-6 animate-spin" />
         ) : !session ? (

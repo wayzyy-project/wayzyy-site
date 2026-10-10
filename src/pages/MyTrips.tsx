@@ -247,6 +247,7 @@ export default function MyTrips() {
       ) : (
         <main className="mx-auto max-w-3xl px-4 py-8">
           <h1 className="font-display text-3xl mb-4 flex items-center gap-2"><Luggage className="h-7 w-7" /> My trips</h1>
+          <p className="mb-4 text-xs text-muted-foreground">Booking for business? Add your GSTIN at checkout in the Wayzyy app to get a GST invoice.</p>
           <div className="mb-6 flex gap-2">
             {(["upcoming", "past"] as const).map((t) => (
               <Button key={t} variant={tab === t ? "default" : "outline"} size="sm" onClick={() => setTab(t)}>

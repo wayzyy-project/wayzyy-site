@@ -112,6 +112,7 @@ export default function ExploreStays() {
               title: p.title || "Spacious Homestay",
               description: p.description || "",
               category: (p.category?.toLowerCase() || "apartments") as any,
+              vibe: p.vibe ?? null,
               propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
               city: p.city || "Goa",
               // properties has 'location', not 'street'/'lat'/'lng' - those
@@ -211,6 +212,7 @@ export default function ExploreStays() {
 
       // Category filter
       if (selectedCategory !== "all") {
+        if (["beach", "heritage", "farm", "clifftop"].includes(selectedCategory) && p.vibe !== selectedCategory) return false;
         if (selectedCategory === "goa" && !p.state?.toLowerCase().includes("goa") && !p.city?.toLowerCase().includes("goa")) return false;
         if (selectedCategory === "villas" && p.category !== "villas" && !p.propertyType.toLowerCase().includes("villa")) return false;
         if (selectedCategory === "pools" && p.category !== "pools" && !p.amenities.some(a => a.toLowerCase().includes("pool"))) return false;

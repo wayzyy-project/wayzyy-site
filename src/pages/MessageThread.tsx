@@ -5,6 +5,8 @@ import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { blockUser, unblockUser, isBlocked } from "@/lib/blocks";
+import { useToast } from "@/hooks/use-toast";
 import {
   Message,
   Thread,
@@ -126,6 +128,9 @@ export default function MessageThread() {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+  const [blocked, setBlocked] = useState(false);
+  const [blockBusy, setBlockBusy] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) navigate("/inbox", { replace: true });
@@ -143,6 +148,8 @@ export default function MessageThread() {
         return;
       }
       setThread(data as Thread);
+      const otherId = data.host_id === user.id ? data.guest_id : data.host_id;
+      if (otherId !== user.id) isBlocked(user.id, otherId).then((b) => !cancelled && setBlocked(b));
       const msgs = await fetchMessages(threadId);
       if (!cancelled) { setMessages(msgs); setLoading(false); }
       markThreadRead(threadId, data.host_id === user.id);
@@ -184,6 +191,21 @@ export default function MessageThread() {
 
   const isHostSide = thread.host_id === user.id;
   const otherName = isHostSide ? thread.guest_name : thread.host_name;
+  const otherId = isHostSide ? thread.guest_id : thread.host_id;
+  const canBlock = otherId !== user.id && otherId !== WAYZYY_SYSTEM_ACCOUNT_ID;
+
+  const toggleBlock = async () => {
+    if (!blocked && !window.confirm(`Block ${otherName}? You won't be able to message each other.`)) return;
+    setBlockBusy(true);
+    const res = blocked ? await unblockUser(otherId) : await blockUser(user.id, otherId);
+    setBlockBusy(false);
+    if (!res.ok) {
+      toast({ title: blocked ? "Couldn't unblock" : "Couldn't block", description: res.reason, variant: "destructive" });
+      return;
+    }
+    setBlocked(!blocked);
+    toast({ title: blocked ? `${otherName} unblocked` : `${otherName} blocked` });
+  };
 
   return (
     <>
@@ -198,6 +220,16 @@ export default function MessageThread() {
               <p className="truncate text-sm font-bold text-foreground">{otherName}</p>
               <p className="truncate text-xs text-muted-foreground">{thread.property_title}</p>
             </div>
+            {canBlock && (
+              <button
+                type="button"
+                onClick={toggleBlock}
+                disabled={blockBusy}
+                className="ml-auto shrink-0 text-xs text-muted-foreground underline hover:text-foreground disabled:opacity-50"
+              >
+                {blocked ? "Unblock" : "Block"}
+              </button>
+            )}
           </div>
         </header>
 
@@ -229,6 +261,11 @@ export default function MessageThread() {
           </div>
         </div>
 
+        {blocked ? (
+          <p className="sticky bottom-0 border-t border-border bg-background p-4 text-center text-xs text-muted-foreground">
+            You blocked {otherName}. Unblock to send messages.
+          </p>
+        ) : (
         <form onSubmit={handleSend} className="sticky bottom-0 border-t border-border bg-background p-3">
           <div className="container flex max-w-2xl items-center gap-2">
             <input
@@ -246,6 +283,7 @@ export default function MessageThread() {
             </button>
           </div>
         </form>
+        )}
       </div>
     </>
   );

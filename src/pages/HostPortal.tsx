@@ -78,6 +78,7 @@ interface ListingForm {
   price: string;
   weekendPrice: string;
   placeType: string;
+  vibe: string;
   spaceType: string;
   street: string;
   city: string;
@@ -98,7 +99,7 @@ interface ListingForm {
 
 const emptyForm: ListingForm = {
   title: "", description: "", price: "", weekendPrice: "",
-  placeType: "", spaceType: "",
+  placeType: "", vibe: "", spaceType: "",
   street: "", city: "Goa", state: "Goa", pincode: "",
   registrationNumber: "",
   latitude: null, longitude: null,
@@ -1312,6 +1313,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
             price: data.price,
             weekendPrice: data.weekendPrice,
             placeType: data.placeType,
+            vibe: data.vibe || null,
             spaceType: data.spaceType,
             street: data.street,
             city: data.city,
@@ -1475,6 +1477,29 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
                 </div>
               </button>
             ))}
+          </div>
+          <div className="pt-2">
+            <h3 className="text-sm font-medium">Where should guests find it? <span className="text-muted-foreground font-normal">(optional)</span></h3>
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              {([
+                ["beach", "Beach", "On the beach or a short walk from it"],
+                ["heritage", "Heritage", "Portuguese, colonial or old-world character"],
+                ["farm", "Farm Stay", "On a farm, plantation or among fields"],
+                ["clifftop", "Cliff Top", "On a cliff or headland with big views"],
+              ] as const).map(([id, label, desc]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => set("vibe", data.vibe === id ? "" : id)}
+                  className={`rounded-xl border p-3 text-left transition-colors ${
+                    data.vibe === id ? "border-ember bg-ember/10" : "border-border hover:border-foreground/30"
+                  }`}
+                >
+                  <p className="text-sm font-medium">{label}</p>
+                  <p className="text-xs text-muted-foreground">{desc}</p>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
