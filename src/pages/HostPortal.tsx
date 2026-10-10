@@ -1005,6 +1005,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         totalListings={listings.length}
         liveListings={listings.filter((l) => l.status === "active").length}
         onVerifyClick={() => setShowManualVerify(true)}
+        onStartTourClick={() => setShowTour(true)}
       />
     </div>
   );
@@ -1932,6 +1933,7 @@ export default function HostPortal() {
                 toggle would flip the global theme while nothing on this
                 page visibly changed. */}
             <div className="flex items-center gap-2">
+              <Link to="/host/bookings" className="rounded-md px-2 py-1 text-xs font-medium text-white/80 hover:text-white">Bookings</Link>
               <MessagesLink dark />
               <NotificationBell />
             </div>
