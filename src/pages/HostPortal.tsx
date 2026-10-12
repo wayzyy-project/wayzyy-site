@@ -1922,63 +1922,44 @@ export default function HostPortal() {
       description="Manage your listings and list new properties on Wayzyy directly from the web - the same platform, database, and review process as the app."
       path="/host"
     >
-      {/* The host portal is a permanently dark surface - hardcoded
-          bg-slate-950 under a dark villa photo and black gradients - but
-          its content was styled with theme tokens (text-foreground,
-          text-muted-foreground, border-border...). In light mode those
-          resolve to near-black on that near-black backdrop, which is why
-          the whole listing wizard was invisible. Scoping `dark` here
-          pins every token inside the portal to the dark palette, so this
-          is fixed for all 70-odd token usages at once (and for anything
-          added later) rather than one hand-patched class at a time. */}
-      <div className="dark min-h-screen relative text-foreground overflow-x-hidden bg-slate-950">
-        {/* Full-bleed twilight Goa villa background artwork */}
-        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-          <img
-            src="/illustrations/sunset-host.webp"
-            alt="Goa Sunset Host Villa Backdrop"
-            className="w-full h-full object-cover opacity-50 mix-blend-luminosity scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
-        </div>
-
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur-xl text-white">
-          <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+      {/* Light, Airbnb-style surface: white background, slate text, Wayzyy
+          orange for actions. `host-light` (index.css) re-themes everything
+          inside - tokens and the older white-on-dark utility classes - so
+          the dashboard, wizard and panels stay readable. */}
+      <div className="host-light min-h-screen relative text-foreground overflow-x-hidden bg-white">
+        <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur text-gray-900">
+          <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center gap-3">
-              <Link to="/" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+              <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
+              <span className="hidden font-display text-lg font-bold text-ember sm:inline">Wayzyy host</span>
+              <span className="text-gray-300">·</span>
+              <Link to="/" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Wayzyy
               </Link>
-              <span className="text-white/20">·</span>
-              <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </div>
-            {/* No theme toggle here: the portal is pinned to the dark
-                palette (see the `dark` class on the wrapper below), so a
-                toggle would flip the global theme while nothing on this
-                page visibly changed. */}
-            <div className="flex items-center gap-2">
-              <Link to="/host/bookings" className="rounded-md px-2 py-1 text-xs font-medium text-white/80 hover:text-white">Bookings</Link>
-              <Link to="/host/payout" className="rounded-md px-2 py-1 text-xs font-medium text-white/80 hover:text-white">Payouts</Link>
-              <MessagesLink dark />
+            <div className="flex items-center gap-1">
+              <Link to="/host/bookings" className="rounded-full px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100">Bookings</Link>
+              <Link to="/host/payout" className="rounded-full px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100">Payouts</Link>
+              <MessagesLink />
               <NotificationBell />
             </div>
           </div>
         </header>
 
-        <div className="relative z-10 border-b border-white/10 bg-black/30 backdrop-blur-xl py-12 sm:py-16">
-          <div className="container max-w-3xl">
-            <h1 className="font-display text-4xl sm:text-5xl text-white leading-tight">
+        <div className="relative z-10 border-b border-gray-200 bg-white py-10 sm:py-12">
+          <div className="container max-w-5xl">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
               {view === "dashboard" ? "Your hosting" : "List your property"}
             </h1>
-            <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-xl">
+            <p className="mt-3 text-sm text-gray-600 leading-relaxed max-w-xl">
               Same platform, same review process, same database as the Wayzyy app - host from
               wherever's easiest for you.
             </p>
           </div>
         </div>
 
-        <div className="relative z-10 container py-12 sm:py-16 max-w-3xl">
+        <div className="relative z-10 container py-10 sm:py-12 max-w-5xl">
           {view === "dashboard" ? (
             <HostDashboard
               onAddNew={() => setView("wizard")}

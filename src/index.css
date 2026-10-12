@@ -246,3 +246,83 @@ html.lenis body {
 .policy-content caption {
   @apply text-xs text-muted-foreground text-left mb-2;
 }
+
+/* ── Host portal: clean light theme (Airbnb-style white, Wayzyy orange) ──
+   The portal was built dark, with white-on-black utility classes spread
+   through HostPortal and the host/* components. Rather than hand-edit
+   several hundred classes, everything inside `.host-light` is remapped here:
+   tokens go to the light palette with orange as the primary, and the
+   hardcoded white/black utilities are flipped to slate-on-white. Anything on
+   an orange/gradient button or a dark photo overlay keeps its white text.
+   Remove the wrapper class to get the old look back. */
+.host-light {
+  color-scheme: light;
+  --background: 0 0% 100%;
+  --foreground: 222 20% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 20% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 20% 12%;
+  --primary: 25 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 222 20% 12%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 40%;
+  --accent: 25 100% 50%;
+  --accent-foreground: 0 0% 100%;
+  --border: 220 13% 88%;
+  --input: 220 13% 82%;
+  --ring: 25 100% 50%;
+  background: #fff;
+  color: hsl(222 20% 12%);
+}
+
+/* text */
+.host-light [class~="text-white"] { color: #111827; }
+.host-light [class~="text-white/90"], .host-light [class~="text-white/80"] { color: #1f2937; }
+.host-light [class~="text-white/70"], .host-light [class~="text-white/60"] { color: #4b5563; }
+.host-light [class~="text-white/50"], .host-light [class~="text-white/40"],
+.host-light [class~="text-white/30"], .host-light [class~="text-white/25"] { color: #6b7280; }
+.host-light [class~="hover:text-white"]:hover, .host-light [class*="hover:text-white/"]:hover { color: #111827; }
+.host-light [class~="text-amber-300"], .host-light [class~="text-amber-400"] { color: #b45309; }
+.host-light [class~="text-emerald-300"], .host-light [class~="text-emerald-400"] { color: #047857; }
+.host-light [class~="text-red-300"], .host-light [class~="text-red-400"], .host-light [class~="text-rose-300"] { color: #dc2626; }
+.host-light [class~="text-sky-300"], .host-light [class~="text-sky-400"], .host-light [class~="text-blue-300"], .host-light [class~="text-blue-400"] { color: #1d4ed8; }
+.host-light [class~="text-orange-300"], .host-light [class~="text-orange-400"] { color: #ea580c; }
+.host-light input::placeholder, .host-light textarea::placeholder { color: #9ca3af; }
+.host-light [class*="placeholder:text-white"]::placeholder { color: #9ca3af; }
+
+/* surfaces */
+.host-light [class~="bg-slate-950"], .host-light [class~="bg-slate-900"],
+.host-light [class~="bg-black/20"], .host-light [class~="bg-black/25"], .host-light [class~="bg-black/30"],
+.host-light [class~="bg-black/35"], .host-light [class~="bg-black/40"] { background-color: #fff; }
+.host-light [class~="bg-white/5"], .host-light [class~="bg-white/[0.03]"], .host-light [class~="bg-white/[0.04]"] { background-color: #f9fafb; }
+.host-light [class~="bg-white/10"], .host-light [class~="bg-white/[0.08]"] { background-color: #f3f4f6; }
+.host-light [class~="bg-white/15"], .host-light [class~="bg-white/20"] { background-color: #e5e7eb; }
+.host-light [class*="hover:bg-white/"]:hover { background-color: #f3f4f6; }
+.host-light [class*="hover:bg-black/"]:hover { background-color: #f3f4f6; }
+
+/* borders & dividers */
+.host-light [class~="border-white/5"], .host-light [class~="border-white/10"], .host-light [class~="border-white/15"] { border-color: #e5e7eb; }
+.host-light [class~="border-white/20"], .host-light [class~="border-white/25"], .host-light [class~="border-white/30"] { border-color: #d1d5db; }
+.host-light [class*="hover:border-white/"]:hover { border-color: #9ca3af; }
+.host-light [class*="divide-white/"] > :not([hidden]) ~ :not([hidden]) { border-color: #e5e7eb; }
+
+/* the glass cards become plain white cards */
+.host-light .liquid-glass {
+  background: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 4px 16px rgba(17, 24, 39, 0.05);
+  border: 1px solid #e5e7eb;
+}
+.host-light .liquid-glass::before { display: none; }
+.host-light [class*="backdrop-blur"] { backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+/* keep white text where it sits on orange, a gradient, or a dark photo overlay */
+.host-light :is(.bg-ember, .bg-primary, [class*="bg-gradient-to"], [class*="bg-[#"], .bg-red-600, .bg-red-500,
+  .bg-emerald-600, .bg-emerald-500, .bg-black\/50, .bg-black\/60, .bg-black\/70, .bg-black\/80, .bg-slate-800)
+  :is([class~="text-white"], [class*=" text-white/"], svg) { color: #fff; }
+.host-light :is(.bg-ember, .bg-primary, [class*="bg-gradient-to"], [class*="bg-[#"], .bg-red-600, .bg-red-500,
+  .bg-emerald-600, .bg-emerald-500, .bg-black\/50, .bg-black\/60, .bg-black\/70, .bg-black\/80, .bg-slate-800)[class~="text-white"] { color: #fff; }
