@@ -4,7 +4,7 @@ import {
   Palmtree, 
   Waves, 
   Building, 
-  Sparkles,
+  House,
   Flame,
   Castle, 
   TreePine, 
@@ -36,7 +36,7 @@ interface CategoryBarProps {
 }
 
 const CATEGORIES = [
-  { id: "all", label: "All Stays", icon: Sparkles },
+  { id: "all", label: "All Stays", icon: House },
   { id: "villas", label: "Luxury Villas", icon: Castle },
   { id: "pools", label: "Amazing Pools", icon: Waves },
   { id: "apartments", label: "Modern 2BHKs", icon: Building },
