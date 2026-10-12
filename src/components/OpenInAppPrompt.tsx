@@ -15,7 +15,9 @@ const DISMISS_KEY = "wayzyy_open_in_app_dismissed";
 const DISMISS_DAYS = 7;
 
 // Host/admin tools and identity flows stay in the browser.
-const HIDDEN_ON = ["/host", "/admin", "/adminn", "/verify-identity", "/inbox", "/open"];
+// "/host" itself is where the WhatsApp host-alert button lands, so it keeps the
+// prompt; the host tools underneath it (/host/bookings, /host/payout) do not.
+const HIDDEN_ON = ["/host/", "/admin", "/adminn", "/verify-identity", "/inbox", "/open"];
 
 const platform = (): "android" | "ios" | null => {
   const ua = navigator.userAgent;
@@ -32,7 +34,12 @@ const recentlyDismissed = (): boolean => {
 };
 
 /** wayzyy.com/property/abc -> wayzyy://property/abc (the app's own scheme). */
-const appPath = (pathname: string) => pathname.replace(/^\/+/, "");
+// Only paths the app can open itself are passed through; anything else (like
+// /host) opens the app's home screen.
+const appPath = (pathname: string) => {
+  const p = pathname.replace(/^\/+/, "");
+  return /^(property\/|review|admin\/review\/)/.test(p) ? p : "";
+};
 
 export function OpenInAppPrompt() {
   const { pathname } = useLocation();

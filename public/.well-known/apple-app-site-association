@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "D5P8MM2Z97.com.wayzyy.app",
-        "paths": ["/property/*", "/admin/review/*", "/review", "/open", "/open/*"]
+        "paths": ["/property/*", "/admin/review/*", "/review", "/open", "/open/*", "/host"]
       }
     ]
   }
