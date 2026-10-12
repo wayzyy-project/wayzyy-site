@@ -29,6 +29,7 @@ import { AMENITIES } from "@/lib/amenities";
 import { ManualVerificationModal } from "@/components/host/ManualVerificationModal";
 import { ImportListingModal } from "@/components/host/ImportListingModal";
 import { SendLinkToTeamModal } from "@/components/host/SendLinkToTeamModal";
+import { useLightSurface } from "@/hooks/useLightSurface";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
@@ -1830,6 +1831,7 @@ function ListingWizard({ onDone }: { onDone: () => void }) {
 
 export default function HostPortal() {
   const { user, loading } = useAuth();
+  useLightSurface();
   const [view, setView] = useState<"dashboard" | "wizard" | "manage">("dashboard");
   const [managing, setManaging] = useState<{ id: string; title: string; defaultTab?: string } | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -1932,15 +1934,15 @@ export default function HostPortal() {
             <div className="flex items-center gap-3">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
               <span className="hidden font-display text-lg font-bold text-ember sm:inline">Wayzyy host</span>
-              <span className="text-gray-300">·</span>
+              <span className="hidden text-gray-300 sm:inline">·</span>
               <Link to="/" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
-                Back to Wayzyy
+                <span className="hidden sm:inline">Back to Wayzyy</span>
               </Link>
             </div>
-            <div className="flex items-center gap-1">
-              <Link to="/host/bookings" className="rounded-full px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100">Bookings</Link>
-              <Link to="/host/payout" className="rounded-full px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100">Payouts</Link>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              <Link to="/host/bookings" className="rounded-full px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 sm:px-3 sm:text-sm">Bookings</Link>
+              <Link to="/host/payout" className="rounded-full px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 sm:px-3 sm:text-sm">Payouts</Link>
               <MessagesLink />
               <NotificationBell />
             </div>
@@ -1950,7 +1952,7 @@ export default function HostPortal() {
         <div className="relative z-10 border-b border-gray-200 bg-white py-10 sm:py-12">
           <div className="container max-w-5xl">
             <h1 className="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-              {view === "dashboard" ? "Your hosting" : "List your property"}
+              {view === "dashboard" ? "Your hosting" : view === "manage" ? "Manage your listing" : "List your property"}
             </h1>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed max-w-xl">
               Same platform, same review process, same database as the Wayzyy app - host from

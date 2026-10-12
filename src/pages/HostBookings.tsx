@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, ArrowLeft, Calendar, Users } from "lucide-react";
+import { useLightSurface } from "@/hooks/useLightSurface";
 import { SEO } from "@/components/SEO";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -32,6 +33,7 @@ const LABEL: Record<string, string> = {
 };
 
 export default function HostBookings() {
+  useLightSurface();
   const { session, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const [rows, setRows] = useState<Row[] | null>(null);
@@ -75,7 +77,7 @@ export default function HostBookings() {
   const rest = (rows ?? []).filter((r) => r.status !== "pending");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="host-light min-h-screen bg-background">
       <SEO title="Bookings | Wayzyy Host" description="Your Wayzyy bookings." path="/host/bookings" />
       <main className="mx-auto max-w-3xl px-4 py-8">
         <Link to="/host" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:underline">

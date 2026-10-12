@@ -279,13 +279,14 @@ html.lenis body {
 }
 
 /* text */
+.host-light .text-ember { color: #d94f00; }
 .host-light [class~="text-white"] { color: #111827; }
 .host-light [class~="text-white/90"], .host-light [class~="text-white/80"] { color: #1f2937; }
 .host-light [class~="text-white/70"], .host-light [class~="text-white/60"] { color: #4b5563; }
 .host-light [class~="text-white/50"], .host-light [class~="text-white/40"],
 .host-light [class~="text-white/30"], .host-light [class~="text-white/25"] { color: #6b7280; }
 .host-light [class~="hover:text-white"]:hover, .host-light [class*="hover:text-white/"]:hover { color: #111827; }
-.host-light [class~="text-amber-300"], .host-light [class~="text-amber-400"] { color: #b45309; }
+.host-light [class~="text-amber-300"], .host-light [class~="text-amber-400"], .host-light [class~="text-amber-500"], .host-light [class~="text-amber-600"] { color: #92400e; }
 .host-light [class~="text-emerald-300"], .host-light [class~="text-emerald-400"] { color: #047857; }
 .host-light [class~="text-red-300"], .host-light [class~="text-red-400"], .host-light [class~="text-rose-300"] { color: #dc2626; }
 .host-light [class~="text-sky-300"], .host-light [class~="text-sky-400"], .host-light [class~="text-blue-300"], .host-light [class~="text-blue-400"] { color: #1d4ed8; }
@@ -326,3 +327,16 @@ html.lenis body {
   :is([class~="text-white"], [class*=" text-white/"], svg) { color: #fff; }
 .host-light :is(.bg-ember, .bg-primary, [class*="bg-gradient-to"], [class*="bg-[#"], .bg-red-600, .bg-red-500,
   .bg-emerald-600, .bg-emerald-500, .bg-black\/50, .bg-black\/60, .bg-black\/70, .bg-black\/80, .bg-slate-800)[class~="text-white"] { color: #fff; }
+
+/* host-light: variant classes the attribute rules above can't see */
+.host-light [data-state="active"][class*="data-[state=active]:bg-white"] {
+  background-color: #ff6b00; color: #fff; box-shadow: none;
+}
+.host-light [data-state="checked"][class*="data-[state=checked]:text-white"] { color: #fff; }
+.host-light [class*="focus:bg-white/"]:focus { background-color: #fff; }
+.host-light [class*="hover:bg-black"]:hover:not([class*="bg-black/"]):not(.bg-black) { background-color: #f3f4f6; }
+.host-light [class~="text-white/75"] { color: #374151; }
+.host-light [class~="text-white/55"] { color: #4b5563; }
+.host-light [class~="bg-white/[0.02]"] { background-color: #fafafa; }
+.host-light [class~="bg-white/30"] { background-color: #e5e7eb; }
+.host-light [class~="bg-ember/20"] { background-color: #ffd9bf; }

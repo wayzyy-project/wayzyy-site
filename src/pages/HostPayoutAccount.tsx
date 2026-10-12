@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, ArrowLeft, Landmark } from "lucide-react";
+import { useLightSurface } from "@/hooks/useLightSurface";
 import { SEO } from "@/components/SEO";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -14,6 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 // the last 4 digits.
 
 export default function HostPayoutAccount() {
+  useLightSurface();
   const { session, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const userId = session?.user?.id;
@@ -56,7 +58,7 @@ export default function HostPayoutAccount() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="host-light min-h-screen bg-background">
       <SEO title="Payout account | Wayzyy Host" description="Where your earnings are paid." path="/host/payout" />
       <main className="mx-auto max-w-md px-4 py-8">
         <Link to="/host" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:underline">
