@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "XXXXXXXXXX.com.wayzyy.app",
+        "appID": "D5P8MM2Z97.com.wayzyy.app",
         "paths": ["/property/*", "/admin/review/*", "/review"]
       }
     ]
