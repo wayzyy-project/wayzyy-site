@@ -468,6 +468,11 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
         This two-way connection will update both calendars when a night is booked for{" "}
         <span className="font-medium text-white">{propertyTitle}</span>.
       </p>
+      <p className="rounded-xl border border-white/15 bg-white/5 p-3 text-xs text-white/70">
+        Some systems (for example eZee) can give you a calendar link but cannot import one. If the other website has
+        nowhere to paste the Wayzyy link in Step 1, only Step 2 works: their bookings block your Wayzyy dates, and you
+        will need to block Wayzyy bookings on their side yourself.
+      </p>
 
       <div>
         <p className="mb-2 text-sm font-semibold text-white">Step 1 - add this link to the other website</p>
