@@ -18,6 +18,7 @@ import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import confetti from "canvas-confetti";
+import { BOOKINGS_OPEN, BOOKINGS_CLOSED_MESSAGE } from "@/lib/bookingGate";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -116,6 +117,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   };
 
   const handleExecutePayment = async () => {
+    // Launch switch: stop before any order is created or money is touched.
+    if (!BOOKINGS_OPEN) {
+      toast({ title: "Bookings open soon", description: BOOKINGS_CLOSED_MESSAGE });
+      return;
+    }
     if (!user) {
       toast({ title: "Sign in required", description: "Please sign in above before paying.", variant: "destructive" });
       return;
@@ -377,7 +383,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                    className="w-full py-4 rounded-2xl disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all"
                   >
                     Proceed to Payment · ₹{totalAmount.toLocaleString("en-IN")}
                   </button>
@@ -457,12 +463,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <span>256-bit encrypted Razorpay SSL checkout</span>
               </div>
 
+              {!BOOKINGS_OPEN && (
+                <p className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-700 dark:text-amber-300">
+                  {BOOKINGS_CLOSED_MESSAGE}
+                </p>
+              )}
+
               {/* Pay Button */}
               <button
                 type="button"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !BOOKINGS_OPEN}
                 onClick={handleExecutePayment}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -471,7 +483,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   </>
                 ) : (
                   <>
-                    <span>Pay ₹{totalAmount.toLocaleString("en-IN")} & Confirm Booking</span>
+                    <span>
+                      {BOOKINGS_OPEN
+                        ? `Pay ₹${totalAmount.toLocaleString("en-IN")} & Confirm Booking`
+                        : "Bookings open soon"}
+                    </span>
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}
