@@ -162,7 +162,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             </div>
             
             <div style="text-align: center; margin: 28px 0;">
-              <a href="https://wayzyy.com/host" style="display: inline-block; background-color: #ff6b00; color: #ffffff; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 99px; text-decoration: none; box-shadow: 0 4px 12px rgba(255,107,0,0.3);">
+              <a href="https://wayzyy.com/open/host" style="display: inline-block; background-color: #ff6b00; color: #ffffff; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 99px; text-decoration: none; box-shadow: 0 4px 12px rgba(255,107,0,0.3);">
                 Import Your Listing Now →
               </a>
             </div>

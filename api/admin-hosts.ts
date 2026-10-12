@@ -388,7 +388,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         </td></tr>
 
         <tr><td align="center" style="padding:24px 32px 0;">
-          <a href="https://wayzyy.com/host?tab=draft" style="display:inline-block;background:#FF6B00;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:13px 30px;border-radius:8px;">
+          <a href="https://wayzyy.com/open/host?tab=draft" style="display:inline-block;background:#FF6B00;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:13px 30px;border-radius:8px;">
             Add your pricing
           </a>
         </td></tr>
