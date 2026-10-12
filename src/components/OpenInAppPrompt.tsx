@@ -15,7 +15,7 @@ const DISMISS_KEY = "wayzyy_open_in_app_dismissed";
 const DISMISS_DAYS = 7;
 
 // Host/admin tools and identity flows stay in the browser.
-const HIDDEN_ON = ["/host", "/admin", "/adminn", "/verify-identity", "/inbox"];
+const HIDDEN_ON = ["/host", "/admin", "/adminn", "/verify-identity", "/inbox", "/open"];
 
 const platform = (): "android" | "ios" | null => {
   const ua = navigator.userAgent;

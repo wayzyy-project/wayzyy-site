@@ -1,3 +1,4 @@
+import OpenApp from "./pages/OpenApp";
 import { OpenInAppPrompt } from "./components/OpenInAppPrompt";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -160,6 +161,8 @@ const App = () => (
               <Route path="/rooms/:propertyId" element={<PropertyDetail />} />
               <Route path="/trips" element={<MyTrips />} />
               <Route path="/my-bookings" element={<MyTrips />} />
+              <Route path="/open/*" element={<OpenApp />} />
+              <Route path="/open" element={<OpenApp />} />
               <Route path="/inbox" element={<Inbox />} />
               <Route path="/inbox/:threadId" element={<MessageThread />} />
               <Route path="/wishlists" element={<Wishlists />} />
