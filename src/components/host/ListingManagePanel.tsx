@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCalendar } from "@/components/host/PropertyCalendar";
 import { MarketRateCard, useMarketRates } from "@/components/host/MarketRateNote";
 import { PropertyOverview } from "@/components/host/PropertyOverview";
+import { ApplyRulesSection } from "@/components/host/ApplyRulesSection";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
 
@@ -41,6 +42,8 @@ const TAB_BLURB: Record<string, string> = {
     "The same weekly and monthly discounts you'd set on any other platform, just clearer about what a guest actually pays. Choose how much comes off, see the effect before you commit, and save.",
   cancellation:
     "How much a guest gets back if they cancel, and how late they can do it. Pick one policy for short stays and one for long ones — guests see this before they book.",
+  rules:
+    "Set your rules once on this listing (minimum stay, cancellation, discounts, house rules and check-in), then copy them to your other listings in one go.",
   details:
     "Your minimum-stay requirement, plus licensing and registration details for this property. Licensing is never a blocker to getting listed.",
 };
@@ -73,6 +76,7 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
+          <TabsTrigger value="rules" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Copy rules</TabsTrigger>
           <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
         </TabsList>
         <TabsContent value="listing">
@@ -89,6 +93,9 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
         </TabsContent>
         <TabsContent value="cancellation">
           <CancellationSection propertyId={propertyId} />
+        </TabsContent>
+        <TabsContent value="rules">
+          <ApplyRulesSection propertyId={propertyId} propertyTitle={propertyTitle} />
         </TabsContent>
         <TabsContent value="details">
           <DetailsSection propertyId={propertyId} />
