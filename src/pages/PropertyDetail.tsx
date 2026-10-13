@@ -31,7 +31,8 @@ import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
-import { quoteStay, guestNightlyPrice, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { quoteStay, guestNightlyPrice, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { stayRuleError, describeStayRules } from "@/lib/stayRules";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -314,6 +315,9 @@ export default function PropertyDetail() {
               "24/7 Security with CCTV & Smart Door Lock"
             ],
             minNights: Number(data.min_nights) || 1,
+            maxNights: data.max_nights != null ? Number(data.max_nights) : null,
+            checkinDays: Array.isArray(data.checkin_days) && data.checkin_days.length ? data.checkin_days.map(Number) : null,
+            checkoutDays: Array.isArray(data.checkout_days) && data.checkout_days.length ? data.checkout_days.map(Number) : null,
             wayzyyVerified: data.wayzyy_verified === true,
             host: {
               // host_id present -> the real profile (name + avatar) is
@@ -438,6 +442,7 @@ export default function PropertyDetail() {
 
   const nights = Math.max(1, differenceInDays(checkOutDate, checkInDate));
   const minNights = property.minNights ?? 1;
+  const stayRules = { minNights, maxNights: property.maxNights, checkinDays: property.checkinDays, checkoutDays: property.checkoutDays };
 
   // Real listings are priced through the shared rules in @/lib/pricing, which
   // mirror the app and the create-booking edge function: guest-count tiers or
@@ -799,9 +804,9 @@ export default function PropertyDetail() {
                       />
                     </div>
                   </div>
-                  {minNights > 1 && (
-                    <p className="text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
-                  )}
+                  {describeStayRules(stayRules).map((line) => (
+                    <p key={line} className="text-xs font-semibold text-[#FF6B00]">{line}</p>
+                  ))}
                 </div>
               )}
 
@@ -948,12 +953,9 @@ export default function PropertyDetail() {
                     // being entered, but this is the real gate on this
                     // page - and create-booking re-checks it server-side
                     // regardless, since the client is never trusted alone.
-                    if (nights < minNights) {
-                      toast({
-                        title: "Minimum stay required",
-                        description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
-                        variant: "destructive",
-                      });
+                    const ruleError = stayRuleError(stayRules, toDateStr(checkInDate), toDateStr(checkOutDate), nights);
+                    if (ruleError) {
+                      toast({ title: "These dates don't fit the host's rules", description: ruleError, variant: "destructive" });
                       return;
                     }
                     // No real quote means this is the mock fallback (the
@@ -1035,9 +1037,9 @@ export default function PropertyDetail() {
                     {property.currency}{property.pricePerNight.toLocaleString("en-IN")}
                   </span>
                   <span className="text-xs text-muted-foreground font-normal ml-1">/ night</span>
-                  {minNights > 1 && (
-                    <p className="mt-1 text-xs font-semibold text-[#FF6B00]">{minNights}-night minimum stay</p>
-                  )}
+                  {describeStayRules(stayRules).map((line) => (
+                    <p key={line} className="mt-1 text-xs font-semibold text-[#FF6B00]">{line}</p>
+                  ))}
                 </div>
 
                 <div className="rounded-2xl bg-muted/40 p-4 text-sm text-muted-foreground">

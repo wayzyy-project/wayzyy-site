@@ -13,7 +13,7 @@ interface Listing { id: string; title: string | null; city: string | null; statu
 type GroupId = "minStay" | "cancellation" | "discounts" | "houseRules";
 
 const GROUPS: { id: GroupId; label: string; sub: string }[] = [
-  { id: "minStay", label: "Minimum stay", sub: "The minimum number of nights." },
+  { id: "minStay", label: "Stay rules", sub: "Minimum and maximum nights, and allowed check-in and check-out days." },
   { id: "cancellation", label: "Cancellation policy", sub: "Both the short-stay and long-stay policy." },
   { id: "discounts", label: "Discounts", sub: "Weekly, monthly, last-minute, early-bird and new-listing. Replaces the discounts already on the other listings." },
   {
@@ -68,14 +68,19 @@ export function ApplyRulesSection({ propertyId, propertyTitle }: { propertyId: s
     try {
       const { data: src, error: srcErr } = await supabase
         .from("properties")
-        .select(["min_nights", "cancel_policy", "cancel_policy_long_term", ...HOUSE_FIELDS].join(", "))
+        .select(["min_nights", "max_nights", "checkin_days", "checkout_days", "cancel_policy", "cancel_policy_long_term", ...HOUSE_FIELDS].join(", "))
         .eq("id", propertyId)
         .single();
       if (srcErr || !src) throw new Error(srcErr?.message ?? "Couldn't read this listing's settings.");
       const s = src as unknown as Record<string, unknown>;
 
       const patch: Record<string, unknown> = {};
-      if (groups.has("minStay")) patch.min_nights = s.min_nights;
+      if (groups.has("minStay")) {
+        patch.min_nights = s.min_nights;
+        patch.max_nights = s.max_nights;
+        patch.checkin_days = s.checkin_days;
+        patch.checkout_days = s.checkout_days;
+      }
       if (groups.has("cancellation")) {
         patch.cancel_policy = s.cancel_policy;
         patch.cancel_policy_long_term = s.cancel_policy_long_term;

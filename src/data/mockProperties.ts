@@ -39,6 +39,9 @@ export interface PropertyListing {
   // restriction) - real listings carry the host's own setting from
   // properties.min_nights.
   minNights?: number;
+  maxNights?: number | null;
+  checkinDays?: number[] | null;
+  checkoutDays?: number[] | null;
   // Set by the admin Wayzyy Verified review (approve-verification).
   wayzyyVerified?: boolean;
   host: {
