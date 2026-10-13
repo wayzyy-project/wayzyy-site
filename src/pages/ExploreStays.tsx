@@ -451,7 +451,7 @@ export default function ExploreStays() {
                             <p className="text-xs font-bold text-foreground line-clamp-1">{p.title}</p>
                             <p className="text-[11px] text-muted-foreground">{p.city}, {p.state}</p>
                             <div className="mt-1.5 flex items-center justify-between">
-                              <span className="text-xs font-black text-foreground">
+                              <span className="font-price text-xs font-bold text-foreground">
                                 {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
                               </span>
                               <Link

@@ -684,7 +684,7 @@ export default function PropertyDetail() {
                           )}
                         </div>
                         <p className="mt-1.5 text-xs font-semibold text-foreground truncate">{listing.title}</p>
-                        <p className="text-[11px] text-muted-foreground">
+                        <p className="font-price text-[11px] text-muted-foreground">
                           ₹{guestNightlyPrice(listing.pricePerNight).toLocaleString("en-IN")} / night
                         </p>
                       </Link>
@@ -862,11 +862,11 @@ export default function PropertyDetail() {
                 <div className="flex items-baseline justify-between">
                   <div>
                     {originalStayTotal > stayTotal && (
-                      <span className="text-sm line-through text-muted-foreground mr-2 font-medium">
+                      <span className="font-price text-sm line-through text-muted-foreground mr-2 font-medium">
                         {property.currency}{originalStayTotal.toLocaleString("en-IN")}
                       </span>
                     )}
-                    <span className="text-2xl font-black text-foreground">
+                    <span className="font-price text-2xl font-bold text-foreground">
                       {property.currency}{stayTotal.toLocaleString("en-IN")}
                     </span>
                     <span className="text-xs text-muted-foreground font-normal ml-1">
@@ -979,7 +979,7 @@ export default function PropertyDetail() {
                 </p>
 
                 {/* Price Breakdown */}
-                <div className="space-y-2.5 pt-3 border-t border-border text-xs">
+                <div className="font-price space-y-2.5 pt-3 border-t border-border text-xs">
                   <div className="flex justify-between text-muted-foreground">
                     <span>{property.currency}{nightlyRate.toLocaleString("en-IN")} × {nights} nights</span>
                     <span>{property.currency}{nightsSubtotal.toLocaleString("en-IN")}</span>
@@ -1007,7 +1007,7 @@ export default function PropertyDetail() {
                     </div>
                   )}
 
-                  <div className="flex justify-between text-sm font-black text-foreground pt-2 border-t border-border">
+                  <div className="font-price flex justify-between text-sm font-bold text-foreground pt-2 border-t border-border">
                     <span>{quote ? "Total" : "Total before taxes"}</span>
                     <span>
                       {property.currency}
@@ -1031,7 +1031,7 @@ export default function PropertyDetail() {
               ) : (
               <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
                 <div>
-                  <span className="text-2xl font-black text-foreground">
+                  <span className="font-price text-2xl font-bold text-foreground">
                     {property.currency}{property.pricePerNight.toLocaleString("en-IN")}
                   </span>
                   <span className="text-xs text-muted-foreground font-normal ml-1">/ night</span>

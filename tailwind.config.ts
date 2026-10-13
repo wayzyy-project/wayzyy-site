@@ -21,6 +21,9 @@ export default {
 			fontFamily: {
 				sans: ['"Raleway"', "ui-sans-serif", "system-ui", "sans-serif"],
 				display: ['"Raleway"', "sans-serif"],
+				// Prices: Raleway's digits are uneven in height and look odd large,
+				// so figures use Inter, which is plain and even.
+				price: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
 			},
 			colors: {
 				border: "hsl(var(--border))",
