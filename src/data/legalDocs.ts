@@ -118,6 +118,102 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
       },
     ],
   },
+  'host-tax-guide': {
+    id: 'host-tax-guide',
+    title: 'Host Tax Guide',
+    subtitle: 'How GST, TDS and TCS work on your Wayzyy bookings: with and without a GSTIN, what guests pay, what you receive, with worked examples',
+    sections: [
+      {
+        paragraphs: [
+          "This guide explains how taxes are handled on bookings made through Wayzyy. It is general information, not tax advice. Please confirm your own situation with your chartered accountant.",
+        ],
+      },
+      {
+        heading: '1. The short version',
+        paragraphs: [
+          "• You keep 100% of your nightly rate. Wayzyy does not take a commission from you.",
+          "• Guests pay your rate, plus a 7% Wayzyy service fee, plus GST. All of it is shown to them before they book.",
+          "• Who pays the GST on the stay depends on whether you have a GSTIN. With no GSTIN, Wayzyy collects and pays the GST on your stay to the government for you. With a GSTIN, the GST on the stay is passed to you in your payout and you file and pay it yourself.",
+          "• A small tax at source is deducted from every payout (TDS, and TCS if you are GST-registered). These are deposited in your name and you claim them as credit.",
+        ],
+      },
+      {
+        heading: '2. What the guest pays',
+        paragraphs: [
+          "GST on the stay depends on that night's price, after any discount:",
+          "• Up to ₹1,000 per night: 0%",
+          "• ₹1,001 to ₹7,500 per night: 5%",
+          "• Above ₹7,500 per night: 18%",
+          "On top of that, the guest pays Wayzyy's 7% service fee (calculated on your accommodation amount) and 18% GST on that fee. The GST on the fee is always Wayzyy's to pay.",
+          "The nightly price guests see on listing cards already includes the 7% fee. For example, a ₹5,000 rate is shown as ₹5,350. GST is added at checkout.",
+        ],
+      },
+      {
+        heading: '3. Hosts without a GSTIN',
+        paragraphs: [
+          "• Wayzyy charges the guest the GST on the stay and pays it to the government on your behalf, as the e-commerce operator (Section 9(5) of the CGST Act).",
+          "• You do not file GST returns through Wayzyy for these bookings.",
+          "• Your payout is your accommodation amount, minus 0.1% TDS.",
+        ],
+      },
+      {
+        heading: '4. Hosts with a GSTIN (companies, firms, GST-registered hosts)',
+        paragraphs: [
+          "If you operate as a business, add your GSTIN when you list. In the Wayzyy app, go to List a property, switch on \"Hosting as a business?\" and enter the 15-character GSTIN. To add or change it on an existing listing, write to hello@wayzyy.com.",
+          "• The GST the guest paid on the stay is passed through to you in your payout, and you remit it in your own GST return.",
+          "• Wayzyy deducts 0.5% TCS (tax collected at source) on your accommodation amount, and 0.1% TDS.",
+          "• Your payout is your accommodation amount, plus the stay GST, minus the TCS and TDS.",
+        ],
+      },
+      {
+        heading: '5. Taxes deducted from your payout',
+        paragraphs: [
+          "• TDS (income tax): every host, 0.1% of your accommodation amount.",
+          "• TCS (GST): GST-registered hosts only, 0.5% of your accommodation amount.",
+          "Both amounts are recorded as separate lines on each booking, so you can see what was deducted and why.",
+        ],
+      },
+      {
+        heading: '6. Worked examples',
+        paragraphs: [
+          "Example A: host without a GSTIN, 2 nights at ₹5,000.",
+          "• Accommodation (your rate): ₹10,000",
+          "• GST on the stay (5%): ₹500",
+          "• Wayzyy service fee (7%): ₹700",
+          "• GST on the service fee (18%): ₹126",
+          "• The guest pays: ₹11,326",
+          "• You receive: ₹9,990 (₹10,000 less ₹10 TDS). Wayzyy pays the ₹500 stay GST to the government.",
+          "Example B: host with a GSTIN, the same booking.",
+          "• Accommodation ₹10,000, plus ₹500 stay GST passed to you, minus ₹50 TCS, minus ₹10 TDS.",
+          "• You receive: ₹10,440. You remit the ₹500 GST in your own return, and claim the ₹50 TCS and ₹10 TDS as credit.",
+          "Example C: host with a GSTIN, 1 night at ₹9,000 (18% slab).",
+          "• Accommodation ₹9,000, GST on the stay ₹1,620, service fee ₹630, GST on the fee ₹113.",
+          "• The guest pays: ₹11,363.",
+          "• You receive: ₹10,566 (₹9,000 + ₹1,620 − ₹45 TCS − ₹9 TDS).",
+        ],
+      },
+      {
+        heading: '7. Business guests and GST invoices',
+        paragraphs: [
+          "Guests booking for a company can enter their GSTIN at checkout. We store it with the booking so it can be used for invoicing in the company's name.",
+        ],
+      },
+      {
+        heading: '8. When you get paid',
+        paragraphs: [
+          "Your payout goes to the bank account saved in your host profile, after the guest checks in. You can add or change it in the Wayzyy app or at wayzyy.com/host/payout.",
+        ],
+      },
+      {
+        heading: '9. Questions',
+        paragraphs: [
+          "• Do I have to register for GST to host on Wayzyy? Wayzyy does not require it. Without a GSTIN, we handle the GST on your stays under Section 9(5). Whether you are required to register depends on your turnover and activity, so please check with your chartered accountant.",
+          "• Who do I contact? Write to hello@wayzyy.com. For your own filings, always confirm with your chartered accountant.",
+          "Wayzyy Technologies Private Limited. Supplier GSTIN 09AAECW5169M1ZL. Rates and rules can change with the law.",
+        ],
+      },
+    ],
+  },
   'cancellation': {
     id: 'cancellation',
     title: 'Cancellation Policy',
@@ -1023,6 +1119,7 @@ export const POLICY_TOC: { heading: string; links: PolicyLink[] }[] = [
     heading: 'Hosting Guides',
     links: [
       { title: 'Host Pricing Guide', href: '/policies/host-pricing' },
+      { title: 'Host Tax Guide', href: '/policies/host-tax-guide' },
     ],
   },
   {
