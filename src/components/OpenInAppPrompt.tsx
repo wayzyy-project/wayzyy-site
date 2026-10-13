@@ -41,6 +41,21 @@ const appPath = (pathname: string) => {
   return /^(property\/|review|admin\/review\/)/.test(p) ? p : "";
 };
 
+// WhatsApp wraps template-button links in Meta's own redirect (w.meta.me), and
+// iPhones only open an app straight from a link to the app's own website, never
+// through a redirect. So a host tapping "Open Wayzyy" in WhatsApp lands in the
+// browser. When we can tell that is how someone arrived, we try the app for
+// them instead of waiting for a tap on the card.
+const arrivedViaMeta = (): boolean => {
+  try {
+    const host = new URL(document.referrer).hostname;
+    return /(^|\.)meta\.me$|(^|\.)wa\.me$|(^|\.)whatsapp\.com$|^l\.wl\.co$|(^|\.)facebook\.com$/.test(host);
+  } catch {
+    return false;
+  }
+};
+const AUTO_TRIED_KEY = "wayzyy_auto_open_tried";
+
 export function OpenInAppPrompt() {
   const { pathname } = useLocation();
   const [os] = useState(platform);
@@ -53,13 +68,6 @@ export function OpenInAppPrompt() {
     (window.matchMedia?.("(display-mode: standalone)").matches || (navigator as any).standalone === true);
 
   useEffect(() => { setNotInstalled(false); }, [pathname]);
-
-  if (!os || dismissed || standalone || HIDDEN_ON.some((p) => pathname.startsWith(p))) return null;
-
-  const dismiss = () => {
-    try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* private mode */ }
-    setDismissed(true);
-  };
 
   const openApp = () => {
     const path = appPath(pathname);
@@ -78,6 +86,24 @@ export function OpenInAppPrompt() {
         else setNotInstalled(true);
       }
     }, 1500);
+  };
+
+  // Arrived from a WhatsApp alert button: try the app once, automatically.
+  useEffect(() => {
+    if (!os || standalone || pathname !== "/host" || !arrivedViaMeta()) return;
+    try {
+      if (sessionStorage.getItem(AUTO_TRIED_KEY)) return;
+      sessionStorage.setItem(AUTO_TRIED_KEY, "1");
+    } catch { /* private mode: still try once per load */ }
+    openApp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!os || dismissed || standalone || HIDDEN_ON.some((p) => pathname.startsWith(p))) return null;
+
+  const dismiss = () => {
+    try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* private mode */ }
+    setDismissed(true);
   };
 
   return (
