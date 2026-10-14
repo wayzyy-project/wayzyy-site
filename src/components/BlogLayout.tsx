@@ -40,7 +40,7 @@ export function BlogLayout(props: BlogLayoutProps) {
   const description = props.description || post?.description || "";
   const metaTitle = props.metaTitle || post?.metaTitle || title;
   const metaDescription = props.metaDescription || post?.metaDescription || description;
-  const heroImage = props.heroImage || post?.heroImage || "/og-image.png";
+  const heroImage = props.heroImage || post?.heroImage || "/og-image.jpg";
   const heroImageAlt = props.heroImageAlt || title;
   const publishedDate = props.publishedDate || post?.publishedDate || "2026-08-01";
   const { children, extraJsonLd } = props;

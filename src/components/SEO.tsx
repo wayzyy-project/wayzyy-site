@@ -15,7 +15,7 @@ export function SEO({
   title,
   description,
   ogType = "website",
-  ogImage = "/og-image.png",
+  ogImage = "/og-image.jpg",
   path,
   noindex = false,
   jsonLd,

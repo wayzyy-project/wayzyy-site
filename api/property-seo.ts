@@ -54,6 +54,16 @@ const toImages = (raw: unknown): string[] => {
   return [];
 };
 
+/**
+ * Preview-sized copy of a listing photo for WhatsApp / Facebook / X cards: a
+ * 1200x630 crop at about 100 KB instead of the full original (often 250 KB+,
+ * which WhatsApp tends to drop). Only for our own storage; other hosts as-is.
+ */
+const socialImage = (u: string): string =>
+  u.includes("/storage/v1/object/public/")
+    ? `${u.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}${u.includes("?") ? "&" : "?"}width=1200&height=630&resize=cover&quality=60`
+    : u;
+
 /** The normal single-page app, for anything we can't describe (demo pages, unknown ids). */
 async function sendApp(req: VercelRequest, res: VercelResponse, status = 200) {
   try {
@@ -133,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ],
   };
 
-  const ogImage = images[0] || `${SITE}/og-image.png`;
+  const ogImage = images[0] ? socialImage(images[0]) : `${SITE}/og-image.jpg`;
   const html = `<!doctype html>
 <html lang="en">
 <head>
