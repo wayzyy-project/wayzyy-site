@@ -67,6 +67,14 @@
       "destination": "/sitemap.xml"
     },
     {
+      "source": "/sitemap-listings.xml",
+      "destination": "/api/property-seo?sitemap=1"
+    },
+    {
+      "source": "/api/property-preview",
+      "destination": "/api/property-seo?format=json"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },
@@ -77,10 +85,6 @@
     {
       "source": "/.well-known/apple-app-site-association",
       "destination": "/.well-known/apple-app-site-association"
-    },
-    {
-      "source": "/sitemap-listings.xml",
-      "destination": "/api/sitemap-listings"
     },
     {
       "source": "/property/:slug",

@@ -1,6 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
 
+// ONE function serves three jobs, because the Vercel Hobby plan allows at most
+// 12 serverless functions in total:
+//   /property/<name>-<id>   (crawlers only, see vercel.json)  -> HTML page
+//   /sitemap-listings.xml                                     -> ?sitemap=1
+//   /api/property-preview?id=...                              -> ?format=json
+//
 // What search engines and link-preview bots (WhatsApp, Telegram, LinkedIn,
 // Facebook, X, Slack...) receive for /property/<name>-<id>. The site itself is
 // built in the browser, so without this every listing link would come back as
@@ -77,7 +83,7 @@ async function sendApp(req: VercelRequest, res: VercelResponse, status = 200) {
   }
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function renderPropertyPage(req: VercelRequest, res: VercelResponse) {
   const slugParam = typeof req.query.slug === "string" ? req.query.slug : "";
   const ids = slugParam.match(UUID_RE);
   const id = ids ? ids[ids.length - 1].toLowerCase() : null;
@@ -180,4 +186,70 @@ ${images.slice(0, 6).map((u) => `<img src="${esc(u)}" alt="${esc(p.title)}" widt
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
   return res.status(200).send(html);
+}
+
+// ── /sitemap-listings.xml: every live listing, with its named URL ──────────
+async function renderSitemap(res: VercelResponse) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return res.status(500).send("Server not configured");
+
+  const admin = createClient(supabaseUrl, serviceKey);
+  const { data, error } = await admin
+    .from("properties")
+    .select("id, title, city, images, updated_at, host_email")
+    .eq("status", "active")
+    .order("updated_at", { ascending: false })
+    .limit(5000);
+  if (error) return res.status(500).send("Could not build sitemap");
+
+  const xmlEsc = (v: string) => v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const rows = (data ?? []).filter((p) => !SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()));
+  const urls = rows
+    .map((p) => {
+      const loc = `${SITE}${propertyPath(p.id, p.title, p.city)}`;
+      const lastmod = p.updated_at ? new Date(p.updated_at).toISOString().slice(0, 10) : undefined;
+      const imgs = toImages(p.images)
+        .slice(0, 5)
+        .map((u) => `<image:image><image:loc>${xmlEsc(u)}</image:loc></image:image>`)
+        .join("");
+      return `<url><loc>${xmlEsc(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}<changefreq>weekly</changefreq><priority>0.8</priority>${imgs}</url>`;
+    })
+    .join("\n");
+
+  res.setHeader("Content-Type", "application/xml; charset=utf-8");
+  res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+  return res
+    .status(200)
+    .send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>`);
+}
+
+// ── /api/property-preview?id=...: the old JSON preview, address kept working ─
+// Public, unauthenticated preview of one property (draft / pending_review too,
+// since anon RLS only exposes active rows). No price, no host contact details,
+// no street/pincode - the exact address stays withheld before booking.
+async function renderPreviewJson(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return res.status(500).json({ error: "Server not configured" });
+  const id = typeof req.query.id === "string" ? req.query.id : undefined;
+  if (!id) return res.status(400).json({ error: "Missing id" });
+
+  const admin = createClient(supabaseUrl, serviceKey);
+  const { data, error } = await admin
+    .from("properties")
+    .select("id, title, description, city, state, location, latitude, longitude, images, max_guests, bedrooms, beds, bathrooms, amenities, space_type, status")
+    .eq("id", id)
+    .maybeSingle();
+  if (error || !data || data.status === "rejected") return res.status(404).json({ error: "Not found" });
+
+  const { status: _status, ...preview } = data;
+  return res.status(200).json({ property: preview });
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.query.sitemap) return renderSitemap(res);
+  if (req.query.format === "json") return renderPreviewJson(req, res);
+  return renderPropertyPage(req, res);
 }
