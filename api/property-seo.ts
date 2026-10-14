@@ -1,8 +1,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
+import {
+  buildPlacePage, allPlacePaths, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS as PLACE_SEED_EMAILS,
+  type PlaceListing,
+} from "./_lib/places.js";
 
-// ONE function serves three jobs, because the Vercel Hobby plan allows at most
+// ONE function serves four jobs, because the Vercel Hobby plan allows at most
 // 12 serverless functions in total:
+//   /<place>/stays, /goa/stays/<type> (crawlers only)         -> ?place=&cat=
 //   /property/<name>-<id>   (crawlers only, see vercel.json)  -> HTML page
 //   /sitemap-listings.xml                                     -> ?sitemap=1
 //   /api/property-preview?id=...                              -> ?format=json
@@ -217,11 +222,17 @@ async function renderSitemap(res: VercelResponse) {
     })
     .join("\n");
 
+  // Place and type pages (only those with two or more stays).
+  const publicListings = await fetchPublicListings();
+  const placeUrls = (publicListings ? allPlacePaths(publicListings) : [])
+    .map((path) => `<url><loc>${xmlEsc(`${SITE}${path}`)}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>`)
+    .join("\n");
+
   res.setHeader("Content-Type", "application/xml; charset=utf-8");
   res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
   return res
     .status(200)
-    .send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>`);
+    .send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${placeUrls}\n${urls}\n</urlset>`);
 }
 
 // ── /api/property-preview?id=...: the old JSON preview, address kept working ─
@@ -248,8 +259,77 @@ async function renderPreviewJson(req: VercelRequest, res: VercelResponse) {
   return res.status(200).json({ property: preview });
 }
 
+// ── Place and type pages for crawlers: /anjuna/stays, /goa/stays/villas ... ──
+const PLACE_COLUMNS = "id, title, city, state, price_per_night, images, max_guests, bedrooms, amenities, space_type, pets_allowed, host_email";
+
+async function fetchPublicListings(): Promise<PlaceListing[] | null> {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return null;
+  const admin = createClient(supabaseUrl, serviceKey);
+  const { data, error } = await admin.from("properties").select(PLACE_COLUMNS).eq("status", "active");
+  if (error) return null;
+  return (data ?? [])
+    .filter((p: any) => !PLACE_SEED_EMAILS.includes(String(p.host_email ?? "").toLowerCase()))
+    .map((p: any) => ({ ...p, images: toImages(p.images), amenities: Array.isArray(p.amenities) ? p.amenities.filter((a: unknown) => typeof a === "string") : [] })) as PlaceListing[];
+}
+
+async function renderPlaceHtml(req: VercelRequest, res: VercelResponse) {
+  const place = typeof req.query.place === "string" ? req.query.place : "";
+  const cat = typeof req.query.cat === "string" ? req.query.cat : undefined;
+  const all = await fetchPublicListings();
+  if (!all) return sendApp(req, res);
+  const page = buildPlacePage(all, place, cat);
+  if (!page) return sendApp(req, res, 404);
+
+  const url = `${SITE}${page.path}`;
+  const pathFor = (p: PlaceListing) => propertyPath(p.id, p.title, p.city);
+  const ld = placeJsonLd(page, SITE, pathFor);
+  const ogImage = page.listings[0]?.images?.[0] ? socialImage(page.listings[0].images[0]) : `${SITE}/og-image.jpg`;
+  const links = [...page.related.regions, ...page.related.places, ...page.related.categories];
+
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${esc(page.title)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="${esc(page.description)}">
+<meta name="robots" content="${page.indexable ? "index, follow, max-image-preview:large" : "noindex, follow"}">
+<link rel="canonical" href="${esc(url)}">
+<meta property="og:site_name" content="Wayzyy">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${esc(page.title)}">
+<meta property="og:description" content="${esc(page.description)}">
+<meta property="og:url" content="${esc(url)}">
+<meta property="og:image" content="${esc(ogImage)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(page.title)}">
+<meta name="twitter:description" content="${esc(page.description)}">
+<meta name="twitter:image" content="${esc(ogImage)}">
+${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j).replace(/</g, "\\u003c")}</script>`).join("\n")}
+</head>
+<body>
+<nav aria-label="Breadcrumb">${page.breadcrumbs.map((b) => `<a href="${esc(b.path)}">${esc(b.name)}</a>`).join(" / ")}</nav>
+<h1>${esc(page.h1)}</h1>
+${page.intro.map((t) => `<p>${esc(t)}</p>`).join("\n")}
+<nav aria-label="Explore stays"><ul>${links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)} (${l.count})</a></li>`).join("")}</ul></nav>
+<ul>
+${page.listings.map((p) => `<li><a href="${esc(pathFor(p))}"><h2>${esc(p.title)}</h2></a> ${esc([p.city, p.state].filter(Boolean).join(", "))} · ${esc(p.max_guests ?? "")} guests · ${esc(p.bedrooms ?? "")} bedrooms · ${esc(inr(guestPrice(p.price_per_night)))} per night</li>`).join("\n")}
+</ul>
+${page.amenities.length ? `<h2>Popular amenities in ${esc(page.placeName)}</h2><ul>${page.amenities.map((a) => `<li>${esc(a.name)} (${a.count})</li>`).join("")}</ul>` : ""}
+${page.faqs.length ? `<h2>Questions about staying in ${esc(page.placeName)}</h2>${page.faqs.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("\n")}` : ""}
+</body>
+</html>`;
+
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+  return res.status(200).send(html);
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.query.sitemap) return renderSitemap(res);
   if (req.query.format === "json") return renderPreviewJson(req, res);
+  if (req.query.place) return renderPlaceHtml(req, res);
   return renderPropertyPage(req, res);
 }

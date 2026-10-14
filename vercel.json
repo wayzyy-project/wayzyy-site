@@ -98,6 +98,28 @@
       "destination": "/api/property-seo?slug=:slug"
     },
     {
+      "source": "/:place/stays",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*([Bb]ot|[Cc]rawler|[Ss]pider|facebookexternalhit|WhatsApp|Telegram|Slackbot|Discordbot|LinkedInBot|Twitterbot|Pinterest|Embedly|Applebot|Bingbot|GPTBot|ClaudeBot|PerplexityBot|Google-InspectionTool).*"
+        }
+      ],
+      "destination": "/api/property-seo?place=:place"
+    },
+    {
+      "source": "/:place/stays/:cat",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*([Bb]ot|[Cc]rawler|[Ss]pider|facebookexternalhit|WhatsApp|Telegram|Slackbot|Discordbot|LinkedInBot|Twitterbot|Pinterest|Embedly|Applebot|Bingbot|GPTBot|ClaudeBot|PerplexityBot|Google-InspectionTool).*"
+        }
+      ],
+      "destination": "/api/property-seo?place=:place&cat=:cat"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

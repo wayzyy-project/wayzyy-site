@@ -38,6 +38,17 @@ export function SiteFooter() {
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/host">List your property</Link>
             </div>
 
+            {/* Stays: also gives the place pages links from every page of the site */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Stays in Goa</p>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays">All of Goa</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/north-goa/stays">North Goa</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/candolim/stays">Candolim</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/siolim/stays">Siolim</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/villas">Villas</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/pools">With a pool</Link>
+            </div>
+
             {/* Legal & Socials */}
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
               <div className="flex flex-col gap-1.5">

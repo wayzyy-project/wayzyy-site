@@ -1,4 +1,5 @@
 import OpenApp from "./pages/OpenApp";
+import PlaceStays from "./pages/PlaceStays";
 import { OpenInAppPrompt } from "./components/OpenInAppPrompt";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -156,6 +157,9 @@ const App = () => (
                   clean link to a client - never mixes in MOCK_PROPERTIES or
                   the two seed/demo host accounts the way /stays does. */}
               <Route path="/goa-stays" element={<GoaStaysPublic />} />
+              {/* Place and type pages: /goa/stays, /anjuna/stays, /goa/stays/villas ... */}
+              <Route path="/:place/stays" element={<PlaceStays />} />
+              <Route path="/:place/stays/:cat" element={<PlaceStays />} />
               <Route path="/verify-identity" element={<VerifyIdentity />} />
               <Route path="/property/:propertyId" element={<PropertyDetail />} />
               <Route path="/rooms/:propertyId" element={<PropertyDetail />} />
