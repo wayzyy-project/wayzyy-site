@@ -149,7 +149,7 @@ export default function Wishlists() {
               </p>
               <Link
                 to="/stays"
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white px-6 py-3 text-xs font-bold shadow-md shadow-[#FF6B00]/25 hover:scale-105 transition-all"
+                className="btn-brand btn-brand-lg"
               >
                 <span>Start exploring stays</span>
                 <ArrowRight className="h-3.5 w-3.5" />

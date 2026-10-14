@@ -383,7 +383,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                    className="btn-brand btn-brand-lg w-full"
                   >
                     Proceed to Payment · ₹{totalAmount.toLocaleString("en-IN")}
                   </button>
@@ -474,7 +474,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 type="button"
                 disabled={isSubmitting || !BOOKINGS_OPEN}
                 onClick={handleExecutePayment}
-                className="w-full py-4 rounded-2xl disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-sm shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                className="btn-brand btn-brand-lg w-full flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -566,7 +566,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <Link
                   to="/trips"
                   onClick={onClose}
-                  className="block w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white font-bold text-xs shadow-md shadow-[#FF6B00]/25 hover:scale-[1.01] transition-all text-center"
+                  className="btn-brand btn-brand-lg w-full text-center"
                 >
                   View in My Trips & Directions
                 </Link>

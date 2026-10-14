@@ -340,3 +340,72 @@ html.lenis body {
 .host-light [class~="bg-white/[0.02]"] { background-color: #fafafa; }
 .host-light [class~="bg-white/30"] { background-color: #e5e7eb; }
 .host-light [class~="bg-ember/20"] { background-color: #ffd9bf; }
+
+/* ── Primary buttons: Airbnb's shape and feel, in Wayzyy orange ──────────────
+   Measured on airbnb.co.in: fully rounded pill, 48px tall with 14px 24px
+   padding and 16px / weight 500 text for the main action, a left-to-right
+   gradient, no border or shadow, and a small press-in on click. We keep that
+   exactly, with the brand orange (#FF6B00) in place of Airbnb's pink.
+
+   One rule covers every orange button with white text on the site (and any
+   new one written the same way), so they stay identical without editing each
+   page. Use `.btn-brand` directly for anything new; `.btn-brand-lg` for the
+   full-size 48px version on main actions. */
+.btn-brand,
+:is(a, button).bg-ember.text-white,
+:is(a, button)[class~="bg-[#FF6B00]"][class~="text-white"],
+:is(a, button)[class~="from-[#FF6B00]"][class~="text-white"] {
+  border: 0;
+  border-radius: 9999px;
+  background-color: #ff6b00;
+  background-image: linear-gradient(to right, #ff7a1a 0%, #ff6b00 50%, #e85f00 100%);
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none; /* sentence case like Airbnb, not shouting capitals */
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
+    filter 0.2s cubic-bezier(0.2, 0, 0, 1),
+    opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+.btn-brand:hover,
+:is(a, button).bg-ember.text-white:hover,
+:is(a, button)[class~="bg-[#FF6B00]"][class~="text-white"]:hover,
+:is(a, button)[class~="from-[#FF6B00]"][class~="text-white"]:hover {
+  background-color: #ff6b00;
+  filter: brightness(0.95);
+  box-shadow: none;
+}
+.btn-brand:active,
+:is(a, button).bg-ember.text-white:active,
+:is(a, button)[class~="bg-[#FF6B00]"][class~="text-white"]:active,
+:is(a, button)[class~="from-[#FF6B00]"][class~="text-white"]:active {
+  transform: scale(0.96);
+}
+.btn-brand:disabled,
+:is(button).bg-ember.text-white:disabled,
+:is(button)[class~="bg-[#FF6B00]"][class~="text-white"]:disabled,
+:is(button)[class~="from-[#FF6B00]"][class~="text-white"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+.btn-brand:focus-visible {
+  outline: 2px solid #ff6b00;
+  outline-offset: 2px;
+}
+/* The full-size main action: 48px tall, 16px text. */
+.btn-brand-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 14px 24px;
+  font-size: 16px;
+  line-height: 1.25;
+}

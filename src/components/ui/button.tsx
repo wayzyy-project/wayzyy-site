@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        // Wayzyy orange pill in the same Airbnb-style look as every other main button (see .btn-brand in index.css).
+        default: "btn-brand",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -20,7 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         // Site-wide primary CTA pill: the one "make it happen" button style
         // used across the homepage (waitlist, host banner, gig challenge…).
-        cta: "rounded-full bg-ember text-white shadow-md hover:bg-ember/90 hover:shadow-[0_0_24px_rgba(255,107,0,0.45)] transition-all duration-200 active:scale-[0.97]",
+        cta: "btn-brand",
         // Site-wide secondary/outline pill - pairs with `cta` wherever a
         // page offers a primary + secondary action side by side.
         "cta-outline":
@@ -29,11 +30,11 @@ const buttonVariants = cva(
       size: {
         default: "h-10 px-5 py-2",
         sm: "h-9 rounded-full px-3.5",
-        lg: "h-11 rounded-full px-8",
+        lg: "h-12 rounded-full px-6 text-base",
         icon: "h-10 w-10 rounded-full",
         // Padding scale for the `cta` / `cta-outline` pill variants.
         pill: "h-11 rounded-full px-6",
-        "pill-lg": "h-12 rounded-full px-8 text-base",
+        "pill-lg": "h-12 rounded-full px-6 text-base",
       },
     },
     defaultVariants: {

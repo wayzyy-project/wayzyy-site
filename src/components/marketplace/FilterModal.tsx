@@ -222,7 +222,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
               onApplyFilters(localFilters);
               onClose();
             }}
-            className="rounded-2xl px-7 py-3 bg-gradient-to-r from-[#FF6B00] to-[#E05300] hover:opacity-90 text-white font-bold text-sm shadow-md shadow-[#FF6B00]/25"
+            className="btn-brand btn-brand-lg"
           >
             Show {totalResultsCount} places
           </Button>

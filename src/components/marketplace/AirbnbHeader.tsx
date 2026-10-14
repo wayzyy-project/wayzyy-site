@@ -535,7 +535,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 <button
                   type="button"
                   onClick={handleSearchSubmit}
-                  className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white font-bold text-sm shadow-md shadow-[#FF6B00]/25"
+                  className="btn-brand btn-brand-lg w-full"
                 >
                   Apply & Search ({totalGuests} guests)
                 </button>

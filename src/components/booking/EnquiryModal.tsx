@@ -97,7 +97,7 @@ export const EnquiryModal: React.FC<Props> = ({ isOpen, onClose, property, check
               <p className="text-sm leading-relaxed text-muted-foreground">
                 You can also come back and book it directly as soon as we launch.
               </p>
-              <button onClick={onClose} className="rounded-full bg-[#FF6B00] px-6 py-2.5 text-sm font-bold text-white">
+              <button onClick={onClose} className="btn-brand btn-brand-lg">
                 Done
               </button>
             </div>
@@ -151,7 +151,7 @@ export const EnquiryModal: React.FC<Props> = ({ isOpen, onClose, property, check
               </div>
 
               <button type="submit" disabled={sending}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] py-3.5 text-sm font-black text-white shadow-lg disabled:opacity-60">
+                className="btn-brand btn-brand-lg w-full disabled:opacity-60">
                 {sending ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</> : "Send my enquiry"}
               </button>
               <p className="text-center text-[11px] text-muted-foreground">No payment is taken. We'll only use your details to reply about this stay.</p>

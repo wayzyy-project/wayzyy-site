@@ -988,10 +988,13 @@ export default function PropertyDetail() {
                     the platform does not add copy on top of it. A host who
                     wants to explain their rate does so in their description. */}
 
-                {/* Free cancellation note */}
-                <div className="rounded-2xl bg-muted/40 p-3 text-center text-xs font-semibold text-muted-foreground">
-                  Free cancellation before {format(addDays(checkInDate, -2), "d MMMM")}
-                </div>
+                {/* Free cancellation note - only while that date is still ahead of us
+                    (a stay starting in the next couple of days has no such window). */}
+                {addDays(checkInDate, -2).getTime() > Date.now() && (
+                  <div className="rounded-2xl bg-muted/40 p-3 text-center text-xs font-semibold text-muted-foreground">
+                    Free cancellation before {format(addDays(checkInDate, -2), "d MMMM")}
+                  </div>
+                )}
 
                 {/* Reserve Button (Vibrant #FF6B00 Ember Gradient) */}
                 <button
@@ -1027,7 +1030,7 @@ export default function PropertyDetail() {
                     }
                     setIsBookingModalOpen(true);
                   }}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="btn-brand btn-brand-lg w-full"
                 >
                   {BOOKINGS_OPEN ? "Reserve" : "Enquire about this stay"}
                 </button>
@@ -1106,7 +1109,7 @@ export default function PropertyDetail() {
 
                 <a
                   href={`tel:${SUPPORT_PHONE_HREF}`}
-                  className="block w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base text-center shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="btn-brand btn-brand-lg w-full text-center"
                 >
                   Get in touch with us
                 </a>
