@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { propertyPath } from "@/lib/propertySlug";
 
 // Admin access here is gated the same way as every other admin surface in
 // this codebase (mobile app + AdminVerifications.tsx): a hardcoded email
@@ -259,7 +260,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
             <button
               type="button"
               onClick={() => {
-                navigator.clipboard.writeText(`https://wayzyy.com/property/${property.id}`);
+                navigator.clipboard.writeText(`https://wayzyy.com${propertyPath(property)}`);
                 toast({ title: "Link copied", description: "Anyone who opens it sees photos, description and price - no login needed." });
               }}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"

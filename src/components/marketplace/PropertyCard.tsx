@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { PropertyListing } from "@/data/mockProperties";
 import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
+import { propertyPath } from "@/lib/propertySlug";
 
 interface PropertyCardProps {
   property: PropertyListing;
@@ -55,7 +56,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   return (
     <Link
-      to={`/property/${property.id}`}
+      to={propertyPath(property)}
       className="group block flex flex-col gap-2.5 text-left transition-all duration-200"
     >
       {/* Image Carousel Container */}

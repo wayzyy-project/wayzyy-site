@@ -4,6 +4,7 @@ import { Loader2, MapPin, Users, BedDouble, Phone } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { supabase } from "@/lib/supabase";
 import { SUPPORT_PHONE } from "@/components/host/HostGetStarted";
+import { propertyPath } from "@/lib/propertySlug";
 
 const SUPPORT_PHONE_HREF = SUPPORT_PHONE.replace(/\s+/g, "");
 
@@ -321,7 +322,7 @@ export default function GoaStaysPublic() {
                 return l.hasPricing ? (
                   <Link
                     key={l.id}
-                    to={`/property/${l.id}`}
+                    to={propertyPath(l)}
                     className="group overflow-hidden rounded-2xl border border-slate-200 transition-shadow hover:shadow-lg"
                   >
                     {cardBody}

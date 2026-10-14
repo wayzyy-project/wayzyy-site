@@ -10,6 +10,7 @@ import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
+import { propertyPath } from "@/lib/propertySlug";
 
 // Same price-pill look the old Leaflet divIcon had, as a real component now
 // that it's an AdvancedMarker's `content` rather than a static HTML string.
@@ -455,7 +456,7 @@ export default function ExploreStays() {
                                 {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
                               </span>
                               <Link
-                                to={`/property/${p.id}`}
+                                to={propertyPath(p)}
                                 className="text-[11px] font-bold text-[#FF6B00] hover:underline"
                               >
                                 View →

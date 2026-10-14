@@ -50,6 +50,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
+import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
 
@@ -117,7 +118,9 @@ function logListingView(propertyId: string, hostId: string | null) {
 }
 
 export default function PropertyDetail() {
-  const { propertyId } = useParams<{ propertyId: string }>();
+  // The URL can be /property/<id> (old links) or /property/<name-words>-<id>.
+  const { propertyId: routeParam } = useParams<{ propertyId: string }>();
+  const propertyId = routeParam ? extractPropertyId(routeParam) : undefined;
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user, signIn } = useAuth();
@@ -210,6 +213,15 @@ export default function PropertyDetail() {
   // Null for mock listings; populated for real ones after the Supabase fetch.
   const [pricingInputs, setPricingInputs] = useState<PricingInputs | null>(null);
   const [isGuestDropdownOpen, setIsGuestDropdownOpen] = useState(false);
+
+  // Send old id-only links (and out-of-date names) to the canonical named URL, so
+  // there is one address per listing for search engines and for sharing.
+  useEffect(() => {
+    if (!property || !isUuid(property.id)) return;
+    const want = propertyPath({ id: property.id, title: property.title, city: property.city });
+    if (window.location.pathname !== want) navigate(`${want}${window.location.search}`, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [property?.id, property?.title, property?.city]);
 
   // Fetch property data
   useEffect(() => {
@@ -529,6 +541,41 @@ export default function PropertyDetail() {
         "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80"
       ];
 
+  // Search / link-preview text. Title leads with the place's name and area; the
+  // description is the host's own words, trimmed to what search results show.
+  const placeLine = [property.city, property.state].filter(Boolean).join(", ");
+  const seoTitle = `${property.title}${placeLine ? ` - ${placeLine}` : ""} | Wayzyy`;
+  const seoDescription =
+    (property.description || "").replace(/\s+/g, " ").trim().slice(0, 155) ||
+    `${property.propertyType} with ${property.bedrooms} bedrooms, ${property.bathrooms} baths${placeLine ? ` in ${placeLine}` : ""}. Book directly on Wayzyy.`;
+  // Structured data for real listings only (Google's VacationRental type). No
+  // rating is included: reviews on this site are not live yet.
+  const listingJsonLd = isUuid(property.id)
+    ? {
+        "@context": "https://schema.org",
+        "@type": "VacationRental",
+        identifier: property.id,
+        name: property.title,
+        description: seoDescription,
+        url: `https://wayzyy.com${propertyPath({ id: property.id, title: property.title, city: property.city })}`,
+        image: images.slice(0, 8),
+        address: { "@type": "PostalAddress", addressLocality: property.city, addressRegion: property.state, addressCountry: "IN" },
+        latitude: property.lat,
+        longitude: property.lng,
+        containsPlace: {
+          "@type": "Accommodation",
+          occupancy: { "@type": "QuantitativeValue", value: property.maxGuests },
+          numberOfBedrooms: property.bedrooms,
+          numberOfBathroomsTotal: property.bathrooms,
+          amenityFeature: (property.amenities || []).slice(0, 20).map((name: string) => ({
+            "@type": "LocationFeatureSpecification",
+            name,
+            value: true,
+          })),
+        },
+      }
+    : undefined;
+
   // "Report this listing" was previously a dead button with no onClick -
   // opens the guest's own mail client instead, pre-filled with exactly
   // what support needs to find the right listing without asking a
@@ -541,9 +588,11 @@ export default function PropertyDetail() {
 
   return (
     <SEO
-      title={`${property.title} - Wayzyy Stays`}
-      description={`${property.propertyType} with ${property.bedrooms} bedrooms, ${property.bathrooms} baths.`}
-      image={images[0]}
+      title={seoTitle}
+      description={seoDescription}
+      ogImage={images[0]}
+      path={isUuid(property.id) ? propertyPath({ id: property.id, title: property.title, city: property.city }) : undefined}
+      jsonLd={listingJsonLd}
     >
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <AirbnbHeader compact />

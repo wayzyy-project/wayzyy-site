@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Loader2, Home, BedDouble, Users } from "lucide-react";
 import { SEO } from "@/components/SEO";
+import { propertyPath } from "@/lib/propertySlug";
 
 interface PreviewListing {
   id: string;
@@ -109,7 +110,7 @@ export default function HostPreview() {
             return (
               <Link
                 key={p.id}
-                to={`/property/${p.id}`}
+                to={propertyPath(p)}
                 className="group overflow-hidden rounded-2xl border border-slate-200 transition-shadow hover:shadow-lg"
               >
                 <div className="relative aspect-[4/3] w-full bg-slate-100">

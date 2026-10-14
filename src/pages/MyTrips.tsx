@@ -15,6 +15,7 @@ import {
   quoteRefund, daysUntil, hoursSince,
   CASH_REFUND_GATEWAY_RATE, CASH_REFUND_FIXED_CHARGE,
 } from "@/lib/refund";
+import { propertyPath } from "@/lib/propertySlug";
 
 // Same `bookings` table the mobile app's Trips tab reads. Cancelling calls the
 // same cancel-booking function, which recomputes the refund on the server -
@@ -278,7 +279,7 @@ export default function MyTrips() {
                   {t.image && <img src={t.image} alt="" className="h-40 w-full object-cover sm:h-auto sm:w-48" loading="lazy" />}
                   <div className="flex-1 p-4 space-y-2">
                     <div className="flex items-start justify-between gap-2">
-                      <Link to={`/property/${t.propertyId}`} className="font-semibold hover:underline">{t.title}</Link>
+                      <Link to={propertyPath({ id: t.propertyId, title: t.title })} className="font-semibold hover:underline">{t.title}</Link>
                       <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs">{STATUS_LABEL[t.status] ?? t.status}</span>
                     </div>
                     {t.location && <p className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{t.location}</p>}
