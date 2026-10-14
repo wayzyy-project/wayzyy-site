@@ -50,6 +50,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
+import { EnquiryModal } from "@/components/booking/EnquiryModal";
+import { BOOKINGS_OPEN } from "@/lib/bookingGate";
 import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -136,6 +138,7 @@ export default function PropertyDetail() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [showMapInfo, setShowMapInfo] = useState(false);
   const [otherHostListings, setOtherHostListings] = useState<
@@ -993,6 +996,12 @@ export default function PropertyDetail() {
                 {/* Reserve Button (Vibrant #FF6B00 Ember Gradient) */}
                 <button
                   onClick={() => {
+                    // Bookings not open yet: take an enquiry instead of a payment.
+                    // No payment, no sign-in, nothing is booked (see EnquiryModal).
+                    if (!BOOKINGS_OPEN) {
+                      setIsEnquiryOpen(true);
+                      return;
+                    }
                     // The date inputs already stop a shorter range from
                     // being entered, but this is the real gate on this
                     // page - and create-booking re-checks it server-side
@@ -1020,11 +1029,13 @@ export default function PropertyDetail() {
                   }}
                   className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-black text-base shadow-xl shadow-[#FF6B00]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
-                  Reserve
+                  {BOOKINGS_OPEN ? "Reserve" : "Enquire about this stay"}
                 </button>
 
                 <p className="text-center text-xs text-muted-foreground">
-                  The host confirms every request - fully refunded if they decline
+                  {BOOKINGS_OPEN
+                    ? "The host confirms every request - fully refunded if they decline"
+                    : "We're going live soon. Share your details and our team will get back to you."}
                 </p>
 
                 {/* Price Breakdown */}
@@ -1171,6 +1182,16 @@ export default function PropertyDetail() {
             </div>
           </div>
         )}
+
+        {/* Pre-launch enquiry (replaces the booking flow until bookings open). */}
+        <EnquiryModal
+          isOpen={isEnquiryOpen}
+          onClose={() => setIsEnquiryOpen(false)}
+          property={property}
+          checkInDate={checkInDate}
+          checkOutDate={checkOutDate}
+          guestCount={guestCount}
+        />
 
         {/* Razorpay Booking Flow Modal */}
         <BookingModal
