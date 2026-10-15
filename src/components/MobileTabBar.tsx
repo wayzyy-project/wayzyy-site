@@ -71,7 +71,7 @@ export function MobileTabBar() {
               key={tab.label}
               to={tab.href}
               className={`flex flex-col items-center justify-center gap-1 py-2.5 text-[11px] font-medium transition-colors active:scale-95 ${
-                isActive ? "text-[#FF385C] font-bold" : "text-muted-foreground"
+                isActive ? "text-ember font-bold" : "text-muted-foreground"
               }`}
             >
               <Icon className="h-5 w-5" strokeWidth={isActive ? 2.4 : 2} />

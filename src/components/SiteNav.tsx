@@ -300,12 +300,22 @@ export function SiteNav({ floating = false }: SiteNavProps) {
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Dark glass in both themes, so the links can stay white: a
           light-mode background behind white text would hide it. */}
-      <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-md" />
-      <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/90" />
+      <div className="absolute inset-0 bg-slate-950/35 backdrop-blur-xl backdrop-saturate-150" />
+      <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/55" />
       <motion.div
         style={{ opacity: borderOpacity }}
         className="absolute inset-x-0 bottom-0 h-[1px] bg-white/10"
       />
+      {/* A slow orange wave drifting along the bottom edge. Two copies of
+          one period side by side, translated by one period, so it loops. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[5px] h-[10px] overflow-hidden">
+        <svg className="nav-wave h-full w-[200%]" viewBox="0 0 2400 10" preserveAspectRatio="none">
+          <path
+            d="M0 5 Q150 0 300 5 T600 5 T900 5 T1200 5 T1500 5 T1800 5 T2100 5 T2400 5"
+            fill="none" stroke="#ff6b00" strokeOpacity="0.85" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
         <a href="/#top" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
