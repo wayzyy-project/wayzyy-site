@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { ArrowRight, Map as MapIcon, Grid as GridIcon, Sparkles, ShieldCheck, Heart, SlidersHorizontal, Loader2, Info } from "lucide-react";
+import { ArrowRight, Map as MapIcon, Grid as GridIcon, ShieldCheck, Heart, SlidersHorizontal, Loader2, Info } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { CategoryBar, FilterOptions } from "@/components/marketplace/CategoryBar";
@@ -302,7 +302,6 @@ export default function ExploreStays() {
         {/* Zero Guest Fee Guarantee Banner */}
         <div className="bg-gradient-to-r from-[#FF6B00]/10 via-[#FF6B00]/5 to-[#FF6B00]/10 border-b border-[#FF6B00]/20 py-2.5 px-4 text-center">
           <p className="text-xs font-semibold text-foreground flex items-center justify-center gap-2">
-            <Sparkles className="h-4 w-4 text-[#FF6B00]" />
             <span>
               <strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> 0% guest service fee (Save ~15.5% on every booking) · 100% Aadhaar Verified Hosts
             </span>

@@ -2,16 +2,12 @@ import React, { useRef } from "react";
 import { 
   SlidersHorizontal, 
   Palmtree, 
-  Waves, 
   Building, 
   House,
   Flame,
-  Castle, 
-  TreePine, 
   ChevronLeft, 
   ChevronRight,
   ShieldCheck,
-  Compass,
   Hotel
 } from "lucide-react";
 
@@ -37,17 +33,9 @@ interface CategoryBarProps {
 
 const CATEGORIES = [
   { id: "all", label: "All Stays", icon: House },
-  { id: "villas", label: "Luxury Villas", icon: Castle },
-  { id: "pools", label: "Amazing Pools", icon: Waves },
   { id: "apartments", label: "Modern 2BHKs", icon: Building },
-  { id: "beachfront", label: "Beachfront", icon: Palmtree },
-  { id: "goa", label: "Goa Getaways", icon: Palmtree },
   { id: "trending", label: "Trending", icon: Flame },
-  { id: "nature", label: "Countryside", icon: TreePine },
   { id: "beach", label: "Beach", icon: Palmtree },
-  { id: "heritage", label: "Heritage", icon: Castle },
-  { id: "farm", label: "Farm Stay", icon: TreePine },
-  { id: "clifftop", label: "Cliff Top", icon: Compass },
 ];
 
 export const CategoryBar: React.FC<CategoryBarProps> = ({
