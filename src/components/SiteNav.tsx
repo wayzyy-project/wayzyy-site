@@ -260,7 +260,7 @@ export function SiteNav({ floating = false }: SiteNavProps) {
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
-              <Link className="text-[#FF6B00] hover:text-[#ff8a33] transition-colors" to="/stays">
+              <Link className="hover:text-white/80 transition-colors" to="/stays">
                 Explore Stays
               </Link>
               <a className="hover:text-white/80 transition-colors" href="/#why">
@@ -298,47 +298,45 @@ export function SiteNav({ floating = false }: SiteNavProps) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0">
-        <div
-          className="liquid-glass h-full w-full"
-          style={{ backgroundColor: "hsl(var(--background) / 0.9)" }}
-        />
-      </motion.div>
+      {/* Dark glass in both themes, so the links can stay white: a
+          light-mode background behind white text would hide it. */}
+      <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-md" />
+      <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/90" />
       <motion.div
         style={{ opacity: borderOpacity }}
-        className="absolute inset-x-0 bottom-0 h-[1px] bg-border"
+        className="absolute inset-x-0 bottom-0 h-[1px] bg-white/10"
       />
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
         <a href="/#top" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
-        <nav className="hidden items-center gap-6 text-sm font-bold text-foreground dark:text-white sm:flex">
-          <Link className="text-[#FF6B00] hover:text-[#ff8a33] transition-colors" to="/stays">
+        <nav className="hidden items-center gap-6 text-sm font-bold text-white sm:flex">
+          <Link className="hover:text-white/80 transition-colors" to="/stays">
             Explore Stays
           </Link>
-          <a className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" href="/#why">
+          <a className="hover:text-white/80 transition-colors" href="/#why">
             Why
           </a>
-          <a className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" href="/#two-sides">
+          <a className="hover:text-white/80 transition-colors" href="/#two-sides">
             User & Host
           </a>
-          <Link className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/waitlist">
+          <Link className="hover:text-white/80 transition-colors" to="/waitlist">
             Waitlist
           </Link>
-          <Link className="inline-flex items-center gap-1.5 hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/earnings-calculator">
+          <Link className="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors" to="/earnings-calculator">
             <Calculator className="h-4 w-4 shrink-0" />
             <span>Earn More</span>
           </Link>
-          <Link className="hover:text-foreground/80 dark:hover:text-white/80 transition-colors" to="/blog">
+          <Link className="hover:text-white/80 transition-colors" to="/blog">
             Blog
           </Link>
-          <HostNavMenu variant="solid" />
+          <HostNavMenu variant="floating" />
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
           <Link
             to="/stays"
-            className="hidden h-9 px-4 rounded-full bg-foreground text-background dark:bg-white dark:text-black text-xs sm:text-sm font-bold shadow-sm transition-all hover:opacity-90 hover:scale-[1.02] sm:inline-flex sm:items-center sm:justify-center"
+            className="hidden h-9 px-4 rounded-full bg-white text-ink text-xs sm:text-sm font-bold shadow-sm transition-all hover:bg-white/90 hover:scale-[1.02] sm:inline-flex sm:items-center sm:justify-center"
           >
             Book a Stay
           </Link>
