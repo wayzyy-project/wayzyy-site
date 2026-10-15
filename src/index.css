@@ -416,7 +416,7 @@ html.lenis body {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.nav-wave { animation: nav-wave 12s linear infinite; }
+.nav-wave { animation: nav-wave 8s linear infinite; }
 @media (prefers-reduced-motion: reduce) {
   .nav-wave { animation: none; }
 }
