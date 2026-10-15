@@ -304,11 +304,11 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/55 backdrop-blur-xl" />
       {/* Thin white wave along the bottom edge, drifting slowly. Two copies of
           one period side by side, shifted by one period, so it loops. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[3px] h-[6px] overflow-hidden">
-        <svg className="nav-wave h-full w-[200%]" viewBox="0 0 2400 6" preserveAspectRatio="none">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[8px] h-[16px] overflow-hidden">
+        <svg className="nav-wave h-full w-[200%]" viewBox="0 0 2400 16" preserveAspectRatio="none">
           <path
-            d="M0 3 Q150 0 300 3 T600 3 T900 3 T1200 3 T1500 3 T1800 3 T2100 3 T2400 3"
-            fill="none" stroke="#ffffff" strokeOpacity="0.45" strokeWidth="1" vectorEffect="non-scaling-stroke"
+            d="M0 8 Q150 -6 300 8 T600 8 T900 8 T1200 8 T1500 8 T1800 8 T2100 8 T2400 8"
+            fill="none" stroke="#ffffff" strokeOpacity="0.6" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
           />
         </svg>
       </div>
