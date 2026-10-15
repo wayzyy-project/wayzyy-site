@@ -93,7 +93,7 @@ function ChallengeNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const contentClass =
     variant === "floating"
-      ? "liquid-glass z-50 w-80 rounded-2xl border border-white/15 bg-black/60 p-2 text-white shadow-2xl"
+      ? "z-50 w-80 rounded-2xl border border-white/15 bg-slate-950/90 backdrop-blur-xl p-2 text-white shadow-2xl"
       : "z-50 w-80 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-2xl";
 
   const itemClass =
@@ -175,7 +175,7 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const contentClass =
     variant === "floating"
-      ? "liquid-glass z-50 w-80 rounded-2xl border border-white/15 bg-black/60 p-2 text-white shadow-2xl"
+      ? "z-50 w-80 rounded-2xl border border-white/15 bg-slate-950/90 backdrop-blur-xl p-2 text-white shadow-2xl"
       : "z-50 w-80 rounded-2xl border border-border bg-popover p-2 text-popover-foreground shadow-2xl";
 
   const itemClass =
