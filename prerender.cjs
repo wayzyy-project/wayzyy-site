@@ -458,6 +458,14 @@ const routes = [
   },
   {
     path: '/about',
+    title: 'About Wayzyy: short-term rentals built around hosts and guests',
+    description: 'Why Wayzyy exists: 0% booking commission for hosts, the full price up front for guests, and verified stays across Goa.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+    jsonLd: require('./src/data/aboutSchema.json')
+  },
+  {
+    path: '/about/team',
     title: 'Who is behind Wayzyy: the team and why we built it',
     description: 'Wayzyy is built by Anant Sharma and Akshay Kumar Sharma. Why we started, how we make money, and how we find hosts and guests in Goa.',
     ogType: 'website',

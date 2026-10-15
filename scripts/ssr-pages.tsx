@@ -6,6 +6,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { Routes, Route } from "react-router-dom";
 
+import ExploreStays from "@/pages/ExploreStays";
 import Index from "@/pages/Index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import PaymentRefundPolicy from "@/pages/PaymentRefundPolicy";
@@ -80,7 +81,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // route -> component, mirrors src/App.tsx
 const routes: Record<string, React.ComponentType> = {
-  "/": Index,
+  "/": ExploreStays,
   "/privacy": PrivacyPolicy,
   "/payment-refund": PaymentRefundPolicy,
   "/host-terms": HostTerms,
@@ -96,7 +97,8 @@ const routes: Record<string, React.ComponentType> = {
   "/policies/review-rating": PolicyDocPage,
   "/policies/trust-safety": PolicyDocPage,
   "/earnings-calculator": EarningsCalculator,
-  "/about": About,
+  "/about": Index,
+  "/about/team": About,
   "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,

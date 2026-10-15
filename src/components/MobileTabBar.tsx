@@ -10,10 +10,10 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { label: "Stays", icon: Compass, href: "/stays", matchPrefix: "/stays" },
-  { label: "Home", icon: Home, href: "/" },
+  { label: "Stays", icon: Compass, href: "/" },
+  { label: "About", icon: Home, href: "/about" },
   { label: "Trips", icon: Luggage, href: "/trips", matchPrefix: "/trips" },
-  { label: "Why", icon: Sparkles, href: "/#why" },
+  { label: "Why", icon: Sparkles, href: "/about#why" },
   { label: "Host", icon: KeyRound, href: "/host", matchPrefix: "/host" },
 ];
 
@@ -42,10 +42,12 @@ export function MobileTabBar() {
       <div className="grid grid-cols-5 items-center px-1">
         {tabs.map((tab) => {
           const isActive = tab.matchPrefix
-            ? path.startsWith(tab.matchPrefix) || (tab.href === "/stays" && path.startsWith("/property/"))
-            : tab.href === "/#why"
-              ? path === "/" && location.hash === "#why"
-              : path === "/" && tab.href === "/" && location.hash !== "#why";
+            ? path.startsWith(tab.matchPrefix)
+            : tab.href === "/"
+              ? path === "/" || path.startsWith("/stays") || path.startsWith("/property/")
+              : tab.href === "/about#why"
+                ? path === "/about" && location.hash === "#why"
+                : path === tab.href && location.hash !== "#why";
           const Icon = tab.icon;
           const isHost = tab.label === "Host";
 

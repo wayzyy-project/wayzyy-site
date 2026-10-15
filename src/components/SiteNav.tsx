@@ -255,17 +255,17 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="w-full px-[clamp(1rem,5vw,4rem)] pt-[clamp(1rem,3vw,2rem)]">
           <div className="liquid-glass mx-auto flex h-16 max-w-5xl items-center justify-between rounded-full px-4 sm:px-6">
-            <a href="/#top" className="group flex items-center shrink-0">
+            <a href="/" className="group flex items-center shrink-0">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
               <Link className="hover:text-white/80 transition-colors" to="/stays">
                 Explore Stays
               </Link>
-              <a className="hover:text-white/80 transition-colors" href="/#why">
+              <a className="hover:text-white/80 transition-colors" href="/about#why">
                 Why
               </a>
-              <a className="hover:text-white/80 transition-colors" href="/#two-sides">
+              <a className="hover:text-white/80 transition-colors" href="/about#two-sides">
                 User & Host
               </a>
               <Link className="hover:text-white/80 transition-colors" to="/waitlist">
@@ -304,17 +304,17 @@ export function SiteNav({ floating = false }: SiteNavProps) {
       <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/55 backdrop-blur-xl" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-white/30" />
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
-        <a href="/#top" className="group flex items-center shrink-0">
+        <a href="/" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
         <nav className="hidden items-center gap-6 text-sm font-bold text-white sm:flex">
           <Link className="hover:text-white/80 transition-colors" to="/stays">
             Explore Stays
           </Link>
-          <a className="hover:text-white/80 transition-colors" href="/#why">
+          <a className="hover:text-white/80 transition-colors" href="/about#why">
             Why
           </a>
-          <a className="hover:text-white/80 transition-colors" href="/#two-sides">
+          <a className="hover:text-white/80 transition-colors" href="/about#two-sides">
             User & Host
           </a>
           <Link className="hover:text-white/80 transition-colors" to="/waitlist">

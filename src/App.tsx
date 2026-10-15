@@ -150,7 +150,7 @@ const App = () => (
             <ScrollToTop />
             <div className="pb-24 sm:pb-0">
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<ExploreStays />} />
               <Route path="/stays" element={<ExploreStays />} />
               <Route path="/explore" element={<ExploreStays />} />
               {/* Public, no-login, live-data-only browse page for sending a
@@ -275,7 +275,8 @@ const App = () => (
               <Route path="/blog/baga-goa-beach-guide" element={<BagaBeachGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<Index />} />
+              <Route path="/about/team" element={<About />} />
               <Route path="/experience" element={<ExperienceGoa />} />
               <Route path="/waitlist" element={<WaitlistChooser />} />
               <Route path="/waitlist/travelers" element={<WaitlistTravelers />} />
