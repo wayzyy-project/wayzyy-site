@@ -10,6 +10,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCalendar } from "@/components/host/PropertyCalendar";
 import { MarketRateCard, useMarketRates } from "@/components/host/MarketRateNote";
 import { PropertyOverview } from "@/components/host/PropertyOverview";
+import { ApplyRulesSection } from "@/components/host/ApplyRulesSection";
+import { DAY_ORDER, DAY_SHORT } from "@/lib/stayRules";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
 
@@ -41,6 +43,8 @@ const TAB_BLURB: Record<string, string> = {
     "The same weekly and monthly discounts you'd set on any other platform, just clearer about what a guest actually pays. Choose how much comes off, see the effect before you commit, and save.",
   cancellation:
     "How much a guest gets back if they cancel, and how late they can do it. Pick one policy for short stays and one for long ones — guests see this before they book.",
+  rules:
+    "Set your rules once on this listing (minimum stay, cancellation, discounts, house rules and check-in), then copy them to your other listings in one go.",
   details:
     "Your minimum-stay requirement, plus licensing and registration details for this property. Licensing is never a blocker to getting listed.",
 };
@@ -73,6 +77,7 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
+          <TabsTrigger value="rules" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Copy rules</TabsTrigger>
           <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
         </TabsList>
         <TabsContent value="listing">
@@ -89,6 +94,9 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
         </TabsContent>
         <TabsContent value="cancellation">
           <CancellationSection propertyId={propertyId} />
+        </TabsContent>
+        <TabsContent value="rules">
+          <ApplyRulesSection propertyId={propertyId} propertyTitle={propertyTitle} />
         </TabsContent>
         <TabsContent value="details">
           <DetailsSection propertyId={propertyId} />
@@ -250,17 +258,24 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savingMinNights, setSavingMinNights] = useState(false);
+  // Optional stay rules (null / empty = no rule).
+  const [maxNights, setMaxNights] = useState<number | null>(null);
+  const [checkinDays, setCheckinDays] = useState<number[]>([]);
+  const [checkoutDays, setCheckoutDays] = useState<number[]>([]);
 
   useEffect(() => {
     supabase
       .from("properties")
-      .select("state, registration_number, min_nights")
+      .select("state, registration_number, min_nights, max_nights, checkin_days, checkout_days")
       .eq("id", propertyId)
       .single()
       .then(({ data }) => {
         setState(data?.state ?? null);
         setRegistrationNumber(data?.registration_number ?? "");
         setMinNights(data?.min_nights ?? 1);
+        setMaxNights(data?.max_nights ?? null);
+        setCheckinDays((data?.checkin_days as number[] | null) ?? []);
+        setCheckoutDays((data?.checkout_days as number[] | null) ?? []);
         setLoading(false);
       });
   }, [propertyId]);
@@ -288,11 +303,14 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
     setMinNights(clamped);
     setSavingMinNights(true);
     try {
+      // A maximum below the minimum would make the listing unbookable.
+      const raiseMax = maxNights != null && clamped > maxNights;
       const { error } = await supabase
         .from("properties")
-        .update({ min_nights: clamped })
+        .update(raiseMax ? { min_nights: clamped, max_nights: clamped } : { min_nights: clamped })
         .eq("id", propertyId);
       if (error) throw error;
+      if (raiseMax) setMaxNights(clamped);
     } catch (err: any) {
       toast({ title: "Couldn't save minimum stay", description: err?.message ?? "Please try again.", variant: "destructive" });
     } finally {
@@ -338,6 +356,17 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
         </div>
       </div>
 
+      <StayRulesCard
+        propertyId={propertyId}
+        minNights={minNights}
+        maxNights={maxNights}
+        setMaxNights={setMaxNights}
+        checkinDays={checkinDays}
+        setCheckinDays={setCheckinDays}
+        checkoutDays={checkoutDays}
+        setCheckoutDays={setCheckoutDays}
+      />
+
       {isGoa ? (
         <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-4">
           <div>
@@ -365,6 +394,107 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
       ) : (
         <p className="text-sm text-white/50">No other location-specific requirements for this listing right now.</p>
       )}
+    </div>
+  );
+}
+
+
+// ── Optional stay rules: maximum stay and allowed check-in / check-out days ──
+
+function StayRulesCard(props: {
+  propertyId: string;
+  minNights: number;
+  maxNights: number | null;
+  setMaxNights: (v: number | null) => void;
+  checkinDays: number[];
+  setCheckinDays: (v: number[]) => void;
+  checkoutDays: number[];
+  setCheckoutDays: (v: number[]) => void;
+}) {
+  const { toast } = useToast();
+  const { propertyId, minNights, maxNights, checkinDays, checkoutDays } = props;
+  const [busy, setBusy] = useState(false);
+
+  const save = async (patch: Record<string, unknown>, apply: () => void) => {
+    setBusy(true);
+    const { error } = await supabase.from("properties").update(patch).eq("id", propertyId);
+    setBusy(false);
+    if (error) {
+      toast({ title: "Couldn't save", description: error.message, variant: "destructive" });
+      return;
+    }
+    apply();
+  };
+
+  const setMax = (v: number | null) => {
+    const value = v == null ? null : Math.min(90, Math.max(minNights, v));
+    save({ max_nights: value }, () => props.setMaxNights(value));
+  };
+
+  const toggleDay = (list: number[], day: number): number[] =>
+    list.includes(day) ? list.filter((d) => d !== day) : [...list, day].sort((a, b) => a - b);
+
+  const setDays = (field: "checkin_days" | "checkout_days", next: number[]) =>
+    save({ [field]: next.length ? next : null }, () =>
+      field === "checkin_days" ? props.setCheckinDays(next) : props.setCheckoutDays(next),
+    );
+
+  const DayChips = ({ label, hint, days, field }: { label: string; hint: string; days: number[]; field: "checkin_days" | "checkout_days" }) => (
+    <div>
+      <Label className="text-xs font-semibold text-white/80">{label}</Label>
+      <p className="mt-0.5 text-xs text-white/50">{days.length === 0 ? `${hint} Any day right now.` : hint}</p>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {DAY_ORDER.map((d) => (
+          <button
+            key={d}
+            type="button"
+            disabled={busy}
+            onClick={() => setDays(field, toggleDay(days, d))}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors disabled:opacity-50 ${
+              days.includes(d) ? "border-ember bg-ember text-white" : "border-white/20 text-white/70 hover:bg-white/10"
+            }`}
+          >
+            {DAY_SHORT[d]}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="space-y-5 rounded-2xl border border-white/15 bg-white/5 p-4">
+      <div>
+        <Label className="text-xs font-semibold text-white/80">Stay rules (optional)</Label>
+        <p className="mt-0.5 text-xs text-white/50">
+          All off by default. Guests see these before they pick dates, and bookings that break them are blocked at checkout.
+        </p>
+      </div>
+
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <Label className="text-xs font-semibold text-white/80">Maximum nights</Label>
+          <p className="mt-0.5 text-xs text-white/50">{maxNights == null ? "No limit right now." : "Longest stay a guest can book."}</p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <Switch checked={maxNights != null} disabled={busy} onCheckedChange={(on) => setMax(on ? Math.max(minNights, 30) : null)} />
+          {maxNights != null && (
+            <>
+              <button type="button" disabled={busy || maxNights <= minNights} onClick={() => setMax(maxNights - 1)}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white disabled:opacity-30">
+                <Minus className="h-3.5 w-3.5" />
+              </button>
+              <span className="w-7 text-center text-sm font-bold text-white">{maxNights}</span>
+              <button type="button" disabled={busy || maxNights >= 90} onClick={() => setMax(maxNights + 1)}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white disabled:opacity-30">
+                <Plus className="h-3.5 w-3.5" />
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <DayChips label="Check-in days" hint="Pick the weekdays guests can arrive on." days={checkinDays} field="checkin_days" />
+      <DayChips label="Check-out days" hint="Pick the weekdays guests can leave on." days={checkoutDays} field="checkout_days" />
     </div>
   );
 }

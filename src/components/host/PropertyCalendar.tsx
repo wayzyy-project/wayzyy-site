@@ -70,6 +70,25 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
   // "Select every Sunday" etc.: every upcoming night on that weekday, a year ahead.
   const [weekdayPick, setWeekdayPick] = useState<number | null>(null);
   const [priceInput, setPriceInput] = useState("");
+  // Host's other listings, for "apply this % change to them too".
+  const [otherListings, setOtherListings] = useState<{ id: string; title: string | null }[]>([]);
+  const [alsoApply, setAlsoApply] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      if (!auth.user) return;
+      const { data } = await supabase
+        .from("properties")
+        .select("id, title")
+        .eq("host_id", auth.user.id)
+        .neq("id", propertyId)
+        .order("created_at", { ascending: false });
+      if (!cancelled) setOtherListings((data ?? []) as { id: string; title: string | null }[]);
+    })();
+    return () => { cancelled = true; };
+  }, [propertyId]);
 
   const today = useMemo(() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }, []);
 
@@ -229,9 +248,50 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
       return;
     }
     setOverrides((prev) => ({ ...prev, ...updates }));
+
+    // Same percentage on the same dates for the chosen other listings, each
+    // starting from its own current price (custom, weekend or base).
+    let othersNote = "";
+    if (parsed.kind === "pct" && alsoApply.size > 0) {
+      const ids = [...alsoApply];
+      const dates = Object.keys(updates);
+      const [propsRes, pricesRes] = await Promise.all([
+        supabase.from("properties").select("id, price_per_night").in("id", ids),
+        supabase.from("date_prices").select("property_id, date, price, source").in("property_id", ids).in("date", dates),
+      ]);
+      const baseById = new Map((propsRes.data ?? []).map((r: any) => [r.id as string, Number(r.price_per_night) || 0]));
+      const hostPrice = new Map<string, number>();
+      const rulePrice = new Map<string, number>();
+      for (const r of (pricesRes.data ?? []) as any[]) {
+        (r.source === "weekend_rule" ? rulePrice : hostPrice).set(`${r.property_id}|${r.date}`, Number(r.price));
+      }
+      const otherRows: { property_id: string; date: string; price: number }[] = [];
+      let skipped = 0;
+      for (const id of ids) {
+        const base = baseById.get(id) ?? 0;
+        const rowsForId: { property_id: string; date: string; price: number }[] = [];
+        let ok = base > 0;
+        for (const date of dates) {
+          const current = hostPrice.get(`${id}|${date}`) ?? rulePrice.get(`${id}|${date}`) ?? base;
+          const next = Math.round(current * (1 + parsed.pct / 100));
+          if (!current || next < 100) { ok = false; break; }
+          rowsForId.push({ property_id: id, date, price: next });
+        }
+        if (ok) otherRows.push(...rowsForId); else skipped++;
+      }
+      if (otherRows.length > 0) {
+        const { error: otherErr } = await supabase.from("date_prices").upsert(otherRows, { onConflict: "property_id,date" });
+        if (otherErr) othersNote = ` Couldn't update your other listings: ${otherErr.message}`;
+        else othersNote = ` Also applied to ${ids.length - skipped} other listing${ids.length - skipped === 1 ? "" : "s"}${skipped ? ` (${skipped} skipped: no base price, or it would go under ₹100)` : ""}.`;
+      } else {
+        othersNote = " Your other listings were skipped (no base price, or it would go under ₹100).";
+      }
+      setAlsoApply(new Set());
+    }
+
     toast({
       title: `${rows.length} night${rows.length === 1 ? "" : "s"} updated`,
-      description: parsed.kind === "abs" ? `Now ₹${parsed.value.toLocaleString("en-IN")} a night.` : `Changed by ${formatPct(parsed.pct)}.`,
+      description: (parsed.kind === "abs" ? `Now ₹${parsed.value.toLocaleString("en-IN")} a night.` : `Changed by ${formatPct(parsed.pct)}.`) + othersNote,
     });
     clearSelection();
   };
@@ -484,6 +544,43 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
                 ))}
               </div>
               {pctHint && <p className="text-xs text-white/60">{pctHint}</p>}
+
+              {parseRateInput(priceInput)?.kind === "pct" && otherListings.length > 0 && (
+                <details className="rounded-xl border border-white/15 p-3 text-xs">
+                  <summary className="cursor-pointer font-semibold text-white/80">
+                    Also apply this change to my other listings{alsoApply.size > 0 ? ` (${alsoApply.size})` : ""}
+                  </summary>
+                  <p className="mt-2 text-white/50">
+                    The same percentage on the same dates, from each listing's own current price.
+                  </p>
+                  <button
+                    type="button"
+                    className="mt-2 font-medium text-ember hover:underline"
+                    onClick={() => setAlsoApply(alsoApply.size === otherListings.length ? new Set() : new Set(otherListings.map((l) => l.id)))}
+                  >
+                    {alsoApply.size === otherListings.length ? "Clear all" : "Select all"}
+                  </button>
+                  <div className="mt-1 max-h-40 space-y-1 overflow-y-auto">
+                    {otherListings.map((l) => (
+                      <label key={l.id} className="flex cursor-pointer items-center gap-2 py-1 text-white/80">
+                        <input
+                          type="checkbox"
+                          className="accent-[#FF6B00]"
+                          checked={alsoApply.has(l.id)}
+                          onChange={() =>
+                            setAlsoApply((prev) => {
+                              const next = new Set(prev);
+                              next.has(l.id) ? next.delete(l.id) : next.add(l.id);
+                              return next;
+                            })
+                          }
+                        />
+                        <span className="truncate">{l.title || "Untitled listing"}</span>
+                      </label>
+                    ))}
+                  </div>
+                </details>
+              )}
 
               <div className="flex flex-wrap gap-2 border-t border-white/10 pt-3">
                 <Button variant="outline" size="sm" onClick={resetPrice} disabled={saving} className="gap-1.5 border-white/20 text-xs text-white hover:bg-white/10">
