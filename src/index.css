@@ -410,12 +410,3 @@ html.lenis body {
   line-height: 1.25;
 }
 
-/* Navbar bottom-edge wave: shifts by one of its two identical halves. */
-@keyframes nav-wave {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.nav-wave { animation: nav-wave 9s linear infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .nav-wave { animation: none; }
-}
