@@ -62,6 +62,17 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   compact = false
 }) => {
   const { user: authUser } = useAuth();
+  // Airbnb-style: past the top of the page the big search bar folds into a
+  // small "Anywhere · Anytime · Add guests" pill in the top row.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    // Two thresholds: folding the bar shortens the sticky header, which
+    // itself moves scrollY, so a single cut-off would flicker.
+    const onScroll = () => setScrolled((was) => (was ? window.scrollY > 8 : window.scrollY > 140));
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, setTheme } = useTheme();
@@ -162,13 +173,34 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
           {/* Site links - same destinations as the main navbar, so the
               stays homepage still reaches About, Why, Blog and hosting. */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-muted-foreground">
+          <div className="relative hidden md:flex flex-1 justify-center">
+          <nav
+            aria-hidden={scrolled && !isSearchExpanded}
+            className={`hidden lg:flex items-center gap-7 text-sm font-semibold text-muted-foreground transition-all duration-300 ${scrolled && !isSearchExpanded ? "pointer-events-none -translate-y-2 opacity-0" : "opacity-100"}`}
+          >
             <Link to="/" className="text-foreground font-bold">Stays</Link>
             <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
             <a href="/about#why" className="hover:text-foreground transition-colors">Why Wayzyy</a>
             <Link to="/earnings-calculator" className="hover:text-foreground transition-colors">Earn more</Link>
             <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
           </nav>
+          <button
+            type="button"
+            tabIndex={scrolled && !isSearchExpanded ? 0 : -1}
+            aria-hidden={!(scrolled && !isSearchExpanded)}
+            onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setIsSearchExpanded(true); setActiveSearchSection("where"); }}
+            className={`absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full border border-border bg-background pl-5 pr-1.5 py-1.5 shadow-md hover:shadow-lg transition-all duration-300 ${scrolled && !isSearchExpanded ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-90"}`}
+          >
+            <span className="whitespace-nowrap text-sm font-semibold text-foreground">{destination || "Anywhere"}</span>
+            <span className="mx-4 h-5 w-px bg-border" />
+            <span className="whitespace-nowrap text-sm font-semibold text-foreground">{checkIn && checkOut ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}` : "Anytime"}</span>
+            <span className="mx-4 h-5 w-px bg-border" />
+            <span className="whitespace-nowrap text-sm text-muted-foreground">{totalGuests > 1 ? `${totalGuests} guests` : "Add guests"}</span>
+            <span className="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6B00] text-white">
+              <Search className="h-3.5 w-3.5" />
+            </span>
+          </button>
+          </div>
 
           {/* Right Action Menu */}
           <div className="flex items-center gap-3">
@@ -244,7 +276,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
         {/* Compact Search Bar — all 3 zones visible on all screen sizes */}
         {!isSearchExpanded && (
-          <div className="pb-4 flex justify-center">
+          <div
+            className={`flex justify-center overflow-hidden transition-all duration-300 ease-out ${scrolled ? "md:max-h-0 md:pb-0 md:opacity-0 md:-translate-y-3 md:scale-95 max-h-24 pb-4" : "max-h-24 pb-4 opacity-100"}`}
+          >
             <div className="w-full max-w-2xl flex items-center rounded-full border border-border/80 bg-background shadow-md hover:shadow-lg transition-all hover:border-[#FF6B00]/30 overflow-hidden">
               {/* WHERE zone */}
               <button

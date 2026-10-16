@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { ArrowRight, Map as MapIcon, Grid as GridIcon, ShieldCheck, Heart, SlidersHorizontal, Loader2, Info } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
-import { CategoryBar, FilterOptions } from "@/components/marketplace/CategoryBar";
+import { CategoryBar, FilterOptions, DEFAULT_FILTERS } from "@/components/marketplace/CategoryBar";
 import { FilterModal } from "@/components/marketplace/FilterModal";
 import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
@@ -45,6 +45,51 @@ const SEED_HOST_EMAILS = [
   "priyanshubhardwaj0912@gmail.com",
 ];
 
+// Short filter labels (same list as the app) -> words to look for in a
+// listing's amenities.
+const AMENITY_KEYWORDS: Record<string, string[]> = {
+  WiFi: ["wifi", "wi-fi", "internet"],
+  Kitchen: ["kitchen"],
+  Washer: ["washer", "washing"],
+  AC: ["air condition", "ac "],
+  Heating: ["heating", "heater"],
+  "Hot Water": ["hot water", "geyser"],
+  TV: ["tv", "television"],
+  Pool: ["pool"],
+  Parking: ["parking"],
+  Breakfast: ["breakfast"],
+  Garden: ["garden", "lawn"],
+  "Beach Access": ["beach"],
+  "Pet-friendly": ["pet"],
+  BBQ: ["bbq", "barbecue", "grill"],
+  Workspace: ["workspace", "desk"],
+  Gym: ["gym", "fitness"],
+  "EV Charger": ["ev charger", "charger"],
+};
+
+function matchesFilters(p: PropertyListing, f: FilterOptions): boolean {
+  // Showcase listings have no price yet, so any budget leaves them out.
+  const budgetSet = f.minPrice > DEFAULT_FILTERS.minPrice || f.maxPrice < DEFAULT_FILTERS.maxPrice;
+  if (p.showcase) {
+    if (budgetSet) return false;
+  } else if (p.pricePerNight < f.minPrice || p.pricePerNight > f.maxPrice) {
+    return false;
+  }
+  if (f.placeType === "room" && !p.isRoom) return false;
+  if (f.placeType === "entire" && p.isRoom) return false;
+  if (f.bedrooms > 0 && p.bedrooms < f.bedrooms) return false;
+  if (f.beds > 0 && p.beds < f.beds) return false;
+  if (f.bathrooms > 0 && p.bathrooms < f.bathrooms) return false;
+  if (f.selfCheckIn && !p.hasSelfCheckIn) return false;
+  if (f.petsAllowed && !p.allowsPets) return false;
+  if (f.amenities.length > 0) {
+    const text = (p.amenities ?? []).join(" | ").toLowerCase() + " ";
+    const ok = f.amenities.every((label) => (AMENITY_KEYWORDS[label] ?? [label.toLowerCase()]).some((k) => text.includes(k)));
+    if (!ok) return false;
+  }
+  return true;
+}
+
 export default function ExploreStays() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -70,17 +115,7 @@ export default function ExploreStays() {
     }
   });
 
-  const [filters, setFilters] = useState<FilterOptions>({
-    category: "all",
-    minPrice: 1000,
-    maxPrice: 35000,
-    propertyTypes: [],
-    bedrooms: 0,
-    bathrooms: 0,
-    amenities: [],
-    instantBookOnly: false,
-    includeAllFees: true
-  });
+  const [filters, setFilters] = useState<FilterOptions>(DEFAULT_FILTERS);
 
   // Fetch live properties from Supabase
   useEffect(() => {
@@ -117,6 +152,9 @@ export default function ExploreStays() {
               category: (p.category?.toLowerCase() || "apartments") as any,
               vibe: p.vibe ?? null,
               showcase: p.status !== "active" && !!p.showcase,
+              hasSelfCheckIn: !!p.self_check_in,
+              allowsPets: !!p.pets_allowed,
+              isRoom: /room/i.test(p.space_type ?? ""),
               propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
               city: p.city || "Goa",
               // properties has 'location', not 'street'/'lat'/'lng' - those
@@ -142,12 +180,8 @@ export default function ExploreStays() {
               bedrooms: Number(p.bedrooms) || 2,
               beds: Number(p.beds) || 2,
               bathrooms: Number(p.bathrooms) || 2,
-              amenities: [...(Array.isArray(p.amenities) && p.amenities.length > 0 ? p.amenities : [
-                "Fast Wifi (150+ Mbps)",
-                "Air conditioning in all rooms",
-                "Fully equipped modular kitchen",
-                "Dedicated workspace with ergonomic desk"
-              ]), ...(p.pets_allowed ? ["Pets allowed"] : [])],
+              // Real amenities only - filters match against these.
+              amenities: [...(Array.isArray(p.amenities) ? p.amenities : []), ...(p.pets_allowed ? ["Pets allowed"] : [])],
             host: {
               name: p.host_email ? p.host_email.split("@")[0] : "Verified Host",
               avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
@@ -196,7 +230,8 @@ export default function ExploreStays() {
   }, [dbProperties]);
 
   // Filtered properties
-  const filteredProperties = useMemo(() => {
+  // Search box + category; the Filters panel is applied on top of this.
+  const baseProperties = useMemo(() => {
     return allProperties.filter((p) => {
       // Destination filter
       if (searchState.destination) {
@@ -224,34 +259,14 @@ export default function ExploreStays() {
         if (selectedCategory === "beachfront" && p.category !== "beachfront" && !p.title.toLowerCase().includes("beach") && !p.title.toLowerCase().includes("river")) return false;
       }
 
-      // Price filter
-      // Showcase listings have no price yet, so a budget filter leaves them out.
-      if (p.showcase) {
-        if (filters.maxPrice < 35000) return false;
-      } else if (p.pricePerNight < filters.minPrice || p.pricePerNight > filters.maxPrice) {
-        return false;
-      }
-
-      // Bedrooms
-      if (filters.bedrooms > 0 && p.bedrooms < filters.bedrooms) return false;
-
-      // Bathrooms
-      if (filters.bathrooms > 0 && p.bathrooms < filters.bathrooms) return false;
-
-      // Amenities
-      if (filters.amenities.length > 0) {
-        const hasAll = filters.amenities.every((req) =>
-          p.amenities.some((a) => a.toLowerCase().includes(req.toLowerCase()))
-        );
-        if (!hasAll) return false;
-      }
-
-      // Instant book
-      if (filters.instantBookOnly && !p.instantBook) return false;
-
       return true;
     });
-  }, [allProperties, searchState, selectedCategory, filters]);
+  }, [allProperties, searchState, selectedCategory]);
+
+  const filteredProperties = useMemo(
+    () => baseProperties.filter((p) => matchesFilters(p, filters)),
+    [baseProperties, filters],
+  );
 
   const northGoaProperties = useMemo(() => {
     return filteredProperties.filter((p) => 
@@ -304,7 +319,7 @@ export default function ExploreStays() {
           onClose={() => setIsFilterModalOpen(false)}
           filters={filters}
           onApplyFilters={(f) => setFilters(f)}
-          totalResultsCount={filteredProperties.length}
+          countFor={(f) => baseProperties.filter((p) => matchesFilters(p, f)).length}
         />
 
         {/* Zero Guest Fee Guarantee Banner */}

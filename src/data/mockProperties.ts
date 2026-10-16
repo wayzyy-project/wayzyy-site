@@ -17,6 +17,9 @@ export interface PropertyListing {
   vibe?: string | null;
   // Draft the host hasn't priced yet, shown publicly for enquiries only.
   showcase?: boolean;
+  hasSelfCheckIn?: boolean;
+  allowsPets?: boolean;
+  isRoom?: boolean;
   propertyType: string; // e.g. "Entire rental unit", "Villa", "Apartment", "Room"
   city: string;
   area: string;

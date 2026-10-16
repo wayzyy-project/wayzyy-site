@@ -19,11 +19,31 @@ export interface FilterOptions {
   maxPrice: number;
   propertyTypes: string[];
   bedrooms: number;
+  beds: number;
   bathrooms: number;
   amenities: string[];
+  placeType: "any" | "room" | "entire";
+  selfCheckIn: boolean;
+  petsAllowed: boolean;
   instantBookOnly: boolean;
   includeAllFees: boolean;
 }
+
+export const DEFAULT_FILTERS: FilterOptions = {
+  category: "all",
+  minPrice: 0,
+  maxPrice: 100000,
+  propertyTypes: [],
+  bedrooms: 0,
+  beds: 0,
+  bathrooms: 0,
+  amenities: [],
+  placeType: "any",
+  selfCheckIn: false,
+  petsAllowed: false,
+  instantBookOnly: false,
+  includeAllFees: true,
+};
 
 interface CategoryBarProps {
   selectedCategory: string;
@@ -53,13 +73,13 @@ const QUICK_FILTERS: {
 }[] = [
   {
     id: "pool", label: "Private pool", icon: Waves,
-    isOn: (f) => f.amenities.includes("pool"),
-    toggle: (f) => ({ ...f, amenities: f.amenities.includes("pool") ? f.amenities.filter((a) => a !== "pool") : [...f.amenities, "pool"] }),
+    isOn: (f) => f.amenities.includes("Pool"),
+    toggle: (f) => ({ ...f, amenities: f.amenities.includes("Pool") ? f.amenities.filter((a) => a !== "Pool") : [...f.amenities, "Pool"] }),
   },
   {
     id: "pets", label: "Pet friendly", icon: PawPrint,
-    isOn: (f) => f.amenities.includes("pet"),
-    toggle: (f) => ({ ...f, amenities: f.amenities.includes("pet") ? f.amenities.filter((a) => a !== "pet") : [...f.amenities, "pet"] }),
+    isOn: (f) => f.petsAllowed,
+    toggle: (f) => ({ ...f, petsAllowed: !f.petsAllowed }),
   },
   {
     id: "beds", label: "3+ bedrooms", icon: BedDouble,
@@ -69,7 +89,7 @@ const QUICK_FILTERS: {
   {
     id: "budget", label: "Under ₹5,000", icon: IndianRupee,
     isOn: (f) => f.maxPrice <= 5000,
-    toggle: (f) => ({ ...f, maxPrice: f.maxPrice <= 5000 ? 35000 : 5000 }),
+    toggle: (f) => ({ ...f, minPrice: 0, maxPrice: f.maxPrice <= 5000 ? DEFAULT_FILTERS.maxPrice : 5000 }),
   },
 ];
 
