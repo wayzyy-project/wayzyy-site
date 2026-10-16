@@ -25,7 +25,10 @@ import {
   Clock, 
   AlertCircle,
   Flag,
-  Loader2
+  Loader2,
+  BadgeCheck,
+  MessageCircle,
+  Phone,
 } from "lucide-react";
 import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
@@ -41,6 +44,7 @@ import { resolveHostDisplayName } from "@/lib/hostDisplayName";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
 import { SUPPORT_PHONE, SUPPORT_EMAIL } from "@/components/host/HostGetStarted";
+import { areaForListing } from "@/data/areaGuides";
 import {
   Dialog,
   DialogContent,
@@ -142,6 +146,7 @@ export default function PropertyDetail() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [showMapInfo, setShowMapInfo] = useState(false);
+  const [hostVerified, setHostVerified] = useState(false);
   const [otherHostListings, setOtherHostListings] = useState<
     { id: string; title: string; image: string | null; pricePerNight: number }[]
   >([]);
@@ -157,11 +162,12 @@ export default function PropertyDetail() {
 
     supabase
       .from("profiles")
-      .select("name, avatar_url")
+      .select("name, avatar_url, identity_verified, aadhaar_verified")
       .eq("id", hostId)
       .maybeSingle()
       .then(({ data: profile }) => {
         if (cancelled || !profile) return;
+        setHostVerified(!!(profile.identity_verified || profile.aadhaar_verified));
         setProperty((prev) => {
           if (!prev) return prev;
           const resolvedName = resolveHostDisplayName(profile.name, prev.host.email);
@@ -471,6 +477,7 @@ export default function PropertyDetail() {
   // The 7% Wayzyy fee is folded into every line a guest sees; the server still
   // prices and taxes the host's amount and the fee separately.
   const fold = (n: number) => Math.round(n * (1 + WAYZYY_FEE_RATE));
+  const areaGuide = property ? areaForListing(property.title, property.area, property.city) : null;
   const stayTotal = quote ? quote.accommodation + quote.serviceFee : property.pricePerNight * nights;
   const nightlyRate = quote ? fold(quote.perNight) : property.pricePerNight;
   const originalStayTotal = property.originalPrice ? property.originalPrice * nights / 2 : stayTotal * 2;
@@ -707,14 +714,47 @@ export default function PropertyDetail() {
                   within an hour" - fabricated the same way the reviews
                   were. Just a plain contact prompt now, same number as the
                   price rail's "Get in touch" button. */}
-              <div className="pt-6">
-                <p className="text-sm font-semibold text-foreground">
-                  Interested in this property?{" "}
-                  <a href={`tel:${SUPPORT_PHONE_HREF}`} className="text-[#FF6B00] underline">
-                    Get in touch with us
-                  </a>
-                  .
-                </p>
+              <div className="pt-6 space-y-4">
+                {/* Trust: what Wayzyy actually checked. The Aadhaar line only
+                    shows when the host's profile is verified. */}
+                <div className="flex flex-wrap gap-2">
+                  {hostVerified && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                      <ShieldCheck className="h-3.5 w-3.5" /> Host Aadhaar verified via DigiLocker
+                    </span>
+                  )}
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground">
+                    <BadgeCheck className="h-3.5 w-3.5 text-[#FF6B00]" /> Listing reviewed by the Wayzyy team
+                  </span>
+                </div>
+
+                {/* Contact goes to the Wayzyy team only - never to the host. */}
+                <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
+                  <p className="text-sm font-semibold text-foreground">Questions about this stay?</p>
+                  <p className="text-sm text-muted-foreground">Chat with the Wayzyy team. We'll help with dates, groups and anything else before you book.</p>
+                  <div className="flex flex-wrap gap-2">
+                    <a
+                      href={`https://wa.me/${SUPPORT_PHONE_HREF.replace("+", "")}?text=${encodeURIComponent(`Hi Wayzyy, I'm interested in "${property.title}" (${typeof window !== "undefined" ? window.location.href : ""})`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white hover:brightness-95 transition"
+                    >
+                      <MessageCircle className="h-4 w-4" /> Chat with us on WhatsApp
+                    </a>
+                    <a href={`tel:${SUPPORT_PHONE_HREF}`} className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:border-foreground/40 transition">
+                      <Phone className="h-4 w-4" /> Call {SUPPORT_PHONE}
+                    </a>
+                  </div>
+                </div>
+
+                {areaGuide && (
+                  <Link to={areaGuide.guide} className="group block rounded-2xl border border-border p-5 hover:border-[#FF6B00]/50 transition-colors">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FF6B00]">About the area · {areaGuide.vibe}</span>
+                    <p className="mt-1 text-base font-bold text-foreground">Staying in {areaGuide.area}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{areaGuide.blurb}</p>
+                    <p className="mt-2 text-sm font-semibold text-foreground group-hover:text-[#FF6B00]">Read the {areaGuide.area} guide →</p>
+                  </Link>
+                )}
               </div>
 
               {/* Other properties from this host - same idea as Airbnb's

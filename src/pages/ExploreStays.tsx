@@ -6,6 +6,7 @@ import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { CategoryBar, FilterOptions } from "@/components/marketplace/CategoryBar";
 import { FilterModal } from "@/components/marketplace/FilterModal";
 import { PropertyCard } from "@/components/marketplace/PropertyCard";
+import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
@@ -311,7 +312,7 @@ export default function ExploreStays() {
           <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 py-2.5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[13px] text-foreground">
             <span><strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> 0% guest service fee</span>
             <span className="text-muted-foreground">Save about 15.5% vs the same stay on Airbnb</span>
-            <span className="text-muted-foreground">Every host Aadhaar verified</span>
+            <span className="text-muted-foreground">Every listing reviewed by our team</span>
           </div>
         </div>
 
@@ -360,6 +361,40 @@ export default function ExploreStays() {
                     nights={2}
                     includeAllFees={includeAllFees}
                   />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Area guides: where to stay, linked to the long-form blog guides */}
+          {!searchState.destination && selectedCategory === "all" && (
+            <section className="space-y-5 border-t border-border pt-10" aria-labelledby="areas-heading">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <h2 id="areas-heading" className="text-xl font-bold font-display text-foreground">Explore Goa by area</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Not sure where to stay? Each area has its own feel. Read the guide, then pick a stay.</p>
+                </div>
+                <Link to="/blog" className="text-sm font-semibold text-[#FF6B00] hover:underline">All travel guides</Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                {AREA_GUIDES.map((g) => (
+                  <Link
+                    key={g.area}
+                    to={g.guide}
+                    className="group flex flex-col gap-2 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-[#FF6B00]/50"
+                  >
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FF6B00]">{g.vibe}</span>
+                    <span className="text-lg font-bold text-foreground">{g.area}</span>
+                    <span className="text-sm leading-relaxed text-muted-foreground">{g.blurb}</span>
+                    <span className="mt-auto pt-2 text-sm font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors">Read the {g.area} guide →</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 pt-2">
+                {TRIP_GUIDES.map((t) => (
+                  <Link key={t.to} to={t.to} className="rounded-full border border-border px-4 py-2 text-sm text-foreground hover:border-foreground/40 transition-colors">
+                    {t.title}
+                  </Link>
                 ))}
               </div>
             </section>
