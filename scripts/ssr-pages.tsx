@@ -6,7 +6,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { Routes, Route } from "react-router-dom";
 
-import ExploreStays from "@/pages/ExploreStays";
 import Index from "@/pages/Index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import PaymentRefundPolicy from "@/pages/PaymentRefundPolicy";
@@ -81,7 +80,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // route -> component, mirrors src/App.tsx
 const routes: Record<string, React.ComponentType> = {
-  "/": ExploreStays,
+  // "/" is the live stays list: it needs the browser Supabase client (import.meta.env),
+  // which this Node render can't provide, and its content is all fetched at runtime.
   "/privacy": PrivacyPolicy,
   "/payment-refund": PaymentRefundPolicy,
   "/host-terms": HostTerms,
