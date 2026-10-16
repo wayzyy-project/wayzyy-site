@@ -174,7 +174,7 @@ export const subscribeToMessages = (
   onMessage: (msg: Message) => void,
 ): RealtimeChannel => {
   return supabase
-    .channel(`messages:${threadId}`)
+    .channel(`messages:${threadId}:${crypto.randomUUID()}`)
     .on(
       "postgres_changes",
       { event: "INSERT", schema: "public", table: "messages", filter: `thread_id=eq.${threadId}` },
@@ -184,8 +184,11 @@ export const subscribeToMessages = (
 };
 
 export const subscribeToThreads = (userId: string, onChange: () => void): RealtimeChannel => {
+  // A unique name per caller: the nav's unread badge and the Inbox page both
+  // subscribe at once, and supabase-js hands back the existing (already
+  // subscribed) channel for a repeated name, so a second .on() would throw.
   return supabase
-    .channel(`threads:${userId}`)
+    .channel(`threads:${userId}:${crypto.randomUUID()}`)
     .on("postgres_changes", { event: "*", schema: "public", table: "threads" }, onChange)
     .subscribe();
 };
