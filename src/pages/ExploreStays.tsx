@@ -14,7 +14,7 @@ import { propertyPath } from "@/lib/propertySlug";
 
 // Same price-pill look the old Leaflet divIcon had, as a real component now
 // that it's an AdvancedMarker's `content` rather than a static HTML string.
-function PricePin({ price, currency }: { price: number; currency: string }) {
+function PricePin({ price, currency, label }: { price: number; currency: string; label?: string }) {
   return (
     <div
       style={{
@@ -30,7 +30,7 @@ function PricePin({ price, currency }: { price: number; currency: string }) {
         cursor: "pointer",
       }}
     >
-      {currency}{price.toLocaleString("en-IN")}
+      {label ?? `${currency}${price.toLocaleString("en-IN")}`}
     </div>
   );
 }
@@ -89,7 +89,8 @@ export default function ExploreStays() {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .eq("status", "active")
+          // Live listings, plus showcased drafts (enquiry-only, no price yet).
+          .or("status.eq.active,showcase.eq.true")
           .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
           .order("created_at", { ascending: false });
 
@@ -114,6 +115,7 @@ export default function ExploreStays() {
               description: p.description || "",
               category: (p.category?.toLowerCase() || "apartments") as any,
               vibe: p.vibe ?? null,
+              showcase: p.status !== "active" && !!p.showcase,
               propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
               city: p.city || "Goa",
               // properties has 'location', not 'street'/'lat'/'lng' - those
@@ -432,7 +434,7 @@ export default function ExploreStays() {
                         position={{ lat: p.lat, lng: p.lng }}
                         onClick={() => setOpenMapPinId(p.id)}
                       >
-                        <PricePin price={p.pricePerNight * 2} currency={p.currency} />
+                        <PricePin price={p.pricePerNight * 2} currency={p.currency} label={p.showcase ? "Enquire" : undefined} />
                       </AdvancedMarker>
                     ))}
                     {filteredProperties.map((p) =>
@@ -451,9 +453,13 @@ export default function ExploreStays() {
                             <p className="text-xs font-bold text-foreground line-clamp-1">{p.title}</p>
                             <p className="text-[11px] text-muted-foreground">{p.city}, {p.state}</p>
                             <div className="mt-1.5 flex items-center justify-between">
+                              {p.showcase ? (
+                                <span className="text-xs font-bold text-ember">Contact us to book</span>
+                              ) : (
                               <span className="font-price text-xs font-bold text-foreground">
                                 {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
                               </span>
+                              )}
                               <Link
                                 to={propertyPath(p)}
                                 className="text-[11px] font-bold text-[#FF6B00] hover:underline"

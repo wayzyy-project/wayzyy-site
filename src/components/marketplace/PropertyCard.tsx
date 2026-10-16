@@ -129,6 +129,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
         {/* Pricing line - no star rating: real reviews aren't accurate/
             complete yet, so nothing gets claimed here until they are. */}
+        {property.showcase ? (
+          <div className="mt-1 text-xs font-semibold text-ember">Contact us to book</div>
+        ) : (
         <div className="mt-1 flex items-baseline gap-1 text-xs font-semibold text-foreground">
           <span className="font-price font-bold text-foreground">
             {property.currency}{totalPrice.toLocaleString("en-IN")}
@@ -137,6 +140,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             {nights > 1 ? `for ${nights} nights` : "night"}
           </span>
         </div>
+        )}
       </div>
     </Link>
   );

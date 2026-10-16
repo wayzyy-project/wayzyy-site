@@ -296,6 +296,7 @@ export default function PropertyDetail() {
             title: data.title || "Spacious Homestay",
             description: data.description || "A wonderful place to stay.",
             category: (data.category?.toLowerCase() || "apartments") as any,
+            showcase: data.status !== "active" && !!data.showcase,
             propertyType: data.space_type ? `${data.space_type} in ${data.city || "India"}` : `Entire place in ${data.city || "India"}`,
             city: data.city || "Goa",
             // properties has 'location', not 'street'/'lat'/'lng' - those
@@ -804,7 +805,7 @@ export default function PropertyDetail() {
                 )}
               </div>
 
-              {BOOKING_ENABLED && (
+              {BOOKING_ENABLED && !property.showcase && (
                 <div className="pt-6 space-y-4">
                   <h3 className="text-lg font-bold font-display text-foreground">
                     {nights} nights in {property.city}
@@ -913,7 +914,7 @@ export default function PropertyDetail() {
             {/* Right Sticky Rail: full reservation card once booking is
                 live, a plain "get in touch" card while it isn't. */}
             <div className="lg:col-span-1">
-              {BOOKING_ENABLED ? (
+              {BOOKING_ENABLED && !property.showcase ? (
               <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
                 {/* Price Display */}
                 <div className="flex items-baseline justify-between">
@@ -1096,10 +1097,16 @@ export default function PropertyDetail() {
               ) : (
               <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
                 <div>
+                  {property.showcase ? (
+                    <span className="text-2xl font-bold text-foreground">Contact us to book</span>
+                  ) : (
+                  <>
                   <span className="font-price text-2xl font-bold text-foreground">
                     {property.currency}{property.pricePerNight.toLocaleString("en-IN")}
                   </span>
                   <span className="text-xs text-muted-foreground font-normal ml-1">/ night</span>
+                  </>
+                  )}
                   {describeStayRules(stayRules).map((line) => (
                     <p key={line} className="mt-1 text-xs font-semibold text-[#FF6B00]">{line}</p>
                   ))}
@@ -1116,6 +1123,15 @@ export default function PropertyDetail() {
                   Get in touch with us
                 </a>
                 <p className="text-center text-xs text-muted-foreground">{SUPPORT_PHONE}</p>
+                {property.showcase && (
+                  <button
+                    type="button"
+                    onClick={() => setIsEnquiryOpen(true)}
+                    className="w-full rounded-full border border-border py-3 text-sm font-semibold text-foreground hover:bg-muted/50 transition-colors"
+                  >
+                    Send an enquiry
+                  </button>
+                )}
 
                 {/* Report Listing - opens the guest's own mail client,
                     pre-filled with the listing name and link. */}

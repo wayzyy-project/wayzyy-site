@@ -15,6 +15,8 @@ export interface PropertyListing {
   description: string;
   category: "homes" | "villas" | "apartments" | "rooms" | "beachfront" | "luxury" | "pools";
   vibe?: string | null;
+  // Draft the host hasn't priced yet, shown publicly for enquiries only.
+  showcase?: boolean;
   propertyType: string; // e.g. "Entire rental unit", "Villa", "Apartment", "Room"
   city: string;
   area: string;
