@@ -1,171 +1,196 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { Heart, ArrowRight, ShieldCheck } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowLeft, Heart, Pencil, Plus, Trash2 } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
-import { getWishlistIds } from "@/lib/wishlist";
+import { useToast } from "@/hooks/use-toast";
+import {
+  WISHLIST_UPDATE_EVENT,
+  allSavedIds,
+  createCollection,
+  deleteCollection,
+  getCollections,
+  getRecentlyViewed,
+  renameCollection,
+  startWishlistSync,
+} from "@/lib/wishlist";
+
+function toListing(p: any): PropertyListing {
+  const images = Array.isArray(p.images) && p.images.length ? p.images : [];
+  const price = Number(p.price_per_night) || 0;
+  return {
+    id: p.id,
+    slug: p.title ? p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : p.id,
+    title: p.title || "Stay",
+    description: p.description || "",
+    category: (p.category?.toLowerCase() || "apartments") as any,
+    showcase: p.status !== "active" && !!p.showcase,
+    propertyType: p.space_type ? `${p.space_type} in ${p.city || "Goa"}` : `Entire place in ${p.city || "Goa"}`,
+    city: p.city || "Goa",
+    area: p.location || p.city || "Goa",
+    state: p.state || "Goa",
+    country: "India",
+    lat: Number(p.latitude) || 0,
+    lng: Number(p.longitude) || 0,
+    images,
+    pricePerNight: price,
+    originalPrice: price * 2,
+    currency: "₹",
+    rating: 0,
+    reviewCount: 0,
+    isGuestFavourite: false,
+    isTopTenPercent: false,
+    maxGuests: Number(p.max_guests) || 2,
+    bedrooms: Number(p.bedrooms) || 1,
+    beds: Number(p.beds) || 1,
+    bathrooms: Number(p.bathrooms) || 1,
+    amenities: Array.isArray(p.amenities) ? p.amenities : [],
+  } as PropertyListing;
+}
 
 export default function Wishlists() {
-  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
-  const [dbProperties, setDbProperties] = useState<PropertyListing[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+  const [params, setParams] = useSearchParams();
+  const openId = params.get("c");
+  const [, force] = useState(0);
+  const [byId, setById] = useState<Record<string, PropertyListing>>({});
+  const [loaded, setLoaded] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [renaming, setRenaming] = useState<string | null>(null);
 
-  const loadSaved = () => {
-    setWishlistIds(getWishlistIds());
+  useEffect(() => {
+    startWishlistSync();
+    const onUpdate = () => force((n) => n + 1);
+    window.addEventListener(WISHLIST_UPDATE_EVENT, onUpdate);
+    return () => window.removeEventListener(WISHLIST_UPDATE_EVENT, onUpdate);
+  }, []);
+
+  const collections = getCollections();
+  const recent = getRecentlyViewed();
+  const wanted = useMemo(() => Array.from(new Set([...allSavedIds(), ...recent])).sort(), [collections, recent.join()]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Fetch only the stays we need. RLS already hides anything not public.
+  useEffect(() => {
+    const missing = wanted.filter((id) => !byId[id]);
+    // Demo listings (slug ids) come from the bundled sample data.
+    const demo = Object.fromEntries(MOCK_PROPERTIES.filter((m) => missing.includes(m.id)).map((m) => [m.id, m]));
+    const dbIds = missing.filter((id) => /^[0-9a-f-]{36}$/i.test(id));
+    if (dbIds.length === 0) { setById((prev) => ({ ...prev, ...demo })); setLoaded(true); return; }
+    supabase.from("properties").select("*").in("id", dbIds).then(({ data }) => {
+      setById((prev) => ({ ...prev, ...demo, ...Object.fromEntries((data ?? []).map((p: any) => [p.id, toListing(p)])) }));
+      setLoaded(true);
+    });
+  }, [wanted.join()]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const open = collections.find((c) => c.id === openId) ?? null;
+  const recentListings = recent.map((id) => byId[id]).filter(Boolean);
+
+  const submitNew = async () => {
+    try { await createCollection(newName); setCreating(false); setNewName(""); }
+    catch (e) { toast({ title: "Couldn't create the wishlist", description: e instanceof Error ? e.message : "", variant: "destructive" }); }
   };
 
-  useEffect(() => {
-    loadSaved();
-    window.addEventListener("wayzyy_wishlist_updated", loadSaved);
-    return () => window.removeEventListener("wayzyy_wishlist_updated", loadSaved);
-  }, []);
-
-  // Fetch live properties from Supabase
-  useEffect(() => {
-    async function loadProperties() {
-      try {
-        setLoading(true);
-        const { data } = await supabase
-          .from("properties")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-        if (data && data.length > 0) {
-          const transformed: PropertyListing[] = data.map((p: any) => ({
-            id: p.id,
-            slug: p.title ? p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : p.id,
-            title: p.title || "Spacious Homestay",
-            description: p.description || "",
-            category: (p.category?.toLowerCase() || "apartments") as any,
-            propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
-            city: p.city || "Goa",
-            // properties has 'location', not 'street'/'lat'/'lng' - those
-            // don't exist, so every real listing's map pin was landing on
-            // this same fallback point (Gautam Budh Nagar) instead of its
-            // real location.
-            area: p.location || p.city || "North Goa",
-            state: p.state || "Goa",
-            country: "India",
-            lat: Number(p.latitude) || 15.5898,
-            lng: Number(p.longitude) || 73.7749,
-            images: p.images && p.images.length > 0 ? p.images : [
-              "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=80"
-            ],
-            pricePerNight: p.price_per_night || 3500,
-            originalPrice: (p.price_per_night || 3500) * 2,
-            currency: "₹",
-            // Real reviews aren't accurate/complete yet - PropertyCard no
-            // longer renders any of these.
-            rating: 0,
-            reviewCount: 0,
-            isGuestFavourite: false,
-            maxGuests: p.max_guests || 4,
-            bedrooms: p.bedrooms || 2,
-            beds: p.beds || 2,
-            bathrooms: p.bathrooms || 2,
-            amenities: p.amenities || [
-              "Fast Wifi (150+ Mbps)",
-              "Air conditioning in all rooms",
-              "Fully equipped modular kitchen"
-            ],
-            host: {
-              name: p.host_email ? p.host_email.split("@")[0] : "Verified Host",
-              avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-              isSuperhost: true,
-              joinedDate: "Joined in 2025",
-              responseRate: "100%",
-              responseTime: "within an hour"
-            },
-            highlights: [
-              { icon: "trophy", title: "Guest favourite", description: "One of the most loved homes on Wayzyy." }
-            ],
-            ratingsBreakdown: { cleanliness: 5.0, accuracy: 5.0, communication: 5.0, location: 4.9, checkIn: 5.0, value: 5.0 },
-            reviews: [],
-            houseRules: {
-              checkIn: "2:00 PM",
-              checkOut: "11:00 AM",
-              selfCheckIn: "Self check-in",
-              smoking: false,
-              pets: false,
-              parties: false
-            },
-            cancellationPolicy: "Free cancellation up to 48 hours before check-in.",
-            instantBook: true
-          }));
-          setDbProperties(transformed);
-        }
-      } catch (err) {
-        console.error("Error loading properties:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadProperties();
-  }, []);
-
-  const allProperties = useMemo(() => {
-    const map = new Map<string, PropertyListing>();
-    MOCK_PROPERTIES.forEach((p) => map.set(p.id, p));
-    dbProperties.forEach((p) => map.set(p.id, p));
-    return Array.from(map.values());
-  }, [dbProperties]);
-
-  const savedProperties = useMemo(() => {
-    return allProperties.filter((p) => wishlistIds.includes(p.id));
-  }, [allProperties, wishlistIds]);
-
   return (
-    <SEO
-      title="Saved Wishlists - Wayzyy"
-      description="View your favorite homestays, 2BHKs, and pool villas saved on Wayzyy."
-    >
-      <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <SEO title="Wishlists - Wayzyy" description="Stays you've saved on Wayzyy, in your own collections.">
+      <div className="min-h-screen bg-background text-foreground">
         <AirbnbHeader compact />
 
-        <main className="flex-1 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-extrabold font-display tracking-tight text-foreground">
-              Wishlists
-            </h1>
-            <p className="text-xs text-muted-foreground">
-              {savedProperties.length > 0 
-                ? `${savedProperties.length} saved ${savedProperties.length === 1 ? "property" : "properties"}`
-                : "Your saved homestays and vacation getaways"}
-            </p>
-          </div>
-
-          {savedProperties.length === 0 ? (
-            <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-4 max-w-xl mx-auto my-8">
-              <div className="mx-auto h-16 w-16 rounded-full bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00]">
-                <Heart className="h-8 w-8 fill-[#FF6B00]" />
+        <main className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 py-10 space-y-10">
+          {open ? (
+            <>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <button onClick={() => setParams({})} aria-label="All wishlists" className="rounded-full p-2 hover:bg-muted"><ArrowLeft className="h-5 w-5" /></button>
+                  {renaming === open.id ? (
+                    <form onSubmit={(e) => { e.preventDefault(); renameCollection(open.id, newName); setRenaming(null); }} className="flex gap-2">
+                      <input autoFocus value={newName} onChange={(e) => setNewName(e.target.value)} maxLength={50} className="rounded-full border border-border bg-background px-4 py-2 text-lg font-bold outline-none focus:border-foreground" />
+                      <button className="btn-brand">Save</button>
+                    </form>
+                  ) : (
+                    <h1 className="truncate text-3xl font-bold font-display">{open.name}</h1>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => { setRenaming(open.id); setNewName(open.name); }} className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:border-foreground/40"><Pencil className="h-4 w-4" /> Rename</button>
+                  <button
+                    onClick={async () => { if (window.confirm(`Delete "${open.name}"? The stays in it aren't affected.`)) { await deleteCollection(open.id); setParams({}); } }}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-semibold text-red-600 hover:border-red-600/50"
+                  >
+                    <Trash2 className="h-4 w-4" /> Delete
+                  </button>
+                </div>
               </div>
-              <h3 className="text-xl font-bold font-display text-foreground">Create your first wishlist</h3>
-              <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
-                As you search, tap the heart icon on any stay to save your favorite homestays, pool villas, and 2BHKs here.
-              </p>
-              <Link
-                to="/stays"
-                className="btn-brand btn-brand-lg"
-              >
-                <span>Start exploring stays</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
+              {open.propertyIds.length === 0 ? (
+                <div className="rounded-3xl border border-dashed border-border py-16 text-center space-y-2">
+                  <p className="text-base font-bold">Nothing saved here yet</p>
+                  <p className="text-sm text-muted-foreground">Explore stays and tap ♡ to save them here.</p>
+                  <Link to="/" className="btn-brand inline-flex mt-3">Explore stays</Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-6 gap-y-10">
+                  {open.propertyIds.map((id) => byId[id] && <PropertyCard key={id} property={byId[id]} nights={2} />)}
+                </div>
+              )}
+            </>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {savedProperties.map((property) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  nights={2}
-                  includeAllFees={true}
-                />
-              ))}
-            </div>
+            <>
+              <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-bold font-display">Wishlists</h1>
+                <button onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:border-foreground/40"><Plus className="h-4 w-4" /> New wishlist</button>
+              </div>
+
+              {creating && (
+                <form onSubmit={(e) => { e.preventDefault(); submitNew(); }} className="flex max-w-md gap-2">
+                  <input autoFocus value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Wishlist name" maxLength={50} className="flex-1 rounded-full border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-foreground" />
+                  <button className="btn-brand">Create</button>
+                  <button type="button" onClick={() => setCreating(false)} className="px-3 text-sm underline">Cancel</button>
+                </form>
+              )}
+
+              {recentListings.length > 0 && (
+                <section className="space-y-4">
+                  <h2 className="text-lg font-bold">Recently viewed</h2>
+                  <div className="flex gap-5 overflow-x-auto pb-2 no-scrollbar">
+                    {recentListings.map((p) => (
+                      <div key={p.id} className="w-60 shrink-0"><PropertyCard property={p} nights={2} /></div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <section className="space-y-4">
+                <h2 className="text-lg font-bold">Collections</h2>
+                {collections.length === 0 ? (
+                  <div className="rounded-3xl border border-dashed border-border py-16 text-center space-y-2">
+                    <Heart className="mx-auto h-8 w-8 text-[#FF6B00]" />
+                    <p className="text-base font-bold">No wishlists yet</p>
+                    <p className="text-sm text-muted-foreground">Tap ♡ on any stay to save it to a wishlist. Sign in to keep them in sync with the Wayzyy app.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                    {collections.map((c) => {
+                      const covers = c.propertyIds.map((id) => byId[id]?.images[0]).filter(Boolean).slice(0, 4) as string[];
+                      return (
+                        <button key={c.id} onClick={() => setParams({ c: c.id })} className="group text-left">
+                          <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-0.5 overflow-hidden rounded-2xl bg-muted">
+                            {covers.length === 0 && <div className="col-span-2 row-span-2 flex items-center justify-center"><Heart className="h-8 w-8 text-muted-foreground" /></div>}
+                            {covers.length > 0 && covers.length < 4 && <img src={covers[0]} alt="" loading="lazy" className="col-span-2 row-span-2 h-full w-full object-cover" />}
+                            {covers.length === 4 && covers.map((src, i) => <img key={i} src={src} alt="" loading="lazy" className="h-full w-full object-cover" />)}
+                          </div>
+                          <p className="mt-2 truncate text-sm font-semibold group-hover:text-[#FF6B00]">{c.name}</p>
+                          <p className="text-xs text-muted-foreground">{c.propertyIds.length} saved</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+              {!loaded && <p className="text-sm text-muted-foreground">Loading…</p>}
+            </>
           )}
         </main>
       </div>

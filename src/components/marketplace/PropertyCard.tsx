@@ -85,7 +85,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           type="button"
           onClick={handleToggleFavorite}
           className="absolute top-3 right-3 z-10 p-1.5 rounded-full transition-transform active:scale-75 hover:scale-110"
-          title={isSaved ? "Remove from wishlist" : "Save to wishlist"}
+          title={isSaved ? "Saved - change wishlists" : "Save to a wishlist"}
         >
           <Heart
             className={`h-6 w-6 stroke-white stroke-[2.2] transition-colors drop-shadow-[0_2px_5px_rgba(0,0,0,0.7)] ${

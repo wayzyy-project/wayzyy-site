@@ -39,7 +39,7 @@ import { stayRuleError, describeStayRules } from "@/lib/stayRules";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
-import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
+import { isPropertyWishlisted, toggleWishlist, recordRecentlyViewed } from "@/lib/wishlist";
 import { resolveHostDisplayName } from "@/lib/hostDisplayName";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
@@ -388,6 +388,7 @@ export default function PropertyDetail() {
           // app logs to). Once per listing per browser session, never the
           // host looking at their own listing; a failed log is ignored.
           logListingView(data.id, data.host_id ?? null);
+          recordRecentlyViewed(data.id);
 
           // Pricing inputs, fetched alongside the listing. `price` above is
           // the raw host rate - the 7% guest fee is applied inside

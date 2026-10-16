@@ -1,3 +1,4 @@
+import { WishlistPicker } from "@/components/wishlist/WishlistPicker";
 import OpenApp from "./pages/OpenApp";
 import PlaceStays from "./pages/PlaceStays";
 import { OpenInAppPrompt } from "./components/OpenInAppPrompt";
@@ -143,6 +144,7 @@ const App = () => (
     >
       <TooltipProvider>
         <Toaster />
+        <WishlistPicker />
         <Sonner />
         <BrowserRouter>
           <SmoothScroll>
