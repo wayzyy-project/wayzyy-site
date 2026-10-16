@@ -98,8 +98,8 @@ function ChallengeNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const itemClass =
     variant === "floating"
-      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 cursor-pointer";
+      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 hover:text-white focus:text-white cursor-pointer"
+      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 hover:text-popover-foreground focus:text-popover-foreground cursor-pointer";
 
   const iconWrapClass =
     variant === "floating"
@@ -180,8 +180,8 @@ function HostNavMenu({ variant }: { variant: "floating" | "solid" }) {
 
   const itemClass =
     variant === "floating"
-      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 cursor-pointer";
+      ? "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 hover:text-white focus:text-white cursor-pointer"
+      : "flex items-start gap-3 rounded-xl px-3 py-2.5 text-left text-sm outline-none transition-colors hover:bg-ember/10 focus:bg-ember/10 hover:text-popover-foreground focus:text-popover-foreground cursor-pointer";
 
   const iconWrapClass =
     variant === "floating"
