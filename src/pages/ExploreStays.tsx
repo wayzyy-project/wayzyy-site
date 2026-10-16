@@ -461,8 +461,8 @@ export default function ExploreStays() {
                 <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
                   <GoogleMap
                     mapId="DEMO_MAP_ID"
-                    defaultCenter={{ lat: 20.5937, lng: 78.9629 }}
-                    defaultZoom={5}
+                    defaultCenter={{ lat: 15.55, lng: 73.78 }}
+                    defaultZoom={10}
                     scrollwheel
                     disableDefaultUI
                     zoomControl

@@ -1,4 +1,4 @@
-const CACHE_NAME = "wayzyy-cache-v3";
+const CACHE_NAME = "wayzyy-cache-v4";
 const ASSETS = [
   "/",
   "/index.html",
@@ -31,6 +31,11 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
+
+  // Only our own files. Third-party requests (Google Maps tiles, Supabase,
+  // image CDNs, analytics) go straight to the network - routing them through
+  // this cache stalled the map's tiles and could serve stale API data.
+  if (url.origin !== self.location.origin) return;
 
   // Network First for index.html / pages so new deployments load immediately
   if (event.request.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html")) {

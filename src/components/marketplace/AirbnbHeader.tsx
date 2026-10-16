@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
+import { useAuth } from "@/hooks/useAuth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -60,6 +61,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   activeCategory = "all",
   compact = false
 }) => {
+  const { user: authUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, setTheme } = useTheme();
@@ -170,11 +172,13 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
           {/* Right Action Menu */}
           <div className="flex items-center gap-3">
+            {/* Signed in: straight to the host portal. Signed out: /host
+                shows sign-up / log-in first. */}
             <Link
               to="/host"
               className="hidden sm:inline-flex rounded-full px-4 py-2 text-xs md:text-sm font-bold text-[#FF6B00] bg-[#FF6B00]/10 hover:bg-[#FF6B00] hover:text-white transition-all border border-[#FF6B00]/30 shadow-xs"
             >
-              Become a host
+              {authUser ? "Switch to hosting" : "Become a host"}
             </Link>
 
             <button

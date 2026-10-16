@@ -148,7 +148,7 @@ export default function PropertyDetail() {
   const [showMapInfo, setShowMapInfo] = useState(false);
   const [hostVerified, setHostVerified] = useState(false);
   const [otherHostListings, setOtherHostListings] = useState<
-    { id: string; title: string; image: string | null; pricePerNight: number }[]
+    { id: string; title: string; image: string | null; pricePerNight: number; showcase?: boolean }[]
   >([]);
 
   // Real host profile (name + avatar) and their other live listings - only
@@ -184,11 +184,13 @@ export default function PropertyDetail() {
 
     supabase
       .from("properties")
-      .select("id, title, images, price_per_night")
+      .select("id, title, images, price_per_night, status, showcase")
       .eq("host_id", hostId)
-      .eq("status", "active")
+      // Live listings plus showcased drafts, same as Explore shows.
+      .or("status.eq.active,showcase.eq.true")
       .neq("id", propertyId)
-      .limit(6)
+      .order("created_at", { ascending: false })
+      .limit(40)
       .then(({ data }) => {
         if (cancelled || !data) return;
         setOtherHostListings(
@@ -197,6 +199,7 @@ export default function PropertyDetail() {
             title: p.title,
             image: Array.isArray(p.images) ? p.images[0] ?? null : null,
             pricePerNight: Number(p.price_per_night) || 0,
+            showcase: p.status !== "active" && !!p.showcase,
           })),
         );
       });
@@ -763,7 +766,7 @@ export default function PropertyDetail() {
               {otherHostListings.length > 0 && (
                 <div className="pt-6">
                   <h3 className="text-sm font-bold text-foreground mb-3">
-                    More from {property.host.name}
+                    More from {property.host.name} · {otherHostListings.length} {otherHostListings.length === 1 ? "stay" : "stays"}
                   </h3>
                   <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
                     {otherHostListings.map((listing) => (
@@ -782,9 +785,13 @@ export default function PropertyDetail() {
                           )}
                         </div>
                         <p className="mt-1.5 text-xs font-semibold text-foreground truncate">{listing.title}</p>
-                        <p className="font-price text-[11px] text-muted-foreground">
-                          ₹{guestNightlyPrice(listing.pricePerNight).toLocaleString("en-IN")} / night
-                        </p>
+                        {listing.showcase ? (
+                          <p className="text-[11px] font-semibold text-[#FF6B00]">Contact us to book</p>
+                        ) : (
+                          <p className="font-price text-[11px] text-muted-foreground">
+                            ₹{guestNightlyPrice(listing.pricePerNight).toLocaleString("en-IN")} / night
+                          </p>
+                        )}
                       </Link>
                     ))}
                   </div>
