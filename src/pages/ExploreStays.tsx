@@ -141,12 +141,12 @@ export default function ExploreStays() {
               bedrooms: Number(p.bedrooms) || 2,
               beds: Number(p.beds) || 2,
               bathrooms: Number(p.bathrooms) || 2,
-              amenities: Array.isArray(p.amenities) && p.amenities.length > 0 ? p.amenities : [
+              amenities: [...(Array.isArray(p.amenities) && p.amenities.length > 0 ? p.amenities : [
                 "Fast Wifi (150+ Mbps)",
                 "Air conditioning in all rooms",
                 "Fully equipped modular kitchen",
                 "Dedicated workspace with ergonomic desk"
-              ],
+              ]), ...(p.pets_allowed ? ["Pets allowed"] : [])],
             host: {
               name: p.host_email ? p.host_email.split("@")[0] : "Verified Host",
               avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
@@ -224,7 +224,10 @@ export default function ExploreStays() {
       }
 
       // Price filter
-      if (p.pricePerNight < filters.minPrice || p.pricePerNight > filters.maxPrice) {
+      // Showcase listings have no price yet, so a budget filter leaves them out.
+      if (p.showcase) {
+        if (filters.maxPrice < 35000) return false;
+      } else if (p.pricePerNight < filters.minPrice || p.pricePerNight > filters.maxPrice) {
         return false;
       }
 
@@ -290,6 +293,8 @@ export default function ExploreStays() {
           onOpenFilterModal={() => setIsFilterModalOpen(true)}
           includeAllFees={includeAllFees}
           onToggleIncludeAllFees={(val) => setIncludeAllFees(val)}
+          filters={filters}
+          onChangeFilters={setFilters}
         />
 
         {/* Filter Modal Dialog */}
@@ -302,16 +307,16 @@ export default function ExploreStays() {
         />
 
         {/* Zero Guest Fee Guarantee Banner */}
-        <div className="bg-gradient-to-r from-[#FF6B00]/10 via-[#FF6B00]/5 to-[#FF6B00]/10 border-b border-[#FF6B00]/20 py-2.5 px-4 text-center">
-          <p className="text-xs font-semibold text-foreground flex items-center justify-center gap-2">
-            <span>
-              <strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> 0% guest service fee (Save ~15.5% on every booking) · 100% Aadhaar Verified Hosts
-            </span>
-          </p>
+        <div className="border-b border-[#FF6B00]/15 bg-[#FF6B00]/[0.06]">
+          <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 py-2.5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[13px] text-foreground">
+            <span><strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> 0% guest service fee</span>
+            <span className="text-muted-foreground">Save about 15.5% vs the same stay on Airbnb</span>
+            <span className="text-muted-foreground">Every host Aadhaar verified</span>
+          </div>
         </div>
 
         {/* Main Content Area */}
-        <main className="flex-1 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        <main className="flex-1 mx-auto max-w-[1760px] w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-8 space-y-12">
           {/* Active Search / Filter Feedback */}
           {searchState.destination && (
             <div className="flex items-center justify-between">
@@ -347,7 +352,7 @@ export default function ExploreStays() {
                 <span className="text-xs text-muted-foreground hidden sm:inline font-medium">Assagao · Vagator · Arpora · Candolim</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
                 {northGoaProperties.map((property) => (
                   <PropertyCard
                     key={property.id}
@@ -363,7 +368,7 @@ export default function ExploreStays() {
           {/* Complete Grid when filtered or when browsing all */}
           {(searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
             <section className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
                 {filteredProperties.map((property) => (
                   <PropertyCard
                     key={property.id}

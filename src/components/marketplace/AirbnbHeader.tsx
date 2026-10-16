@@ -138,7 +138,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14">
         {/* Top Navbar Row */}
         <div className="flex h-20 items-center justify-between gap-4">
           {/* Official WAYZYY Logo */}
@@ -158,44 +158,15 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             </div>
           </Link>
 
-          {/* Center Tabs: Working "All", "Homes", "Villas" (Removed unused experiences/services) */}
-          <div className="hidden lg:flex items-center gap-8 text-sm font-semibold">
-            <button
-              onClick={() => handleNavTabClick("all")}
-              className={`flex items-center gap-2 pb-2 transition-all relative ${
-                activeNavTab === "all"
-                  ? "text-foreground font-bold border-b-2 border-[#FF6B00]"
-                  : "text-muted-foreground hover:text-foreground border-b-2 border-transparent"
-              }`}
-            >
-              <Globe className={`h-4 w-4 ${activeNavTab === "all" ? "text-[#FF6B00]" : "text-muted-foreground"}`} />
-              <span>All Stays</span>
-            </button>
-
-            <button
-              onClick={() => handleNavTabClick("homes")}
-              className={`flex items-center gap-2 pb-2 transition-all relative ${
-                activeNavTab === "homes"
-                  ? "text-foreground font-bold border-b-2 border-[#FF6B00]"
-                  : "text-muted-foreground hover:text-foreground border-b-2 border-transparent"
-              }`}
-            >
-              <Home className={`h-4 w-4 ${activeNavTab === "homes" ? "text-[#FF6B00]" : "text-muted-foreground"}`} />
-              <span>Homes & 2BHKs</span>
-            </button>
-
-            <button
-              onClick={() => handleNavTabClick("villas")}
-              className={`flex items-center gap-2 pb-2 transition-all relative ${
-                activeNavTab === "villas"
-                  ? "text-foreground font-bold border-b-2 border-[#FF6B00]"
-                  : "text-muted-foreground hover:text-foreground border-b-2 border-transparent"
-              }`}
-            >
-              <Castle className={`h-4 w-4 ${activeNavTab === "villas" ? "text-[#FF6B00]" : "text-muted-foreground"}`} />
-              <span>Luxury Villas</span>
-            </button>
-          </div>
+          {/* Site links - same destinations as the main navbar, so the
+              stays homepage still reaches About, Why, Blog and hosting. */}
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-muted-foreground">
+            <Link to="/" className="text-foreground font-bold">Stays</Link>
+            <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
+            <a href="/about#why" className="hover:text-foreground transition-colors">Why Wayzyy</a>
+            <Link to="/earnings-calculator" className="hover:text-foreground transition-colors">Earn more</Link>
+            <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+          </nav>
 
           {/* Right Action Menu */}
           <div className="flex items-center gap-3">

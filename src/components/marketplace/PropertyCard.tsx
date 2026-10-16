@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { guestNightlyPrice } from "@/lib/pricing";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { PropertyListing } from "@/data/mockProperties";
 import { isPropertyWishlisted, toggleWishlist } from "@/lib/wishlist";
 import { propertyPath } from "@/lib/propertySlug";
@@ -33,16 +33,15 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     ? property.images
     : ["https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=80"];
 
-  const handlePrevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  // Photos scroll sideways with native swipe / trackpad and snap per image.
+  // Only the first photo loads up front; the rest are lazy, so a page of
+  // cards stays light. Capped at 6 per card.
+  const shown = images.slice(0, 6);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const onTrackScroll = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCurrentImageIndex(Math.round(el.scrollLeft / el.clientWidth));
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
@@ -53,6 +52,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   // Price calculations
   const totalPrice = guestNightlyPrice(property.pricePerNight) * nights;
+  // What the same stay roughly costs on Airbnb, whose ~15.5% fee is built
+  // into the price there. Same estimate as the "Save about 15.5%" banner.
+  const airbnbEquivalent = Math.round(totalPrice / (1 - 0.155) / 10) * 10;
 
   return (
     <Link
@@ -60,19 +62,29 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       className="group block flex flex-col gap-2.5 text-left transition-all duration-200"
     >
       {/* Image Carousel Container */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-muted shadow-xs group-hover:shadow-md transition-shadow">
-        <img
-          src={images[currentImageIndex]}
-          alt={property.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
+      <div className="relative aspect-[20/19] w-full overflow-hidden rounded-2xl bg-muted">
+        <div
+          ref={trackRef}
+          onScroll={onTrackScroll}
+          className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar"
+        >
+          {shown.map((src, i) => (
+            <img
+              key={src + i}
+              src={src}
+              alt={i === 0 ? property.title : ""}
+              className="h-full w-full shrink-0 snap-center object-cover"
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
+            />
+          ))}
+        </div>
 
-        {/* Favorite Heart Button (Top Right matching screenshot 1) */}
         <button
           type="button"
           onClick={handleToggleFavorite}
-          className="absolute top-3.5 right-3.5 z-10 p-1.5 rounded-full transition-transform active:scale-75 hover:scale-110"
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full transition-transform active:scale-75 hover:scale-110"
           title={isSaved ? "Remove from wishlist" : "Save to wishlist"}
         >
           <Heart
@@ -82,36 +94,15 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           />
         </button>
 
-        {/* Image Carousel Navigation Arrows (Visible on hover) */}
-        {images.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={handlePrevImage}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 z-10 h-7 w-7 rounded-full bg-white/90 dark:bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:scale-110 shadow-md text-foreground"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={handleNextImage}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 z-10 h-7 w-7 rounded-full bg-white/90 dark:bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:scale-110 shadow-md text-foreground"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-
-            {/* Carousel Dots */}
-            <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5 z-10">
-              {images.slice(0, 5).map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`h-1.5 rounded-full transition-all ${
-                    idx === currentImageIndex ? "w-4 bg-white shadow-xs" : "w-1.5 bg-white/60"
-                  }`}
-                />
-              ))}
-            </div>
-          </>
+        {shown.length > 1 && (
+          <div className="pointer-events-none absolute bottom-3 inset-x-0 flex justify-center gap-1.5 z-10">
+            {shown.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? "w-4 bg-white" : "w-1.5 bg-white/60"}`}
+              />
+            ))}
+          </div>
         )}
       </div>
 
@@ -132,12 +123,18 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         {property.showcase ? (
           <div className="mt-1 text-xs font-semibold text-ember">Contact us to book</div>
         ) : (
-        <div className="mt-1 flex items-baseline gap-1 text-xs font-semibold text-foreground">
-          <span className="font-price font-bold text-foreground">
+        <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5 text-sm text-foreground">
+          <span className="font-price text-muted-foreground line-through decoration-1">
+            {property.currency}{airbnbEquivalent.toLocaleString("en-IN")}
+          </span>
+          <span className="font-price font-bold">
             {property.currency}{totalPrice.toLocaleString("en-IN")}
           </span>
-          <span className="text-muted-foreground font-normal">
+          <span className="text-muted-foreground">
             {nights > 1 ? `for ${nights} nights` : "night"}
+          </span>
+          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
+            Save {property.currency}{(airbnbEquivalent - totalPrice).toLocaleString("en-IN")}
           </span>
         </div>
         )}
