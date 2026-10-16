@@ -36,6 +36,7 @@ interface Trip {
   status: Status;
   createdAt: string;
   policy: string | null;
+  reviewed: boolean;
 }
 
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
@@ -196,11 +197,65 @@ function CancelDialog({
   );
 }
 
+const DISPUTE_REASONS: { value: string; label: string }[] = [
+  { value: "property_condition", label: "Place wasn't as clean or maintained as expected" },
+  { value: "inaccurate_listing", label: "Listing didn't match the place" },
+  { value: "access_issue", label: "Couldn't get in / check-in problem" },
+  { value: "safety_concern", label: "Safety concern" },
+  { value: "payment_issue", label: "Payment or refund problem" },
+  { value: "other", label: "Something else" },
+];
+
+// Opens a dispute with the Wayzyy team (raise-booking-dispute), same as the app.
+function DisputeDialog({ trip, onClose }: { trip: Trip | null; onClose: () => void }) {
+  const { toast } = useToast();
+  const [reason, setReason] = useState("property_condition");
+  const [description, setDescription] = useState("");
+  const [sending, setSending] = useState(false);
+  if (!trip) return null;
+  const send = async () => {
+    setSending(true);
+    const { data, error } = await supabase.functions.invoke("raise-booking-dispute", { body: { bookingId: trip.id, reason, description } });
+    setSending(false);
+    if (error || data?.error) {
+      toast({ title: "Couldn't send your report", description: data?.error ?? "Try again, or WhatsApp us.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Report sent", description: "Our team will get back to you within 24 hours." });
+    setDescription("");
+    onClose();
+  };
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 sm:p-6" onClick={onClose}>
+      <div role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()} className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-background p-6 space-y-4 shadow-2xl">
+        <div>
+          <h2 className="text-lg font-bold">Report a problem</h2>
+          <p className="text-sm text-muted-foreground">{trip.title}. This goes to the Wayzyy team, not the host.</p>
+        </div>
+        <div className="space-y-2">
+          {DISPUTE_REASONS.map((r) => (
+            <label key={r.value} className="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-3 py-2.5 text-sm has-[:checked]:border-foreground">
+              <input type="radio" name="dispute-reason" value={r.value} checked={reason === r.value} onChange={() => setReason(r.value)} className="accent-[#FF6B00]" />
+              {r.label}
+            </label>
+          ))}
+        </div>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} maxLength={2000} placeholder="What happened? Add dates, times and anything that helps us sort it out." className="w-full rounded-2xl border border-border bg-background p-3 text-sm outline-none focus:border-foreground" />
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button onClick={send} disabled={!description.trim() || sending}>{sending ? "Sending…" : "Send report"}</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function MyTrips() {
   const { session, loading: authLoading } = useAuth();
   const [trips, setTrips] = useState<Trip[] | null>(null);
   const [error, setError] = useState(false);
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
+  const [disputing, setDisputing] = useState<Trip | null>(null);
   const [cancelling, setCancelling] = useState<Trip | null>(null);
   const userId = session?.user?.id;
 
@@ -209,7 +264,7 @@ export default function MyTrips() {
     setError(false);
     const { data, error: err } = await supabase
       .from("bookings")
-      .select("id, property_id, check_in, check_out, guests, total_price, status, created_at, properties(title, location, images, cancel_policy)")
+      .select("id, property_id, check_in, check_out, guests, total_price, status, created_at, guest_reviewed_at, properties(title, location, images, cancel_policy)")
       .eq("guest_id", userId)
       .order("created_at", { ascending: false });
     if (err) { setError(true); return; }
@@ -227,6 +282,7 @@ export default function MyTrips() {
         status: b.status,
         createdAt: b.created_at,
         policy: b.properties?.cancel_policy ?? null,
+        reviewed: !!b.guest_reviewed_at,
       })),
     );
   }, [userId]);
@@ -285,9 +341,17 @@ export default function MyTrips() {
                     {t.location && <p className="flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{t.location}</p>}
                     <p className="flex items-center gap-1 text-sm"><Calendar className="h-3.5 w-3.5" />{fmtDate(t.checkIn)} → {fmtDate(t.checkOut)}</p>
                     <p className="flex items-center gap-1 text-sm"><Users className="h-3.5 w-3.5" />{t.guests} guest{t.guests !== 1 ? "s" : ""} · {inr(t.total)}</p>
-                    {isUpcoming(t) && (
-                      <Button variant="outline" size="sm" onClick={() => setCancelling(t)}>Cancel booking</Button>
-                    )}
+                    <div className="flex flex-wrap gap-2">
+                      {isUpcoming(t) && (
+                        <Button variant="outline" size="sm" onClick={() => setCancelling(t)}>Cancel booking</Button>
+                      )}
+                      {(t.status === "confirmed" || t.status === "completed") && t.checkOut < today && !t.reviewed && (
+                        <Button asChild size="sm"><Link to={`/review?bookingId=${t.id}`}>Write a review</Link></Button>
+                      )}
+                      {(t.status === "confirmed" || t.status === "completed") && (
+                        <Button variant="ghost" size="sm" onClick={() => setDisputing(t)}>Report a problem</Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -295,6 +359,7 @@ export default function MyTrips() {
           )}
         </main>
       )}
+      <DisputeDialog trip={disputing} onClose={() => setDisputing(null)} />
       <CancelDialog
         trip={cancelling}
         onClose={() => setCancelling(null)}

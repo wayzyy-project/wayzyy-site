@@ -24,6 +24,7 @@ import {
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
 import { useAuth } from "@/hooks/useAuth";
+import { UserRound } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -203,6 +204,12 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-border bg-popover">
                 <DropdownMenuItem asChild>
+                  <Link to="/account" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-bold cursor-pointer">
+                    <UserRound className="h-4 w-4 text-[#FF6B00]" />
+                    Account
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/trips" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer">
                     <Luggage className="h-4 w-4 text-[#FF6B00]" />
                     My Bookings & Trips
@@ -253,10 +260,10 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 className="flex-1 text-left px-3 py-2.5 sm:px-5 sm:py-3 hover:bg-muted/50 transition-colors group min-w-0"
               >
                 <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  {destination ? destination : "Where to?"}
+                  {destination ? destination : "Travel destination"}
                 </p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
-                  {destination ? "Filtered" : "Search destinations"}
+                  {destination ? "Filtered" : "Where in Goa?"}
                 </p>
               </button>
 
@@ -272,10 +279,10 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
                   {checkIn && checkOut
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
-                    : "When"}
+                    : "What dates?"}
                 </p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
-                  {checkIn ? "Dates set" : "Add dates"}
+                  {checkIn ? "Dates set" : "Check-in and check-out"}
                 </p>
               </button>
 
@@ -289,10 +296,10 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 className="flex-1 text-left px-3 py-2.5 sm:px-5 sm:py-3 hover:bg-muted/50 transition-colors group min-w-0"
               >
                 <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  {totalGuests > 1 ? `${totalGuests} guests` : "Who"}
+                  {totalGuests > 1 ? `${totalGuests} guests` : "Who's along?"}
                 </p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
-                  {totalGuests > 1 ? `${adults}A, ${children}C` : "Add guests"}
+                  {totalGuests > 1 ? `${adults}A, ${children}C` : "Add travellers"}
                 </p>
               </button>
 
@@ -321,7 +328,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   activeSearchSection === "where" ? "bg-background shadow-md ring-1 ring-border" : "hover:bg-muted/50"
                 }`}
               >
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Where</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Travel destination</label>
                 <input
                   type="text"
                   placeholder="Search destinations (e.g. Assagao, North Goa)"
@@ -339,11 +346,11 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   activeSearchSection === "when" ? "bg-background shadow-md ring-1 ring-border" : "hover:bg-muted/50"
                 }`}
               >
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">When</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">What dates?</label>
                 <p className="text-sm font-medium text-foreground truncate">
                   {checkIn && checkOut 
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
-                    : "Add dates"}
+                    : "Check-in and check-out"}
                 </p>
               </div>
 
@@ -355,9 +362,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 }`}
               >
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Who</label>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Who's along?</label>
                   <p className="text-sm font-medium text-foreground">
-                    {totalGuests > 1 ? `${totalGuests} guests` : "Add guests"}
+                    {totalGuests > 1 ? `${totalGuests} guests` : "Add travellers"}
                   </p>
                 </div>
                 <button

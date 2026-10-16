@@ -1273,6 +1273,7 @@ export default function PropertyDetail() {
           // The full quote (stay + GST + Wayzyy fee + its GST) - exactly what
           // create-booking-order and create-booking recompute and check.
           totalAmount={quote ? quote.total : stayTotal}
+          accommodation={quote ? quote.accommodation : undefined}
         />
 
         {/* Sign in to message the host - same account used everywhere else

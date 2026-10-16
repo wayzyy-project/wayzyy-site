@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   X,
@@ -29,6 +29,8 @@ interface BookingModalProps {
   guestCount: number;
   /** What actually gets charged via Razorpay: stay + GST + Wayzyy fee + its GST. The server re-checks it. */
   totalAmount: number;
+  /** Stay price after discounts, before GST/fees - what coupons are checked against (same as the app). */
+  accommodation?: number;
 }
 
 declare global {
@@ -65,6 +67,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   checkOutDate,
   guestCount,
   totalAmount,
+  accommodation,
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -79,6 +82,38 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [isRequest, setIsRequest] = useState(true);
+  // Coupon + wallet credit, same rules as the app's BookingScreen; the server
+  // re-checks both in create-booking-order / create-booking.
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discountAmount: number } | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [applyingCoupon, setApplyingCoupon] = useState(false);
+  const [walletBalance, setWalletBalance] = useState(0);
+  const [useWalletCredit, setUseWalletCredit] = useState(false);
+  useEffect(() => {
+    if (!user) return;
+    supabase.from("profiles").select("wallet_balance").eq("id", user.id).maybeSingle()
+      .then(({ data }) => setWalletBalance(Number(data?.wallet_balance) || 0));
+  }, [user]);
+  const couponDiscount = appliedCoupon ? Math.min(appliedCoupon.discountAmount, totalAmount) : 0;
+  const creditApplied = useWalletCredit ? Math.min(walletBalance, totalAmount - couponDiscount) : 0;
+  const payable = totalAmount - couponDiscount - creditApplied;
+  const applyCoupon = async () => {
+    const code = couponInput.trim().toUpperCase();
+    if (!code || applyingCoupon) return;
+    setApplyingCoupon(true);
+    setCouponError(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("validate-coupon", { body: { code, bookingAmount: accommodation ?? totalAmount } });
+      if (error || !data?.valid) throw new Error(data?.error ?? "This code isn't valid for this stay.");
+      setAppliedCoupon({ code, discountAmount: Number(data.discountAmount) || 0 });
+    } catch (err) {
+      setAppliedCoupon(null);
+      setCouponError(err instanceof Error ? err.message : "This code isn't valid for this stay.");
+    } finally {
+      setApplyingCoupon(false);
+    }
+  };
   const [needsVerification, setNeedsVerification] = useState(false);
 
   // Sign-in, only asked for if there's no session yet - booking requires a
@@ -137,7 +172,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         // Stay details let the server check price + availability before
         // checkout opens, so unavailable dates can never be paid for.
         body: {
-          amount: totalAmount,
+          amount: payable,
+          couponCode: appliedCoupon?.code ?? null,
+          useWalletCredit,
           propertyId: property.id,
           checkIn: format(checkInDate, "yyyy-MM-dd"),
           checkOut: format(checkOutDate, "yyyy-MM-dd"),
@@ -199,7 +236,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           checkIn: format(checkInDate, "yyyy-MM-dd"),
           checkOut: format(checkOutDate, "yyyy-MM-dd"),
           guests: guestCount,
-          totalPrice: totalAmount,
+          totalPrice: payable,
+          couponCode: appliedCoupon?.code ?? null,
+          useWalletCredit,
           paymentId,
           paymentOrderId,
           paymentSignature,
@@ -385,7 +424,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     type="submit"
                     className="btn-brand btn-brand-lg w-full"
                   >
-                    Proceed to Payment · ₹{totalAmount.toLocaleString("en-IN")}
+                    Proceed to Payment · ₹{payable.toLocaleString("en-IN")}
                   </button>
                 </form>
               )}
@@ -396,10 +435,46 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {step === "payment" && (
             <div className="space-y-6">
               {/* Payment Summary */}
+              {/* Coupon + wallet credit */}
+              <div className="rounded-3xl border border-border p-4 space-y-3 text-sm">
+                {appliedCoupon ? (
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-foreground">Code <span className="font-mono">{appliedCoupon.code}</span> applied</span>
+                    <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(""); }} className="text-xs font-semibold underline">Remove</button>
+                  </div>
+                ) : (
+                  <form onSubmit={(e) => { e.preventDefault(); applyCoupon(); }} className="flex gap-2">
+                    <input
+                      value={couponInput}
+                      onChange={(e) => { setCouponInput(e.target.value); setCouponError(null); }}
+                      placeholder="Have a coupon code?"
+                      className="flex-1 rounded-full border border-border bg-background px-4 py-2 text-sm uppercase outline-none focus:border-foreground"
+                    />
+                    <button type="submit" disabled={!couponInput.trim() || applyingCoupon} className="rounded-full border border-foreground px-4 py-2 text-sm font-semibold disabled:opacity-40">
+                      {applyingCoupon ? "Checking…" : "Apply"}
+                    </button>
+                  </form>
+                )}
+                {couponError && <p className="text-xs text-red-600">{couponError}</p>}
+                {walletBalance > 0 && (
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={useWalletCredit} onChange={(e) => setUseWalletCredit(e.target.checked)} className="h-4 w-4 accent-[#FF6B00]" />
+                    <span>Use my ₹{walletBalance.toLocaleString("en-IN")} Wayzyy credit</span>
+                  </label>
+                )}
+              </div>
+
               <div className="rounded-3xl border border-border bg-muted/20 p-4 space-y-2 text-xs">
+                {(couponDiscount > 0 || creditApplied > 0) && (
+                  <>
+                    <div className="flex justify-between text-muted-foreground"><span>Stay total</span><span>₹{totalAmount.toLocaleString("en-IN")}</span></div>
+                    {couponDiscount > 0 && <div className="flex justify-between text-emerald-700 dark:text-emerald-400"><span>Coupon {appliedCoupon?.code}</span><span>−₹{couponDiscount.toLocaleString("en-IN")}</span></div>}
+                    {creditApplied > 0 && <div className="flex justify-between text-emerald-700 dark:text-emerald-400"><span>Wayzyy credit</span><span>−₹{creditApplied.toLocaleString("en-IN")}</span></div>}
+                  </>
+                )}
                 <div className="flex justify-between font-bold text-foreground">
                   <span>Total Payable Amount</span>
-                  <span className="text-base text-[#FF6B00] font-black">₹{totalAmount.toLocaleString("en-IN")}</span>
+                  <span className="text-base text-[#FF6B00] font-black">₹{payable.toLocaleString("en-IN")}</span>
                 </div>
                 <p className="text-muted-foreground">Includes all taxes - the nightly price already includes Wayzyy's fee, and the GST is shown on the listing page.</p>
               </div>
@@ -485,7 +560,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <>
                     <span>
                       {BOOKINGS_OPEN
-                        ? `Pay ₹${totalAmount.toLocaleString("en-IN")} & Confirm Booking`
+                        ? `Pay ₹${payable.toLocaleString("en-IN")} & Confirm Booking`
                         : "Bookings open soon"}
                     </span>
                     <ArrowRight className="h-4 w-4" />
@@ -557,7 +632,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Amount Paid:</span>
-                  <span className="font-black text-foreground">₹{totalAmount.toLocaleString("en-IN")}</span>
+                  <span className="font-black text-foreground">₹{payable.toLocaleString("en-IN")}</span>
                 </div>
               </div>
 
