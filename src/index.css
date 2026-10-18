@@ -82,6 +82,10 @@
     @apply border-border;
   }
   html {
+    /* Raleway defaults to old-style figures (digits at different heights,
+       e.g. phone numbers looked jumbled). Use even, lining figures. */
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -397,6 +401,19 @@ html.lenis body {
 .btn-brand:focus-visible {
   outline: 2px solid #ff6b00;
   outline-offset: 2px;
+}
+/* Plain .btn-brand (Save, Send, Apply...) needs its own size; without it the
+   label hugs or overflows the pill. .btn-brand-lg below overrides these. */
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 /* The full-size main action: 48px tall, 16px text. */
 .btn-brand-lg {

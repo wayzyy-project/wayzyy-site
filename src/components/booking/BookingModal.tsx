@@ -71,7 +71,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signIn } = useAuth();
+  const { user, signIn, signUp } = useAuth();
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
+  const [signUpName, setSignUpName] = useState("");
+  const [signUpSent, setSignUpSent] = useState(false);
 
   const [step, setStep] = useState<"details" | "payment" | "confirmed">("details");
   const [fullName, setFullName] = useState("");
@@ -297,8 +300,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div className="flex items-center gap-2">
             <span className="font-display font-black text-lg text-foreground">
-              {step === "details" && "Guest Verification & Details"}
-              {step === "payment" && "Razorpay Secure Checkout"}
+              {step === "details" && (user ? "2. Your details" : "1. Log in or sign up")}
+              {step === "payment" && "3. Review and pay"}
               {step === "confirmed" && (isRequest ? "Request Sent" : "Reservation Confirmed")}
             </span>
           </div>
@@ -332,35 +335,62 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               {!user ? (
-                <form onSubmit={handleSignIn} className="space-y-3 rounded-3xl border border-border p-4">
-                  <p className="text-xs font-bold text-foreground">Sign in to book</p>
-                  <p className="text-xs text-muted-foreground">
-                    Booking needs a Wayzyy account - the same one you use in the app.
-                  </p>
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    value={signInEmail}
-                    onChange={(e) => setSignInEmail(e.target.value)}
-                    className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-medium outline-none focus:border-[#FF6B00]"
-                  />
-                  <input
-                    type="password"
-                    required
-                    placeholder="Password"
-                    value={signInPassword}
-                    onChange={(e) => setSignInPassword(e.target.value)}
-                    className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-medium outline-none focus:border-[#FF6B00]"
-                  />
+                <div className="space-y-4 rounded-3xl border border-border p-5">
+                  <div>
+                    <p className="text-base font-bold text-foreground">Log in or sign up to book</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Same account as the Wayzyy app. Nothing is charged until the payment step.</p>
+                  </div>
                   <button
-                    type="submit"
-                    disabled={signingIn}
-                    className="w-full rounded-2xl bg-foreground text-background py-2.5 text-xs font-bold disabled:opacity-50 flex items-center justify-center"
+                    type="button"
+                    onClick={() => supabase.auth.signInWithOAuth({
+                      provider: "google",
+                      // Come back to this listing, not the host portal.
+                      options: { redirectTo: `https://wayzyy.com${window.location.pathname}` },
+                    })}
+                    className="flex w-full items-center justify-center gap-2 rounded-full border border-border py-2.5 text-sm font-semibold hover:border-foreground/50"
                   >
-                    {signingIn ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sign in"}
+                    <svg aria-hidden viewBox="0 0 48 48" className="h-4 w-4"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.5 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+                    Continue with Google
                   </button>
-                </form>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
+                  <div className="grid grid-cols-2 rounded-full bg-muted p-1 text-sm">
+                    {(["login", "signup"] as const).map((m) => (
+                      <button key={m} type="button" onClick={() => setAuthMode(m)} className={`rounded-full py-1.5 font-semibold transition-colors ${authMode === m ? "bg-background shadow-sm" : "text-muted-foreground"}`}>
+                        {m === "login" ? "Log in" : "Sign up"}
+                      </button>
+                    ))}
+                  </div>
+                  {signUpSent ? (
+                    <p className="rounded-2xl bg-muted p-4 text-sm">Check {signInEmail} for a link to confirm your account, then come back here and log in.</p>
+                  ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      if (authMode === "login") return handleSignIn(e);
+                      e.preventDefault();
+                      setSigningIn(true);
+                      const { data, error } = await signUp(signInEmail, signInPassword, signUpName.trim());
+                      setSigningIn(false);
+                      if (error) { toast({ title: "Couldn't create your account", description: error.message, variant: "destructive" }); return; }
+                      setFullName((v) => v || signUpName.trim());
+                      setEmail((v) => v || signInEmail);
+                      if (!data.session) setSignUpSent(true);
+                    }}
+                    className="space-y-3"
+                  >
+                    {authMode === "signup" && (
+                      <input required placeholder="Full name (as on your ID)" value={signUpName} onChange={(e) => setSignUpName(e.target.value)}
+                        className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-[#FF6B00]" />
+                    )}
+                    <input type="email" required placeholder="Email" value={signInEmail} onChange={(e) => setSignInEmail(e.target.value)}
+                      className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-[#FF6B00]" />
+                    <input type="password" required minLength={authMode === "signup" ? 8 : undefined} placeholder={authMode === "signup" ? "Create a password (8+ characters)" : "Password"} value={signInPassword} onChange={(e) => setSignInPassword(e.target.value)}
+                      className="w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-[#FF6B00]" />
+                    <button type="submit" disabled={signingIn} className="btn-brand btn-brand-lg w-full">
+                      {signingIn ? <Loader2 className="h-4 w-4 animate-spin" /> : authMode === "login" ? "Log in and continue" : "Create account and continue"}
+                    </button>
+                  </form>
+                  )}
+                </div>
               ) : (
                 <form onSubmit={handleProceedToPayment} className="space-y-5">
                   {/* Form Fields */}
