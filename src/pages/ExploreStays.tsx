@@ -325,7 +325,7 @@ export default function ExploreStays() {
         {/* Zero Guest Fee Guarantee Banner */}
         <div className="border-b border-[#FF6B00]/15 bg-[#FF6B00]/[0.06]">
           <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 py-2.5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[13px] text-foreground">
-            <span><strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> Save ~15.5%* compared to other platforms</span>
+            <span><strong className="text-[#FF6B00]">Wayzyy Advantage:</strong> Save ~17% on each booking*</span>
             <span className="text-muted-foreground">Every listing reviewed by our team</span>
             <span className="text-[11px] text-muted-foreground">*Estimated, based on typical booking-platform service fees.</span>
           </div>
