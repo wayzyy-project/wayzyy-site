@@ -226,7 +226,11 @@ export function ThreadPane({
     toast({ title: blocked ? `${otherName} unblocked` : `${otherName} blocked` });
   };
 
+  // "Read" receipt under your latest message, from the other side's last-read time.
+  const otherReadAt: string | null = (isHostSide ? (thread as any).guest_last_read_at : (thread as any).host_last_read_at) ?? null;
   const visible = messages.filter((m) => m.sender_id !== WAYZYY_SYSTEM_ACCOUNT_ID || isVisibleSystemMessage(m.content, isHostSide));
+
+  const lastOwnId = [...visible].reverse().find((m) => m.sender_id === user.id)?.id;
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -271,6 +275,9 @@ export function ThreadPane({
                   <div className={`flex flex-col items-end ${firstOfRun ? "pt-3" : "pt-0.5"}`}>
                     {firstOfRun && <span className="mb-1 text-xs text-muted-foreground">{formatTime(m.created_at)}</span>}
                     <div className="max-w-[78%] rounded-2xl rounded-br-md bg-foreground px-4 py-2.5 text-sm leading-relaxed text-background whitespace-pre-wrap break-words">{m.content}</div>
+                    {m.id === lastOwnId && otherReadAt && new Date(otherReadAt) >= new Date(m.created_at) && (
+                      <span className="mt-1 text-[11px] text-muted-foreground">Read</span>
+                    )}
                   </div>
                 ) : (
                   <div className={`flex gap-3 ${firstOfRun ? "pt-3" : "pt-0.5"}`}>

@@ -582,6 +582,8 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
                 </details>
               )}
 
+              <DateRulesEditor propertyId={propertyId} dates={[...selected]} disabled={saving} />
+
               <div className="flex flex-wrap gap-2 border-t border-white/10 pt-3">
                 <Button variant="outline" size="sm" onClick={resetPrice} disabled={saving} className="gap-1.5 border-white/20 text-xs text-white hover:bg-white/10">
                   <RotateCcw className="h-3.5 w-3.5" /> Use standard rate
@@ -601,6 +603,78 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
         </>
       )}
 
+    </div>
+  );
+}
+
+// Per-date overrides for stays that *start* on the selected nights: a longer
+// minimum (e.g. 3 nights over New Year) and/or a different cancellation
+// policy. Stored in date_rules; enforced in _shared/bookingQuote.ts.
+const MIN_NIGHT_OPTIONS = [2, 3, 4, 5, 7, 10, 14];
+function DateRulesEditor({ propertyId, dates, disabled }: { propertyId: string; dates: string[]; disabled?: boolean }) {
+  const { toast } = useToast();
+  const [minNights, setMinNights] = useState("");
+  const [policy, setPolicy] = useState("");
+  const [existing, setExisting] = useState(0);
+  const [busy, setBusy] = useState(false);
+  const dateKey = dates.slice().sort().join(",");
+
+  useEffect(() => {
+    if (!dates.length) return;
+    let cancelled = false;
+    supabase.from("date_rules").select("date, min_nights, cancel_policy").eq("property_id", propertyId).in("date", dates)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const rows = data ?? [];
+        setExisting(rows.length);
+        const same = <T,>(vals: T[]) => (vals.length === dates.length && vals.every((v) => v === vals[0]) ? vals[0] : null);
+        setMinNights(String(same(rows.map((r: any) => r.min_nights)) ?? ""));
+        setPolicy(String(same(rows.map((r: any) => r.cancel_policy)) ?? ""));
+      });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propertyId, dateKey]);
+
+  const save = async () => {
+    setBusy(true);
+    const mn = minNights ? Number(minNights) : null;
+    const cp = policy || null;
+    const { error } = mn == null && cp == null
+      ? await supabase.from("date_rules").delete().eq("property_id", propertyId).in("date", dates)
+      : await supabase.from("date_rules").upsert(
+          dates.map((date) => ({ property_id: propertyId, date, min_nights: mn, cancel_policy: cp, updated_at: new Date().toISOString() })),
+          { onConflict: "property_id,date" },
+        );
+    setBusy(false);
+    if (error) { toast({ title: "Couldn't save", description: error.message, variant: "destructive" }); return; }
+    setExisting(mn == null && cp == null ? 0 : dates.length);
+    toast({ title: mn == null && cp == null ? "Rules cleared for these dates" : "Rules saved for these dates" });
+  };
+
+  const sel = "w-full rounded-xl border border-white/20 bg-transparent px-3 py-2 text-sm text-white disabled:opacity-50";
+  return (
+    <div className="space-y-2 border-t border-white/10 pt-3">
+      <p className="text-xs font-semibold text-white/80">Rules for stays starting on these dates</p>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <label className="block text-[11px] text-white/60">Minimum nights
+          <select className={sel} value={minNights} disabled={disabled || busy} onChange={(e) => setMinNights(e.target.value)}>
+            <option value="">Listing's usual minimum</option>
+            {MIN_NIGHT_OPTIONS.map((n) => <option key={n} value={n}>{n} nights</option>)}
+          </select>
+        </label>
+        <label className="block text-[11px] text-white/60">Cancellation policy
+          <select className={sel} value={policy} disabled={disabled || busy} onChange={(e) => setPolicy(e.target.value)}>
+            <option value="">Listing's usual policy</option>
+            {["Flexible", "Moderate", "Limited", "Firm"].map((p) => <option key={p} value={p}>{p}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="flex items-center gap-3">
+        <Button size="sm" onClick={save} disabled={disabled || busy} className="bg-ember text-white hover:bg-ember/90 text-xs">
+          {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save rules"}
+        </Button>
+        {existing > 0 && <span className="text-[11px] text-white/50">{existing} of these nights already have their own rules.</span>}
+      </div>
     </div>
   );
 }

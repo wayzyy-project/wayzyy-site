@@ -45,6 +45,10 @@ export interface PropertyListing {
   // properties.min_nights.
   minNights?: number;
   maxNights?: number | null;
+  advanceNoticeDays?: number | null;
+  sameDayCutoffHour?: number | null;
+  preparationDays?: number | null;
+  availabilityWindowDays?: number | null;
   checkinDays?: number[] | null;
   checkoutDays?: number[] | null;
   // Set by the admin Wayzyy Verified review (approve-verification).

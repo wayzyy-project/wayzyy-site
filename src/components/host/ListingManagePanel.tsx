@@ -367,6 +367,8 @@ function DetailsSection({ propertyId }: { propertyId: string }) {
         setCheckoutDays={setCheckoutDays}
       />
 
+      <AvailabilityRulesCard propertyId={propertyId} />
+
       {isGoa ? (
         <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-4">
           <div>
@@ -495,6 +497,103 @@ function StayRulesCard(props: {
 
       <DayChips label="Check-in days" hint="Pick the weekdays guests can arrive on." days={checkinDays} field="checkin_days" />
       <DayChips label="Check-out days" hint="Pick the weekdays guests can leave on." days={checkoutDays} field="checkout_days" />
+    </div>
+  );
+}
+
+// ── Availability: advance notice, same-day cut-off, preparation time, window ──
+// Mirrors Airbnb's calendar availability settings; enforced in
+// _shared/bookingQuote.ts (wayzyy-app). null = no rule.
+
+const HOUR_OPTIONS = Array.from({ length: 24 }, (_, h) => ({
+  value: h,
+  label: h === 0 ? "12 am (midnight)" : h < 12 ? `${h} am` : h === 12 ? "12 pm (noon)" : `${h - 12} pm`,
+}));
+
+function AvailabilityRulesCard({ propertyId }: { propertyId: string }) {
+  const { toast } = useToast();
+  const [rules, setRules] = useState<{ advance_notice_days: number | null; same_day_cutoff_hour: number | null; preparation_days: number | null; availability_window_days: number | null } | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    supabase.from("properties").select("advance_notice_days, same_day_cutoff_hour, preparation_days, availability_window_days").eq("id", propertyId).maybeSingle()
+      .then(({ data }) => setRules({
+        advance_notice_days: data?.advance_notice_days ?? null,
+        same_day_cutoff_hour: data?.same_day_cutoff_hour ?? null,
+        preparation_days: data?.preparation_days ?? null,
+        availability_window_days: data?.availability_window_days ?? null,
+      }));
+  }, [propertyId]);
+
+  if (!rules) return null;
+
+  const save = async (patch: Partial<typeof rules>) => {
+    const before = rules;
+    setRules({ ...rules, ...patch });
+    setBusy(true);
+    const { error } = await supabase.from("properties").update(patch).eq("id", propertyId);
+    setBusy(false);
+    if (error) { setRules(before); toast({ title: "Couldn't save", description: error.message, variant: "destructive" }); }
+  };
+
+  const selectCls = "mt-1.5 w-full rounded-xl border border-white/20 bg-transparent px-3 py-2 text-sm text-white disabled:opacity-50";
+  const notice = rules.advance_notice_days;
+
+  return (
+    <div className="space-y-5 rounded-2xl border border-white/15 bg-white/5 p-4">
+      <div>
+        <Label className="text-xs font-semibold text-white/80">Availability</Label>
+        <p className="mt-0.5 text-xs text-white/50">When guests can book. Bookings that don't fit are blocked at checkout.</p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="text-xs font-semibold text-white/80">Advance notice</span>
+          <select disabled={busy} className={selectCls}
+            value={notice == null ? "" : String(notice)}
+            onChange={(e) => save({ advance_notice_days: e.target.value === "" ? null : Number(e.target.value), ...(e.target.value !== "0" ? { same_day_cutoff_hour: null } : {}) })}>
+            <option value="">No rule (same day, any time)</option>
+            <option value="0">Same day, with a cut-off time</option>
+            {[1, 2, 3, 7].map((d) => <option key={d} value={d}>At least {d} day{d > 1 ? "s" : ""} before</option>)}
+          </select>
+        </label>
+
+        {notice === 0 && (
+          <label className="block">
+            <span className="text-xs font-semibold text-white/80">Same-day bookings close at</span>
+            <select disabled={busy} className={selectCls}
+              value={rules.same_day_cutoff_hour == null ? "" : String(rules.same_day_cutoff_hour)}
+              onChange={(e) => save({ same_day_cutoff_hour: e.target.value === "" ? null : Number(e.target.value) })}>
+              <option value="">Any time</option>
+              {HOUR_OPTIONS.map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
+            </select>
+          </label>
+        )}
+
+        <label className="block">
+          <span className="text-xs font-semibold text-white/80">Preparation time</span>
+          <select disabled={busy} className={selectCls}
+            value={rules.preparation_days == null ? "" : String(rules.preparation_days)}
+            onChange={(e) => save({ preparation_days: e.target.value === "" ? null : Number(e.target.value) })}>
+            <option value="">None</option>
+            <option value="1">Block 1 night before and after each stay</option>
+            <option value="2">Block 2 nights before and after each stay</option>
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-semibold text-white/80">Availability window</span>
+          <select disabled={busy} className={selectCls}
+            value={rules.availability_window_days == null ? "" : String(rules.availability_window_days)}
+            onChange={(e) => save({ availability_window_days: e.target.value === "" ? null : Number(e.target.value) })}>
+            <option value="">Any time in the future</option>
+            <option value="90">3 months ahead</option>
+            <option value="180">6 months ahead</option>
+            <option value="270">9 months ahead</option>
+            <option value="365">12 months ahead</option>
+          </select>
+        </label>
+      </div>
     </div>
   );
 }

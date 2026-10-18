@@ -147,6 +147,14 @@ export default function PropertyDetail() {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [showMapInfo, setShowMapInfo] = useState(false);
   const [hostVerified, setHostVerified] = useState(false);
+  // Per-date minimum stays (date_rules), so the date picker can warn before checkout.
+  const [dateMinNights, setDateMinNights] = useState<Record<string, number>>({});
+  const ruleListingId = property?.id;
+  useEffect(() => {
+    if (!ruleListingId || !/^[0-9a-f-]{36}$/i.test(ruleListingId)) return;
+    supabase.from("date_rules").select("date, min_nights").eq("property_id", ruleListingId).not("min_nights", "is", null)
+      .then(({ data }) => setDateMinNights(Object.fromEntries((data ?? []).map((r: any) => [r.date, Number(r.min_nights)]))));
+  }, [ruleListingId]);
   const [otherHostListings, setOtherHostListings] = useState<
     { id: string; title: string; image: string | null; pricePerNight: number; showcase?: boolean }[]
   >([]);
@@ -341,6 +349,10 @@ export default function PropertyDetail() {
             ],
             minNights: Number(data.min_nights) || 1,
             maxNights: data.max_nights != null ? Number(data.max_nights) : null,
+            advanceNoticeDays: data.advance_notice_days ?? null,
+            sameDayCutoffHour: data.same_day_cutoff_hour ?? null,
+            preparationDays: data.preparation_days ?? null,
+            availabilityWindowDays: data.availability_window_days ?? null,
             checkinDays: Array.isArray(data.checkin_days) && data.checkin_days.length ? data.checkin_days.map(Number) : null,
             checkoutDays: Array.isArray(data.checkout_days) && data.checkout_days.length ? data.checkout_days.map(Number) : null,
             wayzyyVerified: data.wayzyy_verified === true,
@@ -468,7 +480,12 @@ export default function PropertyDetail() {
 
   const nights = Math.max(1, differenceInDays(checkOutDate, checkInDate));
   const minNights = property.minNights ?? 1;
-  const stayRules = { minNights, maxNights: property.maxNights, checkinDays: property.checkinDays, checkoutDays: property.checkoutDays };
+  const stayRules = {
+    minNights, maxNights: property.maxNights, checkinDays: property.checkinDays, checkoutDays: property.checkoutDays,
+    advanceNoticeDays: property.advanceNoticeDays, sameDayCutoffHour: property.sameDayCutoffHour,
+    availabilityWindowDays: property.availabilityWindowDays, preparationDays: property.preparationDays,
+    dateMinNights,
+  };
 
   // Real listings are priced through the shared rules in @/lib/pricing, which
   // mirror the app and the create-booking edge function: guest-count tiers or

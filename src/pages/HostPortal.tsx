@@ -32,6 +32,7 @@ import { SendLinkToTeamModal } from "@/components/host/SendLinkToTeamModal";
 import { useLightSurface } from "@/hooks/useLightSurface";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
+import { HostToday } from "@/components/host/HostToday";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
 import { SetNewPasswordGate } from "@/components/host/SetNewPasswordGate";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
@@ -685,6 +686,8 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
           WhatsApp
         </a>
       </div>
+
+      {user && listings.length > 0 && <HostToday hostId={user.id} />}
 
       {/* Hosting Action Header & Cards */}
       <div className={listings.length === 0 ? "hidden" : "space-y-4"}>
