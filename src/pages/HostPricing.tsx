@@ -277,7 +277,8 @@ export default function HostPricing() {
 
   return (
     <SEO title="Advanced pricing - Wayzyy Host" description="See how your listings are performing and update pricing across one or many listings." path="/host/pricing">
-      <div className="dark min-h-screen bg-slate-950 text-foreground">
+      {/* Same light surface as the host dashboard (host-light in index.css). */}
+      <div className="host-light min-h-screen bg-white text-foreground">
         <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6">
           <header className="space-y-2">
             <Link to="/host" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/60 hover:text-white">
@@ -517,7 +518,7 @@ function Segmented({ value, onChange, options }: { value: string; onChange: (v: 
           type="button"
           aria-pressed={value === v}
           onClick={() => onChange(v)}
-          className={`min-h-[36px] rounded-lg px-3 text-sm font-semibold transition-colors ${value === v ? "bg-primary text-white" : "text-white/70 hover:bg-white/10 hover:text-white"}`}
+          className={`min-h-[36px] rounded-lg px-3 text-sm font-semibold transition-colors ${value === v ? "bg-[#FF6B00] text-white shadow-sm" : "text-white/70 hover:bg-white/10 hover:text-white"}`}
         >
           {label}
         </button>
