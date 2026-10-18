@@ -36,6 +36,9 @@ const NOTIFICATION_GROUPS: { title: string; items: { key: string; title: string;
     { key: "wishlist", title: "Wishlist price drops", sub: "When a saved stay gets cheaper" },
     { key: "omeroo_news", title: "Wayzyy news", sub: "Product updates and new features" },
   ] },
+  { title: "WhatsApp", items: [
+    { key: "whatsapp", title: "Booking alerts on WhatsApp", sub: "New requests, confirmations and reminders (hosts)" },
+  ] },
   { title: "Account", items: [
     { key: "security", title: "Security alerts", sub: "Sign-ins and account changes" },
     { key: "policy", title: "Policy updates", sub: "Changes to our Terms and Privacy Policy" },
@@ -128,7 +131,8 @@ export default function Account() {
   };
 
   // Missing keys default to on, same as the app.
-  const prefOn = (k: string) => prefs[k] !== false;
+  // WhatsApp needs an explicit opt-in, so it's off until switched on.
+  const prefOn = (k: string) => (k === "whatsapp" ? prefs[k] === true : prefs[k] !== false);
   const togglePref = async (k: string) => {
     const next = { ...prefs, [k]: !prefOn(k) };
     setPrefs(next);

@@ -33,6 +33,7 @@ import { useLightSurface } from "@/hooks/useLightSurface";
 import { HostProfileModal } from "@/components/host/HostProfileModal";
 import { HostAuthExperience } from "@/components/host/HostAuthExperience";
 import { HostToday } from "@/components/host/HostToday";
+import { WhatsAppOptIn } from "@/components/host/WhatsAppOptIn";
 import { HostPhoneGate } from "@/components/host/HostPhoneGate";
 import { SetNewPasswordGate } from "@/components/host/SetNewPasswordGate";
 import { AdminHostApprovalsModal } from "@/components/host/AdminHostApprovalsModal";
@@ -687,6 +688,7 @@ function HostDashboard({ onAddNew, onManage }: { onAddNew: () => void; onManage:
         </a>
       </div>
 
+      {user && <WhatsAppOptIn userId={user.id} />}
       {user && listings.length > 0 && <HostToday hostId={user.id} />}
 
       {/* Hosting Action Header & Cards */}
