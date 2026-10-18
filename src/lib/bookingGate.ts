@@ -11,7 +11,8 @@ export const BOOKINGS_CLOSED_MESSAGE =
 // Listings that take real bookings even while BOOKINGS_OPEN is off - used to
 // run a live payment test on one hidden seed listing ("Hey12", Rs 100/night,
 // not shown on Explore) without opening every listing.
-const BOOKABLE_BEFORE_LAUNCH = new Set(["7635b7ae-181e-4025-abb9-74f49357f256"]);
+// Empty again after the 19 Oct live payment test on "Hey12".
+const BOOKABLE_BEFORE_LAUNCH = new Set<string>([]);
 
 export const bookingsOpenFor = (propertyId?: string | null): boolean =>
   BOOKINGS_OPEN || (!!propertyId && BOOKABLE_BEFORE_LAUNCH.has(propertyId));
