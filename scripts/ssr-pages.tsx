@@ -78,6 +78,11 @@ import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15P
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Hashed files from the Vite build that just ran (dist/assets).
+const builtAssets: string[] = (() => {
+  try { return fs.readdirSync(path.join(__dirname, "..", "dist", "assets")); } catch { return []; }
+})();
+
 // route -> component, mirrors src/App.tsx
 const routes: Record<string, React.ComponentType> = {
   // "/" is the live stays list: it needs the browser Supabase client (import.meta.env),
@@ -177,7 +182,13 @@ for (const [route, Component] of Object.entries(routes)) {
     const html = renderToStaticMarkup(
       React.createElement(StaticRouter, { location: route }, element)
     );
-    output[route] = html;
+    // Imported images resolve to file:///…/src/assets/x.webp under tsx;
+    // point them at the hashed copies the Vite build just wrote, or the
+    // prerendered page shows broken images until React takes over.
+    output[route] = html.replace(/file:\/\/[^"' )]*\/src\/assets\/(?:[^"' )]*\/)?([^/"' )]+)\.(webp|png|jpe?g|svg|avif)/g, (m, base, ext) => {
+      const hit = builtAssets.find((f) => f.startsWith(`${base}-`) && f.endsWith(`.${ext}`));
+      return hit ? `/assets/${hit}` : "";
+    });
     console.log(`SSR ok: ${route} (${html.length} chars)`);
   } catch (err) {
     failures++;
