@@ -173,7 +173,7 @@ const App = () => (
               <Route path="/open/*" element={<OpenApp />} />
               <Route path="/open" element={<OpenApp />} />
               <Route path="/inbox" element={<Inbox />} />
-              <Route path="/inbox/:threadId" element={<MessageThread />} />
+              <Route path="/inbox/:threadId" element={<Inbox />} />
               <Route path="/wishlists" element={<Wishlists />} />
               <Route path="/review" element={<WriteReview />} />
               <Route path="/account" element={<Account />} />

@@ -20,7 +20,8 @@ const tabs: Tab[] = [
 // Routes that already have their own full-screen chrome (auth overlays,
 // admin dashboards) where a persistent bottom tab bar would just get in
 // the way rather than help navigation.
-const HIDDEN_PREFIXES = ["/adminn", "/experience"];
+// An open chat is full screen on phones, like the app, so the composer isn't covered.
+const HIDDEN_PREFIXES = ["/adminn", "/experience", "/inbox/"];
 
 /**
  * iOS-style bottom tab bar, mobile only. Lets a visitor jump straight to
