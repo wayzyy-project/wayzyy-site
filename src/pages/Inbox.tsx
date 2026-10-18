@@ -100,14 +100,14 @@ function ReservationPanel({ thread, userId, onClose }: { thread: Thread; userId:
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-border px-6">
+      <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-5">
         <h2 className="text-lg font-bold">Reservation</h2>
         <button onClick={onClose} aria-label="Close reservation details" className="rounded-full p-2 hover:bg-muted"><X className="h-5 w-5" /></button>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto p-6 space-y-6">
         {prop?.images?.[0] && <img src={prop.images[0]} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover" />}
         <div>
-          <h3 className="text-2xl font-bold leading-tight">{prop?.title ?? thread.property_title}</h3>
+          <h3 className="text-xl font-bold leading-tight">{prop?.title ?? thread.property_title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{isHostSide ? `Guest: ${thread.guest_name}` : `Hosted by ${thread.host_name}`}</p>
         </div>
         {booking ? (
@@ -145,7 +145,8 @@ export default function Inbox() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  // Open by default only where it fits as a column.
+  const [detailsOpen, setDetailsOpen] = useState(() => typeof window !== "undefined" && window.matchMedia("(min-width: 1280px)").matches);
 
   useEffect(() => {
     if (!user) { setLoading(false); return; }
@@ -161,7 +162,7 @@ export default function Inbox() {
 
   // Desktop opens the newest conversation straight away, like Airbnb.
   useEffect(() => {
-    if (!threadId && threads.length > 0 && window.matchMedia("(min-width: 1024px)").matches) {
+    if (!threadId && threads.length > 0 && window.matchMedia("(min-width: 768px)").matches) {
       navigate(`/inbox/${threads[0].id}`, { replace: true });
     }
   }, [threadId, threads, navigate]);
@@ -184,12 +185,12 @@ export default function Inbox() {
         ) : (
           <div className="flex min-h-0 flex-1 border-t border-border">
             {/* Conversations */}
-            <aside className={`${threadId ? "hidden lg:flex" : "flex"} w-full lg:w-[380px] shrink-0 flex-col border-r border-border`}>
-              <div className="flex h-[72px] shrink-0 items-center gap-3 px-6">
+            <aside className={`${threadId ? "hidden md:flex" : "flex"} w-full md:w-[300px] lg:w-[340px] xl:w-[360px] shrink-0 flex-col border-r border-border`}>
+              <div className="flex h-16 shrink-0 items-center gap-3 px-5">
                 <Link to="/" aria-label="Back to stays" className="rounded-full p-2 -ml-2 hover:bg-muted"><ArrowLeft className="h-5 w-5" /></Link>
-                <h1 className="flex-1 text-2xl font-bold">Messages</h1>
+                <h1 className="flex-1 text-xl font-bold">Messages</h1>
               </div>
-              <div className="px-6 pb-3">
+              <div className="px-5 pb-3">
                 <label className="flex items-center gap-2 rounded-full border border-border px-4 py-2 focus-within:border-foreground/50">
                   <Search className="h-4 w-4 text-muted-foreground" />
                   <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search messages" className="flex-1 bg-transparent text-sm outline-none" />
@@ -217,7 +218,7 @@ export default function Inbox() {
                       className={`relative flex w-full items-start gap-3 rounded-2xl p-3 text-left transition-colors ${selected ? "bg-muted" : "hover:bg-muted/50"}`}
                     >
                       {unread > 0 && <span className="absolute left-0.5 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#FF6B00]" aria-label="Unread" />}
-                      <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted text-sm font-bold text-muted-foreground">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted text-sm font-bold text-muted-foreground">
                         {otherAvatar ? <img src={otherAvatar} alt="" className="h-full w-full object-cover" /> : otherName.charAt(0).toUpperCase()}
                       </span>
                       <span className="min-w-0 flex-1">
@@ -225,7 +226,7 @@ export default function Inbox() {
                           <span className="truncate text-xs text-muted-foreground">{otherName}</span>
                           <span className="shrink-0 text-xs text-muted-foreground">{timeAgo(t.last_message_at)}</span>
                         </span>
-                        <span className={`block truncate text-[15px] ${unread ? "font-bold" : "font-semibold"} text-foreground`}>{t.property_title}</span>
+                        <span className={`block truncate text-sm ${unread ? "font-bold" : "font-semibold"} text-foreground`}>{t.property_title}</span>
                         <span className={`line-clamp-2 text-sm ${unread ? "text-foreground" : "text-muted-foreground"}`}>{t.last_message ?? "No messages yet"}</span>
                       </span>
                     </button>
@@ -235,7 +236,7 @@ export default function Inbox() {
             </aside>
 
             {/* Conversation */}
-            <main className={`${threadId ? "flex" : "hidden lg:flex"} min-w-0 flex-1 flex-col`}>
+            <main className={`${threadId ? "flex" : "hidden md:flex"} min-w-0 flex-1 flex-col`}>
               {threadId ? (
                 <ThreadPane
                   threadId={threadId}
@@ -253,9 +254,13 @@ export default function Inbox() {
 
             {/* Reservation */}
             {active && detailsOpen && (
-              <aside className="hidden xl:flex w-[400px] shrink-0 flex-col border-l border-border">
-                <ReservationPanel thread={active} userId={user.id} onClose={() => setDetailsOpen(false)} />
-              </aside>
+              <>
+                {/* Below xl there's no room for a third column: it slides over as a drawer. */}
+                <div className="fixed inset-0 z-40 bg-black/30 xl:hidden" onClick={() => setDetailsOpen(false)} aria-hidden />
+                <aside className="fixed inset-y-0 right-0 z-50 flex w-[min(380px,92vw)] flex-col bg-background shadow-2xl xl:static xl:z-auto xl:w-[360px] xl:shadow-none xl:border-l xl:border-border">
+                  <ReservationPanel thread={active} userId={user.id} onClose={() => setDetailsOpen(false)} />
+                </aside>
+              </>
             )}
           </div>
         )}

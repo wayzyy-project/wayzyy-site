@@ -143,7 +143,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14">
         {/* Top Navbar Row */}
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className={`flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4`}>
           {/* Official WAYZYY Logo */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img 
@@ -251,7 +251,8 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
         </div>
 
         {/* Compact Search Bar — all 3 zones visible on all screen sizes */}
-        {!isSearchExpanded && (
+        {/* compact: pages like Messages and Account get just the top row. */}
+        {!compact && !isSearchExpanded && (
           <div className="pb-4 flex justify-center">
             <div className="w-full max-w-2xl flex items-center rounded-full border border-border/80 bg-background shadow-md hover:shadow-lg transition-all hover:border-[#FF6B00]/30 overflow-hidden">
               {/* WHERE zone */}
@@ -319,7 +320,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
         )}
 
         {/* Expanded Search Bar */}
-        {isSearchExpanded && (
+        {!compact && isSearchExpanded && (
           <div ref={searchContainerRef} className="pb-6 animate-in fade-in zoom-in-95 duration-200">
             <div className="mx-auto max-w-3xl rounded-full border border-border/90 bg-muted/30 p-1.5 shadow-2xl relative flex items-center divide-x divide-border">
               {/* WHERE Section */}

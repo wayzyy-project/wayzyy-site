@@ -230,15 +230,15 @@ export function ThreadPane({
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex h-[72px] shrink-0 items-center gap-3 border-b border-border px-4 sm:px-6">
+      <div className="flex h-16 shrink-0 items-center gap-3 border-b border-border px-4 sm:px-5">
         {onBack && (
-          <button onClick={onBack} aria-label="Back to conversations" className="rounded-full p-2 hover:bg-muted lg:hidden">
+          <button onClick={onBack} aria-label="Back to conversations" className="rounded-full p-2 hover:bg-muted md:hidden">
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
         <Avatar name={otherName} url={otherAvatar} size={40} />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-lg font-bold text-foreground">{thread.property_title || otherName}</p>
+          <p className="truncate text-base font-bold text-foreground">{thread.property_title || otherName}</p>
           <p className="truncate text-xs text-muted-foreground">{otherName}{isHostSide ? " · Guest" : " · Host"}</p>
         </div>
         {canBlock && (
@@ -248,12 +248,12 @@ export function ThreadPane({
         )}
         {onToggleDetails && (
           <button onClick={onToggleDetails} aria-pressed={detailsOpen} aria-label="Reservation details" className={`rounded-full border px-3 py-2 text-xs font-semibold transition-colors ${detailsOpen ? "border-foreground" : "border-border hover:border-foreground/40"}`}>
-            <PanelRight className="inline h-4 w-4 sm:mr-1.5" /><span className="hidden sm:inline">{detailsOpen ? "Hide details" : "Reservation"}</span>
+            <PanelRight className="inline h-4 w-4 sm:mr-1.5" /><span className="hidden sm:inline">{detailsOpen ? "Hide reservation" : "Show reservation"}</span>
           </button>
         )}
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 sm:px-8 py-6">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 sm:px-6 py-4">
         <div className="mx-auto max-w-3xl space-y-1">
           {visible.length === 0 && <p className="py-16 text-center text-sm text-muted-foreground">Say hello to start the conversation.</p>}
           {visible.map((m, i) => {
@@ -270,14 +270,14 @@ export function ThreadPane({
                 ) : isOwn ? (
                   <div className={`flex flex-col items-end ${firstOfRun ? "pt-3" : "pt-0.5"}`}>
                     {firstOfRun && <span className="mb-1 text-xs text-muted-foreground">{formatTime(m.created_at)}</span>}
-                    <div className="max-w-[78%] rounded-2xl rounded-br-md bg-foreground px-4 py-2.5 text-[15px] leading-relaxed text-background whitespace-pre-wrap break-words">{m.content}</div>
+                    <div className="max-w-[78%] rounded-2xl rounded-br-md bg-foreground px-4 py-2.5 text-sm leading-relaxed text-background whitespace-pre-wrap break-words">{m.content}</div>
                   </div>
                 ) : (
                   <div className={`flex gap-3 ${firstOfRun ? "pt-3" : "pt-0.5"}`}>
                     <div className="w-9 shrink-0 self-end">{(!visible[i + 1] || visible[i + 1].sender_id !== m.sender_id) && <Avatar name={otherName} url={otherAvatar} />}</div>
                     <div className="min-w-0 max-w-[78%]">
                       {firstOfRun && <p className="mb-1 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{otherName}</span>{isHostSide ? "" : " · Host"} <span>{formatTime(m.created_at)}</span></p>}
-                      <div className="rounded-2xl rounded-bl-md bg-muted px-4 py-2.5 text-[15px] leading-relaxed text-foreground whitespace-pre-wrap break-words">{m.content}</div>
+                      <div className="rounded-2xl rounded-bl-md bg-muted px-4 py-2.5 text-sm leading-relaxed text-foreground whitespace-pre-wrap break-words">{m.content}</div>
                     </div>
                   </div>
                 )}
@@ -291,15 +291,15 @@ export function ThreadPane({
       {blocked ? (
         <p className="shrink-0 border-t border-border p-4 text-center text-xs text-muted-foreground">You blocked {otherName}. Unblock to send messages.</p>
       ) : (
-        <form onSubmit={handleSend} className="shrink-0 px-4 sm:px-8 pb-5 pt-2">
+        <form onSubmit={handleSend} className="shrink-0 px-4 sm:px-6 pb-4 pt-2">
           <div className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-border bg-background p-2 focus-within:border-foreground/50">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(e as unknown as React.FormEvent); } }}
-              rows={2}
+              rows={1}
               placeholder="Write a message…"
-              className="max-h-40 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-2 text-[15px] outline-none"
+              className="max-h-40 min-h-[40px] flex-1 resize-none bg-transparent px-3 py-2 text-[15px] outline-none"
             />
             <button type="submit" disabled={!input.trim() || sending} aria-label="Send" className="mb-1 mr-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF6B00] text-white disabled:opacity-30">
               {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
