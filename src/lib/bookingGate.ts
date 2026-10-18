@@ -7,3 +7,11 @@ export const BOOKINGS_OPEN = import.meta.env.VITE_BOOKINGS_OPEN === "true";
 
 export const BOOKINGS_CLOSED_MESSAGE =
   "Wayzyy isn't live for bookings just yet. We open very soon, so no payment has been taken. Please check back in a few days.";
+
+// Listings that take real bookings even while BOOKINGS_OPEN is off - used to
+// run a live payment test on one hidden seed listing ("Hey12", Rs 100/night,
+// not shown on Explore) without opening every listing.
+const BOOKABLE_BEFORE_LAUNCH = new Set(["7635b7ae-181e-4025-abb9-74f49357f256"]);
+
+export const bookingsOpenFor = (propertyId?: string | null): boolean =>
+  BOOKINGS_OPEN || (!!propertyId && BOOKABLE_BEFORE_LAUNCH.has(propertyId));

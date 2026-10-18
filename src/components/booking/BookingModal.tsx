@@ -18,7 +18,7 @@ import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import confetti from "canvas-confetti";
-import { BOOKINGS_OPEN, BOOKINGS_CLOSED_MESSAGE } from "@/lib/bookingGate";
+import { bookingsOpenFor, BOOKINGS_CLOSED_MESSAGE} from "@/lib/bookingGate";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -153,7 +153,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const handleExecutePayment = async () => {
     // Launch switch: stop before any order is created or money is touched.
-    if (!BOOKINGS_OPEN) {
+    if (!bookingsOpenFor(property.id)) {
       toast({ title: "Bookings open soon", description: BOOKINGS_CLOSED_MESSAGE });
       return;
     }
@@ -538,7 +538,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <span>256-bit encrypted Razorpay SSL checkout</span>
               </div>
 
-              {!BOOKINGS_OPEN && (
+              {!bookingsOpenFor(property.id) && (
                 <p className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-700 dark:text-amber-300">
                   {BOOKINGS_CLOSED_MESSAGE}
                 </p>
@@ -547,7 +547,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Pay Button */}
               <button
                 type="button"
-                disabled={isSubmitting || !BOOKINGS_OPEN}
+                disabled={isSubmitting || !bookingsOpenFor(property.id)}
                 onClick={handleExecutePayment}
                 className="btn-brand btn-brand-lg w-full flex items-center justify-center gap-2"
               >
@@ -559,7 +559,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 ) : (
                   <>
                     <span>
-                      {BOOKINGS_OPEN
+                      {bookingsOpenFor(property.id)
                         ? `Pay ₹${payable.toLocaleString("en-IN")} & Confirm Booking`
                         : "Bookings open soon"}
                     </span>

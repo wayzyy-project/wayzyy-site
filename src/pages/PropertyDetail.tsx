@@ -56,7 +56,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { EnquiryModal } from "@/components/booking/EnquiryModal";
-import { BOOKINGS_OPEN } from "@/lib/bookingGate";
+import { bookingsOpenFor } from "@/lib/bookingGate";
 import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -1055,7 +1055,7 @@ export default function PropertyDetail() {
                   onClick={() => {
                     // Bookings not open yet: take an enquiry instead of a payment.
                     // No payment, no sign-in, nothing is booked (see EnquiryModal).
-                    if (!BOOKINGS_OPEN) {
+                    if (!bookingsOpenFor(property.id)) {
                       setIsEnquiryOpen(true);
                       return;
                     }
@@ -1083,11 +1083,11 @@ export default function PropertyDetail() {
                   }}
                   className="btn-brand btn-brand-lg w-full"
                 >
-                  {BOOKINGS_OPEN ? "Reserve" : "Enquire about this stay"}
+                  {bookingsOpenFor(property.id) ? "Reserve" : "Enquire about this stay"}
                 </button>
 
                 <p className="text-center text-xs text-muted-foreground">
-                  {BOOKINGS_OPEN
+                  {bookingsOpenFor(property.id)
                     ? "The host confirms every request - fully refunded if they decline"
                     : "We're going live soon. Share your details and our team will get back to you."}
                 </p>
