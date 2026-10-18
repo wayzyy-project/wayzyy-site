@@ -53,7 +53,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   // Price calculations
   const totalPrice = guestNightlyPrice(property.pricePerNight) * nights;
   // What the same stay roughly costs on Airbnb, whose ~15.5% fee is built
-  // into the price there. Same estimate as the "Save about 15.5%" banner.
+  // into the price there. Same ~15.5% estimate as the stays banner.
   const airbnbEquivalent = Math.round(totalPrice / (1 - 0.155) / 10) * 10;
 
   return (
