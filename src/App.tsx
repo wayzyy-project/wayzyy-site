@@ -1,6 +1,7 @@
+import { lazy, Suspense } from "react";
 import { WishlistPicker } from "@/components/wishlist/WishlistPicker";
-import OpenApp from "./pages/OpenApp";
-import PlaceStays from "./pages/PlaceStays";
+const OpenApp = lazy(() => import("./pages/OpenApp"));
+const PlaceStays = lazy(() => import("./pages/PlaceStays"));
 import { OpenInAppPrompt } from "./components/OpenInAppPrompt";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -12,125 +13,125 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { mp } from "@/lib/mixpanel";
-import Index from "./pages/Index";
+const Index = lazy(() => import("./pages/Index"));
 import NotFound from "./pages/NotFound";
 // PropertyShare's route is superseded by PropertyDetail (below), which
 // already owns /property/:propertyId on this branch.
-import HostPreview from "./pages/HostPreview";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import DeleteAccount from "./pages/DeleteAccount";
-import PaymentRefundPolicy from "./pages/PaymentRefundPolicy";
-import HostTerms from "./pages/HostTerms";
-import GuestTerms from "./pages/GuestTerms";
-import Policies from "./pages/Policies";
-import PolicyDocPage from "./pages/PolicyDocPage";
-import PropertyImportPolicy from "./pages/PropertyImportPolicy";
-import EarningsCalculator from "./pages/EarningsCalculator";
-import GoaHostComplianceChecklist from "./pages/GoaHostComplianceChecklist";
-import HostPortal from "./pages/HostPortal";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminVerifications from "./pages/AdminVerifications";
-import AdminReviewListing from "./pages/AdminReviewListing";
-import AdminListings from "./pages/AdminListings";
-import AdminAirroiImport from "./pages/AdminAirroiImport";
-import AdminGigChallenge from "./pages/AdminGigChallenge";
-import BlogIndex from "./pages/blog/BlogIndex";
-import BestAirbnbAlternativesGoa from "./pages/blog/BestAirbnbAlternativesGoa";
-import WhyGoaVillasCostDifferent from "./pages/blog/WhyGoaVillasCostDifferent";
-import NorthGoaVsSouthGoa from "./pages/blog/NorthGoaVsSouthGoa";
-import WorkationGoaGuide from "./pages/blog/WorkationGoaGuide";
-import GoaScooterRentalGuide from "./pages/blog/GoaScooterRentalGuide";
-import BestTimeToVisitGoa from "./pages/blog/BestTimeToVisitGoa";
-import GoaTripBudgetGuide from "./pages/blog/GoaTripBudgetGuide";
-import AssagaoVillasGuide from "./pages/blog/AssagaoVillasGuide";
-import SiolimVillasGuide from "./pages/blog/SiolimVillasGuide";
-import MandremBeachGuide from "./pages/blog/MandremBeachGuide";
-import MorjimBeachGuide from "./pages/blog/MorjimBeachGuide";
-import AshwemBeachGuide from "./pages/blog/AshwemBeachGuide";
-import VagatorBeachGuide from "./pages/blog/VagatorBeachGuide";
-import AnjunaBeachGuide from "./pages/blog/AnjunaBeachGuide";
-import NorthGoaTravelGuide from "./pages/blog/NorthGoaTravelGuide";
-import NorthGoaVillasVsSouthGoaVillas from "./pages/blog/NorthGoaVillasVsSouthGoaVillas";
-import WhereToStayInGoa from "./pages/blog/WhereToStayInGoa";
-import GoaWorkCafesGuide from "./pages/blog/GoaWorkCafesGuide";
-import GoaNightlifeGuide from "./pages/blog/GoaNightlifeGuide";
-import GoaBeachesGuide from "./pages/blog/GoaBeachesGuide";
-import GoaFoodGuide from "./pages/blog/GoaFoodGuide";
-import GoaMarketsGuide from "./pages/blog/GoaMarketsGuide";
-import GoaItineraryGuide from "./pages/blog/GoaItineraryGuide";
-import GoaMonsoonGuide from "./pages/blog/GoaMonsoonGuide";
-import GoaTransportGuide from "./pages/blog/GoaTransportGuide";
-import GoaHotelVsVillaVsHomestay from "./pages/blog/GoaHotelVsVillaVsHomestay";
-import GoaFamilyTripGuide from "./pages/blog/GoaFamilyTripGuide";
-import WhyWeDecidedToBuildWayzyyDifferently from "./pages/blog/WhyWeDecidedToBuildWayzyyDifferently";
-import AirbnbVsBookingVsWayzyy from "./pages/blog/AirbnbVsBookingVsWayzyy";
-import HowMuchCanYouEarnVacationRentalGoa from "./pages/blog/HowMuchCanYouEarnVacationRentalGoa";
-import HiddenCostsOfRunningAnAirbnb from "./pages/blog/HiddenCostsOfRunningAnAirbnb";
-import HowToStartAirbnbBusinessIndia from "./pages/blog/HowToStartAirbnbBusinessIndia";
-import WhyRentalBusinessesNeverScaleBeyondOneProperty from "./pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty";
-import SouthGoaTravelGuide from "./pages/blog/SouthGoaTravelGuide";
-import GalgibagaBeachGuide from "./pages/blog/GalgibagaBeachGuide";
-import PalolemBeachGuide from "./pages/blog/PalolemBeachGuide";
-import WhereToStayInSouthGoa from "./pages/blog/WhereToStayInSouthGoa";
-import RealCostOfAirbnbFee from "./pages/blog/RealCostOfAirbnbFee";
-import AgondaBeachGuide from "./pages/blog/AgondaBeachGuide";
-import PatnemBeachGuide from "./pages/blog/PatnemBeachGuide";
-import ColaBeachGuide from "./pages/blog/ColaBeachGuide";
-import ButterflyBeachGuide from "./pages/blog/ButterflyBeachGuide";
-import DudhsagarFallsGuide from "./pages/blog/DudhsagarFallsGuide";
-import CaboDeRamaFortGuide from "./pages/blog/CaboDeRamaFortGuide";
-import CotigaoWildlifeSanctuaryGuide from "./pages/blog/CotigaoWildlifeSanctuaryGuide";
-import SilentNoiseGoaGuide from "./pages/blog/SilentNoiseGoaGuide";
-import KakolemBeachGuide from "./pages/blog/KakolemBeachGuide";
-import Goa from "./pages/blog/Goa";
-import WhereToStayInGoa2026 from "./pages/blog/WhereToStayInGoa2026";
-import TambdiSurlaTempleGuide from "./pages/blog/TambdiSurlaTempleGuide";
-import GoaSpiritualTourismGuide from "./pages/blog/GoaSpiritualTourismGuide";
-import EkadashaTeerthaYatraGuide from "./pages/blog/EkadashaTeerthaYatraGuide";
-import SixNewGoaTourismProjectsGuide from "./pages/blog/SixNewGoaTourismProjectsGuide";
-import AguadaMonsoonHeritageGuide from "./pages/blog/AguadaMonsoonHeritageGuide";
-import HowToBookVerifiedStayGoa from "./pages/blog/HowToBookVerifiedStayGoa";
-import HowDisputeResolutionWorksForHosts from "./pages/blog/HowDisputeResolutionWorksForHosts";
-import FontainhasGoaGuide from "./pages/blog/FontainhasGoaGuide";
-import GoaAirbnbRegistrationRules from "./pages/blog/GoaAirbnbRegistrationRules";
-import CandolimBeachGuide from "./pages/blog/CandolimBeachGuide";
-import CalanguteBeachGuide from "./pages/blog/CalanguteBeachGuide";
-import BagaBeachGuide from "./pages/blog/BagaBeachGuide";
-import AirbnbPricingUpdate15PercentFee from "./pages/blog/AirbnbPricingUpdate15PercentFee";
-import AirbnbAlternativeLanding from "./pages/AirbnbAlternativeLanding";
-import WhatIsWayzyy from "./pages/WhatIsWayzyy";
-import About from "./pages/About";
+const HostPreview = lazy(() => import("./pages/HostPreview"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const DeleteAccount = lazy(() => import("./pages/DeleteAccount"));
+const PaymentRefundPolicy = lazy(() => import("./pages/PaymentRefundPolicy"));
+const HostTerms = lazy(() => import("./pages/HostTerms"));
+const GuestTerms = lazy(() => import("./pages/GuestTerms"));
+const Policies = lazy(() => import("./pages/Policies"));
+const PolicyDocPage = lazy(() => import("./pages/PolicyDocPage"));
+const PropertyImportPolicy = lazy(() => import("./pages/PropertyImportPolicy"));
+const EarningsCalculator = lazy(() => import("./pages/EarningsCalculator"));
+const GoaHostComplianceChecklist = lazy(() => import("./pages/GoaHostComplianceChecklist"));
+const HostPortal = lazy(() => import("./pages/HostPortal"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminVerifications = lazy(() => import("./pages/AdminVerifications"));
+const AdminReviewListing = lazy(() => import("./pages/AdminReviewListing"));
+const AdminListings = lazy(() => import("./pages/AdminListings"));
+const AdminAirroiImport = lazy(() => import("./pages/AdminAirroiImport"));
+const AdminGigChallenge = lazy(() => import("./pages/AdminGigChallenge"));
+const BlogIndex = lazy(() => import("./pages/blog/BlogIndex"));
+const BestAirbnbAlternativesGoa = lazy(() => import("./pages/blog/BestAirbnbAlternativesGoa"));
+const WhyGoaVillasCostDifferent = lazy(() => import("./pages/blog/WhyGoaVillasCostDifferent"));
+const NorthGoaVsSouthGoa = lazy(() => import("./pages/blog/NorthGoaVsSouthGoa"));
+const WorkationGoaGuide = lazy(() => import("./pages/blog/WorkationGoaGuide"));
+const GoaScooterRentalGuide = lazy(() => import("./pages/blog/GoaScooterRentalGuide"));
+const BestTimeToVisitGoa = lazy(() => import("./pages/blog/BestTimeToVisitGoa"));
+const GoaTripBudgetGuide = lazy(() => import("./pages/blog/GoaTripBudgetGuide"));
+const AssagaoVillasGuide = lazy(() => import("./pages/blog/AssagaoVillasGuide"));
+const SiolimVillasGuide = lazy(() => import("./pages/blog/SiolimVillasGuide"));
+const MandremBeachGuide = lazy(() => import("./pages/blog/MandremBeachGuide"));
+const MorjimBeachGuide = lazy(() => import("./pages/blog/MorjimBeachGuide"));
+const AshwemBeachGuide = lazy(() => import("./pages/blog/AshwemBeachGuide"));
+const VagatorBeachGuide = lazy(() => import("./pages/blog/VagatorBeachGuide"));
+const AnjunaBeachGuide = lazy(() => import("./pages/blog/AnjunaBeachGuide"));
+const NorthGoaTravelGuide = lazy(() => import("./pages/blog/NorthGoaTravelGuide"));
+const NorthGoaVillasVsSouthGoaVillas = lazy(() => import("./pages/blog/NorthGoaVillasVsSouthGoaVillas"));
+const WhereToStayInGoa = lazy(() => import("./pages/blog/WhereToStayInGoa"));
+const GoaWorkCafesGuide = lazy(() => import("./pages/blog/GoaWorkCafesGuide"));
+const GoaNightlifeGuide = lazy(() => import("./pages/blog/GoaNightlifeGuide"));
+const GoaBeachesGuide = lazy(() => import("./pages/blog/GoaBeachesGuide"));
+const GoaFoodGuide = lazy(() => import("./pages/blog/GoaFoodGuide"));
+const GoaMarketsGuide = lazy(() => import("./pages/blog/GoaMarketsGuide"));
+const GoaItineraryGuide = lazy(() => import("./pages/blog/GoaItineraryGuide"));
+const GoaMonsoonGuide = lazy(() => import("./pages/blog/GoaMonsoonGuide"));
+const GoaTransportGuide = lazy(() => import("./pages/blog/GoaTransportGuide"));
+const GoaHotelVsVillaVsHomestay = lazy(() => import("./pages/blog/GoaHotelVsVillaVsHomestay"));
+const GoaFamilyTripGuide = lazy(() => import("./pages/blog/GoaFamilyTripGuide"));
+const WhyWeDecidedToBuildWayzyyDifferently = lazy(() => import("./pages/blog/WhyWeDecidedToBuildWayzyyDifferently"));
+const AirbnbVsBookingVsWayzyy = lazy(() => import("./pages/blog/AirbnbVsBookingVsWayzyy"));
+const HowMuchCanYouEarnVacationRentalGoa = lazy(() => import("./pages/blog/HowMuchCanYouEarnVacationRentalGoa"));
+const HiddenCostsOfRunningAnAirbnb = lazy(() => import("./pages/blog/HiddenCostsOfRunningAnAirbnb"));
+const HowToStartAirbnbBusinessIndia = lazy(() => import("./pages/blog/HowToStartAirbnbBusinessIndia"));
+const WhyRentalBusinessesNeverScaleBeyondOneProperty = lazy(() => import("./pages/blog/WhyRentalBusinessesNeverScaleBeyondOneProperty"));
+const SouthGoaTravelGuide = lazy(() => import("./pages/blog/SouthGoaTravelGuide"));
+const GalgibagaBeachGuide = lazy(() => import("./pages/blog/GalgibagaBeachGuide"));
+const PalolemBeachGuide = lazy(() => import("./pages/blog/PalolemBeachGuide"));
+const WhereToStayInSouthGoa = lazy(() => import("./pages/blog/WhereToStayInSouthGoa"));
+const RealCostOfAirbnbFee = lazy(() => import("./pages/blog/RealCostOfAirbnbFee"));
+const AgondaBeachGuide = lazy(() => import("./pages/blog/AgondaBeachGuide"));
+const PatnemBeachGuide = lazy(() => import("./pages/blog/PatnemBeachGuide"));
+const ColaBeachGuide = lazy(() => import("./pages/blog/ColaBeachGuide"));
+const ButterflyBeachGuide = lazy(() => import("./pages/blog/ButterflyBeachGuide"));
+const DudhsagarFallsGuide = lazy(() => import("./pages/blog/DudhsagarFallsGuide"));
+const CaboDeRamaFortGuide = lazy(() => import("./pages/blog/CaboDeRamaFortGuide"));
+const CotigaoWildlifeSanctuaryGuide = lazy(() => import("./pages/blog/CotigaoWildlifeSanctuaryGuide"));
+const SilentNoiseGoaGuide = lazy(() => import("./pages/blog/SilentNoiseGoaGuide"));
+const KakolemBeachGuide = lazy(() => import("./pages/blog/KakolemBeachGuide"));
+const Goa = lazy(() => import("./pages/blog/Goa"));
+const WhereToStayInGoa2026 = lazy(() => import("./pages/blog/WhereToStayInGoa2026"));
+const TambdiSurlaTempleGuide = lazy(() => import("./pages/blog/TambdiSurlaTempleGuide"));
+const GoaSpiritualTourismGuide = lazy(() => import("./pages/blog/GoaSpiritualTourismGuide"));
+const EkadashaTeerthaYatraGuide = lazy(() => import("./pages/blog/EkadashaTeerthaYatraGuide"));
+const SixNewGoaTourismProjectsGuide = lazy(() => import("./pages/blog/SixNewGoaTourismProjectsGuide"));
+const AguadaMonsoonHeritageGuide = lazy(() => import("./pages/blog/AguadaMonsoonHeritageGuide"));
+const HowToBookVerifiedStayGoa = lazy(() => import("./pages/blog/HowToBookVerifiedStayGoa"));
+const HowDisputeResolutionWorksForHosts = lazy(() => import("./pages/blog/HowDisputeResolutionWorksForHosts"));
+const FontainhasGoaGuide = lazy(() => import("./pages/blog/FontainhasGoaGuide"));
+const GoaAirbnbRegistrationRules = lazy(() => import("./pages/blog/GoaAirbnbRegistrationRules"));
+const CandolimBeachGuide = lazy(() => import("./pages/blog/CandolimBeachGuide"));
+const CalanguteBeachGuide = lazy(() => import("./pages/blog/CalanguteBeachGuide"));
+const BagaBeachGuide = lazy(() => import("./pages/blog/BagaBeachGuide"));
+const AirbnbPricingUpdate15PercentFee = lazy(() => import("./pages/blog/AirbnbPricingUpdate15PercentFee"));
+const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLanding"));
+const WhatIsWayzyy = lazy(() => import("./pages/WhatIsWayzyy"));
+const About = lazy(() => import("./pages/About"));
 
 
 
 
 
-import GigChallenge from "./pages/GigChallenge";
-import FinalCoconut from "./pages/FinalCoconut";
-import GrandPrixHackathon from "./pages/GrandPrixHackathon";
-import Links from "./pages/Links";
-import HostBookings from "./pages/HostBookings";
-import HostPayoutAccount from "./pages/HostPayoutAccount";
+const GigChallenge = lazy(() => import("./pages/GigChallenge"));
+const FinalCoconut = lazy(() => import("./pages/FinalCoconut"));
+const GrandPrixHackathon = lazy(() => import("./pages/GrandPrixHackathon"));
+const Links = lazy(() => import("./pages/Links"));
+const HostBookings = lazy(() => import("./pages/HostBookings"));
+const HostPayoutAccount = lazy(() => import("./pages/HostPayoutAccount"));
 import { HostOnboardingRedirect } from "./components/host/HostOnboardingRedirect";
-import AdminHostOnboarding from "./pages/AdminHostOnboarding";
-import AdminHosts from "./pages/AdminHosts";
-import AppLaunchSoon from "./pages/AppLaunchSoon";
-import ExperienceGoa from "./pages/ExperienceGoa";
-import WaitlistChooser from "./pages/WaitlistChooser";
-import WaitlistTravelers from "./pages/WaitlistTravelers";
-import HostOnboardingDoc from "./pages/HostOnboardingDoc";
+const AdminHostOnboarding = lazy(() => import("./pages/AdminHostOnboarding"));
+const AdminHosts = lazy(() => import("./pages/AdminHosts"));
+const AppLaunchSoon = lazy(() => import("./pages/AppLaunchSoon"));
+const ExperienceGoa = lazy(() => import("./pages/ExperienceGoa"));
+const WaitlistChooser = lazy(() => import("./pages/WaitlistChooser"));
+const WaitlistTravelers = lazy(() => import("./pages/WaitlistTravelers"));
+const HostOnboardingDoc = lazy(() => import("./pages/HostOnboardingDoc"));
 import ExploreStays from "./pages/ExploreStays";
-import GoaStaysPublic from "./pages/GoaStaysPublic";
-import VerifyIdentity from "./pages/VerifyIdentity";
-import HostPricing from "./pages/HostPricing";
+const GoaStaysPublic = lazy(() => import("./pages/GoaStaysPublic"));
+const VerifyIdentity = lazy(() => import("./pages/VerifyIdentity"));
+const HostPricing = lazy(() => import("./pages/HostPricing"));
 import PropertyDetail from "./pages/PropertyDetail";
-import MyTrips from "./pages/MyTrips";
-import Wishlists from "./pages/Wishlists";
-import WriteReview from "./pages/WriteReview";
-import Account from "./pages/Account";
-import Inbox from "./pages/Inbox";
-import MessageThread from "./pages/MessageThread";
-import SarvamStartupProgram from "./pages/SarvamStartupProgram";
+const MyTrips = lazy(() => import("./pages/MyTrips"));
+const Wishlists = lazy(() => import("./pages/Wishlists"));
+const WriteReview = lazy(() => import("./pages/WriteReview"));
+const Account = lazy(() => import("./pages/Account"));
+const Inbox = lazy(() => import("./pages/Inbox"));
+const MessageThread = lazy(() => import("./pages/MessageThread"));
+const SarvamStartupProgram = lazy(() => import("./pages/SarvamStartupProgram"));
 
 const queryClient = new QueryClient();
 
@@ -152,6 +153,7 @@ const App = () => (
           <SmoothScroll>
             <ScrollToTop />
             <div className="pb-24 sm:pb-0">
+            <Suspense fallback={<div className="min-h-screen bg-background" aria-busy="true" />}>
             <Routes>
               <Route path="/" element={<ExploreStays />} />
               <Route path="/stays" element={<ExploreStays />} />
@@ -292,6 +294,7 @@ const App = () => (
 
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
             </div>
             <OpenInAppPrompt />
             <MobileTabBar />

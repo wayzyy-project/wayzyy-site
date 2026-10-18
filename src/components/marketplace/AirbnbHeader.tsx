@@ -182,13 +182,6 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               {authUser ? "Switch to hosting" : "Become a host"}
             </Link>
 
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2.5 text-foreground hover:bg-muted transition-colors border border-border/60"
-              title="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-slate-700" />}
-            </button>
 
             <MessagesLink />
 
@@ -226,6 +219,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                     <Heart className="h-4 w-4 text-[#FF6B00]" />
                     Saved Wishlists
                   </Link>
+                </DropdownMenuItem>
+                {/* Theme lives here now: light by default, dark on request. */}
+                <DropdownMenuItem
+                  onSelect={(e) => { e.preventDefault(); setTheme(theme === "dark" ? "light" : "dark"); }}
+                  className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer"
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4 text-[#FF6B00]" /> : <Moon className="h-4 w-4 text-[#FF6B00]" />}
+                  {theme === "dark" ? "Light mode" : "Dark mode"}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="my-1" />
                 <DropdownMenuItem asChild>
