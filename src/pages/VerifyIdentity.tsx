@@ -86,7 +86,14 @@ export default function VerifyIdentity() {
         },
       });
       if (fnError || !data) {
-        throw new Error(fnError?.message ?? "Could not start DigiLocker verification");
+        // Show the function's own reason (e.g. Digio's message) instead of
+        // supabase-js's generic "non-2xx status code".
+        let reason: string | undefined;
+        try { reason = (await (fnError as any)?.context?.json?.())?.error; } catch { /* no body */ }
+        if (reason && /from yourself/i.test(reason)) {
+          reason = "This account's email is the one used for Wayzyy's own Digio account, so it can't be verified. Sign in with a different email to verify.";
+        }
+        throw new Error(reason ?? "Couldn't start DigiLocker verification. Please try again in a minute.");
       }
       // requestId/consentUrl come straight from the live digilocker-initiate
       // response - see supabase/functions/digilocker-initiate in wayzyy-app.
