@@ -440,7 +440,7 @@ const routes = [
   },
   {
     path: '/airbnb-alternative',
-    title: 'Airbnb Alternative in Goa: Meet Wayzyy',
+    title: 'Airbnb Alternative in India: Apps & Sites Like Airbnb | Wayzyy',
     description: 'Airbnb charges hosts 15.5% per booking. Wayzyy charges a flat, low-cost credit instead. The host-first Airbnb alternative built for Goa.',
     ogType: 'website',
     ogImage: '/og-image.png',

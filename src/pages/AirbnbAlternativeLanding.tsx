@@ -22,7 +22,7 @@ const productSchema = {
 export default function AirbnbAlternativeLanding() {
   return (
     <SEO
-      title="Airbnb Alternative in India & Goa: Meet Wayzyy"
+      title="Airbnb Alternative in India: Apps & Sites Like Airbnb | Wayzyy"
       description="Looking for an Airbnb alternative in India or apps like Airbnb? Wayzyy is the host-first direct rental platform built for Goa villas. No per-booking commission."
       jsonLd={[productSchema]}
     >

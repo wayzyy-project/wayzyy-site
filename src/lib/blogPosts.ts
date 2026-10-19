@@ -38,10 +38,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "best-airbnb-alternatives-goa",
-    title: "5 Best Airbnb Alternatives in India for Booking Villas in Goa (2026)",
+    title: "Airbnb Alternatives in India (2026): 5 Apps & Sites Like Airbnb",
     description:
-      "Wayzyy is a Goa stays site. This post compares Airbnb alternatives in India and what you actually pay.",
-    metaTitle: "5 Best Airbnb Alternatives in India for Goa Villas (2026)",
+      "Looking for apps or websites like Airbnb in India? We compare 5 Airbnb alternatives (Wayzyy, Booking.com, MakeMyTrip, StayVista, SaffronStays) on fees, verification and real prices.",
+    metaTitle: "Airbnb Alternatives in India (2026): 5 Sites Like Airbnb",
     metaDescription:
       "Airbnb charges hosts 15.5% per booking in Goa. Here are the platforms that don't - with real fee comparisons and final price breakdowns.",
     heroImage: "/blog/goa-villa-private-pool-vacation-rental.webp",
@@ -98,10 +98,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "best-time-to-visit-goa",
-    title: "Best Time to Visit Goa - The Complete Guide for Every Vibe",
+    title: "Best Time to Visit Goa (2026): Month-by-Month Weather, Crowds & Prices",
     description:
-      "When is the best time to visit Goa? Read our breakdown of seasonal weather, travel styles, crowd patterns, and booking strategies.",
-    metaTitle: "Best Time to Visit Goa - Seasonality, Weather & Tips (2026)",
+      "November to February is the best time to visit Goa. See month-by-month weather, crowd levels and stay prices to pick the right month for beaches, parties or a quiet trip.",
+    metaTitle: "Best Time to Visit Goa (2026): Month-by-Month Guide",
     metaDescription:
       "When is the best time to visit Goa? Detailed month-by-month breakdown of weather, crowds, villa prices, monsoon tips, and when to avoid peak rates.",
     heroImage: "/blog/goa-best-time-hero.webp",
@@ -242,10 +242,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "goa-work-cafes-guide",
-    title: "Best Cafes for Studying and Working in Goa (2026)",
+    title: "Best Cafes to Work From in Goa (2026): Fast WiFi & Power Plugs",
     description:
-      "Looking for a great cafe to work from in Goa? Read our complete, honest guide to the best work cafes in Assagao, Anjuna, and Siolim with fast WiFi.",
-    metaTitle: "Goa Work Cafes Guide (2026) - Best Cafes to Work in Goa",
+      "The best work-friendly cafes in Goa with fast WiFi, power plugs and long-stay seating, in Assagao, Anjuna and Siolim. Good for studying, remote work and workations.",
+    metaTitle: "Best Cafes to Work From in Goa (2026): WiFi & Plugs",
     metaDescription:
       "Looking for a great cafe to work from in Goa? Learn about WiFi, power outlets, specialty coffee, and remote work spots in Assagao, Anjuna & Siolim.",
     heroImage: "/blog/goa-cafe-candolim.webp",
@@ -374,10 +374,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "airbnb-vs-booking-vs-wayzyy",
-    title: "Airbnb vs Booking.com vs Wayzyy: A Side-by-Side Comparison (2026)",
+    title: "Airbnb vs Booking.com vs Wayzyy: Which Is Cheaper in Goa? (2026)",
     description:
-      "An honest, side-by-side comparison of Airbnb, Booking.com, and Wayzyy for vacation rental hosts. Compare fees, discovery, target audiences, and long-term profitability.",
-    metaTitle: "Airbnb vs Booking.com vs Wayzyy: Side-by-Side Comparison",
+      "Airbnb vs Booking.com vs Wayzyy compared side by side: guest prices, host fees, verification and cancellations for Goa villas and homes.",
+    metaTitle: "Airbnb vs Booking.com vs Wayzyy: Which Is Cheaper? (2026)",
     metaDescription:
       "Looking for the best short-term rental platform? Read our 2026 side-by-side comparison of Airbnb, Booking.com, and Wayzyy on fees, target audiences, and economics.",
     heroImage: "/blog/airbnb-vs-booking-vs-wayzyy.webp",
@@ -626,10 +626,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "tambdi-surla-temple-goa-guide",
-    title: "Tambdi Surla Temple Goa (2026): The Honest Guide to Exploring This Ancient Marvel",
+    title: "Tambdi Surla Temple, Goa (2026): Timings, How to Reach & Entry Fee",
     description:
-      "Planning a trip to Tambdi Surla Temple in Goa? Read our complete, honest guide to 12th-century Kadamba architecture, ancient basalt carvings, road routes, monsoon weather, and nearby stays.",
-    metaTitle: "Tambdi Surla Temple Goa (2026) - Ancient Kadamba Temple Guide",
+      "Tambdi Surla Temple timings, entry fee, how to reach from North and South Goa, the trek to the waterfall, and the best season to visit this 12th-century Kadamba temple.",
+    metaTitle: "Tambdi Surla Temple Goa: Timings, How to Reach & Entry Fee",
     metaDescription:
       "Everything you need to know about visiting Tambdi Surla Temple in Goa - 12th-century architecture, road routes, weather, waterfall treks, and practical tips.",
     heroImage: "/blog/tambdi-surla-temple-goa-hero.png",
