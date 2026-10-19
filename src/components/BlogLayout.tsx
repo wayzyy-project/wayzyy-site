@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { SiteFooter } from "./SiteFooter";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useScroll, useSpring, motion } from "framer-motion";
 import { SEO } from "./SEO";
@@ -194,6 +195,7 @@ export function BlogLayout(props: BlogLayoutProps) {
             </div>
           </div>
         </div>
+        <SiteFooter />
       </div>
     </SEO>
   );

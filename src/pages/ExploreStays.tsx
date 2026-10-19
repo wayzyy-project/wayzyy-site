@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { SiteFooter } from "@/components/SiteFooter";
 import { useSearchParams, Link } from "react-router-dom";
 import { ArrowRight, Map as MapIcon, Grid as GridIcon, ShieldCheck, Heart, SlidersHorizontal, Loader2, Info } from "lucide-react";
 import { SEO } from "@/components/SEO";
@@ -532,6 +533,7 @@ export default function ExploreStays() {
             </div>
           )}
         </main>
+        <SiteFooter />
       </div>
     </SEO>
   );

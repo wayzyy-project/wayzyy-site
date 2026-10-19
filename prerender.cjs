@@ -446,13 +446,12 @@ const routes = [
     ogImage: '/og-image.png',
     jsonLd: {
       "@context": "https://schema.org",
-      "@type": "Product",
+      "@type": "Service",
       "name": "Wayzyy",
+      "serviceType": "Short-term rental booking platform",
       "description": "Host-first short-term rental platform for Goa villas. No per-booking commission for hosts.",
-      "brand": {
-        "@type": "Organization",
-        "name": "Wayzyy"
-      },
+      "provider": { "@id": "https://wayzyy.com/#organization" },
+      "areaServed": { "@type": "Place", "name": "Goa, India" },
       "url": "https://wayzyy.com/airbnb-alternative"
     }
   },

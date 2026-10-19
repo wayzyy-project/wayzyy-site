@@ -7,13 +7,15 @@ import { SiteFooter } from "@/components/SiteFooter";
 
 const productSchema = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  // A Service, not a Product: Google expects a Product to carry a price,
+  // reviews or rating, which a platform page doesn't have (that flagged
+  // 'Product snippets' errors in Search Console).
+  "@type": "Service",
   "name": "Wayzyy",
+  "serviceType": "Short-term rental booking platform",
   "description": "Host-first short-term rental platform for Goa villas. No per-booking commission for hosts.",
-  "brand": {
-    "@type": "Organization",
-    "name": "Wayzyy"
-  },
+  "provider": { "@id": "https://wayzyy.com/#organization" },
+  "areaServed": { "@type": "Place", "name": "Goa, India" },
   "url": "https://wayzyy.com/airbnb-alternative"
 };
 

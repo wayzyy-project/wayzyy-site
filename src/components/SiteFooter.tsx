@@ -51,6 +51,21 @@ export function SiteFooter() {
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/pools">With a pool</Link>
             </div>
 
+            {/* Guides: links every page to the travel and host guides Google
+                hadn't indexed yet (it treats pages linked from the whole site as important). */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Goa guides</p>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/vagator-goa-beach-guide">Vagator</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/palolem-beach-south-goa-guide">Palolem</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/agonda-beach-south-goa-guide">Agonda</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/cola-beach-goa-guide">Cola beach</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/galgibaga-beach-goa-guide">Galgibaga</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/goa-trip-budget-guide">Goa trip budget</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/how-to-start-airbnb-business-india">Start an Airbnb business</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog/how-much-can-you-earn-vacation-rental-goa">What hosts earn in Goa</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/blog">All guides</Link>
+            </div>
+
             {/* Legal & Socials */}
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
               <div className="flex flex-col gap-1.5">

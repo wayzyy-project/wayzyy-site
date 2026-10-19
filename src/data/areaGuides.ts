@@ -19,6 +19,9 @@ export const AREA_GUIDES: AreaGuide[] = [
   { area: "Baga", vibe: "Clubs & shacks", blurb: "Tito's Lane, beach clubs and nights that run late.", guide: "/blog/baga-goa-beach-guide" },
   { area: "Mandrem", vibe: "Slow & scenic", blurb: "Yoga retreats, a river crossing and an unhurried stretch of sand.", guide: "/blog/mandrem-goa-beach-guide" },
   { area: "Palolem", vibe: "South Goa bay", blurb: "A palm-lined crescent bay with calm water and kayaking.", guide: "/blog/palolem-beach-south-goa-guide" },
+  { area: "Agonda", vibe: "Quiet South Goa", blurb: "A long, peaceful beach with beach huts and turtle season.", guide: "/blog/agonda-beach-south-goa-guide" },
+  { area: "Cola", vibe: "Hidden lagoon", blurb: "A freshwater lagoon meeting the sea, reached down a dirt track.", guide: "/blog/cola-beach-goa-guide" },
+  { area: "Galgibaga", vibe: "Untouched beach", blurb: "One of Goa's emptiest beaches, a protected turtle-nesting site.", guide: "/blog/galgibaga-beach-goa-guide" },
 ];
 
 export const TRIP_GUIDES = [
