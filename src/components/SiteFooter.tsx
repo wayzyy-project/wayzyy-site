@@ -33,6 +33,7 @@ export function SiteFooter() {
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="/about#why">Why Wayzyy</a>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/about">About us</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/about/team">Our team</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/app">Get the app</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/onboarding">Founding Hosts Deck</Link>
               <a className="text-muted-foreground hover:text-foreground transition-colors" href="/about#two-sides">For Hosts & Guests</a>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/waitlist">Join Waitlist</Link>

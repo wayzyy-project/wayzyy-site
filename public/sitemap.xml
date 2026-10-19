@@ -2,97 +2,115 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wayzyy.com/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/airbnb-alternative</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://wayzyy.com/about</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wayzyy.com/app</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wayzyy.com/about/team</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wayzyy.com/earnings-calculator</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/goa-host-compliance-checklist</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/host</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/host-onboarding</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/gig-challenge</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/grand-prix</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/blog</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/explore</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/goa-stays</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/privacy</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/payment-refund</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/host-terms</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/guest-terms</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://wayzyy.com/policies</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

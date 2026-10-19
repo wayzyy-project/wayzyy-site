@@ -58,7 +58,7 @@ export default function About() {
               Who is behind <span className="text-ember font-semibold">Wayzyy</span>
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed">
-              Wayzyy is a short-term rental marketplace for India, built by Wayzyy Technologies Private Limited. We are
+              Wayzyy (pronounced way-zee, sometimes searched as Wayzee) is a short-term rental marketplace for India, built by Wayzyy Technologies Private Limited. We are
               live in Goa. We are hosts ourselves, and we built the platform we wished we had: one where hosts keep
               what they earn and guests see the full price before they book.
             </p>

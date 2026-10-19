@@ -48,6 +48,7 @@ const staticRoutes = [
   { url: '/', priority: '1.0', changefreq: 'weekly' },
   { url: '/airbnb-alternative', priority: '0.9', changefreq: 'monthly' },
   { url: '/about', priority: '0.9', changefreq: 'weekly' },
+  { url: '/app', priority: '0.8', changefreq: 'monthly' },
   { url: '/about/team', priority: '0.7', changefreq: 'monthly' },
   { url: '/earnings-calculator', priority: '0.8', changefreq: 'monthly' },
   { url: '/goa-host-compliance-checklist', priority: '0.8', changefreq: 'monthly' },

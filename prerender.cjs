@@ -465,6 +465,13 @@ const routes = [
     jsonLd: require('./src/data/aboutSchema.json')
   },
   {
+    path: '/app',
+    title: 'Wayzyy App - Book Goa Villas & Stays on Android and iPhone',
+    description: 'Get the Wayzyy app (way-zee): verified villas and homes in Goa, the full price up front, wishlists that sync and instant chat. Free on Google Play.',
+    ogType: 'website',
+    ogImage: '/og-image.png',
+  },
+  {
     path: '/about/team',
     title: 'Who is behind Wayzyy: the team and why we built it',
     description: 'Wayzyy is built by Anant Sharma and Akshay Kumar Sharma. Why we started, how we make money, and how we find hosts and guests in Goa.',

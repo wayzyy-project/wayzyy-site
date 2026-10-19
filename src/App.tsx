@@ -128,6 +128,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 const MyTrips = lazy(() => import("./pages/MyTrips"));
 const Wishlists = lazy(() => import("./pages/Wishlists"));
 const WriteReview = lazy(() => import("./pages/WriteReview"));
+const GetTheApp = lazy(() => import("./pages/GetTheApp"));
 const Account = lazy(() => import("./pages/Account"));
 const Inbox = lazy(() => import("./pages/Inbox"));
 const MessageThread = lazy(() => import("./pages/MessageThread"));
@@ -176,6 +177,8 @@ const App = () => (
               <Route path="/inbox/:threadId" element={<Inbox />} />
               <Route path="/wishlists" element={<Wishlists />} />
               <Route path="/review" element={<WriteReview />} />
+              <Route path="/app" element={<GetTheApp />} />
+              <Route path="/download" element={<GetTheApp />} />
               <Route path="/account" element={<Account />} />
               <Route path="/saved" element={<Wishlists />} />
               <Route path="/news/sarvam-startup-program" element={<SarvamStartupProgram />} />

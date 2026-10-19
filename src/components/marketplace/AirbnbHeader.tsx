@@ -24,7 +24,7 @@ import {
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
 import { useAuth } from "@/hooks/useAuth";
-import { UserRound } from "lucide-react";
+import { UserRound, Smartphone } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -212,6 +212,12 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   <Link to="/inbox" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer">
                     <MessageCircle className="h-4 w-4 text-[#FF6B00]" />
                     Messages
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/app" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-medium cursor-pointer">
+                    <Smartphone className="h-4 w-4 text-[#FF6B00]" />
+                    Get the app
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

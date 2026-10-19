@@ -24,23 +24,62 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://wayzyy.com/og-image.jpg" />
 
-    <!-- Google Knowledge Graph Brand Schema -->
+    <!-- Brand schema: the Organization (with the common misspellings people
+         search for as alternateName, so Google maps them to Wayzyy) and the
+         WebSite. Keep sameAs in step with src/data/aboutSchema.json. -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Wayzyy",
-        "legalName": "Wayzyy Technologies Private Limited",
-        "url": "https://wayzyy.com",
-        "logo": "https://wayzyy.com/favicon.png",
-        "alternateName": ["Wayzyy Goa", "Wayzyy Stays", "Wayzyy Travel", "Wayzyy Vacation Rentals"],
-        "sameAs": [
-          "https://www.instagram.com/staywayzyy/",
-          "https://www.linkedin.com/company/wayzyy/",
-          "https://x.com/wayzyycom"
-        ],
-        "description": "Wayzyy is Goa's zero-commission vacation rental and villa booking platform connecting travelers directly with verified local hosts."
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://wayzyy.com/#organization",
+      "name": "Wayzyy",
+      "legalName": "Wayzyy Technologies Private Limited",
+      "url": "https://wayzyy.com",
+      "logo": "https://wayzyy.com/favicon.png",
+      "email": "hello@wayzyy.com",
+      "alternateName": [
+        "Wayzee",
+        "Wayzy",
+        "Wayzi",
+        "Wayzie",
+        "Way Zee",
+        "Wayzyy Goa",
+        "Wayzyy Stays",
+        "Wayzyy Vacation Rentals"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/staywayzyy/",
+        "https://www.linkedin.com/company/wayzyy/",
+        "https://x.com/wayzyycom",
+        "https://www.crunchbase.com/organization/wayzyy",
+        "https://play.google.com/store/apps/details?id=com.wayzyy.app",
+        "https://apps.apple.com/app/id6813786564"
+      ],
+      "description": "Wayzyy (pronounced way-zee) is a short-term rental platform live in Goa: verified villas, homes and stays booked directly, with no per-booking commission for hosts."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://wayzyy.com/#website",
+      "name": "Wayzyy",
+      "alternateName": [
+        "Wayzee",
+        "Wayzy",
+        "Wayzi"
+      ],
+      "url": "https://wayzyy.com",
+      "publisher": {
+        "@id": "https://wayzyy.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://wayzyy.com/?city={search_term_string}",
+        "query-input": "required name=search_term_string"
       }
+    }
+  ]
+}
     </script>
 
 
