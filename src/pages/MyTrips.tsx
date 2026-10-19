@@ -204,6 +204,7 @@ function WithdrawButton({ trip, onDone }: { trip: Trip; onDone: () => void }) {
   const { toast } = useToast();
   const [now, setNow] = useState(Date.now());
   const [busy, setBusy] = useState(false);
+  const [asking, setAsking] = useState(false);
   const openAt = new Date(trip.createdAt).getTime() + WITHDRAW_AFTER_MS;
   useEffect(() => {
     if (now >= openAt) return;
@@ -217,7 +218,6 @@ function WithdrawButton({ trip, onDone }: { trip: Trip; onDone: () => void }) {
   }
 
   const withdraw = async () => {
-    if (!window.confirm(`Withdraw your request for ${trip.title}? You'll get a full refund of ${inr(trip.total)}.`)) return;
     setBusy(true);
     const { data, error } = await supabase.functions.invoke("cancel-booking", { body: { bookingId: trip.id, payoutMethod: "cash" } });
     setBusy(false);
@@ -227,10 +227,51 @@ function WithdrawButton({ trip, onDone }: { trip: Trip; onDone: () => void }) {
       toast({ title: "Couldn't withdraw the request", description: msg ?? "Please try again.", variant: "destructive" });
       return;
     }
+    setAsking(false);
     toast({ title: "Request withdrawn", description: `Your full refund of ${inr(trip.total)} is on its way (usually 5–7 working days).` });
     onDone();
   };
-  return <Button variant="outline" size="sm" onClick={withdraw} disabled={busy}>{busy ? "Withdrawing…" : "Withdraw request"}</Button>;
+
+  // "Give us another chance": the request stays open and our team chases the host.
+  const anotherChance = async () => {
+    setBusy(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    const { data, error } = await supabase.functions.invoke("send-support-email", {
+      body: {
+        userId: user?.id, userEmail: user?.email, userName: (user?.user_metadata?.name as string) ?? user?.email ?? "Guest",
+        category: "booking",
+        description: `Guest asked us to chase the host instead of withdrawing.\n\nBooking: ${trip.id}\nListing: ${trip.title}\nDates: ${trip.checkIn} to ${trip.checkOut}\nGuests: ${trip.guests}\nTotal: ${inr(trip.total)}\n\nPlease contact the host to accept or decline.`,
+      },
+    });
+    setBusy(false);
+    if (error || !data?.success) {
+      toast({ title: "Couldn't reach our team", description: "Please WhatsApp us, or try again.", variant: "destructive" });
+      return;
+    }
+    setAsking(false);
+    toast({ title: "Thanks for giving us another chance", description: "Our team will personally get in touch with the host. Your request stays open, and you can still withdraw any time." });
+  };
+
+  return (
+    <>
+      <Button variant="outline" size="sm" onClick={() => setAsking(true)} disabled={busy}>Withdraw request</Button>
+      {asking && (
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 sm:p-6" onClick={() => !busy && setAsking(false)}>
+          <div role="dialog" aria-modal="true" aria-labelledby={`wd-${trip.id}`} onClick={(e) => e.stopPropagation()} className="w-full sm:max-w-md space-y-4 rounded-t-3xl sm:rounded-3xl bg-background p-6 shadow-2xl">
+            <div>
+              <h2 id={`wd-${trip.id}`} className="text-lg font-bold">The host hasn't replied yet</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Before you withdraw your request for {trip.title}, can we try once more?</p>
+            </div>
+            <button onClick={anotherChance} disabled={busy} className="btn-brand btn-brand-lg w-full">Give us another chance</button>
+            <p className="-mt-2 text-center text-xs text-muted-foreground">Our team will personally reach out to the host. Your request stays open.</p>
+            <button onClick={withdraw} disabled={busy} className="w-full rounded-full border border-border py-3 text-sm font-semibold hover:border-foreground/40">
+              {busy ? "Working…" : `No, withdraw (full refund of ${inr(trip.total)})`}
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
 const DISPUTE_REASONS: { value: string; label: string }[] = [
