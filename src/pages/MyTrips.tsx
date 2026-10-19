@@ -197,6 +197,42 @@ function CancelDialog({
   );
 }
 
+// A request the host hasn't answered can be withdrawn one hour after it was
+// sent - full refund. cancel-booking enforces the same hour on the server.
+const WITHDRAW_AFTER_MS = 60 * 60 * 1000;
+function WithdrawButton({ trip, onDone }: { trip: Trip; onDone: () => void }) {
+  const { toast } = useToast();
+  const [now, setNow] = useState(Date.now());
+  const [busy, setBusy] = useState(false);
+  const openAt = new Date(trip.createdAt).getTime() + WITHDRAW_AFTER_MS;
+  useEffect(() => {
+    if (now >= openAt) return;
+    const t = setTimeout(() => setNow(Date.now()), Math.min(openAt - now + 500, 60_000));
+    return () => clearTimeout(t);
+  }, [now, openAt]);
+
+  if (now < openAt) {
+    const time = new Date(openAt).toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit" });
+    return <span className="self-center text-xs text-muted-foreground">Waiting for the host. You can withdraw this request from {time}.</span>;
+  }
+
+  const withdraw = async () => {
+    if (!window.confirm(`Withdraw your request for ${trip.title}? You'll get a full refund of ${inr(trip.total)}.`)) return;
+    setBusy(true);
+    const { data, error } = await supabase.functions.invoke("cancel-booking", { body: { bookingId: trip.id, payoutMethod: "cash" } });
+    setBusy(false);
+    if (error || data?.error) {
+      let msg = data?.error as string | undefined;
+      try { msg = msg ?? (await (error as any)?.context?.json?.())?.error; } catch { /* */ }
+      toast({ title: "Couldn't withdraw the request", description: msg ?? "Please try again.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Request withdrawn", description: `Your full refund of ${inr(trip.total)} is on its way (usually 5–7 working days).` });
+    onDone();
+  };
+  return <Button variant="outline" size="sm" onClick={withdraw} disabled={busy}>{busy ? "Withdrawing…" : "Withdraw request"}</Button>;
+}
+
 const DISPUTE_REASONS: { value: string; label: string }[] = [
   { value: "property_condition", label: "Place wasn't as clean or maintained as expected" },
   { value: "inaccurate_listing", label: "Listing didn't match the place" },
@@ -342,9 +378,10 @@ export default function MyTrips() {
                     <p className="flex items-center gap-1 text-sm"><Calendar className="h-3.5 w-3.5" />{fmtDate(t.checkIn)} → {fmtDate(t.checkOut)}</p>
                     <p className="flex items-center gap-1 text-sm"><Users className="h-3.5 w-3.5" />{t.guests} guest{t.guests !== 1 ? "s" : ""} · {inr(t.total)}</p>
                     <div className="flex flex-wrap gap-2">
-                      {isUpcoming(t) && (
+                      {isUpcoming(t) && t.status === "confirmed" && (
                         <Button variant="outline" size="sm" onClick={() => setCancelling(t)}>Cancel booking</Button>
                       )}
+                      {t.status === "pending" && <WithdrawButton trip={t} onDone={load} />}
                       {(t.status === "confirmed" || t.status === "completed") && t.checkOut < today && !t.reviewed && (
                         <Button asChild size="sm"><Link to={`/review?bookingId=${t.id}`}>Write a review</Link></Button>
                       )}
