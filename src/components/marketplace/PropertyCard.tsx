@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import React, { useState, useEffect, useRef } from "react";
 import { guestNightlyPrice } from "@/lib/pricing";
 import { Link } from "react-router-dom";
@@ -71,7 +72,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           {shown.map((src, i) => (
             <img
               key={src + i}
-              src={src}
+              src={img(src, 640)}
               alt={i === 0 ? property.title : ""}
               className="h-full w-full shrink-0 snap-center object-cover"
               loading={i === 0 ? "eager" : "lazy"}

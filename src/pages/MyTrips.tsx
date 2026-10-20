@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, Luggage, MapPin, Calendar, Users, Compass, Info, Wallet, CreditCard } from "lucide-react";
@@ -409,7 +410,7 @@ export default function MyTrips() {
             <div className="space-y-4">
               {shown.map((t) => (
                 <div key={t.id} className="flex flex-col overflow-hidden rounded-xl border sm:flex-row">
-                  {t.image && <img src={t.image} alt="" className="h-40 w-full object-cover sm:h-auto sm:w-48" loading="lazy" />}
+                  {t.image && <img src={img(t.image, 480)} alt="" className="h-40 w-full object-cover sm:h-auto sm:w-48" loading="lazy" />}
                   <div className="flex-1 p-4 space-y-2">
                     <div className="flex items-start justify-between gap-2">
                       <Link to={propertyPath({ id: t.propertyId, title: t.title })} className="font-semibold hover:underline">{t.title}</Link>

@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Loader2, MessageCircle, ArrowLeft, X, Search } from "lucide-react";
@@ -105,7 +106,7 @@ function ReservationPanel({ thread, userId, onClose }: { thread: Thread; userId:
         <button onClick={onClose} aria-label="Close reservation details" className="rounded-full p-2 hover:bg-muted"><X className="h-5 w-5" /></button>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto p-6 space-y-6">
-        {prop?.images?.[0] && <img src={prop.images[0]} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover" />}
+        {prop?.images?.[0] && <img src={img(prop.images[0], 640)} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover" />}
         <div>
           <h3 className="text-xl font-bold leading-tight">{prop?.title ?? thread.property_title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{isHostSide ? `Guest: ${thread.guest_name}` : `Hosted by ${thread.host_name}`}</p>

@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Loader2, Users, BedDouble, MapPin, ChevronDown } from "lucide-react";
@@ -29,12 +30,6 @@ const toArray = (raw: unknown): string[] => {
   }
   return [];
 };
-
-/** Card-sized copy of a photo from our own storage (about a quarter of the bytes of the original). */
-const thumb = (url: string, width = 640): string =>
-  url.includes("/storage/v1/object/public/")
-    ? `${url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}${url.includes("?") ? "&" : "?"}width=${width}&quality=70`
-    : url;
 
 export default function PlaceStays() {
   const { place = "", cat } = useParams<{ place: string; cat?: string }>();
@@ -120,7 +115,7 @@ export default function PlaceStays() {
                     <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
                       {p.images?.[0] && (
                         <img
-                          src={thumb(p.images[0])}
+                          src={img(p.images[0], 640)}
                           alt={p.title}
                           width={640}
                           height={480}

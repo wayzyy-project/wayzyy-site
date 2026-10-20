@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useSearchParams, Link } from "react-router-dom";
@@ -502,7 +503,7 @@ export default function ExploreStays() {
                         >
                           <div className="w-56 p-1">
                             <img
-                              src={p.images[0]}
+                              src={img(p.images[0], 640)}
                               alt={p.title}
                               className="w-full h-28 object-cover rounded-2xl mb-2"
                             />

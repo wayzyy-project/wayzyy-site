@@ -202,14 +202,17 @@ const routes = [
   },
   {
     path: '/earnings-calculator',
-    title: 'Airbnb vs Wayzyy Host Earnings Calculator — Wayzyy',
-    description: "See exactly how much more you'd take home hosting on Wayzyy instead of Airbnb. Enter your booking value, compare commission vs our flat credit model.",
+    title: 'Airbnb Host Earnings & Payout Calculator (15.5% Fee) | Wayzyy',
+    description: "Free Airbnb payout calculator for India: see what you take home after the 15.5% host fee, how much to raise your price to cover it (about 18.3%), and what you'd keep on Wayzyy.",
     ogType: 'website',
     ogImage: '/og-image.png',
     jsonLd: {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Airbnb vs Wayzyy Host Earnings Calculator",
+      "@type": "WebApplication",
+      "name": "Airbnb Host Earnings & Payout Calculator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
       "url": "https://wayzyy.com/earnings-calculator",
       "publisher": { "@type": "Organization", "name": "Wayzyy" }
     }

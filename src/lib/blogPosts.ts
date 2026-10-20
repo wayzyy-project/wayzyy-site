@@ -65,9 +65,9 @@ export const blogPosts: BlogPostMeta[] = [
     title: "North Goa vs South Goa - Which Part Is Actually Right for Your Trip?",
     description:
       "First time visiting Goa or coming back for a workation? Here is the honest breakdown of the vibe, villages, and seasonal differences between North and South Goa.",
-    metaTitle: "North Goa vs South Goa - Which Is Best for Your Trip?",
+    metaTitle: "North or South Goa: Which Is Better? (2026 Comparison)",
     metaDescription:
-      "North Goa or South Goa - which one actually matches your travel style? Village-by-village breakdown with honest trade-offs for every type of trip.",
+      "North or South Goa? Side-by-side comparison of beaches, nightlife, airports, prices and stays, plus which villages suit friends, couples, families and workations.",
     heroImage: "/blog/goa-villa-north-vs-south-cover.webp",
     publishedDate: "2026-07-06",
     readTime: "9 Min Read",

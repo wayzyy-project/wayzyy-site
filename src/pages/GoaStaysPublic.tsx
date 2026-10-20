@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Loader2, MapPin, Users, BedDouble, Phone } from "lucide-react";
@@ -264,7 +265,7 @@ export default function GoaStaysPublic() {
                   <>
                     <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100">
                       <img
-                        src={l.image}
+                        src={img(l.image, 640)}
                         alt={l.title}
                         loading="lazy"
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"

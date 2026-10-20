@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Heart, Pencil, Plus, Trash2 } from "lucide-react";
@@ -178,8 +179,8 @@ export default function Wishlists() {
                         <button key={c.id} onClick={() => setParams({ c: c.id })} className="group text-left">
                           <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-0.5 overflow-hidden rounded-2xl bg-muted">
                             {covers.length === 0 && <div className="col-span-2 row-span-2 flex items-center justify-center"><Heart className="h-8 w-8 text-muted-foreground" /></div>}
-                            {covers.length > 0 && covers.length < 4 && <img src={covers[0]} alt="" loading="lazy" className="col-span-2 row-span-2 h-full w-full object-cover" />}
-                            {covers.length === 4 && covers.map((src, i) => <img key={i} src={src} alt="" loading="lazy" className="h-full w-full object-cover" />)}
+                            {covers.length > 0 && covers.length < 4 && <img src={img(covers[0], 640)} alt="" loading="lazy" className="col-span-2 row-span-2 h-full w-full object-cover" />}
+                            {covers.length === 4 && covers.map((src, i) => <img key={i} src={img(src, 320)} alt="" loading="lazy" className="h-full w-full object-cover" />)}
                           </div>
                           <p className="mt-2 truncate text-sm font-semibold group-hover:text-[#FF6B00]">{c.name}</p>
                           <p className="text-xs text-muted-foreground">{c.propertyIds.length} saved</p>

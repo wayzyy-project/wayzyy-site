@@ -1,3 +1,4 @@
+import { img } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -679,7 +680,7 @@ export default function PropertyDetail() {
                 className="md:col-span-2 h-full cursor-pointer overflow-hidden group"
               >
                 <img
-                  src={images[0]}
+                  src={img(images[0], 1400)}
                   alt={property.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -687,7 +688,7 @@ export default function PropertyDetail() {
 
               {/* 4 Secondary Photos (Right Grid 2x2) */}
               <div className="hidden md:grid md:col-span-2 grid-cols-2 gap-2 h-full">
-                {images.slice(1, 5).map((img, idx) => (
+                {images.slice(1, 5).map((photo, idx) => (
                   <div
                     key={idx}
                     onClick={() => {
@@ -697,7 +698,7 @@ export default function PropertyDetail() {
                     className="h-[236px] cursor-pointer overflow-hidden group"
                   >
                     <img
-                      src={img}
+                      src={img(photo, 900)}
                       alt={`${property.title} photo ${idx + 2}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -796,7 +797,7 @@ export default function PropertyDetail() {
                         <div className="aspect-square w-40 overflow-hidden rounded-xl bg-muted">
                           {listing.image && (
                             <img
-                              src={listing.image}
+                              src={img(listing.image, 640)}
                               alt={listing.title}
                               className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
@@ -1232,7 +1233,7 @@ export default function PropertyDetail() {
 
             <div className="flex-1 relative flex items-center justify-center overflow-hidden">
               <img
-                src={images[lightboxIndex]}
+                src={img(images[lightboxIndex], 1800)}
                 alt={`Photo ${lightboxIndex + 1}`}
                 className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
               />
@@ -1254,7 +1255,7 @@ export default function PropertyDetail() {
 
             {/* Thumbnail Strip */}
             <div className="flex items-center justify-center gap-2 overflow-x-auto py-4">
-              {images.map((img, i) => (
+              {images.map((photo, i) => (
                 <button
                   key={i}
                   onClick={() => setLightboxIndex(i)}
@@ -1262,7 +1263,7 @@ export default function PropertyDetail() {
                     i === lightboxIndex ? "border-[#FF6B00] scale-105" : "border-transparent opacity-50"
                   }`}
                 >
-                  <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                  <img src={img(photo, 200)} alt="thumb" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

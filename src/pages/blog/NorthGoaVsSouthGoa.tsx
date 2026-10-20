@@ -86,6 +86,24 @@ export default function NorthGoaVsSouthGoa() {
       extraJsonLd={faqJsonLd}
     >
       <h2>The Short Answer</h2>
+      <div className="overflow-x-auto">
+        <table>
+          <caption>North Goa vs South Goa at a glance</caption>
+          <thead>
+            <tr><th></th><th>North Goa</th><th>South Goa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Best for</td><td>Friends, first-timers, nightlife, cafe-hopping, workations</td><td>Couples, families, slow travel, quiet beaches</td></tr>
+            <tr><td>Vibe</td><td>Busy and social, lots to do within 20 minutes</td><td>Calm and spread out, long empty stretches of sand</td></tr>
+            <tr><td>Beaches</td><td>Vagator, Anjuna, Morjim, Mandrem, Candolim</td><td>Palolem, Agonda, Patnem, Cola, Galgibaga</td></tr>
+            <tr><td>Nightlife</td><td>Beach clubs, live music, late nights</td><td>A few beach bars and the Palolem silent disco</td></tr>
+            <tr><td>Nearest airport</td><td>Mopa (MOIA), about 30–45 min to most villages</td><td>Dabolim (GOI), about 45–75 min to the southern beaches</td></tr>
+            <tr><td>Getting around</td><td>Easy by scooter, villages are close together</td><td>Longer drives between beaches, a car helps</td></tr>
+            <tr><td>Stays</td><td>Villas with pools in Assagao, Siolim and Anjuna, plenty of choice</td><td>Beach huts, homestays and fewer, more secluded villas</td></tr>
+            <tr><td>Peak season prices</td><td>Higher, especially around Christmas and New Year</td><td>Usually a little lower for a similar stay</td></tr>
+          </tbody>
+        </table>
+      </div>
       <p>
         If you're visiting Goa for the first time, travelling with friends, or looking for cafés, beach clubs, nightlife
         and plenty of places to explore without driving too far every day, North Goa will probably suit you better.
