@@ -49,6 +49,7 @@ export function SiteFooter() {
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/siolim/stays">Siolim</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/villas">Villas</Link>
               <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/pools">With a pool</Link>
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/goa/stays/workation">Workation stays</Link>
             </div>
 
             {/* Guides: links every page to the travel and host guides Google

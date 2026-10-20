@@ -73,7 +73,15 @@ export interface CategoryDef {
   name: string;     // heading text: "Villas and houses"
   inGoa: string;    // "Villas and houses in Goa"
   test: (p: PlaceListing) => boolean;
+  // Optional overrides for categories that answer a specific search (e.g. "goa workation").
+  title?: string;
+  description?: (n: number, min: string) => string;
+  intro?: string[];
+  faqs?: Faq[];
 }
+
+const amenityText = (p: PlaceListing) => (p.amenities ?? []).join(" ").toLowerCase();
+const isWorkFriendly = (p: PlaceListing) => /wi-?fi/.test(amenityText(p)) && /workspace|desk/.test(amenityText(p));
 
 const hasPool = (p: PlaceListing) =>
   (p.amenities ?? []).some((a) => /pool/i.test(a)) || /pool/i.test(p.title);
@@ -83,6 +91,21 @@ export const CATEGORIES: CategoryDef[] = [
   { slug: "pools", name: "Stays with a pool", inGoa: "Stays with a pool in Goa", test: hasPool },
   { slug: "apartments", name: "Apartments", inGoa: "Apartments in Goa", test: (p) => /apartment|flat|\bapt\b|studio|1\s?bhk/i.test(p.title) },
   { slug: "pet-friendly", name: "Pet-friendly stays", inGoa: "Pet-friendly stays in Goa", test: (p) => p.pets_allowed === true },
+  {
+    slug: "workation", name: "Workation stays", inGoa: "Workation stays in Goa", test: isWorkFriendly,
+    title: "Goa Workation Stays with WiFi & a Workspace (2026) | Wayzyy",
+    description: (n, min) => `${n} work-friendly villas and homes in Goa with WiFi and a dedicated workspace, from ${min} a night. Long-stay discounts where hosts offer them.`,
+    intro: [
+      "Every stay on this page lists both WiFi and a workspace, so you are not working from a bed or a café all month. Ask the host for a WiFi speed test and whether there is power backup before you book, especially for June to September, when monsoon storms cause short outages.",
+      "For a workation, Assagao, Siolim and Anjuna are the easiest base: quiet lanes, good cafés and coworking spaces within 15 minutes by scooter. Some hosts offer a discount for stays of 7 nights or more, or 28 nights or more; if they do, it is applied automatically at checkout.",
+    ],
+    faqs: [
+      { q: "Is Goa good for a workation?", a: "Yes. North Goa villages like Assagao, Siolim and Anjuna have fibre internet, work-friendly cafés and coworking spaces. October to May is the most reliable season; during the monsoon (June to September) it is quieter and cheaper, but plan for occasional power and internet cuts." },
+      { q: "How do I check the WiFi before I book?", a: "Message the host from the listing and ask for a recent speed test screenshot and whether the router has power backup. For video calls, look for at least 50 Mbps." },
+      { q: "Do stays give a discount for a month-long workation?", a: "Some hosts set a weekly discount (7+ nights) or a monthly discount (28+ nights). Pick your dates on a listing and the discount is shown in the price before you pay." },
+      { q: "Where should I stay in Goa for a workation?", a: "Assagao and Siolim for quiet and cafés, Anjuna and Vagator if you want a social scene after work, and Palolem or Agonda in South Goa if you want the beach and do not mind fewer coworking options." },
+    ],
+  },
   { slug: "for-groups", name: "Stays for groups", inGoa: "Stays for groups in Goa", test: (p) => (p.max_guests ?? 0) >= 6 },
 ];
 
@@ -154,7 +177,7 @@ export function buildPlacePage(all: PlaceListing[], placeSlug: string, catSlug?:
   const path = cat ? `/goa/stays/${cat.slug}` : `/${placeSlug}/stays`;
 
   const h1 = cat ? cat.inGoa : `Holiday rentals in ${scope.kind === "area" ? `${scope.name}, Goa` : scope.name}`;
-  const title = cat
+  const title = cat?.title ? cat.title : cat
     ? `${cat.inGoa} | Wayzyy`
     : scope.kind === "goa"
       ? "Holiday Rentals in Goa | Villas, Pools & Homes | Wayzyy"
@@ -163,7 +186,7 @@ export function buildPlacePage(all: PlaceListing[], placeSlug: string, catSlug?:
         : `Holiday Rentals in ${scope.name}, Goa | Wayzyy`;
 
   const highlight = poolN > 0 ? `${poolN} with a pool` : groupN > 0 ? `${groupN} that sleep 6 or more` : "homes for every kind of trip";
-  const description = n
+  const description = n && cat?.description ? cat.description(n, inr(min)) : n
     ? `${plural(n, "place")} to stay in ${where}, from ${inr(min)} a night. ${highlight}. Prices include Wayzyy's service fee; GST is added at checkout.`
     : `Holiday rentals in ${where} on Wayzyy.`;
 
@@ -179,10 +202,11 @@ export function buildPlacePage(all: PlaceListing[], placeSlug: string, catSlug?:
     if (groupN) bits.push(`${groupN} ${groupN === 1 ? "sleeps" : "sleep"} 6 guests or more`);
     if (petN) bits.push(`${petN} ${petN === 1 ? "welcomes" : "welcome"} pets`);
     if (bits.length) intro.push(`${bits.join(", ")}.`);
+    if (cat?.intro) intro.push(...cat.intro);
     intro.push("Every stay shows the full price before you decide, and hosts on Wayzyy keep 100% of their nightly rate.");
   }
 
-  const faqs: Faq[] = [];
+  const faqs: Faq[] = [...(n && cat?.faqs ? cat.faqs : [])];
   if (n) {
     faqs.push({
       q: `How much does it cost to stay in ${where}?`,

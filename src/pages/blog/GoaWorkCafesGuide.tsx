@@ -244,6 +244,7 @@ export default function GoaWorkCafesGuide() {
       {/* 5. Wi-Fi & Power Backup Checklist */}
       <div className="space-y-6 mt-12">
         <h2 className="font-display text-2xl text-foreground">Finding a Work Cafe with Wi-Fi &amp; Power Backup Near You</h2>
+        <p className="text-muted-foreground">Staying a week or longer? See our <a href="/goa/stays/workation" className="text-ember underline">Goa workation stays</a> with WiFi and a dedicated workspace, so the café is a choice, not a necessity.</p>
         <p>
           When searching for a <strong>work cafe with Wi-Fi near me</strong> or reliable <strong>places to work with Wi-Fi near me</strong> in Goa, general coffee quality is only half the equation. Infrastructure is what keeps your work day running smoothly.
         </p>

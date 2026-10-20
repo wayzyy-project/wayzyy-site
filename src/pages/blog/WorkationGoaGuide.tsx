@@ -230,6 +230,7 @@ export default function WorkationGoaGuide() {
       </p>
 
       <h2>Villa, Café or Coworking? Here's What Actually Works</h2>
+      <p>Want to skip the searching? Our <a href="/goa/stays/workation">Goa workation stays</a> page lists only homes with both WiFi and a dedicated workspace.</p>
       <p>After speaking to people who've spent weeks working remotely in Goa, a pattern starts to emerge.</p>
       <p>Most successful workations don't rely on just one place.</p>
       <p>A typical week often looks something like this:</p>
