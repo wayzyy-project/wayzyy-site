@@ -426,6 +426,18 @@ export default function PalolemBeachGuide() {
       </div>
 
       <div className="mt-12 space-y-6">
+        <h2 className="font-display text-2xl text-foreground">How to Get to Palolem (and When to Go)</h2>
+        <ul className="list-disc pl-6 space-y-2">
+          <li><strong>By train:</strong> Canacona station is about 3 km from the beach, a short auto ride. Madgaon (Margao), around 40 km away, has far more trains.</li>
+          <li><strong>From Dabolim airport (GOI):</strong> roughly 65 km, usually 1.5 to 2 hours by taxi.</li>
+          <li><strong>From Mopa airport (MOIA):</strong> about 140 km, plan for 3 hours or more. If you have a choice, fly into Dabolim for South Goa.</li>
+          <li><strong>Getting around:</strong> rent a scooter in Palolem to reach Patnem, Agonda and Galgibaga; boats to Butterfly and Honeymoon beaches leave from the beach itself.</li>
+          <li><strong>Best time:</strong> November to March for calm sea and full shacks. Many beach huts are dismantled from June to September, when the monsoon makes the sea rough.</li>
+        </ul>
+        <p>Planning a boat trip? See our <a href="/blog/butterfly-beach-goa-guide">Butterfly Beach guide</a> for current boat prices.</p>
+      </div>
+
+      <div className="mt-12 space-y-6">
         <h2 className="font-display text-2xl text-foreground">Final Thoughts</h2>
         <p>
           Palolem has earned its reputation as one of Goa's most loved beaches - not because it's the quietest or the busiest, but because it offers the best balance of both.

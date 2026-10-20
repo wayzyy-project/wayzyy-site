@@ -237,6 +237,15 @@ export default function SiolimVillasGuide() {
         without many of the compromises that come with staying in its busiest tourist areas.
       </p>
 
+      <h2>Places to Visit In and Around Siolim</h2>
+      <ul>
+        <li><strong>St. Anthony's Church</strong> - the village's landmark church, and the centre of the colourful Sao Joao festival in late June.</li>
+        <li><strong>The Chapora riverfront</strong> - quiet sunsets and river views; several of Siolim's nicest cafés sit along the water.</li>
+        <li><strong>Siolim bridge</strong> - crosses to Morjim, Ashwem and Mandrem, so the quieter beaches are 10 to 15 minutes away.</li>
+        <li><strong>Chapora Fort and Vagator</strong> - about 15 to 20 minutes by scooter for the classic view over the river mouth.</li>
+        <li><strong>Assagao and Anjuna</strong> - cafés, restaurants and nightlife within 20 minutes, so you can stay quiet and still go out.</li>
+      </ul>
+      <p>The best time to visit Siolim is November to March. In June the village comes alive for Sao Joao, but expect monsoon rain.</p>
       <h2>So, Is Siolim Worth Staying In?</h2>
       <p>
         If you're looking for the loudest nightlife, packed beaches right outside your doorstep and streets that stay busy until

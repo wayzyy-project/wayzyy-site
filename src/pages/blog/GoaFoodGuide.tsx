@@ -272,6 +272,32 @@ export default function GoaFoodGuide() {
         </p>
       </div>
 
+      {/* Dishes and classic restaurants */}
+      <div className="space-y-6 mt-12 border-t border-border pt-10">
+        <h2 className="font-display text-2xl text-foreground">Goan Dishes You Should Try at Least Once</h2>
+        <ul className="list-disc pl-6 space-y-2">
+          <li><strong>Fish curry rice</strong> - the everyday Goan meal: a coconut and kokum curry with the day's catch, served with red rice. Order it as a thali at lunch.</li>
+          <li><strong>Xacuti</strong> - chicken or mutton in a dark, roasted-coconut gravy with poppy seeds and a dozen spices.</li>
+          <li><strong>Cafreal</strong> - chicken marinated in green chilli, coriander and lime, then pan-fried. Best with a fresh poi.</li>
+          <li><strong>Vindaloo and sorpotel</strong> - Goan Catholic pork dishes, sharp with vinegar and Kashmiri chilli. Sorpotel tastes better the day after it is made.</li>
+          <li><strong>Chouriço (Goan sausage)</strong> - spicy pork sausage, often eaten in a pão (bread roll) as a snack.</li>
+          <li><strong>Ros omelette</strong> - an omelette drowned in chicken or chickpea xacuti gravy, a late-night street food in Panjim and Margao.</li>
+          <li><strong>Prawn balchão</strong> - a hot, tangy prawn pickle-curry you will want to take home.</li>
+          <li><strong>Bebinca</strong> - the layered coconut-milk and egg dessert, made slowly layer by layer. Dodol is its sticky, jaggery-based cousin.</li>
+          <li><strong>Feni</strong> - the local spirit, made from cashew apple or coconut toddy. Try it with lime soda before you try it neat.</li>
+        </ul>
+        <h2 className="font-display text-2xl text-foreground">Classic Places for Authentic Goan Food</h2>
+        <p>These have been local favourites for years. Opening hours change, so check before you go.</p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li><strong>Mum's Kitchen, Panjim</strong> - recipes collected from Goan home kitchens; good for trying several classics in one meal.</li>
+          <li><strong>Viva Panjim, Fontainhas</strong> - a small family-run spot in Panjim's Latin quarter, known for xacuti and fish dishes.</li>
+          <li><strong>Ritz Classic, Panjim</strong> - busy at lunch for its fish thali.</li>
+          <li><strong>Martin's Corner, Betalbatim</strong> - a South Goa institution for seafood and Goan dishes.</li>
+          <li><strong>Vinayak Family Restaurant, Assagao</strong> - an unpretentious North Goa favourite for fish thali and seafood.</li>
+        </ul>
+        <p>Staying near Fontainhas? Our <a href="/blog/fontainhas-goa-guide">Fontainhas guide</a> covers the area's bakeries and cafés too.</p>
+      </div>
+
       {/* Homestay vs hotel experience */}
       <div className="space-y-6 mt-12 border-t border-border pt-10">
         <h2 className="font-display text-2xl text-foreground">Great Food Is About More Than Just Choosing the Right Restaurant</h2>

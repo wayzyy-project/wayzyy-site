@@ -534,6 +534,13 @@ export default function MorjimBeachGuide() {
         difficult to understand why.
       </p>
 
+      <h2>Things to See Around Morjim</h2>
+      <ul>
+        <li><strong>The turtle nesting stretch</strong> - Morjim is one of Goa's Olive Ridley nesting beaches. Nesting areas are protected and fenced off in season (roughly November to March), so keep lights low at night and follow the forest department's signs.</li>
+        <li><strong>The Chapora river estuary</strong> - the southern end of the beach meets the river; good for birdwatching and sunset.</li>
+        <li><strong>Ashwem and Mandrem</strong> - quieter beaches 5 to 15 minutes north, with good cafés.</li>
+        <li><strong>Chapora Fort</strong> - across the Siolim bridge, about 20 minutes away.</li>
+      </ul>
       <h2>Plan Your Goa Trip</h2>
       <p>
         If you're still deciding where to stay or how to plan your trip, these guides will help you make the most of your time in Goa:

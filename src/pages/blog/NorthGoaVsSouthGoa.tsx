@@ -521,6 +521,13 @@ export default function NorthGoaVsSouthGoa() {
       <p>The only thing we can do is help you find the version of Goa that feels most like you.</p>
       <p>The rest usually happens on its own.</p>
 
+      <h2>Getting Between North and South Goa</h2>
+      <p>
+        North and South Goa are further apart than they look on a map. Anjuna to Palolem is roughly 90 to 100 km, which is 2.5 to 3 hours by car once traffic is counted. Panjim sits in the middle: about 45 minutes from the northern beaches and 1.5 to 2 hours from Palolem.
+      </p>
+      <p>
+        If you want to see both, split your stay (for example 3 nights in the north and 3 in the south) rather than day-tripping. And pick your airport to match: Mopa is closer to North Goa, Dabolim to South Goa.
+      </p>
       <h2>One Last Tip Before You Book</h2>
       <p>By now you've probably realised there isn't a universal answer to the &quot;North Goa or South Goa?&quot; debate.</p>
       <p>
