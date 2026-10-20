@@ -15,9 +15,11 @@ interface PropertyCardProps {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
   property,
-  nights = 1,
+  nights: nightsProp,
   includeAllFees = true,
 }) => {
+  // Picked dates win; otherwise price the host's minimum stay (1 night unless they set more).
+  const nights = nightsProp ?? Math.max(1, property.minNights ?? 1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
 

@@ -119,6 +119,7 @@ export default function ExploreStays() {
 
   const [filters, setFilters] = useState<FilterOptions>(DEFAULT_FILTERS);
   // Cards show the per-night price until the guest picks dates, then the stay total.
+  const datesPicked = !!(searchState.checkIn && searchState.checkOut);
   const stayNights = searchState.checkIn && searchState.checkOut
     ? Math.max(1, Math.round((searchState.checkOut.getTime() - searchState.checkIn.getTime()) / 86400000))
     : 1;
@@ -158,6 +159,7 @@ export default function ExploreStays() {
               category: (p.category?.toLowerCase() || "apartments") as any,
               vibe: p.vibe ?? null,
               showcase: p.status !== "active" && !!p.showcase,
+              minNights: Number(p.min_nights) || 1,
               hasSelfCheckIn: !!p.self_check_in,
               allowsPets: !!p.pets_allowed,
               isRoom: /room/i.test(p.space_type ?? ""),
@@ -379,7 +381,7 @@ export default function ExploreStays() {
                   <PropertyCard
                     key={property.id}
                     property={property}
-                    nights={stayNights}
+                    nights={datesPicked ? stayNights : undefined}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -429,7 +431,7 @@ export default function ExploreStays() {
                   <PropertyCard
                     key={property.id}
                     property={property}
-                    nights={stayNights}
+                    nights={datesPicked ? stayNights : undefined}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -518,7 +520,7 @@ export default function ExploreStays() {
                                 <span className="text-xs font-bold text-ember">Contact us to book</span>
                               ) : (
                               <span className="font-price text-xs font-bold text-foreground">
-                                {p.currency}{(p.pricePerNight * stayNights).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{stayNights > 1 ? `for ${stayNights} nights` : "night"}</span>
+                                {p.currency}{(p.pricePerNight * (datesPicked ? stayNights : p.minNights ?? 1)).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{(datesPicked ? stayNights : p.minNights ?? 1) > 1 ? `for ${datesPicked ? stayNights : p.minNights} nights` : "night"}</span>
                               </span>
                               )}
                               <Link

@@ -29,6 +29,7 @@ function toListing(p: any): PropertyListing {
     description: p.description || "",
     category: (p.category?.toLowerCase() || "apartments") as any,
     showcase: p.status !== "active" && !!p.showcase,
+    minNights: Number(p.min_nights) || 1,
     propertyType: p.space_type ? `${p.space_type} in ${p.city || "Goa"}` : `Entire place in ${p.city || "Goa"}`,
     city: p.city || "Goa",
     area: p.location || p.city || "Goa",
