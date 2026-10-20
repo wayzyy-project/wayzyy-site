@@ -15,7 +15,7 @@ interface PropertyCardProps {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
   property,
-  nights = 2,
+  nights = 1,
   includeAllFees = true,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

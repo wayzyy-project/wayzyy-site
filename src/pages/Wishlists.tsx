@@ -133,7 +133,7 @@ export default function Wishlists() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-6 gap-y-10">
-                  {open.propertyIds.map((id) => byId[id] && <PropertyCard key={id} property={byId[id]} nights={2} />)}
+                  {open.propertyIds.map((id) => byId[id] && <PropertyCard key={id} property={byId[id]} />)}
                 </div>
               )}
             </>
@@ -157,7 +157,7 @@ export default function Wishlists() {
                   <h2 className="text-lg font-bold">Recently viewed</h2>
                   <div className="flex gap-5 overflow-x-auto pb-2 no-scrollbar">
                     {recentListings.map((p) => (
-                      <div key={p.id} className="w-60 shrink-0"><PropertyCard property={p} nights={2} /></div>
+                      <div key={p.id} className="w-60 shrink-0"><PropertyCard property={p} /></div>
                     ))}
                   </div>
                 </section>

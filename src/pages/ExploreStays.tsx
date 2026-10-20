@@ -118,6 +118,10 @@ export default function ExploreStays() {
   });
 
   const [filters, setFilters] = useState<FilterOptions>(DEFAULT_FILTERS);
+  // Cards show the per-night price until the guest picks dates, then the stay total.
+  const stayNights = searchState.checkIn && searchState.checkOut
+    ? Math.max(1, Math.round((searchState.checkOut.getTime() - searchState.checkIn.getTime()) / 86400000))
+    : 1;
 
   // Fetch live properties from Supabase
   useEffect(() => {
@@ -375,7 +379,7 @@ export default function ExploreStays() {
                   <PropertyCard
                     key={property.id}
                     property={property}
-                    nights={2}
+                    nights={stayNights}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -425,7 +429,7 @@ export default function ExploreStays() {
                   <PropertyCard
                     key={property.id}
                     property={property}
-                    nights={2}
+                    nights={stayNights}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -514,7 +518,7 @@ export default function ExploreStays() {
                                 <span className="text-xs font-bold text-ember">Contact us to book</span>
                               ) : (
                               <span className="font-price text-xs font-bold text-foreground">
-                                {p.currency}{(p.pricePerNight * 2).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">for 2 nights</span>
+                                {p.currency}{(p.pricePerNight * stayNights).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{stayNights > 1 ? `for ${stayNights} nights` : "night"}</span>
                               </span>
                               )}
                               <Link
