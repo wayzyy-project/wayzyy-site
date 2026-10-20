@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "why-goa-airbnb-earnings-are-falling",
+    title: "Why Goa Airbnb Earnings Are Falling (and How Hosts Can Keep More)",
+    description:
+      "From ₹40,000 to ₹11,000 a night: what the numbers say about falling Airbnb earnings in Goa, why it's happening, and five things hosts can do about it.",
+    metaTitle: "Why Goa Airbnb Earnings Are Falling (2026) | Wayzyy",
+    metaDescription:
+      "Goa Airbnb revenue is down 7-14% as listings surge. Why villa earnings are falling, what the 15.5% fee costs, and how Goa hosts can keep more.",
+    heroImage: "/illustrations/host-traveler-split.webp",
+    publishedDate: "2026-10-21",
+    readTime: "7 Min Read",
+  },
+  {
     slug: "airbnb-pricing-update-15-percent-fee-lowest-price",
     title: "Airbnb Pricing Update (2026): What the 15.5% Fee Shift Means and Why Wayzyy Is Cheaper for the Same Stay",
     description:

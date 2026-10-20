@@ -56,6 +56,7 @@ import GalgibagaBeachGuide from "@/pages/blog/GalgibagaBeachGuide";
 import PalolemBeachGuide from "@/pages/blog/PalolemBeachGuide";
 import WhereToStayInSouthGoa from "@/pages/blog/WhereToStayInSouthGoa";
 import RealCostOfAirbnbFee from "@/pages/blog/RealCostOfAirbnbFee";
+import GoaAirbnbEarningsFalling from "@/pages/blog/GoaAirbnbEarningsFalling";
 import AgondaBeachGuide from "@/pages/blog/AgondaBeachGuide";
 import PatnemBeachGuide from "@/pages/blog/PatnemBeachGuide";
 import ColaBeachGuide from "@/pages/blog/ColaBeachGuide";
@@ -146,6 +147,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/palolem-beach-south-goa-guide": PalolemBeachGuide,
   "/blog/where-to-stay-in-south-goa": WhereToStayInSouthGoa,
   "/blog/real-cost-of-airbnb-fee": RealCostOfAirbnbFee,
+  "/blog/why-goa-airbnb-earnings-are-falling": GoaAirbnbEarningsFalling,
   "/blog/agonda-beach-south-goa-guide": AgondaBeachGuide,
   "/blog/patnem-beach-south-goa-guide": PatnemBeachGuide,
   "/blog/cola-beach-goa-guide": ColaBeachGuide,

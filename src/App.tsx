@@ -74,6 +74,7 @@ const GalgibagaBeachGuide = lazy(() => import("./pages/blog/GalgibagaBeachGuide"
 const PalolemBeachGuide = lazy(() => import("./pages/blog/PalolemBeachGuide"));
 const WhereToStayInSouthGoa = lazy(() => import("./pages/blog/WhereToStayInSouthGoa"));
 const RealCostOfAirbnbFee = lazy(() => import("./pages/blog/RealCostOfAirbnbFee"));
+const GoaAirbnbEarningsFalling = lazy(() => import("./pages/blog/GoaAirbnbEarningsFalling"));
 const AgondaBeachGuide = lazy(() => import("./pages/blog/AgondaBeachGuide"));
 const PatnemBeachGuide = lazy(() => import("./pages/blog/PatnemBeachGuide"));
 const ColaBeachGuide = lazy(() => import("./pages/blog/ColaBeachGuide"));
@@ -260,6 +261,7 @@ const App = () => (
               <Route path="/blog/palolem-beach-south-goa-guide" element={<PalolemBeachGuide />} />
               <Route path="/blog/where-to-stay-in-south-goa" element={<WhereToStayInSouthGoa />} />
               <Route path="/blog/real-cost-of-airbnb-fee" element={<RealCostOfAirbnbFee />} />
+              <Route path="/blog/why-goa-airbnb-earnings-are-falling" element={<GoaAirbnbEarningsFalling />} />
               <Route path="/blog/agonda-beach-south-goa-guide" element={<AgondaBeachGuide />} />
               <Route path="/blog/patnem-beach-south-goa-guide" element={<PatnemBeachGuide />} />
               <Route path="/blog/cola-beach-goa-guide" element={<ColaBeachGuide />} />

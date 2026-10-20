@@ -293,7 +293,7 @@ export default function GoaFoodGuide() {
           <li><strong>Viva Panjim, Fontainhas</strong> - a small family-run spot in Panjim's Latin quarter, known for xacuti and fish dishes.</li>
           <li><strong>Ritz Classic, Panjim</strong> - busy at lunch for its fish thali.</li>
           <li><strong>Martin's Corner, Betalbatim</strong> - a South Goa institution for seafood and Goan dishes.</li>
-          <li><strong>Vinayak Family Restaurant, Assagao</strong> - an unpretentious North Goa favourite for fish thali and seafood.</li>
+          <li><strong>Vinayak Family Restaurant, Assagao</strong> - an unpretentious North Goa favourite for fish thali and seafood (closed one weekday, so check before you go).</li>
         </ul>
         <p>Staying near Fontainhas? Our <a href="/blog/fontainhas-goa-guide">Fontainhas guide</a> covers the area's bakeries and cafés too.</p>
       </div>
