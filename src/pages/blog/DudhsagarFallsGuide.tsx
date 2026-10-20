@@ -40,7 +40,7 @@ const faqJsonLd = {
       "name": "Is the Dudhsagar Jeep Safari worth it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For most travellers, yes. The safari is not only the easiest way to reach the waterfall but also part of the experience itself. Driving through forest tracks, crossing streams, and travelling inside the wildlife sanctuary adds to the overall visit rather than simply serving as transportation."
+        "text": "For most travellers, yes. As of October 2026, the Dudhsagar Tour Operators Association charges ₹700 per seat (children aged 4 and above pay the full fare), or ₹3,500 for a private 7-seat jeep, booked at their counter in Collem; life jackets and forest fees are extra. Jeeps do not run in the monsoon (roughly June to September) and restarted in early October 2026. The safari is not only the easiest way to reach the waterfall but also part of the experience itself. Driving through forest tracks, crossing streams, and travelling inside the wildlife sanctuary adds to the overall visit rather than simply serving as transportation."
       }
     },
     {

@@ -47,7 +47,7 @@ const faqJsonLd = {
       name: "What are the entry fees for the temple?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Entry to Tambdi Surla Temple is free for all visitors. Voluntary donations are welcomed for site maintenance.",
+        text: "Entry to Tambdi Surla Temple is free for all visitors. Visitors driving in have reported a small forest checkpost fee (around ₹20 per car) on the way through the Bhagwan Mahavir sanctuary. Voluntary donations are welcomed for site maintenance.",
       },
     },
     {
@@ -317,7 +317,7 @@ export default function TambdiSurlaTempleGuide() {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <Clock className="h-5 w-5 text-ember shrink-0 mt-0.5" />
-              <span><strong>Timings:</strong> 7:00 AM to 5:30 PM daily.</span>
+              <span><strong>Timings:</strong> Open daily in daylight hours, roughly 7:00 AM to 5:30 PM (some sources say it opens at 8:30 AM, so aim to arrive after 9 AM).</span>
             </li>
             <li className="flex items-start gap-2">
               <ShieldCheck className="h-5 w-5 text-ember shrink-0 mt-0.5" />

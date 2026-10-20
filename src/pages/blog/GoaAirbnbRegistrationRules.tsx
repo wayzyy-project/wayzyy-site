@@ -39,7 +39,7 @@ const faqJsonLd = {
       name: "How much does it cost to register a homestay or villa in Goa?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Roughly ₹1,000 a year for most Homestay or B&B registrations, plus a variable Fire NOC fee based on property size. Confirm the current fee on goaonline.gov.in, since it's subject to revision.",
+        text: "₹1,000 a year for most Homestay or B&B registrations (per the Goa Homestay Policy, and the policy reimburses this fee for the first year), plus a variable Fire NOC fee based on property size. Confirm the current fee on goaonline.gov.in, since it's subject to revision.",
       },
     },
     {
@@ -137,7 +137,7 @@ export default function GoaAirbnbRegistrationRules() {
 
         <h2 className="font-display text-2xl text-foreground mt-8">What it actually costs</h2>
         <p>
-          For most Homestay or B&amp;B registrations, the government fee is roughly ₹1,000 a year, plus a variable Fire NOC fee that scales with the size of the property. That's the official cost. The real cost, for a lot of hosts, is the 90-day wait and the paperwork - proof of ownership or a rental agreement, identity documents, a site plan - not the fee itself.
+          For most Homestay or B&amp;B registrations, the government fee is ₹1,000 a year under the Goa Homestay Policy (which reimburses it for the first year), plus a variable Fire NOC fee that scales with the size of the property. That's the official cost. The real cost, for a lot of hosts, is the 90-day wait and the paperwork - proof of ownership or a rental agreement, identity documents, a site plan - not the fee itself.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">The documents you'll actually need</h2>

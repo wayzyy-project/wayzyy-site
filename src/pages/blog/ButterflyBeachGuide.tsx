@@ -40,7 +40,7 @@ const faqJsonLd = {
       "name": "How much does a boat ride to Butterfly Beach cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Boat prices vary depending on the season, demand, and whether you're booking a private ride or joining a shared tour. Many operators combine Butterfly Beach with dolphin spotting and nearby coastal attractions, so it's worth comparing a few options before booking."
+        "text": "As of 2026, shared boats from Palolem usually cost about ₹500 to ₹1,000 per person for a 2 to 3 hour trip that includes dolphin spotting and stops at Butterfly and Honeymoon beaches; packaged trips can cost up to around ₹1,500. Agree the price and the stops before you board. Boat prices vary depending on the season, demand, and whether you're booking a private ride or joining a shared tour. Many operators combine Butterfly Beach with dolphin spotting and nearby coastal attractions, so it's worth comparing a few options before booking."
       }
     },
     {
