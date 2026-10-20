@@ -106,6 +106,20 @@ export const CATEGORIES: CategoryDef[] = [
       { q: "Where should I stay in Goa for a workation?", a: "Assagao and Siolim for quiet and cafés, Anjuna and Vagator if you want a social scene after work, and Palolem or Agonda in South Goa if you want the beach and do not mind fewer coworking options." },
     ],
   },
+  {
+    slug: "under-5000", name: "Stays under ₹5,000", inGoa: "Stays in Goa under ₹5,000 a night",
+    test: (p) => guestPrice(p.price_per_night) < 5000,
+    title: "Budget Villas & Homes in Goa Under ₹5,000 a Night | Wayzyy",
+    description: (n, min) => `${n} homes and villas in Goa under ₹5,000 a night (from ${min}), with the full price shown before you book.`,
+    intro: ["Every stay here costs less than ₹5,000 a night including Wayzyy's service fee. Weekend and festival dates can cost more, so pick your dates on a listing to see the exact total."],
+  },
+  {
+    slug: "pool-villas-for-10", name: "Pool villas for 10+ guests", inGoa: "Pool villas in Goa for 10 or more guests",
+    test: (p) => (p.max_guests ?? 0) >= 10 && hasPool(p),
+    title: "Villas in Goa with a Pool for 10+ People (Groups & Parties) | Wayzyy",
+    description: (n, min) => `${n} villas in Goa with a pool that sleep 10 or more, from ${min} a night. Good for groups, family reunions and celebrations.`,
+    intro: ["Every villa here has a pool and sleeps at least 10 guests. Check each listing's house rules for parties, music hours and visitor limits before you book, as many Goa villages enforce noise rules after 10 pm."],
+  },
   { slug: "for-groups", name: "Stays for groups", inGoa: "Stays for groups in Goa", test: (p) => (p.max_guests ?? 0) >= 6 },
 ];
 
