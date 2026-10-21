@@ -840,7 +840,7 @@ export default function PropertyDetail() {
                 <h3 className="text-lg font-bold font-display text-foreground">About this space</h3>
                 <div className={`text-sm text-muted-foreground leading-relaxed space-y-3 ${descriptionExpanded ? "" : "line-clamp-4"}`}>
                   {property.description.split("\n\n").map((para, idx) => (
-                    <p key={idx}>{para}</p>
+                    <p key={idx} className="whitespace-pre-line">{para}</p>
                   ))}
                 </div>
                 <button
