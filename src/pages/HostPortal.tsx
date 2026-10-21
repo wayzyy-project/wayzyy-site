@@ -1960,7 +1960,7 @@ export default function HostPortal() {
               {view === "dashboard" ? "Your hosting" : view === "manage" ? "Manage your listing" : "List your property"}
             </h1>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed max-w-xl">
-              Same platform, same review process, same database as the Wayzyy app - host from
+              Your listings, bookings and messages stay in sync with the Wayzyy app - host from
               wherever's easiest for you.
             </p>
           </div>

@@ -164,7 +164,7 @@ export default function ExploreStays() {
               minNights: Number(p.min_nights) || 1,
               hasSelfCheckIn: !!p.self_check_in,
               allowsPets: !!p.pets_allowed,
-              isRoom: /room/i.test(p.space_type ?? ""),
+              isRoom: /room|^private$|^shared$/i.test(p.space_type ?? ""), // stored as "private"/"shared" codes too
               propertyType: spaceTypeLine(p.space_type, p.city, "India"),
               city: p.city || "Goa",
               // properties has 'location', not 'street'/'lat'/'lng' - those
