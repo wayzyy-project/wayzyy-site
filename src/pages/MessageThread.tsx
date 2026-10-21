@@ -335,7 +335,7 @@ export function ThreadPane({
 
       {/* Caution: contact details before a confirmed booking aren't sent. */}
       <Dialog open={!!contactFlagged} onOpenChange={(o) => !o && setContactFlagged(null)}>
-        <DialogContent className="max-w-md rounded-3xl text-center">
+        <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-3xl text-center">
           <div className="mx-auto mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#FF6B00] text-white">
             <ShieldCheck className="h-6 w-6" />
           </div>
