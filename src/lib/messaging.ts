@@ -129,35 +129,28 @@ export const fetchMessages = async (threadId: string): Promise<Message[]> => {
   return data ?? [];
 };
 
-/** Send a message. Thread preview fields are updated by a DB trigger on
- *  insert, same as mobile - never set them from here. */
+/** Send a message through the send-message Edge Function, which moderates it
+ *  (direct inserts into messages are revoked) and sends the push itself.
+ *  Contact details before a confirmed booking come back as { contactInfo }
+ *  with the exact text to remove. */
 export const sendMessage = async (
   threadId: string,
-  senderId: string,
-  senderName: string,
   content: string,
   replyToId?: string,
-  replyToText?: string,
-): Promise<Message | null> => {
-  const { data, error } = await supabase
-    .from("messages")
-    .insert({
-      thread_id: threadId,
-      sender_id: senderId,
-      content,
-      ...(replyToId ? { reply_to_id: replyToId } : {}),
-      ...(replyToText ? { reply_to_text: replyToText } : {}),
-    })
-    .select()
-    .single();
-
-  if (error) { console.warn("sendMessage:", error); return null; }
-
-  supabase.functions
-    .invoke("send-message-notification", { body: { threadId, senderId, senderName, content } })
-    .catch((e) => console.warn("push notification failed:", e));
-
-  return data;
+): Promise<Message | { contactInfo: string[] } | "blocked" | "user_blocked" | null> => {
+  const { data, error } = await supabase.functions.invoke("send-message", {
+    body: { threadId, content, replyToId },
+  });
+  if (error) {
+    const status = (error as any).context?.status;
+    const body = await (error as any).context?.json?.().catch(() => null);
+    if (status === 422 && body?.error === "contact_info") return { contactInfo: body.flagged ?? [] };
+    if (status === 422) return "blocked";
+    if (status === 403) return "user_blocked";
+    console.warn("sendMessage:", error);
+    return null;
+  }
+  return data.message;
 };
 
 /** Mark all messages in a thread as read for the current user role - stamps

@@ -7,6 +7,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { blockUser, unblockUser, isBlocked } from "@/lib/blocks";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { ShieldCheck } from "lucide-react";
 import {
   Message,
   Thread,
@@ -160,6 +162,8 @@ export function ThreadPane({
   const { toast } = useToast();
   const [blocked, setBlocked] = useState(false);
   const [blockBusy, setBlockBusy] = useState(false);
+  // Text the server refused as contact details, shown in the caution dialog.
+  const [contactFlagged, setContactFlagged] = useState<string[] | null>(null);
 
   useEffect(() => {
     if (!threadId || !user) return;
@@ -210,9 +214,23 @@ export function ThreadPane({
     setSending(true);
     const content = input.trim();
     setInput("");
-    const sent = await sendMessage(thread.id, user.id, isHostSide ? thread.host_name : thread.guest_name, content);
-    if (sent) setMessages((prev) => (prev.some((m) => m.id === sent.id) ? prev : [...prev, sent]));
-    else { setInput(content); toast({ title: "Message not sent", description: "Check your connection and try again.", variant: "destructive" }); }
+    const sent = await sendMessage(thread.id, content);
+    if (sent && typeof sent === "object" && "contactInfo" in sent) {
+      // Not sent: give the text back and show what to remove.
+      setInput(content);
+      setContactFlagged(sent.contactInfo.length ? sent.contactInfo : [content]);
+    } else if (sent && typeof sent === "object") {
+      setMessages((prev) => (prev.some((m) => m.id === sent.id) ? prev : [...prev, sent]));
+    } else {
+      setInput(content);
+      toast({
+        title: "Message not sent",
+        description: sent === "blocked" ? "This message goes against Wayzyy's messaging guidelines."
+          : sent === "user_blocked" ? "You can't message this person because one of you has blocked the other."
+          : "Check your connection and try again.",
+        variant: "destructive",
+      });
+    }
     setSending(false);
   };
 
@@ -314,6 +332,24 @@ export function ThreadPane({
           </div>
         </form>
       )}
+
+      {/* Caution: contact details before a confirmed booking aren't sent. */}
+      <Dialog open={!!contactFlagged} onOpenChange={(o) => !o && setContactFlagged(null)}>
+        <DialogContent className="max-w-md rounded-3xl text-center">
+          <div className="mx-auto mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#FF6B00] text-white">
+            <ShieldCheck className="h-6 w-6" />
+          </div>
+          <DialogTitle className="text-2xl">Sorry, we can't send your message yet</DialogTitle>
+          <DialogDescription className="space-y-3 text-base">
+            <span className="block">Phone numbers, emails, links and social handles can't be shared until a booking is confirmed. Keeping chats on Wayzyy is how we protect your payment and your stay.</span>
+            <span className="block">Please remove this before sending:</span>
+            {contactFlagged?.map((f) => <span key={f} className="block font-medium text-foreground">"{f}"</span>)}
+          </DialogDescription>
+          <button onClick={() => setContactFlagged(null)} className="mt-2 w-full rounded-xl bg-foreground py-3.5 font-semibold text-background">
+            Edit message
+          </button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
