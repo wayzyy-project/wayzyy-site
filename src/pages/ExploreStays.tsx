@@ -156,7 +156,8 @@ export default function ExploreStays() {
               slug: p.title ? p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : p.id,
               title: p.title || "Spacious Homestay",
               description: p.description || "",
-              category: (p.category?.toLowerCase() || "apartments") as any,
+              // The database stores singular categories ("villa", "apartment"); the tabs use plurals.
+              category: (({ villa: "villas", apartment: "apartments", room: "rooms", house: "homes", beach: "beachfront" } as Record<string, string>)[p.category?.toLowerCase()] ?? (p.category?.toLowerCase() || "apartments")) as any,
               vibe: p.vibe ?? null,
               showcase: p.status !== "active" && !!p.showcase,
               minNights: Number(p.min_nights) || 1,
@@ -263,7 +264,8 @@ export default function ExploreStays() {
         if (selectedCategory === "goa" && !p.state?.toLowerCase().includes("goa") && !p.city?.toLowerCase().includes("goa")) return false;
         if (selectedCategory === "villas" && p.category !== "villas" && !p.propertyType.toLowerCase().includes("villa")) return false;
         if (selectedCategory === "pools" && p.category !== "pools" && !p.amenities.some(a => a.toLowerCase().includes("pool"))) return false;
-        if (selectedCategory === "apartments" && p.category !== "apartments" && !p.propertyType.toLowerCase().includes("flat") && !p.propertyType.toLowerCase().includes("apartment")) return false;
+        // "Modern 2BHKs": any home with exactly two bedrooms, whatever its type.
+        if (selectedCategory === "apartments" && p.bedrooms !== 2) return false;
         if (selectedCategory === "beachfront" && p.category !== "beachfront" && !p.title.toLowerCase().includes("beach") && !p.title.toLowerCase().includes("river")) return false;
       }
 
