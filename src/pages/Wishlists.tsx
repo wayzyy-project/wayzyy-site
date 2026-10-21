@@ -1,3 +1,4 @@
+import { useAuth } from "@/hooks/useAuth";
 import { spaceTypeLine } from "@/lib/spaceType";
 import { img } from "@/lib/img";
 import { useEffect, useMemo, useState } from "react";
@@ -55,6 +56,7 @@ function toListing(p: any): PropertyListing {
 }
 
 export default function Wishlists() {
+  const { user } = useAuth();
   const { toast } = useToast();
   const [params, setParams] = useSearchParams();
   const openId = params.get("c");
@@ -171,7 +173,7 @@ export default function Wishlists() {
                   <div className="rounded-3xl border border-dashed border-border py-16 text-center space-y-2">
                     <Heart className="mx-auto h-8 w-8 text-[#FF6B00]" />
                     <p className="text-base font-bold">No wishlists yet</p>
-                    <p className="text-sm text-muted-foreground">Tap ♡ on any stay to save it to a wishlist. Sign in to keep them in sync with the Wayzyy app.</p>
+                    <p className="text-sm text-muted-foreground">Tap ♡ on any stay to save it to a wishlist.{user ? " Your wishlists sync with the Wayzyy app." : " Sign in to keep them in sync with the Wayzyy app."}</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">

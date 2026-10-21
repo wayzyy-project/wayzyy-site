@@ -249,7 +249,17 @@ export function ThreadPane({
 
   // "Read" receipt under your latest message, from the other side's last-read time.
   const otherReadAt: string | null = (isHostSide ? (thread as any).guest_last_read_at : (thread as any).host_last_read_at) ?? null;
-  const visible = messages.filter((m) => m.sender_id !== WAYZYY_SYSTEM_ACCOUNT_ID || isVisibleSystemMessage(m.content, isHostSide));
+  // A "Verification Needed" prompt is stale once that request was declined,
+  // cancelled, withdrawn or expired - don't keep asking the guest to verify.
+  const endedAt = messages
+    .filter((m) => m.sender_id === WAYZYY_SYSTEM_ACCOUNT_ID && /declined by the host|^Booking Cancelled|^Booking Declined|withdrew|expired/i.test(m.content))
+    .map((m) => m.created_at)
+    .sort()
+    .pop();
+  const visible = messages.filter((m) =>
+    m.sender_id !== WAYZYY_SYSTEM_ACCOUNT_ID ||
+    (isVisibleSystemMessage(m.content, isHostSide) &&
+      !(endedAt && m.content.startsWith("Verification Needed") && m.created_at < endedAt)));
 
   const lastOwnId = [...visible].reverse().find((m) => m.sender_id === user.id)?.id;
 
