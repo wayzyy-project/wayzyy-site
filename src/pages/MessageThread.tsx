@@ -191,8 +191,11 @@ export function ThreadPane({
       setMessages((prev) => (prev.some((m) => m.id === msg.id) ? prev : [...prev, msg]));
     });
     return () => { cancelled = true; channel.unsubscribe(); };
+    // Keyed on the user's id, not the user object: Supabase hands out a new
+    // object on every auth event (tab refocus, token refresh), and reloading
+    // here marks the thread read, which reloads the inbox, which loops.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadId, user]);
+  }, [threadId, user?.id]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ block: "end" });

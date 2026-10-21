@@ -26,7 +26,8 @@ export function MessagesLink({ dark = false }: { dark?: boolean }) {
 
     const channel = subscribeToThreads(user.id, check);
     return () => { cancelled = true; channel.unsubscribe(); };
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]); // the id, not the object: a new one arrives on every auth event
 
   if (!user) return null;
 

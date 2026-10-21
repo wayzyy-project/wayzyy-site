@@ -159,7 +159,8 @@ export default function Inbox() {
     load();
     const channel = subscribeToThreads(user.id, load);
     return () => { cancelled = true; channel.unsubscribe(); };
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]); // the id, not the object (see ThreadPane)
 
   // Desktop opens the newest conversation straight away, like Airbnb.
   useEffect(() => {

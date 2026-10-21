@@ -1,3 +1,4 @@
+import { spaceTypeLine } from "@/lib/spaceType";
 import { img } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -164,7 +165,7 @@ export default function ExploreStays() {
               hasSelfCheckIn: !!p.self_check_in,
               allowsPets: !!p.pets_allowed,
               isRoom: /room/i.test(p.space_type ?? ""),
-              propertyType: p.space_type ? `${p.space_type} in ${p.city || "India"}` : `Entire place in ${p.city || "India"}`,
+              propertyType: spaceTypeLine(p.space_type, p.city, "India"),
               city: p.city || "Goa",
               // properties has 'location', not 'street'/'lat'/'lng' - those
               // don't exist, so every real listing's map pin was landing on
@@ -362,20 +363,20 @@ export default function ExploreStays() {
             </div>
           )}
 
-          {/* Location Group: Available next month in North Goa (Matching Screenshot 1) */}
-          {northGoaProperties.length > 0 && !searchState.destination && (
+          {/* All of Goa on the default tab; a picked tab shows only its own grid below (showing both listed everything twice) */}
+          {northGoaProperties.length > 0 && !searchState.destination && selectedCategory === "all" && (
             <section className="space-y-4 pt-4">
               <div className="flex items-center justify-between">
                 <Link
                   to="/stays?city=Goa"
                   className="group flex items-center gap-2 text-xl font-bold font-display text-foreground hover:text-[#FF6B00] transition-colors"
                 >
-                  <span>Available next month in North Goa</span>
+                  <span>Stays across Goa</span>
                   <div className="h-6 w-6 rounded-full bg-muted group-hover:bg-[#FF6B00] group-hover:text-white flex items-center justify-center transition-all">
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
                 </Link>
-                <span className="text-xs text-muted-foreground hidden sm:inline font-medium">Assagao · Vagator · Arpora · Candolim</span>
+                <span className="text-xs text-muted-foreground hidden sm:inline font-medium">Assagao · Siolim · Candolim · Panjim</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">

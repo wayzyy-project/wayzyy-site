@@ -1,3 +1,4 @@
+import { spaceTypeLine } from "@/lib/spaceType";
 import { img } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -315,7 +316,7 @@ export default function PropertyDetail() {
             description: data.description || "A wonderful place to stay.",
             category: (data.category?.toLowerCase() || "apartments") as any,
             showcase: data.status !== "active" && !!data.showcase,
-            propertyType: data.space_type ? `${data.space_type} in ${data.city || "India"}` : `Entire place in ${data.city || "India"}`,
+            propertyType: spaceTypeLine(data.space_type, data.city, "India"),
             city: data.city || "Goa",
             // properties has 'location', not 'street'/'lat'/'lng' - those
             // columns don't exist, so this was reading undefined every time
@@ -936,7 +937,8 @@ export default function PropertyDetail() {
               {/* Location Map ("Where you'll be" Matching Screenshot 4) */}
               <div className="pt-6 space-y-4">
                 <h3 className="text-xl font-bold font-display text-foreground">Where you'll be</h3>
-                <p className="text-xs text-muted-foreground font-medium">{property.area}, {property.city}, {property.state}, India</p>
+                <p className="text-xs text-muted-foreground font-medium">{/* area often already contains the city ("Panaji, Goa"), so drop repeats */}
+                  {[...new Set([property.area, property.city, property.state, "India"].flatMap((x) => String(x ?? "").split(",")).map((x) => x.trim()).filter(Boolean))].join(", ")}</p>
 
                 <div className="h-72 sm:h-96 w-full rounded-3xl overflow-hidden border border-border shadow-sm">
                   <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
@@ -1113,7 +1115,7 @@ export default function PropertyDetail() {
                 {/* Price Breakdown */}
                 <div className="font-price space-y-2.5 pt-3 border-t border-border text-xs">
                   <div className="flex justify-between text-muted-foreground">
-                    <span>{property.currency}{nightlyRate.toLocaleString("en-IN")} × {nights} nights</span>
+                    <span>{quote?.hasDynamicPricing ? "Avg. " : ""}{property.currency}{nightlyRate.toLocaleString("en-IN")} × {nights} {nights === 1 ? "night" : "nights"}</span>
                     <span>{property.currency}{nightsSubtotal.toLocaleString("en-IN")}</span>
                   </div>
                   {quote?.discount && (

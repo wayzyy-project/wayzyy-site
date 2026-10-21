@@ -1,3 +1,4 @@
+import { spaceTypeLine } from "@/lib/spaceType";
 import { img } from "@/lib/img";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -30,7 +31,7 @@ function toListing(p: any): PropertyListing {
     category: (p.category?.toLowerCase() || "apartments") as any,
     showcase: p.status !== "active" && !!p.showcase,
     minNights: Number(p.min_nights) || 1,
-    propertyType: p.space_type ? `${p.space_type} in ${p.city || "Goa"}` : `Entire place in ${p.city || "Goa"}`,
+    propertyType: spaceTypeLine(p.space_type, p.city, "Goa"),
     city: p.city || "Goa",
     area: p.location || p.city || "Goa",
     state: p.state || "Goa",
