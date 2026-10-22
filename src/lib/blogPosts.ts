@@ -13,6 +13,30 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "goa-time-app-airbnb-hosts",
+    title: "Goa's TIME App for Airbnb Hosts: Form XI, Explained (2026)",
+    description:
+      "Every registered stay in Goa has to upload guest statistics to the Tourism Department's TIME app by the 5th of each month. Here's who has to file, how it works step by step, and what happens if you don't.",
+    metaTitle: "Goa TIME App & Form XI for Airbnb Hosts (2026 Guide)",
+    metaDescription:
+      "Goa hosts must file guest data on the TIME app by the 5th of each month. Who files Form XI, how to do it step by step, and the penalty for missing it.",
+    heroImage: "/blog/goa-time-app-airbnb-hosts.webp",
+    publishedDate: "2026-10-22",
+    readTime: "8 Min Read",
+  },
+  {
+    slug: "form-c-foreign-guests-airbnb-hosts-goa",
+    title: "Form C for Foreign Guests: What Goa Airbnb Hosts Must Do (2026)",
+    description:
+      "Hosting a foreign guest in Goa? You have 24 hours to report them on Form C, under a law that changed in 2025. Who must file, how to register, and the ₹50,000-per-guest penalty.",
+    metaTitle: "Form C for Foreign Guests: Goa Host Guide (2026)",
+    metaDescription:
+      "Goa hosts must report every foreign guest on Form C within 24 hours. Who must file under the 2025 Act, how to register on e-FRRO, and the ₹50,000 penalty.",
+    heroImage: "/blog/form-c-foreign-guests-airbnb-hosts-goa.webp",
+    publishedDate: "2026-10-22",
+    readTime: "8 Min Read",
+  },
+  {
     slug: "why-goa-airbnb-earnings-are-falling",
     title: "Why Goa Airbnb Earnings Are Falling (and How Hosts Can Keep More)",
     description:
