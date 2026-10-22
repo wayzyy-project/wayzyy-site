@@ -44,6 +44,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   // cards stays light. Capped at 6 per card.
   const shown = images.slice(0, 6);
   const trackRef = useRef<HTMLDivElement>(null);
+  // Only the cover loads until someone touches/hovers the card; swiping then
+  // loads the rest. (Mounting all six photos of ~70 cards pulled hundreds of
+  // images nobody looked at; Airbnb loads the next photo on interaction too.)
+  const [engaged, setEngaged] = useState(false);
+  const engage = () => { if (!engaged) setEngaged(true); };
   const onTrackScroll = () => {
     const el = trackRef.current;
     if (!el) return;
@@ -72,9 +77,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <div
           ref={trackRef}
           onScroll={onTrackScroll}
+          onPointerEnter={engage}
+          onTouchStart={engage}
+          onFocus={engage}
           className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar"
         >
           {shown.map((src, i) => {
+            // Same-size empty slot keeps the swipe track and the dots correct.
+            if (i > 0 && !engaged) return <div key={src + i} className="h-full w-full shrink-0 snap-center" aria-hidden />;
             const set = imgSet(src);
             return (
               <img
