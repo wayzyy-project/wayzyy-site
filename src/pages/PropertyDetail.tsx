@@ -1,7 +1,7 @@
 import { StayDatesCalendar } from "@/components/booking/StayDatesCalendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { spaceTypeLine } from "@/lib/spaceType";
-import { img } from "@/lib/img";
+import { img, imgSet } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -724,7 +724,11 @@ export default function PropertyDetail() {
                 className="md:col-span-2 h-full cursor-pointer overflow-hidden group"
               >
                 <img
-                  src={img(images[0], 1400)}
+                  {...imgSet(images[0], [640, 900, 1400, 1800])}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  // The main photo is what the page is judged on: fetch it first.
+                  fetchPriority="high"
+                  decoding="async"
                   alt={property.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -742,7 +746,10 @@ export default function PropertyDetail() {
                     className="h-[236px] cursor-pointer overflow-hidden group"
                   >
                     <img
-                      src={img(photo, 900)}
+                      {...imgSet(photo, [320, 480, 640, 900])}
+                      sizes="(min-width: 1024px) 25vw, 50vw"
+                      loading="lazy"
+                      decoding="async"
                       alt={`${property.title} photo ${idx + 2}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -1267,7 +1274,9 @@ export default function PropertyDetail() {
 
             <div className="flex-1 relative flex items-center justify-center overflow-hidden">
               <img
-                src={img(images[lightboxIndex], 1800)}
+                {...imgSet(images[lightboxIndex], [900, 1400, 1800])}
+                sizes="100vw"
+                decoding="async"
                 alt={`Photo ${lightboxIndex + 1}`}
                 className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
               />
@@ -1297,7 +1306,7 @@ export default function PropertyDetail() {
                     i === lightboxIndex ? "border-[#FF6B00] scale-105" : "border-transparent opacity-50"
                   }`}
                 >
-                  <img src={img(photo, 200)} alt="thumb" className="w-full h-full object-cover" />
+                  <img src={img(photo, 200)} alt="thumb" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
