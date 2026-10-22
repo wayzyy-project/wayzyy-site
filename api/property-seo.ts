@@ -43,7 +43,9 @@ const slugify = (input: string): string =>
     .replace(/-+$/, "");
 
 const propertyPath = (id: string, title?: string | null, city?: string | null): string => {
-  const words = slugify([title, city].filter(Boolean).join(" "));
+  // Skip the city when the title already names it ("…, Rohini" + "Rohini").
+  const cityWord = city && !String(title ?? "").toLowerCase().includes(String(city).toLowerCase()) ? city : null;
+  const words = slugify([title, cityWord].filter(Boolean).join(" "));
   return `/property/${words ? `${words}-` : ""}${id}`;
 };
 

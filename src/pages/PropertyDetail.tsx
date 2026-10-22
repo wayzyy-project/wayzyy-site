@@ -233,8 +233,15 @@ export default function PropertyDetail() {
 
   // Reservation Form State
   const [checkInDate, setCheckInDate] = useState<Date>(new Date());
-  const [checkOutDate, setCheckOutDate] = useState<Date>(addDays(new Date(), 2));
+  // Default to the shortest stay allowed (1 night unless the host set more; raised once the listing loads).
+  const [checkOutDate, setCheckOutDate] = useState<Date>(addDays(new Date(), 1));
   const [datesOpen, setDatesOpen] = useState(false);
+  // Once the listing loads, stretch the default stay to the host's minimum.
+  useEffect(() => {
+    const min = property?.minNights ?? 1;
+    if (differenceInDays(checkOutDate, checkInDate) < min) setCheckOutDate(addDays(checkInDate, min));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [property?.minNights]);
   const [guestCount, setGuestCount] = useState(1);
   // Null for mock listings; populated for real ones after the Supabase fetch.
   const [pricingInputs, setPricingInputs] = useState<PricingInputs | null>(null);

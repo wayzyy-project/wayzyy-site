@@ -21,7 +21,9 @@ export const slugify = (input: string): string =>
 /** Canonical path for a listing. Falls back to the plain id when there is no usable name. */
 export const propertyPath = (p: { id: string; title?: string | null; city?: string | null }): string => {
   if (!isUuid(p.id)) return `/property/${p.id}`; // demo / legacy ids stay as they are
-  const words = slugify([p.title, p.city].filter(Boolean).join(" "));
+  // Skip the city when the title already names it ("…, Rohini" + "Rohini").
+  const cityWord = p.city && !String(p.title ?? "").toLowerCase().includes(String(p.city).toLowerCase()) ? p.city : null;
+  const words = slugify([p.title, cityWord].filter(Boolean).join(" "));
   return `/property/${words ? `${words}-` : ""}${p.id}`;
 };
 
