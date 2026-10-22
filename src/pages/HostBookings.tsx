@@ -66,7 +66,8 @@ export default function HostBookings() {
     const { data, error: err } = await supabase.functions.invoke("respond-to-booking", { body: { bookingId: id, decision } });
     setBusy(null);
     if (err || (data as any)?.error) {
-      toast({ title: "Couldn't update the booking", description: (data as any)?.error || err?.message, variant: "destructive" });
+      const body = await (err as any)?.context?.json?.().catch(() => null);
+      toast({ title: "Couldn't update the booking", description: (data as any)?.error || body?.error || err?.message, variant: "destructive" });
       return;
     }
     toast({ title: decision === "approve" ? "Booking accepted" : "Booking declined" });
