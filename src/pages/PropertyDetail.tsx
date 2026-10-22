@@ -807,9 +807,6 @@ export default function PropertyDetail() {
                     >
                       <MessageCircle className="h-4 w-4" /> Chat with us on WhatsApp
                     </a>
-                    <a href={`tel:${SUPPORT_PHONE_HREF}`} className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:border-foreground/40 transition">
-                      <Phone className="h-4 w-4" /> Call {SUPPORT_PHONE}
-                    </a>
                   </div>
                 </div>
 
