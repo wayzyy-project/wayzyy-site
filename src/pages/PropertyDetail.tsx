@@ -1,3 +1,5 @@
+import { StayDatesCalendar } from "@/components/booking/StayDatesCalendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { spaceTypeLine } from "@/lib/spaceType";
 import { img } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
@@ -232,6 +234,7 @@ export default function PropertyDetail() {
   // Reservation Form State
   const [checkInDate, setCheckInDate] = useState<Date>(new Date());
   const [checkOutDate, setCheckOutDate] = useState<Date>(addDays(new Date(), 2));
+  const [datesOpen, setDatesOpen] = useState(false);
   const [guestCount, setGuestCount] = useState(1);
   // Null for mock listings; populated for real ones after the Supabase fetch.
   const [pricingInputs, setPricingInputs] = useState<PricingInputs | null>(null);
@@ -881,48 +884,14 @@ export default function PropertyDetail() {
                     {format(checkInDate, "MMM d, yyyy")} – {format(checkOutDate, "MMM d, yyyy")}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-3xl border border-border bg-muted/10">
-                    <div>
-                      <label className="text-[11px] font-bold uppercase text-muted-foreground">Check-in Date</label>
-                      <input
-                        type="date"
-                        value={format(checkInDate, "yyyy-MM-dd")}
-                        onChange={(e) => {
-                          const d = new Date(e.target.value);
-                          if (!isNaN(d.getTime())) {
-                            setCheckInDate(d);
-                            // Push checkout out far enough to satisfy the
-                            // host's minimum stay, not just +1 day - a 3-night
-                            // minimum shouldn't collapse to 1 the moment
-                            // check-in moves.
-                            if (differenceInDays(checkOutDate, d) < minNights) {
-                              setCheckOutDate(addDays(d, minNights));
-                            }
-                          }
-                        }}
-                        className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-bold uppercase text-muted-foreground">Checkout Date</label>
-                      <input
-                        type="date"
-                        value={format(checkOutDate, "yyyy-MM-dd")}
-                        onChange={(e) => {
-                          const d = new Date(e.target.value);
-                          if (!isNaN(d.getTime()) && differenceInDays(d, checkInDate) >= minNights) {
-                            setCheckOutDate(d);
-                          } else if (!isNaN(d.getTime())) {
-                            toast({
-                              title: "Minimum stay required",
-                              description: `This host requires at least ${minNights} night${minNights === 1 ? "" : "s"}.`,
-                              variant: "destructive",
-                            });
-                          }
-                        }}
-                        className="mt-1 w-full rounded-2xl border border-border bg-background p-3 text-sm font-semibold focus:border-[#FF6B00] outline-none"
-                      />
-                    </div>
+                  <div className="rounded-3xl border border-border bg-muted/10 p-2 sm:p-4 overflow-x-auto">
+                    <StayDatesCalendar
+                      checkIn={checkInDate}
+                      checkOut={checkOutDate}
+                      minNights={minNights}
+                      months={typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches ? 2 : 1}
+                      onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
+                    />
                   </div>
                   {describeStayRules(stayRules).map((line) => (
                     <p key={line} className="text-xs font-semibold text-[#FF6B00]">{line}</p>
@@ -1007,16 +976,28 @@ export default function PropertyDetail() {
 
                 {/* Check-in / Checkout Selector Box */}
                 <div className="rounded-2xl border border-border overflow-hidden divide-y divide-border">
-                  <div className="grid grid-cols-2 divide-x divide-border">
-                    <div className="p-3">
-                      <p className="text-[10px] font-extrabold uppercase text-muted-foreground">Check-in</p>
-                      <p className="text-xs font-bold text-foreground mt-0.5">{format(checkInDate, "M/d/yyyy")}</p>
-                    </div>
-                    <div className="p-3">
-                      <p className="text-[10px] font-extrabold uppercase text-muted-foreground">Checkout</p>
-                      <p className="text-xs font-bold text-foreground mt-0.5">{format(checkOutDate, "M/d/yyyy")}</p>
-                    </div>
-                  </div>
+                  <Popover open={datesOpen} onOpenChange={setDatesOpen}>
+                    <PopoverTrigger asChild>
+                      <button type="button" className="grid w-full grid-cols-2 divide-x divide-border text-left hover:bg-muted/40 transition-colors" aria-label="Change dates">
+                        <div className="p-3">
+                          <p className="text-[10px] font-extrabold uppercase text-muted-foreground">Check-in</p>
+                          <p className="text-xs font-bold text-foreground mt-0.5">{format(checkInDate, "d MMM yyyy")}</p>
+                        </div>
+                        <div className="p-3">
+                          <p className="text-[10px] font-extrabold uppercase text-muted-foreground">Checkout</p>
+                          <p className="text-xs font-bold text-foreground mt-0.5">{format(checkOutDate, "d MMM yyyy")}</p>
+                        </div>
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent align="end" className="w-auto rounded-2xl p-2">
+                      <StayDatesCalendar
+                        checkIn={checkInDate}
+                        checkOut={checkOutDate}
+                        minNights={minNights}
+                        onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); setDatesOpen(false); }}
+                      />
+                    </PopoverContent>
+                  </Popover>
 
                   {/* Guests Dropdown Trigger */}
                   <div className="p-3 relative">
@@ -1294,6 +1275,8 @@ export default function PropertyDetail() {
           // create-booking-order and create-booking recompute and check.
           totalAmount={quote ? quote.total : stayTotal}
           accommodation={quote ? quote.accommodation : undefined}
+          minNights={minNights}
+          onDatesChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
         />
 
         {/* Sign in to message the host - same account used everywhere else

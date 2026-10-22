@@ -1,3 +1,5 @@
+import { StayDatesCalendar } from "@/components/booking/StayDatesCalendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -31,6 +33,9 @@ interface BookingModalProps {
   totalAmount: number;
   /** Stay price after discounts, before GST/fees - what coupons are checked against (same as the app). */
   accommodation?: number;
+  /** Lets the guest change dates here instead of closing the modal; the parent re-quotes. */
+  onDatesChange?: (checkIn: Date, checkOut: Date) => void;
+  minNights?: number;
 }
 
 declare global {
@@ -68,8 +73,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   guestCount,
   totalAmount,
   accommodation,
+  onDatesChange,
+  minNights = 1,
 }) => {
   const navigate = useNavigate();
+  const [editDatesOpen, setEditDatesOpen] = useState(false);
   const { toast } = useToast();
   const { user, signIn, signUp } = useAuth();
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
@@ -329,7 +337,22 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <h4 className="text-sm font-bold text-foreground line-clamp-1">{property.title}</h4>
                   <p className="text-xs text-muted-foreground">{property.area}, {property.city}</p>
                   <p className="text-xs font-semibold text-foreground mt-1">
-                    {format(checkInDate, "MMM d")} – {format(checkOutDate, "MMM d, yyyy")} ({nights} nights · {guestCount} guests)
+                    {format(checkInDate, "MMM d")} – {format(checkOutDate, "MMM d, yyyy")} ({nights} {nights === 1 ? "night" : "nights"} · {guestCount} {guestCount === 1 ? "guest" : "guests"})
+                    {onDatesChange && (
+                      <Popover open={editDatesOpen} onOpenChange={setEditDatesOpen}>
+                        <PopoverTrigger asChild>
+                          <button type="button" className="ml-2 font-bold text-[#FF6B00] underline underline-offset-2">Edit</button>
+                        </PopoverTrigger>
+                        <PopoverContent align="start" className="w-auto rounded-2xl p-2">
+                          <StayDatesCalendar
+                            checkIn={checkInDate}
+                            checkOut={checkOutDate}
+                            minNights={minNights}
+                            onChange={(a, b) => { onDatesChange(a, b); setEditDatesOpen(false); }}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    )}
                   </p>
                 </div>
               </div>
