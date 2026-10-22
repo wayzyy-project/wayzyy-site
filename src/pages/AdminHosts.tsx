@@ -1,3 +1,4 @@
+import { propertyPath } from "@/lib/propertySlug";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -926,7 +927,19 @@ function HostDetailSheet({
                   return (
                     <li key={p.id} className="flex items-center gap-2 px-3 py-2.5">
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium">{p.title || "Untitled listing"}</p>
+                        {p.status === "active" ? (
+                          <a
+                            href={propertyPath({ id: p.id, title: p.title })}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block truncate text-sm font-medium hover:text-[#FF6B00] hover:underline"
+                            title="Open the live listing"
+                          >
+                            {p.title || "Untitled listing"}
+                          </a>
+                        ) : (
+                          <p className="truncate text-sm font-medium">{p.title || "Untitled listing"}</p>
+                        )}
                         <p className="text-xs text-muted-foreground">
                           {p.price_per_night ? `₹${p.price_per_night.toLocaleString("en-IN")}/night` : "No price set"}
                           {p.imported_by_admin ? " · imported by us" : ""}
@@ -954,6 +967,16 @@ function HostDetailSheet({
                           <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${state.className}`}>
                             {state.label}
                           </span>
+                          {p.status === "active" && (
+                            <a
+                              href={propertyPath({ id: p.id, title: p.title })}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="shrink-0 text-[11px] font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                            >
+                              View ↗
+                            </a>
+                          )}
                           {/* Drafts open in the same review page (it has no
                               status filter), to check how an import looks
                               before the host is notified. */}
