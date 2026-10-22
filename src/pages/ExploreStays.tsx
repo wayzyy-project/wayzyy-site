@@ -398,6 +398,28 @@ export default function ExploreStays() {
             </section>
           )}
 
+          {/* Default tab: stays outside Goa get their own row (the Goa section above only holds Goa). */}
+          {!searchState.destination && selectedCategory === "all" && northGoaProperties.length > 0 && (() => {
+            const goaIds = new Set(northGoaProperties.map((p) => p.id));
+            const elsewhere = filteredProperties.filter((p) => !goaIds.has(p.id));
+            if (!elsewhere.length) return null;
+            return (
+              <section className="space-y-4 pt-4">
+                <h2 className="text-xl font-bold font-display text-foreground">Elsewhere in India</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
+                  {elsewhere.map((property) => (
+                    <PropertyCard
+                      key={property.id}
+                      property={property}
+                      nights={datesPicked ? stayNights : undefined}
+                      includeAllFees={includeAllFees}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })()}
+
           {/* Area guides: where to stay, linked to the long-form blog guides */}
           {!searchState.destination && selectedCategory === "all" && (
             <section className="space-y-5 border-t border-border pt-10" aria-labelledby="areas-heading">
