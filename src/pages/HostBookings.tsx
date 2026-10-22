@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Loader2, ArrowLeft, Calendar, Users } from "lucide-react";
+import { Loader2, ArrowLeft, Calendar, Users, MessageCircle } from "lucide-react";
 import { useLightSurface } from "@/hooks/useLightSurface";
 import { SEO } from "@/components/SEO";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,6 +22,8 @@ interface Row {
   payout: number | null;
   status: string;
   createdAt: string;
+  /** Conversation with this guest about this listing, if one exists */
+  threadId: string | null;
 }
 
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
@@ -46,11 +48,18 @@ export default function HostBookings() {
     setError(false);
     const { data, error: err } = await supabase
       .from("bookings")
-      .select("id, check_in, check_out, guests, total_price, host_payout_amount, status, created_at, properties(title)")
+      .select("id, property_id, guest_id, check_in, check_out, guests, total_price, host_payout_amount, status, created_at, properties(title)")
       .eq("host_id", userId)
       .order("created_at", { ascending: false });
     if (err) { setError(true); return; }
+    // Every booking request opens a thread for that guest + listing.
+    const { data: threads } = await supabase
+      .from("threads")
+      .select("id, property_id, guest_id")
+      .eq("host_id", userId);
+    const threadFor = new Map((threads ?? []).map((t: any) => [`${t.property_id}:${t.guest_id}`, t.id as string]));
     setRows((data ?? []).map((b: any) => ({
+      threadId: threadFor.get(`${b.property_id}:${b.guest_id}`) ?? null,
       id: b.id, title: b.properties?.title ?? "Listing", checkIn: b.check_in, checkOut: b.check_out,
       guests: b.guests, total: Number(b.total_price) || 0,
       payout: b.host_payout_amount != null ? Number(b.host_payout_amount) : null,
@@ -114,14 +123,21 @@ export default function HostBookings() {
                         </div>
                         <p className="flex items-center gap-1 text-sm"><Calendar className="h-3.5 w-3.5" />{fmt(r.checkIn)} → {fmt(r.checkOut)}</p>
                         <p className="flex items-center gap-1 text-sm"><Users className="h-3.5 w-3.5" />{r.guests} guest{r.guests !== 1 ? "s" : ""} · you earn {inr(r.payout ?? r.total)}</p>
-                        {r.status === "pending" && (
-                          <div className="flex gap-2 pt-1">
+                        {(r.status === "pending" || r.threadId) && (
+                          <div className="flex flex-wrap gap-2 pt-1">
+                            {r.status === "pending" && (<>
                             <Button size="sm" disabled={!!busy} onClick={() => respond(r.id, "approve")}>
                               {busy === r.id + "approve" ? <Loader2 className="h-4 w-4 animate-spin" /> : "Accept"}
                             </Button>
                             <Button size="sm" variant="outline" disabled={!!busy} onClick={() => respond(r.id, "decline")}>
                               {busy === r.id + "decline" ? <Loader2 className="h-4 w-4 animate-spin" /> : "Decline"}
                             </Button>
+                            </>)}
+                            {r.threadId && (
+                              <Button size="sm" variant="ghost" asChild>
+                                <Link to={`/inbox/${r.threadId}`}><MessageCircle className="mr-1 h-4 w-4" />Message guest</Link>
+                              </Button>
+                            )}
                           </div>
                         )}
                       </div>
