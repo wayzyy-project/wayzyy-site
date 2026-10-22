@@ -47,17 +47,17 @@ export function WhatsAppOptIn({ userId }: { userId: string }) {
     <section className="flex flex-col gap-3 rounded-2xl border border-[#25D366]/40 bg-[#25D366]/10 p-4 sm:flex-row sm:items-center">
       <MessageCircle className="h-6 w-6 shrink-0 text-[#1a9e4b]" />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-white">Get booking requests on WhatsApp</p>
-        <p className="text-xs text-white/70">New requests, confirmations and check-in reminders, so you can reply within the 6 hours. You can turn this off any time in Account → Notifications.</p>
+        <p className="text-sm font-semibold text-foreground">Get booking requests on WhatsApp</p>
+        <p className="text-xs text-muted-foreground">New requests, confirmations and check-in reminders, so you can reply within the 6 hours. You can turn this off any time in Account → Notifications.</p>
       </div>
       {needsPhone && (
         <input value={phone} onChange={(e) => setPhone(e.target.value)} inputMode="tel" placeholder="Mobile number" maxLength={14}
-          className="w-full rounded-full border border-white/20 bg-transparent px-4 py-2 text-sm text-white sm:w-44" />
+          className="w-full rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground sm:w-44" />
       )}
       <div className="flex items-center gap-2">
         <button onClick={turnOn} disabled={busy} className="btn-brand">{busy ? "Turning on…" : "Turn on"}</button>
         <button onClick={() => { setHidden(true); try { sessionStorage.setItem("wayzyy_wa_optin_hidden", "1"); } catch { /* */ } }}
-          aria-label="Not now" className="rounded-full p-2 text-white/60 hover:bg-white/10"><X className="h-4 w-4" /></button>
+          aria-label="Not now" className="rounded-full p-2 text-muted-foreground hover:bg-muted"><X className="h-4 w-4" /></button>
       </div>
     </section>
   );
