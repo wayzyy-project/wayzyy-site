@@ -192,7 +192,11 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
       const { error } = await supabase.from("properties").update(updates).eq("id", propertyId);
       if (error) throw error;
 
-      if (newStatus === "active") {
+      // Re-reviewing a listing that's already live: save the review, but don't
+      // send the host a second "you're approved" email.
+      if (newStatus === "active" && property.status === "active") {
+        // nothing to notify
+      } else if (newStatus === "active") {
         supabase.functions.invoke("approve-listing", { body: { propertyId } }).catch(() => {});
       } else {
         supabase.functions.invoke("reject-listing", { body: { propertyId, adminNotes: notes } }).catch(() => {});
@@ -459,7 +463,7 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
           onClick={() => handleDecision("active")}
         >
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-          Approve
+          {property.status === "active" ? "Save review" : "Approve"}
         </Button>
         <Button
           variant="outline"
