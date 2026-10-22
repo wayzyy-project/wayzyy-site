@@ -39,6 +39,12 @@ function PricePin({ price, currency, label }: { price: number; currency: string;
   );
 }
 
+// Real listings that live on one of the seed accounts above and should be
+// shown anyway (the seed filter exists to hide old demo listings).
+const PUBLIC_DESPITE_SEED_HOST = [
+  "f9369419-9808-4a0b-a999-1519b869ac08", // Urban Villa, Rohini (hello@wayzyy.com)
+];
+
 const SEED_HOST_EMAILS = [
   "akshayne912@gmail.com",
   "hello@wayzyy.com",
@@ -135,7 +141,7 @@ export default function ExploreStays() {
           .select("*")
           // Live listings, plus showcased drafts (enquiry-only, no price yet).
           .or("status.eq.active,showcase.eq.true")
-          .not("host_email", "in", `(${SEED_HOST_EMAILS.join(",")})`)
+          .or(`host_email.not.in.(${SEED_HOST_EMAILS.join(",")}),id.in.(${PUBLIC_DESPITE_SEED_HOST.join(",")})`)
           .order("created_at", { ascending: false });
 
         if (data && data.length > 0) {
