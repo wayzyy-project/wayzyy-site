@@ -816,18 +816,26 @@ function HostDetailSheet({
         toast({ title: "Can't top up photos", description: dryBody?.error ?? dry.error?.message, variant: "destructive" });
         return;
       }
-      if (!dryBody.wouldAdd) {
+      if (!dryBody.wouldAdd && !dryBody.descriptionWouldUpdate) {
         toast({ title: "Already complete", description: `${dryBody.photosStored} photos stored; AirROI has ${dryBody.photosAvailable}.` });
         return;
       }
-      if (!window.confirm(`${p.title}\n\nWayzyy has ${dryBody.photosStored} photos; AirROI has ${dryBody.photosAvailable}. Add ${dryBody.wouldAdd} more?`)) return;
+      const lines = [
+        `Wayzyy has ${dryBody.photosStored} photos; AirROI has ${dryBody.photosAvailable}.`,
+        dryBody.hotlinked ? `The current photos are linked from Airbnb's servers; all ${dryBody.wouldAdd} will be saved on Wayzyy (same photos, same order, same cover).` : `Add ${dryBody.wouldAdd} more.`,
+        dryBody.descriptionWouldUpdate ? `The description grows from ${dryBody.descriptionCurrent} to ${dryBody.descriptionAvailable} characters.` : "",
+      ].filter(Boolean);
+      if (!window.confirm(`${p.title}\n\n${lines.join("\n")}\n\nGo ahead?`)) return;
       const run = await supabase.functions.invoke("airroi-refresh-photos", { body: { propertyId: p.id, dryRun: false } });
       const runBody = run.error ? await (run.error as any).context?.json?.().catch(() => null) : run.data;
       if (run.error || runBody?.error) {
         toast({ title: "Couldn't add photos", description: runBody?.error ?? run.error?.message, variant: "destructive" });
         return;
       }
-      toast({ title: `Added ${runBody.added} photos`, description: `${runBody.photosStored} now on the listing${runBody.failed ? ` (${runBody.failed} failed to download)` : ""}.` });
+      toast({
+        title: runBody.replacedHotlinks ? `Saved ${runBody.added} photos on Wayzyy` : `Added ${runBody.added} photos`,
+        description: `${runBody.photosStored} now on the listing${runBody.failed ? ` (${runBody.failed} failed to download)` : ""}${runBody.descriptionUpdated ? "; description updated" : ""}.`,
+      });
     } finally {
       setPhotoBusy(null);
     }
