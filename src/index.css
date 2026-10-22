@@ -332,6 +332,15 @@ html.lenis body {
 .host-light :is(.bg-ember, .bg-primary, [class*="bg-gradient-to"], [class*="bg-[#"], .bg-red-600, .bg-red-500,
   .bg-emerald-600, .bg-emerald-500, .bg-black\/50, .bg-black\/60, .bg-black\/70, .bg-black\/80, .bg-slate-800)[class~="text-white"] { color: #fff; }
 
+/* ...but not icons on a light card inside a dark modal backdrop (bg-black/60
+   wraps the whole popup, so the rule above turned every icon in it white on
+   white). A light surface between the backdrop and the icon wins. */
+.host-light :is(.bg-card, .bg-background, .bg-white, .bg-popover) svg:not([class*="text-"]) { color: inherit; }
+.host-light :is(.bg-card, .bg-background, .bg-white, .bg-popover) svg.text-muted-foreground { color: hsl(var(--muted-foreground)); }
+.host-light :is(.bg-card, .bg-background, .bg-white, .bg-popover) svg.text-foreground { color: hsl(var(--foreground)); }
+.host-light :is(.bg-card, .bg-background, .bg-white, .bg-popover) svg.text-primary { color: hsl(var(--primary)); }
+.host-light :is(.bg-card, .bg-background, .bg-white, .bg-popover) :is(.bg-ember, .bg-primary, [class*="bg-gradient-to"], [class*="bg-[#"]) svg { color: #fff; }
+
 /* host-light: variant classes the attribute rules above can't see */
 .host-light [data-state="active"][class*="data-[state=active]:bg-white"] {
   background-color: #ff6b00; color: #fff; box-shadow: none;
