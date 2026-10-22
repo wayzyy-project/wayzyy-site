@@ -98,6 +98,8 @@ const GoaAirbnbRegistrationRules = lazy(() => import("./pages/blog/GoaAirbnbRegi
 const CandolimBeachGuide = lazy(() => import("./pages/blog/CandolimBeachGuide"));
 const CalanguteBeachGuide = lazy(() => import("./pages/blog/CalanguteBeachGuide"));
 const BagaBeachGuide = lazy(() => import("./pages/blog/BagaBeachGuide"));
+const GoaTimeAppAirbnbHosts = lazy(() => import("./pages/blog/GoaTimeAppAirbnbHosts"));
+const FormCForeignGuestsGoa = lazy(() => import("./pages/blog/FormCForeignGuestsGoa"));
 const AirbnbPricingUpdate15PercentFee = lazy(() => import("./pages/blog/AirbnbPricingUpdate15PercentFee"));
 const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLanding"));
 const WhatIsWayzyy = lazy(() => import("./pages/WhatIsWayzyy"));
@@ -285,6 +287,8 @@ const App = () => (
               <Route path="/blog/candolim-goa-beach-guide" element={<CandolimBeachGuide />} />
               <Route path="/blog/calangute-goa-beach-guide" element={<CalanguteBeachGuide />} />
               <Route path="/blog/baga-goa-beach-guide" element={<BagaBeachGuide />} />
+              <Route path="/blog/goa-time-app-airbnb-hosts" element={<GoaTimeAppAirbnbHosts />} />
+              <Route path="/blog/form-c-foreign-guests-airbnb-hosts-goa" element={<FormCForeignGuestsGoa />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
               <Route path="/about" element={<Index />} />
