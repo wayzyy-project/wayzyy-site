@@ -59,6 +59,10 @@
   ],
   "rewrites": [
     {
+      "source": "/calendar/:propertyId/:token.ics",
+      "destination": "https://eitpwcnsoshweoqzusdk.supabase.co/functions/v1/export-calendar-ics?propertyId=:propertyId&token=:token"
+    },
+    {
       "source": "/robots.txt",
       "destination": "/robots.txt"
     },

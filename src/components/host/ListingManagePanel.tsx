@@ -15,7 +15,6 @@ import { DAY_ORDER, DAY_SHORT } from "@/lib/stayRules";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
 
-const SUPABASE_URL = "https://eitpwcnsoshweoqzusdk.supabase.co";
 
 interface Props {
   propertyId: string;
@@ -638,7 +637,9 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
   }, [load]);
 
   const exportUrl = exportToken
-    ? `${SUPABASE_URL}/functions/v1/export-calendar-ics?propertyId=${propertyId}&token=${exportToken}`
+    // Served from wayzyy.com (vercel.json proxies it to the export function);
+    // the old supabase.co links pasted into other sites keep working too.
+    ? `https://wayzyy.com/calendar/${propertyId}/${exportToken}.ics`
     : null;
 
   const [copied, setCopied] = useState(false);
