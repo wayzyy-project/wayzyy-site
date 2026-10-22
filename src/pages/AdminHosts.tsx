@@ -9,6 +9,7 @@ import { SEO } from "@/components/SEO";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -802,6 +803,36 @@ function HostDetailSheet({
   onStageChange: (stage: StageKey) => void;
 }) {
   const { toast } = useToast();
+  const [photoBusy, setPhotoBusy] = useState<string | null>(null);
+
+  // Ask AirROI how many photos a listing has, then (after a confirm) add the
+  // ones Wayzyy is missing. Only works for listings imported via AirROI.
+  const topUpPhotos = async (p: HostProperty) => {
+    setPhotoBusy(p.id);
+    try {
+      const dry = await supabase.functions.invoke("airroi-refresh-photos", { body: { propertyId: p.id, dryRun: true } });
+      const dryBody = dry.error ? await (dry.error as any).context?.json?.().catch(() => null) : dry.data;
+      if (dry.error || dryBody?.error) {
+        toast({ title: "Can't top up photos", description: dryBody?.error ?? dry.error?.message, variant: "destructive" });
+        return;
+      }
+      if (!dryBody.wouldAdd) {
+        toast({ title: "Already complete", description: `${dryBody.photosStored} photos stored; AirROI has ${dryBody.photosAvailable}.` });
+        return;
+      }
+      if (!window.confirm(`${p.title}\n\nWayzyy has ${dryBody.photosStored} photos; AirROI has ${dryBody.photosAvailable}. Add ${dryBody.wouldAdd} more?`)) return;
+      const run = await supabase.functions.invoke("airroi-refresh-photos", { body: { propertyId: p.id, dryRun: false } });
+      const runBody = run.error ? await (run.error as any).context?.json?.().catch(() => null) : run.data;
+      if (run.error || runBody?.error) {
+        toast({ title: "Couldn't add photos", description: runBody?.error ?? run.error?.message, variant: "destructive" });
+        return;
+      }
+      toast({ title: `Added ${runBody.added} photos`, description: `${runBody.photosStored} now on the listing${runBody.failed ? ` (${runBody.failed} failed to download)` : ""}.` });
+    } finally {
+      setPhotoBusy(null);
+    }
+  };
+
   if (!host) return null;
 
   const { importedRoomIds, matchUnavailable } = signalsFor(host);
@@ -976,6 +1007,16 @@ function HostDetailSheet({
                             >
                               View ↗
                             </a>
+                          )}
+                          {p.status === "active" && p.source_url && (
+                            <button
+                              type="button"
+                              onClick={() => topUpPhotos(p)}
+                              disabled={photoBusy === p.id}
+                              className="shrink-0 text-[11px] font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline disabled:opacity-50"
+                            >
+                              {photoBusy === p.id ? "Checking…" : "More photos"}
+                            </button>
                           )}
                           {/* Drafts open in the same review page (it has no
                               status filter), to check how an import looks

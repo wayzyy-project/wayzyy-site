@@ -4,6 +4,20 @@
 // Supabase is hit about once per photo and size instead of on every page view.
 const SIZES = [200, 320, 480, 640, 900, 1400, 1800];
 
+/**
+ * src + srcSet so the browser downloads the smallest size that fills the
+ * space (a phone card needs ~480px, a retina laptop ~900px) instead of one
+ * fixed width for everyone. Non-Wayzyy-storage URLs just get a plain src.
+ */
+export function imgSet(url: string | null | undefined, widths = [320, 480, 640, 900]): { src: string; srcSet?: string } {
+  const src = img(url, widths[widths.length - 1]);
+  if (!url || src === url || !src.startsWith("/_vercel/image")) return { src: src || "" };
+  return {
+    src: img(url, widths[2] ?? widths[widths.length - 1]),
+    srcSet: widths.map((w) => `${img(url, w)} ${w}w`).join(", "),
+  };
+}
+
 export function img(url: string | null | undefined, width = 800): string {
   if (!url) return "";
   // Only on the deployed site; the optimizer doesn't exist on localhost.

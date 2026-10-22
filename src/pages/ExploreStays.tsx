@@ -386,9 +386,10 @@ export default function ExploreStays() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
-                {northGoaProperties.map((property) => (
+                {northGoaProperties.map((property, idx) => (
                   <PropertyCard
                     key={property.id}
+                    priority={idx < 4}
                     property={property}
                     nights={datesPicked ? stayNights : undefined}
                     includeAllFees={includeAllFees}
@@ -458,9 +459,10 @@ export default function ExploreStays() {
           {(searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
             <section className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
-                {filteredProperties.map((property) => (
+                {filteredProperties.map((property, idx) => (
                   <PropertyCard
                     key={property.id}
+                    priority={idx < 4}
                     property={property}
                     nights={datesPicked ? stayNights : undefined}
                     includeAllFees={includeAllFees}

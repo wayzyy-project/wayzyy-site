@@ -223,7 +223,8 @@ export function ThreadPane({
       setInput(content);
       setContactFlagged(sent.contactInfo.length ? sent.contactInfo : [content]);
     } else if (sent && typeof sent === "object") {
-      setMessages((prev) => (prev.some((m) => m.id === sent.id) ? prev : [...prev, sent]));
+      const message = sent as Message;
+      setMessages((prev) => (prev.some((m) => m.id === message.id) ? prev : [...prev, message]));
     } else {
       setInput(content);
       toast({

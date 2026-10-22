@@ -141,7 +141,7 @@
     "formats": [
       "image/webp"
     ],
-    "minimumCacheTTL": 2678400,
+    "minimumCacheTTL": 31536000,
     "remotePatterns": [
       {
         "protocol": "https",

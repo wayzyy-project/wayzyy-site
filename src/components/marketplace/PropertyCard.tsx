@@ -1,4 +1,4 @@
-import { img } from "@/lib/img";
+import { imgSet } from "@/lib/img";
 import React, { useState, useEffect, useRef } from "react";
 import { guestNightlyPrice } from "@/lib/pricing";
 import { Link } from "react-router-dom";
@@ -11,12 +11,15 @@ interface PropertyCardProps {
   property: PropertyListing;
   nights?: number;
   includeAllFees?: boolean;
+  /** First cards on a page: load the cover immediately and mark it high priority. Everything else is lazy. */
+  priority?: boolean;
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
   property,
   nights: nightsProp,
   includeAllFees = true,
+  priority = false,
 }) => {
   // Picked dates win; otherwise price the host's minimum stay (1 night unless they set more).
   const nights = nightsProp ?? Math.max(1, property.minNights ?? 1);
@@ -71,17 +74,24 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           onScroll={onTrackScroll}
           className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar"
         >
-          {shown.map((src, i) => (
-            <img
-              key={src + i}
-              src={img(src, 640)}
-              alt={i === 0 ? property.title : ""}
-              className="h-full w-full shrink-0 snap-center object-cover"
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding="async"
-              draggable={false}
-            />
-          ))}
+          {shown.map((src, i) => {
+            const set = imgSet(src);
+            return (
+              <img
+                key={src + i}
+                src={set.src}
+                srcSet={set.srcSet}
+                // Card width follows the grid: 1 column on phones up to 6 on wide screens.
+                sizes="(min-width: 1900px) 17vw, (min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                alt={i === 0 ? property.title : ""}
+                className="h-full w-full shrink-0 snap-center object-cover"
+                loading={i === 0 && priority ? "eager" : "lazy"}
+                {...(i === 0 && priority ? { fetchPriority: "high" as const } : {})}
+                decoding="async"
+                draggable={false}
+              />
+            );
+          })}
         </div>
 
         <button
