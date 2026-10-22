@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, Copy, Loader2, Trash2, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Check, Copy, Loader2, Trash2, Minus, Plus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -641,10 +641,34 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
     ? `${SUPABASE_URL}/functions/v1/export-calendar-ics?propertyId=${propertyId}&token=${exportToken}`
     : null;
 
+  const [copied, setCopied] = useState(false);
   const handleCopy = async () => {
     if (!exportUrl) return;
-    await navigator.clipboard.writeText(exportUrl);
-    toast({ title: "Copied", description: "Calendar link copied to clipboard." });
+    // navigator.clipboard is refused in some contexts (inside dialogs without
+    // focus, older Safari, non-secure frames), and the rejection used to be
+    // swallowed - the button just did nothing. Fall back to a hidden textarea.
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(exportUrl);
+      ok = true;
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = exportUrl;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand("copy"); } catch { ok = false; }
+      document.body.removeChild(ta);
+    }
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      toast({ title: "Copied", description: "Calendar link copied to clipboard." });
+    } else {
+      toast({ title: "Couldn't copy", description: "Select the link and copy it manually.", variant: "destructive" });
+    }
   };
 
   const handleAdd = async () => {
@@ -708,11 +732,17 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
         <div className="liquid-glass flex items-center gap-3 rounded-xl border border-white/15 bg-black/30 p-4">
           <div className="min-w-0 flex-1">
             <p className="mb-0.5 text-xs text-white/60">Wayzyy calendar link</p>
-            <p className="truncate text-sm text-white">{exportUrl ?? " - "}</p>
+            <input
+              readOnly
+              value={exportUrl ?? " - "}
+              onFocus={(e) => e.currentTarget.select()}
+              aria-label="Wayzyy calendar link"
+              className="w-full truncate bg-transparent text-sm text-white outline-none"
+            />
           </div>
           <Button size="sm" onClick={handleCopy} disabled={!exportUrl} className="gap-1.5">
-            <Copy className="h-3.5 w-3.5" />
-            Copy
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+            {copied ? "Copied" : "Copy"}
           </Button>
         </div>
       </div>
