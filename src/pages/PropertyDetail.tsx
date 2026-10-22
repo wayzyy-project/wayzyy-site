@@ -236,6 +236,39 @@ export default function PropertyDetail() {
   // Default to the shortest stay allowed (1 night unless the host set more; raised once the listing loads).
   const [checkOutDate, setCheckOutDate] = useState<Date>(addDays(new Date(), 1));
   const [datesOpen, setDatesOpen] = useState(false);
+  // Booked / blocked nights (dates only, from a guest-readable RPC), so the
+  // calendars grey them out and the default stay never lands on them - picking
+  // them used to fail only at payment, with a 409 from create-booking-order.
+  const [unavailable, setUnavailable] = useState<Set<string>>(new Set());
+  const [dateNotice, setDateNotice] = useState<string | null>(null);
+  useEffect(() => {
+    const id = property?.id;
+    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return;
+    let cancelled = false;
+    supabase.rpc("property_unavailable_dates", { p_property_id: id }).then(({ data, error }) => {
+      if (cancelled || error || !Array.isArray(data)) return;
+      const set = new Set<string>(data.map((d: any) => String(typeof d === "string" ? d : d.property_unavailable_dates)));
+      setUnavailable(set);
+      // Move the default stay to the first free stretch of the same length.
+      const nightsWanted = Math.max(1, differenceInDays(checkOutDate, checkInDate));
+      const taken = (d: Date) => set.has(format(d, "yyyy-MM-dd"));
+      const clash = (from: Date) => { for (let i = 0; i < nightsWanted; i++) if (taken(addDays(from, i))) return true; return false; };
+      if (clash(checkInDate)) {
+        for (let i = 1; i <= 365; i++) {
+          const from = addDays(checkInDate, i);
+          if (!clash(from)) {
+            setCheckInDate(from);
+            setCheckOutDate(addDays(from, nightsWanted));
+            setDateNotice(`The earliest dates were booked, so we've picked the next free ones: ${format(from, "d MMM")}.`);
+            break;
+          }
+        }
+      }
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [property?.id]);
+
   // Once the listing loads, stretch the default stay to the host's minimum.
   useEffect(() => {
     const min = property?.minNights ?? 1;
@@ -896,6 +929,7 @@ export default function PropertyDetail() {
                       checkIn={checkInDate}
                       checkOut={checkOutDate}
                       minNights={minNights}
+                      unavailable={unavailable}
                       months={typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches ? 2 : 1}
                       onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
                     />
@@ -1001,10 +1035,12 @@ export default function PropertyDetail() {
                         checkIn={checkInDate}
                         checkOut={checkOutDate}
                         minNights={minNights}
-                        onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); setDatesOpen(false); }}
+                        unavailable={unavailable}
+                        onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); setDateNotice(null); setDatesOpen(false); }}
                       />
                     </PopoverContent>
                   </Popover>
+                  {dateNotice && <p className="px-3 py-2 text-[11px] font-semibold text-[#FF6B00]">{dateNotice}</p>}
 
                   {/* Guests Dropdown Trigger */}
                   <div className="p-3 relative">
@@ -1086,6 +1122,17 @@ export default function PropertyDetail() {
                         variant: "destructive",
                       });
                       return;
+                    }
+                    for (let d = checkInDate; d < checkOutDate; d = addDays(d, 1)) {
+                      if (unavailable.has(format(d, "yyyy-MM-dd"))) {
+                        toast({
+                          title: "Those dates are booked",
+                          description: "Some nights in your stay aren't available. Pick dates that avoid the greyed-out days.",
+                          variant: "destructive",
+                        });
+                        setDatesOpen(true);
+                        return;
+                      }
                     }
                     setIsBookingModalOpen(true);
                   }}
@@ -1283,6 +1330,7 @@ export default function PropertyDetail() {
           totalAmount={quote ? quote.total : stayTotal}
           accommodation={quote ? quote.accommodation : undefined}
           minNights={minNights}
+          unavailable={unavailable}
           onDatesChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
         />
 

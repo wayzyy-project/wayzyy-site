@@ -36,6 +36,7 @@ interface BookingModalProps {
   /** Lets the guest change dates here instead of closing the modal; the parent re-quotes. */
   onDatesChange?: (checkIn: Date, checkOut: Date) => void;
   minNights?: number;
+  unavailable?: Set<string>;
 }
 
 declare global {
@@ -75,6 +76,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   accommodation,
   onDatesChange,
   minNights = 1,
+  unavailable,
 }) => {
   const navigate = useNavigate();
   const [editDatesOpen, setEditDatesOpen] = useState(false);
@@ -193,7 +195,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         },
       });
       if (orderError || !orderData?.orderId) {
-        throw new Error(orderData?.error ?? orderError?.message ?? "Could not start payment");
+        // invoke() hides the server's message behind "non-2xx status code";
+        // read the body so the guest sees why (dates booked, price changed...).
+        const body = await (orderError as any)?.context?.json?.().catch(() => null);
+        throw new Error(body?.error ?? orderData?.error ?? "Could not start payment. Please try again.");
       }
 
       await loadRazorpayScript();
@@ -348,6 +353,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                             checkIn={checkInDate}
                             checkOut={checkOutDate}
                             minNights={minNights}
+                            unavailable={unavailable}
                             onChange={(a, b) => { onDatesChange(a, b); setEditDatesOpen(false); }}
                           />
                         </PopoverContent>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { addDays, differenceInDays, startOfDay } from "date-fns";
+import { addDays, differenceInDays, format, startOfDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 
 /**
@@ -13,12 +13,15 @@ export function StayDatesCalendar({
   checkOut,
   minNights = 1,
   months = 1,
+  unavailable,
   onChange,
 }: {
   checkIn: Date;
   checkOut: Date;
   minNights?: number;
   months?: number;
+  /** "yyyy-MM-dd" nights that are booked or blocked */
+  unavailable?: Set<string>;
   onChange: (checkIn: Date, checkOut: Date) => void;
 }) {
   // While picking, hold a half-finished range locally so the first click
@@ -26,10 +29,19 @@ export function StayDatesCalendar({
   const [draft, setDraft] = useState<DateRange | undefined>(undefined);
   const selected: DateRange = draft ?? { from: checkIn, to: checkOut };
   const today = startOfDay(new Date());
+  const [notice, setNotice] = useState<string | null>(null);
+  const isTaken = (d: Date) => !!unavailable?.has(format(d, "yyyy-MM-dd"));
+  // True if any night from check-in up to (not including) checkout is taken.
+  const crossesTaken = (from: Date, to: Date) => {
+    for (let d = from; d < to; d = addDays(d, 1)) if (isTaken(d)) return true;
+    return false;
+  };
 
   const handleSelect = (range: DateRange | undefined, day: Date) => {
     // Starting a new pick (nothing in progress): this click is check-in.
     if (!draft) {
+      if (isTaken(day)) return;
+      setNotice(null);
       setDraft({ from: day, to: undefined });
       return;
     }
@@ -40,6 +52,13 @@ export function StayDatesCalendar({
     }
     const nights = differenceInDays(day, from);
     const to = nights < minNights ? addDays(from, minNights) : day;
+    if (crossesTaken(from, to)) {
+      // Can't stay through a booked night: start over from the clicked day.
+      setDraft({ from: day, to: undefined });
+      setNotice("Some nights in that range are already booked. Pick dates that don't cross the greyed-out days.");
+      return;
+    }
+    setNotice(null);
     setDraft(undefined);
     onChange(from, to);
     void range;
@@ -53,7 +72,11 @@ export function StayDatesCalendar({
         selected={selected}
         onSelect={handleSelect}
         defaultMonth={checkIn}
-        disabled={{ before: today }}
+        // Booked nights can't be a check-in, but can be a checkout (the guest
+        // leaves that morning), so only block them while picking check-in.
+        disabled={draft ? [{ before: today }] : [{ before: today }, isTaken]}
+        modifiers={{ taken: isTaken }}
+        modifiersClassNames={{ taken: "line-through text-muted-foreground/40" }}
         className="rounded-2xl"
         // Airbnb-style range: full dark circles on check-in/checkout and a
         // light band for the nights between that runs into the middle of each
@@ -76,6 +99,7 @@ export function StayDatesCalendar({
           head_cell: "w-10 text-[0.75rem] font-medium text-muted-foreground",
         }}
       />
+      {notice && <p className="px-3 text-xs font-semibold text-[#FF6B00]">{notice}</p>}
       <p className="px-3 text-xs text-muted-foreground">
         {draft ? "Now pick your checkout date." : "Pick a check-in date, then a checkout date."}
         {minNights > 1 ? ` Minimum stay: ${minNights} nights.` : ""}
