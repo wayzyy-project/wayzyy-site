@@ -77,6 +77,9 @@ import CalanguteBeachGuide from "@/pages/blog/CalanguteBeachGuide";
 import BagaBeachGuide from "@/pages/blog/BagaBeachGuide";
 import GoaTimeAppAirbnbHosts from "@/pages/blog/GoaTimeAppAirbnbHosts";
 import FormCForeignGuestsGoa from "@/pages/blog/FormCForeignGuestsGoa";
+import IsAirbnbLegalInGoa from "@/pages/blog/IsAirbnbLegalInGoa";
+import GstForAirbnbHostsIndia from "@/pages/blog/GstForAirbnbHostsIndia";
+import UnmarriedCouplesGoaStays from "@/pages/blog/UnmarriedCouplesGoaStays";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -170,6 +173,9 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/baga-goa-beach-guide": BagaBeachGuide,
   "/blog/goa-time-app-airbnb-hosts": GoaTimeAppAirbnbHosts,
   "/blog/form-c-foreign-guests-airbnb-hosts-goa": FormCForeignGuestsGoa,
+  "/blog/is-airbnb-legal-in-goa": IsAirbnbLegalInGoa,
+  "/blog/gst-for-airbnb-hosts-india": GstForAirbnbHostsIndia,
+  "/blog/unmarried-couples-goa-hotels-villas": UnmarriedCouplesGoaStays,
 };
 
 const output: Record<string, string> = {};

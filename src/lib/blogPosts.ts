@@ -13,6 +13,42 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "is-airbnb-legal-in-goa",
+    title: "Is Airbnb Legal in Goa? (2026 Answer)",
+    description:
+      "Yes, for registered properties. What the law says for hosts and guests, what changed in January 2026, and the four things a legal Goa Airbnb has to keep doing.",
+    metaTitle: "Is Airbnb Legal in Goa? The 2026 Answer",
+    metaDescription:
+      "Yes, Airbnb is legal in Goa if the property is registered with Goa Tourism and shows its number. What changed in 2026 for hosts and guests, in plain terms.",
+    heroImage: "/blog/is-airbnb-legal-in-goa.webp",
+    publishedDate: "2026-10-25",
+    readTime: "5 Min Read",
+  },
+  {
+    slug: "gst-for-airbnb-hosts-india",
+    title: "GST for Airbnb Hosts in India (2026): Do You Need to Pay?",
+    description:
+      "The ₹20 lakh threshold, the new 5% and 18% rates, who pays GST on a platform booking, and the TDS platforms deduct. GST for short-term rental hosts, explained simply.",
+    metaTitle: "GST for Airbnb Hosts in India: 2026 Rules Explained",
+    metaDescription:
+      "Do Airbnb hosts in India pay GST? The ₹20 lakh threshold, the 5% and 18% rates since September 2025, and when Airbnb pays GST for you.",
+    heroImage: "/blog/gst-for-airbnb-hosts-india.webp",
+    publishedDate: "2026-10-25",
+    readTime: "6 Min Read",
+  },
+  {
+    slug: "unmarried-couples-goa-hotels-villas",
+    title: "Can Unmarried Couples Stay in Goa Hotels and Villas? (2026)",
+    description:
+      "Yes. What Indian law and the courts actually say, why some hotels still refuse couples, what ID you need, and how to book in Goa without a surprise at check-in.",
+    metaTitle: "Can Unmarried Couples Stay in Goa Villas? (2026)",
+    metaDescription:
+      "Yes, unmarried couples can legally stay together in Goa hotels and villas. What the law and courts say, the ID you need, and how to avoid refusals.",
+    heroImage: "/blog/unmarried-couples-goa-hotels-villas.webp",
+    publishedDate: "2026-10-25",
+    readTime: "5 Min Read",
+  },
+  {
     slug: "goa-time-app-airbnb-hosts",
     title: "Goa's TIME App for Airbnb Hosts: Form XI, Explained (2026)",
     description:
