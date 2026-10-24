@@ -80,6 +80,7 @@ import FormCForeignGuestsGoa from "@/pages/blog/FormCForeignGuestsGoa";
 import IsAirbnbLegalInGoa from "@/pages/blog/IsAirbnbLegalInGoa";
 import GstForAirbnbHostsIndia from "@/pages/blog/GstForAirbnbHostsIndia";
 import UnmarriedCouplesGoaStays from "@/pages/blog/UnmarriedCouplesGoaStays";
+import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -176,6 +177,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/is-airbnb-legal-in-goa": IsAirbnbLegalInGoa,
   "/blog/gst-for-airbnb-hosts-india": GstForAirbnbHostsIndia,
   "/blog/unmarried-couples-goa-hotels-villas": UnmarriedCouplesGoaStays,
+  "/blog/goa-december-new-year-guide-2026": GoaDecemberNewYearGuide,
 };
 
 const output: Record<string, string> = {};
