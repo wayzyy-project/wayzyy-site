@@ -77,6 +77,7 @@ import CalanguteBeachGuide from "@/pages/blog/CalanguteBeachGuide";
 import BagaBeachGuide from "@/pages/blog/BagaBeachGuide";
 import GoaTimeAppAirbnbHosts from "@/pages/blog/GoaTimeAppAirbnbHosts";
 import FormCForeignGuestsGoa from "@/pages/blog/FormCForeignGuestsGoa";
+import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -170,6 +171,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/baga-goa-beach-guide": BagaBeachGuide,
   "/blog/goa-time-app-airbnb-hosts": GoaTimeAppAirbnbHosts,
   "/blog/form-c-foreign-guests-airbnb-hosts-goa": FormCForeignGuestsGoa,
+  "/blog/goa-december-new-year-guide-2026": GoaDecemberNewYearGuide,
 };
 
 const output: Record<string, string> = {};

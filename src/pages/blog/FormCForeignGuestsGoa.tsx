@@ -1,7 +1,6 @@
 import { BlogLayout } from "@/components/BlogLayout";
 import { blogPosts } from "@/lib/blogPosts";
 import { HelpCircle } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const post = blogPosts.find((p) => p.slug === "form-c-foreign-guests-airbnb-hosts-goa")!;
@@ -64,9 +63,6 @@ const howToJsonLd = {
 };
 
 export default function FormCForeignGuestsGoa() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const toggleFaq = (index: number) => setOpenFaq(openFaq === index ? null : index);
-
   return (
     <BlogLayout
       title={post.title}
@@ -304,20 +300,19 @@ export default function FormCForeignGuestsGoa() {
         </h3>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-border rounded-xl bg-card overflow-hidden transition-all duration-200">
-              <button
-                onClick={() => toggleFaq(index)}
-                className="w-full text-left px-6 py-4 flex items-center justify-between font-display text-foreground hover:bg-muted/50 transition-colors"
-              >
+            <details
+              key={index}
+              className="group border border-border rounded-xl bg-card overflow-hidden transition-all duration-200"
+            >
+              <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden w-full text-left px-6 py-4 flex items-center justify-between font-display text-foreground hover:bg-muted/50 transition-colors">
                 <span>{faq.q}</span>
-                <span className="text-muted-foreground font-light text-xl">{openFaq === index ? "−" : "+"}</span>
-              </button>
-              {openFaq === index && (
-                <div className="px-6 pb-5 text-muted-foreground border-t border-border/50 pt-4 text-sm leading-relaxed">
-                  {faq.a}
-                </div>
-              )}
-            </div>
+                <span className="text-muted-foreground font-light text-xl group-open:hidden">+</span>
+                <span className="text-muted-foreground font-light text-xl hidden group-open:inline">−</span>
+              </summary>
+              <div className="px-6 pb-5 text-muted-foreground border-t border-border/50 pt-4 text-sm leading-relaxed">
+                {faq.a}
+              </div>
+            </details>
           ))}
         </div>
       </div>

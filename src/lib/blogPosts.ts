@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "goa-december-new-year-guide-2026",
+    title: "Goa in December 2026: Events, Christmas and New Year's Eve, Honestly",
+    description:
+      "Sunburn has left Goa, Serendipity is back in Panaji, and New Year's Eve traffic is as bad as ever. The dates, the rules and where to stay for the December you actually want.",
+    metaTitle: "Goa in December 2026: Events, NYE & Travel Tips",
+    metaDescription:
+      "Goa in December 2026: event dates, why Sunburn isn't in Goa, New Year's Eve traffic and music rules, and where to stay for parties, Christmas or quiet.",
+    heroImage: "/blog/goa-december-new-year-guide-2026.webp",
+    publishedDate: "2026-10-22",
+    readTime: "9 Min Read",
+  },
+  {
     slug: "goa-time-app-airbnb-hosts",
     title: "Goa's TIME App for Airbnb Hosts: Form XI, Explained (2026)",
     description:
