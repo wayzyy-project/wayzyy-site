@@ -116,6 +116,7 @@ export function computeNightlyPrices(
 export interface GuestPricingTier {
   minGuests: number;
   pricePerNight: number;
+  onDatedNights?: boolean;
 }
 
 /**
@@ -134,6 +135,25 @@ export function resolveBasePriceForGuests(
     if (t.minGuests <= guests && (!best || t.minGuests > best.minGuests)) best = t;
   }
   return best ? best.pricePerNight : basePricePerNight;
+}
+
+
+/**
+ * What the party size adds to the host's price when the matching tier is
+ * flagged to apply on date-priced nights too (a date override replaces the base
+ * price, so without this extra guests would not be charged on those nights).
+ * Zero for every tier that is not flagged, so other properties are unaffected.
+ */
+export function guestTierUplift(
+  basePricePerNight: number,
+  guests: number,
+  tiers: GuestPricingTier[],
+): number {
+  let best: GuestPricingTier | null = null;
+  for (const t of tiers) {
+    if (t.minGuests <= guests && (!best || t.minGuests > best.minGuests)) best = t;
+  }
+  return best && best.onDatedNights ? best.pricePerNight - basePricePerNight : 0;
 }
 
 /**
@@ -206,7 +226,7 @@ export function quoteStay(
     toDateStr(checkIn),
     toDateStr(checkOut),
     dateOverrides,
-    tiers.length > 0 ? basePriceForGuests - hostPricePerNight : 0,
+    guestTierUplift(hostPricePerNight, guests, tiers),
   );
   const nightsSubtotal = nightlyPrices.reduce((sum, p) => sum + p, 0);
 

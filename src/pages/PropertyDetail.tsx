@@ -457,7 +457,7 @@ export default function PropertyDetail() {
           const [tierRes, dateRes, discountRes, pastBookingsRes] = await Promise.all([
             supabase
               .from("property_guest_pricing_tiers")
-              .select("min_guests, price_per_night")
+              .select("min_guests, price_per_night, on_dated_nights")
               .eq("property_id", data.id),
             supabase
               .from("date_prices")
@@ -476,6 +476,7 @@ export default function PropertyDetail() {
           const tiers: GuestPricingTier[] = (tierRes.data ?? []).map((t: any) => ({
             minGuests: Number(t.min_guests),
             pricePerNight: Number(t.price_per_night),
+            onDatedNights: t.on_dated_nights === true,
           }));
           const dateOverrides: Record<string, number> = {};
           for (const row of dateRes.data ?? []) {
