@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { mp } from "@/lib/mixpanel";
 
-export function WayzyyLocationPromo() {
+export function WayzyyLocationPromo({ title, description }: { title?: string; description?: string } = {}) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
@@ -53,10 +53,12 @@ export function WayzyyLocationPromo() {
           Direct Bookings, Zero Markups
         </span>
         <h3 className="font-display text-2xl text-foreground">
-          Planning your stay nearby? Get it up to 20% cheaper on Wayzyy
+          {title ?? "Planning your stay nearby? Get it up to 20% cheaper on Wayzyy"}
         </h3>
         <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-          Statistically speaking, global booking platforms mark up rates by up to 20% to cover commissions and service fees. Because <strong>Wayzyy doesn't add any markup from our end</strong>, you get direct direct-from-host pricing for the same property. 
+          {description ?? (
+            <>Statistically speaking, global booking platforms mark up rates by up to 20% to cover commissions and service fees. Because <strong>Wayzyy doesn't add any markup from our end</strong>, you get direct direct-from-host pricing for the same property.</>
+          )}
         </p>
         <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
           Our team is working hard to get in front of your eyes. With over <strong>500 properties</strong> and <strong>50 hosts</strong> already onboarding, we are increasing the options before our launch so that we have choices for all your travel needs.

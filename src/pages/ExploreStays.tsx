@@ -153,7 +153,7 @@ export default function ExploreStays() {
               try {
                 const arr = JSON.parse(p.images);
                 if (Array.isArray(arr) && arr.length > 0) parsedImages = arr;
-              } catch (e) {}
+              } catch (e) { /* ignore */ }
             }
 
             const price = Number(p.price_per_night) || 3500;

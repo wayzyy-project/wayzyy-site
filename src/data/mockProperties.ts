@@ -17,8 +17,6 @@ export interface PropertyListing {
   vibe?: string | null;
   // Draft the host hasn't priced yet, shown publicly for enquiries only.
   showcase?: boolean;
-  // Host-set minimum stay; cards price this many nights when no dates are picked.
-  minNights?: number;
   hasSelfCheckIn?: boolean;
   allowsPets?: boolean;
   isRoom?: boolean;

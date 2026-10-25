@@ -254,9 +254,8 @@ export default function AirbnbPricingUpdate15PercentFee() {
       metaDescription={post.metaDescription}
       heroImage={post.heroImage}
       publishedDate={post.publishedDate}
-      readTime={post.readTime}
       slug={post.slug}
-      jsonLd={faqJsonLd}
+      extraJsonLd={faqJsonLd}
     >
       {/* Introduction */}
       <p className="lead text-lg sm:text-xl text-foreground/90 font-medium leading-relaxed">

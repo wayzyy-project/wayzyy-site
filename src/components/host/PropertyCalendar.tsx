@@ -330,7 +330,7 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
     }
     setBlocked((prev) => {
       const next = new Set(prev);
-      for (const d of selected) block ? next.add(d) : next.delete(d);
+      for (const d of selected) { if (block) next.add(d); else next.delete(d); }
       return next;
     });
     toast({ title: block ? "Dates blocked" : "Dates reopened" });
@@ -570,7 +570,7 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
                           onChange={() =>
                             setAlsoApply((prev) => {
                               const next = new Set(prev);
-                              next.has(l.id) ? next.delete(l.id) : next.add(l.id);
+                              if (next.has(l.id)) next.delete(l.id); else next.add(l.id);
                               return next;
                             })
                           }

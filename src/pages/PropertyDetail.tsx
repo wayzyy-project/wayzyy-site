@@ -327,7 +327,7 @@ export default function PropertyDetail() {
             try {
               const arr = JSON.parse(data.images);
               if (Array.isArray(arr) && arr.length > 0) parsedImages = arr;
-            } catch (e) {}
+            } catch (e) { /* ignore */ }
           }
 
           const price = Number(data.price_per_night) || 3700;

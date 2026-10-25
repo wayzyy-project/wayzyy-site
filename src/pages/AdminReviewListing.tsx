@@ -56,6 +56,9 @@ interface Property {
   admin_price_reasonableness: number | null;
   admin_host_profile: number | null;
   admin_notes: string | null;
+  location?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 function AuthGate({ children }: { children: React.ReactNode }) {

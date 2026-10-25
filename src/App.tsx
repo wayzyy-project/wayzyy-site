@@ -131,7 +131,7 @@ import ExploreStays from "./pages/ExploreStays";
 const GoaStaysPublic = lazy(() => import("./pages/GoaStaysPublic"));
 const VerifyIdentity = lazy(() => import("./pages/VerifyIdentity"));
 const HostPricing = lazy(() => import("./pages/HostPricing"));
-import PropertyDetail from "./pages/PropertyDetail";
+const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const MyTrips = lazy(() => import("./pages/MyTrips"));
 const Wishlists = lazy(() => import("./pages/Wishlists"));
 const WriteReview = lazy(() => import("./pages/WriteReview"));

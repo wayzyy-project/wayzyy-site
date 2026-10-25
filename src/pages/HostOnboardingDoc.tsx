@@ -25,7 +25,7 @@ export default function HostOnboardingDoc() {
       <SEO
         title="Founding Hosts Onboarding Deck (Goa 2026) | Wayzyy"
         description="Official Wayzyy Founding Hosts Onboarding Presentation for Goa villa and homestay owners. Explore 0% host commission, market data, credit packs, and direct host protection."
-        canonicalUrl="https://wayzyy.com/onboarding"
+        path="/onboarding"
       />
 
       <SiteNav />
