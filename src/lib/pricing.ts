@@ -92,18 +92,23 @@ export const parseLocalDate = (s: string): Date => {
 /**
  * The host's price for each night of a stay - a stay can span both
  * standard-priced and host-overridden (`date_prices`) nights. `overrides`
- * is keyed 'YYYY-MM-DD' -> that night's host price.
+ * is keyed 'YYYY-MM-DD' -> that night's host price. `guestUplift` is what the
+ * party size adds to the host's price (a guest-count tier's price minus the
+ * base price); a date override replaces the base price but not that uplift, so
+ * extra guests are charged on those nights too.
  */
 export function computeNightlyPrices(
   basePricePerNight: number,
   checkIn: string,
   checkOut: string,
   overrides: Record<string, number>,
+  guestUplift = 0,
 ): number[] {
   const prices: number[] = [];
   const end = parseLocalDate(checkOut);
   for (const d = parseLocalDate(checkIn); d < end; d.setDate(d.getDate() + 1)) {
-    prices.push(overrides[toDateStr(d)] ?? basePricePerNight);
+    const override = overrides[toDateStr(d)];
+    prices.push(override != null ? override + guestUplift : basePricePerNight);
   }
   return prices;
 }
@@ -111,6 +116,7 @@ export function computeNightlyPrices(
 export interface GuestPricingTier {
   minGuests: number;
   pricePerNight: number;
+  onDatedNights?: boolean;
 }
 
 /**
@@ -129,6 +135,25 @@ export function resolveBasePriceForGuests(
     if (t.minGuests <= guests && (!best || t.minGuests > best.minGuests)) best = t;
   }
   return best ? best.pricePerNight : basePricePerNight;
+}
+
+
+/**
+ * What the party size adds to the host's price when the matching tier is
+ * flagged to apply on date-priced nights too (a date override replaces the base
+ * price, so without this extra guests would not be charged on those nights).
+ * Zero for every tier that is not flagged, so other properties are unaffected.
+ */
+export function guestTierUplift(
+  basePricePerNight: number,
+  guests: number,
+  tiers: GuestPricingTier[],
+): number {
+  let best: GuestPricingTier | null = null;
+  for (const t of tiers) {
+    if (t.minGuests <= guests && (!best || t.minGuests > best.minGuests)) best = t;
+  }
+  return best && best.onDatedNights ? best.pricePerNight - basePricePerNight : 0;
 }
 
 /**
@@ -201,6 +226,7 @@ export function quoteStay(
     toDateStr(checkIn),
     toDateStr(checkOut),
     dateOverrides,
+    guestTierUplift(hostPricePerNight, guests, tiers),
   );
   const nightsSubtotal = nightlyPrices.reduce((sum, p) => sum + p, 0);
 
