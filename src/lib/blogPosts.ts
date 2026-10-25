@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "hotels-in-goa",
+    title: "Hotels in Goa (2026): When a Verified Villa or BnB Is the Better Stay",
+    description:
+      "Searching for hotels in Goa? When a hotel really is the right call, when a villa, apartment or BnB gives you more for the same budget, and how to book one as safely as a hotel.",
+    metaTitle: "Hotels in Goa (2026): Hotel vs Verified Villa or BnB",
+    metaDescription:
+      "Looking for hotels in Goa? When a hotel wins, when a verified villa or BnB is better value, the best areas, and how to book a home as safely as a hotel.",
+    heroImage: "/blog/hotels-in-goa.webp",
+    publishedDate: "2026-10-26",
+    readTime: "7 Min Read",
+  },
+  {
     slug: "is-airbnb-legal-in-goa",
     title: "Is Airbnb Legal in Goa? (2026 Answer)",
     description:
