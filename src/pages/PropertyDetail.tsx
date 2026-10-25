@@ -38,6 +38,7 @@ import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
+import { formatDescription } from "@/lib/descriptionFormat";
 import { quoteStay, guestNightlyPrice, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { stayRuleError, describeStayRules } from "@/lib/stayRules";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
@@ -886,10 +887,21 @@ export default function PropertyDetail() {
               {/* Description Section with Show More */}
               <div className="pt-6 space-y-3">
                 <h3 className="text-lg font-bold font-display text-foreground">About this space</h3>
-                <div className={`text-sm text-muted-foreground leading-relaxed space-y-3 ${descriptionExpanded ? "" : "line-clamp-4"}`}>
-                  {property.description.split("\n\n").map((para, idx) => (
-                    <p key={idx} className="whitespace-pre-line">{para}</p>
-                  ))}
+                <div className={`text-sm text-muted-foreground leading-relaxed ${descriptionExpanded ? "" : "line-clamp-4"}`}>
+                  {formatDescription(property.description).map((block, idx) =>
+                    block.type === "heading" ? (
+                      <h4 key={idx} className="mt-6 mb-2 text-sm font-bold text-foreground first:mt-0">{block.text}</h4>
+                    ) : block.type === "list" ? (
+                      <ul key={idx} className="mb-4 list-disc space-y-1 pl-5">
+                        {block.items.map((item, i) => <li key={i}>{item}</li>)}
+                      </ul>
+                    ) : (
+                      <p key={idx} className="mb-3">
+                        {block.label && <span className="font-semibold text-foreground">{block.label}: </span>}
+                        {block.text}
+                      </p>
+                    ),
+                  )}
                 </div>
                 <button
                   onClick={() => setDescriptionExpanded(!descriptionExpanded)}
