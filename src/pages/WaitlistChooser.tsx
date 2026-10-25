@@ -12,7 +12,7 @@ export default function WaitlistChooser() {
       <SEO
         title="Join Wayzyy - Founding Hosts & Travelers Waitlist"
         description="Join the Founding Hosts list across Goa, Bangalore, Jaipur & beyond. 0% host commission, verified homestays, and direct bookings."
-        canonicalUrl="https://wayzyy.com/waitlist"
+        path="/waitlist"
       />
       <div className="relative min-h-screen bg-background text-foreground flex flex-col justify-between">
         <SiteNav />

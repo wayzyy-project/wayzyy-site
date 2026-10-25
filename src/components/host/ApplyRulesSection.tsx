@@ -54,7 +54,7 @@ export function ApplyRulesSection({ propertyId, propertyTitle }: { propertyId: s
 
   const toggle = <T,>(set: Set<T>, v: T): Set<T> => {
     const next = new Set(set);
-    next.has(v) ? next.delete(v) : next.add(v);
+    if (next.has(v)) next.delete(v); else next.add(v);
     return next;
   };
 

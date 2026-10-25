@@ -14,15 +14,15 @@ import { Backpacker } from "./Backpacker";
 ───────────────────────────────────────────────────────────── */
 function usePx(
   p: MotionValue<number>,
-  input: [number, number],
-  output: [number, number]
+  input: number[],
+  output: number[]
 ) {
   return useTransform(p, input, output);
 }
 function useOp(
   p: MotionValue<number>,
-  input: [number, number],
-  output: [number, number]
+  input: number[],
+  output: number[]
 ) {
   return useTransform(p, input, output);
 }

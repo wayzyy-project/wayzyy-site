@@ -24,6 +24,8 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "@typescript-eslint/no-unused-vars": "off",
+      // shortcut: ~140 legacy `any`s stay as warnings, tighten to error once they are typed.
+      "@typescript-eslint/no-explicit-any": "warn",
     },
   }
 );

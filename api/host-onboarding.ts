@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { rateLimited } from "./_lib/rateLimit";
 
 // Escapes user-supplied text before it's interpolated into the HTML email
 // body — mirrors the same helper used in api/gig-challenge.ts.
@@ -59,6 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
+  if (rateLimited(req, res)) return;
 
   const body = req.body as HostOnboardingPayload;
 

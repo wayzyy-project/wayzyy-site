@@ -122,6 +122,17 @@ export default defineConfig(() => ({
     port: 8080,
   },
   plugins: [react(), localApiPlugin()],
+  build: {
+    rollupOptions: {
+      output: {
+        // Separate long-lived vendor chunks so app deploys don't bust their cache.
+        manualChunks: {
+          motion: ["framer-motion"],
+          supabase: ["@supabase/supabase-js"],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

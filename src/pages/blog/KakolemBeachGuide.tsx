@@ -151,10 +151,7 @@ export default function KakolemBeachGuide() {
         Many travellers make the mistake of visiting Kakolem as a standalone destination. A much better approach is to combine it with nearby attractions like <Link to="/blog/cabo-de-rama-fort-goa-guide">Cabo de Rama Fort</Link>, <Link to="/blog/cola-beach-goa-guide">Cola Beach</Link>, or <Link to="/blog/agonda-beach-south-goa-guide">Agonda Beach</Link>. Since all of these are within a relatively short driving distance, it's easy to build a relaxed full-day itinerary without spending most of your time on the road.
       </p>
 
-      <WayzyyLocationPromo
-        locationName="Kakolem Beach & South Goa"
-        discountPercentage={20}
-      />
+      <WayzyyLocationPromo />
 
       <h2>Why Is Kakolem Also Known as Tiger Beach?</h2>
 

@@ -648,6 +648,8 @@ function HostDirectory() {
         deletingPropertyId={deletingPropertyId}
         onApproveProperty={handleApproveProperty}
         approvingPropertyId={approvingPropertyId}
+        savingStage={!!detailHost && savingStage === detailHost.id}
+        onStageChange={(stage) => detailHost && handleStageChange(detailHost, stage)}
       />
 
       <ImportListingModal
