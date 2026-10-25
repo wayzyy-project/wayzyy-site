@@ -92,18 +92,23 @@ export const parseLocalDate = (s: string): Date => {
 /**
  * The host's price for each night of a stay - a stay can span both
  * standard-priced and host-overridden (`date_prices`) nights. `overrides`
- * is keyed 'YYYY-MM-DD' -> that night's host price.
+ * is keyed 'YYYY-MM-DD' -> that night's host price. `guestUplift` is what the
+ * party size adds to the host's price (a guest-count tier's price minus the
+ * base price); a date override replaces the base price but not that uplift, so
+ * extra guests are charged on those nights too.
  */
 export function computeNightlyPrices(
   basePricePerNight: number,
   checkIn: string,
   checkOut: string,
   overrides: Record<string, number>,
+  guestUplift = 0,
 ): number[] {
   const prices: number[] = [];
   const end = parseLocalDate(checkOut);
   for (const d = parseLocalDate(checkIn); d < end; d.setDate(d.getDate() + 1)) {
-    prices.push(overrides[toDateStr(d)] ?? basePricePerNight);
+    const override = overrides[toDateStr(d)];
+    prices.push(override != null ? override + guestUplift : basePricePerNight);
   }
   return prices;
 }
@@ -201,6 +206,7 @@ export function quoteStay(
     toDateStr(checkIn),
     toDateStr(checkOut),
     dateOverrides,
+    tiers.length > 0 ? basePriceForGuests - hostPricePerNight : 0,
   );
   const nightsSubtotal = nightlyPrices.reduce((sum, p) => sum + p, 0);
 

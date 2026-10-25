@@ -1046,43 +1046,43 @@ export default function PropertyDetail() {
                   </Popover>
                   {dateNotice && <p className="px-3 py-2 text-[11px] font-semibold text-[#FF6B00]">{dateNotice}</p>}
 
-                  {/* Guests Dropdown Trigger */}
-                  <div className="p-3 relative">
-                    <div
-                      onClick={() => setIsGuestDropdownOpen(!isGuestDropdownOpen)}
-                      className="cursor-pointer flex items-center justify-between"
-                    >
-                      <div>
+                  {/* Guests - a popover (not an absolutely positioned box) so the
+                      surrounding overflow-hidden card can't clip the stepper. */}
+                  <Popover open={isGuestDropdownOpen} onOpenChange={setIsGuestDropdownOpen}>
+                    <PopoverTrigger asChild>
+                      <button type="button" className="block w-full p-3 text-left hover:bg-muted/40 transition-colors" aria-label="Change number of guests">
                         <p className="text-[10px] font-extrabold uppercase text-muted-foreground">Guests</p>
                         <p className="text-xs font-bold text-foreground mt-0.5">{guestCount} {guestCount > 1 ? "guests" : "guest"}</p>
-                      </div>
-                    </div>
-
-                    {isGuestDropdownOpen && (
-                      <div className="absolute top-full inset-x-0 mt-2 z-20 rounded-2xl border border-border bg-background p-4 shadow-xl flex items-center justify-between">
-                        <span className="text-xs font-bold">Total Guests</span>
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent align="end" className="w-64 rounded-2xl p-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold">Total guests</span>
                         <div className="flex items-center gap-3">
                           <button
                             type="button"
+                            aria-label="Fewer guests"
                             disabled={guestCount <= 1}
                             onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
-                            className="h-7 w-7 rounded-full border border-border flex items-center justify-center disabled:opacity-30"
+                            className="h-8 w-8 rounded-full border border-border flex items-center justify-center disabled:opacity-30"
                           >
                             -
                           </button>
-                          <span className="text-xs font-bold">{guestCount}</span>
+                          <span className="w-4 text-center text-sm font-bold">{guestCount}</span>
                           <button
                             type="button"
+                            aria-label="More guests"
                             disabled={guestCount >= property.maxGuests}
                             onClick={() => setGuestCount(Math.min(property.maxGuests, guestCount + 1))}
-                            className="h-7 w-7 rounded-full border border-border flex items-center justify-center disabled:opacity-30"
+                            className="h-8 w-8 rounded-full border border-border flex items-center justify-center disabled:opacity-30"
                           >
                             +
                           </button>
                         </div>
                       </div>
-                    )}
-                  </div>
+                      <p className="mt-3 text-[11px] text-muted-foreground">Up to {property.maxGuests} guests.</p>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Nothing is rendered about guest-count pricing. The price
