@@ -62,6 +62,7 @@ import { Label } from "@/components/ui/label";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { EnquiryModal } from "@/components/booking/EnquiryModal";
 import { bookingsOpenFor } from "@/lib/bookingGate";
+import { trackViewItem } from "@/lib/analytics";
 import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -516,6 +517,24 @@ export default function PropertyDetail() {
 
     loadProperty();
   }, [propertyId]);
+
+  // GA4 view_item for real listings only (mock fallbacks carry no pricing
+  // inputs), valued like begin_checkout: the pre-GST quote for the dates shown.
+  const viewedPropertyId = pricingInputs && property ? property.id : null;
+  useEffect(() => {
+    if (!viewedPropertyId || !property || !pricingInputs) return;
+    const n = Math.max(1, differenceInDays(checkOutDate, checkInDate));
+    const q = quoteStay(pricingInputs, guestCount, checkInDate, checkOutDate, n);
+    trackViewItem({
+      propertyId: property.id,
+      title: property.title,
+      category: property.category,
+      city: property.city,
+      nights: n,
+      value: q.accommodation + q.serviceFee,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewedPropertyId]);
 
   if (loading || !property) {
     return (
@@ -1348,6 +1367,7 @@ export default function PropertyDetail() {
           // create-booking-order and create-booking recompute and check.
           totalAmount={quote ? quote.total : stayTotal}
           accommodation={quote ? quote.accommodation : undefined}
+          tax={quote ? quote.stayGst + quote.serviceFeeGst : 0}
           minNights={minNights}
           unavailable={unavailable}
           onDatesChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
