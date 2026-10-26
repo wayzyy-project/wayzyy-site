@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import confetti from "canvas-confetti";
 import { bookingsOpenFor, BOOKINGS_CLOSED_MESSAGE} from "@/lib/bookingGate";
+import { trackAddPaymentInfo, trackBeginCheckout, trackPurchase, type TrackedStay } from "@/lib/analytics";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -33,6 +34,8 @@ interface BookingModalProps {
   totalAmount: number;
   /** Stay price after discounts, before GST/fees - what coupons are checked against (same as the app). */
   accommodation?: number;
+  /** GST inside totalAmount (stay GST + GST on the Wayzyy fee), so analytics can report a pre-tax value. */
+  tax?: number;
   /** Lets the guest change dates here instead of closing the modal; the parent re-quotes. */
   onDatesChange?: (checkIn: Date, checkOut: Date) => void;
   minNights?: number;
@@ -74,6 +77,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   guestCount,
   totalAmount,
   accommodation,
+  tax = 0,
   onDatesChange,
   minNights = 1,
   unavailable,
@@ -111,6 +115,19 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const couponDiscount = appliedCoupon ? Math.min(appliedCoupon.discountAmount, totalAmount) : 0;
   const creditApplied = useWalletCredit ? Math.min(walletBalance, totalAmount - couponDiscount) : 0;
   const payable = totalAmount - couponDiscount - creditApplied;
+  const trackedStay = (): TrackedStay => ({
+    propertyId: property.id,
+    title: property.title,
+    category: property.category,
+    city: property.city,
+    nights: Math.max(1, differenceInDays(checkOutDate, checkInDate)),
+    value: Math.max(0, payable - tax),
+  });
+  useEffect(() => {
+    if (isOpen) trackBeginCheckout(trackedStay());
+    // Once per opening, not on every price/date change inside the modal.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
   const applyCoupon = async () => {
     const code = couponInput.trim().toUpperCase();
     if (!code || applyingCoupon) return;
@@ -203,6 +220,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
       await loadRazorpayScript();
       if (!window.Razorpay) throw new Error("Razorpay checkout failed to load");
+      trackAddPaymentInfo(trackedStay(), paymentMethod === "razorpay_upi" ? "UPI" : "Card", appliedCoupon?.code);
 
       const result = await new Promise<RazorpaySuccess>((resolve, reject) => {
         const rzp = new window.Razorpay!({
@@ -280,6 +298,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         throw new Error(serverError?.error ?? bookingError?.message ?? "Unknown error");
       }
       setIsRequest(bookingData.status !== "confirmed");
+      // Only after create-booking has verified the payment and saved the booking.
+      trackPurchase(trackedStay(), {
+        transactionId: bookingData.bookingId,
+        tax,
+        coupon: appliedCoupon?.code,
+        status: bookingData.status === "confirmed" ? "confirmed" : "requested",
+      });
 
       // create-booking withholds the confirmation email until the guest is
       // Aadhaar-verified but never tells the client that in its response -
