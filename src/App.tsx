@@ -132,6 +132,8 @@ import ExploreStays from "./pages/ExploreStays";
 const GoaStaysPublic = lazy(() => import("./pages/GoaStaysPublic"));
 const VerifyIdentity = lazy(() => import("./pages/VerifyIdentity"));
 const HostPricing = lazy(() => import("./pages/HostPricing"));
+// TEST ONLY (branch test/calendar-sync, never merged): Calendar Sync against Channex staging.
+const CalendarSyncTest = lazy(() => import("./pages/CalendarSyncTest"));
 const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const MyTrips = lazy(() => import("./pages/MyTrips"));
 const Wishlists = lazy(() => import("./pages/Wishlists"));
@@ -311,6 +313,7 @@ const App = () => (
 
 
 
+              <Route path="/calendar-sync-test" element={<CalendarSyncTest />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
