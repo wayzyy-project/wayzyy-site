@@ -12,25 +12,27 @@ import { Textarea } from "@/components/ui/textarea";
 const ADMIN_EMAIL = "hello@wayzyy.com";
 const DOC_LABELS: Record<string, string> = { aadhaar: "Aadhaar card", pan: "PAN card", passport: "Passport" };
 
+// The list carries no images: submissions store the document photos inline
+// (some are several MB each), so selecting them all at once made the queue
+// request fail with a 500. Photos are fetched one submission at a time.
 interface Submission {
   id: string;
   user_id: string;
   user_email: string | null;
   doc_type: string;
-  doc_front_url: string;
-  doc_back_url: string | null;
-  selfie_url: string;
   submitted_at: string;
 }
 
-interface SignedSubmission extends Submission {
-  frontSigned: string | null;
-  backSigned: string | null;
-  selfieSigned: string | null;
+interface SubmissionImages {
+  front: string | null;
+  back: string | null;
+  selfie: string | null;
 }
 
 async function signUrl(path: string | null): Promise<string | null> {
   if (!path) return null;
+  // Older submissions hold the image itself as a data URL, not a storage path.
+  if (path.startsWith("data:")) return path;
   const { data } = await supabase.storage.from("identity-verification").createSignedUrl(path, 3600);
   return data?.signedUrl ?? null;
 }
@@ -88,7 +90,9 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 
 function VerificationQueue() {
   const { toast } = useToast();
-  const [items, setItems] = useState<SignedSubmission[]>([]);
+  const [items, setItems] = useState<Submission[]>([]);
+  const [images, setImages] = useState<Record<string, SubmissionImages>>({});
+  const [loadingImagesId, setLoadingImagesId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [rejectReason, setRejectReason] = useState<Record<string, string>>({});
@@ -97,7 +101,7 @@ function VerificationQueue() {
     setLoading(true);
     const { data, error } = await supabase
       .from("identity_verification_submissions")
-      .select("id, user_id, user_email, doc_type, doc_front_url, doc_back_url, selfie_url, submitted_at")
+      .select("id, user_id, user_email, doc_type, submitted_at")
       .eq("status", "pending_review")
       .order("submitted_at", { ascending: true });
 
@@ -107,17 +111,28 @@ function VerificationQueue() {
       return;
     }
 
-    const signed = await Promise.all(
-      (data as Submission[]).map(async (row) => ({
-        ...row,
-        frontSigned: await signUrl(row.doc_front_url),
-        backSigned: await signUrl(row.doc_back_url),
-        selfieSigned: await signUrl(row.selfie_url),
-      })),
-    );
-    setItems(signed);
+    setItems(data as Submission[]);
     setLoading(false);
   }, [toast]);
+
+  const showDocuments = async (id: string) => {
+    setLoadingImagesId(id);
+    const { data, error } = await supabase
+      .from("identity_verification_submissions")
+      .select("doc_front_url, doc_back_url, selfie_url")
+      .eq("id", id)
+      .single();
+    if (error || !data) {
+      setLoadingImagesId(null);
+      toast({ title: "Could not load documents", description: error?.message, variant: "destructive" });
+      return;
+    }
+    const [front, back, selfie] = await Promise.all([
+      signUrl(data.doc_front_url), signUrl(data.doc_back_url), signUrl(data.selfie_url),
+    ]);
+    setImages((prev) => ({ ...prev, [id]: { front, back, selfie } }));
+    setLoadingImagesId(null);
+  };
 
   useEffect(() => { load(); }, [load]);
 
@@ -179,26 +194,34 @@ function VerificationQueue() {
             </div>
           </div>
 
+          {!images[item.id] && (
+            <Button variant="outline" className="w-full" disabled={loadingImagesId === item.id} onClick={() => showDocuments(item.id)}>
+              {loadingImagesId === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : "View documents"}
+            </Button>
+          )}
+
+          {images[item.id] && (
           <div className="grid grid-cols-3 gap-3">
-            {item.frontSigned && (
-              <a href={item.frontSigned} target="_blank" rel="noreferrer">
-                <img src={item.frontSigned} alt="Document front" className="aspect-[1.586] w-full rounded-lg border border-border object-cover" />
+            {images[item.id].front && (
+              <a href={images[item.id].front!} target="_blank" rel="noreferrer">
+                <img src={images[item.id].front!} alt="Document front" className="aspect-[1.586] w-full rounded-lg border border-border object-cover" />
                 <p className="mt-1 text-center text-xs text-muted-foreground">Front</p>
               </a>
             )}
-            {item.backSigned && (
-              <a href={item.backSigned} target="_blank" rel="noreferrer">
-                <img src={item.backSigned} alt="Document back" className="aspect-[1.586] w-full rounded-lg border border-border object-cover" />
+            {images[item.id].back && (
+              <a href={images[item.id].back!} target="_blank" rel="noreferrer">
+                <img src={images[item.id].back!} alt="Document back" className="aspect-[1.586] w-full rounded-lg border border-border object-cover" />
                 <p className="mt-1 text-center text-xs text-muted-foreground">Back</p>
               </a>
             )}
-            {item.selfieSigned && (
-              <a href={item.selfieSigned} target="_blank" rel="noreferrer">
-                <img src={item.selfieSigned} alt="Selfie" className="aspect-square w-full rounded-lg border border-border object-cover" />
+            {images[item.id].selfie && (
+              <a href={images[item.id].selfie!} target="_blank" rel="noreferrer">
+                <img src={images[item.id].selfie!} alt="Selfie" className="aspect-square w-full rounded-lg border border-border object-cover" />
                 <p className="mt-1 text-center text-xs text-muted-foreground">Selfie</p>
               </a>
             )}
           </div>
+          )}
 
           <Textarea
             className="mt-4"
