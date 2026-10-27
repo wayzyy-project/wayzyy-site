@@ -134,7 +134,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setApplyingCoupon(true);
     setCouponError(null);
     try {
-      const { data, error } = await supabase.functions.invoke("validate-coupon", { body: { code, bookingAmount: accommodation ?? totalAmount } });
+      const { data, error } = await supabase.functions.invoke("validate-coupon", { body: { code, bookingAmount: accommodation ?? totalAmount, totalAmount, propertyId: property.id } });
       if (error || !data?.valid) throw new Error(data?.error ?? "This code isn't valid for this stay.");
       setAppliedCoupon({ code, discountAmount: Number(data.discountAmount) || 0 });
     } catch (err) {
@@ -193,11 +193,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     }
     setIsSubmitting(true);
 
-    let paymentId: string;
-    let paymentOrderId: string;
-    let paymentSignature: string;
+    let paymentId: string | undefined;
+    let paymentOrderId: string | undefined;
+    let paymentSignature: string | undefined;
 
-    try {
+    // Nothing left to pay (a coupon covered the whole bill): no Razorpay
+    // order, the server creates the booking after re-checking the coupon.
+    if (payable > 0) try {
       const { data: orderData, error: orderError } = await supabase.functions.invoke("create-booking-order", {
         // Stay details let the server check price + availability before
         // checkout opens, so unavailable dates can never be paid for.
@@ -322,8 +324,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       setStep("confirmed");
     } catch (error) {
       toast({
-        title: "Payment received, booking pending",
-        description: `Your payment went through (ref: ${paymentId}) but we couldn't finalize the booking automatically. Please contact hello@wayzyy.com with this reference and we'll sort it out.\n\n${error instanceof Error ? error.message : "Unknown error"}`,
+        title: paymentId ? "Payment received, booking pending" : "Booking not completed",
+        description: `${paymentId ? `Your payment went through (ref: ${paymentId}) but we couldn't finalize the booking automatically. Please contact hello@wayzyy.com with this reference and we'll sort it out.` : "We couldn't complete your booking."}\n\n${error instanceof Error ? error.message : "Unknown error"}`,
         variant: "destructive",
       });
     } finally {
