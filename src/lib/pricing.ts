@@ -32,6 +32,14 @@ export const SERVICE_FEE_GST_RATE = 0.18;
 export const guestNightlyPrice = (hostPrice: number): number =>
   Math.round(hostPrice * (1 + WAYZYY_FEE_RATE));
 
+/**
+ * What the same stay roughly costs on Airbnb, whose ~17% in fees is built into
+ * its price. Shown struck through next to our price (cards and the booking
+ * card use this one figure so they always agree). Display only.
+ */
+export const airbnbEquivalentTotal = (wayzyyTotal: number): number =>
+  Math.round(wayzyyTotal / (1 - 0.17) / 10) * 10;
+
 /** GST on accommodation by that night's charge: nothing up to ₹1,000, 5% up to ₹7,500, 18% above. */
 export const stayGstRateFor = (nightlyCharge: number): number =>
   nightlyCharge <= 1000 ? 0 : nightlyCharge <= 7500 ? 0.05 : 0.18;

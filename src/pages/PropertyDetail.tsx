@@ -39,7 +39,7 @@ import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
-import { quoteStay, guestNightlyPrice, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { stayRuleError, describeStayRules } from "@/lib/stayRules";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
@@ -567,7 +567,10 @@ export default function PropertyDetail() {
   const areaGuide = property ? areaForListing(property.title, property.area, property.city) : null;
   const stayTotal = quote ? quote.accommodation + quote.serviceFee : property.pricePerNight * nights;
   const nightlyRate = quote ? fold(quote.perNight) : property.pricePerNight;
-  const originalStayTotal = property.originalPrice ? property.originalPrice * nights / 2 : stayTotal * 2;
+  // Struck-through "on Airbnb" figure: the same estimate the cards use, taken
+  // from this stay's own total so it shows on every listing, not just those
+  // whose host base price happened to sit above the dated price.
+  const originalStayTotal = airbnbEquivalentTotal(stayTotal);
   const foldedDiscount = quote?.discount ? fold(quote.discount.savings) : 0;
   const nightsSubtotal = quote ? stayTotal + foldedDiscount : property.pricePerNight * nights;
   // Airbnb's guest fee runs ~15.5% of the stay; Wayzyy's is 7% (shown as its

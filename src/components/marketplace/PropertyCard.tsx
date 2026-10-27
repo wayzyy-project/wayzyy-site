@@ -1,6 +1,6 @@
 import { imgSet } from "@/lib/img";
 import React, { useState, useEffect, useRef } from "react";
-import { guestNightlyPrice } from "@/lib/pricing";
+import { guestNightlyPrice, airbnbEquivalentTotal } from "@/lib/pricing";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { PropertyListing } from "@/data/mockProperties";
@@ -63,9 +63,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   // Price calculations
   const totalPrice = guestNightlyPrice(property.pricePerNight) * nights;
-  // What the same stay roughly costs on Airbnb, whose ~17% in fees is built
-  // into the price there. Same ~17% estimate as the stays banner.
-  const airbnbEquivalent = Math.round(totalPrice / (1 - 0.17) / 10) * 10;
+  const airbnbEquivalent = airbnbEquivalentTotal(totalPrice);
 
   return (
     <Link
