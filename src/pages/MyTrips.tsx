@@ -17,6 +17,7 @@ import {
   CASH_REFUND_GATEWAY_RATE, CASH_REFUND_FIXED_CHARGE,
 } from "@/lib/refund";
 import { propertyPath } from "@/lib/propertySlug";
+import { TripListSkeleton } from "@/components/marketplace/Skeletons";
 
 // Same `bookings` table the mobile app's Trips tab reads. Cancelling calls the
 // same cancel-booking function, which recomputes the refund on the server -
@@ -397,7 +398,7 @@ export default function MyTrips() {
               <Button variant="outline" onClick={load}>Try again</Button>
             </div>
           ) : trips === null ? (
-            <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin" /></div>
+            <TripListSkeleton />
           ) : shown.length === 0 ? (
             <div className="rounded-lg border p-10 text-center">
               <Compass className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />

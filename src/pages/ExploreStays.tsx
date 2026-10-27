@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
 import { propertyPath } from "@/lib/propertySlug";
+import { PropertyGridSkeleton } from "@/components/marketplace/Skeletons";
 
 // Same price-pill look the old Leaflet divIcon had, as a real component now
 // that it's an AdvancedMarker's `content` rather than a static HTML string.
@@ -369,6 +370,9 @@ export default function ExploreStays() {
             </div>
           )}
 
+          {/* First load: placeholder cards in the real grid, instead of a blank page or a "no results" flash. */}
+          {loading && baseProperties.length === 0 && <PropertyGridSkeleton count={8} />}
+
           {/* All of Goa on the default tab; a picked tab shows only its own grid below (showing both listed everything twice) */}
           {northGoaProperties.length > 0 && !searchState.destination && selectedCategory === "all" && (
             <section className="space-y-4 pt-4">
@@ -456,7 +460,7 @@ export default function ExploreStays() {
           )}
 
           {/* Complete Grid when filtered or when browsing all */}
-          {(searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
+          {!(loading && baseProperties.length === 0) && (searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
             <section className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
                 {filteredProperties.map((property, idx) => (

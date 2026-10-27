@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { supabase } from "@/lib/supabase";
 import { propertyPath } from "@/lib/propertySlug";
 import NotFound from "@/pages/NotFound";
+import { PropertyGridSkeleton } from "@/components/marketplace/Skeletons";
 import {
   buildPlacePage, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS,
   type PlaceListing,
@@ -52,9 +53,9 @@ export default function PlaceStays() {
 
   if (listings === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-      </div>
+      <main className="mx-auto max-w-[1760px] px-4 py-10 sm:px-6 lg:px-10 xl:px-14">
+        <PropertyGridSkeleton count={8} />
+      </main>
     );
   }
   if (!page) return <NotFound />;

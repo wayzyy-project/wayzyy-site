@@ -25,6 +25,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   const nights = nightsProp ?? Math.max(1, property.minNights ?? 1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
+  // The cover shimmers until its photo has loaded, then fades in over it.
+  const [coverLoaded, setCoverLoaded] = useState(false);
 
   useEffect(() => {
     setIsSaved(isPropertyWishlisted(property.id));
@@ -71,7 +73,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       className="group block flex flex-col gap-2.5 text-left transition-all duration-200"
     >
       {/* Image Carousel Container */}
-      <div className="relative aspect-[20/19] w-full overflow-hidden rounded-2xl bg-muted">
+      <div className={`relative aspect-[20/19] w-full overflow-hidden rounded-2xl bg-muted ${coverLoaded ? "" : "skeleton-shimmer"}`}>
         <div
           ref={trackRef}
           onScroll={onTrackScroll}
@@ -92,7 +94,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 // Card width follows the grid: 1 column on phones up to 6 on wide screens.
                 sizes="(min-width: 1900px) 17vw, (min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 alt={i === 0 ? property.title : ""}
-                className="h-full w-full shrink-0 snap-center object-cover"
+                className={`h-full w-full shrink-0 snap-center object-cover transition-opacity duration-500 ${i === 0 && !coverLoaded ? "opacity-0" : "opacity-100"}`}
+                ref={i === 0 ? (el) => { if (el?.complete && el.naturalWidth > 0) setCoverLoaded(true); } : undefined}
+                onLoad={i === 0 ? () => setCoverLoaded(true) : undefined}
+                onError={i === 0 ? () => setCoverLoaded(true) : undefined}
                 loading={i === 0 && priority ? "eager" : "lazy"}
                 {...(i === 0 && priority ? { fetchPriority: "high" as const } : {})}
                 decoding="async"

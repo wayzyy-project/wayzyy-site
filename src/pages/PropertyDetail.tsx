@@ -37,6 +37,7 @@ import {
 import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
+import { PropertyDetailSkeleton } from "@/components/marketplace/Skeletons";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
 import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
@@ -538,8 +539,9 @@ export default function PropertyDetail() {
 
   if (loading || !property) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-[#FF6B00]" />
+      <div className="min-h-screen bg-background">
+        <AirbnbHeader compact />
+        <PropertyDetailSkeleton />
       </div>
     );
   }
