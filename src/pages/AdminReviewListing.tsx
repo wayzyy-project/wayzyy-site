@@ -151,6 +151,9 @@ function ReviewListing({ propertyId }: { propertyId: string }) {
         .select("date, price")
         .eq("property_id", propertyId)
         .gte("date", new Date().toISOString().slice(0, 10))
+        // Weekend-rate rows only mirror the weekend price shown above; listing
+        // them here read as 100+ "overrides set by the host" that nobody set.
+        .or("source.is.null,source.neq.weekend_rule")
         .order("date"),
     ]);
     setTiers(tierRes.data ?? []);
