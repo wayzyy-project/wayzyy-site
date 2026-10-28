@@ -40,7 +40,7 @@ interface Form {
 const card = "rounded-2xl border border-white/15 bg-white/5 p-4";
 const inputClass = "mt-1.5 border-white/20 bg-white/10 text-white placeholder:text-white/40";
 const chip = (on: boolean) =>
-  `rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-[#FF6B00] bg-[#FF6B00]/20 text-white" : "border-white/20 text-white/70 hover:text-white"}`;
+  `rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-[#FF6B00] bg-ember/20 text-white" : "border-white/20 text-white/70 hover:text-white"}`;
 
 export function LocationCategorySection({ propertyId }: { propertyId: string }) {
   const { toast } = useToast();
@@ -164,7 +164,7 @@ export function LocationCategorySection({ propertyId }: { propertyId: string }) 
                 key={v.id}
                 type="button"
                 onClick={() => set("vibe", on ? null : v.id)}
-                className={`rounded-xl border p-3 text-left transition-colors ${on ? "border-[#FF6B00] bg-[#FF6B00]/15" : "border-white/15 hover:border-white/30"}`}
+                className={`rounded-xl border p-3 text-left transition-colors ${on ? "border-[#FF6B00] bg-ember/20" : "border-white/15 hover:border-white/30"}`}
               >
                 <span className="block text-sm font-medium text-white">{v.label}</span>
                 <span className="block text-xs text-white/50">{v.sub}</span>

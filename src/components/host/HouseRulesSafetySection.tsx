@@ -237,7 +237,7 @@ export function HouseRulesSafetySection({ propertyId }: { propertyId: string }) 
               type="button"
               onClick={() => set("cameras", value)}
               className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                form.cameras === value ? "border-[#FF6B00] bg-[#FF6B00]/20 text-white" : "border-white/20 text-white/70 hover:text-white"
+                form.cameras === value ? "border-[#FF6B00] bg-ember/20 text-white" : "border-white/20 text-white/70 hover:text-white"
               }`}
             >
               {label}

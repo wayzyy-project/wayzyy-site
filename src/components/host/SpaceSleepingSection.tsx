@@ -81,7 +81,7 @@ export function SpaceSleepingSection({ propertyId }: { propertyId: string }) {
                 key={t.id}
                 type="button"
                 onClick={() => setSpaceType(t.id)}
-                className={`rounded-xl border p-3 text-left transition-colors ${on ? "border-[#FF6B00] bg-[#FF6B00]/15" : "border-white/15 hover:border-white/30"}`}
+                className={`rounded-xl border p-3 text-left transition-colors ${on ? "border-[#FF6B00] bg-ember/20" : "border-white/15 hover:border-white/30"}`}
               >
                 <span className="block text-sm font-medium text-white">{t.label}</span>
                 <span className="block text-xs text-white/50">{t.sub}</span>
