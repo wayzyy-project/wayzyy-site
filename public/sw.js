@@ -1,4 +1,6 @@
-const CACHE_NAME = "wayzyy-cache-v4";
+// Bumped so every browser drops the old cache, which could hold stale /api
+// responses from the previous cache-everything rule.
+const CACHE_NAME = "wayzyy-cache-v5";
 const ASSETS = [
   "/",
   "/index.html",
@@ -59,7 +61,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Cache First for static resources (images, icons, etc.)
+  // Cache First only for files whose name changes with their contents: the
+  // hashed build output and the fixed icons precached above. Everything else
+  // (/api/* data, /calendar/*.ics, sitemaps, images in /public) goes to the
+  // network as normal - serving those cache-first kept a browser on the first
+  // copy it ever saw, e.g. a host preview that never updated.
+  const precached = ASSETS.includes(url.pathname) && url.pathname !== "/" && url.pathname !== "/index.html";
+  if (!url.pathname.startsWith("/assets/") && !precached) return;
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
