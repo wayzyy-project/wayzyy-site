@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, Check, Copy, Loader2, Trash2, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Check, Copy, Loader2, Trash2, Minus, Plus, RefreshCw } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -610,6 +610,19 @@ function AvailabilityRulesCard({ propertyId }: { propertyId: string }) {
 
 // ── Calendar sync ──────────────────────────────────────────────────────────
 
+// Quick picks for the calendar name. Any name works; these just save typing
+// and tell hosts which systems we can read from.
+const CALENDAR_SOURCES = ["Airbnb", "Booking.com", "eZee", "StayFlexi", "Agoda", "Google Calendar"];
+
+const timeAgo = (iso: string) => {
+  const mins = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} min ago`;
+  const hours = Math.round(mins / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  return new Date(iso).toLocaleString();
+};
+
 interface ExternalCalendar {
   id: string;
   source_name: string;
@@ -627,9 +640,10 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
   const [otherUrl, setOtherUrl] = useState("");
   const [calendarName, setCalendarName] = useState("");
   const [adding, setAdding] = useState(false);
+  const [syncing, setSyncing] = useState<string[]>([]);
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (quiet = false) => {
+    if (!quiet) setLoading(true);
     const [{ data: property }, { data: cals }] = await Promise.all([
       supabase.from("properties").select("calendar_export_token").eq("id", propertyId).single(),
       supabase
@@ -714,6 +728,22 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
     }
   };
 
+  // Pull the other website's calendar right now instead of waiting for the
+  // 30-minute schedule. One call per calendar, all at once.
+  const handleSync = async (ids: string[]) => {
+    if (ids.length === 0) return;
+    setSyncing(ids);
+    const results = await Promise.allSettled(
+      ids.map((calendarId) => supabase.functions.invoke("sync-ical-calendars", { body: { calendarId } })),
+    );
+    await load(true);
+    setSyncing([]);
+    const failed = results.filter((r) => r.status === "rejected" || (r.status === "fulfilled" && r.value.error)).length;
+    toast(failed === 0
+      ? { title: "Calendars synced", description: "Dates booked on the other websites are now blocked here." }
+      : { title: "Some calendars didn't sync", description: "Check the link shown under each calendar and try again.", variant: "destructive" });
+  };
+
   const handleRemove = async (id: string) => {
     await supabase.from("external_calendars").delete().eq("id", id);
     setCalendars((prev) => prev.filter((c) => c.id !== id));
@@ -760,7 +790,13 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-semibold text-white">Step 2 - paste the other website's .ics link</p>
+        <p className="mb-1 text-sm font-semibold text-white">Step 2 - paste the other website's .ics link</p>
+        <p className="mb-2 text-xs text-white/60">
+          Works with any website or channel manager that gives a calendar link ending in .ics: Airbnb, Booking.com, eZee,
+          StayFlexi, Agoda, Google Calendar and others. Look for "Export calendar", "iCal" or "Sync calendar" in their
+          settings. On Airbnb it's Calendar → Availability → Connect to another website → Export calendar. Add one link
+          per website.
+        </p>
         <div className="space-y-3 rounded-xl border border-white/15 p-4">
           <div>
             <Label htmlFor="other-cal-url" className="text-white">Other website link</Label>
@@ -769,6 +805,18 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
           <div>
             <Label htmlFor="other-cal-name" className="text-white">Calendar name</Label>
             <Input id="other-cal-name" value={calendarName} onChange={(e) => setCalendarName(e.target.value)} placeholder="e.g. Airbnb" className="border-white/20 bg-black/30 text-white placeholder:text-white/40" />
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {CALENDAR_SOURCES.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => setCalendarName(name)}
+                  className={`rounded-full border px-3 py-1 text-xs transition-colors ${calendarName === name ? "border-ember bg-ember/20 text-white" : "border-white/20 text-white/70 hover:text-white"}`}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
           </div>
           <Button onClick={handleAdd} disabled={!otherUrl.trim() || !calendarName.trim() || adding} className="w-full bg-ember text-white hover:bg-ember/90">
             {adding && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -779,7 +827,22 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
 
       {calendars.length > 0 && (
         <div>
-          <p className="mb-2 text-sm font-semibold text-white">Connected calendars</p>
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-white">Connected calendars</p>
+              <p className="text-xs text-white/50">Wayzyy checks these every 30 minutes.</p>
+            </div>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => handleSync(calendars.map((c) => c.id))}
+              disabled={syncing.length > 0}
+              className="shrink-0 gap-1.5"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${syncing.length > 0 ? "animate-spin" : ""}`} />
+              {syncing.length > 0 ? "Syncing..." : "Sync now"}
+            </Button>
+          </div>
           <div className="divide-y divide-white/10 rounded-xl border border-white/15">
             {calendars.map((cal) => (
               <div key={cal.id} className="flex items-center justify-between gap-3 p-4">
@@ -788,14 +851,27 @@ function CalendarSection({ propertyId, propertyTitle }: { propertyId: string; pr
                   <p className="truncate text-xs text-white/60">
                     {cal.last_sync_status === "error"
                       ? `Sync failed${cal.last_sync_error ? `: ${cal.last_sync_error}` : ""}`
+                      : syncing.includes(cal.id)
+                      ? "Syncing..."
                       : cal.last_synced_at
-                      ? `Last synced ${new Date(cal.last_synced_at).toLocaleString()}`
+                      ? `Last synced ${timeAgo(cal.last_synced_at)}`
                       : "Not synced yet"}
                   </p>
                 </div>
-                <button type="button" onClick={() => handleRemove(cal.id)} className="text-white/50 hover:text-destructive transition-colors">
-                  <Trash2 className="h-4 w-4" />
-                </button>
+                <div className="flex shrink-0 items-center gap-3">
+                  <button
+                    type="button"
+                    aria-label={`Sync ${cal.source_name} now`}
+                    onClick={() => handleSync([cal.id])}
+                    disabled={syncing.length > 0}
+                    className="text-white/50 transition-colors hover:text-white disabled:opacity-40"
+                  >
+                    <RefreshCw className={`h-4 w-4 ${syncing.includes(cal.id) ? "animate-spin" : ""}`} />
+                  </button>
+                  <button type="button" aria-label={`Remove ${cal.source_name}`} onClick={() => handleRemove(cal.id)} className="text-white/50 hover:text-destructive transition-colors">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
