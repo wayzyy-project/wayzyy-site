@@ -262,3 +262,37 @@ export function quoteStay(
     discount: best ? { ...best, savings: nightsSubtotal - charges.accommodation } : null,
   };
 }
+
+/**
+ * The host's price per night a listing card is built from: the searched party
+ * size and, once dates are searched, those nights' own prices, averaged. No
+ * discount or pet fee - those depend on the booking and show at checkout.
+ * The card shows guestNightlyPrice() of this. Identical in the app
+ * (src/utils/pricing.ts) and on the website (src/lib/pricing.ts), so the same
+ * search shows the same card price on both.
+ */
+export function cardHostNightly(opts: {
+  hostPricePerNight: number;
+  guests: number;
+  tiers: GuestPricingTier[];
+  perPersonEnabled: boolean;
+  extraGuestThreshold: number | null | undefined;
+  extraGuestFee: number | null | undefined;
+  /** 'YYYY-MM-DD' -> host price for that night. */
+  dateOverrides?: Record<string, number>;
+  checkIn?: string | null;
+  checkOut?: string | null;
+}): number {
+  const { hostPricePerNight, guests, tiers } = opts;
+  const base = tiers.length > 0
+    ? resolveBasePriceForGuests(hostPricePerNight, guests, tiers)
+    : opts.perPersonEnabled
+      ? applyPerPersonPricing(hostPricePerNight, guests, opts.extraGuestThreshold, opts.extraGuestFee)
+      : hostPricePerNight;
+  if (!opts.checkIn || !opts.checkOut || opts.checkOut <= opts.checkIn) return base;
+  const prices = computeNightlyPrices(
+    base, opts.checkIn, opts.checkOut, opts.dateOverrides ?? {},
+    guestTierUplift(hostPricePerNight, guests, tiers),
+  );
+  return prices.length ? Math.round(prices.reduce((sum, p) => sum + p, 0) / prices.length) : base;
+}

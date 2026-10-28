@@ -12,6 +12,7 @@ import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
+import { cardHostNightly, guestNightlyPrice, toDateStr, type GuestPricingTier } from "@/lib/pricing";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
 import { propertyPath } from "@/lib/propertySlug";
@@ -104,6 +105,14 @@ export default function ExploreStays() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [dbProperties, setDbProperties] = useState<PropertyListing[]>([]);
+  // What each live listing's card price is built from (host rate, guest-count
+  // pricing), kept apart from the display data so cardHostNightly() can price
+  // the card for the searched party and nights - exactly as the app does.
+  const [cardInputs, setCardInputs] = useState<Record<string, {
+    hostPrice: number; tiers: GuestPricingTier[]; perPerson: boolean; threshold: number | null; fee: number | null;
+  }>>({});
+  // Host prices for the searched nights: listing id -> 'YYYY-MM-DD' -> price.
+  const [searchDatePrices, setSearchDatePrices] = useState<Record<string, Record<string, number>>>({});
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [includeAllFees, setIncludeAllFees] = useState(true);
@@ -139,7 +148,7 @@ export default function ExploreStays() {
         setLoading(true);
         const { data, error } = await supabase
           .from("properties")
-          .select("*")
+          .select("*, property_guest_pricing_tiers(min_guests, price_per_night, on_dated_nights)")
           // Live listings, plus showcased drafts (enquiry-only, no price yet).
           .or("status.eq.active,showcase.eq.true")
           .or(`host_email.not.in.(${SEED_HOST_EMAILS.join(",")}),id.in.(${PUBLIC_DESPITE_SEED_HOST.join(",")})`)
@@ -227,6 +236,19 @@ export default function ExploreStays() {
           };
         });
         setDbProperties(transformed);
+        const inputs: typeof cardInputs = {};
+        for (const p of data as any[]) {
+          inputs[p.id] = {
+            hostPrice: Number(p.price_per_night) || 0,
+            tiers: (p.property_guest_pricing_tiers ?? []).map((t: any) => ({
+              minGuests: t.min_guests, pricePerNight: Number(t.price_per_night), onDatedNights: t.on_dated_nights === true,
+            })),
+            perPerson: !!p.per_person_pricing_enabled,
+            threshold: p.extra_guest_threshold ?? null,
+            fee: p.extra_guest_fee != null ? Number(p.extra_guest_fee) : null,
+          };
+        }
+        setCardInputs(inputs);
         }
       } catch (err) {
         console.error("Error loading properties from supabase:", err);
@@ -238,13 +260,61 @@ export default function ExploreStays() {
     loadProperties();
   }, []);
 
-  // Combined properties: DB listings + Mock Listings
+  const searchCheckIn = searchState.checkIn ? toDateStr(searchState.checkIn) : null;
+  const searchCheckOut = searchState.checkOut ? toDateStr(searchState.checkOut) : null;
+  useEffect(() => {
+    if (!searchCheckIn || !searchCheckOut) { setSearchDatePrices({}); return; }
+    let cancelled = false;
+    supabase
+      .from("date_prices")
+      .select("property_id, date, price")
+      .gte("date", searchCheckIn)
+      .lt("date", searchCheckOut)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const map: Record<string, Record<string, number>> = {};
+        for (const r of (data ?? []) as { property_id: string; date: string; price: number }[]) {
+          if (!map[r.property_id]) map[r.property_id] = {};
+          map[r.property_id][r.date] = Number(r.price);
+        }
+        setSearchDatePrices(map);
+      });
+    return () => { cancelled = true; };
+  }, [searchCheckIn, searchCheckOut]);
+
+  // Combined properties: DB listings + Mock Listings. Live listings' prices
+  // follow the searched party size and nights (cardHostNightly), the same
+  // rule the app's Explore cards use, so one search shows one price on both.
+  const searchGuests = searchState.guests.adults + searchState.guests.children;
+  // Carried into the listing page so it prices the same stay as the card.
+  const cardSearch = (() => {
+    const q = new URLSearchParams();
+    if (searchCheckIn && searchCheckOut) { q.set("checkin", searchCheckIn); q.set("checkout", searchCheckOut); }
+    if (searchGuests > 1) q.set("guests", String(searchGuests));
+    const str = q.toString();
+    return str ? `?${str}` : "";
+  })();
   const allProperties = useMemo(() => {
     const map = new Map<string, PropertyListing>();
     MOCK_PROPERTIES.forEach((p) => map.set(p.id, p));
-    dbProperties.forEach((p) => map.set(p.id, p));
+    dbProperties.forEach((p) => {
+      const input = cardInputs[p.id];
+      if (!input || !input.hostPrice) { map.set(p.id, p); return; }
+      const pricePerNight = cardHostNightly({
+        hostPricePerNight: input.hostPrice,
+        guests: Math.max(1, searchGuests),
+        tiers: input.tiers,
+        perPersonEnabled: input.perPerson,
+        extraGuestThreshold: input.threshold,
+        extraGuestFee: input.fee,
+        dateOverrides: searchDatePrices[p.id],
+        checkIn: searchCheckIn,
+        checkOut: searchCheckOut,
+      });
+      map.set(p.id, pricePerNight === p.pricePerNight ? p : { ...p, pricePerNight });
+    });
     return Array.from(map.values());
-  }, [dbProperties]);
+  }, [dbProperties, cardInputs, searchGuests, searchDatePrices, searchCheckIn, searchCheckOut]);
 
   // Filtered properties
   // Search box + category; the Filters panel is applied on top of this.
@@ -396,6 +466,7 @@ export default function ExploreStays() {
                     priority={idx < 4}
                     property={property}
                     nights={datesPicked ? stayNights : undefined}
+                    search={cardSearch}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -417,6 +488,7 @@ export default function ExploreStays() {
                       key={property.id}
                       property={property}
                       nights={datesPicked ? stayNights : undefined}
+                    search={cardSearch}
                       includeAllFees={includeAllFees}
                     />
                   ))}
@@ -469,6 +541,7 @@ export default function ExploreStays() {
                     priority={idx < 4}
                     property={property}
                     nights={datesPicked ? stayNights : undefined}
+                    search={cardSearch}
                     includeAllFees={includeAllFees}
                   />
                 ))}
@@ -557,11 +630,12 @@ export default function ExploreStays() {
                                 <span className="text-xs font-bold text-ember">Contact us to book</span>
                               ) : (
                               <span className="font-price text-xs font-bold text-foreground">
-                                {p.currency}{(p.pricePerNight * (datesPicked ? stayNights : p.minNights ?? 1)).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{(datesPicked ? stayNights : p.minNights ?? 1) > 1 ? `for ${datesPicked ? stayNights : p.minNights} nights` : "night"}</span>
+                                {/* Same figure as the card: price with our 7% fee, per night or for the stay. */}
+                                {p.currency}{(guestNightlyPrice(p.pricePerNight) * (datesPicked ? stayNights : 1)).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{datesPicked && stayNights > 1 ? `for ${stayNights} nights` : "night"}</span>
                               </span>
                               )}
                               <Link
-                                to={propertyPath(p)}
+                                to={propertyPath(p) + cardSearch}
                                 className="text-[11px] font-bold text-[#FF6B00] hover:underline"
                               >
                                 View →

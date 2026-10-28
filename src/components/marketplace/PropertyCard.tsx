@@ -13,6 +13,8 @@ interface PropertyCardProps {
   includeAllFees?: boolean;
   /** First cards on a page: load the cover immediately and mark it high priority. Everything else is lazy. */
   priority?: boolean;
+  /** "?checkin=...&checkout=...&guests=..." from the search, so the listing prices the same stay. */
+  search?: string;
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -20,6 +22,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   nights: nightsProp,
   includeAllFees = true,
   priority = false,
+  search = "",
 }) => {
   // Picked dates win; otherwise price the host's minimum stay (1 night unless they set more).
   const nights = nightsProp ?? Math.max(1, property.minNights ?? 1);
@@ -69,7 +72,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   return (
     <Link
-      to={propertyPath(property)}
+      to={propertyPath(property) + search}
       className="group block flex flex-col gap-2.5 text-left transition-all duration-200"
     >
       {/* Image Carousel Container */}

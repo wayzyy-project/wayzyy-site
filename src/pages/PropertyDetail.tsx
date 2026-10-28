@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { spaceTypeLine } from "@/lib/spaceType";
 import { img, imgSet } from "@/lib/img";
 import React, { useState, useEffect, useMemo } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   Share2,
   Heart, 
@@ -43,7 +43,7 @@ import { ListingRulesSections } from "@/components/marketplace/ListingRules";
 import { rulesFromRow, roomsSummary, sleepingFromRow } from "@/lib/houseRules";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
-import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
+import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, parseLocalDate, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { stayRuleError, describeStayRules } from "@/lib/stayRules";
 import { DISCOUNT_LABELS } from "@/lib/discounts";
 import { supabase } from "@/lib/supabase";
@@ -237,10 +237,22 @@ export default function PropertyDetail() {
     return () => window.removeEventListener("wayzyy_wishlist_updated", handleUpdate);
   }, [property]);
 
-  // Reservation Form State
-  const [checkInDate, setCheckInDate] = useState<Date>(new Date());
+  // Reservation Form State. Dates and party size searched on the Stays page
+  // come along in the link (?checkin=&checkout=&guests=), as they do in the
+  // app, so this page prices the same stay the card just showed.
+  const [searchParams] = useSearchParams();
+  const fromSearch = (() => {
+    const ci = searchParams.get("checkin");
+    const co = searchParams.get("checkout");
+    const valid = (v: string | null) => !!v && /^\d{4}-\d{2}-\d{2}$/.test(v);
+    if (!valid(ci) || !valid(co) || co! <= ci!) return null;
+    const checkIn = parseLocalDate(ci!);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    return checkIn < today ? null : { checkIn, checkOut: parseLocalDate(co!) };
+  })();
+  const [checkInDate, setCheckInDate] = useState<Date>(fromSearch?.checkIn ?? new Date());
   // Default to the shortest stay allowed (1 night unless the host set more; raised once the listing loads).
-  const [checkOutDate, setCheckOutDate] = useState<Date>(addDays(new Date(), 1));
+  const [checkOutDate, setCheckOutDate] = useState<Date>(fromSearch?.checkOut ?? addDays(new Date(), 1));
   const [datesOpen, setDatesOpen] = useState(false);
   // Booked / blocked nights (dates only, from a guest-readable RPC), so the
   // calendars grey them out and the default stay never lands on them - picking
@@ -281,7 +293,7 @@ export default function PropertyDetail() {
     if (differenceInDays(checkOutDate, checkInDate) < min) setCheckOutDate(addDays(checkInDate, min));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [property?.minNights]);
-  const [guestCount, setGuestCount] = useState(1);
+  const [guestCount, setGuestCount] = useState(() => Math.min(50, Math.max(1, Number(searchParams.get("guests")) || 1)));
   // Null for mock listings; populated for real ones after the Supabase fetch.
   const [pricingInputs, setPricingInputs] = useState<PricingInputs | null>(null);
   const [isGuestDropdownOpen, setIsGuestDropdownOpen] = useState(false);
