@@ -2,6 +2,7 @@ import { StayDatesCalendar } from "@/components/booking/StayDatesCalendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { spaceTypeLine } from "@/lib/spaceType";
 import { img, imgSet } from "@/lib/img";
+import { PhotoLightbox } from "@/components/marketplace/PhotoLightbox";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -1331,58 +1332,12 @@ export default function PropertyDetail() {
 
         {/* Full Screen Lightbox Photo Gallery Modal */}
         {showAllPhotos && (
-          <div className="fixed inset-0 z-50 bg-black/95 text-white flex flex-col p-4 sm:p-8 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between pb-4">
-              <span className="text-xs font-bold text-white/70">
-                Photo {lightboxIndex + 1} of {images.length}
-              </span>
-              <button
-                onClick={() => setShowAllPhotos(false)}
-                className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-
-            <div className="flex-1 relative flex items-center justify-center overflow-hidden">
-              <img
-                {...imgSet(images[lightboxIndex], [900, 1400, 1800])}
-                sizes="100vw"
-                decoding="async"
-                alt={`Photo ${lightboxIndex + 1}`}
-                className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
-              />
-
-              <button
-                onClick={() => setLightboxIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
-                className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-
-              <button
-                onClick={() => setLightboxIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
-                className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-            </div>
-
-            {/* Thumbnail Strip */}
-            <div className="flex items-center justify-center gap-2 overflow-x-auto py-4">
-              {images.map((photo, i) => (
-                <button
-                  key={i}
-                  onClick={() => setLightboxIndex(i)}
-                  className={`h-14 w-20 rounded-xl overflow-hidden border-2 transition-all ${
-                    i === lightboxIndex ? "border-[#FF6B00] scale-105" : "border-transparent opacity-50"
-                  }`}
-                >
-                  <img src={img(photo, 200)} alt="thumb" loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-          </div>
+          <PhotoLightbox
+            images={images}
+            index={lightboxIndex}
+            onIndexChange={setLightboxIndex}
+            onClose={() => setShowAllPhotos(false)}
+          />
         )}
 
         {/* Pre-launch enquiry (replaces the booking flow until bookings open). */}
