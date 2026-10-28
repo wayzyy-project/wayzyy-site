@@ -30,6 +30,7 @@ import {
   AlertCircle,
   Flag,
   Loader2,
+  BedDouble,
   BadgeCheck,
   MessageCircle,
   Phone,
@@ -39,7 +40,7 @@ import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { PropertyDetailSkeleton } from "@/components/marketplace/Skeletons";
 import { ListingRulesSections } from "@/components/marketplace/ListingRules";
-import { rulesFromRow } from "@/lib/houseRules";
+import { rulesFromRow, roomsSummary, sleepingFromRow } from "@/lib/houseRules";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
 import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
@@ -385,10 +386,13 @@ export default function PropertyDetail() {
             // "guest favourite" or "top 10%" until they are.
             isGuestFavourite: false,
             isTopTenPercent: false,
-            maxGuests: Number(data.max_guests) || 5,
-            bedrooms: Number(data.bedrooms) || 2,
-            beds: Number(data.beds) || 2,
-            bathrooms: Number(data.bathrooms) || 2,
+            // The host's own numbers. Missing values used to show as 2 bedrooms,
+            // 2 beds and 2 bathrooms (and 5 guests), so a studio read "2 bedrooms".
+            maxGuests: Number(data.max_guests) || 1,
+            bedrooms: Number(data.bedrooms ?? 0),
+            beds: Number(data.beds ?? 0),
+            bathrooms: Number(data.bathrooms ?? 0),
+            sleeping: sleepingFromRow(data.sleeping_arrangements),
             // Only what the host listed. This used to fall back to six invented
             // amenities (including "24/7 Security with CCTV"), which could
             // contradict the host's own camera disclosure.
@@ -655,7 +659,7 @@ export default function PropertyDetail() {
   const seoTitle = `${property.title}${placeLine ? ` - ${placeLine}` : ""} | Wayzyy`;
   const seoDescription =
     (property.description || "").replace(/\s+/g, " ").trim().slice(0, 155) ||
-    `${property.propertyType} with ${property.bedrooms} bedrooms, ${property.bathrooms} baths${placeLine ? ` in ${placeLine}` : ""}. Book directly on Wayzyy.`;
+    `${property.propertyType}, ${roomsSummary(property)}${placeLine ? ` in ${placeLine}` : ""}. Book directly on Wayzyy.`;
   // Structured data for real listings only (Google's VacationRental type). No
   // rating is included: reviews on this site are not live yet.
   const listingJsonLd = isUuid(property.id)
@@ -804,7 +808,7 @@ export default function PropertyDetail() {
                   {property.propertyType}
                 </h2>
                 <p className="text-sm text-muted-foreground font-medium">
-                  {property.maxGuests} guests · {property.bedrooms} bedrooms · {property.beds} beds · {property.bathrooms} bathrooms
+                  {roomsSummary(property)}
                 </p>
               </div>
 
@@ -956,6 +960,21 @@ export default function PropertyDetail() {
                   </button>
                 )}
               </div>
+              )}
+
+              {property.sleeping && property.sleeping.length > 0 && (
+                <div className="pt-6 space-y-4">
+                  <h3 className="text-lg font-bold font-display text-foreground">Where you'll sleep</h3>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {property.sleeping.map((room, i) => (
+                      <div key={i} className="rounded-2xl border border-border p-4">
+                        <BedDouble className="mb-2 h-5 w-5 text-foreground" />
+                        <p className="text-sm font-semibold text-foreground">{room.name}</p>
+                        <p className="text-xs text-muted-foreground">{room.beds.map((b) => `${b.count} ${b.type.toLowerCase()}${b.count === 1 ? "" : "s"}`).join(", ")}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
 
               {property.rules && <ListingRulesSections rules={property.rules} />}

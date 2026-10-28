@@ -1,4 +1,4 @@
-import type { ListingRules } from "@/lib/houseRules";
+import type { ListingRules, SleepingRoom } from "@/lib/houseRules";
 export interface Review {
   id: string;
   authorName: string;
@@ -96,6 +96,8 @@ export interface PropertyListing {
   instantBook: boolean;
   /** Real listings only: the host's house rules and safety details. */
   rules?: ListingRules;
+  /** Real listings only: beds room by room (properties.sleeping_arrangements). */
+  sleeping?: SleepingRoom[];
   featuredSection?: "north_goa" | "south_goa" | "trending";
 }
 

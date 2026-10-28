@@ -12,6 +12,7 @@ import { MarketRateCard, useMarketRates } from "@/components/host/MarketRateNote
 import { PropertyOverview } from "@/components/host/PropertyOverview";
 import { ApplyRulesSection } from "@/components/host/ApplyRulesSection";
 import { HouseRulesSafetySection } from "@/components/host/HouseRulesSafetySection";
+import { SpaceSleepingSection } from "@/components/host/SpaceSleepingSection";
 import { DAY_ORDER, DAY_SHORT } from "@/lib/stayRules";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
@@ -85,6 +86,7 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
         </TabsList>
         <TabsContent value="listing">
           <PropertyOverview propertyId={propertyId} />
+          <SpaceSleepingSection propertyId={propertyId} />
         </TabsContent>
         <TabsContent value="calendar">
           <CalendarTab propertyId={propertyId} />

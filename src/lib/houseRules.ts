@@ -84,3 +84,35 @@ export function rulesFromRow(row: any): ListingRules {
     hasEmergencyContact: Boolean(String(row.emergency_contact_phone ?? "").trim()),
   };
 }
+
+/** One room in properties.sleeping_arrangements: [{ name, beds: [{ type, count }] }]. */
+export interface SleepingRoom {
+  name: string;
+  beds: { type: string; count: number }[];
+}
+
+export const BED_TYPES = ["King bed", "Queen bed", "Double bed", "Single bed", "Sofa bed", "Bunk bed", "Floor mattress"] as const;
+
+export function sleepingFromRow(value: unknown): SleepingRoom[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((room) => ({
+      name: String(room?.name ?? "").trim(),
+      beds: (Array.isArray(room?.beds) ? room.beds : [])
+        .map((b: { type?: unknown; count?: unknown }) => ({ type: String(b?.type ?? "").trim(), count: Number(b?.count) || 0 }))
+        .filter((b: { type: string; count: number }) => b.type && b.count > 0),
+    }))
+    .filter((room) => room.name && room.beds.length > 0);
+}
+
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+/** "4 guests · 2 bedrooms · 3 beds · 2 bathrooms", skipping what the host hasn't set; 0 bedrooms reads "Studio". */
+export function roomsSummary(p: { maxGuests: number; bedrooms: number; beds: number; bathrooms: number }): string {
+  return [
+    plural(p.maxGuests, "guest"),
+    p.bedrooms === 0 ? "Studio" : plural(p.bedrooms, "bedroom"),
+    p.beds > 0 ? plural(p.beds, "bed") : null,
+    p.bathrooms > 0 ? plural(p.bathrooms, "bathroom") : null,
+  ].filter(Boolean).join(" · ");
+}
