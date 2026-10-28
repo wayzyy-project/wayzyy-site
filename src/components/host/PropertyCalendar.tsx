@@ -296,6 +296,31 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
     clearSelection();
   };
 
+  // Upcoming nights with their own price. Hosts asked for a way back to one
+  // price for every night without selecting months of dates.
+  const upcomingCustom = Object.keys(overrides).filter((d) => d >= key(today));
+
+  const removeAllCustomPrices = async () => {
+    const n = upcomingCustom.length;
+    if (!window.confirm(`Remove the ${n} custom nightly price${n === 1 ? "" : "s"} from today onwards? Your standard and weekend rates stay as they are.`)) return;
+    setSaving(true);
+    const { error } = await supabase
+      .from("date_prices")
+      .delete()
+      .eq("property_id", propertyId)
+      .gte("date", key(today))
+      // Weekend-rate rows just mirror the weekend price; they aren't custom.
+      .or("source.is.null,source.neq.weekend_rule");
+    setSaving(false);
+    if (error) {
+      toast({ title: "Couldn't remove prices", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Every night is back to your standard rate" });
+    clearSelection();
+    load();
+  };
+
   const resetPrice = async () => {
     setSaving(true);
     const { error } = await supabase.from("date_prices").delete().eq("property_id", propertyId).in("date", [...selected]);
@@ -353,6 +378,16 @@ export function PropertyCalendar({ propertyId, basePrice, weekendPrice }: Props)
 
   return (
     <div className="space-y-4">
+      {upcomingCustom.length > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/5 p-3">
+          <p className="text-xs text-white/70">
+            {upcomingCustom.length} upcoming night{upcomingCustom.length === 1 ? " has a" : "s have"} a custom price.
+          </p>
+          <Button size="sm" variant="secondary" onClick={removeAllCustomPrices} disabled={saving} className="gap-1.5 text-xs">
+            <RotateCcw className="h-3.5 w-3.5" /> Use standard rate for every night
+          </Button>
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-lg font-semibold text-white">
           {month.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}
