@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { AmenityPicker } from "@/components/host/AmenityPicker";
 
 const MIN_PHOTOS = 5;
-const MAX_PHOTOS = 10;
+// Imported listings carry up to 30 photos and some hand-built ones over 60, so
+// a low cap here hid the "Add photos" button for exactly those hosts.
+const MAX_PHOTOS = 100;
 
 interface PropertyRow {
   title: string | null;
@@ -28,6 +31,9 @@ interface PropertyRow {
   status: string | null;
   source_url: string | null;
   min_nights: number | null;
+  per_person_pricing_enabled: boolean | null;
+  extra_guest_threshold: number | null;
+  extra_guest_fee: number | null;
 }
 
 const PREVIEW_COUNT = 5;
@@ -52,6 +58,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
   const [beds, setBeds] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [minNights, setMinNights] = useState("1");
+  const [perPerson, setPerPerson] = useState(false);
+  const [includedGuests, setIncludedGuests] = useState("");
+  const [extraFee, setExtraFee] = useState("");
 
   // Photos - mix of already-saved URLs and pending local File uploads not
   // yet in Storage. `photos` always reflects final desired order/contents.
@@ -62,7 +71,7 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
   useEffect(() => {
     supabase
       .from("properties")
-      .select("title, description, price_per_night, weekend_price, amenities, images, max_guests, bedrooms, beds, bathrooms, city, state, status, source_url, min_nights")
+      .select("title, description, price_per_night, weekend_price, amenities, images, max_guests, bedrooms, beds, bathrooms, city, state, status, source_url, min_nights, per_person_pricing_enabled, extra_guest_threshold, extra_guest_fee")
       .eq("id", propertyId)
       .maybeSingle()
       .then(({ data }) => {
@@ -79,6 +88,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         setBathrooms(p?.bathrooms != null ? String(p.bathrooms) : "");
         setPhotos(p?.images ?? []);
         setMinNights(p?.min_nights != null ? String(p.min_nights) : "1");
+        setPerPerson(p?.per_person_pricing_enabled === true);
+        setIncludedGuests(p?.extra_guest_threshold != null ? String(p.extra_guest_threshold) : "");
+        setExtraFee(p?.extra_guest_fee != null ? String(p.extra_guest_fee) : "");
       });
   }, [propertyId]);
 
@@ -103,7 +115,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
     numOr(bathrooms) !== (row.bathrooms ?? null) ||
     JSON.stringify([...amenities].sort()) !== JSON.stringify([...(row.amenities ?? [])].sort()) ||
     JSON.stringify(photos) !== JSON.stringify(row.images ?? []) ||
-    (Number(minNights) || 1) !== (row.min_nights ?? 1);
+    (Number(minNights) || 1) !== (row.min_nights ?? 1) ||
+    perPerson !== (row.per_person_pricing_enabled === true) ||
+    (perPerson && (numOr(includedGuests) !== (row.extra_guest_threshold ?? null) || numOr(extraFee) !== (row.extra_guest_fee ?? null)));
 
   const handleAddPhotos = (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -165,6 +179,12 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
       toast({ title: "Nightly rate is required", description: "Enter ₹100 or more.", variant: "destructive" });
       return;
     }
+    const included = numOr(includedGuests);
+    const fee = numOr(extraFee);
+    if (perPerson && (!included || included < 1 || !fee || fee <= 0)) {
+      toast({ title: "Finish extra-guest pricing", description: "Enter how many guests the base price covers and the fee per extra guest.", variant: "destructive" });
+      return;
+    }
     if (photos.length < MIN_PHOTOS) {
       toast({ title: "More photos needed", description: `Please have at least ${MIN_PHOTOS} photos before saving.`, variant: "destructive" });
       return;
@@ -214,6 +234,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
           bathrooms: numOr(bathrooms),
           images: finalPhotos,
           min_nights: Math.min(90, Math.max(1, Number(minNights) || 1)),
+          per_person_pricing_enabled: perPerson,
+          extra_guest_threshold: perPerson ? included : null,
+          extra_guest_fee: perPerson ? fee : null,
         })
         .eq("id", propertyId);
       if (error) throw error;
@@ -243,6 +266,9 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
         bathrooms: numOr(bathrooms),
         images: finalPhotos,
         min_nights: Math.min(90, Math.max(1, Number(minNights) || 1)),
+        per_person_pricing_enabled: perPerson,
+        extra_guest_threshold: perPerson ? included : null,
+        extra_guest_fee: perPerson ? fee : null,
       });
       toast({ title: "Saved", description: "Your listing has been updated." });
     } catch (err: any) {
@@ -408,6 +434,29 @@ export function PropertyOverview({ propertyId }: { propertyId: string }) {
             </button>
           </div>
         </div>
+      </section>
+
+      {/* Extra guests ---------------------------------------------------- */}
+      <section className="rounded-2xl border border-white/15 bg-white/[0.03] p-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-white">Extra-guest pricing</p>
+            <p className="mt-0.5 text-xs text-white/50">Charge more per night once a booking has more guests than your base price covers.</p>
+          </div>
+          <Switch checked={perPerson} onCheckedChange={setPerPerson} />
+        </div>
+        {perPerson && (
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <div>
+              <Label className="text-xs font-semibold text-white/80">Guests included in base price</Label>
+              <Input type="number" inputMode="numeric" min={1} placeholder="e.g. 6" value={includedGuests} onChange={(e) => setIncludedGuests(e.target.value)} className="mt-1.5" />
+            </div>
+            <div>
+              <Label className="text-xs font-semibold text-white/80">Extra per guest, per night (₹)</Label>
+              <Input type="number" inputMode="numeric" min={1} placeholder="e.g. 700" value={extraFee} onChange={(e) => setExtraFee(e.target.value)} className="mt-1.5" />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Capacity ------------------------------------------------------ */}
