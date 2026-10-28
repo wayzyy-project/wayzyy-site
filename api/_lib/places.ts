@@ -24,6 +24,15 @@ export interface PlaceListing {
   pets_allowed: boolean | null;
 }
 
+/**
+ * Wayzyy is Goa-only for browsing. Listings elsewhere in India stay live and
+ * bookable, but only through their own link: they're left out of the home and
+ * Stays pages, place pages, the sitemap and search engines. Used by the
+ * website, the crawler pages here and (mirrored) the app's Explore screen.
+ */
+export const isBrowsable = (p: { state?: string | null; city?: string | null }): boolean =>
+  /goa/i.test(p.state ?? "") || /goa/i.test(p.city ?? "");
+
 /** Team / test accounts: their listings are demos and stay out of search. */
 export const SEED_HOST_EMAILS = [
   "akshayne912@gmail.com",

@@ -51,7 +51,7 @@ function StoreButtons({ size = "lg" }: { size?: "lg" | "sm" }) {
 export default function GetTheApp() {
   const [photos, setPhotos] = useState<string[]>([]);
   useEffect(() => {
-    supabase.from("properties").select("images").eq("status", "active").limit(12).then(({ data }) => {
+    supabase.from("properties").select("images").eq("status", "active").ilike("state", "%goa%").limit(12).then(({ data }) => {
       const imgs = (data ?? []).map((p: any) => (Array.isArray(p.images) ? p.images[0] : null)).filter(Boolean) as string[];
       setPhotos(imgs.slice(0, 3));
     });

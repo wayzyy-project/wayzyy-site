@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
 import {
-  buildPlacePage, allPlacePaths, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS as PLACE_SEED_EMAILS,
+  buildPlacePage, allPlacePaths, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS as PLACE_SEED_EMAILS, isBrowsable,
   type PlaceListing,
 } from "./_lib/places.js";
 
@@ -125,7 +125,8 @@ async function renderPropertyPage(req: VercelRequest, res: VercelResponse) {
     String(p.description ?? "").replace(/\s+/g, " ").trim().slice(0, 155) ||
     `${p.space_type ?? "Stay"} with ${p.bedrooms ?? "?"} bedrooms${placeLine ? ` in ${placeLine}` : ""}. Book directly on Wayzyy.`;
   const amenities: string[] = Array.isArray(p.amenities) ? p.amenities.filter((a: unknown) => typeof a === "string") : [];
-  const isSeed = SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase());
+  // Seed listings and listings outside Goa (link-only, see isBrowsable) stay out of search engines.
+  const isSeed = SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()) || !isBrowsable(p);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -204,14 +205,14 @@ async function renderSitemap(res: VercelResponse) {
   const admin = createClient(supabaseUrl, serviceKey);
   const { data, error } = await admin
     .from("properties")
-    .select("id, title, city, images, updated_at, host_email")
+    .select("id, title, city, state, images, updated_at, host_email")
     .eq("status", "active")
     .order("updated_at", { ascending: false })
     .limit(5000);
   if (error) return res.status(500).send("Could not build sitemap");
 
   const xmlEsc = (v: string) => v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  const rows = (data ?? []).filter((p) => !SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()));
+  const rows = (data ?? []).filter((p) => !SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()) && isBrowsable(p));
   const urls = rows
     .map((p) => {
       const loc = `${SITE}${propertyPath(p.id, p.title, p.city)}`;
@@ -272,7 +273,7 @@ async function fetchPublicListings(): Promise<PlaceListing[] | null> {
   const { data, error } = await admin.from("properties").select(PLACE_COLUMNS).eq("status", "active");
   if (error) return null;
   return (data ?? [])
-    .filter((p: any) => !PLACE_SEED_EMAILS.includes(String(p.host_email ?? "").toLowerCase()))
+    .filter((p: any) => !PLACE_SEED_EMAILS.includes(String(p.host_email ?? "").toLowerCase()) && isBrowsable(p))
     .map((p: any) => ({ ...p, images: toImages(p.images), amenities: Array.isArray(p.amenities) ? p.amenities.filter((a: unknown) => typeof a === "string") : [] })) as PlaceListing[];
 }
 

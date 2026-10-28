@@ -10,7 +10,7 @@ import { propertyPath } from "@/lib/propertySlug";
 import NotFound from "@/pages/NotFound";
 import { PropertyGridSkeleton } from "@/components/marketplace/Skeletons";
 import {
-  buildPlacePage, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS,
+  buildPlacePage, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS, isBrowsable,
   type PlaceListing,
 } from "../../api/_lib/places";
 
@@ -42,7 +42,7 @@ export default function PlaceStays() {
       const { data } = await supabase.from("properties").select(COLUMNS).eq("status", "active");
       if (cancelled) return;
       const rows = (data ?? [])
-        .filter((p: any) => !SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()))
+        .filter((p: any) => !SEED_HOST_EMAILS.includes(String(p.host_email ?? "").toLowerCase()) && isBrowsable(p))
         .map((p: any) => ({ ...p, images: toArray(p.images), amenities: toArray(p.amenities) })) as PlaceListing[];
       setListings(rows);
     })();

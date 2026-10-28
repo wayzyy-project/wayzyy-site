@@ -12,6 +12,7 @@ import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
+import { isBrowsable } from "../../api/_lib/places";
 import { cardHostNightly, guestNightlyPrice, toDateStr, type GuestPricingTier } from "@/lib/pricing";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -235,7 +236,9 @@ export default function ExploreStays() {
             featuredSection: "north_goa"
           };
         });
-        setDbProperties(transformed);
+        // Goa-only for browsing: listings elsewhere in India stay bookable
+        // through their own link but aren't shown here (see isBrowsable).
+        setDbProperties(transformed.filter((p) => isBrowsable(p)));
         const inputs: typeof cardInputs = {};
         for (const p of data as any[]) {
           inputs[p.id] = {
@@ -473,29 +476,6 @@ export default function ExploreStays() {
               </div>
             </section>
           )}
-
-          {/* Default tab: stays outside Goa get their own row (the Goa section above only holds Goa). */}
-          {!searchState.destination && selectedCategory === "all" && northGoaProperties.length > 0 && (() => {
-            const goaIds = new Set(northGoaProperties.map((p) => p.id));
-            const elsewhere = filteredProperties.filter((p) => !goaIds.has(p.id));
-            if (!elsewhere.length) return null;
-            return (
-              <section className="space-y-4 pt-4">
-                <h2 className="text-xl font-bold font-display text-foreground">Elsewhere in India</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
-                  {elsewhere.map((property) => (
-                    <PropertyCard
-                      key={property.id}
-                      property={property}
-                      nights={datesPicked ? stayNights : undefined}
-                    search={cardSearch}
-                      includeAllFees={includeAllFees}
-                    />
-                  ))}
-                </div>
-              </section>
-            );
-          })()}
 
           {/* Area guides: where to stay, linked to the long-form blog guides */}
           {!searchState.destination && selectedCategory === "all" && (
