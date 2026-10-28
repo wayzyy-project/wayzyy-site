@@ -96,6 +96,8 @@ export interface PropertyListing {
   instantBook: boolean;
   /** Real listings only: the host's house rules and safety details. */
   rules?: ListingRules;
+  /** Short highlights set by the Wayzyy team, e.g. "Great for corporate & group stays". */
+  tags?: string[];
   /** Real listings only: beds room by room (properties.sleeping_arrangements). */
   sleeping?: SleepingRoom[];
   featuredSection?: "north_goa" | "south_goa" | "trending";

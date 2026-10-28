@@ -442,6 +442,7 @@ export default function PropertyDetail() {
               ? [{ icon: "door", title: "Self check-in", description: "You can check yourself in without meeting the host." }]
               : [],
             rules: rulesFromRow(data),
+            tags: Array.isArray(data.tags) ? data.tags.map(String).filter(Boolean) : [],
             // Was a flat { cleanliness: 5.0, accuracy: 5.0, ... } on every
             // listing regardless of real reviews - no longer rendered (see
             // the removed Reviews section below), kept only because
@@ -732,6 +733,15 @@ export default function PropertyDetail() {
                   <span className="mt-2 flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600">
                     <ShieldCheck className="h-3.5 w-3.5" />
                     Wayzyy Verified · Host verified
+                  </span>
+                )}
+                {property.tags && property.tags.length > 0 && (
+                  <span className="mt-2 flex flex-wrap gap-1.5">
+                    {property.tags.map((tag) => (
+                      <span key={tag} className="rounded-full border border-[#FF6B00]/30 bg-[#FF6B00]/10 px-3 py-1 text-xs font-semibold text-[#FF6B00]">
+                        {tag}
+                      </span>
+                    ))}
                   </span>
                 )}
               </h1>

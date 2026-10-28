@@ -194,6 +194,7 @@ export default function ExploreStays() {
               lng: Number(p.longitude) || 73.7749,
               images: parsedImages,
               pricePerNight: price,
+              tags: Array.isArray(p.tags) ? p.tags.map(String).filter(Boolean) : [],
               originalPrice: price * 2,
               currency: "₹",
               // Real reviews aren't accurate/complete yet - PropertyCard no
