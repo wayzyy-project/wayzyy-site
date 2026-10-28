@@ -11,6 +11,7 @@ import { PropertyCalendar } from "@/components/host/PropertyCalendar";
 import { MarketRateCard, useMarketRates } from "@/components/host/MarketRateNote";
 import { PropertyOverview } from "@/components/host/PropertyOverview";
 import { ApplyRulesSection } from "@/components/host/ApplyRulesSection";
+import { HouseRulesSafetySection } from "@/components/host/HouseRulesSafetySection";
 import { DAY_ORDER, DAY_SHORT } from "@/lib/stayRules";
 import { DISCOUNT_TYPES, DISCOUNT_LABELS, SUGGESTED_DISCOUNT_PERCENTAGE, DiscountType } from "@/lib/discounts";
 import { SHORT_TERM_POLICIES, LONG_TERM_POLICIES, ShortTermPolicyId, LongTermPolicyId, DEFAULT_SHORT_TERM_POLICY, DEFAULT_LONG_TERM_POLICY, LONG_TERM_NIGHTS_THRESHOLD } from "@/lib/cancellationPolicies";
@@ -40,6 +41,8 @@ const TAB_BLURB: Record<string, string> = {
     "Keep Airbnb, Booking.com and anywhere else you list in step with Wayzyy so the same night can't be booked twice. Paste the calendar link from each platform once and it stays in sync on its own.",
   discounts:
     "The same weekly and monthly discounts you'd set on any other platform, just clearer about what a guest actually pays. Choose how much comes off, see the effect before you commit, and save.",
+  houseRules:
+    "Check-in and check-out times, pets, smoking, events, photography, your own extra rules, and the safety devices at the property. Guests see all of this on your listing before they book.",
   cancellation:
     "How much a guest gets back if they cancel, and how late they can do it. Pick one policy for short stays and one for long ones — guests see this before they book.",
   rules:
@@ -75,6 +78,7 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
           <TabsTrigger value="calendar" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Calendar</TabsTrigger>
           <TabsTrigger value="sync" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Channel sync</TabsTrigger>
           <TabsTrigger value="discounts" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Discounts</TabsTrigger>
+          <TabsTrigger value="houseRules" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">House rules & safety</TabsTrigger>
           <TabsTrigger value="cancellation" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Cancellation</TabsTrigger>
           <TabsTrigger value="rules" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Copy rules</TabsTrigger>
           <TabsTrigger value="details" className="data-[state=active]:bg-white/15 data-[state=active]:text-white">Details</TabsTrigger>
@@ -90,6 +94,9 @@ export function ListingManagePanel({ propertyId, propertyTitle, onBack, defaultT
         </TabsContent>
         <TabsContent value="discounts">
           <DiscountsSection propertyId={propertyId} />
+        </TabsContent>
+        <TabsContent value="houseRules">
+          <HouseRulesSafetySection propertyId={propertyId} />
         </TabsContent>
         <TabsContent value="cancellation">
           <CancellationSection propertyId={propertyId} />

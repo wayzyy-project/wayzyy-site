@@ -38,6 +38,8 @@ import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { PropertyDetailSkeleton } from "@/components/marketplace/Skeletons";
+import { ListingRulesSections } from "@/components/marketplace/ListingRules";
+import { rulesFromRow } from "@/lib/houseRules";
 import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
 import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
@@ -387,14 +389,10 @@ export default function PropertyDetail() {
             bedrooms: Number(data.bedrooms) || 2,
             beds: Number(data.beds) || 2,
             bathrooms: Number(data.bathrooms) || 2,
-            amenities: Array.isArray(data.amenities) && data.amenities.length > 0 ? data.amenities : [
-              "Fast Wifi (150+ Mbps)",
-              "Air conditioning in all rooms",
-              "Fully equipped modular kitchen",
-              "Dedicated workspace with ergonomic desk",
-              "Free high-speed covered parking on premises",
-              "24/7 Security with CCTV & Smart Door Lock"
-            ],
+            // Only what the host listed. This used to fall back to six invented
+            // amenities (including "24/7 Security with CCTV"), which could
+            // contradict the host's own camera disclosure.
+            amenities: Array.isArray(data.amenities) ? data.amenities : [],
             minNights: Number(data.min_nights) || 1,
             maxNights: data.max_nights != null ? Number(data.max_nights) : null,
             advanceNoticeDays: data.advance_notice_days ?? null,
@@ -421,10 +419,12 @@ export default function PropertyDetail() {
             // based on ratings, reviews" and "100% of guests... gave this
             // location a 5-star rating" - fabricated on every listing
             // regardless of whether any of that was true. Self check-in is
-            // the only one that isn't a review claim.
-            highlights: [
-              { icon: "door", title: "Self check-in", description: "You can check in with the building staff." },
-            ],
+            // the only one that isn't a review claim, and it now shows only
+            // when the host has actually said guests can check themselves in.
+            highlights: data.self_check_in === true
+              ? [{ icon: "door", title: "Self check-in", description: "You can check yourself in without meeting the host." }]
+              : [],
+            rules: rulesFromRow(data),
             // Was a flat { cleanliness: 5.0, accuracy: 5.0, ... } on every
             // listing regardless of real reviews - no longer rendered (see
             // the removed Reviews section below), kept only because
@@ -936,6 +936,7 @@ export default function PropertyDetail() {
               </div>
 
               {/* Amenities Grid ("What this place offers") */}
+              {property.amenities.length > 0 && (
               <div className="pt-6 space-y-4">
                 <h3 className="text-lg font-bold font-display text-foreground">What this place offers</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -955,6 +956,9 @@ export default function PropertyDetail() {
                   </button>
                 )}
               </div>
+              )}
+
+              {property.rules && <ListingRulesSections rules={property.rules} />}
 
               {BOOKING_ENABLED && !property.showcase && (
                 <div className="pt-6 space-y-4">

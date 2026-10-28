@@ -19,12 +19,12 @@ const GROUPS: { id: GroupId; label: string; sub: string }[] = [
   {
     id: "houseRules",
     label: "House rules and check-in",
-    sub: "Pets (and pet fee), smoking, parties, extra rules, check-in and check-out times, self check-in.",
+    sub: "Pets (and pet fee), smoking, events, commercial photography, extra rules, check-in and check-out times, self check-in. Safety devices stay per listing.",
   },
 ];
 
 const HOUSE_FIELDS = [
-  "pets_allowed", "pet_fee", "smoking_allowed", "parties_allowed",
+  "pets_allowed", "pet_fee", "smoking_allowed", "parties_allowed", "commercial_photography_allowed",
   "house_rules_additional", "check_in_time", "check_out_time", "self_check_in",
 ] as const;
 

@@ -1,3 +1,4 @@
+import type { ListingRules } from "@/lib/houseRules";
 export interface Review {
   id: string;
   authorName: string;
@@ -93,6 +94,8 @@ export interface PropertyListing {
   };
   cancellationPolicy: string;
   instantBook: boolean;
+  /** Real listings only: the host's house rules and safety details. */
+  rules?: ListingRules;
   featuredSection?: "north_goa" | "south_goa" | "trending";
 }
 
