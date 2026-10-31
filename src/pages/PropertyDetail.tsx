@@ -16,6 +16,7 @@ import {
   X, 
   DoorClosed, 
   Trophy, 
+  SprayCan,
   MapPin, 
   Calendar as CalendarIcon, 
   Users, 
@@ -896,7 +897,7 @@ export default function PropertyDetail() {
                       {h.icon === "trophy" && <Trophy className="h-4 w-4 text-[#FF6B00]" />}
                       {h.icon === "door" && <DoorClosed className="h-4 w-4 text-foreground" />}
                       {h.icon === "map-pin" && <MapPin className="h-4 w-4 text-[#FF6B00]" />}
-                      {h.icon === "sparkles" && <Sparkles className="h-4 w-4 text-[#FF6B00]" />}
+                      {h.icon === "sparkles" && <SprayCan className="h-4 w-4 text-[#FF6B00]" />}
                     </div>
                     <div>
                       <p className="text-sm font-bold text-foreground">{h.title}</p>
