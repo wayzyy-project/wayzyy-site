@@ -829,7 +829,7 @@ export default function PropertyDetail() {
                 <h2 className="text-xl sm:text-2xl font-bold font-display text-foreground">
                   {property.propertyType}
                   {property.wayzyyVerified && (
-                    <BadgeCheck role="img" aria-label="Wayzyy Verified" className="ml-1.5 inline h-6 w-6 align-[-0.2em] text-emerald-500">
+                    <BadgeCheck role="img" aria-label="Wayzyy Verified" className="ml-1.5 inline h-6 w-6 align-[-0.2em] text-[#FF6B00]">
                       <title>Wayzyy Verified</title>
                     </BadgeCheck>
                   )}
@@ -896,6 +896,7 @@ export default function PropertyDetail() {
                       {h.icon === "trophy" && <Trophy className="h-4 w-4 text-[#FF6B00]" />}
                       {h.icon === "door" && <DoorClosed className="h-4 w-4 text-foreground" />}
                       {h.icon === "map-pin" && <MapPin className="h-4 w-4 text-[#FF6B00]" />}
+                      {h.icon === "sparkles" && <Sparkles className="h-4 w-4 text-[#FF6B00]" />}
                     </div>
                     <div>
                       <p className="text-sm font-bold text-foreground">{h.title}</p>
