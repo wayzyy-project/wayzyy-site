@@ -163,12 +163,12 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
           {/* Site links - same destinations as the main navbar, so the
               stays homepage still reaches About, Why, Blog and hosting. */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-muted-foreground">
-            <Link to="/" className="text-foreground font-bold">Stays</Link>
-            <Link to="/about" className="hover:text-foreground transition-colors">About</Link>
-            <a href="/about#why" className="hover:text-foreground transition-colors">Why Wayzyy</a>
-            <Link to="/earnings-calculator" className="hover:text-foreground transition-colors">Earn more</Link>
-            <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-foreground">
+            <Link to="/" className="font-bold hover:text-[#FF6B00] transition-colors">Stays</Link>
+            <Link to="/about" className="hover:text-[#FF6B00] transition-colors">About</Link>
+            <a href="/about#why" className="hover:text-[#FF6B00] transition-colors">Why Wayzyy</a>
+            <Link to="/earnings-calculator" className="hover:text-[#FF6B00] transition-colors">Earn more</Link>
+            <Link to="/blog" className="hover:text-[#FF6B00] transition-colors">Blog</Link>
           </nav>
 
           {/* Right Action Menu */}

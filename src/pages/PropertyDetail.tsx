@@ -35,6 +35,7 @@ import {
   Loader2,
   BedDouble,
   BadgeCheck,
+  Info,
   Phone,
 } from "lucide-react";
 import { format, addDays, differenceInDays } from "date-fns";
@@ -151,6 +152,7 @@ export default function PropertyDetail() {
   const [startingThread, setStartingThread] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
+  const [feesInfoOpen, setFeesInfoOpen] = useState(false);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
@@ -857,7 +859,7 @@ export default function PropertyDetail() {
                   separate host-profile page. */}
               {otherHostListings.length > 0 && (
                 <div className="pt-6">
-                  <h3 className="text-sm font-bold text-foreground mb-3">
+                  <h3 className="text-sm font-bold text-[#FF6B00] mb-3">
                     More from {property.host.name} · {otherHostListings.length} {otherHostListings.length === 1 ? "stay" : "stays"}
                   </h3>
                   <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1">
@@ -927,7 +929,7 @@ export default function PropertyDetail() {
                     <BadgeCheck className="h-3.5 w-3.5 text-[#FF6B00]" /> Listing reviewed by the Wayzyy team
                   </span>
                 </div>
-                <h3 className="text-lg font-bold font-display text-foreground">About this space</h3>
+                <h3 className="text-lg font-bold font-display text-[#FF6B00]">About this space</h3>
                 <div className={`text-sm text-muted-foreground leading-relaxed ${descriptionExpanded ? "" : "line-clamp-4"}`}>
                   {formatDescription(property.description).map((block, idx) =>
                     block.type === "heading" ? (
@@ -955,7 +957,7 @@ export default function PropertyDetail() {
               {/* Amenities Grid ("What this place offers") */}
               {property.amenities.length > 0 && (
               <div className="pt-6 space-y-4">
-                <h3 className="text-lg font-bold font-display text-foreground">What this place offers</h3>
+                <h3 className="text-lg font-bold font-display text-[#FF6B00]">What this place offers</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {property.amenities.slice(0, 8).map((amenity, idx) => (
                     <div key={idx} className="flex items-center gap-3 text-sm text-foreground">
@@ -977,7 +979,7 @@ export default function PropertyDetail() {
 
               {property.sleeping && property.sleeping.length > 0 && (
                 <div className="pt-6 space-y-4">
-                  <h3 className="text-lg font-bold font-display text-foreground">Where you'll sleep</h3>
+                  <h3 className="text-lg font-bold font-display text-[#FF6B00]">Where you'll sleep</h3>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {property.sleeping.map((room, i) => (
                       <div key={i} className="rounded-2xl border border-border p-4">
@@ -994,7 +996,7 @@ export default function PropertyDetail() {
 
               {BOOKING_ENABLED && !property.showcase && (
                 <div className="pt-6 space-y-4">
-                  <h3 className="text-lg font-bold font-display text-foreground">
+                  <h3 className="text-lg font-bold font-display text-[#FF6B00]">
                     {nights} nights in {property.city}
                   </h3>
                   <p className="text-xs text-muted-foreground font-medium">
@@ -1041,7 +1043,7 @@ export default function PropertyDetail() {
 
               {/* Location Map ("Where you'll be" Matching Screenshot 4) */}
               <div className="pt-6 space-y-4">
-                <h3 className="text-xl font-bold font-display text-foreground">Where you'll be</h3>
+                <h3 className="text-xl font-bold font-display text-[#FF6B00]">Where you'll be</h3>
                 <p className="text-xs text-muted-foreground font-medium">{/* area often already contains the city ("Panaji, Goa"), so drop repeats */}
                   {[...new Set([property.area, property.city, property.state, "India"].flatMap((x) => String(x ?? "").split(",")).map((x) => x.trim()).filter(Boolean))].join(", ")}</p>
 
@@ -1103,11 +1105,25 @@ export default function PropertyDetail() {
                     <span className="text-xs text-muted-foreground font-normal ml-1">
                       for {nights} {nights > 1 ? "nights" : "night"}
                     </span>
+                    {/* Hover on desktop, tap on touch screens (no hover there). */}
+                    <Popover open={feesInfoOpen} onOpenChange={setFeesInfoOpen}>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          aria-label="Prices include all fees"
+                          onPointerEnter={(e) => e.pointerType === "mouse" && setFeesInfoOpen(true)}
+                          onPointerLeave={(e) => e.pointerType === "mouse" && setFeesInfoOpen(false)}
+                          onClick={(e) => { e.preventDefault(); setFeesInfoOpen(true); }}
+                          className="ml-1.5 inline-flex rounded-full p-0.5 align-middle text-[#FF6B00] hover:bg-[#FF6B00]/10 transition-colors"
+                        >
+                          <Info className="h-3.5 w-3.5" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent side="top" className="w-auto rounded-xl px-3 py-2 text-xs font-semibold text-foreground">
+                        Prices include all fees
+                      </PopoverContent>
+                    </Popover>
                   </div>
-
-                  <span className="rounded-full bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20 px-2.5 py-1 text-[11px] font-bold">
-                    Prices include all fees
-                  </span>
                 </div>
 
                 {/* Check-in / Checkout Selector Box */}
@@ -1184,7 +1200,7 @@ export default function PropertyDetail() {
                 {/* Free cancellation note - only while that date is still ahead of us
                     (a stay starting in the next couple of days has no such window). */}
                 {addDays(checkInDate, -2).getTime() > Date.now() && (
-                  <div className="rounded-2xl bg-muted/40 p-3 text-center text-xs font-semibold text-muted-foreground">
+                  <div className="rounded-2xl bg-muted/40 p-3 text-center text-xs font-bold text-foreground">
                     Free cancellation before {format(addDays(checkInDate, -2), "d MMMM")}
                   </div>
                 )}
