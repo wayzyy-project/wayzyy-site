@@ -259,23 +259,23 @@ export function SiteNav({ floating = false }: SiteNavProps) {
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
             <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
-              <Link className="hover:text-white/80 transition-colors" to="/stays">
+              <Link className="hover:text-[#FF6B00] transition-colors" to="/stays">
                 Explore Stays
               </Link>
-              <a className="hover:text-white/80 transition-colors" href="/about#why">
+              <a className="hover:text-[#FF6B00] transition-colors" href="/about#why">
                 Why
               </a>
-              <a className="hover:text-white/80 transition-colors" href="/about#two-sides">
+              <a className="hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
                 User & Host
               </a>
-              <Link className="hover:text-white/80 transition-colors" to="/waitlist">
+              <Link className="hover:text-[#FF6B00] transition-colors" to="/waitlist">
                 Waitlist
               </Link>
-              <Link className="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors" to="/earnings-calculator">
+              <Link className="inline-flex items-center gap-1.5 hover:text-[#FF6B00] transition-colors" to="/earnings-calculator">
                 <Calculator className="h-4 w-4 shrink-0" />
                 <span>Earn More</span>
               </Link>
-              <Link className="hover:text-white/80 transition-colors" to="/blog">
+              <Link className="hover:text-[#FF6B00] transition-colors" to="/blog">
                 Blog
               </Link>
               <HostNavMenu variant="floating" />
@@ -317,23 +317,23 @@ export function SiteNav({ floating = false }: SiteNavProps) {
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
         <nav className="hidden items-center gap-6 text-sm font-bold text-white sm:flex">
-          <Link className="hover:text-white/80 transition-colors" to="/stays">
+          <Link className="hover:text-[#FF6B00] transition-colors" to="/stays">
             Explore Stays
           </Link>
-          <a className="hover:text-white/80 transition-colors" href="/about#why">
+          <a className="hover:text-[#FF6B00] transition-colors" href="/about#why">
             Why
           </a>
-          <a className="hover:text-white/80 transition-colors" href="/about#two-sides">
+          <a className="hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
             User & Host
           </a>
-          <Link className="hover:text-white/80 transition-colors" to="/waitlist">
+          <Link className="hover:text-[#FF6B00] transition-colors" to="/waitlist">
             Waitlist
           </Link>
-          <Link className="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors" to="/earnings-calculator">
+          <Link className="inline-flex items-center gap-1.5 hover:text-[#FF6B00] transition-colors" to="/earnings-calculator">
             <Calculator className="h-4 w-4 shrink-0" />
             <span>Earn More</span>
           </Link>
-          <Link className="hover:text-white/80 transition-colors" to="/blog">
+          <Link className="hover:text-[#FF6B00] transition-colors" to="/blog">
             Blog
           </Link>
           <HostNavMenu variant="floating" />

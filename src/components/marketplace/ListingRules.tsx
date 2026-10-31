@@ -72,7 +72,7 @@ export function ListingRulesSections({ rules }: { rules: ListingRules }) {
   return (
     <>
       <div className="pt-6 space-y-4">
-        <h3 className="text-lg font-bold font-display text-foreground">House rules</h3>
+        <h3 className="text-lg font-bold font-display text-[#FF6B00]">House rules</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="space-y-2.5">
             <p className="text-sm font-semibold text-foreground">Checking in and out</p>
@@ -112,7 +112,7 @@ export function ListingRulesSections({ rules }: { rules: ListingRules }) {
       </div>
 
       <div className="pt-6 space-y-4">
-        <h3 className="text-lg font-bold font-display text-foreground">Safety and property</h3>
+        <h3 className="text-lg font-bold font-display text-[#FF6B00]">Safety and property</h3>
         <ul className="grid gap-3 sm:grid-cols-2">
           {safety.map(({ key, label, icon: Glyph, status }) => (
             <li key={key} className="flex items-center gap-3 text-sm">
