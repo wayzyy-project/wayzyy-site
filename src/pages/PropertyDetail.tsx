@@ -1,7 +1,7 @@
 import { StayDatesCalendar } from "@/components/booking/StayDatesCalendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { spaceTypeLine } from "@/lib/spaceType";
-import { img, imgSet } from "@/lib/img";
+import { fallbackImageToOriginal, img, imgSet } from "@/lib/img";
 import { PhotoLightbox } from "@/components/marketplace/PhotoLightbox";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -786,6 +786,7 @@ export default function PropertyDetail() {
                   fetchPriority="high"
                   decoding="async"
                   alt={property.title}
+                  onError={(event) => fallbackImageToOriginal(event.currentTarget, images[0])}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -807,6 +808,7 @@ export default function PropertyDetail() {
                       loading="lazy"
                       decoding="async"
                       alt={`${property.title} photo ${idx + 2}`}
+                      onError={(event) => fallbackImageToOriginal(event.currentTarget, photo)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, ImageOff, X } from "lucide-react";
-import { img, imgSet } from "@/lib/img";
+import { fallbackImageToOriginal, img, imgSet } from "@/lib/img";
 
 // Full-screen "Show all photos" viewer.
 //
@@ -109,7 +109,9 @@ export function PhotoLightbox({ images, index, onIndexChange, onClose }: Props) 
             decoding="async"
             alt={`Photo ${index + 1}`}
             onLoad={() => mark(setLoaded, index)}
-            onError={() => mark(setFailed, index)}
+            onError={(event) => {
+              if (!fallbackImageToOriginal(event.currentTarget, images[index])) mark(setFailed, index);
+            }}
             className={`relative max-h-full max-w-full rounded-2xl object-contain shadow-2xl transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
           />
         )}
@@ -147,7 +149,14 @@ export function PhotoLightbox({ images, index, onIndexChange, onClose }: Props) 
                 i === index ? "scale-105 border-[#FF6B00]" : "border-transparent opacity-50 hover:opacity-80"
               }`}
             >
-              <img src={img(photo, 200)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+              <img
+                src={img(photo, 200)}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onError={(event) => fallbackImageToOriginal(event.currentTarget, photo)}
+                className="h-full w-full object-cover"
+              />
             </button>
           ))}
         </div>

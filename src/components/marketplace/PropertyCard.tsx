@@ -1,4 +1,4 @@
-import { imgSet } from "@/lib/img";
+import { fallbackImageToOriginal, imgSet } from "@/lib/img";
 import React, { useState, useEffect, useRef } from "react";
 import { guestNightlyPrice, airbnbEquivalentTotal } from "@/lib/pricing";
 import { Link } from "react-router-dom";
@@ -100,7 +100,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 className={`h-full w-full shrink-0 snap-center object-cover transition-opacity duration-500 ${i === 0 && !coverLoaded ? "opacity-0" : "opacity-100"}`}
                 ref={i === 0 ? (el) => { if (el?.complete && el.naturalWidth > 0) setCoverLoaded(true); } : undefined}
                 onLoad={i === 0 ? () => setCoverLoaded(true) : undefined}
-                onError={i === 0 ? () => setCoverLoaded(true) : undefined}
+                onError={(event) => {
+                  if (!fallbackImageToOriginal(event.currentTarget, src) && i === 0) setCoverLoaded(true);
+                }}
                 loading={i === 0 && priority ? "eager" : "lazy"}
                 {...(i === 0 && priority ? { fetchPriority: "high" as const } : {})}
                 decoding="async"

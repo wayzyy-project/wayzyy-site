@@ -1,28 +1,54 @@
-// Listing photos live in Supabase Storage, and every full-size download counts
-// against the plan's egress quota. Serve them through Vercel's image optimizer
-// (configured in vercel.json): it resizes to WebP and caches for a month, so
-// Supabase is hit about once per photo and size instead of on every page view.
-const SIZES = [200, 320, 480, 640, 900, 1400, 1800];
-
 /**
- * src + srcSet so the browser downloads the smallest size that fills the
- * space (a phone card needs ~480px, a retina laptop ~900px) instead of one
- * fixed width for everyone. Non-Wayzyy-storage URLs just get a plain src.
+ * Use the original public photo URL. Vercel's image optimizer returns 402
+ * for uncached sizes, leaving galleries blank while the originals still load.
+ * A shared URL also lets the browser reuse its cache across listing cards
+ * and detail pages.
  */
-export function imgSet(url: string | null | undefined, widths = [320, 480, 640, 900]): { src: string; srcSet?: string } {
-  const src = img(url, widths[widths.length - 1]);
-  if (!url || src === url || !src.startsWith("/_vercel/image")) return { src: src || "" };
-  return {
-    src: img(url, widths[2] ?? widths[widths.length - 1]),
-    srcSet: widths.map((w) => `${img(url, w)} ${w}w`).join(", "),
-  };
+export function imgSet(url: string | null | undefined, _widths = [320, 480, 640, 900]): { src: string; srcSet?: string } {
+  return { src: url || "" };
 }
 
-export function img(url: string | null | undefined, width = 800): string {
+export function img(url: string | null | undefined, _width = 800): string {
+  return url || "";
+}
+
+/**
+ * Recover the original photo URL from a Vercel optimizer request.
+ * Older deployed pages and cached bundles can still contain /_vercel/image
+ * URLs even though new renders use the public storage URL directly.
+ */
+export function originalImageUrl(url: string | null | undefined): string {
   if (!url) return "";
-  // Only on the deployed site; the optimizer doesn't exist on localhost.
-  if (typeof window !== "undefined" && /localhost|127\.0\.0\.1/.test(window.location.hostname)) return url;
-  if (!url.includes(".supabase.co/storage/v1/object/public/")) return url;
-  const w = SIZES.find((s) => s >= width) ?? SIZES[SIZES.length - 1];
-  return `/_vercel/image?url=${encodeURIComponent(url)}&w=${w}&q=75`;
+
+  try {
+    const parsed = new URL(url, typeof window === "undefined" ? "https://wayzyy.com" : window.location.origin);
+    if (parsed.pathname === "/_vercel/image") {
+      return parsed.searchParams.get("url") || url;
+    }
+  } catch {
+    // Keep the supplied URL if it cannot be parsed.
+  }
+
+  return url;
+}
+
+/**
+ * Retry a failed optimized image once using its original public URL.
+ * Returns true when a retry was started, allowing callers to defer their
+ * broken-image UI until the direct request also fails.
+ */
+export function fallbackImageToOriginal(element: HTMLImageElement, originalUrl?: string | null): boolean {
+  if (element.dataset.originalFallbackAttempted === "true") return false;
+
+  const fallback = originalImageUrl(originalUrl || element.currentSrc || element.src);
+  const failed = originalImageUrl(element.currentSrc || element.src);
+  const wasOptimized = (element.currentSrc || element.src).includes("/_vercel/image?");
+
+  if (!fallback || (!wasOptimized && fallback === failed)) return false;
+
+  element.dataset.originalFallbackAttempted = "true";
+  element.removeAttribute("srcset");
+  element.removeAttribute("sizes");
+  element.src = fallback;
+  return true;
 }
