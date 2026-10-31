@@ -1105,26 +1105,25 @@ export default function PropertyDetail() {
                     <span className="text-xs text-muted-foreground font-normal ml-1">
                       for {nights} {nights > 1 ? "nights" : "night"}
                     </span>
+                    {/* Hover on desktop, tap on touch screens (no hover there). */}
+                    <Popover open={feesInfoOpen} onOpenChange={setFeesInfoOpen}>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          aria-label="Prices include all fees"
+                          onPointerEnter={(e) => e.pointerType === "mouse" && setFeesInfoOpen(true)}
+                          onPointerLeave={(e) => e.pointerType === "mouse" && setFeesInfoOpen(false)}
+                          onClick={(e) => { e.preventDefault(); setFeesInfoOpen(true); }}
+                          className="ml-1.5 inline-flex rounded-full p-0.5 align-middle text-[#FF6B00] hover:bg-[#FF6B00]/10 transition-colors"
+                        >
+                          <Info className="h-3.5 w-3.5" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent side="top" className="w-auto rounded-xl px-3 py-2 text-xs font-semibold text-foreground">
+                        Prices include all fees
+                      </PopoverContent>
+                    </Popover>
                   </div>
-
-                  {/* Hover on desktop, tap on touch screens (no hover there). */}
-                  <Popover open={feesInfoOpen} onOpenChange={setFeesInfoOpen}>
-                    <PopoverTrigger asChild>
-                      <button
-                        type="button"
-                        aria-label="Prices include all fees"
-                        onPointerEnter={(e) => e.pointerType === "mouse" && setFeesInfoOpen(true)}
-                        onPointerLeave={(e) => e.pointerType === "mouse" && setFeesInfoOpen(false)}
-                        onClick={(e) => { e.preventDefault(); setFeesInfoOpen(true); }}
-                        className="rounded-full p-1 text-[#FF6B00] hover:bg-[#FF6B00]/10 transition-colors"
-                      >
-                        <Info className="h-4 w-4" />
-                      </button>
-                    </PopoverTrigger>
-                    <PopoverContent side="top" align="end" className="w-auto rounded-xl px-3 py-2 text-xs font-semibold text-foreground">
-                      Prices include all fees
-                    </PopoverContent>
-                  </Popover>
                 </div>
 
                 {/* Check-in / Checkout Selector Box */}
