@@ -147,7 +147,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       <div className="flex flex-col text-sm space-y-0.5">
         {/* Title line & Location */}
         <div className="flex items-baseline justify-between font-bold text-foreground">
-          <span className="truncate pr-2">{property.title.split("–")[0] || `${property.propertyType.split(" in ")[0]} in ${property.area || property.city}`}</span>
+          <span className="truncate pr-2 transition-colors group-hover:text-[#FF6B00]">{property.title.split("–")[0] || `${property.propertyType.split(" in ")[0]} in ${property.area || property.city}`}</span>
         </div>
 
         {/* Subtitle / Location */}
@@ -164,7 +164,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <span className="font-price text-muted-foreground line-through decoration-1">
             {property.currency}{airbnbEquivalent.toLocaleString("en-IN")}
           </span>
-          <span className="font-price font-bold">
+          <span className="font-price font-bold transition-colors group-hover:text-[#FF6B00]">
             {property.currency}{totalPrice.toLocaleString("en-IN")}
           </span>
           <span className="text-muted-foreground">

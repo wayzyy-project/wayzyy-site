@@ -118,7 +118,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
                 className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                   isSelected
                     ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-background text-foreground hover:border-foreground/40"
+                    : "border-border bg-background text-foreground hover:border-[#FF6B00] hover:text-[#FF6B00]"
                 }`}
               >
                 <Icon className={`h-4 w-4 ${isSelected ? "" : "text-[#FF6B00]"}`} />
@@ -140,7 +140,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
                 className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors ${
                   on
                     ? "border-[#FF6B00] bg-[#FF6B00]/10 text-[#C24E00] dark:text-[#FF8A33]"
-                    : "border-border bg-background text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                    : "border-border bg-background text-muted-foreground hover:text-[#FF6B00] hover:border-[#FF6B00]"
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />
@@ -154,7 +154,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
           <button
             onClick={onOpenFilterModal}
             aria-label="Filters"
-            className="inline-flex items-center gap-2 rounded-full border border-border px-3 sm:px-4 py-2 text-sm font-semibold hover:border-foreground/40 transition-colors bg-background"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-3 sm:px-4 py-2 text-sm font-semibold hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors bg-background"
           >
             <SlidersHorizontal className="h-4 w-4" />
             <span className="hidden sm:inline">Filters</span>
