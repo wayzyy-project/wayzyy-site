@@ -828,40 +828,27 @@ export default function PropertyDetail() {
               <div className="space-y-1">
                 <h2 className="text-xl sm:text-2xl font-bold font-display text-foreground">
                   {property.propertyType}
+                  {property.wayzyyVerified && (
+                    <BadgeCheck role="img" aria-label="Wayzyy Verified" className="ml-1.5 inline h-6 w-6 align-[-0.2em] text-emerald-500">
+                      <title>Wayzyy Verified</title>
+                    </BadgeCheck>
+                  )}
                 </h2>
                 <p className="text-sm text-muted-foreground font-medium">
                   {roomsSummary(property)}
                 </p>
               </div>
 
-              {/* Was a "Hosted by X" card with a stock Unsplash photo (never
-                  the real host) and a hardcoded "New Host · Response time:
-                  within an hour" - fabricated the same way the reviews
-                  were. Just a plain contact prompt now, same number as the
-                  price rail's "Get in touch" button. */}
-              <div className="pt-6 space-y-4">
-                {/* Trust: what Wayzyy actually checked. The Aadhaar line only
-                    shows when the host's profile is verified. */}
-                <div className="flex flex-wrap gap-2">
-                  {hostVerified && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-                      <ShieldCheck className="h-3.5 w-3.5" /> Host Aadhaar verified via DigiLocker
-                    </span>
-                  )}
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground">
-                    <BadgeCheck className="h-3.5 w-3.5 text-[#FF6B00]" /> Listing reviewed by the Wayzyy team
-                  </span>
-                </div>
-
-                {areaGuide && (
+              {areaGuide && (
+                <div className="pt-6">
                   <Link to={areaGuide.guide} className="group block rounded-2xl border border-border p-5 hover:border-[#FF6B00]/50 transition-colors">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FF6B00]">About the area · {areaGuide.vibe}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FF6B00]">About the area - {areaGuide.vibe}</span>
                     <p className="mt-1 text-base font-bold text-foreground">Staying in {areaGuide.area}</p>
                     <p className="mt-1 text-sm text-muted-foreground">{areaGuide.blurb}</p>
                     <p className="mt-2 text-sm font-semibold text-foreground group-hover:text-[#FF6B00]">Read the {areaGuide.area} guide →</p>
                   </Link>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Other properties from this host - same idea as Airbnb's
                   host-profile listing grid, just inline here rather than a
@@ -920,6 +907,18 @@ export default function PropertyDetail() {
 
               {/* Description Section with Show More */}
               <div className="pt-6 space-y-3">
+                {/* Trust: what Wayzyy actually checked. The Aadhaar line only
+                    shows when the host's profile is verified. */}
+                <div className="flex flex-wrap gap-2">
+                  {hostVerified && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                      <ShieldCheck className="h-3.5 w-3.5" /> Host Aadhaar verified via DigiLocker
+                    </span>
+                  )}
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground">
+                    <BadgeCheck className="h-3.5 w-3.5 text-[#FF6B00]" /> Listing reviewed by the Wayzyy team
+                  </span>
+                </div>
                 <h3 className="text-lg font-bold font-display text-foreground">About this space</h3>
                 <div className={`text-sm text-muted-foreground leading-relaxed ${descriptionExpanded ? "" : "line-clamp-4"}`}>
                   {formatDescription(property.description).map((block, idx) =>
