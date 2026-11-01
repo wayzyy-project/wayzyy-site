@@ -143,7 +143,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14">
         {/* Top Navbar Row */}
-        <div className={`flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4`}>
+        <div className={`relative flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4`}>
           {/* Official WAYZYY Logo */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img 
@@ -151,19 +151,16 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               alt="Wayzyy" 
               className="h-10 w-10 rounded-full object-cover shadow-sm group-hover:scale-105 transition-transform" 
             />
-            <div className="flex flex-col">
-              <span style={{ fontFamily: '"Raleway", sans-serif' }} className="text-2xl font-black tracking-tight text-foreground group-hover:text-[#FF6B00] transition-colors">
-                Wayzyy
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF6B00] -mt-1">
-                Zero Guest Fee
-              </span>
-            </div>
+            <span style={{ fontFamily: '"Raleway", sans-serif' }} className="text-2xl font-black tracking-tight text-foreground group-hover:text-[#FF6B00] transition-colors">
+              Wayzyy
+            </span>
           </Link>
 
           {/* Site links - same destinations as the main navbar, so the
-              stays homepage still reaches About, Why, Blog and hosting. */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-foreground">
+              stays homepage still reaches About, Why, Blog and hosting.
+              Absolutely centred so it lines up with the search bar below,
+              whatever the widths of the logo and the right-hand buttons. */}
+          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-7 text-sm font-semibold text-foreground">
             <Link to="/" className="font-bold hover:text-[#FF6B00] transition-colors">Stays</Link>
             <Link to="/about" className="hover:text-[#FF6B00] transition-colors">About</Link>
             <a href="/about#why" className="hover:text-[#FF6B00] transition-colors">Why Wayzyy</a>
