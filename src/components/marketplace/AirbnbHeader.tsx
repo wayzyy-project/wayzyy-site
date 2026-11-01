@@ -257,53 +257,53 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
         {/* compact: pages like Messages and Account get just the top row. */}
         {!compact && !isSearchExpanded && (
           <div className="pb-4 flex justify-center">
-            <div className="w-full max-w-2xl flex items-center rounded-full border border-border/80 bg-background shadow-md hover:shadow-lg transition-all hover:border-[#FF6B00]/30 overflow-hidden">
+            <div className="w-full max-w-3xl flex items-center rounded-full border border-border/80 bg-background shadow-md hover:shadow-lg transition-all hover:border-[#FF6B00]/30 overflow-hidden">
               {/* WHERE zone */}
               <button
                 type="button"
                 onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("where"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-5 sm:py-3 hover:bg-muted/50 transition-colors group min-w-0"
+                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
               >
-                <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
+                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
                   {destination ? destination : "Travel destination"}
                 </p>
-                <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
+                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                   {destination ? "Filtered" : "Where in Goa?"}
                 </p>
               </button>
 
               {/* Divider */}
-              <div className="w-px h-7 bg-border/70 shrink-0" />
+              <div className="w-px h-7 sm:h-8 bg-border/70 shrink-0" />
 
               {/* WHEN zone */}
               <button
                 type="button"
                 onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("when"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-5 sm:py-3 hover:bg-muted/50 transition-colors group min-w-0"
+                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
               >
-                <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
+                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
                   {checkIn && checkOut
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
                     : "What dates?"}
                 </p>
-                <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
+                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                   {checkIn ? "Dates set" : "Check-in and check-out"}
                 </p>
               </button>
 
               {/* Divider */}
-              <div className="w-px h-7 bg-border/70 shrink-0" />
+              <div className="w-px h-7 sm:h-8 bg-border/70 shrink-0" />
 
               {/* WHO zone */}
               <button
                 type="button"
                 onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("who"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-5 sm:py-3 hover:bg-muted/50 transition-colors group min-w-0"
+                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
               >
-                <p className="text-[11px] sm:text-xs font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
+                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
                   {totalGuests > 1 ? `${totalGuests} guests` : "Who's along?"}
                 </p>
-                <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">
+                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                   {totalGuests > 1 ? `${adults}A, ${children}C` : "Add travellers"}
                 </p>
               </button>
@@ -313,9 +313,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 <button
                   type="button"
                   onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("where"); }}
-                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] flex items-center justify-center text-white shrink-0 shadow-md shadow-[#FF6B00]/25 hover:scale-105 transition-transform"
+                  className="h-8 w-8 sm:h-11 sm:w-11 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] flex items-center justify-center text-white shrink-0 shadow-md shadow-[#FF6B00]/25 hover:scale-105 transition-transform"
                 >
-                  <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <Search className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                 </button>
               </div>
             </div>
