@@ -630,7 +630,9 @@ routes.forEach((route) => {
 // 5. Inject SSR content into the root index.html (the homepage) — its meta tags are
 // already correct in the base template, it just needs the real markup in #root.
 if (ssrOutput['/']) {
-  const rootHtml = templateHtml.replace('<div id="root"></div>', `<div id="root">${ssrOutput['/']}</div>`);
+  const rootHtml = templateHtml
+    .replace('</head>', '    <link rel="canonical" href="https://wayzyy.com/" />\n</head>')
+    .replace('<div id="root"></div>', `<div id="root">${ssrOutput['/']}</div>`);
   fs.writeFileSync(indexHtmlPath, rootHtml, 'utf8');
   console.log(`Prerendered page: / -> ${indexHtmlPath}`);
 }

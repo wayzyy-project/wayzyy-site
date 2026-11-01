@@ -360,6 +360,14 @@ export default function ExploreStays() {
     [baseProperties, filters],
   );
 
+  // Keep map pills and popups on the exact same amount shown by PropertyCard.
+  // Without searched dates, cards respect each listing's minimum stay; with
+  // dates, both surfaces show the total for the selected stay.
+  const mapNights = (p: PropertyListing) => datesPicked
+    ? stayNights
+    : Math.max(1, p.minNights ?? 1);
+  const mapPrice = (p: PropertyListing) => guestNightlyPrice(p.pricePerNight) * mapNights(p);
+
   const northGoaProperties = useMemo(() => {
     return filteredProperties.filter((p) => 
       p.state?.toLowerCase().includes("goa") || 
@@ -382,8 +390,8 @@ export default function ExploreStays() {
 
   return (
     <SEO
-      title="Explore Stays & Homestays in Goa & India - Wayzyy"
-      description="Book verified 2BHKs, luxury villas with private pools, and beachfront stays. Zero guest booking fee, flat-rate host marketplace."
+      title="Goa Villas, Homes & Stays | Explore Wayzyy"
+      description="Explore verified villas, homes and stays in Goa. Compare areas, browse private-pool and group stays, and see the full price before you book on Wayzyy."
     >
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         {/* Top Airbnb Navbar */}
@@ -540,19 +548,19 @@ export default function ExploreStays() {
           )}
 
           {/* Split Map View Floating Button */}
-          <div className="fixed bottom-8 inset-x-0 flex justify-center z-40 pointer-events-none">
+          <div className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] inset-x-0 flex justify-center z-40 pointer-events-none sm:bottom-8">
             <button
               onClick={() => setViewMode(viewMode === "grid" ? "map" : "grid")}
               className="pointer-events-auto flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3.5 shadow-2xl hover:scale-105 active:scale-95 transition-all text-xs font-extrabold"
             >
               {viewMode === "grid" ? (
                 <>
-                  <MapIcon className="h-4 w-4 text-[#FF6B00]" />
+                  <MapIcon className="hidden h-4 w-4 text-[#FF6B00] sm:block" />
                   <span>Show Map</span>
                 </>
               ) : (
                 <>
-                  <GridIcon className="h-4 w-4 text-[#FF6B00]" />
+                  <GridIcon className="hidden h-4 w-4 text-[#FF6B00] sm:block" />
                   <span>Show List</span>
                 </>
               )}
@@ -561,7 +569,7 @@ export default function ExploreStays() {
 
           {/* Full Screen Map View Panel when active */}
           {viewMode === "map" && (
-            <div className="fixed inset-0 top-[140px] z-30 bg-background flex flex-col">
+            <div className="fixed inset-x-0 bottom-0 top-[104px] z-30 bg-background flex flex-col sm:top-[116px]">
               <div className="flex-1 w-full h-full relative">
                 <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
                   <GoogleMap
@@ -579,7 +587,7 @@ export default function ExploreStays() {
                         position={{ lat: p.lat, lng: p.lng }}
                         onClick={() => setOpenMapPinId(p.id)}
                       >
-                        <PricePin price={p.pricePerNight * 2} currency={p.currency} label={p.showcase ? "Enquire" : undefined} />
+                        <PricePin price={mapPrice(p)} currency={p.currency} label={p.showcase ? "Enquire" : undefined} />
                       </AdvancedMarker>
                     ))}
                     {filteredProperties.map((p) =>
@@ -603,7 +611,7 @@ export default function ExploreStays() {
                               ) : (
                               <span className="font-price text-xs font-bold text-foreground">
                                 {/* Same figure as the card: price with our 7% fee, per night or for the stay. */}
-                                {p.currency}{(guestNightlyPrice(p.pricePerNight) * (datesPicked ? stayNights : 1)).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{datesPicked && stayNights > 1 ? `for ${stayNights} nights` : "night"}</span>
+                                {p.currency}{mapPrice(p).toLocaleString("en-IN")} <span className="text-[10px] font-normal text-muted-foreground">{mapNights(p) > 1 ? `for ${mapNights(p)} nights` : "night"}</span>
                               </span>
                               )}
                               <Link

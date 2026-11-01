@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "node scripts/generate-seo-files.cjs && vite build && npm run ssr:pages && node prerender.cjs && node scripts/indexnow.cjs",
     "build:dev": "vite build --mode development",
+    "test": "tsx --test tests/**/*.test.ts",
     "ssr:pages": "tsx --tsconfig tsconfig.app.json scripts/ssr-pages.tsx",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -16,6 +16,7 @@ import PolicyDocPage from "@/pages/PolicyDocPage";
 import EarningsCalculator from "@/pages/EarningsCalculator";
 import About from "@/pages/About";
 import GoaHostComplianceChecklist from "@/pages/GoaHostComplianceChecklist";
+import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 
 import BlogIndex from "@/pages/blog/BlogIndex";
 import BestAirbnbAlternativesGoa from "@/pages/blog/BestAirbnbAlternativesGoa";
@@ -91,10 +92,40 @@ const builtAssets: string[] = (() => {
   try { return fs.readdirSync(path.join(__dirname, "..", "dist", "assets")); } catch { return []; }
 })();
 
+// The live homepage fetches its listings in the browser. Give crawlers and
+// visitors an initial page with the same browse and guide links while it loads.
+export function HomeSeoFallback() {
+  return <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <h1 className="font-display text-3xl font-bold">Find villas and stays in Goa</h1>
+    <p className="mt-3 max-w-3xl">Browse Wayzyy stays by area or travel style. Open a listing to check its amenities, house rules, dates and total price before booking.</p>
+    <nav aria-label="Browse Goa stays" className="mt-8">
+      <h2 className="text-xl font-bold">Browse stays</h2>
+      <ul className="mt-3 flex flex-wrap gap-4">
+        <li><a href="/goa/stays">All Goa stays</a></li>
+        <li><a href="/goa/stays/villas">Villas and homes</a></li>
+        <li><a href="/goa/stays/pools">Stays with a pool</a></li>
+        <li><a href="/goa/stays/pet-friendly">Pet-friendly stays</a></li>
+        <li><a href="/goa/stays/for-groups">Stays for groups</a></li>
+      </ul>
+    </nav>
+    <section className="mt-8" aria-labelledby="areas-heading">
+      <h2 id="areas-heading" className="text-xl font-bold">Explore Goa by area</h2>
+      <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {AREA_GUIDES.map(({ area, blurb, guide }) => <li key={guide}><a href={guide}>{area}</a> — {blurb}</li>)}
+      </ul>
+    </section>
+    <nav aria-label="Plan your Goa trip" className="mt-8">
+      <h2 className="text-xl font-bold">Plan your Goa trip</h2>
+      <ul className="mt-3 flex flex-wrap gap-4">
+        {TRIP_GUIDES.map(({ title, to }) => <li key={to}><a href={to}>{title}</a></li>)}
+      </ul>
+    </nav>
+  </main>;
+}
+
 // route -> component, mirrors src/App.tsx
 const routes: Record<string, React.ComponentType> = {
-  // "/" is the live stays list: it needs the browser Supabase client (import.meta.env),
-  // which this Node render can't provide, and its content is all fetched at runtime.
+  "/": HomeSeoFallback,
   "/privacy": PrivacyPolicy,
   "/payment-refund": PaymentRefundPolicy,
   "/host-terms": HostTerms,

@@ -25,3 +25,8 @@ scripts/.ssr-output.json
 *.sln
 *.sw?
 .vercel
+
+# Local tooling and generated state
+.graftcode/
+/gg
+supabase/.temp/

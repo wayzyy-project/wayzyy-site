@@ -152,7 +152,7 @@ async function renderPropertyPage(req: VercelRequest, res: VercelResponse) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Wayzyy", item: SITE },
-      { "@type": "ListItem", position: 2, name: "Stays", item: `${SITE}/stays` },
+      { "@type": "ListItem", position: 2, name: "Goa stays", item: `${SITE}/goa/stays` },
       { "@type": "ListItem", position: 3, name: p.title, item: url },
     ],
   };
@@ -181,6 +181,7 @@ async function renderPropertyPage(req: VercelRequest, res: VercelResponse) {
 <script type="application/ld+json">${JSON.stringify(breadcrumbs).replace(/</g, "\\u003c")}</script>
 </head>
 <body>
+<nav aria-label="Breadcrumb"><a href="/">Wayzyy</a> / <a href="/goa/stays">Goa stays</a> / ${esc(p.title)}</nav>
 <h1>${esc(p.title)}</h1>
 <p>${esc(placeLine)}</p>
 <p>${esc(p.space_type ?? "")} · ${esc(p.max_guests ?? "")} guests · ${esc(p.bedrooms ?? "")} bedrooms · ${esc(p.bathrooms ?? "")} bathrooms</p>
