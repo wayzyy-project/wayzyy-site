@@ -79,11 +79,19 @@ function ToggleRow({ icon: Icon, label, sub, on, onToggle }: { icon: React.Compo
 export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filters, onApplyFilters, countFor }) => {
   const [draft, setDraft] = useState<FilterOptions>(filters);
   useEffect(() => { if (isOpen) setDraft(filters); }, [isOpen, filters]);
+  // Lenis (smooth scroll) grabs wheel events document-wide, so the filter
+  // list wouldn't scroll and the stays page behind moved instead.
+  // data-lenis-prevent (below) is its opt-out; locking body overflow keeps
+  // the page behind still - same fix as DraftPricingModal.
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [isOpen, onClose]);
   if (!isOpen) return null;
 
@@ -93,7 +101,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
   const count = countFor(draft);
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 sm:p-6 animate-in fade-in duration-200" onClick={onClose}>
+    <div data-lenis-prevent className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 sm:p-6 animate-in fade-in duration-200" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
@@ -108,7 +116,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
           <h2 id="filters-title" className="text-base font-bold text-foreground">Filters</h2>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 divide-y divide-border">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto overscroll-contain px-6 divide-y divide-border">
           <section className="py-6 space-y-4">
             <div>
               <h3 className="text-lg font-bold text-foreground">Price range</h3>
