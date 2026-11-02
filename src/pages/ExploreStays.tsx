@@ -10,7 +10,7 @@ import { CategoryBar, FilterOptions, DEFAULT_FILTERS } from "@/components/market
 import { FilterModal } from "@/components/marketplace/FilterModal";
 import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
-import { MOCK_PROPERTIES, PropertyListing } from "@/data/mockProperties";
+import type { PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
 import { isBrowsable } from "../../api/_lib/places";
 import { cardHostNightly, guestNightlyPrice, toDateStr, type GuestPricingTier } from "@/lib/pricing";
@@ -286,7 +286,7 @@ export default function ExploreStays() {
     return () => { cancelled = true; };
   }, [searchCheckIn, searchCheckOut]);
 
-  // Combined properties: DB listings + Mock Listings. Live listings' prices
+  // Live listings only (no demo cards). Live listings' prices
   // follow the searched party size and nights (cardHostNightly), the same
   // rule the app's Explore cards use, so one search shows one price on both.
   const searchGuests = searchState.guests.adults + searchState.guests.children;
@@ -300,7 +300,6 @@ export default function ExploreStays() {
   })();
   const allProperties = useMemo(() => {
     const map = new Map<string, PropertyListing>();
-    MOCK_PROPERTIES.forEach((p) => map.set(p.id, p));
     dbProperties.forEach((p) => {
       const input = cardInputs[p.id];
       if (!input || !input.hostPrice) { map.set(p.id, p); return; }
