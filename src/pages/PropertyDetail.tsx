@@ -58,6 +58,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
 import { SUPPORT_PHONE, SUPPORT_EMAIL } from "@/components/host/HostGetStarted";
 import { areaForListing } from "@/data/areaGuides";
+import { NearbyPlaces } from "@/components/marketplace/NearbyPlaces";
 import {
   Dialog,
   DialogContent,
@@ -1360,6 +1361,8 @@ export default function PropertyDetail() {
               )}
             </div>
           </div>
+
+          <NearbyPlaces city={property.city} lat={property.lat} lng={property.lng} />
         </main>
 
         {/* Full Screen Lightbox Photo Gallery Modal */}
