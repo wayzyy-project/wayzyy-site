@@ -41,7 +41,7 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
           aria-label={`Fewer ${label.toLowerCase()}`}
           disabled={value === 0}
           onClick={() => onChange(Math.max(0, value - 1))}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground disabled:opacity-30 hover:border-foreground transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground disabled:opacity-30 enabled:hover:border-[#FF6B00] enabled:hover:text-[#FF6B00] transition-colors"
         >
           <Minus className="h-3.5 w-3.5" />
         </button>
@@ -50,7 +50,7 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
           type="button"
           aria-label={`More ${label.toLowerCase()}`}
           onClick={() => onChange(value + 1)}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-foreground transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors"
         >
           <Plus className="h-3.5 w-3.5" />
         </button>
@@ -61,12 +61,12 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
 
 function ToggleRow({ icon: Icon, label, sub, on, onToggle }: { icon: React.ComponentType<{ className?: string }>; label: string; sub: string; on: boolean; onToggle: () => void }) {
   return (
-    <button type="button" role="switch" aria-checked={on} onClick={onToggle} className="flex w-full items-center gap-4 py-3 text-left">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-foreground">
+    <button type="button" role="switch" aria-checked={on} onClick={onToggle} className="group flex w-full items-center gap-4 py-3 text-left">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-foreground transition-colors group-hover:bg-[#FF6B00]/10 group-hover:text-[#FF6B00]">
         <Icon className="h-4.5 w-4.5" />
       </span>
       <span className="flex-1">
-        <span className="block text-sm font-semibold text-foreground">{label}</span>
+        <span className="block text-sm font-semibold text-foreground transition-colors group-hover:text-[#FF6B00]">{label}</span>
         <span className="block text-xs text-muted-foreground">{sub}</span>
       </span>
       <span className={`relative h-6 w-11 shrink-0 rounded-full p-0.5 transition-colors ${on ? "bg-[#FF6B00]" : "bg-muted-foreground/30"}`}>
@@ -110,7 +110,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
         className="flex max-h-[92vh] w-full sm:max-w-2xl flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl bg-background shadow-2xl animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200"
       >
         <div className="relative flex items-center justify-center border-b border-border px-6 py-4">
-          <button onClick={onClose} aria-label="Close filters" className="absolute left-4 rounded-full p-2 hover:bg-muted transition-colors">
+          <button onClick={onClose} aria-label="Close filters" className="absolute left-4 rounded-full p-2 hover:bg-[#FF6B00]/10 hover:text-[#FF6B00] transition-colors">
             <X className="h-5 w-5" />
           </button>
           <h2 id="filters-title" className="text-base font-bold text-foreground">Filters</h2>
@@ -130,7 +130,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
                     key={p.label}
                     type="button"
                     onClick={() => setDraft((d) => (on ? { ...d, minPrice: DEFAULT_FILTERS.minPrice, maxPrice: DEFAULT_FILTERS.maxPrice } : { ...d, minPrice: p.min, maxPrice: p.max }))}
-                    className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-foreground bg-foreground text-background" : "border-border text-foreground hover:border-foreground/50"}`}
+                    className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-foreground bg-foreground text-background" : "border-border text-foreground hover:border-[#FF6B00] hover:text-[#FF6B00]"}`}
                   >
                     {p.label}
                   </button>
@@ -139,7 +139,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
             </div>
             <div className="grid grid-cols-2 gap-3">
               {(["minPrice", "maxPrice"] as const).map((k) => (
-                <label key={k} className="rounded-2xl border border-border px-4 py-2.5 focus-within:border-foreground">
+                <label key={k} className="rounded-2xl border border-border px-4 py-2.5 transition-colors hover:border-[#FF6B00] focus-within:border-[#FF6B00]">
                   <span className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{k === "minPrice" ? "Minimum" : "Maximum"}</span>
                   <span className="flex items-center gap-1 text-base text-foreground">
                     ₹
@@ -167,9 +167,9 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
                     key={t.value}
                     type="button"
                     onClick={() => set("placeType", t.value)}
-                    className={`rounded-2xl border px-3 py-3 text-left transition-colors ${on ? "border-foreground bg-muted/60" : "border-border hover:border-foreground/50"}`}
+                    className={`group rounded-2xl border px-3 py-3 text-left transition-colors ${on ? "border-foreground bg-muted/60" : "border-border hover:border-[#FF6B00]"}`}
                   >
-                    <span className="block text-sm font-semibold text-foreground">{t.label}</span>
+                    <span className="block text-sm font-semibold text-foreground transition-colors group-hover:text-[#FF6B00]">{t.label}</span>
                     <span className="block text-[11px] leading-snug text-muted-foreground">{t.sub}</span>
                   </button>
                 );
@@ -195,7 +195,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
                     type="button"
                     aria-pressed={on}
                     onClick={() => toggleAmenity(a)}
-                    className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-foreground bg-foreground text-background" : "border-border text-foreground hover:border-foreground/50"}`}
+                    className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-foreground bg-foreground text-background" : "border-border text-foreground hover:border-[#FF6B00] hover:text-[#FF6B00]"}`}
                   >
                     {a}
                   </button>
@@ -212,7 +212,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
         </div>
 
         <div className="flex items-center justify-between border-t border-border px-6 py-4">
-          <button onClick={() => setDraft({ ...DEFAULT_FILTERS, includeAllFees: draft.includeAllFees })} className="text-sm font-semibold text-foreground underline underline-offset-2">
+          <button onClick={() => setDraft({ ...DEFAULT_FILTERS, includeAllFees: draft.includeAllFees })} className="text-sm font-semibold text-foreground underline underline-offset-2 transition-colors hover:text-[#FF6B00]">
             Clear all
           </button>
           <button
