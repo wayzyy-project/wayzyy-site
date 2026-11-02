@@ -106,6 +106,9 @@ const UnmarriedCouplesGoaStays = lazy(() => import("./pages/blog/UnmarriedCouple
 const HotelsInGoa = lazy(() => import("./pages/blog/HotelsInGoa"));
 const GoaDecemberNewYearGuide = lazy(() => import("./pages/blog/GoaDecemberNewYearGuide"));
 const AirbnbPricingUpdate15PercentFee = lazy(() => import("./pages/blog/AirbnbPricingUpdate15PercentFee"));
+const GoaPrivatePoolVillasForEight = lazy(() => import("./pages/blog/GoaPrivatePoolVillasForEight"));
+const GoaVillaBookingFeesExplained = lazy(() => import("./pages/blog/GoaVillaBookingFeesExplained"));
+const ListGoaVillaWithoutCommission = lazy(() => import("./pages/blog/ListGoaVillaWithoutCommission"));
 const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLanding"));
 const WhatIsWayzyy = lazy(() => import("./pages/WhatIsWayzyy"));
 const About = lazy(() => import("./pages/About"));
@@ -229,6 +232,9 @@ const App = () => (
               <Route path="/earnings-calculator" element={<EarningsCalculator />} />
               <Route path="/goa-host-compliance-checklist" element={<GoaHostComplianceChecklist />} />
               <Route path="/blog" element={<BlogIndex />} />
+              <Route path="/blog/goa-private-pool-villas-for-8-people" element={<GoaPrivatePoolVillasForEight />} />
+              <Route path="/blog/goa-villa-booking-fees-explained" element={<GoaVillaBookingFeesExplained />} />
+              <Route path="/blog/list-goa-villa-without-commission" element={<ListGoaVillaWithoutCommission />} />
               <Route path="/blog/airbnb-pricing-update-15-percent-fee-lowest-price" element={<AirbnbPricingUpdate15PercentFee />} />
               <Route path="/blog/best-airbnb-alternatives-goa" element={<BestAirbnbAlternativesGoa />} />
               <Route path="/blog/why-villas-goa-different-prices-platforms" element={<WhyGoaVillasCostDifferent />} />
