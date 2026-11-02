@@ -324,52 +324,55 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
         {/* Expanded Search Bar */}
         {!compact && isSearchExpanded && (
-          <div ref={searchContainerRef} className="pb-6 animate-in fade-in zoom-in-95 duration-200">
-            <div className="mx-auto max-w-3xl rounded-full border border-border/90 bg-muted/30 p-1.5 shadow-2xl relative flex items-center divide-x divide-border">
+          // Same width and height as the collapsed bar, and the panels below
+          // float over the page instead of pushing it down.
+          <div ref={searchContainerRef} className="pb-4">
+            <div className="relative mx-auto max-w-3xl">
+            <div className="rounded-full border border-border bg-muted p-1 shadow-md flex items-center">
               {/* WHERE Section */}
               <div
                 onClick={() => setActiveSearchSection("where")}
-                className={`flex-1 rounded-full px-5 py-3 cursor-pointer transition-colors ${
-                  activeSearchSection === "where" ? "bg-background shadow-md ring-1 ring-border" : "hover:bg-muted/50"
+                className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
+                  activeSearchSection === "where" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
               >
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Travel destination</label>
+                <label className="block text-xs font-semibold text-foreground">Where</label>
                 <input
                   type="text"
-                  placeholder="Search destinations (e.g. Assagao, North Goa)"
+                  placeholder="Search destinations"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   onFocus={() => setActiveSearchSection("where")}
-                  className="w-full bg-transparent text-sm font-medium text-foreground placeholder:text-muted-foreground outline-none"
+                  className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />
               </div>
 
               {/* WHEN Section */}
               <div
                 onClick={() => setActiveSearchSection("when")}
-                className={`flex-1 rounded-full px-5 py-3 cursor-pointer transition-colors ${
-                  activeSearchSection === "when" ? "bg-background shadow-md ring-1 ring-border" : "hover:bg-muted/50"
+                className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
+                  activeSearchSection === "when" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
               >
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">What dates?</label>
-                <p className="text-sm font-medium text-foreground truncate">
+                <label className="block text-xs font-semibold text-foreground">When</label>
+                <p className={`text-sm truncate ${checkIn && checkOut ? "text-foreground" : "text-muted-foreground"}`}>
                   {checkIn && checkOut 
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
-                    : "Check-in and check-out"}
+                    : "Add dates"}
                 </p>
               </div>
 
               {/* WHO Section */}
               <div
                 onClick={() => setActiveSearchSection("who")}
-                className={`flex-1 rounded-full px-5 py-3 cursor-pointer transition-colors flex items-center justify-between ${
-                  activeSearchSection === "who" ? "bg-background shadow-md ring-1 ring-border" : "hover:bg-muted/50"
+                className={`flex-1 min-w-0 rounded-full pl-4 sm:pl-6 pr-1 py-1 cursor-pointer transition-colors flex items-center justify-between gap-2 ${
+                  activeSearchSection === "who" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
               >
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground">Who's along?</label>
-                  <p className="text-sm font-medium text-foreground">
-                    {totalGuests > 1 ? `${totalGuests} guests` : "Add travellers"}
+                <div className="min-w-0">
+                  <label className="block text-xs font-semibold text-foreground">Who</label>
+                  <p className={`text-sm truncate ${totalGuests > 1 ? "text-foreground" : "text-muted-foreground"}`}>
+                    {totalGuests > 1 ? `${totalGuests} guests` : "Add guests"}
                   </p>
                 </div>
                 <button
@@ -378,19 +381,20 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                     e.stopPropagation();
                     handleSearchSubmit();
                   }}
-                  className="h-11 px-5 rounded-full bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-[#FF6B00]/30 hover:scale-105 active:scale-95 transition-all"
+                  aria-label="Search"
+                  className="h-12 w-12 sm:w-auto shrink-0 justify-center sm:px-5 rounded-full bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-[#FF6B00]/30 hover:scale-105 active:scale-95 transition-all"
                 >
                   <Search className="h-4 w-4" />
-                  <span>Search</span>
+                  <span className="hidden sm:inline">Search</span>
                 </button>
               </div>
             </div>
 
-            {/* Dropdown Panels based on Active Section */}
+            {/* Dropdown Panels, lined up under the section that opened them */}
             {activeSearchSection === "where" && (
-              <div className="mx-auto max-w-md mt-3 rounded-2xl border border-border bg-background p-4 shadow-2xl animate-in fade-in slide-in-from-top-2">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Popular Stays & Regions</p>
-                <div className="space-y-1.5">
+              <div className="absolute left-0 top-full z-50 mt-3 w-full sm:w-[420px] rounded-3xl border border-border bg-background p-5 shadow-2xl animate-in fade-in slide-in-from-top-2">
+                <p className="px-2 pb-2 text-xs font-medium text-muted-foreground">Suggested destinations</p>
+                <div className="space-y-1">
                   {quickDestinations.map((dest) => (
                     <button
                       key={dest.name}
@@ -398,14 +402,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                         setDestination(dest.name.split(",")[0]);
                         setActiveSearchSection("when");
                       }}
-                      className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted transition-colors text-left"
+                      className="w-full flex items-center gap-4 p-2 rounded-2xl hover:bg-muted transition-colors text-left"
                     >
-                      <div className="h-9 w-9 rounded-xl bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] shrink-0">
-                        <MapPin className="h-4 w-4" />
+                      <div className="h-14 w-14 rounded-xl bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] shrink-0">
+                        <MapPin className="h-6 w-6" />
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{dest.name}</p>
-                        <p className="text-xs text-muted-foreground">{dest.subtitle}</p>
+                      <div className="min-w-0">
+                        <p className="text-[15px] font-medium text-foreground">{dest.name}</p>
+                        <p className="text-sm text-muted-foreground truncate">{dest.subtitle}</p>
                       </div>
                     </button>
                   ))}
@@ -414,8 +418,8 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             )}
 
             {activeSearchSection === "when" && (
-              <div className="mx-auto max-w-lg mt-3 rounded-2xl border border-border bg-background p-5 shadow-2xl text-center animate-in fade-in slide-in-from-top-2">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">Quick Date Presets</p>
+              <div className="absolute left-1/2 top-full z-50 mt-3 w-full sm:w-[520px] -translate-x-1/2 rounded-3xl border border-border bg-background p-5 shadow-2xl text-center animate-in fade-in slide-in-from-top-2">
+                <p className="text-xs font-medium text-muted-foreground mb-4">Quick dates</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                   <button
                     onClick={() => {
@@ -468,7 +472,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             )}
 
             {activeSearchSection === "who" && (
-              <div className="mx-auto max-w-sm mt-3 rounded-2xl border border-border bg-background p-5 shadow-2xl space-y-4 animate-in fade-in slide-in-from-top-2">
+              <div className="absolute right-0 top-full z-50 mt-3 w-full sm:w-[380px] rounded-3xl border border-border bg-background p-5 shadow-2xl space-y-4 animate-in fade-in slide-in-from-top-2">
                 <div className="flex items-center justify-between pb-3 border-b border-border">
                   <div>
                     <p className="text-sm font-bold text-foreground">Adults</p>
@@ -528,6 +532,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 </button>
               </div>
             )}
+            </div>
           </div>
         )}
       </div>

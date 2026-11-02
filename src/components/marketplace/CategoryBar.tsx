@@ -8,7 +8,6 @@ import {
   Waves,
   PawPrint,
   BedDouble,
-  IndianRupee,
   ShieldCheck,
   Hotel
 } from "lucide-react";
@@ -86,11 +85,6 @@ const QUICK_FILTERS: {
     isOn: (f) => f.bedrooms >= 3,
     toggle: (f) => ({ ...f, bedrooms: f.bedrooms >= 3 ? 0 : 3 }),
   },
-  {
-    id: "budget", label: "Under ₹5,000", icon: IndianRupee,
-    isOn: (f) => f.maxPrice <= 5000,
-    toggle: (f) => ({ ...f, minPrice: 0, maxPrice: f.maxPrice <= 5000 ? DEFAULT_FILTERS.maxPrice : 5000 }),
-  },
 ];
 
 export const CategoryBar: React.FC<CategoryBarProps> = ({
@@ -103,10 +97,10 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   onChangeFilters,
 }) => {
   return (
-    <div className="sticky top-[80px] z-40 w-full bg-background/95 backdrop-blur-md border-b border-border/60">
+    <div className="sticky top-[80px] z-40 w-full bg-background/95 backdrop-blur-md">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 flex items-center gap-4 py-3">
-        {/* Categories + quick filters share one scrolling row on small screens */}
-        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar">
+        {/* Categories + quick filters in one big pill; it scrolls on small screens */}
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-2 overflow-x-auto no-scrollbar rounded-full border border-[#FF6B00] bg-background p-1.5 shadow-sm">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
@@ -127,7 +121,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
             );
           })}
 
-          <span aria-hidden className="mx-2 h-6 w-px shrink-0 bg-border" />
+          <span aria-hidden className="mx-1 h-6 w-px shrink-0 bg-border" />
 
           {QUICK_FILTERS.map((q) => {
             const Icon = q.icon;
@@ -150,7 +144,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
           })}
         </div>
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 rounded-full border border-[#FF6B00] bg-background p-1.5 shadow-sm">
           <button
             onClick={onOpenFilterModal}
             aria-label="Filters"
@@ -160,7 +154,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
             <span className="hidden sm:inline">Filters</span>
           </button>
 
-          <label className="hidden xl:flex items-center gap-2.5 rounded-full border border-border px-4 py-2 text-sm bg-background cursor-pointer">
+          <label className="hidden xl:flex items-center gap-2.5 rounded-full px-3 py-2 text-sm cursor-pointer">
             <span className="text-muted-foreground">Prices include all fees</span>
             <button
               type="button"
