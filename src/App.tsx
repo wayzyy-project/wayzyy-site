@@ -104,6 +104,9 @@ const IsAirbnbLegalInGoa = lazy(() => import("./pages/blog/IsAirbnbLegalInGoa"))
 const GstForAirbnbHostsIndia = lazy(() => import("./pages/blog/GstForAirbnbHostsIndia"));
 const UnmarriedCouplesGoaStays = lazy(() => import("./pages/blog/UnmarriedCouplesGoaStays"));
 const HotelsInGoa = lazy(() => import("./pages/blog/HotelsInGoa"));
+const IsAirbnbLegalInIndia = lazy(() => import("./pages/blog/IsAirbnbLegalInIndia"));
+const HomestayRegistrationRulesByStateIndia = lazy(() => import("./pages/blog/HomestayRegistrationRulesByStateIndia"));
+const AirbnbInHousingSocietyIndia = lazy(() => import("./pages/blog/AirbnbInHousingSocietyIndia"));
 const GoaDecemberNewYearGuide = lazy(() => import("./pages/blog/GoaDecemberNewYearGuide"));
 const AirbnbPricingUpdate15PercentFee = lazy(() => import("./pages/blog/AirbnbPricingUpdate15PercentFee"));
 const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLanding"));
@@ -298,6 +301,9 @@ const App = () => (
               <Route path="/blog/gst-for-airbnb-hosts-india" element={<GstForAirbnbHostsIndia />} />
               <Route path="/blog/unmarried-couples-goa-hotels-villas" element={<UnmarriedCouplesGoaStays />} />
               <Route path="/blog/hotels-in-goa" element={<HotelsInGoa />} />
+              <Route path="/blog/is-airbnb-legal-in-india" element={<IsAirbnbLegalInIndia />} />
+              <Route path="/blog/homestay-registration-rules-by-state-india" element={<HomestayRegistrationRulesByStateIndia />} />
+              <Route path="/blog/airbnb-in-housing-society-india" element={<AirbnbInHousingSocietyIndia />} />
               <Route path="/blog/goa-december-new-year-guide-2026" element={<GoaDecemberNewYearGuide />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
