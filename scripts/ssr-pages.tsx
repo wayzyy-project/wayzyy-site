@@ -87,6 +87,9 @@ import HomestayRegistrationRulesByStateIndia from "@/pages/blog/HomestayRegistra
 import AirbnbInHousingSocietyIndia from "@/pages/blog/AirbnbInHousingSocietyIndia";
 import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
+import GoaPrivatePoolVillasForEight from "@/pages/blog/GoaPrivatePoolVillasForEight";
+import GoaVillaBookingFeesExplained from "@/pages/blog/GoaVillaBookingFeesExplained";
+import ListGoaVillaWithoutCommission from "@/pages/blog/ListGoaVillaWithoutCommission";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -149,6 +152,9 @@ const routes: Record<string, React.ComponentType> = {
   "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,
+  "/blog/goa-private-pool-villas-for-8-people": GoaPrivatePoolVillasForEight,
+  "/blog/goa-villa-booking-fees-explained": GoaVillaBookingFeesExplained,
+  "/blog/list-goa-villa-without-commission": ListGoaVillaWithoutCommission,
   "/blog/airbnb-pricing-update-15-percent-fee-lowest-price": AirbnbPricingUpdate15PercentFee,
   "/blog/best-airbnb-alternatives-goa": BestAirbnbAlternativesGoa,
   "/blog/why-villas-goa-different-prices-platforms": WhyGoaVillasCostDifferent,

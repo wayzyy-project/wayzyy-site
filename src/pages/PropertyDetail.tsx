@@ -42,9 +42,10 @@ import { format, addDays, differenceInDays } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { AirbnbHeader } from "@/components/marketplace/AirbnbHeader";
 import { PropertyDetailSkeleton } from "@/components/marketplace/Skeletons";
+import NotFound from "@/pages/NotFound";
 import { ListingRulesSections } from "@/components/marketplace/ListingRules";
 import { rulesFromRow, roomsSummary, sleepingFromRow } from "@/lib/houseRules";
-import { MOCK_PROPERTIES, PropertyListing, Review } from "@/data/mockProperties";
+import type { PropertyListing, Review } from "@/data/mockProperties";
 import { formatDescription } from "@/lib/descriptionFormat";
 import { quoteStay, guestNightlyPrice, airbnbEquivalentTotal, toDateStr, parseLocalDate, WAYZYY_FEE_RATE, type PricingInputs, type GuestPricingTier } from "@/lib/pricing";
 import { stayRuleError, describeStayRules } from "@/lib/stayRules";
@@ -57,6 +58,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { getOrCreateThread } from "@/lib/messaging";
 import { SUPPORT_PHONE, SUPPORT_EMAIL } from "@/components/host/HostGetStarted";
 import { areaForListing } from "@/data/areaGuides";
+import { NearbyPlaces } from "@/components/marketplace/NearbyPlaces";
 import {
   Dialog,
   DialogContent,
@@ -146,6 +148,7 @@ export default function PropertyDetail() {
   const { user, signIn } = useAuth();
 
   const [property, setProperty] = useState<PropertyListing | null>(null);
+  const [notFound, setNotFound] = useState(false);
   const [showMessageSignIn, setShowMessageSignIn] = useState(false);
   const [messageAuthEmail, setMessageAuthEmail] = useState("");
   const [messageAuthPassword, setMessageAuthPassword] = useState("");
@@ -315,18 +318,7 @@ export default function PropertyDetail() {
   useEffect(() => {
     async function loadProperty() {
       setLoading(true);
-      // 1. Check mock list
-      const matchedMock = MOCK_PROPERTIES.find(
-        (p) => p.id === propertyId || p.slug === propertyId
-      );
-
-      if (matchedMock) {
-        setProperty(matchedMock);
-        setLoading(false);
-        return;
-      }
-
-      // 2. Fetch from Supabase
+      setNotFound(false);
       try {
         const { data, error } = await supabase
           .from("properties")
@@ -527,11 +519,13 @@ export default function PropertyDetail() {
             pastBookingsCount: Number(pastBookingsRes.data ?? 0),
           });
         } else {
-          setProperty(MOCK_PROPERTIES[0]);
+          setProperty(null);
+          setNotFound(true);
         }
       } catch (err) {
         console.error("Error loading property:", err);
-        setProperty(MOCK_PROPERTIES[0]);
+        setProperty(null);
+        setNotFound(true);
       } finally {
         setLoading(false);
       }
@@ -557,6 +551,8 @@ export default function PropertyDetail() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewedPropertyId]);
+
+  if (notFound && !loading) return <NotFound />;
 
   if (loading || !property) {
     return (
@@ -961,7 +957,7 @@ export default function PropertyDetail() {
               <div className="pt-6 space-y-4">
                 <h3 className="text-lg font-bold font-display text-[#FF6B00]">What this place offers</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {property.amenities.slice(0, 8).map((amenity, idx) => (
+                  {(showAllAmenities ? property.amenities : property.amenities.slice(0, 8)).map((amenity, idx) => (
                     <div key={idx} className="flex items-center gap-3 text-sm text-foreground">
                       <Check className="h-4 w-4 text-emerald-500 shrink-0" />
                       <span>{amenity}</span>
@@ -970,10 +966,11 @@ export default function PropertyDetail() {
                 </div>
                 {property.amenities.length > 8 && (
                   <button
-                    onClick={() => setShowAllAmenities(true)}
+                    onClick={() => setShowAllAmenities(!showAllAmenities)}
+                    aria-expanded={showAllAmenities}
                     className="mt-2 rounded-2xl border border-border px-5 py-2.5 text-xs font-bold hover:bg-muted transition-colors"
                   >
-                    Show all {property.amenities.length} amenities
+                    {showAllAmenities ? "Show fewer amenities" : `Show all ${property.amenities.length} amenities`}
                   </button>
                 )}
               </div>
@@ -1364,6 +1361,8 @@ export default function PropertyDetail() {
               )}
             </div>
           </div>
+
+          <NearbyPlaces city={property.city} lat={property.lat} lng={property.lng} />
         </main>
 
         {/* Full Screen Lightbox Photo Gallery Modal */}

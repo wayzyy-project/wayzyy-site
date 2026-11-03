@@ -49,6 +49,42 @@ export const blogPosts: BlogPostMeta[] = [
     readTime: "7 Min Read",
   },
   {
+    slug: "goa-private-pool-villas-for-8-people",
+    title: "Goa Private-Pool Villas for 8 People: What to Check Before Booking",
+    description:
+      "A practical checklist for groups of eight: true sleeping capacity, private versus shared pools, final price, extra-guest rules, location and house rules.",
+    metaTitle: "Goa Private-Pool Villas for 8 People (2026 Guide)",
+    metaDescription:
+      "Booking a Goa pool villa for eight? Compare true capacity, private vs shared pools, total price, location, cooks and house rules before paying.",
+    heroImage: "/blog/goa-villa-private-pool-vacation-rental.webp",
+    publishedDate: "2026-11-03",
+    readTime: "7 Min Read",
+  },
+  {
+    slug: "goa-villa-booking-fees-explained",
+    title: "Goa Villa Booking Fees Explained: Compare the Final Price, Not the Nightly Rate",
+    description:
+      "Nightly rates rarely tell the whole story. Learn how cleaning charges, guest fees, host commission, GST and deposits change the final cost of a Goa villa.",
+    metaTitle: "Goa Villa Booking Fees Explained: Final Price Guide",
+    metaDescription:
+      "Understand nightly rates, cleaning charges, guest fees, host commission, GST and deposits so you can compare the true final price of a Goa villa.",
+    heroImage: "/blog/goa-villa-pricing-comparison.webp",
+    publishedDate: "2026-11-03",
+    readTime: "7 Min Read",
+  },
+  {
+    slug: "list-goa-villa-without-commission",
+    title: "How to List a Goa Villa Without Paying Commission on Every Booking",
+    description:
+      "A clear comparison of commission, subscription and direct-enquiry models for Goa hosts, plus the costs and compliance checks to review before listing.",
+    metaTitle: "List a Goa Villa Without Booking Commission (2026)",
+    metaDescription:
+      "Compare commission, subscription and direct-enquiry models for Goa villas, plus costs, compliance steps and questions to check before listing.",
+    heroImage: "/illustrations/host-traveler-split.webp",
+    publishedDate: "2026-11-03",
+    readTime: "8 Min Read",
+  },
+  {
     slug: "hotels-in-goa",
     title: "Hotels in Goa (2026): When a Verified Villa or BnB Is the Better Stay",
     description:

@@ -22,6 +22,8 @@ export interface PlaceListing {
   amenities: string[];
   space_type: string | null;
   pets_allowed: boolean | null;
+  latitude?: number | string | null;
+  longitude?: number | string | null;
 }
 
 /**
@@ -64,15 +66,17 @@ const REGIONS: Record<string, { name: string; areas: string[] }> = {
     name: "North Goa",
     areas: [
       "candolim", "siolim", "anjuna", "vagator", "chapora", "arpora", "baga", "calangute", "assagao", "morjim",
-      "mandrem", "arambol", "ashwem", "nerul", "sinquerim", "marna", "girim", "saligao", "parra", "porvorim",
-      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran",
+      "mandrem", "arambol", "ashwem", "nerul", "sinquerim", "marna", "saligao", "parra", "porvorim",
+      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran", "mapusa", "panaji",
     ],
   },
   "south-goa": {
     name: "South Goa",
+    // "girim" here is the Girim near Majorda (our listings there sit at 15.31 N, by Colva), not Guirim by Mapusa.
     areas: [
       "colva", "varca", "benaulim", "palolem", "agonda", "cavelossim", "majorda", "betalbatim", "canacona",
       "margao", "cansaulim", "utorda", "galgibaga", "patnem", "mobor", "sernabatim", "arossim", "velsao", "dabolim",
+      "girim", "bogmalo", "vasco-da-gama",
     ],
   },
 };
@@ -298,6 +302,76 @@ export function relatedLinks(all: PlaceListing[]): PlacePage["related"] {
     (c) => c.count >= MIN_LISTINGS,
   );
   return { regions, places, categories };
+}
+
+export interface NearbyPlace extends PageLink { km: number | null }
+export interface NearbyPlaces {
+  /** The stay's own area, when it has other stays too. */
+  here: PageLink | null;
+  /** Other areas, nearest first. */
+  nearby: NearbyPlace[];
+  /** North Goa / South Goa, when the stay's area belongs to one. */
+  region: PageLink | null;
+}
+
+const num = (v: unknown): number | null => {
+  const n = typeof v === "string" ? Number(v) : typeof v === "number" ? v : NaN;
+  return Number.isFinite(n) && n !== 0 ? n : null;
+};
+
+/** Straight-line distance in km between two map points. */
+export function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
+  const r = (d: number) => (d * Math.PI) / 180;
+  const h = Math.sin(r(bLat - aLat) / 2) ** 2 + Math.cos(r(aLat)) * Math.cos(r(bLat)) * Math.sin(r(bLng - aLng) / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.sqrt(h));
+}
+
+/**
+ * Area pages near one stay, for "Explore other options in and around X".
+ * Each area's position is the average map point of its own live listings, and
+ * distance is measured from the stay's map point (or its area's, if it has none).
+ */
+export function nearbyPlaces(
+  all: PlaceListing[],
+  origin: { city?: string | null; lat?: number | string | null; lng?: number | string | null },
+  limit = 8,
+): NearbyPlaces {
+  const areas = new Map<string, { label: string; count: number; lat: number; lng: number; pts: number }>();
+  for (const p of all.filter(isGoa)) {
+    const s = areaSlug(p);
+    if (!s || s === "goa") continue;
+    const a = areas.get(s) ?? { label: titleCase(String(p.city).trim()), count: 0, lat: 0, lng: 0, pts: 0 };
+    a.count += 1;
+    const lat = num(p.latitude), lng = num(p.longitude);
+    if (lat !== null && lng !== null) { a.lat += lat; a.lng += lng; a.pts += 1; }
+    areas.set(s, a);
+  }
+
+  const homeSlug = slugify(String(origin.city ?? ""));
+  const home = areas.get(homeSlug);
+  let oLat = num(origin.lat), oLng = num(origin.lng);
+  if ((oLat === null || oLng === null) && home?.pts) { oLat = home.lat / home.pts; oLng = home.lng / home.pts; }
+
+  const nearby = [...areas.entries()]
+    .filter(([s]) => s !== homeSlug)
+    .map(([s, a]) => ({
+      href: `/${s}/stays`,
+      label: a.label,
+      count: a.count,
+      km: oLat !== null && oLng !== null && a.pts ? distanceKm(oLat, oLng, a.lat / a.pts, a.lng / a.pts) : null,
+    }))
+    .sort((a, b) => (a.km ?? Infinity) - (b.km ?? Infinity) || b.count - a.count)
+    .slice(0, limit)
+    .map((p) => ({ ...p, km: p.km === null ? null : Math.max(1, Math.round(p.km)) }));
+
+  const regionEntry = Object.entries(REGIONS).find(([, r]) => r.areas.includes(homeSlug));
+  const regionCount = regionEntry ? [...areas.entries()].filter(([s]) => regionEntry[1].areas.includes(s)).reduce((n, [, a]) => n + a.count, 0) : 0;
+
+  return {
+    here: home && home.count >= 2 ? { href: `/${homeSlug}/stays`, label: home.label, count: home.count } : null,
+    nearby,
+    region: regionEntry && regionCount > 0 ? { href: `/${regionEntry[0]}/stays`, label: regionEntry[1].name, count: regionCount } : null,
+  };
 }
 
 /** Every address that should be in the sitemap. */
