@@ -97,10 +97,10 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   onChangeFilters,
 }) => {
   return (
-    <div className="sticky top-[80px] z-40 w-full bg-background/95 backdrop-blur-md">
+    <div className="sticky top-[80px] z-40 w-full bg-background/95 backdrop-blur-md border-b border-border/60 sm:border-b-0">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 flex items-center gap-4 py-3">
-        {/* Categories + quick filters in one big pill; it scrolls on small screens */}
-        <div className="flex min-w-0 flex-1 items-center justify-between gap-2 overflow-x-auto no-scrollbar rounded-full border border-[#FF6B00] bg-background p-1.5 shadow-sm">
+        {/* Categories + quick filters in one big pill from sm up; phones keep the plain scrolling row */}
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-2 overflow-x-auto no-scrollbar sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-1.5 sm:shadow-sm">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
@@ -144,7 +144,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
           })}
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 rounded-full border border-[#FF6B00] bg-background p-1.5 shadow-sm">
+        <div className="flex shrink-0 items-center gap-2 sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-1.5 sm:shadow-sm">
           <button
             onClick={onOpenFilterModal}
             aria-label="Filters"
