@@ -13,6 +13,18 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "wayzyy-vs-airbnb-goa-price-test",
+    title: "Wayzyy vs Airbnb in Goa: We Priced 4 Villas for the Same Dates",
+    description:
+      "A dated, same-villa price test: four Goa villas on Wayzyy and Airbnb for 20-22 November 2026, with GST added so the totals compare fairly.",
+    metaTitle: "Wayzyy vs Airbnb Goa: 4 Villas, Same Dates, Real Totals",
+    metaDescription:
+      "We priced four Goa villas on Wayzyy and Airbnb for the same dates, with GST included. See which was lower, by how much, and why the gaps happen.",
+    heroImage: "/blog/goa-villa-pricing-comparison.webp",
+    publishedDate: "2026-11-04",
+    readTime: "6 Min Read",
+  },
+  {
     slug: "is-airbnb-legal-in-india",
     title: "Is Airbnb Legal in India? (2026 Answer)",
     description:
