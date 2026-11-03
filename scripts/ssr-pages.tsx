@@ -82,6 +82,7 @@ import IsAirbnbLegalInGoa from "@/pages/blog/IsAirbnbLegalInGoa";
 import GstForAirbnbHostsIndia from "@/pages/blog/GstForAirbnbHostsIndia";
 import UnmarriedCouplesGoaStays from "@/pages/blog/UnmarriedCouplesGoaStays";
 import HotelsInGoa from "@/pages/blog/HotelsInGoa";
+import WayzyyVsAirbnbGoaPriceTest from "@/pages/blog/WayzyyVsAirbnbGoaPriceTest";
 import IsAirbnbLegalInIndia from "@/pages/blog/IsAirbnbLegalInIndia";
 import HomestayRegistrationRulesByStateIndia from "@/pages/blog/HomestayRegistrationRulesByStateIndia";
 import AirbnbInHousingSocietyIndia from "@/pages/blog/AirbnbInHousingSocietyIndia";
@@ -219,6 +220,7 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/gst-for-airbnb-hosts-india": GstForAirbnbHostsIndia,
   "/blog/unmarried-couples-goa-hotels-villas": UnmarriedCouplesGoaStays,
   "/blog/hotels-in-goa": HotelsInGoa,
+  "/blog/wayzyy-vs-airbnb-goa-price-test": WayzyyVsAirbnbGoaPriceTest,
   "/blog/is-airbnb-legal-in-india": IsAirbnbLegalInIndia,
   "/blog/homestay-registration-rules-by-state-india": HomestayRegistrationRulesByStateIndia,
   "/blog/airbnb-in-housing-society-india": AirbnbInHousingSocietyIndia,
