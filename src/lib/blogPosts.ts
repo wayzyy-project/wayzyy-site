@@ -13,6 +13,42 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "is-airbnb-legal-in-india",
+    title: "Is Airbnb Legal in India? (2026 Answer)",
+    description:
+      "Yes, with conditions. The three layers of rules that decide whether a listing is legal (state, city and building), the rules that apply everywhere, and what changed in 2026.",
+    metaTitle: "Is Airbnb Legal in India? The 2026 Answer",
+    metaDescription:
+      "Yes, Airbnb is legal in India, but your state, city and housing society set the rules. What changed in 2026, plus Form C, GST and tax rules for hosts.",
+    heroImage: "/blog/is-airbnb-legal-in-india.webp",
+    publishedDate: "2026-11-02",
+    readTime: "6 Min Read",
+  },
+  {
+    slug: "homestay-registration-rules-by-state-india",
+    title: "Homestay and Airbnb Registration Rules by State in India (2026)",
+    description:
+      "Goa, Kerala, Karnataka, Himachal, Uttarakhand, Rajasthan, Maharashtra and Delhi: who has to register, room limits, owner-residence rules, and everything that changed in 2026.",
+    metaTitle: "Homestay Registration Rules by State in India (2026)",
+    metaDescription:
+      "State-by-state homestay and Airbnb registration rules in India: Goa, Kerala, Karnataka, Himachal, Uttarakhand, Rajasthan, Mumbai and Delhi in 2026.",
+    heroImage: "/blog/homestay-registration-rules-by-state-india.webp",
+    publishedDate: "2026-11-02",
+    readTime: "10 Min Read",
+  },
+  {
+    slug: "airbnb-in-housing-society-india",
+    title: "Can You Run an Airbnb in a Housing Society Flat in India? (2026)",
+    description:
+      "What Mumbai's courts ruled in 2025 and 2026, why short stays are treated differently from renting, which states need a society NOC, and how to approach your society.",
+    metaTitle: "Airbnb in a Housing Society Flat in India (2026)",
+    metaDescription:
+      "Can your housing society stop you running an Airbnb? What Mumbai courts ruled in 2025-26, when a society NOC is needed, and how to approach your society.",
+    heroImage: "/blog/airbnb-in-housing-society-india.webp",
+    publishedDate: "2026-11-02",
+    readTime: "7 Min Read",
+  },
+  {
     slug: "goa-private-pool-villas-for-8-people",
     title: "Goa Private-Pool Villas for 8 People: What to Check Before Booking",
     description:

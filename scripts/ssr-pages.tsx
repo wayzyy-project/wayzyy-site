@@ -82,6 +82,9 @@ import IsAirbnbLegalInGoa from "@/pages/blog/IsAirbnbLegalInGoa";
 import GstForAirbnbHostsIndia from "@/pages/blog/GstForAirbnbHostsIndia";
 import UnmarriedCouplesGoaStays from "@/pages/blog/UnmarriedCouplesGoaStays";
 import HotelsInGoa from "@/pages/blog/HotelsInGoa";
+import IsAirbnbLegalInIndia from "@/pages/blog/IsAirbnbLegalInIndia";
+import HomestayRegistrationRulesByStateIndia from "@/pages/blog/HomestayRegistrationRulesByStateIndia";
+import AirbnbInHousingSocietyIndia from "@/pages/blog/AirbnbInHousingSocietyIndia";
 import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 import GoaPrivatePoolVillasForEight from "@/pages/blog/GoaPrivatePoolVillasForEight";
@@ -216,6 +219,9 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/gst-for-airbnb-hosts-india": GstForAirbnbHostsIndia,
   "/blog/unmarried-couples-goa-hotels-villas": UnmarriedCouplesGoaStays,
   "/blog/hotels-in-goa": HotelsInGoa,
+  "/blog/is-airbnb-legal-in-india": IsAirbnbLegalInIndia,
+  "/blog/homestay-registration-rules-by-state-india": HomestayRegistrationRulesByStateIndia,
+  "/blog/airbnb-in-housing-society-india": AirbnbInHousingSocietyIndia,
   "/blog/goa-december-new-year-guide-2026": GoaDecemberNewYearGuide,
 };
 
