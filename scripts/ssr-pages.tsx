@@ -15,6 +15,7 @@ import Policies from "@/pages/Policies";
 import PolicyDocPage from "@/pages/PolicyDocPage";
 import EarningsCalculator from "@/pages/EarningsCalculator";
 import About from "@/pages/About";
+import Careers from "@/pages/Careers";
 import GoaHostComplianceChecklist from "@/pages/GoaHostComplianceChecklist";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 
@@ -150,6 +151,7 @@ const routes: Record<string, React.ComponentType> = {
   "/earnings-calculator": EarningsCalculator,
   "/about": Index,
   "/about/team": About,
+  "/careers": Careers,
   "/goa-host-compliance-checklist": GoaHostComplianceChecklist,
 
   "/blog": BlogIndex,

@@ -116,6 +116,7 @@ const ListGoaVillaWithoutCommission = lazy(() => import("./pages/blog/ListGoaVil
 const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLanding"));
 const WhatIsWayzyy = lazy(() => import("./pages/WhatIsWayzyy"));
 const About = lazy(() => import("./pages/About"));
+const Careers = lazy(() => import("./pages/Careers"));
 
 
 
@@ -317,6 +318,7 @@ const App = () => (
               <Route path="/what-is-wayzyy" element={<WhatIsWayzyy />} />
               <Route path="/about" element={<Index />} />
               <Route path="/about/team" element={<About />} />
+              <Route path="/careers" element={<Careers />} />
               <Route path="/experience" element={<ExperienceGoa />} />
               <Route path="/waitlist" element={<WaitlistChooser />} />
               <Route path="/waitlist/travelers" element={<WaitlistTravelers />} />
