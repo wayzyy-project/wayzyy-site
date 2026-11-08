@@ -69,23 +69,67 @@ export default function GoaWorkCafesGuide() {
       heroImage={post.heroImage}
       heroImageAlt="Comfortable outdoor seating under canopy at Cafe Candolim, Goa"
       publishedDate={post.publishedDate}
+      modifiedDate={post.modifiedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
     >
       {/* 1. Intro */}
       <div className="space-y-6">
         <p>
-          One of the biggest reasons people end up staying in Goa longer than planned is surprisingly simple.
+          The best cafes to work from in Goa are usually in Assagao, Anjuna and Siolim, where remote workers can find a quieter table, Wi-Fi, charging access and a comfortable place to stay for a few hours. This guide compares the practical trade-offs rather than ranking cafes on coffee alone.
         </p>
-        <p className="font-semibold text-foreground text-lg italic text-center py-2">
-          They find a café where work doesn't feel like work anymore.
+        <p>
+          If you need reliable video calls or a full workday, check the venue's current Wi-Fi, power-backup and seating situation before you arrive. Cafe conditions change with weather, crowds and management, so treat the notes below as planning guidance and confirm the details directly with the venue.
         </p>
         <p>
           Over the last few years, North Goa has become one of India's most popular destinations for remote workers, founders, freelancers and creators. As a result, many cafés have quietly evolved beyond serving good coffee. Reliable fibre internet, accessible plug points, comfortable seating and a relaxed atmosphere are now just as important as the food itself. The difference is noticeable - some cafés actively welcome people working for several hours, while others are much better suited for a leisurely breakfast before heading to the beach.
         </p>
         <p>
-          If you're planning to spend half a day working, choosing the right café makes all the difference.
+          Staying for a week or longer? Compare Wayzyy's <Link to="/goa/stays/workation" className="text-ember underline">Goa workation stays with Wi-Fi and a dedicated workspace</Link> so a cafe can be an option rather than your only office.
         </p>
+      </div>
+
+      <div className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
+        <h2 className="font-display text-2xl text-foreground">Quick comparison for remote work</h2>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[620px] text-sm border border-border rounded-xl overflow-hidden">
+            <thead className="bg-card">
+              <tr>
+                <th className="text-left p-3 border-b border-border">Cafe</th>
+                <th className="text-left p-3 border-b border-border">Area</th>
+                <th className="text-left p-3 border-b border-border">Best fit</th>
+                <th className="text-left p-3 border-b border-border">Check before a long session</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-3 border-b border-border font-medium">Blue Tokai</td>
+                <td className="p-3 border-b border-border">Assagao</td>
+                <td className="p-3 border-b border-border">Video calls and focused indoor work</td>
+                <td className="p-3 border-b border-border">Arrive early for power-accessible tables</td>
+              </tr>
+              <tr>
+                <td className="p-3 border-b border-border font-medium">Mojigao</td>
+                <td className="p-3 border-b border-border">Assagao</td>
+                <td className="p-3 border-b border-border">Creative work and longer outdoor sessions</td>
+                <td className="p-3 border-b border-border">Outdoor conditions and current connection quality</td>
+              </tr>
+              <tr>
+                <td className="p-3 border-b border-border font-medium">Babka</td>
+                <td className="p-3 border-b border-border">Anjuna</td>
+                <td className="p-3 border-b border-border">Breakfast meetings and indoor work</td>
+                <td className="p-3 border-b border-border">Indoor seating and outlet availability</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-medium">Artjuna</td>
+                <td className="p-3">Anjuna</td>
+                <td className="p-3">Creative work and relaxed mornings</td>
+                <td className="p-3">Morning hours for important calls</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-xs text-muted-foreground">Wayzyy editorial note: venue conditions and pricing can change. Confirm the current details with the cafe before relying on it for a critical call or deadline.</p>
       </div>
 
       {/* 2. Top Cafes */}

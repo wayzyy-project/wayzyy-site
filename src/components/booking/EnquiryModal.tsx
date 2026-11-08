@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { mp } from "@/lib/mixpanel";
 
 // Shown instead of the booking window while bookings are closed (see
 // lib/bookingGate.ts). Takes no payment and needs no sign-in: the visitor
@@ -67,6 +68,7 @@ export const EnquiryModal: React.FC<Props> = ({ isOpen, onClose, property, check
       toast({ title: "Couldn't send your enquiry", description, variant: "destructive" });
       return;
     }
+    mp.enquirySubmitted({ id: property.id, city: property.city });
     setSent(true);
   };
 

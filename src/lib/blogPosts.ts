@@ -8,6 +8,8 @@ export interface BlogPostMeta {
   metaDescription: string;
   heroImage: string;
   publishedDate: string;
+  /** Last material editorial review, when the page has been refreshed. */
+  modifiedDate?: string;
   readTime: string;
 }
 
@@ -130,6 +132,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Do Airbnb hosts in India pay GST? The ₹20 lakh threshold, the 5% and 18% rates since September 2025, and when Airbnb pays GST for you.",
     heroImage: "/blog/gst-for-airbnb-hosts-india.webp",
     publishedDate: "2026-10-25",
+    modifiedDate: "2026-11-09",
     readTime: "6 Min Read",
   },
   {
@@ -430,6 +433,7 @@ export const blogPosts: BlogPostMeta[] = [
       "Looking for a great cafe to work from in Goa? Learn about WiFi, power outlets, specialty coffee, and remote work spots in Assagao, Anjuna & Siolim.",
     heroImage: "/blog/goa-cafe-candolim.webp",
     publishedDate: "2026-07-20",
+    modifiedDate: "2026-11-09",
     readTime: "9 Min Read",
   },
   {

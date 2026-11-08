@@ -9,11 +9,43 @@ mixpanel.init(TOKEN, {
 });
 
 export const mp = {
-  /** Fire once on app load */
+  /** Track each SPA route without sending contact details. */
   pageView() {
     mixpanel.track("Page Viewed", {
       url: window.location.href,
       referrer: document.referrer || "direct",
+    });
+  },
+
+  listingViewed(listing: { id: string; city?: string; category?: string }) {
+    mixpanel.track("Listing Viewed", {
+      listing_id: listing.id,
+      city: listing.city ?? "",
+      category: listing.category ?? "",
+    });
+  },
+
+  bookingStarted(listing: { id: string; city?: string; category?: string }) {
+    mixpanel.track("Booking Started", {
+      listing_id: listing.id,
+      city: listing.city ?? "",
+      category: listing.category ?? "",
+    });
+  },
+
+  enquiryStarted(listing: { id: string; city?: string; category?: string }) {
+    mixpanel.track("Enquiry Started", {
+      listing_id: listing.id,
+      city: listing.city ?? "",
+      category: listing.category ?? "",
+    });
+  },
+
+  enquirySubmitted(listing: { id: string; city?: string; category?: string }) {
+    mixpanel.track("Enquiry Submitted", {
+      listing_id: listing.id,
+      city: listing.city ?? "",
+      category: listing.category ?? "",
     });
   },
 

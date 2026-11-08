@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { WishlistPicker } from "@/components/wishlist/WishlistPicker";
 const OpenApp = lazy(() => import("./pages/OpenApp"));
 const PlaceStays = lazy(() => import("./pages/PlaceStays"));
@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -152,8 +152,15 @@ const SarvamStartupProgram = lazy(() => import("./pages/SarvamStartupProgram"));
 
 const queryClient = new QueryClient();
 
-// Track page view once on load
-mp.pageView();
+function RouteAnalytics() {
+  const location = useLocation();
+
+  useEffect(() => {
+    mp.pageView();
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -167,6 +174,7 @@ const App = () => (
         <WishlistPicker />
         <Sonner />
         <BrowserRouter>
+          <RouteAnalytics />
           <SmoothScroll>
             <ScrollToTop />
             <div className="pb-24 sm:pb-0">

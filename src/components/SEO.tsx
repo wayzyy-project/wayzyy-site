@@ -41,9 +41,13 @@ export function SEO({
     setMetaTag("name", "description", description);
     setMetaTag("name", "author", "Wayzyy");
 
-    if (noindex) {
-      setMetaTag("name", "robots", "noindex, nofollow");
-    }
+    // Reset this on every route change. Without the public value, visiting an
+    // admin/private route first can leave the SPA's next public page noindex.
+    setMetaTag(
+      "name",
+      "robots",
+      noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    );
 
     // 3. Open Graph Tags
     const siteUrl = "https://wayzyy.com";
@@ -82,7 +86,7 @@ export function SEO({
     return () => {
       document.title = previousTitle;
     };
-  }, [title, description, ogType, ogImage, path]);
+  }, [title, description, ogType, ogImage, path, noindex]);
 
   return (
     <>

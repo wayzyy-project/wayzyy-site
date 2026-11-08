@@ -19,6 +19,7 @@ interface BlogLayoutProps {
   heroImage?: string;
   heroImageAlt?: string;
   publishedDate?: string;
+  modifiedDate?: string;
   slug?: string;
   children: React.ReactNode;
   extraJsonLd?: Record<string, unknown> | Record<string, unknown>[];
@@ -44,6 +45,7 @@ export function BlogLayout(props: BlogLayoutProps) {
   const heroImage = props.heroImage || post?.heroImage || "/og-image.jpg";
   const heroImageAlt = props.heroImageAlt || title;
   const publishedDate = props.publishedDate || post?.publishedDate || "2026-08-01";
+  const modifiedDate = props.modifiedDate || post?.modifiedDate;
   const { children, extraJsonLd } = props;
 
 
@@ -64,6 +66,7 @@ export function BlogLayout(props: BlogLayoutProps) {
       "description": metaDescription,
       "image": heroImage.startsWith("http") ? heroImage : `https://wayzyy.com${heroImage}`,
       "datePublished": publishedDate,
+      ...(modifiedDate ? { "dateModified": modifiedDate } : {}),
       "author": {
         "@type": "Organization",
         "name": "Wayzyy",
@@ -128,6 +131,9 @@ export function BlogLayout(props: BlogLayoutProps) {
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">{description}</p>
             <p className="mt-2 text-xs text-muted-foreground">
               Published {new Date(publishedDate).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
+              {modifiedDate && modifiedDate !== publishedDate && (
+                <> · Updated {new Date(modifiedDate).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}</>
+              )}
             </p>
           </div>
         </div>

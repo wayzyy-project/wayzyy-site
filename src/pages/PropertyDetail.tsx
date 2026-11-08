@@ -72,6 +72,7 @@ import { BookingModal } from "@/components/booking/BookingModal";
 import { EnquiryModal } from "@/components/booking/EnquiryModal";
 import { bookingsOpenFor } from "@/lib/bookingGate";
 import { trackViewItem } from "@/lib/analytics";
+import { mp } from "@/lib/mixpanel";
 import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -461,6 +462,7 @@ export default function PropertyDetail() {
           // app logs to). Once per listing per browser session, never the
           // host looking at their own listing; a failed log is ignored.
           logListingView(data.id, data.host_id ?? null);
+          mp.listingViewed({ id: data.id, city: data.city, category: data.category });
           recordRecentlyViewed(data.id);
 
           // Pricing inputs, fetched alongside the listing. `price` above is
@@ -1210,6 +1212,7 @@ export default function PropertyDetail() {
                     // Bookings not open yet: take an enquiry instead of a payment.
                     // No payment, no sign-in, nothing is booked (see EnquiryModal).
                     if (!bookingsOpenFor(property.id)) {
+                      mp.enquiryStarted({ id: property.id, city: property.city, category: property.category });
                       setIsEnquiryOpen(true);
                       return;
                     }
@@ -1244,6 +1247,7 @@ export default function PropertyDetail() {
                         return;
                       }
                     }
+                    mp.bookingStarted({ id: property.id, city: property.city, category: property.category });
                     setIsBookingModalOpen(true);
                   }}
                   className="btn-brand btn-brand-lg w-full"

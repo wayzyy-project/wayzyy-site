@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import { propertyPath } from "@/lib/propertySlug";
 import NotFound from "@/pages/NotFound";
 import { PropertyGridSkeleton } from "@/components/marketplace/Skeletons";
+import { AREA_GUIDES } from "@/data/areaGuides";
 import {
   buildPlacePage, placeJsonLd, guestPrice, inr, SEED_HOST_EMAILS, isBrowsable,
   type PlaceListing,
@@ -62,6 +63,7 @@ export default function PlaceStays() {
 
   const jsonLd = placeJsonLd(page, "https://wayzyy.com", (p) => propertyPath(p));
   const related = page.related;
+  const areaGuide = AREA_GUIDES.find((guide) => guide.area.toLowerCase() === page.placeName.toLowerCase());
 
   return (
     <SEO title={page.title} description={page.description} path={page.path} noindex={!page.indexable} jsonLd={jsonLd}>
@@ -85,6 +87,16 @@ export default function PlaceStays() {
           <div className="mt-3 max-w-3xl space-y-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
             {page.intro.map((t, i) => <p key={i}>{t}</p>)}
           </div>
+
+          {areaGuide && (
+            <section className="mt-6 max-w-3xl rounded-2xl border border-border bg-muted/30 p-5" aria-labelledby="area-guide-heading">
+              <h2 id="area-guide-heading" className="font-display text-lg font-bold">Plan a {areaGuide.area} stay</h2>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{areaGuide.blurb} Read the local guide for beaches, cafés, travel times and the questions to ask before booking.</p>
+              <Link to={areaGuide.guide} className="mt-3 inline-flex text-sm font-semibold text-[#FF6B00] underline underline-offset-4">
+                Read the {areaGuide.area} Goa guide
+              </Link>
+            </section>
+          )}
 
           {/* Other pages: regions, places and types - also how search engines find them. */}
           <div className="mt-6 flex flex-wrap gap-2" aria-label="Explore stays">

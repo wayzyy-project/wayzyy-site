@@ -54,6 +54,7 @@ export default function GstForAirbnbHostsIndia() {
       heroImage={post.heroImage}
       heroImageAlt="Illustration of a villa key, a calculator showing 5% and 18%, and a booking receipt on a wooden table"
       publishedDate={post.publishedDate}
+      modifiedDate={post.modifiedDate}
       slug={post.slug}
       extraJsonLd={faqJsonLd}
     >
@@ -72,6 +73,14 @@ export default function GstForAirbnbHostsIndia() {
           GST is the part of hosting most people find confusing, mostly because the answer depends on three things: how much
           you earn, how much you charge per night, and whether the booking came through a platform. This page walks through
           each one. It's written for hosts in Goa, but the GST rules are the same across India.
+        </p>
+        <p className="text-sm text-muted-foreground border-l-2 border-ember pl-4">
+          <strong className="text-foreground">Reviewed 9 November 2026:</strong> This guide was refreshed for the current
+          published thresholds, accommodation rates and TDS references. Tax rules can change, so check the latest guidance from
+          the <a href="https://cbic-gst.gov.in/" target="_blank" rel="noopener noreferrer" className={ext}>CBIC GST portal</a>,
+          the <a href="https://gstcouncil.gov.in/" target="_blank" rel="noopener noreferrer" className={ext}>GST Council</a>
+          and the <a href="https://www.incometax.gov.in/" target="_blank" rel="noopener noreferrer" className={ext}>Income Tax Department</a>
+          before filing.
         </p>
 
         <h2 className="font-display text-2xl text-foreground mt-8">Do you need to register for GST?</h2>
