@@ -598,6 +598,50 @@ export default function PropertyDetail() {
   // own line below), so the saving is the difference, not the whole 15.5%.
   const airbnbFeeComparison = Math.max(0, Math.round(stayTotal * 0.155) - (quote ? quote.serviceFee : 0));
 
+  // Shared by the desktop card and the mobile bottom bar.
+  const handleReserve = () => {
+    // Bookings not open yet: take an enquiry instead of a payment.
+    // No payment, no sign-in, nothing is booked (see EnquiryModal).
+    if (!bookingsOpenFor(property.id)) {
+      mp.enquiryStarted({ id: property.id, city: property.city, category: property.category });
+      setIsEnquiryOpen(true);
+      return;
+    }
+    // The date inputs already stop a shorter range from
+    // being entered, but this is the real gate on this
+    // page - and create-booking re-checks it server-side
+    // regardless, since the client is never trusted alone.
+    const ruleError = stayRuleError(stayRules, toDateStr(checkInDate), toDateStr(checkOutDate), nights);
+    if (ruleError) {
+      toast({ title: "These dates don't fit the host's rules", description: ruleError, variant: "destructive" });
+      return;
+    }
+    // No real quote means this is the mock fallback (the
+    // listing failed to load) - create-booking-order would
+    // happily charge for it, then create-booking would reject.
+    if (!quote) {
+      toast({
+        title: "Couldn't load live pricing",
+        description: "Please refresh the page and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    for (let d = checkInDate; d < checkOutDate; d = addDays(d, 1)) {
+      if (unavailable.has(format(d, "yyyy-MM-dd"))) {
+        toast({
+          title: "Those dates are booked",
+          description: "Some nights in your stay aren't available. Pick dates that avoid the greyed-out days.",
+          variant: "destructive",
+        });
+        setDatesOpen(true);
+        return;
+      }
+    }
+    mp.bookingStarted({ id: property.id, city: property.city, category: property.category });
+    setIsBookingModalOpen(true);
+  };
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -1091,7 +1135,7 @@ export default function PropertyDetail() {
                 live, a plain "get in touch" card while it isn't. */}
             <div className="lg:col-span-1">
               {BOOKING_ENABLED && !property.showcase ? (
-              <div className="sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
+              <div id="booking-card" className="scroll-mt-24 sticky top-28 rounded-3xl border border-border bg-background p-6 shadow-2xl space-y-5">
                 {/* Price Display */}
                 <div className="flex items-baseline justify-between">
                   <div>
@@ -1208,48 +1252,7 @@ export default function PropertyDetail() {
 
                 {/* Reserve Button (Vibrant #FF6B00 Ember Gradient) */}
                 <button
-                  onClick={() => {
-                    // Bookings not open yet: take an enquiry instead of a payment.
-                    // No payment, no sign-in, nothing is booked (see EnquiryModal).
-                    if (!bookingsOpenFor(property.id)) {
-                      mp.enquiryStarted({ id: property.id, city: property.city, category: property.category });
-                      setIsEnquiryOpen(true);
-                      return;
-                    }
-                    // The date inputs already stop a shorter range from
-                    // being entered, but this is the real gate on this
-                    // page - and create-booking re-checks it server-side
-                    // regardless, since the client is never trusted alone.
-                    const ruleError = stayRuleError(stayRules, toDateStr(checkInDate), toDateStr(checkOutDate), nights);
-                    if (ruleError) {
-                      toast({ title: "These dates don't fit the host's rules", description: ruleError, variant: "destructive" });
-                      return;
-                    }
-                    // No real quote means this is the mock fallback (the
-                    // listing failed to load) - create-booking-order would
-                    // happily charge for it, then create-booking would reject.
-                    if (!quote) {
-                      toast({
-                        title: "Couldn't load live pricing",
-                        description: "Please refresh the page and try again.",
-                        variant: "destructive",
-                      });
-                      return;
-                    }
-                    for (let d = checkInDate; d < checkOutDate; d = addDays(d, 1)) {
-                      if (unavailable.has(format(d, "yyyy-MM-dd"))) {
-                        toast({
-                          title: "Those dates are booked",
-                          description: "Some nights in your stay aren't available. Pick dates that avoid the greyed-out days.",
-                          variant: "destructive",
-                        });
-                        setDatesOpen(true);
-                        return;
-                      }
-                    }
-                    mp.bookingStarted({ id: property.id, city: property.city, category: property.category });
-                    setIsBookingModalOpen(true);
-                  }}
+                  onClick={handleReserve}
                   className="btn-brand btn-brand-lg w-full"
                 >
                   {bookingsOpenFor(property.id) ? "Reserve" : "Enquire about this stay"}
@@ -1368,6 +1371,43 @@ export default function PropertyDetail() {
 
           <NearbyPlaces city={property.city} lat={property.lat} lng={property.lng} />
         </main>
+
+        {/* Mobile only: price, dates and Reserve pinned above the tab bar, like
+            Airbnb, so nobody has to scroll to the bottom of the page for them. */}
+        {BOOKING_ENABLED && !property.showcase && (
+          <div className="fixed inset-x-0 bottom-[calc(3.75rem+env(safe-area-inset-bottom))] z-30 border-t border-border bg-background px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] lg:hidden">
+            <div className="mx-auto flex max-w-xl items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-price text-lg font-bold leading-tight text-foreground">
+                  {originalStayTotal > stayTotal && (
+                    <span className="mr-1.5 text-xs font-medium text-muted-foreground line-through">
+                      {property.currency}{originalStayTotal.toLocaleString("en-IN")}
+                    </span>
+                  )}
+                  {property.currency}{stayTotal.toLocaleString("en-IN")}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("booking-card")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="mt-0.5 block max-w-full truncate text-left text-xs font-medium text-muted-foreground underline underline-offset-2"
+                  aria-label="Change dates"
+                >
+                  for {nights} {nights === 1 ? "night" : "nights"} ·{" "}
+                  {checkInDate.getMonth() === checkOutDate.getMonth()
+                    ? `${format(checkInDate, "d")}–${format(checkOutDate, "d MMM")}`
+                    : `${format(checkInDate, "d MMM")} – ${format(checkOutDate, "d MMM")}`}
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={handleReserve}
+                className="btn-brand shrink-0 px-7 py-3 text-sm"
+              >
+                {bookingsOpenFor(property.id) ? "Reserve" : "Enquire"}
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Full Screen Lightbox Photo Gallery Modal */}
         {showAllPhotos && (
