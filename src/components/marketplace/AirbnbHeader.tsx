@@ -119,8 +119,12 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
   const sectionClass = (section: "where" | "when" | "who", spacing: string) =>
     `group relative z-10 flex-1 min-w-0 text-left rounded-full cursor-pointer transition-colors ${spacing} ${
-      activeSearchSection === section ? "" : activeSearchSection ? "hover:bg-foreground/5" : "hover:bg-muted/50"
+      activeSearchSection === section ? "" : activeSearchSection ? "hover:bg-foreground/10" : "hover:bg-muted"
     }`;
+  // Which section the mouse is over, so the thin dividers beside it hide.
+  const [hoveredSection, setHoveredSection] = useState<"where" | "when" | "who" | null>(null);
+  const hideDivider = (a: "where" | "when", b: "when" | "who") =>
+    [activeSearchSection, hoveredSection].some((x) => x === a || x === b);
 
   // Position of the white pill under the active section. It only slides when
   // moving between sections; opening from closed just fades it in in place.
@@ -307,7 +311,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   width: pill.width,
                   opacity: activeSearchSection ? 1 : 0,
                   transition: pill.slide
-                    ? "left 300ms cubic-bezier(0.2, 0, 0, 1), width 300ms cubic-bezier(0.2, 0, 0, 1), opacity 200ms"
+                    ? "left 400ms cubic-bezier(0.2, 0, 0, 1), width 400ms cubic-bezier(0.2, 0, 0, 1), opacity 200ms"
                     : "opacity 200ms",
                 }}
               />
@@ -316,6 +320,8 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               <div
                 ref={(el) => (sectionRefs.current.where = el)}
                 onClick={(e) => toggleSection("where", e)}
+                onMouseEnter={() => setHoveredSection("where")}
+                onMouseLeave={() => setHoveredSection(null)}
                 className={sectionClass("where", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
                 <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
@@ -331,13 +337,15 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 />
               </div>
 
-              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${activeSearchSection === "where" || activeSearchSection === "when" ? "opacity-0" : ""}`} />
+              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${hideDivider("where", "when") ? "opacity-0" : ""}`} />
 
               {/* WHEN zone */}
               <button
                 type="button"
                 ref={(el) => (sectionRefs.current.when = el)}
                 onClick={(e) => toggleSection("when", e)}
+                onMouseEnter={() => setHoveredSection("when")}
+                onMouseLeave={() => setHoveredSection(null)}
                 className={sectionClass("when", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
                 <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
@@ -350,12 +358,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 </p>
               </button>
 
-              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${activeSearchSection === "when" || activeSearchSection === "who" ? "opacity-0" : ""}`} />
+              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${hideDivider("when", "who") ? "opacity-0" : ""}`} />
 
               {/* WHO zone, with the search button inside so the pill covers both */}
               <div
                 ref={(el) => (sectionRefs.current.who = el)}
                 onClick={(e) => toggleSection("who", e)}
+                onMouseEnter={() => setHoveredSection("who")}
+                onMouseLeave={() => setHoveredSection(null)}
                 className={sectionClass("who", "flex items-center justify-between gap-2 pl-3 pr-1.5 py-1.5 sm:pl-6 sm:pr-2 sm:py-2.5")}
               >
                 <div className="min-w-0">
