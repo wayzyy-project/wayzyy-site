@@ -117,6 +117,7 @@ const AirbnbAlternativeLanding = lazy(() => import("./pages/AirbnbAlternativeLan
 const WhatIsWayzyy = lazy(() => import("./pages/WhatIsWayzyy"));
 const About = lazy(() => import("./pages/About"));
 const Careers = lazy(() => import("./pages/Careers"));
+const StayAssistant = lazy(() => import("./pages/StayAssistant"));
 
 
 
@@ -327,6 +328,7 @@ const App = () => (
               <Route path="/about" element={<Index />} />
               <Route path="/about/team" element={<About />} />
               <Route path="/careers" element={<Careers />} />
+              <Route path="/chat" element={<StayAssistant />} />
               <Route path="/experience" element={<ExperienceGoa />} />
               <Route path="/waitlist" element={<WaitlistChooser />} />
               <Route path="/waitlist/travelers" element={<WaitlistTravelers />} />
