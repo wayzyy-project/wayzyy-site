@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { format, addDays, startOfDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
+import { STAY_RANGE_CLASSNAMES } from "@/components/booking/StayDatesCalendar";
 
 interface SearchState {
   destination: string;
@@ -469,6 +470,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                     selected={{ from: checkIn ?? undefined, to: checkOut ?? undefined }}
                     defaultMonth={checkIn ?? undefined}
                     disabled={{ before: startOfDay(new Date()) }}
+                    classNames={STAY_RANGE_CLASSNAMES}
                     // First click (or a click after a full range) starts a new
                     // stay; the next later day is checkout.
                     onDayClick={(day) => {
