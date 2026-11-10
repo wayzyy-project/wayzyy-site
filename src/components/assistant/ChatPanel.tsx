@@ -51,7 +51,9 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div ref={scroller} className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4" aria-live="polite">
+      {/* data-lenis-prevent: the site's smooth-scroll library (Lenis) otherwise swallows the mouse wheel
+          before this box can scroll, so the chat looked frozen on desktop. */}
+      <div ref={scroller} data-lenis-prevent className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-4" aria-live="polite">
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
             <div className={m.role === "user" ? "max-w-[85%]" : "w-full max-w-[95%]"}>
