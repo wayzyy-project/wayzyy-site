@@ -32,7 +32,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { format, addDays } from "date-fns";
+import { format, addDays, startOfDay } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
 
 interface SearchState {
   destination: string;
@@ -418,16 +419,15 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             )}
 
             {activeSearchSection === "when" && (
-              <div className="absolute left-1/2 top-full z-50 mt-3 w-full sm:w-[520px] -translate-x-1/2 rounded-3xl border border-border bg-background p-5 shadow-2xl text-center animate-in fade-in slide-in-from-top-2">
-                <p className="text-xs font-medium text-muted-foreground mb-4">Quick dates</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+              <div className="absolute left-1/2 top-full z-50 mt-3 w-full sm:w-[680px] -translate-x-1/2 rounded-3xl border border-border bg-background p-5 shadow-2xl animate-in fade-in slide-in-from-top-2">
+                <div className="flex flex-wrap justify-center gap-2">
                   <button
                     onClick={() => {
                       setCheckIn(new Date());
                       setCheckOut(addDays(new Date(), 2));
                       setActiveSearchSection("who");
                     }}
-                    className="p-3 rounded-2xl border border-border hover:border-[#FF6B00] hover:bg-[#FF6B00]/5 text-xs font-semibold"
+                    className="rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors"
                   >
                     This Weekend (2 nights)
                   </button>
@@ -437,7 +437,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                       setCheckOut(addDays(new Date(), 10));
                       setActiveSearchSection("who");
                     }}
-                    className="p-3 rounded-2xl border border-border hover:border-[#FF6B00] hover:bg-[#FF6B00]/5 text-xs font-semibold"
+                    className="rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors"
                   >
                     Next Week (3 nights)
                   </button>
@@ -447,7 +447,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                       setCheckOut(addDays(new Date(), 21));
                       setActiveSearchSection("who");
                     }}
-                    className="p-3 rounded-2xl border border-border hover:border-[#FF6B00] hover:bg-[#FF6B00]/5 text-xs font-semibold"
+                    className="rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors"
                   >
                     1 Week Stay
                   </button>
@@ -457,17 +457,44 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                       setCheckOut(addDays(new Date(), 60));
                       setActiveSearchSection("who");
                     }}
-                    className="p-3 rounded-2xl border border-border hover:border-[#FF6B00] hover:bg-[#FF6B00]/5 text-xs font-semibold"
+                    className="rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold hover:border-[#FF6B00] hover:text-[#FF6B00] transition-colors"
                   >
                     Next Month
                   </button>
                 </div>
-                <button
-                  onClick={() => setActiveSearchSection("who")}
-                  className="text-xs text-[#FF6B00] font-bold hover:underline"
-                >
-                  Continue to Guests →
-                </button>
+                <div className="mt-2 flex justify-center">
+                  <Calendar
+                    mode="range"
+                    numberOfMonths={typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches ? 2 : 1}
+                    selected={{ from: checkIn ?? undefined, to: checkOut ?? undefined }}
+                    defaultMonth={checkIn ?? undefined}
+                    disabled={{ before: startOfDay(new Date()) }}
+                    // First click (or a click after a full range) starts a new
+                    // stay; the next later day is checkout.
+                    onDayClick={(day) => {
+                      if (!checkIn || checkOut || day <= checkIn) {
+                        setCheckIn(day);
+                        setCheckOut(null);
+                      } else {
+                        setCheckOut(day);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="flex items-center justify-between border-t border-border pt-3">
+                  <button
+                    onClick={() => { setCheckIn(null); setCheckOut(null); }}
+                    className="text-xs font-semibold text-foreground underline underline-offset-2 hover:text-[#FF6B00] transition-colors"
+                  >
+                    Clear dates
+                  </button>
+                  <button
+                    onClick={() => setActiveSearchSection("who")}
+                    className="text-xs text-[#FF6B00] font-bold hover:underline"
+                  >
+                    Continue to Guests →
+                  </button>
+                </div>
               </div>
             )}
 
