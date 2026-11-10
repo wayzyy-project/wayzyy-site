@@ -397,7 +397,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             {/* Dropdown Panels, lined up under the section that opened them */}
             {activeSearchSection === "where" && (
               <div className="absolute left-0 top-full z-50 mt-3 w-full sm:w-[420px] rounded-3xl border border-border bg-background p-5 shadow-2xl animate-in fade-in slide-in-from-top-2">
-                <p className="px-2 pb-2 text-xs font-medium text-muted-foreground">Suggested destinations</p>
+                <p className="px-2 pb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Popular Stays &amp; Regions</p>
                 <div className="space-y-1">
                   {quickDestinations.map((dest) => (
                     <button
