@@ -324,16 +324,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 onMouseLeave={() => setHoveredSection(null)}
                 className={sectionClass("where", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
-                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  Travel destination
-                </p>
+                <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">Where</p>
                 <input
                   type="text"
-                  placeholder="Where in Goa?"
+                  placeholder="Search destinations"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   onFocus={() => setActiveSearchSection("where")}
-                  className="block w-full bg-transparent text-[10px] sm:text-xs text-foreground placeholder:text-muted-foreground outline-none"
+                  className="block w-full bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />
               </div>
 
@@ -348,13 +346,11 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 onMouseLeave={() => setHoveredSection(null)}
                 className={sectionClass("when", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
-                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
+                <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">When</p>
+                <p className={`text-xs sm:text-sm truncate ${checkIn && checkOut ? "text-foreground" : "text-muted-foreground"}`}>
                   {checkIn && checkOut
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
-                    : "What dates?"}
-                </p>
-                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                  {checkIn ? "Dates set" : "Check-in and check-out"}
+                    : "Add dates"}
                 </p>
               </button>
 
@@ -369,11 +365,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 className={sectionClass("who", "flex items-center justify-between gap-2 pl-3 pr-1.5 py-1.5 sm:pl-6 sm:pr-2 sm:py-2.5")}
               >
                 <div className="min-w-0">
-                  <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                    {totalGuests > 1 ? `${totalGuests} guests` : "Who's along?"}
-                  </p>
-                  <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                    {totalGuests > 1 ? `${adults}A, ${children}C` : "Add travellers"}
+                  <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">Who</p>
+                  <p className={`text-xs sm:text-sm truncate ${totalGuests > 1 ? "text-foreground" : "text-muted-foreground"}`}>
+                    {totalGuests > 1 ? `${totalGuests} guests` : "Add guests"}
                   </p>
                 </div>
                 <button
@@ -397,7 +391,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             {/* Dropdown Panels, lined up under the section that opened them */}
             {activeSearchSection === "where" && (
               <div className="absolute left-0 top-full z-50 mt-3 w-full sm:w-[420px] rounded-3xl border border-border bg-background p-5 shadow-2xl animate-in fade-in slide-in-from-top-2">
-                <p className="px-2 pb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Popular Stays &amp; Regions</p>
+                <p className="px-2 pb-2 text-xs font-medium text-muted-foreground">Suggested destinations</p>
                 <div className="space-y-1">
                   {quickDestinations.map((dest) => (
                     <button
