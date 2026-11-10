@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Loader2, Send } from "lucide-react";
 import { Msg, SUGGESTIONS, localHref } from "@/lib/assistant";
 
+// The server reads up to this many characters per message.
+const MAX_CHARS = 1500;
+
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 
 interface Chat {
@@ -19,7 +22,7 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
   const { messages, sending, error, send } = chat;
   const [input, setInput] = useState("");
   const scroller = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const el = scroller.current;
@@ -29,6 +32,14 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
   useEffect(() => {
     if (autoFocus) inputRef.current?.focus();
   }, [autoFocus]);
+
+  // The box grows with what is typed or pasted (up to about 6 lines), then scrolls.
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 150)}px`;
+  }, [input]);
 
   const submit = (text: string) => {
     if (!text.trim() || sending) return;
@@ -118,25 +129,40 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
           e.preventDefault();
           submit(input);
         }}
-        className="flex items-center gap-2 border-t border-border bg-background p-3"
+        className="border-t border-border bg-background p-3"
       >
-        <input
-          ref={inputRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          maxLength={1500}
-          placeholder="Dates, guests, area, budget..."
-          aria-label="Your message"
-          className="min-w-0 flex-1 rounded-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-[#FF6B00]"
-        />
-        <button
-          type="submit"
-          disabled={sending || !input.trim()}
-          aria-label="Send"
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white shadow-md shadow-[#FF6B00]/25 transition-opacity disabled:opacity-40"
-        >
-          <Send className="h-4 w-4" />
-        </button>
+        <div className="flex items-end gap-2">
+          <textarea
+            ref={inputRef}
+            value={input}
+            rows={1}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              // Enter sends; Shift+Enter makes a new line (and never sends mid-composition, e.g. Hindi keyboards).
+              if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                e.preventDefault();
+                submit(input);
+              }
+            }}
+            maxLength={MAX_CHARS}
+            placeholder="Dates, guests, area, budget... or paste a chat"
+            aria-label="Your message"
+            className="min-w-0 flex-1 resize-none rounded-3xl border border-border bg-background px-4 py-3 text-sm leading-5 outline-none transition-colors focus:border-[#FF6B00]"
+          />
+          <button
+            type="submit"
+            disabled={sending || !input.trim()}
+            aria-label="Send"
+            className="mb-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white shadow-md shadow-[#FF6B00]/25 transition-opacity disabled:opacity-40"
+          >
+            <Send className="h-4 w-4" />
+          </button>
+        </div>
+        {input.length > MAX_CHARS - 300 && (
+          <p className="mt-1.5 pr-14 text-right text-[11px] text-muted-foreground">
+            {input.length}/{MAX_CHARS}
+          </p>
+        )}
       </form>
     </div>
   );
