@@ -19,8 +19,7 @@ import {
   Key,
   Building,
   Castle,
-  MessageCircle,
-  Sparkles
+  MessageCircle
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
@@ -216,7 +215,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               aria-label="Plan my stay with the Wayzyy assistant"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] p-2.5 text-xs md:text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 transition-transform hover:scale-105 active:scale-95 sm:px-4 sm:py-2"
             >
-              <Sparkles className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" />
               <span className="hidden sm:inline">Plan my stay</span>
             </button>
             <Link

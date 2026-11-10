@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Loader2, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { Msg, SUGGESTIONS, localHref } from "@/lib/assistant";
 import { toBlocks } from "@/lib/assistantFormat";
 
@@ -62,7 +62,7 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
                 className={
                   m.role === "user"
                     ? "rounded-2xl rounded-br-md bg-gradient-to-r from-[#FF6B00] to-[#E05300] px-4 py-2.5 text-sm text-white shadow-sm"
-                    : "rounded-2xl rounded-bl-md border border-border bg-muted/50 px-4 py-2.5 text-sm text-foreground"
+                    : "rounded-2xl rounded-bl-md border border-border bg-background px-4 py-2.5 text-sm text-foreground shadow-sm"
                 }
               >
                 {m.role === "user" ? (
@@ -137,8 +137,14 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
 
         {sending && (
           <div className="flex justify-start">
-            <div className="inline-flex items-center gap-2 rounded-2xl rounded-bl-md border border-border bg-muted/50 px-4 py-2.5 text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin" /> Checking what's free...
+            {/* Typing dots, like a person replying, with a hint of what is happening. */}
+            <div className="inline-flex items-center gap-2.5 rounded-2xl rounded-bl-md border border-border bg-background px-4 py-3 text-xs text-muted-foreground shadow-sm">
+              <span className="flex items-center gap-1" aria-hidden>
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#FF6B00] [animation-delay:-0.3s]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#FF6B00] [animation-delay:-0.15s]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#FF6B00]" />
+              </span>
+              Checking what's free...
             </div>
           </div>
         )}
