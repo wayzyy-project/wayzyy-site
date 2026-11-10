@@ -12,6 +12,7 @@ import { ThemeProvider } from "next-themes";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { MobileTabBar } from "@/components/MobileTabBar";
+import { AssistantBubble } from "@/components/assistant/AssistantBubble";
 import { mp } from "@/lib/mixpanel";
 const Index = lazy(() => import("./pages/Index"));
 import NotFound from "./pages/NotFound";
@@ -343,6 +344,7 @@ const App = () => (
             </div>
             <OpenInAppPrompt />
             <MobileTabBar />
+            <AssistantBubble />
           </SmoothScroll>
         </BrowserRouter>
       </TooltipProvider>

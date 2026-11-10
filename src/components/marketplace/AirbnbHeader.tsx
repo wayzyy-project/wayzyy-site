@@ -35,6 +35,7 @@ import {
 import { format, startOfDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { STAY_RANGE_CLASSNAMES } from "@/components/booking/StayDatesCalendar";
+import { openAssistant } from "@/lib/assistant";
 
 interface SearchState {
   destination: string;
@@ -515,6 +516,20 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 </button>
               </div>
             )}
+            </div>
+
+            {/* A way out of the Where / When / Who boxes: describe the trip in plain words instead. */}
+            <div className={`mt-2.5 text-center transition-opacity duration-200 ${activeSearchSection ? "pointer-events-none opacity-0" : "opacity-100"}`}>
+              <button
+                type="button"
+                onClick={openAssistant}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-muted-foreground transition-colors hover:bg-[#FF6B00]/10 hover:text-[#FF6B00]"
+              >
+                <MessageCircle className="h-3.5 w-3.5 text-[#FF6B00]" />
+                <span className="sm:hidden">Just describe your trip</span>
+                <span className="hidden sm:inline">Rather just describe your trip? Chat with our assistant</span>
+                <span aria-hidden>→</span>
+              </button>
             </div>
           </div>
         )}
