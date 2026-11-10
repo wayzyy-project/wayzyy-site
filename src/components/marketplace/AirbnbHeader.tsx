@@ -109,6 +109,17 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Clicking the open section again closes the search; clicks in the
+  // destination box only focus it, so typing there never closes anything.
+  const toggleSection = (section: "where" | "when" | "who", e: React.MouseEvent) => {
+    if (activeSearchSection === section && (e.target as HTMLElement).tagName !== "INPUT") {
+      setIsSearchExpanded(false);
+      setActiveSearchSection(null);
+    } else {
+      setActiveSearchSection(section);
+    }
+  };
+
   const handleNavTabClick = (tab: "all" | "homes" | "villas") => {
     setActiveNavTab(tab);
     if (onSelectCategory) {
@@ -328,12 +339,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
         {!compact && isSearchExpanded && (
           // Same width and height as the collapsed bar, and the panels below
           // float over the page instead of pushing it down.
-          <div ref={searchContainerRef} className="pb-4">
-            <div className="relative mx-auto max-w-3xl">
+          <div className="pb-4">
+            {/* The ref sits on the bar + its panels only, not the full-width
+                row, so a click beside the bar counts as outside and closes it. */}
+            <div ref={searchContainerRef} className="relative mx-auto max-w-3xl">
             <div className="rounded-full border border-border bg-muted p-1 shadow-md flex items-center">
               {/* WHERE Section */}
               <div
-                onClick={() => setActiveSearchSection("where")}
+                onClick={(e) => toggleSection("where", e)}
                 className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
                   activeSearchSection === "where" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
@@ -351,7 +364,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
               {/* WHEN Section */}
               <div
-                onClick={() => setActiveSearchSection("when")}
+                onClick={(e) => toggleSection("when", e)}
                 className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
                   activeSearchSection === "when" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
@@ -366,7 +379,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
               {/* WHO Section */}
               <div
-                onClick={() => setActiveSearchSection("who")}
+                onClick={(e) => toggleSection("who", e)}
                 className={`flex-1 min-w-0 rounded-full pl-4 sm:pl-6 pr-1 py-1 cursor-pointer transition-colors flex items-center justify-between gap-2 ${
                   activeSearchSection === "who" ? "bg-background shadow-lg" : "hover:bg-background/60"
                 }`}
