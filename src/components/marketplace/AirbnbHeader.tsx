@@ -328,8 +328,10 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
         {!compact && isSearchExpanded && (
           // Same width and height as the collapsed bar, and the panels below
           // float over the page instead of pushing it down.
-          <div ref={searchContainerRef} className="pb-4">
-            <div className="relative mx-auto max-w-3xl">
+          <div className="pb-4">
+            {/* The ref sits on the bar + its panels only, not the full-width
+                row, so a click beside the bar counts as outside and closes it. */}
+            <div ref={searchContainerRef} className="relative mx-auto max-w-3xl">
             <div className="rounded-full border border-border bg-muted p-1 shadow-md flex items-center">
               {/* WHERE Section */}
               <div
