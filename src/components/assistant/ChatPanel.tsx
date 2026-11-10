@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2, Send } from "lucide-react";
 import { Msg, SUGGESTIONS, localHref } from "@/lib/assistant";
+import { toBlocks } from "@/lib/assistantFormat";
 
 // The server reads up to this many characters per message.
 const MAX_CHARS = 1500;
@@ -64,7 +65,25 @@ export function ChatPanel({ chat, autoFocus = false }: { chat: Chat; autoFocus?:
                     : "rounded-2xl rounded-bl-md border border-border bg-muted/50 px-4 py-2.5 text-sm text-foreground"
                 }
               >
-                <p className="whitespace-pre-wrap">{m.content}</p>
+                {m.role === "user" ? (
+                  <p className="whitespace-pre-wrap">{m.content}</p>
+                ) : (
+                  <div className="space-y-2 leading-relaxed">
+                    {toBlocks(m.content).map((b, bi) =>
+                      b.type === "p" ? (
+                        <p key={bi} className="whitespace-pre-line">{b.text}</p>
+                      ) : b.type === "ul" ? (
+                        <ul key={bi} className="list-disc space-y-1.5 pl-5">
+                          {b.items.map((it, ii) => <li key={ii}>{it}</li>)}
+                        </ul>
+                      ) : (
+                        <ol key={bi} className="list-decimal space-y-1.5 pl-5">
+                          {b.items.map((it, ii) => <li key={ii}>{it}</li>)}
+                        </ol>
+                      ),
+                    )}
+                  </div>
+                )}
               </div>
               {m.stays && m.stays.length > 0 && (
                 <div className="mt-3 space-y-2.5">
