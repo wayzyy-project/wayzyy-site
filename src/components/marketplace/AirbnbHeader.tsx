@@ -19,7 +19,8 @@ import {
   Key,
   Building,
   Castle,
-  MessageCircle
+  MessageCircle,
+  Sparkles
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
@@ -208,6 +209,16 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
           <div className="flex items-center gap-3">
             {/* Signed in: straight to the host portal. Signed out: /host
                 shows sign-up / log-in first. */}
+            {/* Opens the assistant panel: say what you want in plain words instead of the filters. */}
+            <button
+              type="button"
+              onClick={openAssistant}
+              aria-label="Plan my stay with the Wayzyy assistant"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] p-2.5 text-xs md:text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 transition-transform hover:scale-105 active:scale-95 sm:px-4 sm:py-2"
+            >
+              <Sparkles className="h-4 w-4" />
+              <span className="hidden sm:inline">Plan my stay</span>
+            </button>
             <Link
               to="/host"
               className="hidden sm:inline-flex rounded-full px-4 py-2 text-xs md:text-sm font-bold text-[#FF6B00] bg-[#FF6B00]/10 hover:bg-[#FF6B00] hover:text-white transition-all border border-[#FF6B00]/30 shadow-xs"
