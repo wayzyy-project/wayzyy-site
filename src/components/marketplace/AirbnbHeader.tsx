@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { 
   Search, 
@@ -71,7 +71,6 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   const [activeNavTab, setActiveNavTab] = useState<"all" | "homes" | "villas">(
     activeCategory === "villas" ? "villas" : activeCategory === "apartments" ? "homes" : "all"
   );
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [activeSearchSection, setActiveSearchSection] = useState<"where" | "when" | "who" | null>(null);
 
   const [destination, setDestination] = useState(parentSearchState?.destination || "");
@@ -101,7 +100,6 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
-        setIsSearchExpanded(false);
         setActiveSearchSection(null);
       }
     };
@@ -113,12 +111,37 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   // destination box only focus it, so typing there never closes anything.
   const toggleSection = (section: "where" | "when" | "who", e: React.MouseEvent) => {
     if (activeSearchSection === section && (e.target as HTMLElement).tagName !== "INPUT") {
-      setIsSearchExpanded(false);
       setActiveSearchSection(null);
     } else {
       setActiveSearchSection(section);
     }
   };
+
+  const sectionClass = (section: "where" | "when" | "who", spacing: string) =>
+    `group relative z-10 flex-1 min-w-0 text-left rounded-full cursor-pointer transition-colors ${spacing} ${
+      activeSearchSection === section ? "" : activeSearchSection ? "hover:bg-foreground/10" : "hover:bg-muted"
+    }`;
+  // Which section the mouse is over, so the thin dividers beside it hide.
+  const [hoveredSection, setHoveredSection] = useState<"where" | "when" | "who" | null>(null);
+  const hideDivider = (a: "where" | "when", b: "when" | "who") =>
+    [activeSearchSection, hoveredSection].some((x) => x === a || x === b);
+
+  // Position of the white pill under the active section. It only slides when
+  // moving between sections; opening from closed just fades it in in place.
+  const barRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<Record<"where" | "when" | "who", HTMLElement | null>>({ where: null, when: null, who: null });
+  const [pill, setPill] = useState({ left: 0, width: 0, slide: false });
+  const prevSection = useRef<typeof activeSearchSection>(null);
+  useLayoutEffect(() => {
+    const place = () => {
+      const el = activeSearchSection && sectionRefs.current[activeSearchSection];
+      if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth, slide: prevSection.current !== null });
+    };
+    place();
+    prevSection.current = activeSearchSection;
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [activeSearchSection]);
 
   const handleNavTabClick = (tab: "all" | "homes" | "villas") => {
     setActiveNavTab(tab);
@@ -130,7 +153,6 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   };
 
   const handleSearchSubmit = () => {
-    setIsSearchExpanded(false);
     setActiveSearchSection(null);
     const updatedState: SearchState = {
       destination,
@@ -266,127 +288,85 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
           </div>
         </div>
 
-        {/* Compact Search Bar — all 3 zones visible on all screen sizes */}
-        {/* compact: pages like Messages and Account get just the top row. */}
-        {!compact && !isSearchExpanded && (
-          <div className="pb-4 flex justify-center">
-            <div className="w-full max-w-3xl flex items-center rounded-full border border-border/80 bg-background shadow-md hover:shadow-lg transition-all hover:border-[#FF6B00]/30 overflow-hidden">
-              {/* WHERE zone */}
-              <button
-                type="button"
-                onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("where"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
-              >
-                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  {destination ? destination : "Travel destination"}
-                </p>
-                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                  {destination ? "Filtered" : "Where in Goa?"}
-                </p>
-              </button>
-
-              {/* Divider */}
-              <div className="w-px h-7 sm:h-8 bg-border/70 shrink-0" />
-
-              {/* WHEN zone */}
-              <button
-                type="button"
-                onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("when"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
-              >
-                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  {checkIn && checkOut
-                    ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
-                    : "What dates?"}
-                </p>
-                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                  {checkIn ? "Dates set" : "Check-in and check-out"}
-                </p>
-              </button>
-
-              {/* Divider */}
-              <div className="w-px h-7 sm:h-8 bg-border/70 shrink-0" />
-
-              {/* WHO zone */}
-              <button
-                type="button"
-                onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("who"); }}
-                className="flex-1 text-left px-3 py-2.5 sm:px-6 sm:py-3.5 hover:bg-muted/50 transition-colors group min-w-0"
-              >
-                <p className="text-[11px] sm:text-sm font-bold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">
-                  {totalGuests > 1 ? `${totalGuests} guests` : "Who's along?"}
-                </p>
-                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                  {totalGuests > 1 ? `${adults}A, ${children}C` : "Add travellers"}
-                </p>
-              </button>
-
-              {/* Search button */}
-              <div className="pr-1.5 pl-1 sm:pr-2">
-                <button
-                  type="button"
-                  onClick={() => { setIsSearchExpanded(true); setActiveSearchSection("where"); }}
-                  className="h-8 w-8 sm:h-11 sm:w-11 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] flex items-center justify-center text-white shrink-0 shadow-md shadow-[#FF6B00]/25 hover:scale-105 transition-transform"
-                >
-                  <Search className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Expanded Search Bar */}
-        {!compact && isSearchExpanded && (
-          // Same width and height as the collapsed bar, and the panels below
-          // float over the page instead of pushing it down.
+        {/* Search bar - one bar that never swaps out. Opening a section turns
+            the bar grey and a white pill slides under the active section,
+            the way Airbnb's does. compact: pages like Messages and Account
+            get just the top row. */}
+        {!compact && (
           <div className="pb-4">
             {/* The ref sits on the bar + its panels only, not the full-width
                 row, so a click beside the bar counts as outside and closes it. */}
             <div ref={searchContainerRef} className="relative mx-auto max-w-3xl">
-            <div className="rounded-full border border-border bg-muted p-1 shadow-md flex items-center">
-              {/* WHERE Section */}
+            <div
+              ref={barRef}
+              className={`relative flex items-center rounded-full border shadow-md transition-colors duration-300 ${
+                activeSearchSection ? "border-border bg-muted" : "border-border/80 bg-background hover:shadow-lg"
+              }`}
+            >
               <div
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 rounded-full bg-background shadow-lg"
+                style={{
+                  left: pill.left,
+                  width: pill.width,
+                  opacity: activeSearchSection ? 1 : 0,
+                  transition: pill.slide
+                    ? "left 400ms cubic-bezier(0.2, 0, 0, 1), width 400ms cubic-bezier(0.2, 0, 0, 1), opacity 200ms"
+                    : "opacity 200ms",
+                }}
+              />
+
+              {/* WHERE zone */}
+              <div
+                ref={(el) => (sectionRefs.current.where = el)}
                 onClick={(e) => toggleSection("where", e)}
-                className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
-                  activeSearchSection === "where" ? "bg-background shadow-lg" : "hover:bg-background/60"
-                }`}
+                onMouseEnter={() => setHoveredSection("where")}
+                onMouseLeave={() => setHoveredSection(null)}
+                className={sectionClass("where", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
-                <label className="block text-xs font-semibold text-foreground">Where</label>
+                <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">Where</p>
                 <input
                   type="text"
                   placeholder="Search destinations"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   onFocus={() => setActiveSearchSection("where")}
-                  className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                  className="block w-full bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />
               </div>
 
-              {/* WHEN Section */}
-              <div
+              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${hideDivider("where", "when") ? "opacity-0" : ""}`} />
+
+              {/* WHEN zone */}
+              <button
+                type="button"
+                ref={(el) => (sectionRefs.current.when = el)}
                 onClick={(e) => toggleSection("when", e)}
-                className={`flex-1 min-w-0 rounded-full px-4 sm:px-6 py-2 cursor-pointer transition-colors ${
-                  activeSearchSection === "when" ? "bg-background shadow-lg" : "hover:bg-background/60"
-                }`}
+                onMouseEnter={() => setHoveredSection("when")}
+                onMouseLeave={() => setHoveredSection(null)}
+                className={sectionClass("when", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
-                <label className="block text-xs font-semibold text-foreground">When</label>
-                <p className={`text-sm truncate ${checkIn && checkOut ? "text-foreground" : "text-muted-foreground"}`}>
-                  {checkIn && checkOut 
+                <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">When</p>
+                <p className={`text-xs sm:text-sm truncate ${checkIn && checkOut ? "text-foreground" : "text-muted-foreground"}`}>
+                  {checkIn && checkOut
                     ? `${format(checkIn, "MMM d")} – ${format(checkOut, "MMM d")}`
                     : "Add dates"}
                 </p>
-              </div>
+              </button>
 
-              {/* WHO Section */}
+              <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${hideDivider("when", "who") ? "opacity-0" : ""}`} />
+
+              {/* WHO zone, with the search button inside so the pill covers both */}
               <div
+                ref={(el) => (sectionRefs.current.who = el)}
                 onClick={(e) => toggleSection("who", e)}
-                className={`flex-1 min-w-0 rounded-full pl-4 sm:pl-6 pr-1 py-1 cursor-pointer transition-colors flex items-center justify-between gap-2 ${
-                  activeSearchSection === "who" ? "bg-background shadow-lg" : "hover:bg-background/60"
-                }`}
+                onMouseEnter={() => setHoveredSection("who")}
+                onMouseLeave={() => setHoveredSection(null)}
+                className={sectionClass("who", "flex items-center justify-between gap-2 pl-3 pr-1.5 py-1.5 sm:pl-6 sm:pr-2 sm:py-2.5")}
               >
                 <div className="min-w-0">
-                  <label className="block text-xs font-semibold text-foreground">Who</label>
-                  <p className={`text-sm truncate ${totalGuests > 1 ? "text-foreground" : "text-muted-foreground"}`}>
+                  <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">Who</p>
+                  <p className={`text-xs sm:text-sm truncate ${totalGuests > 1 ? "text-foreground" : "text-muted-foreground"}`}>
                     {totalGuests > 1 ? `${totalGuests} guests` : "Add guests"}
                   </p>
                 </div>
@@ -394,13 +374,16 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleSearchSubmit();
+                    if (activeSearchSection) handleSearchSubmit();
+                    else setActiveSearchSection("where")
                   }}
                   aria-label="Search"
-                  className="h-12 w-12 sm:w-auto shrink-0 justify-center sm:px-5 rounded-full bg-gradient-to-r from-[#FF6B00] via-[#FF781A] to-[#E05300] text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-[#FF6B00]/30 hover:scale-105 active:scale-95 transition-all"
+                  className={`h-8 sm:h-11 min-w-8 sm:min-w-11 shrink-0 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-[#FF6B00]/25 hover:scale-105 transition-all duration-300 ${
+                    activeSearchSection ? "sm:px-5" : ""
+                  }`}
                 >
-                  <Search className="h-4 w-4" />
-                  <span className="hidden sm:inline">Search</span>
+                  <Search className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
+                  {activeSearchSection && <span className="hidden sm:inline">Search</span>}
                 </button>
               </div>
             </div>
