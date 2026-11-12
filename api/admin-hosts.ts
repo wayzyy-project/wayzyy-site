@@ -185,9 +185,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // select("*") rather than a fixed column list since this table's shape
     // has grown past its original migration (e.g. a "name" column added
     // directly in the dashboard, not tracked in supabase/migrations).
+    // Hosts only: travelers share this table (audience = 'traveler') but
+    // aren't host leads, so they stay out of the hosts admin.
     const { data: waitlistLeads, error: waitlistErr } = await admin
       .from("waitlist_signups")
       .select("*")
+      .eq("audience", "host")
       .order("created_at", { ascending: false });
 
     if (waitlistErr) return res.status(500).json({ error: waitlistErr.message });
