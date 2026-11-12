@@ -8,7 +8,7 @@ import { X } from "lucide-react";
 //
 // Flip IOS_APP_LIVE to true once the iOS app is public on the App Store, so
 // iPhone visitors without the app are sent there instead of staying put.
-const IOS_APP_LIVE = false;
+const IOS_APP_LIVE = true;
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.wayzyy.app";
 const APP_STORE_URL = "https://apps.apple.com/app/id6813786564";
 const DISMISS_KEY = "wayzyy_open_in_app_dismissed";

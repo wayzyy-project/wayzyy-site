@@ -62,6 +62,17 @@ interface WaitlistLead {
 /* Deriving what actually needs doing                                  */
 /* ------------------------------------------------------------------ */
 
+/** Name / email / phone match. Phones are compared as digits only, so
+ *  "98765 43210", "+91-9876543210" and "9876543210" all find the same person. */
+function matchesQuery(q: string, name?: string | null, email?: string | null, phone?: string | null): boolean {
+  const text = q.trim().toLowerCase();
+  if (!text) return true;
+  if ((name || "").toLowerCase().includes(text) || (email || "").toLowerCase().includes(text)) return true;
+  const digits = text.replace(/\D/g, "");
+  if (digits.length >= 3 && (phone || "").replace(/\D/g, "").includes(digits)) return true;
+  return (phone || "").toLowerCase().includes(text);
+}
+
 /** Both a submitted Airbnb link and a property's stored source_url reduce
  *  to the same room id, which is the only reliable way to tell whether a
  *  given link has already been imported - the URLs themselves differ by
@@ -303,12 +314,7 @@ function HostDirectory() {
       .filter((h) => matchesFilter(h, filter))
       .filter((h) => stageFilter === "any" || h.stage === stageFilter);
     if (!q) return byStage;
-    return byStage.filter(
-      (h) =>
-        (h.full_name || "").toLowerCase().includes(q) ||
-        (h.email || "").toLowerCase().includes(q) ||
-        (h.phone || "").toLowerCase().includes(q)
-    );
+    return byStage.filter((h) => matchesQuery(q, h.full_name, h.email, h.phone));
   }, [hosts, query, filter, stageFilter]);
 
   // A waitlist lead is "converted" once the same email shows up as a real
@@ -322,14 +328,7 @@ function HostDirectory() {
     const q = query.trim().toLowerCase();
     return waitlistLeads
       .filter((l) => !registeredEmails.has((l.email || "").toLowerCase()))
-      .filter((l) => {
-        if (!q) return true;
-        return (
-          (l.name || "").toLowerCase().includes(q) ||
-          (l.email || "").toLowerCase().includes(q) ||
-          (l.phone || "").toLowerCase().includes(q)
-        );
-      });
+      .filter((l) => matchesQuery(q, l.name, l.email, l.phone));
   }, [waitlistLeads, registeredEmails, query]);
 
   const handleStageChange = async (host: HostRow, stage: StageKey) => {
@@ -461,7 +460,7 @@ function HostDirectory() {
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search name, email, or phone…"
+            placeholder="Search hosts and waitlist by name, email or mobile number…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="pl-9"
@@ -607,10 +606,10 @@ function HostDirectory() {
                 {filteredLeads.length} {filteredLeads.length === 1 ? "person" : "people"} asked to join but never created an account.
               </p>
             </div>
-            <span className="shrink-0 text-sm text-muted-foreground">{showLeads ? "Hide" : "Show"}</span>
+            <span className="shrink-0 text-sm text-muted-foreground">{showLeads || query.trim() ? "Hide" : "Show"}</span>
           </button>
 
-          {showLeads && (
+          {(showLeads || query.trim()) && (
             <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
               {filteredLeads.map((l) => (
                 <div key={l.id} className="flex min-w-0 items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5">
@@ -619,6 +618,7 @@ function HostDirectory() {
                     <p className="truncate text-xs text-muted-foreground">
                       {l.email}{l.city ? ` · ${l.city}` : ""}
                     </p>
+                    {l.phone && <p className="truncate text-xs text-muted-foreground">{l.phone}</p>}
                   </div>
                   <button
                     type="button"

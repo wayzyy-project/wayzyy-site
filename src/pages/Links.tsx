@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, type PanInfo } from "framer-motion";
 import {
+  Apple,
   ArrowLeft,
   ArrowUpRight,
   AtSign,
@@ -9,6 +10,7 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  Play,
   Smartphone,
   Sparkles,
   Twitter,
@@ -66,11 +68,15 @@ const CARDS: Card[] = [
   {
     id: "app",
     spine: "The app",
-    eyebrow: "Almost there",
-    title: "Going live soon",
+    eyebrow: "Out now",
+    title: "Goa stays in your pocket",
     image: cardApp,
-    rows: [{ icon: Smartphone, label: "iOS and Android", sub: "In the works" }],
-    note: "We're putting the finishing touches on it. Follow along on socials and you'll know the day it lands.",
+    rows: [
+      { icon: Apple, label: "App Store", sub: "iPhone and iPad", href: "https://apps.apple.com/app/id6813786564" },
+      { icon: Play, label: "Google Play", sub: "Android", href: "https://play.google.com/store/apps/details?id=com.wayzyy.app" },
+      { icon: Smartphone, label: "Features", sub: "wayzyy.com/app", href: "/app" },
+    ],
+    cta: { label: "Get the app", href: "/app" },
   },
 ];
 

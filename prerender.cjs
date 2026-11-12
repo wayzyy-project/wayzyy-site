@@ -468,8 +468,8 @@ const routes = [
   },
   {
     path: '/app',
-    title: 'Wayzyy App - Book Goa Villas & Stays on Android and iPhone',
-    description: 'Get the Wayzyy app (way-zee): verified villas and homes in Goa, the full price up front, wishlists that sync and instant chat. Free on Google Play.',
+    title: 'Wayzyy App - Book Goa Villas & Stays on iPhone and Android',
+    description: 'The Wayzyy app (way-zee) is live on the App Store and Google Play: verified villas and homes in Goa, the full price up front, and host tools with Airbnb calendar sync.',
     ogType: 'website',
     ogImage: '/og-image.png',
   },
