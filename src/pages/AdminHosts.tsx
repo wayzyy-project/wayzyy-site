@@ -602,7 +602,7 @@ function HostDirectory() {
             className="flex w-full items-center justify-between gap-3 text-left"
           >
             <div>
-              <h2 className="font-display text-lg font-semibold">Waitlist leads</h2>
+              <h2 className="font-display text-lg font-semibold">Host waitlist leads</h2>
               <p className="mt-0.5 text-sm text-muted-foreground">
                 {filteredLeads.length} {filteredLeads.length === 1 ? "person" : "people"} asked to join but never created an account.
               </p>
