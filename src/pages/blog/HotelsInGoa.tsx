@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "How much does Wayzyy charge guests?",
-    a: "A 7% guest service fee, already included in the price you see. On Airbnb the guest fee is around 15.5%. Hosts on Wayzyy pay a flat subscription instead of a commission on each booking, so they don't need to inflate their nightly rate to cover one.",
+    a: "A 7% guest service fee, already included in the price you see. Airbnb charges most listings a 15% to 15.5% service fee, usually built into the host's nightly price. Hosts on Wayzyy pay a flat subscription instead of a commission on each booking, so they don't need to inflate their nightly rate to cover one.",
   },
   {
     q: "What happens if my Goa stay doesn't match the listing?",
@@ -203,7 +203,7 @@ export default function HotelsInGoa() {
         </p>
         <p>
           On Wayzyy, guests pay a <strong>7% service fee</strong>, and it's already folded into the price you see while
-          browsing, so the number on the listing is the number you pay. Airbnb's guest fee runs around 15.5%. Hosts on
+          browsing, so the number on the listing is the number you pay. Airbnb's service fee is 15% to 15.5% on most listings, usually built into the nightly price. Hosts on
           Wayzyy pay a flat subscription instead of a commission on every booking, so they don't need to raise their nightly
           rate to cover a cut. We explain the fee maths in{" "}
           <Link to="/blog/airbnb-pricing-update-15-percent-fee-lowest-price" className={ext}>
