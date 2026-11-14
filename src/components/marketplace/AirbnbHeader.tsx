@@ -24,7 +24,7 @@ import {
 import { useTheme } from "next-themes";
 import { MessagesLink } from "@/components/messaging/MessagesLink";
 import { useAuth } from "@/hooks/useAuth";
-import { UserRound, Smartphone } from "lucide-react";
+import { UserRound, Smartphone, Calculator, ShieldCheck } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -286,11 +286,13 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/earnings-calculator" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-xs text-muted-foreground cursor-pointer">
+                    <Calculator className="h-4 w-4 shrink-0 text-[#FF6B00]" />
                     Earnings Calculator (2% vs 17%)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/policies" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-xs text-muted-foreground cursor-pointer">
+                    <ShieldCheck className="h-4 w-4 shrink-0 text-[#FF6B00]" />
                     Trust & Safety Policies
                   </Link>
                 </DropdownMenuItem>
