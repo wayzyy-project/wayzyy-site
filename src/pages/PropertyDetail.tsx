@@ -1042,13 +1042,13 @@ export default function PropertyDetail() {
               {BOOKING_ENABLED && !property.showcase && (
                 <div className="pt-6 space-y-4">
                   <h3 className="text-lg font-bold font-display text-[#FF6B00]">
-                    {nights} nights in {property.city}
+                    {nights} {nights === 1 ? "night" : "nights"} in {property.city}
                   </h3>
                   <p className="text-xs text-muted-foreground font-medium">
                     {format(checkInDate, "MMM d, yyyy")} – {format(checkOutDate, "MMM d, yyyy")}
                   </p>
 
-                  <div className="rounded-3xl border border-border bg-muted/10 p-2 sm:p-4 overflow-x-auto">
+                  <div className="w-fit max-w-full rounded-3xl border border-border bg-muted/10 p-2 sm:p-4 overflow-x-auto">
                     <StayDatesCalendar
                       checkIn={checkInDate}
                       checkOut={checkOutDate}
