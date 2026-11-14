@@ -79,6 +79,9 @@ function ToggleRow({ icon: Icon, label, sub, on, onToggle }: { icon: React.Compo
 export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filters, onApplyFilters, countFor }) => {
   const [draft, setDraft] = useState<FilterOptions>(filters);
   useEffect(() => { if (isOpen) setDraft(filters); }, [isOpen, filters]);
+  // Raw text of the price box being typed in, so it can be emptied with
+  // Backspace; the draft itself stays numeric (empty = the default bound).
+  const [typing, setTyping] = useState<{ k: "minPrice" | "maxPrice"; text: string } | null>(null);
   // Lenis (smooth scroll) grabs wheel events document-wide, so the filter
   // list wouldn't scroll and the stays page behind moved instead.
   // data-lenis-prevent (below) is its opt-out; locking body overflow keeps
@@ -147,14 +150,27 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
                       type="number"
                       inputMode="numeric"
                       min={0}
-                      value={draft[k]}
-                      onChange={(e) => set(k, Math.max(0, Number(e.target.value) || 0))}
+                      value={typing?.k === k ? typing.text : draft[k]}
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        setTyping({ k, text });
+                        set(k, text === "" ? DEFAULT_FILTERS[k] : Math.max(0, Number(text) || 0));
+                      }}
+                      onBlur={() => {
+                        setTyping(null);
+                        // Minimum can't exceed maximum: pull the box just edited back to the other bound.
+                        setDraft((d) => (d.minPrice > d.maxPrice ? { ...d, [k]: k === "minPrice" ? d.maxPrice : d.minPrice } : d));
+                      }}
+                      aria-invalid={draft.minPrice > draft.maxPrice}
                       className="w-full bg-transparent outline-none tabular-nums"
                     />
                   </span>
                 </label>
               ))}
             </div>
+            {draft.minPrice > draft.maxPrice && (
+              <p role="alert" className="text-xs text-destructive">Minimum price can't be higher than the maximum.</p>
+            )}
           </section>
 
           <section className="py-6 space-y-4">
