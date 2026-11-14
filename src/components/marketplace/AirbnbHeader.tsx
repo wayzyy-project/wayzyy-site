@@ -238,7 +238,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   </div>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-border bg-popover">
+              <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-border bg-popover [&_svg]:transition-colors [&_[data-highlighted]_svg]:text-white">
                 <DropdownMenuItem asChild>
                   <Link to="/account" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-bold cursor-pointer">
                     <UserRound className="h-4 w-4 text-[#FF6B00]" />
