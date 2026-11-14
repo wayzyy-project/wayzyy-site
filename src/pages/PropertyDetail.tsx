@@ -21,7 +21,6 @@ import {
   MapPin, 
   Calendar as CalendarIcon, 
   Users, 
-  Check, 
   Wifi, 
   Tv, 
   Wind, 
@@ -76,6 +75,7 @@ import { mp } from "@/lib/mixpanel";
 import { propertyPath, extractPropertyId, isUuid } from "@/lib/propertySlug";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
+import { amenityIcon } from "@/lib/amenityIcons";
 
 // Same house-pin look the old Leaflet marker used, as a plain DOM node for
 // AdvancedMarker's `content` prop instead of a Leaflet divIcon.
@@ -1003,12 +1003,15 @@ export default function PropertyDetail() {
               <div className="pt-6 space-y-4">
                 <h3 className="text-lg font-bold font-display text-[#FF6B00]">What this place offers</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {(showAllAmenities ? property.amenities : property.amenities.slice(0, 8)).map((amenity, idx) => (
-                    <div key={idx} className="flex items-center gap-3 text-sm text-foreground">
-                      <Check className="h-4 w-4 text-emerald-500 shrink-0" />
-                      <span>{amenity}</span>
-                    </div>
-                  ))}
+                  {(showAllAmenities ? property.amenities : property.amenities.slice(0, 8)).map((amenity, idx) => {
+                    const Icon = amenityIcon(amenity);
+                    return (
+                      <div key={idx} className="flex items-center gap-3 text-sm text-foreground">
+                        <Icon className="h-5 w-5 text-foreground/80 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+                        <span>{amenity}</span>
+                      </div>
+                    );
+                  })}
                 </div>
                 {property.amenities.length > 8 && (
                   <button
