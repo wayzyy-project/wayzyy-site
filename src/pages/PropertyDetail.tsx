@@ -279,7 +279,9 @@ export default function PropertyDetail() {
       const nightsWanted = Math.max(1, differenceInDays(checkOutDate, checkInDate));
       const taken = (d: Date) => set.has(format(d, "yyyy-MM-dd"));
       const clash = (from: Date) => { for (let i = 0; i < nightsWanted; i++) if (taken(addDays(from, i))) return true; return false; };
-      if (clash(checkInDate)) {
+      // Multi-unit listings keep the dates the guest chose: a taken night only
+      // means one unit is gone, so the team confirms the rest (see unitsClash).
+      if (!(Number((property as any)?.total_units ?? 1) > 1) && clash(checkInDate)) {
         for (let i = 1; i <= 365; i++) {
           const from = addDays(checkInDate, i);
           if (!clash(from)) {
@@ -369,6 +371,7 @@ export default function PropertyDetail() {
 
           const transformed: PropertyListing = {
             id: data.id,
+            total_units: Number((data as any).total_units) || 1,
             slug: data.title ? data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : data.id,
             title: data.title || "Spacious Homestay",
             description: data.description || "A wonderful place to stay.",
@@ -598,8 +601,26 @@ export default function PropertyDetail() {
   // own line below), so the saving is the difference, not the whole 15.5%.
   const airbnbFeeComparison = Math.max(0, Math.round(stayTotal * 0.155) - (quote ? quote.serviceFee : 0));
 
+  // Listings with several identical units (e.g. 12 one-bedroom flats). The RPC
+  // only says "at least one unit is booked that night", so for these we never
+  // grey dates out; a clash sends the guest to the team, who check live stock.
+  const totalUnits = Math.max(1, Number((property as any)?.total_units ?? 1) || 1);
+  const multiUnit = totalUnits > 1;
+  const calendarUnavailable = multiUnit ? new Set<string>() : unavailable; // plain value: an early return above forbids hooks here
+  const unitsClash = multiUnit && (() => {
+    for (let d = checkInDate; d < checkOutDate; d = addDays(d, 1)) if (unavailable.has(format(d, "yyyy-MM-dd"))) return true;
+    return false;
+  })();
+  const unitsWaHref = `https://wa.me/${SUPPORT_PHONE_HREF.replace("+", "")}?text=${encodeURIComponent(
+    `Hi Wayzyy, I'd like to check availability for "${property.title}" from ${format(checkInDate, "d MMM yyyy")} to ${format(checkOutDate, "d MMM yyyy")} (${typeof window !== "undefined" ? window.location.href : ""}). The site shows these dates as taken, but you have more units.`
+  )}`;
+
   // Shared by the desktop card and the mobile bottom bar.
   const handleReserve = () => {
+    if (unitsClash) {
+      window.open(unitsWaHref, "_blank", "noopener,noreferrer");
+      return;
+    }
     // Bookings not open yet: take an enquiry instead of a payment.
     // No payment, no sign-in, nothing is booked (see EnquiryModal).
     if (!bookingsOpenFor(property.id)) {
@@ -1056,12 +1077,25 @@ export default function PropertyDetail() {
                       checkIn={checkInDate}
                       checkOut={checkOutDate}
                       minNights={minNights}
-                      unavailable={unavailable}
+                      unavailable={calendarUnavailable}
                       fill
                       months={typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches ? 2 : 1}
                       onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
                     />
                   </div>
+                  {multiUnit && (
+                    <div className={`rounded-2xl border p-3 text-xs leading-relaxed ${unitsClash ? "border-[#FF6B00]/40 bg-[#FF6B00]/10" : "border-border bg-muted/30"}`}>
+                      <p className="font-semibold text-foreground">
+                        {unitsClash ? "These dates may be taken, but we have more units." : `We have ${totalUnits} units of this stay.`}
+                      </p>
+                      <p className="mt-0.5 text-muted-foreground">
+                        {unitsClash
+                          ? `We have ${totalUnits} units of this type, so another one may be free. Contact our team and we'll confirm it for you.`
+                          : "If your dates look taken, no worries. Contact our team and we'll check the other units."}
+                      </p>
+                      <a href={unitsWaHref} target="_blank" rel="noopener noreferrer" className="mt-1.5 inline-block font-bold text-[#FF6B00] hover:underline">Message our team on WhatsApp</a>
+                    </div>
+                  )}
                   {describeStayRules(stayRules).map((line) => (
                     <p key={line} className="text-xs font-semibold text-[#FF6B00]">{line}</p>
                   ))}
@@ -1195,12 +1229,13 @@ export default function PropertyDetail() {
                         checkIn={checkInDate}
                         checkOut={checkOutDate}
                         minNights={minNights}
-                        unavailable={unavailable}
+                        unavailable={calendarUnavailable}
                         onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); setDateNotice(null); setDatesOpen(false); }}
                       />
                     </PopoverContent>
                   </Popover>
                   {dateNotice && <p className="px-3 py-2 text-[11px] font-semibold text-[#FF6B00]">{dateNotice}</p>}
+                  {unitsClash && <p className="px-3 py-2 text-[11px] font-semibold text-[#FF6B00]">We have {totalUnits} units of this stay, so these dates may still be free. Message our team and we'll confirm.</p>}
 
                   {/* Guests - a popover (not an absolutely positioned box) so the
                       surrounding overflow-hidden card can't clip the stepper. */}
@@ -1259,7 +1294,7 @@ export default function PropertyDetail() {
                   onClick={handleReserve}
                   className="btn-brand btn-brand-lg w-full"
                 >
-                  {bookingsOpenFor(property.id) ? "Reserve" : "Enquire about this stay"}
+                  {unitsClash ? "Check availability with our team" : bookingsOpenFor(property.id) ? "Reserve" : "Enquire about this stay"}
                 </button>
 
                 <p className="text-center text-xs text-muted-foreground">
@@ -1407,7 +1442,7 @@ export default function PropertyDetail() {
                 onClick={handleReserve}
                 className="btn-brand shrink-0 px-7 py-3 text-sm"
               >
-                {bookingsOpenFor(property.id) ? "Reserve" : "Enquire"}
+                {unitsClash ? "Ask our team" : bookingsOpenFor(property.id) ? "Reserve" : "Enquire"}
               </button>
             </div>
           </div>
@@ -1447,7 +1482,7 @@ export default function PropertyDetail() {
           accommodation={quote ? quote.accommodation : undefined}
           tax={quote ? quote.stayGst + quote.serviceFeeGst : 0}
           minNights={minNights}
-          unavailable={unavailable}
+          unavailable={calendarUnavailable}
           onDatesChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
         />
 
