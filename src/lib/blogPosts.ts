@@ -15,6 +15,42 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "best-airbnb-alternatives-india",
+    title: "Best Airbnb Alternatives in India (2026)",
+    description:
+      "Managed villa brands, travel marketplaces and verified-home platforms compared: StayVista, SaffronStays, Lohono, MakeMyTrip, Booking.com, Agoda and Wayzyy, and how to choose.",
+    metaTitle: "Best Airbnb Alternatives in India (2026 Guide)",
+    metaDescription:
+      "The best Airbnb alternatives in India for 2026: StayVista, SaffronStays, MakeMyTrip, Booking.com, Agoda and Wayzyy compared on fees, trust and fit.",
+    heroImage: "/blog/best-airbnb-alternatives-india.webp",
+    publishedDate: "2026-11-12",
+    readTime: "7 Min Read",
+  },
+  {
+    slug: "how-much-do-airbnb-hosts-earn-india",
+    title: "How Much Do Airbnb Hosts Earn in India? (2026 Data by City)",
+    description:
+      "Average Airbnb revenue, nightly rates and occupancy for Mumbai, Goa, Bengaluru, Shimla, Manali and more, what the numbers leave out, and how to estimate your own earnings.",
+    metaTitle: "How Much Do Airbnb Hosts Earn in India? (2026)",
+    metaDescription:
+      "Airbnb hosts in India averaged about ₹4.9 lakh in 2025. Revenue, nightly rates and occupancy for Mumbai, Goa, Bengaluru, Manali and Shimla, explained.",
+    heroImage: "/blog/how-much-do-airbnb-hosts-earn-india.webp",
+    publishedDate: "2026-11-12",
+    readTime: "7 Min Read",
+  },
+  {
+    slug: "id-proof-for-hotel-check-in-india",
+    title: "ID Proof for Hotel Check-In in India: What's Valid (2026)",
+    description:
+      "Which IDs hotels, homestays and Airbnbs accept, whether Aadhaar is mandatory, UIDAI's plan to end Aadhaar photocopies, local-ID refusals, and what foreign guests need.",
+    metaTitle: "ID Proof for Hotel Check-In in India (2026 Guide)",
+    metaDescription:
+      "Which ID is valid for hotel check-in in India? Aadhaar isn't mandatory. Accepted IDs, the Aadhaar photocopy rule, local-ID refusals and foreigners' needs.",
+    heroImage: "/blog/id-proof-for-hotel-check-in-india.webp",
+    publishedDate: "2026-11-12",
+    readTime: "6 Min Read",
+  },
+  {
     slug: "wayzyy-vs-airbnb-goa-price-test",
     title: "Wayzyy vs Airbnb in Goa: We Priced 4 Villas for the Same Dates",
     description:

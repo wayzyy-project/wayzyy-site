@@ -88,6 +88,9 @@ import IsAirbnbLegalInIndia from "@/pages/blog/IsAirbnbLegalInIndia";
 import HomestayRegistrationRulesByStateIndia from "@/pages/blog/HomestayRegistrationRulesByStateIndia";
 import AirbnbInHousingSocietyIndia from "@/pages/blog/AirbnbInHousingSocietyIndia";
 import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
+import BestAirbnbAlternativesIndia from "@/pages/blog/BestAirbnbAlternativesIndia";
+import HowMuchDoAirbnbHostsEarnIndia from "@/pages/blog/HowMuchDoAirbnbHostsEarnIndia";
+import IdProofForHotelCheckInIndia from "@/pages/blog/IdProofForHotelCheckInIndia";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
 import GoaPrivatePoolVillasForEight from "@/pages/blog/GoaPrivatePoolVillasForEight";
 import GoaVillaBookingFeesExplained from "@/pages/blog/GoaVillaBookingFeesExplained";
@@ -227,6 +230,9 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/homestay-registration-rules-by-state-india": HomestayRegistrationRulesByStateIndia,
   "/blog/airbnb-in-housing-society-india": AirbnbInHousingSocietyIndia,
   "/blog/goa-december-new-year-guide-2026": GoaDecemberNewYearGuide,
+  "/blog/best-airbnb-alternatives-india": BestAirbnbAlternativesIndia,
+  "/blog/how-much-do-airbnb-hosts-earn-india": HowMuchDoAirbnbHostsEarnIndia,
+  "/blog/id-proof-for-hotel-check-in-india": IdProofForHotelCheckInIndia,
 };
 
 const output: Record<string, string> = {};
