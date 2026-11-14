@@ -1048,12 +1048,13 @@ export default function PropertyDetail() {
                     {format(checkInDate, "MMM d, yyyy")} – {format(checkOutDate, "MMM d, yyyy")}
                   </p>
 
-                  <div className="w-fit max-w-full rounded-3xl border border-border bg-muted/10 p-2 sm:p-4 overflow-x-auto">
+                  <div className="rounded-3xl border border-border bg-muted/10 p-2 sm:p-4 overflow-x-auto">
                     <StayDatesCalendar
                       checkIn={checkInDate}
                       checkOut={checkOutDate}
                       minNights={minNights}
                       unavailable={unavailable}
+                      fill
                       months={typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches ? 2 : 1}
                       onChange={(a, b) => { setCheckInDate(a); setCheckOutDate(b); }}
                     />

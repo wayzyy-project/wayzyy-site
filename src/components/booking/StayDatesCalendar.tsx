@@ -24,6 +24,21 @@ export const STAY_RANGE_CLASSNAMES = {
   head_cell: "w-10 text-[0.75rem] font-medium text-muted-foreground",
 };
 
+// Stretch variant: months share the width and cells grow (flex-1 beats the
+// fixed w-10), while the date circles stay round and centred in each cell.
+const FILL_CLASSNAMES = {
+  ...STAY_RANGE_CLASSNAMES,
+  months: "flex w-full flex-col gap-8 md:flex-row md:gap-12",
+  month: "flex-1 space-y-4",
+  caption_label: "text-base font-semibold",
+  table: "w-full border-collapse",
+  head_row: "flex w-full",
+  head_cell: `${STAY_RANGE_CLASSNAMES.head_cell} flex-1`,
+  row: "flex w-full mt-1",
+  cell: `${STAY_RANGE_CLASSNAMES.cell} flex-1 sm:h-12`,
+  day: `${STAY_RANGE_CLASSNAMES.day} sm:h-12 sm:w-12 sm:text-base`,
+};
+
 /**
  * Check-in / checkout range picker for a listing. The first click sets
  * check-in, the second sets checkout; a checkout that's too close is pushed
@@ -35,6 +50,7 @@ export function StayDatesCalendar({
   minNights = 1,
   months = 1,
   unavailable,
+  fill = false,
   onChange,
 }: {
   checkIn: Date;
@@ -43,6 +59,8 @@ export function StayDatesCalendar({
   months?: number;
   /** "yyyy-MM-dd" nights that are booked or blocked */
   unavailable?: Set<string>;
+  /** stretch to the container's full width instead of fixed-size cells */
+  fill?: boolean;
   onChange: (checkIn: Date, checkOut: Date) => void;
 }) {
   // While picking, hold a half-finished range locally so the first click
@@ -98,8 +116,8 @@ export function StayDatesCalendar({
         disabled={draft ? [{ before: today }] : [{ before: today }, isTaken]}
         modifiers={{ taken: isTaken }}
         modifiersClassNames={{ taken: "line-through text-muted-foreground/40" }}
-        className="rounded-2xl"
-        classNames={STAY_RANGE_CLASSNAMES}
+        className={fill ? "w-full rounded-2xl" : "rounded-2xl"}
+        classNames={fill ? FILL_CLASSNAMES : STAY_RANGE_CLASSNAMES}
       />
       {notice && <p className="px-3 text-xs font-semibold text-[#FF6B00]">{notice}</p>}
       <p className="px-3 text-xs text-muted-foreground">
