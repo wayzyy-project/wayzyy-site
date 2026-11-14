@@ -10,6 +10,8 @@ export interface Review {
 }
 
 export interface PropertyListing {
+  /** Identical units behind this listing (default 1); above 1, the site never blocks dates. */
+  total_units?: number;
   id: string;
   slug: string;
   title: string;
