@@ -100,6 +100,9 @@ export interface PropertyListing {
   rules?: ListingRules;
   /** Short highlights set by the Wayzyy team, e.g. "Great for corporate & group stays". */
   tags?: string[];
+  /** Photo-made walkthrough MP4; loaded only when the guest taps play. */
+  walkthroughUrl?: string | null;
+  walkthroughPoster?: string | null;
   /** Real listings only: beds room by room (properties.sleeping_arrangements). */
   sleeping?: SleepingRoom[];
   featuredSection?: "north_goa" | "south_goa" | "trending";
