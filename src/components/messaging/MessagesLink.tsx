@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { fetchThreads, subscribeToThreads } from "@/lib/messaging";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /** Icon button + live unread dot for the same `threads` table the mobile
  *  app's Inbox reads - dropped into both the guest-facing marketplace header
@@ -32,19 +33,24 @@ export function MessagesLink({ dark = false }: { dark?: boolean }) {
   if (!user) return null;
 
   return (
-    <button
-      onClick={() => navigate("/inbox")}
-      className={`relative rounded-full p-2.5 transition-colors border ${
-        dark
-          ? "text-white hover:bg-white/10 border-white/10"
-          : "text-foreground hover:bg-muted border-border/60"
-      }`}
-      title="Messages"
-    >
-      <MessageCircle className="h-4 w-4" />
-      {hasUnread && (
-        <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#FF6B00] ring-2 ring-background" />
-      )}
-    </button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          onClick={() => navigate("/inbox")}
+          aria-label="Inbox"
+          className={`relative rounded-full p-2.5 transition-colors border ${
+            dark
+              ? "text-white hover:bg-white/10 border-white/10"
+              : "text-foreground hover:bg-muted border-border/60"
+          }`}
+        >
+          <MessageCircle className="h-4 w-4" />
+          {hasUnread && (
+            <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#FF6B00] ring-2 ring-background" />
+          )}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>Inbox</TooltipContent>
+    </Tooltip>
   );
 }

@@ -461,7 +461,7 @@ export default function ExploreStays() {
                 <span className="text-xs text-muted-foreground hidden sm:inline font-medium">Assagao · Siolim · Candolim · Panjim</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
+              <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
                 {northGoaProperties.map((property, idx) => (
                   <PropertyCard
                     key={property.id}
@@ -486,7 +486,7 @@ export default function ExploreStays() {
                 </div>
                 <Link to="/blog" className="text-sm font-semibold text-[#FF6B00] hover:underline">All travel guides</Link>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
                 {AREA_GUIDES.map((g) => (
                   <Link
                     key={g.area}
@@ -513,7 +513,7 @@ export default function ExploreStays() {
           {/* Complete Grid when filtered or when browsing all */}
           {!(loading && baseProperties.length === 0) && (searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
             <section className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
+              <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
                 {filteredProperties.map((property, idx) => (
                   <PropertyCard
                     key={property.id}
