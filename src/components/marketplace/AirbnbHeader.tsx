@@ -36,6 +36,7 @@ import { format, startOfDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { STAY_RANGE_CLASSNAMES } from "@/components/booking/StayDatesCalendar";
 import { openAssistant } from "@/lib/assistant";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SearchState {
   destination: string;
@@ -176,10 +177,11 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
+    // Sticky only on windows taller than 600px: at 175%+ zoom a pinned header would cover half the stays.
+    <header className="relative [@media(min-height:600px)]:sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14">
         {/* Top Navbar Row */}
-        <div className={`relative flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4`}>
+        <div className={`flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] fluid-bar`}>
           {/* Official WAYZYY Logo */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img 
@@ -194,9 +196,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
           {/* Site links - same destinations as the main navbar, so the
               stays homepage still reaches About, Why, Blog and hosting.
-              Absolutely centred so it lines up with the search bar below,
-              whatever the widths of the logo and the right-hand buttons. */}
-          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-7 text-sm font-semibold text-foreground">
+              Middle grid column: centred over the search bar when the sides
+              fit, and pushed aside (never overlapped) when they do not. */}
+          <nav className="hidden lg:flex items-center gap-[calc(var(--u)*28)] whitespace-nowrap text-sm font-semibold text-foreground">
             <Link to="/" className="font-bold hover:text-[#FF6B00] transition-colors">Stays</Link>
             <Link to="/about" className="hover:text-[#FF6B00] transition-colors">About</Link>
             <a href="/about#why" className="hover:text-[#FF6B00] transition-colors">Why Wayzyy</a>
@@ -205,22 +207,27 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
           </nav>
 
           {/* Right Action Menu */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-[calc(var(--u)*12)] justify-self-end whitespace-nowrap">
             {/* Signed in: straight to the host portal. Signed out: /host
                 shows sign-up / log-in first. */}
             {/* Opens the assistant panel: say what you want in plain words instead of the filters. */}
-            <button
-              type="button"
-              onClick={openAssistant}
-              aria-label="Plan my stay with the Wayzyy assistant"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] p-2.5 text-xs md:text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 transition-transform hover:scale-105 active:scale-95 sm:px-4 sm:py-2"
-            >
-              <MessageCircle className="h-4 w-4" />
-              <span className="hidden sm:inline">Plan my stay</span>
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={openAssistant}
+                  aria-label="Plan my stay with the Wayzyy assistant"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#E05300] p-2.5 text-xs md:text-sm font-bold text-white shadow-md shadow-[#FF6B00]/25 transition-transform hover:scale-105 active:scale-95 min-[1100px]:px-4 min-[1100px]:py-2"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span className="hidden min-[1100px]:inline">Plan my stay</span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>Plan your stay</TooltipContent>
+            </Tooltip>
             <Link
               to="/host"
-              className="hidden sm:inline-flex rounded-full px-4 py-2 text-xs md:text-sm font-bold text-[#FF6B00] bg-[#FF6B00]/10 hover:bg-[#FF6B00] hover:text-white transition-all border border-[#FF6B00]/30 shadow-xs"
+              className="hidden min-[900px]:inline-flex rounded-full px-4 py-2 text-xs md:text-sm font-bold text-[#FF6B00] bg-[#FF6B00]/10 hover:bg-[#FF6B00] hover:text-white transition-all border border-[#FF6B00]/30 shadow-xs"
             >
               {authUser ? "Switch to hosting" : "Become a host"}
             </Link>
@@ -238,7 +245,20 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   </div>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-border bg-popover [&_svg]:transition-colors [&_[data-highlighted]_svg]:text-white">
+              <DropdownMenuContent align="end" className="w-64 rounded-2xl p-2 shadow-xl border-border bg-popover [&_svg]:transition-colors [&_[data-highlighted]_svg]:text-white">
+                {/* Under 900px (175%+ zoom) the header's host button steps aside for room (as on Airbnb) and lives here. */}
+                <DropdownMenuItem asChild className="min-[900px]:hidden">
+                  <Link to="/host" className="flex items-center gap-3 py-3 px-3 rounded-xl cursor-pointer">
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-bold">{authUser ? "Switch to hosting" : "Become a host"}</span>
+                      <span className="block text-xs leading-snug opacity-70">It's easy to list your Goa home and start earning.</span>
+                    </span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF6B00]/10">
+                      <Key className="h-5 w-5 text-[#FF6B00]" />
+                    </span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="my-1 min-[900px]:hidden" />
                 <DropdownMenuItem asChild>
                   <Link to="/account" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-bold cursor-pointer">
                     <UserRound className="h-4 w-4 text-[#FF6B00]" />
@@ -310,10 +330,22 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
             {/* The ref sits on the bar + its panels only, not the full-width
                 row, so a click beside the bar counts as outside and closes it. */}
             <div ref={searchContainerRef} className="relative mx-auto max-w-3xl">
+            {/* Narrow windows (under 900px: phones, or a 1440px laptop zoomed to 175%+): one "Start your search" pill, as on
+                Airbnb. Tapping it opens the full Where / When / Who bar; closing the search folds it back. */}
+            {!activeSearchSection && (
+              <button
+                type="button"
+                onClick={() => setActiveSearchSection("where")}
+                className="flex h-12 w-full items-center justify-center gap-2.5 rounded-full border border-border/80 bg-background px-5 text-sm font-semibold text-foreground shadow-md transition-shadow hover:shadow-lg min-[900px]:hidden"
+              >
+                <Search className="h-4 w-4 shrink-0 text-[#FF6B00]" />
+                <span className="truncate">{destination || "Start your search"}</span>
+              </button>
+            )}
             <div
               ref={barRef}
-              className={`relative flex items-center rounded-full border shadow-md transition-colors duration-300 ${
-                activeSearchSection ? "border-border bg-muted" : "border-border/80 bg-background hover:shadow-lg"
+              className={`relative items-center rounded-full border shadow-md transition-colors duration-300 ${
+                activeSearchSection ? "flex border-border bg-muted" : "hidden min-[900px]:flex border-border/80 bg-background hover:shadow-lg"
               }`}
             >
               <div

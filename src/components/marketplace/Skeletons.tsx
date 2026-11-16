@@ -17,7 +17,7 @@ export const PropertyGridSkeleton = ({ count = 8 }: { count?: number }) => (
   <div
     role="status"
     aria-label="Loading stays"
-    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10"
+    className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10"
   >
     {Array.from({ length: count }, (_, i) => <PropertyCardSkeleton key={i} />)}
   </div>

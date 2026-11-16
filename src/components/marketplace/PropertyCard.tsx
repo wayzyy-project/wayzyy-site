@@ -76,7 +76,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       className="group block flex flex-col gap-2.5 text-left transition-all duration-200"
     >
       {/* Image Carousel Container */}
-      <div className={`relative aspect-[20/19] w-full overflow-hidden rounded-2xl bg-muted ${coverLoaded ? "" : "skeleton-shimmer"}`}>
+      <div className={`relative aspect-[20/19] [@media(max-height:500px)]:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted ${coverLoaded ? "" : "skeleton-shimmer"}`}>
         <div
           ref={trackRef}
           onScroll={onTrackScroll}

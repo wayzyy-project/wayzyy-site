@@ -115,6 +115,28 @@
   .text-balance {
     text-wrap: balance;
   }
+  /* Sideways-scrolling rows (pills, photo strips) scroll without a visible bar */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* --u = 1px on a wide screen, 0.86px below 1024px; from 1024px up it shrinks with the window so the filter row
+     scales as one piece (1328 = the row's natural width at 1px; 100/132 = gutters + a scrollbar). */
+  .fluid-bar {
+    --u: 0.86px; /* phones / heavy zoom: the same pills, a size smaller */
+  }
+  @media (min-width: 1024px) {
+    .fluid-bar {
+      --u: min(1px, calc((100vw - 100px) / 1328));
+    }
+  }
+  @media (min-width: 1280px) {
+    .fluid-bar {
+      --u: min(1px, calc((100vw - 132px) / 1328));
+    }
+  }
   .text-pretty {
     text-wrap: pretty;
   }

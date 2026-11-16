@@ -96,13 +96,16 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   filters,
   onChangeFilters,
 }) => {
+  // Every size below is a multiple of --u (see .fluid-bar in index.css): from 1024px up the whole
+  // row shrinks in proportion with the window, so at any zoom it keeps the same layout on one line.
+  const pill = "inline-flex shrink-0 items-center rounded-full border font-semibold transition-colors h-[calc(var(--u)*36)] gap-[calc(var(--u)*8)] px-[calc(var(--u)*16)] text-[length:calc(var(--u)*14)]";
+  const icon = "h-[calc(var(--u)*16)] w-[calc(var(--u)*16)]";
+
   return (
-    <div className="sticky top-[80px] z-40 w-full bg-background/95 backdrop-blur-md border-b border-border/60 sm:border-b-0">
-      <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 flex items-center gap-4 py-3">
+    <div className="relative [@media(min-height:600px)]:sticky [@media(min-height:600px)]:top-[80px] z-40 w-full bg-background/95 backdrop-blur-md border-b border-border/60 sm:border-b-0">
+      <div className="fluid-bar mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14 flex items-center gap-[calc(var(--u)*16)] py-3">
         {/* Categories + quick filters in one big pill from sm up; phones keep the plain scrolling row */}
-        {/* Pills keep one fixed gap at every width. The pill wraps its content (no stretching to fill
-            the row), and only scrolls sideways when the window is genuinely too narrow for it. */}
-        <div className="flex min-w-0 flex-1 items-center justify-start gap-2 overflow-x-auto no-scrollbar sm:flex-initial sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-1.5 sm:shadow-sm">
+        <div className="flex min-w-0 flex-1 items-center justify-start gap-[calc(var(--u)*8)] overflow-x-auto no-scrollbar sm:flex-initial sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-[calc(var(--u)*6)] sm:shadow-sm">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
@@ -111,19 +114,19 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
                 aria-pressed={isSelected}
-                className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`${pill} ${
                   isSelected
                     ? "border-[#FF6B00] bg-[#FF6B00] text-white"
                     : "border-[#FF6B00] bg-background text-[#FF6B00]"
                 }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className={icon} />
                 {cat.label}
               </button>
             );
           })}
 
-          <span aria-hidden className="mx-1 h-6 w-px shrink-0 bg-border" />
+          <span aria-hidden className="mx-[calc(var(--u)*4)] h-[calc(var(--u)*24)] w-px shrink-0 bg-border" />
 
           {QUICK_FILTERS.map((q) => {
             const Icon = q.icon;
@@ -133,39 +136,39 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
                 key={q.id}
                 onClick={() => onChangeFilters(q.toggle(filters))}
                 aria-pressed={on}
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors ${
+                className={`${pill} ${
                   on
                     ? "border-[#FF6B00] bg-[#FF6B00] text-white"
                     : "border-[#FF6B00] bg-background text-[#FF6B00]"
                 }`}
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon className={icon} />
                 {q.label}
               </button>
             );
           })}
         </div>
 
-        <div className="ml-auto flex shrink-0 items-center gap-2 sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-1.5 sm:shadow-sm">
+        <div className="ml-auto flex shrink-0 items-center gap-[calc(var(--u)*8)] sm:rounded-full sm:border sm:border-[#FF6B00] sm:bg-background sm:p-[calc(var(--u)*6)] sm:shadow-sm">
           <button
             onClick={onOpenFilterModal}
             aria-label="Filters"
-            className="inline-flex items-center gap-2 rounded-full border border-[#FF6B00] px-3 sm:px-4 py-2 text-sm font-semibold text-[#FF6B00] transition-colors bg-background"
+            className={`${pill} border-[#FF6B00] bg-background text-[#FF6B00] max-sm:px-3`}
           >
-            <SlidersHorizontal className="h-4 w-4" />
+            <SlidersHorizontal className={icon} />
             <span className="hidden sm:inline">Filters</span>
           </button>
 
-          <label className="hidden xl:flex items-center gap-2.5 rounded-full px-3 py-2 text-sm cursor-pointer">
+          <label className="hidden lg:flex items-center gap-[calc(var(--u)*10)] rounded-full px-[calc(var(--u)*12)] text-[length:calc(var(--u)*14)] cursor-pointer">
             <span className="text-muted-foreground">Prices include all fees</span>
             <button
               type="button"
               role="switch"
               aria-checked={includeAllFees}
               onClick={() => onToggleIncludeAllFees(!includeAllFees)}
-              className={`h-5 w-9 rounded-full transition-colors relative p-0.5 ${includeAllFees ? "bg-[#FF6B00]" : "bg-muted"}`}
+              className={`h-[calc(var(--u)*20)] w-[calc(var(--u)*36)] rounded-full transition-colors relative p-[calc(var(--u)*2)] ${includeAllFees ? "bg-[#FF6B00]" : "bg-muted"}`}
             >
-              <span className={`block h-4 w-4 rounded-full bg-white transition-transform shadow-xs ${includeAllFees ? "translate-x-4" : "translate-x-0"}`} />
+              <span className={`block h-[calc(var(--u)*16)] w-[calc(var(--u)*16)] rounded-full bg-white transition-transform shadow-xs ${includeAllFees ? "translate-x-[calc(var(--u)*16)]" : "translate-x-0"}`} />
             </button>
           </label>
         </div>
