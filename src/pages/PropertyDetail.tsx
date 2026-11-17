@@ -882,16 +882,6 @@ export default function PropertyDetail() {
               </div>
             </div>
 
-            {/* Photo-made walkthrough video: nothing is fetched until it's tapped */}
-            {property.walkthroughUrl && (
-              <WalkthroughPlayer
-                src={property.walkthroughUrl}
-                poster={property.walkthroughPoster}
-                title={property.title}
-                className="absolute bottom-4 left-4 z-10"
-              />
-            )}
-
             {/* "Show all photos" trigger button at bottom right (Matching Screenshot 2) */}
             <button
               onClick={() => setShowAllPhotos(true)}
@@ -901,6 +891,16 @@ export default function PropertyDetail() {
               <span>Show all photos</span>
             </button>
           </div>
+
+          {/* Photo-made walkthrough video, on its own line under the photos: nothing is fetched until it's tapped */}
+          {property.walkthroughUrl && (
+            <WalkthroughPlayer
+              src={property.walkthroughUrl}
+              poster={property.walkthroughPoster}
+              title={property.title}
+              className="w-full justify-center py-3 sm:w-auto sm:justify-start"
+            />
+          )}
 
           {/* Main Details & Booking Rail Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">

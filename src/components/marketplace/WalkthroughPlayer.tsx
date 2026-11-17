@@ -48,7 +48,7 @@ export function WalkthroughPlayer({ src, poster, title, className = "" }: Props)
         className={`flex items-center gap-2 rounded-2xl bg-background/95 hover:bg-background text-foreground border border-border px-4 py-2 text-xs font-bold shadow-md transition-all hover:scale-105 ${className}`}
       >
         <Play className="h-3.5 w-3.5 fill-[#FF6B00] text-[#FF6B00]" />
-        <span>Watch walkthrough</span>
+        <span>Watch walkthrough video</span>
       </button>
 
       {open &&
