@@ -258,17 +258,17 @@ export function SiteNav({ floating = false }: SiteNavProps) {
             <a href="/" className="group flex items-center shrink-0">
               <img src="/favicon.svg" alt="Wayzyy" className="h-9 w-9 rounded-full object-cover" />
             </a>
-            <nav className="hidden items-center gap-6 text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
+            <nav className="hidden items-center gap-4 lg:gap-6 whitespace-nowrap text-sm font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] sm:flex">
               <Link className="hover:text-[#FF6B00] transition-colors" to="/stays">
                 Explore Stays
               </Link>
-              <a className="hover:text-[#FF6B00] transition-colors" href="/about#why">
+              <a className="hidden lg:inline hover:text-[#FF6B00] transition-colors" href="/about#why">
                 Why
               </a>
-              <a className="hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
+              <a className="hidden lg:inline hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
                 User & Host
               </a>
-              <Link className="hover:text-[#FF6B00] transition-colors" to="/waitlist">
+              <Link className="hidden lg:inline hover:text-[#FF6B00] transition-colors" to="/waitlist">
                 Waitlist
               </Link>
               <Link className="inline-flex items-center gap-1.5 hover:text-[#FF6B00] transition-colors" to="/earnings-calculator">
@@ -316,17 +316,18 @@ export function SiteNav({ floating = false }: SiteNavProps) {
         <a href="/" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
         </a>
-        <nav className="hidden items-center gap-6 text-sm font-bold text-white sm:flex">
+        {/* Below lg the About anchors and Waitlist drop out so the rest fits on one line on tablets. */}
+        <nav className="hidden items-center gap-4 lg:gap-6 whitespace-nowrap text-sm font-bold text-white sm:flex">
           <Link className="hover:text-[#FF6B00] transition-colors" to="/stays">
             Explore Stays
           </Link>
-          <a className="hover:text-[#FF6B00] transition-colors" href="/about#why">
+          <a className="hidden lg:inline hover:text-[#FF6B00] transition-colors" href="/about#why">
             Why
           </a>
-          <a className="hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
+          <a className="hidden lg:inline hover:text-[#FF6B00] transition-colors" href="/about#two-sides">
             User & Host
           </a>
-          <Link className="hover:text-[#FF6B00] transition-colors" to="/waitlist">
+          <Link className="hidden lg:inline hover:text-[#FF6B00] transition-colors" to="/waitlist">
             Waitlist
           </Link>
           <Link className="inline-flex items-center gap-1.5 hover:text-[#FF6B00] transition-colors" to="/earnings-calculator">
