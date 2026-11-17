@@ -181,7 +181,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
     <header className="relative [@media(min-height:600px)]:sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-10 xl:px-14">
         {/* Top Navbar Row */}
-        <div className={`flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] fluid-bar`}>
+        <div className={`flex ${compact ? "h-16" : "h-20"} items-center justify-between gap-4 xl:grid xl:grid-cols-[1fr_auto_1fr] fluid-bar`}>
           {/* Official WAYZYY Logo */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img 
@@ -198,7 +198,9 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               stays homepage still reaches About, Why, Blog and hosting.
               Middle grid column: centred over the search bar when the sides
               fit, and pushed aside (never overlapped) when they do not. */}
-          <nav className="hidden lg:flex items-center gap-[calc(var(--u)*28)] whitespace-nowrap text-sm font-semibold text-foreground">
+          {/* Inline only from 1280px: on tablets (1024-1279) the links crowd the
+              right-side buttons, so they live in the menu below instead. */}
+          <nav className="hidden xl:flex items-center gap-[calc(var(--u)*28)] whitespace-nowrap text-sm font-semibold text-foreground">
             <Link to="/" className="font-bold hover:text-[#FF6B00] transition-colors">Stays</Link>
             <Link to="/about" className="hover:text-[#FF6B00] transition-colors">About</Link>
             <a href="/about#why" className="hover:text-[#FF6B00] transition-colors">Why Wayzyy</a>
@@ -259,6 +261,19 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="my-1 min-[900px]:hidden" />
+                {/* The site links, for windows where the inline nav is hidden (under xl). */}
+                {[
+                  ["/", "Stays"],
+                  ["/about", "About"],
+                  ["/about#why", "Why Wayzyy"],
+                  ["/earnings-calculator", "Earn more"],
+                  ["/blog", "Blog"],
+                ].map(([to, label]) => (
+                  <DropdownMenuItem key={to} asChild className="xl:hidden">
+                    <Link to={to} className="py-2.5 px-3 rounded-xl font-semibold cursor-pointer">{label}</Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator className="my-1 xl:hidden" />
                 <DropdownMenuItem asChild>
                   <Link to="/account" className="flex items-center gap-2.5 py-2.5 px-3 rounded-xl font-bold cursor-pointer">
                     <UserRound className="h-4 w-4 text-[#FF6B00]" />

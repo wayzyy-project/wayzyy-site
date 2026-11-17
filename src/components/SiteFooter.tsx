@@ -6,7 +6,7 @@ export function SiteFooter() {
     <footer className="px-4 pt-6 pb-20 sm:px-10 sm:pt-14 sm:pb-10">
       <div className="liquid-glass container rounded-3xl border border-white/10 p-5 sm:p-12">
         {/* Top row */}
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <img src="/favicon.svg" alt="Wayzyy" className="h-8 w-8 sm:h-11 sm:w-11 rounded-full object-cover" />
@@ -25,8 +25,8 @@ export function SiteFooter() {
             </a>
           </div>
 
-          {/* Links - 2-column grid on mobile, flex row on sm+ */}
-          <div className="grid grid-cols-2 gap-5 text-xs sm:flex sm:flex-row sm:gap-12 sm:text-sm pt-2 sm:pt-0 border-t border-white/10 sm:border-0">
+          {/* Links - 2-column grid on phones, 4 on tablets, flex row from xl (six columns crush on tablets) */}
+          <div className="grid grid-cols-2 gap-5 text-xs sm:grid-cols-4 sm:text-sm xl:flex xl:flex-row xl:gap-12 pt-2 xl:pt-0 border-t border-white/10 xl:border-0">
             {/* Nav */}
             <div className="flex flex-col gap-1.5">
               <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Navigate</p>
@@ -69,7 +69,7 @@ export function SiteFooter() {
             </div>
 
             {/* Legal & Socials */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
+            <div className="flex flex-col gap-4 xl:flex-row xl:gap-12">
               <div className="flex flex-col gap-1.5">
                 <p className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Legal</p>
                 <Link className="text-muted-foreground hover:text-foreground transition-colors" to="/policies">Policies</Link>
