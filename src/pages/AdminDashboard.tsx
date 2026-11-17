@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   Building2,
+  CalendarCheck,
   CheckCircle2,
   DownloadCloud,
   FileCheck2,
@@ -271,6 +272,25 @@ function DashboardContent() {
             </p>
             <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-violet-500">
               Browse Hosts →
+            </div>
+          </div>
+
+          {/* Card 6: Bookings & requests */}
+          <div
+            onClick={() => navigate("/adminn/bookings")}
+            className="group relative cursor-pointer rounded-2xl border border-border bg-card p-6 transition-all hover:border-ember hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500/10 text-sky-500 transition-colors group-hover:bg-sky-500 group-hover:text-white">
+              <CalendarCheck className="h-6 w-6" />
+            </div>
+            <h3 className="font-display text-lg mt-4 group-hover:text-sky-500 transition-colors">
+              Bookings & Requests
+            </h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Every booking request, confirmed stay and enquiry in one list, with the guest's WhatsApp and phone one tap away.
+            </p>
+            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-sky-500">
+              View Bookings →
             </div>
           </div>
         </div>
