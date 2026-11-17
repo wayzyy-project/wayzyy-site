@@ -3,6 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { spaceTypeLine } from "@/lib/spaceType";
 import { fallbackImageToOriginal, img, imgSet } from "@/lib/img";
 import { PhotoLightbox } from "@/components/marketplace/PhotoLightbox";
+import { WalkthroughPlayer } from "@/components/marketplace/WalkthroughPlayer";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -442,6 +443,8 @@ export default function PropertyDetail() {
               : [],
             rules: rulesFromRow(data),
             tags: Array.isArray(data.tags) ? data.tags.map(String).filter(Boolean) : [],
+            walkthroughUrl: data.walkthrough_url ?? null,
+            walkthroughPoster: data.walkthrough_poster_url ?? null,
             // Was a flat { cleanliness: 5.0, accuracy: 5.0, ... } on every
             // listing regardless of real reviews - no longer rendered (see
             // the removed Reviews section below), kept only because
@@ -888,6 +891,16 @@ export default function PropertyDetail() {
               <span>Show all photos</span>
             </button>
           </div>
+
+          {/* Photo-made walkthrough video, on its own line under the photos: nothing is fetched until it's tapped */}
+          {property.walkthroughUrl && (
+            <WalkthroughPlayer
+              src={property.walkthroughUrl}
+              poster={property.walkthroughPoster}
+              title={property.title}
+              className="w-full justify-center py-3 sm:w-auto sm:justify-start"
+            />
+          )}
 
           {/* Main Details & Booking Rail Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
