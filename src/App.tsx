@@ -34,6 +34,7 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminVerifications = lazy(() => import("./pages/AdminVerifications"));
 const AdminReviewListing = lazy(() => import("./pages/AdminReviewListing"));
 const AdminListings = lazy(() => import("./pages/AdminListings"));
+const AdminBookings = lazy(() => import("./pages/AdminBookings"));
 const AdminAirroiImport = lazy(() => import("./pages/AdminAirroiImport"));
 const AdminGigChallenge = lazy(() => import("./pages/AdminGigChallenge"));
 const BlogIndex = lazy(() => import("./pages/blog/BlogIndex"));
@@ -241,6 +242,7 @@ const App = () => (
               <Route path="/adminn/verifications" element={<AdminVerifications />} />
               <Route path="/adminn/review/:propertyId" element={<AdminReviewListing />} />
               <Route path="/adminn/listings" element={<AdminListings />} />
+              <Route path="/adminn/bookings" element={<AdminBookings />} />
               <Route path="/adminn/airroi-import" element={<AdminAirroiImport />} />
               <Route path="/adminn/import-airbnb" element={<AdminAirroiImport />} />
               <Route path="/admin-wayzyy-lol" element={<AdminGigChallenge />} />
