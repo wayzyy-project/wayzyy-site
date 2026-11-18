@@ -104,15 +104,15 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, filte
   const count = countFor(draft);
 
   return (
-    <div data-lenis-prevent className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 sm:p-6 animate-in fade-in duration-200" onClick={onClose}>
+    <div data-lenis-prevent className="fixed inset-0 z-[60] flex items-end pt-16 sm:pt-0 sm:items-center justify-center bg-black/50 sm:p-6 animate-in fade-in duration-200" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="filters-title"
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[92vh] w-full sm:max-w-2xl flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl bg-background shadow-2xl animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200"
+        className="flex max-h-[calc(100dvh-4rem)] sm:max-h-[92vh] w-full sm:max-w-2xl flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl bg-background shadow-2xl animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200"
       >
-        <div className="relative flex items-center justify-center border-b border-border px-6 py-4">
+        <div className="relative flex shrink-0 items-center justify-center border-b border-border px-6 py-4">
           <button onClick={onClose} aria-label="Close filters" className="absolute left-4 rounded-full p-2 hover:bg-[#FF6B00]/10 hover:text-[#FF6B00] transition-colors">
             <X className="h-5 w-5" />
           </button>

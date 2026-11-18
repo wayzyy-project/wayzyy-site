@@ -302,16 +302,6 @@ export function SiteNav({ floating = false }: SiteNavProps) {
           sections. Phones keep the glass throughout. */}
       <div className="absolute inset-0 bg-slate-950/35 backdrop-blur-xl backdrop-saturate-150 sm:bg-transparent sm:backdrop-blur-none" />
       <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-slate-950/55 backdrop-blur-xl" />
-      {/* Thin white wave along the bottom edge, drifting slowly. Two copies of
-          one period side by side, shifted by one period, so it loops. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[8px] h-[16px] overflow-hidden">
-        <svg className="nav-wave h-full w-[200%]" viewBox="0 0 2400 16" preserveAspectRatio="none">
-          <path
-            d="M0 8 Q150 -6 300 8 T600 8 T900 8 T1200 8 T1500 8 T1800 8 T2100 8 T2400 8"
-            fill="none" stroke="#ffffff" strokeOpacity="0.6" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
       <div className="relative z-10 w-full px-[clamp(1.25rem,6vw,6rem)] flex h-20 items-center justify-between">
         <a href="/" className="group flex items-center shrink-0">
           <img src="/favicon.svg" alt="Wayzyy" className="h-11 w-11 rounded-full object-cover" />
