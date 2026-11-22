@@ -15,11 +15,47 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: "india-short-term-rental-trends-2027",
+    title: "India's Short-Term Rental Market in 2027: 8 Trends Hosts and Travellers Should Know",
+    description:
+      "215,000 listed homes, 21% yearly growth, Tier-2 cities doubling, dynamic pricing, business travellers and a wave of state regulation: the data behind India's homestay boom.",
+    metaTitle: "India Short-Term Rental Trends 2027: 8 Key Shifts",
+    metaDescription:
+      "India's homestay and Airbnb market in 2027: 215,000 listings, 21% growth, Tier-2 cities, pricing, business travel and regulation, with sources.",
+    heroImage: "/blog/india-short-term-rental-trends-2027.webp",
+    publishedDate: "2026-11-22",
+    readTime: "8 Min Read",
+  },
+  {
+    slug: "airbnb-hosting-india-2027-checklist",
+    title: "Hosting on Airbnb in India in 2027: The Complete Rules, Fees and Tax Checklist",
+    description:
+      "State registration, housing society permission, fire safety, Form C, GST, TDS and income tax in one checklist, plus the changes coming in Mumbai, Delhi and Karnataka in 2027.",
+    metaTitle: "Airbnb Hosting in India 2027: Rules, Fees & Tax Checklist",
+    metaDescription:
+      "Hosting on Airbnb in India in 2027? The full checklist: state registration, society NOC, Form C, GST, TDS and income tax, plus what's changing.",
+    heroImage: "/blog/airbnb-hosting-india-2027-checklist.webp",
+    publishedDate: "2026-11-22",
+    readTime: "8 Min Read",
+  },
+  {
+    slug: "long-weekends-2027-india",
+    title: "Long Weekends in 2027 (India): Full List, Leave Plan and Where to Go",
+    description:
+      "Every long weekend in 2027 from the central government holiday list, which days of leave turn them into 4- to 9-day breaks, and where to go in each season.",
+    metaTitle: "Long Weekends 2027 India: Full List & Leave Plan",
+    metaDescription:
+      "All long weekends in 2027 in India, from the official holiday list. Which leave to take for 4- to 9-day breaks, and where to go each season.",
+    heroImage: "/blog/long-weekends-2027-india.webp",
+    publishedDate: "2026-11-22",
+    readTime: "6 Min Read",
+  },
+  {
     slug: "best-airbnb-alternatives-india",
-    title: "Best Airbnb Alternatives in India (2026)",
+    title: "Best Airbnb Alternatives in India (2027)",
     description:
       "Managed villa brands, travel marketplaces and verified-home platforms compared: StayVista, SaffronStays, Lohono, MakeMyTrip, Booking.com, Agoda and Wayzyy, and how to choose.",
-    metaTitle: "Best Airbnb Alternatives in India (2026 Guide)",
+    metaTitle: "Best Airbnb Alternatives in India (2027 Guide)",
     metaDescription:
       "The best Airbnb alternatives in India for 2026: StayVista, SaffronStays, MakeMyTrip, Booking.com, Agoda and Wayzyy compared on fees, trust and fit.",
     heroImage: "/blog/best-airbnb-alternatives-india.webp",
@@ -64,10 +100,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "is-airbnb-legal-in-india",
-    title: "Is Airbnb Legal in India? (2026 Answer)",
+    title: "Is Airbnb Legal in India? (2027 Answer)",
     description:
       "Yes, with conditions. The three layers of rules that decide whether a listing is legal (state, city and building), the rules that apply everywhere, and what changed in 2026.",
-    metaTitle: "Is Airbnb Legal in India? The 2026 Answer",
+    metaTitle: "Is Airbnb Legal in India? The 2027 Answer",
     metaDescription:
       "Yes, Airbnb is legal in India, but your state, city and housing society set the rules. What changed in 2026, plus Form C, GST and tax rules for hosts.",
     heroImage: "/blog/is-airbnb-legal-in-india.webp",
@@ -76,10 +112,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "homestay-registration-rules-by-state-india",
-    title: "Homestay and Airbnb Registration Rules by State in India (2026)",
+    title: "Homestay and Airbnb Registration Rules by State in India (2027)",
     description:
       "Goa, Kerala, Karnataka, Himachal, Uttarakhand, Rajasthan, Maharashtra and Delhi: who has to register, room limits, owner-residence rules, and everything that changed in 2026.",
-    metaTitle: "Homestay Registration Rules by State in India (2026)",
+    metaTitle: "Homestay Registration Rules by State in India (2027)",
     metaDescription:
       "State-by-state homestay and Airbnb registration rules in India: Goa, Kerala, Karnataka, Himachal, Uttarakhand, Rajasthan, Mumbai and Delhi in 2026.",
     heroImage: "/blog/homestay-registration-rules-by-state-india.webp",
@@ -257,10 +293,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "best-airbnb-alternatives-goa",
-    title: "Airbnb Alternatives in India (2026): 5 Apps & Sites Like Airbnb",
+    title: "Airbnb Alternatives in Goa (2027): 5 Apps & Sites Like Airbnb",
     description:
       "Looking for apps or websites like Airbnb in India? We compare 5 Airbnb alternatives (Wayzyy, Booking.com, MakeMyTrip, StayVista, SaffronStays) on fees, verification and real prices.",
-    metaTitle: "Airbnb Alternatives in India (2026): 5 Sites Like Airbnb",
+    metaTitle: "Airbnb Alternatives in Goa (2027): 5 Sites Like Airbnb",
     metaDescription:
       "Airbnb charges hosts 15.5% per booking in Goa. Here are the platforms that don't - with real fee comparisons and final price breakdowns.",
     heroImage: "/blog/goa-villa-private-pool-vacation-rental.webp",
@@ -317,10 +353,10 @@ export const blogPosts: BlogPostMeta[] = [
   },
   {
     slug: "best-time-to-visit-goa",
-    title: "Best Time to Visit Goa (2026): Month-by-Month Weather, Crowds & Prices",
+    title: "Best Time to Visit Goa (2027): Month-by-Month Weather, Crowds & Prices",
     description:
       "November to February is the best time to visit Goa. See month-by-month weather, crowd levels and stay prices to pick the right month for beaches, parties or a quiet trip.",
-    metaTitle: "Best Time to Visit Goa (2026): Month-by-Month Guide",
+    metaTitle: "Best Time to Visit Goa (2027): Month-by-Month Guide",
     metaDescription:
       "When is the best time to visit Goa? Detailed month-by-month breakdown of weather, crowds, villa prices, monsoon tips, and when to avoid peak rates.",
     heroImage: "/blog/goa-best-time-hero.webp",

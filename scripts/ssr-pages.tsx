@@ -89,6 +89,9 @@ import HomestayRegistrationRulesByStateIndia from "@/pages/blog/HomestayRegistra
 import AirbnbInHousingSocietyIndia from "@/pages/blog/AirbnbInHousingSocietyIndia";
 import GoaDecemberNewYearGuide from "@/pages/blog/GoaDecemberNewYearGuide";
 import BestAirbnbAlternativesIndia from "@/pages/blog/BestAirbnbAlternativesIndia";
+import LongWeekends2027India from "@/pages/blog/LongWeekends2027India";
+import AirbnbHostingIndia2027Checklist from "@/pages/blog/AirbnbHostingIndia2027Checklist";
+import IndiaShortTermRentalTrends2027 from "@/pages/blog/IndiaShortTermRentalTrends2027";
 import HowMuchDoAirbnbHostsEarnIndia from "@/pages/blog/HowMuchDoAirbnbHostsEarnIndia";
 import IdProofForHotelCheckInIndia from "@/pages/blog/IdProofForHotelCheckInIndia";
 import AirbnbPricingUpdate15PercentFee from "@/pages/blog/AirbnbPricingUpdate15PercentFee";
@@ -231,6 +234,9 @@ const routes: Record<string, React.ComponentType> = {
   "/blog/airbnb-in-housing-society-india": AirbnbInHousingSocietyIndia,
   "/blog/goa-december-new-year-guide-2026": GoaDecemberNewYearGuide,
   "/blog/best-airbnb-alternatives-india": BestAirbnbAlternativesIndia,
+  "/blog/long-weekends-2027-india": LongWeekends2027India,
+  "/blog/airbnb-hosting-india-2027-checklist": AirbnbHostingIndia2027Checklist,
+  "/blog/india-short-term-rental-trends-2027": IndiaShortTermRentalTrends2027,
   "/blog/how-much-do-airbnb-hosts-earn-india": HowMuchDoAirbnbHostsEarnIndia,
   "/blog/id-proof-for-hotel-check-in-india": IdProofForHotelCheckInIndia,
 };
