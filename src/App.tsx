@@ -112,6 +112,9 @@ const HomestayRegistrationRulesByStateIndia = lazy(() => import("./pages/blog/Ho
 const AirbnbInHousingSocietyIndia = lazy(() => import("./pages/blog/AirbnbInHousingSocietyIndia"));
 const GoaDecemberNewYearGuide = lazy(() => import("./pages/blog/GoaDecemberNewYearGuide"));
 const BestAirbnbAlternativesIndia = lazy(() => import("./pages/blog/BestAirbnbAlternativesIndia"));
+const LongWeekends2027India = lazy(() => import("./pages/blog/LongWeekends2027India"));
+const AirbnbHostingIndia2027Checklist = lazy(() => import("./pages/blog/AirbnbHostingIndia2027Checklist"));
+const IndiaShortTermRentalTrends2027 = lazy(() => import("./pages/blog/IndiaShortTermRentalTrends2027"));
 const HowMuchDoAirbnbHostsEarnIndia = lazy(() => import("./pages/blog/HowMuchDoAirbnbHostsEarnIndia"));
 const IdProofForHotelCheckInIndia = lazy(() => import("./pages/blog/IdProofForHotelCheckInIndia"));
 const AirbnbPricingUpdate15PercentFee = lazy(() => import("./pages/blog/AirbnbPricingUpdate15PercentFee"));
@@ -330,6 +333,9 @@ const App = () => (
               <Route path="/blog/airbnb-in-housing-society-india" element={<AirbnbInHousingSocietyIndia />} />
               <Route path="/blog/goa-december-new-year-guide-2026" element={<GoaDecemberNewYearGuide />} />
               <Route path="/blog/best-airbnb-alternatives-india" element={<BestAirbnbAlternativesIndia />} />
+              <Route path="/blog/long-weekends-2027-india" element={<LongWeekends2027India />} />
+              <Route path="/blog/airbnb-hosting-india-2027-checklist" element={<AirbnbHostingIndia2027Checklist />} />
+              <Route path="/blog/india-short-term-rental-trends-2027" element={<IndiaShortTermRentalTrends2027 />} />
               <Route path="/blog/how-much-do-airbnb-hosts-earn-india" element={<HowMuchDoAirbnbHostsEarnIndia />} />
               <Route path="/blog/id-proof-for-hotel-check-in-india" element={<IdProofForHotelCheckInIndia />} />
               <Route path="/airbnb-alternative" element={<AirbnbAlternativeLanding />} />
