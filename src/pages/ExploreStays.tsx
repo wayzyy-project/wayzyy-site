@@ -445,6 +445,45 @@ export default function ExploreStays() {
     }
     return out;
   }, [filteredProperties, stayRulesById, calendars, dateMins, searchCheckIn, searchCheckOut]);
+  // Host prices for each suggested free stay, so those cards are priced for the dates they link to.
+  const freeKey = stayCheck
+    ? Object.entries(stayCheck).flatMap(([id, c]) => (c.free ? [`${id}|${c.free.checkIn}|${c.free.checkOut}`] : [])).sort().join(",")
+    : "";
+  const [freeDatePrices, setFreeDatePrices] = useState<Record<string, Record<string, number>>>({});
+  useEffect(() => {
+    if (!freeKey) { setFreeDatePrices({}); return; }
+    let cancelled = false;
+    const ranges = freeKey.split(",").map((k) => k.split("|"));
+    supabase.from("date_prices").select("property_id, date, price")
+      .or(ranges.map(([id, ci, co]) => `and(property_id.eq.${id},date.gte.${ci},date.lt.${co})`).join(","))
+      .then(({ data }) => {
+        if (cancelled) return;
+        const map: Record<string, Record<string, number>> = {};
+        for (const r of (data ?? []) as { property_id: string; date: string; price: number }[]) {
+          (map[r.property_id] ??= {})[r.date] = Number(r.price);
+        }
+        setFreeDatePrices(map);
+      });
+    return () => { cancelled = true; };
+  }, [freeKey]);
+  // The card for a suggested free stay: that stay's nights and nightly price (same rule as every card).
+  const pricedFor = (p: PropertyListing, stay: Stay) => {
+    const input = cardInputs[p.id];
+    const nights = Math.round((Date.parse(stay.checkOut) - Date.parse(stay.checkIn)) / 86400000);
+    if (!input?.hostPrice) return { property: p, nights };
+    const pricePerNight = cardHostNightly({
+      hostPricePerNight: input.hostPrice,
+      guests: Math.max(1, searchGuests),
+      tiers: input.tiers,
+      perPersonEnabled: input.perPerson,
+      extraGuestThreshold: input.threshold,
+      extraGuestFee: input.fee,
+      dateOverrides: freeDatePrices[p.id],
+      checkIn: stay.checkIn,
+      checkOut: stay.checkOut,
+    });
+    return { property: { ...p, pricePerNight }, nights };
+  };
   const searchFor = (stay: Stay) =>
     `?checkin=${stay.checkIn}&checkout=${stay.checkOut}${searchGuests > 1 ? `&guests=${searchGuests}` : ""}`;
 
@@ -452,12 +491,13 @@ export default function ExploreStays() {
     <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
       {list.map((property, idx) => {
         const check = stayCheck?.[property.id];
+        const priced = check?.free ? pricedFor(property, check.free) : null;
         return (
           <PropertyCard
             key={property.id}
             priority={offset + idx < 4}
-            property={property}
-            nights={datesPicked ? stayNights : undefined}
+            property={priced?.property ?? property}
+            nights={priced?.nights ?? (datesPicked ? stayNights : undefined)}
             search={check?.free ? searchFor(check.free) : cardSearch}
             includeAllFees={includeAllFees}
             note={check && (
