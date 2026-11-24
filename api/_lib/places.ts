@@ -67,7 +67,7 @@ const REGIONS: Record<string, { name: string; areas: string[] }> = {
     areas: [
       "candolim", "siolim", "anjuna", "vagator", "chapora", "arpora", "baga", "calangute", "assagao", "morjim",
       "mandrem", "arambol", "ashwem", "nerul", "sinquerim", "marna", "saligao", "parra", "porvorim",
-      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran", "mapusa", "panaji",
+      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran", "mapusa", "panaji", "panjim", "pilerne",
     ],
   },
   "south-goa": {
@@ -76,10 +76,24 @@ const REGIONS: Record<string, { name: string; areas: string[] }> = {
     areas: [
       "colva", "varca", "benaulim", "palolem", "agonda", "cavelossim", "majorda", "betalbatim", "canacona",
       "margao", "cansaulim", "utorda", "galgibaga", "patnem", "mobor", "sernabatim", "arossim", "velsao", "dabolim",
-      "girim", "bogmalo", "vasco-da-gama",
+      "girim", "bogmalo", "vasco-da-gama", "vasco", "cola", "quepem", "chandor", "curtorim",
     ],
   },
 };
+
+/**
+ * Search "North Goa" / "South Goa" (or the start of it, e.g. "north"): says whether
+ * a listing's city/location text names one of that region's villages. undefined when
+ * the query isn't a region. Text, not exact slugs, because the village can sit in
+ * either column ("Siolim", "Siolim, Goa", "Plot 4, Siolim Road").
+ */
+export function regionSearch(query: string): ((text: string) => boolean) | undefined {
+  const q = query.trim().toLowerCase();
+  const region = q.length >= 3 ? Object.values(REGIONS).find((r) => r.name.toLowerCase().startsWith(q)) : undefined;
+  if (!region) return undefined;
+  const villages = new RegExp(`\\b(${region.areas.map((a) => a.replace(/-/g, " ")).join("|")})\\b`, "i");
+  return (text) => villages.test(text);
+}
 
 export interface CategoryDef {
   slug: string;

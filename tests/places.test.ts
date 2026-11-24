@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildPlacePage, distanceKm, nearbyPlaces, type PlaceListing } from "../api/_lib/places";
+import { buildPlacePage, distanceKm, nearbyPlaces, regionSearch, type PlaceListing } from "../api/_lib/places";
 
 let n = 0;
 const stay = (city: string, lat: number | null, lng: number | null, state = "Goa"): PlaceListing => ({
@@ -80,4 +80,20 @@ test("every nearby link opens a real area page listing only that area", () => {
     assert.equal(page.listings.length, p.count);
     assert.ok(page.listings.every((l) => l.city === p.label));
   }
+});
+
+test("searching a region matches the villages in it, wherever the village is written", () => {
+  const north = regionSearch("North Goa");
+  assert.ok(north);
+  for (const text of ["Goa Assagao", "Siolim, Goa", "Plot 4, Siolim Road", "Goa Panjim"]) assert.equal(north(text), true, text);
+  for (const text of ["Goa Palolem", "Goa", "Colva"]) assert.equal(north(text), false, text);
+  assert.equal(regionSearch("South goa")?.("Goa Agonda"), true);
+});
+
+test("a region search also works from its first letters, but only for regions", () => {
+  assert.ok(regionSearch("north"));
+  assert.ok(regionSearch("  South G "));
+  assert.equal(regionSearch("no"), undefined); // too short
+  assert.equal(regionSearch("Goa"), undefined); // the whole state, not a region
+  assert.equal(regionSearch("Assagao"), undefined); // a village: handled by the plain text match
 });
