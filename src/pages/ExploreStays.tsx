@@ -18,6 +18,29 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
 import { propertyPath } from "@/lib/propertySlug";
 import { PropertyGridSkeleton } from "@/components/marketplace/Skeletons";
+import type { StayRules } from "@/lib/stayRules";
+import { addDays, nearestFree, stayProblem, type Stay } from "@/lib/searchAvailability";
+
+// Booked nights per listing for this visit (the calendar doesn't change with the search).
+// A failed call counts as free and isn't cached, so it is tried again next search.
+const calendarCache = new Map<string, Promise<Set<string>>>();
+const fetchUnavailable = (id: string): Promise<Set<string>> => {
+  let hit = calendarCache.get(id);
+  if (!hit) {
+    const failed = () => { calendarCache.delete(id); return new Set<string>(); };
+    hit = Promise.resolve(supabase.rpc("property_unavailable_dates", { p_property_id: id })).then(({ data, error }) =>
+      error || !Array.isArray(data)
+        ? failed()
+        : new Set<string>(data.map((d: any) => String(typeof d === "string" ? d : d.property_unavailable_dates))),
+    failed);
+    calendarCache.set(id, hit);
+  }
+  return hit;
+};
+const isUuid = (id: string) => /^[0-9a-f-]{36}$/i.test(id);
+const dayLabel = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+const rangeLabel = (s: Stay) => `${dayLabel(s.checkIn)} - ${dayLabel(s.checkOut)}`;
+
 
 // Same price-pill look the old Leaflet divIcon had, as a real component now
 // that it's an AdvancedMarker's `content` rather than a static HTML string.
@@ -112,6 +135,11 @@ export default function ExploreStays() {
   const [cardInputs, setCardInputs] = useState<Record<string, {
     hostPrice: number; tiers: GuestPricingTier[]; perPerson: boolean; threshold: number | null; fee: number | null;
   }>>({});
+  // Each listing's stay rules, for checking the searched dates against its calendar.
+  const [stayRulesById, setStayRulesById] = useState<Record<string, { rules: StayRules; totalUnits: number }>>({});
+  const [calendars, setCalendars] = useState<Record<string, Set<string>>>({});
+  // date_rules minimums around the searched check-in: listing id -> 'YYYY-MM-DD' -> min nights.
+  const [dateMins, setDateMins] = useState<Record<string, Record<string, number>>>({});
   // Host prices for the searched nights: listing id -> 'YYYY-MM-DD' -> price.
   const [searchDatePrices, setSearchDatePrices] = useState<Record<string, Record<string, number>>>({});
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -253,6 +281,19 @@ export default function ExploreStays() {
           };
         }
         setCardInputs(inputs);
+        const days = (v: unknown) => (Array.isArray(v) && v.length ? v.map(Number) : null);
+        setStayRulesById(Object.fromEntries((data as any[]).map((p) => [p.id, {
+          totalUnits: Number(p.total_units) || 1,
+          rules: {
+            minNights: Number(p.min_nights) || 1,
+            maxNights: p.max_nights != null ? Number(p.max_nights) : null,
+            checkinDays: days(p.checkin_days),
+            checkoutDays: days(p.checkout_days),
+            advanceNoticeDays: p.advance_notice_days ?? null,
+            sameDayCutoffHour: p.same_day_cutoff_hour ?? null,
+            availabilityWindowDays: p.availability_window_days ?? null,
+          },
+        }])));
         }
       } catch (err) {
         console.error("Error loading properties from supabase:", err);
@@ -359,6 +400,103 @@ export default function ExploreStays() {
     [baseProperties, filters],
   );
 
+  // With dates picked: fetch each shown listing's calendar, 8 at a time.
+  const idsToCheck = datesPicked
+    ? filteredProperties.filter((p) => !p.showcase && isUuid(p.id)).map((p) => p.id).join(",")
+    : "";
+  useEffect(() => {
+    if (!idsToCheck) return;
+    let cancelled = false;
+    (async () => {
+      const ids = idsToCheck.split(",");
+      for (let i = 0; i < ids.length && !cancelled; i += 8) {
+        const batch = ids.slice(i, i + 8);
+        const sets = await Promise.all(batch.map(fetchUnavailable));
+        if (!cancelled) setCalendars((prev) => ({ ...prev, ...Object.fromEntries(batch.map((id, j) => [id, sets[j]])) }));
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [idsToCheck]);
+  useEffect(() => {
+    if (!searchCheckIn) { setDateMins({}); return; }
+    let cancelled = false;
+    supabase.from("date_rules").select("property_id, date, min_nights")
+      .gte("date", addDays(searchCheckIn, -42)).lte("date", addDays(searchCheckIn, 42)).not("min_nights", "is", null)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const map: Record<string, Record<string, number>> = {};
+        for (const r of (data ?? []) as { property_id: string; date: string; min_nights: number }[]) {
+          (map[r.property_id] ??= {})[r.date] = Number(r.min_nights);
+        }
+        setDateMins(map);
+      });
+    return () => { cancelled = true; };
+  }, [searchCheckIn]);
+  // Listing id -> why it can't take the searched stay, and its nearest free dates. Missing = free.
+  const stayCheck = useMemo(() => {
+    if (!searchCheckIn || !searchCheckOut) return null;
+    const out: Record<string, { problem: string; free: Stay | null }> = {};
+    for (const p of filteredProperties) {
+      const r = stayRulesById[p.id];
+      if (!r || p.showcase) continue;
+      const cal = { unavailable: calendars[p.id] ?? new Set<string>(), rules: { ...r.rules, dateMinNights: dateMins[p.id] }, totalUnits: r.totalUnits };
+      const problem = stayProblem(cal, searchCheckIn, searchCheckOut);
+      if (problem) out[p.id] = { problem, free: nearestFree(cal, searchCheckIn, searchCheckOut) };
+    }
+    return out;
+  }, [filteredProperties, stayRulesById, calendars, dateMins, searchCheckIn, searchCheckOut]);
+  const searchFor = (stay: Stay) =>
+    `?checkin=${stay.checkIn}&checkout=${stay.checkOut}${searchGuests > 1 ? `&guests=${searchGuests}` : ""}`;
+
+  const cards = (list: PropertyListing[], offset = 0) => (
+    <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
+      {list.map((property, idx) => {
+        const check = stayCheck?.[property.id];
+        return (
+          <PropertyCard
+            key={property.id}
+            priority={offset + idx < 4}
+            property={property}
+            nights={datesPicked ? stayNights : undefined}
+            search={check?.free ? searchFor(check.free) : cardSearch}
+            includeAllFees={includeAllFees}
+            note={check && (
+              <>
+                <span className="block">{check.problem}</span>
+                {check.free && <span className="block font-semibold text-[#FF6B00]">Free {rangeLabel(check.free)}</span>}
+              </>
+            )}
+          />
+        );
+      })}
+    </div>
+  );
+  // With dates: free stays first, then everything else with the reason and its nearest free dates. Nothing is hidden.
+  const stayGrid = (list: PropertyListing[]) => {
+    if (!stayCheck || !searchCheckIn || !searchCheckOut) return cards(list);
+    const free = list.filter((p) => !stayCheck[p.id]);
+    const more = list.filter((p) => stayCheck[p.id]);
+    const searched = rangeLabel({ checkIn: searchCheckIn, checkOut: searchCheckOut });
+    return (
+      <div className="space-y-10">
+        {free.length > 0 ? (
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold font-display text-foreground">Free for {searched}</h2>
+            {cards(free)}
+          </div>
+        ) : list.length > 0 && (
+          <p className="text-sm text-muted-foreground">No stay here is free for {searched}. Each one below shows the nearest dates it is.</p>
+        )}
+        {more.length > 0 && (
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold font-display text-foreground">More stays to look at</h2>
+            {cards(more, free.length)}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // Keep map pills and popups on the exact same amount shown by PropertyCard.
   // Without searched dates, cards respect each listing's minimum stay; with
   // dates, both surfaces show the total for the selected stay.
@@ -461,18 +599,7 @@ export default function ExploreStays() {
                 <span className="text-xs text-muted-foreground hidden sm:inline font-medium">Assagao · Siolim · Candolim · Panjim</span>
               </div>
 
-              <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
-                {northGoaProperties.map((property, idx) => (
-                  <PropertyCard
-                    key={property.id}
-                    priority={idx < 4}
-                    property={property}
-                    nights={datesPicked ? stayNights : undefined}
-                    search={cardSearch}
-                    includeAllFees={includeAllFees}
-                  />
-                ))}
-              </div>
+              {stayGrid(northGoaProperties)}
             </section>
           )}
 
@@ -513,18 +640,7 @@ export default function ExploreStays() {
           {/* Complete Grid when filtered or when browsing all */}
           {!(loading && baseProperties.length === 0) && (searchState.destination || selectedCategory !== "all" || northGoaProperties.length === 0) && (
             <section className="space-y-6">
-              <div className="grid grid-cols-1 min-[540px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-[1900px]:grid-cols-6 gap-x-6 gap-y-10">
-                {filteredProperties.map((property, idx) => (
-                  <PropertyCard
-                    key={property.id}
-                    priority={idx < 4}
-                    property={property}
-                    nights={datesPicked ? stayNights : undefined}
-                    search={cardSearch}
-                    includeAllFees={includeAllFees}
-                  />
-                ))}
-              </div>
+              {stayGrid(filteredProperties)}
 
               {filteredProperties.length === 0 && (
                 <div className="rounded-3xl border border-dashed border-border py-16 text-center space-y-3">

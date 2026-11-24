@@ -15,6 +15,8 @@ interface PropertyCardProps {
   priority?: boolean;
   /** "?checkin=...&checkout=...&guests=..." from the search, so the listing prices the same stay. */
   search?: string;
+  /** Optional line under the price, e.g. why it can't take the searched dates and when it is free. */
+  note?: React.ReactNode;
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -23,6 +25,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   includeAllFees = true,
   priority = false,
   search = "",
+  note,
 }) => {
   // Picked dates win; otherwise price the host's minimum stay (1 night unless they set more).
   const nights = nightsProp ?? Math.max(1, property.minNights ?? 1);
@@ -175,6 +178,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           </span>
         </div>
         )}
+        {note && <div className="mt-1 text-xs leading-snug text-muted-foreground">{note}</div>}
       </div>
     </Link>
   );
