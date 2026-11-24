@@ -169,6 +169,15 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
     }
   };
 
+  // Clears the Where box; if that place was already applied to the results, show every stay again now.
+  const clearLocation = () => {
+    setDestination("");
+    if (parentSearchState?.destination && onPerformSearch) {
+      onPerformSearch({ destination: "", checkIn, checkOut, guests: { adults, children, infants } });
+    }
+  };
+  const isPicked = (name: string) => destination.trim().toLowerCase() === name.split(",")[0].toLowerCase();
+
   const quickDestinations = [
     { name: "North Goa", subtitle: "Vagator, Assagao, Candolim, Arpora" },
     { name: "Old Goa", subtitle: "Panjim, Old Goa, Dona Paula" },
@@ -386,14 +395,26 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                 className={sectionClass("where", "px-3 py-2.5 sm:px-6 sm:py-3.5")}
               >
                 <p className="block text-[11px] sm:text-xs font-semibold text-foreground group-hover:text-[#FF6B00] transition-colors truncate">Where</p>
-                <input
-                  type="text"
-                  placeholder="Search destinations"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  onFocus={() => setActiveSearchSection("where")}
-                  className="block w-full bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground outline-none"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search destinations"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    onFocus={() => setActiveSearchSection("where")}
+                    className={`block w-full bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground outline-none ${destination ? "pr-7" : ""}`}
+                  />
+                  {destination && (
+                    <button
+                      type="button"
+                      aria-label="Clear location"
+                      onClick={(e) => { e.stopPropagation(); clearLocation(); }}
+                      className="absolute right-0 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-foreground/15"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className={`w-px h-7 sm:h-8 bg-border/70 shrink-0 transition-opacity ${hideDivider("where", "when") ? "opacity-0" : ""}`} />
@@ -454,14 +475,19 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
               <div className="absolute left-0 top-full z-50 mt-3 w-full sm:w-[420px] rounded-3xl border border-border bg-background p-5 shadow-2xl animate-in fade-in slide-in-from-top-2">
                 <p className="px-2 pb-2 text-xs font-medium text-muted-foreground">Suggested destinations</p>
                 <div className="space-y-1">
-                  {quickDestinations.map((dest) => (
+                  {quickDestinations.map((dest) => {
+                    const picked = isPicked(dest.name);
+                    return (
                     <button
                       key={dest.name}
+                      aria-pressed={picked}
                       onClick={() => {
+                        // Tapping the picked place again deselects it.
+                        if (picked) return clearLocation();
                         setDestination(dest.name.split(",")[0]);
                         setActiveSearchSection("when");
                       }}
-                      className="w-full flex items-center gap-4 p-2 rounded-2xl hover:bg-muted transition-colors text-left"
+                      className={`w-full flex items-center gap-4 p-2 rounded-2xl transition-colors text-left ${picked ? "bg-[#FF6B00]/10 ring-1 ring-[#FF6B00]/40" : "hover:bg-muted"}`}
                     >
                       <div className="h-14 w-14 rounded-xl bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] shrink-0">
                         <MapPin className="h-6 w-6" />
@@ -470,8 +496,14 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
                         <p className="text-[15px] font-medium text-foreground">{dest.name}</p>
                         <p className="text-sm text-muted-foreground truncate">{dest.subtitle}</p>
                       </div>
+                      {picked && (
+                        <span aria-hidden className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-background text-foreground shadow-sm">
+                          <X className="h-4 w-4" />
+                        </span>
+                      )}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
