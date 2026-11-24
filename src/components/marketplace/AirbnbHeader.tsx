@@ -171,6 +171,7 @@ export const AirbnbHeader: React.FC<AirbnbHeaderProps> = ({
 
   const quickDestinations = [
     { name: "North Goa", subtitle: "Vagator, Assagao, Candolim, Arpora" },
+    { name: "Old Goa", subtitle: "Panjim, Old Goa, Dona Paula" },
     { name: "South Goa", subtitle: "Palolem, Agonda, Quiet beaches" },
     { name: "Assagao, Goa", subtitle: "Luxury heritage Portuguese villas" },
     { name: "Candolim, Goa", subtitle: "Beachfront apartments & sunset pools" }
