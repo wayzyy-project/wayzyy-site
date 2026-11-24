@@ -12,7 +12,7 @@ import { PropertyCard } from "@/components/marketplace/PropertyCard";
 import { AREA_GUIDES, TRIP_GUIDES } from "@/data/areaGuides";
 import type { PropertyListing } from "@/data/mockProperties";
 import { supabase } from "@/lib/supabase";
-import { isBrowsable } from "../../api/_lib/places";
+import { isBrowsable, regionSearch } from "../../api/_lib/places";
 import { cardHostNightly, guestNightlyPrice, toDateStr, type GuestPricingTier } from "@/lib/pricing";
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { GOOGLE_MAPS_API_KEY } from "@/lib/googleMaps";
@@ -322,6 +322,9 @@ export default function ExploreStays() {
   // Filtered properties
   // Search box + category; the Filters panel is applied on top of this.
   const baseProperties = useMemo(() => {
+    // "North Goa" / "South Goa" mean every village in that region, not just
+    // listings that happen to say so in their title.
+    const inRegion = regionSearch(searchState.destination);
     return allProperties.filter((p) => {
       // Destination filter
       if (searchState.destination) {
@@ -330,7 +333,8 @@ export default function ExploreStays() {
         const matchesArea = p.area?.toLowerCase().includes(query);
         const matchesState = p.state?.toLowerCase().includes(query);
         const matchesTitle = p.title?.toLowerCase().includes(query);
-        if (!matchesCity && !matchesArea && !matchesState && !matchesTitle) {
+        const matchesRegion = inRegion?.(`${p.city ?? ""} ${p.area ?? ""}`);
+        if (!matchesCity && !matchesArea && !matchesState && !matchesTitle && !matchesRegion) {
           return false;
         }
       }

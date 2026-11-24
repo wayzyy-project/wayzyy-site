@@ -61,13 +61,24 @@ export const guestPrice = (hostPrice: number | string): number => Math.round(Num
 
 export const inr = (n: number): string => `₹${Math.round(n).toLocaleString("en-IN")}`;
 
-const REGIONS: Record<string, { name: string; areas: string[] }> = {
+// Every village belongs to exactly one region (the first match wins in nearbyPlaces).
+// Split by taluka: North = Pernem/Bardez, Old Goa = Tiswadi (+ Ponda), South = Mormugao
+// and everything below. `aka` are other names a visitor might type.
+const REGIONS: Record<string, { name: string; aka?: string[]; areas: string[] }> = {
   "north-goa": {
     name: "North Goa",
     areas: [
       "candolim", "siolim", "anjuna", "vagator", "chapora", "arpora", "baga", "calangute", "assagao", "morjim",
       "mandrem", "arambol", "ashwem", "nerul", "sinquerim", "marna", "saligao", "parra", "porvorim",
-      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran", "mapusa", "panaji",
+      "pernem", "aldona", "nachinola", "sangolda", "reis-magos", "verla", "oxel", "ozran", "mapusa", "pilerne",
+    ],
+  },
+  "old-goa": {
+    name: "Old Goa",
+    aka: ["central goa"],
+    areas: [
+      "panaji", "panjim", "old-goa", "goa-velha", "velha-goa", "ribandar", "taleigao", "dona-paula", "bambolim",
+      "santa-cruz", "chimbel", "merces", "ponda",
     ],
   },
   "south-goa": {
@@ -76,10 +87,26 @@ const REGIONS: Record<string, { name: string; areas: string[] }> = {
     areas: [
       "colva", "varca", "benaulim", "palolem", "agonda", "cavelossim", "majorda", "betalbatim", "canacona",
       "margao", "cansaulim", "utorda", "galgibaga", "patnem", "mobor", "sernabatim", "arossim", "velsao", "dabolim",
-      "girim", "bogmalo", "vasco-da-gama",
+      "girim", "bogmalo", "vasco-da-gama", "vasco", "cola", "quepem", "chandor", "curtorim",
     ],
   },
 };
+
+/**
+ * Search "North Goa" / "Old Goa" / "South Goa" (or the start of it, e.g. "north", "central"): says whether
+ * a listing's city/location text names one of that region's villages. undefined when
+ * the query isn't a region. Text, not exact slugs, because the village can sit in
+ * either column ("Siolim", "Siolim, Goa", "Plot 4, Siolim Road").
+ */
+export function regionSearch(query: string): ((text: string) => boolean) | undefined {
+  const q = query.trim().toLowerCase();
+  const region = q.length >= 3
+    ? Object.values(REGIONS).find((r) => [r.name, ...(r.aka ?? [])].some((n) => n.toLowerCase().startsWith(q)))
+    : undefined;
+  if (!region) return undefined;
+  const villages = new RegExp(`\\b(${region.areas.map((a) => a.replace(/-/g, " ")).join("|")})\\b`, "i");
+  return (text) => villages.test(text);
+}
 
 export interface CategoryDef {
   slug: string;

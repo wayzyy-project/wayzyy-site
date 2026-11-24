@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildPlacePage, distanceKm, nearbyPlaces, type PlaceListing } from "../api/_lib/places";
+import { buildPlacePage, distanceKm, nearbyPlaces, regionSearch, type PlaceListing } from "../api/_lib/places";
 
 let n = 0;
 const stay = (city: string, lat: number | null, lng: number | null, state = "Goa"): PlaceListing => ({
@@ -80,4 +80,33 @@ test("every nearby link opens a real area page listing only that area", () => {
     assert.equal(page.listings.length, p.count);
     assert.ok(page.listings.every((l) => l.city === p.label));
   }
+});
+
+test("searching a region matches the villages in it, wherever the village is written", () => {
+  const north = regionSearch("North Goa");
+  assert.ok(north);
+  for (const text of ["Goa Assagao", "Siolim, Goa", "Plot 4, Siolim Road", "Goa Marna"]) assert.equal(north(text), true, text);
+  for (const text of ["Goa Palolem", "Goa", "Colva", "Panaji, Goa"]) assert.equal(north(text), false, text);
+  assert.equal(regionSearch("South goa")?.("Goa Agonda"), true);
+});
+
+test("a region search also works from its first letters, but only for regions", () => {
+  assert.ok(regionSearch("north"));
+  assert.ok(regionSearch("  South G "));
+  assert.equal(regionSearch("no"), undefined); // too short
+  assert.equal(regionSearch("Goa"), undefined); // the whole state, not a region
+  assert.equal(regionSearch("Assagao"), undefined); // a village: handled by the plain text match
+});
+
+test("Old Goa is the third region, also found as 'central'; every real village sits in one region only", () => {
+  const old = regionSearch("Old Goa");
+  assert.ok(old);
+  for (const text of ["Panaji, Goa", "Goa Panjim", "Dona Paula", "Ribandar"]) assert.equal(old(text), true, text);
+  assert.equal(old("Assagao, Goa"), false);
+  assert.equal(regionSearch("central")?.("Panaji, Goa"), true);
+  // Villages from the live listings: each one matches exactly one region.
+  const live = ["Candolim", "Siolim", "Bogmalo", "Assagao", "Anjuna", "Baga", "Arpora", "Colva", "Panaji", "Marna", "Mapusa", "Girim",
+    "Vagator", "Morjim", "Calangute", "Varca", "Chapora", "Vasco Da Gama"];
+  const regions = ["North Goa", "Old Goa", "South Goa"].map((r) => regionSearch(r)!);
+  for (const v of live) assert.equal(regions.filter((m) => m(`Goa ${v}`)).length, 1, v);
 });
